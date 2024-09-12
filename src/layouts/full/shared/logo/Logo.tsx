@@ -32,6 +32,8 @@ const Logo: FC = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
+          marginTop: 5,
+          marginLeft: 15,
         }}
       >
         {customizer.activeMode === 'dark' ? (
