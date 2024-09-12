@@ -54,12 +54,13 @@ const AlertDistribution = () => {
     tooltip: {
       fillSeriesColor: false,
     },
+    labels: ['Critical', 'High', 'Medium', 'Low'],
     
   };
   const seriespiechart = [45, 15, 27, 18];
 
   return (
-    <DashboardCard title="Asset Status">
+    <DashboardCard title="Monthly Distibution">
       <Chart options={optionspiechart} series={seriespiechart} type="pie" height="300px" />
     </DashboardCard>
     

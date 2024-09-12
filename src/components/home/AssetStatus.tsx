@@ -2,7 +2,7 @@
 // @ts-ignore
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import { Stack, Typography, Avatar, Box } from '@mui/material';
+import { Stack, Typography, Avatar, Box, Grid } from '@mui/material';
 
 import DashboardCard from '../shared/DashboardCard';
 import { IconDeviceAnalytics, IconDeviceDesktop, IconNetwork } from '@tabler/icons-react'; // Import the icon component directly
@@ -53,6 +53,7 @@ const AssetStatus: React.FC = () => {
   ];
 
   return (
+    <Grid container spacing={1} mt={1} my={6}>
     <DashboardCard title="Asset Status">
       <>
         <Stack spacing={3} mt={5}>
@@ -97,6 +98,7 @@ const AssetStatus: React.FC = () => {
         </Stack>
       </>
     </DashboardCard>
+    </Grid>
   );
 };
 

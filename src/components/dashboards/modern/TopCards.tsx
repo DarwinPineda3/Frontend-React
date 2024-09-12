@@ -24,39 +24,24 @@ const topcards: cardType[] = [
   },
   {
     icon: iconOrange,
-    title: 'Severe',
+    title: 'High',
     digits: '3,650',
     bgcolor: 'secondary',
     txtcolor: 'background.default',
   },
   {
     icon: iconTan,
-    title: 'High',
+    title: 'Medium',
     digits: '356',
     bgcolor: 'error',
     txtcolor: 'error.main',
   },
   {
     icon: iconYellow,
-    title: 'Moderate',
+    title: 'Low',
     digits: '696',
     bgcolor: 'warning',
     txtcolor: 'warning.main',
-  },
-  {
-    icon: iconGreen,
-    title: 'Low',
-    digits: '96',
-    bgcolor: 'success',
-    txtcolor: 'success.main',
-  },
-
-  {
-    icon: iconBlue,
-    title: 'Minimal',
-    digits: '59',
-    bgcolor: 'info',
-    txtcolor: 'info.main',
   },
 ];
 
@@ -65,7 +50,7 @@ const TopCards = () => {
     <Grid container spacing={3} mt={3}>
       
       {topcards.map((topcard, i) => (
-        <Grid item xs={12} sm={4} lg={2} key={i}>
+        <Grid item xs={12} sm={4} lg={3} key={i}>
           <Box bgcolor={topcard.bgcolor + '.light'} textAlign="center">
             <CardContent>
               <img src={topcard.icon} alt={topcard.icon} width="50" />
