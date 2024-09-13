@@ -53,7 +53,6 @@ const AssetStatus: React.FC = () => {
   ];
 
   return (
-    <Grid container spacing={1} mt={1} my={6}>
     <DashboardCard title="Asset Status">
       <>
         <Stack spacing={3} mt={5}>
@@ -98,7 +97,6 @@ const AssetStatus: React.FC = () => {
         </Stack>
       </>
     </DashboardCard>
-    </Grid>
   );
 };
 

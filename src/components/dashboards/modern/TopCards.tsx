@@ -43,14 +43,22 @@ const topcards: cardType[] = [
     bgcolor: 'warning',
     txtcolor: 'warning.main',
   },
+  {
+    icon: iconBlue,
+    title: 'Total Devices',
+    digits: '80',
+    bgcolor: 'info',
+    txtcolor: 'info.main',
+  },
+  
 ];
 
 const TopCards = () => {
   return (
-    <Grid container spacing={3} mt={3}>
-      
+    
+    <Grid container spacing={3} mt={4} >
       {topcards.map((topcard, i) => (
-        <Grid item xs={12} sm={4} lg={3} key={i}>
+        <Grid item xs={6} sm={4} lg={2.4} key={i}>
           <Box bgcolor={topcard.bgcolor + '.light'} textAlign="center">
             <CardContent>
               <img src={topcard.icon} alt={topcard.icon} width="50" />

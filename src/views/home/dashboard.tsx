@@ -13,52 +13,55 @@ import Welcome from "src/layouts/full/shared/welcome/Welcome";
 
 const Dashboard = () => {
   return (
-    <PageContainer title="Akila">
-      <Box>
-        <Grid container spacing={3} >
-          {/* column */}
-          <Grid item xs={9} lg={9}>
-            <TopCards />
-          </Grid>
-          <Grid item xs={3} lg={3}>
-            <AssetStatus />
-          </Grid>
-          {/* column */}
-          <Grid item xs={12} lg={9} >
-            <TopVulnerabilities />
-            <Box my={2} />
-            <RevenueUpdates />
-            <Box my={2} />
-            <Grid item xs={12} lg={12}>
-              <HostResourceTable />
-            </Grid>
-          </Grid>
-          {/* column */}
-          <Grid item xs={12} lg={3} >
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6} lg={12}>
-                <AlertDistribution />
-              </Grid>
-              <Grid item xs={12} sm={6} lg={12}>
-                <RecentEvents />
-              </Grid>
-              <Grid item xs={12} lg={12}>
-                <WeeklyStats />
-              </Grid>
-              <Grid item xs={12} lg={12}>
-                <OrgBreachesCompare />
-              </Grid>
-            </Grid>
-          </Grid>
-          {/* column */}
+<PageContainer title="Akila">
+  <Box>
+    <Grid container spacing={3}>
+      {/* Top Section */}
+      <Grid item xs={12} lg={12}>
+            <TopCards  />
+      </Grid>
 
-
-
+      {/* Main Section */}
+      <Grid item container xs={12} spacing={3}>
+        {/* Left Column (Main Content, 60% of screen width) */}
+        <Grid item xs={12} lg={9}>
+          <TopVulnerabilities />
+          <Box my={2} />
+          <RevenueUpdates />
+          <Box my={2} />
+          <HostResourceTable />
         </Grid>
-        {/* column */}
-        <Welcome />
-      </Box>
-    </PageContainer>
+
+        {/* Right Column (Sidebar) */}
+        <Grid item xs={12} lg={3}>
+          <Grid container spacing={3}>
+            
+            <Grid item xs={12} >
+            <AssetStatus  />
+            </Grid>
+            <Grid item xs={12}>
+              <AlertDistribution />
+            </Grid>
+            <Grid item xs={12}>
+              <RecentEvents />
+            </Grid>
+            <Grid item xs={12}>
+              <WeeklyStats />
+            </Grid>
+            <Grid item xs={12}>
+              <OrgBreachesCompare />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+
+    {/* Footer Section */}
+    <Welcome />
+  </Box>
+</PageContainer>
+
+
   );
 };
 
