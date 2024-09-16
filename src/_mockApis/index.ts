@@ -10,5 +10,6 @@ import './userprofile/PostData';
 import './userprofile/UsersData';
 import './invoice/invoceLists';
 import './kanban/KanbanData';
+import './auth/Account';
 
 mock.onAny().passThrough();

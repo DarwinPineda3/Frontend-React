@@ -35,7 +35,7 @@ const AssetStatus: React.FC = () => {
   const stats: statType[] = [
 
     {
-      title: 'Connected Devices',
+      title: 'Connected Assets',
       subtitle: '',
       ammount: 6235,
       color: secondary,
@@ -43,7 +43,7 @@ const AssetStatus: React.FC = () => {
       icon: IconNetwork, // Icon component
     },
     {
-      title: 'Disconnected Devices',
+      title: 'Disconnected Assets',
       subtitle: '',
       ammount: 345,
       color: primary,

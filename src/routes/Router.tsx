@@ -20,16 +20,22 @@ import SOCMonitoring from 'src/views/monitoring/SOC';
 import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
+import AuthGuard from 'src/guards/authGuard/AuthGuard';
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
+const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
 
 /* ****Pages***** */
 const Router = [
   {
     path: '/',
-    element: <FullLayout />,
+    element: (
+      <AuthGuard>
+        <FullLayout />
+      </AuthGuard>
+    ),
     children: [
         // Home
       { path: '/home/dashboard', element: <Dashboard/> },
@@ -72,6 +78,7 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '*', element: <Navigate to="/auth/404" /> },
+      { path: '/auth/login', element: <Login /> },
     ],
   },
 ];

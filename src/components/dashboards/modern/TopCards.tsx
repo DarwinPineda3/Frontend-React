@@ -45,7 +45,7 @@ const topcards: cardType[] = [
   },
   {
     icon: iconBlue,
-    title: 'Total Devices',
+    title: 'Total Assets',
     digits: '80',
     bgcolor: 'info',
     txtcolor: 'info.main',

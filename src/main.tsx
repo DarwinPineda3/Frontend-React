@@ -11,12 +11,18 @@ import Spinner from './views/spinner/Spinner';
 import './utils/i18n';
 import './_mockApis';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+
+import { AuthProvider } from 'src/guards/jwt/JwtContext'; 
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
   <Provider store={store}>
     <Suspense fallback={<Spinner />}>
       <BrowserRouter>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
     </Suspense>
   </Provider>,
-)
+);
