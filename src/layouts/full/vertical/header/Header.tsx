@@ -5,11 +5,8 @@ import { toggleSidebar, toggleMobileSidebar } from 'src/store/customizer/Customi
 import { IconMenu2 } from '@tabler/icons-react';
 import Notifications from './Notification';
 import Profile from './Profile';
-import Cart from './Cart';
-import Search from './Search';
 import Language from './Language';
 import { AppState } from 'src/store/Store';
-import Navigation from './Navigation';
 import MobileRightSidebar from './MobileRightSidebar';
 
 const Header = () => {
@@ -59,10 +56,6 @@ const Header = () => {
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
           <Language />
-          {/* ------------------------------------------- */}
-          {/* Ecommerce Dropdown */}
-          {/* ------------------------------------------- */}
-          <Cart />
           {/* ------------------------------------------- */}
           {/* End Ecommerce Dropdown */}
           {/* ------------------------------------------- */}

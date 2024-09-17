@@ -5,7 +5,6 @@ import { createContext, useEffect, useReducer } from 'react';
 // @ts-ignore
 import axios from 'src/utils/axios';
 import { isValidToken, setSession } from './Jwt';
-import { useNavigate } from 'react-router';
 
 // ----------------------------------------------------------------------
 export interface InitialStateType {

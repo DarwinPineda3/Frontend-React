@@ -6,10 +6,3 @@ export interface userType {
   country: string;
   isFollowed: boolean;
 }
-
-interface GallaryType {
-  id: string;
-  cover: string;
-  name: string;
-  time: string;
-}
