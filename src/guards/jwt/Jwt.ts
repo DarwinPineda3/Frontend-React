@@ -61,7 +61,7 @@ const sign = (payload: any, secretKey: string, options: any) => {
 
   // Log what is being signed
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  console.log('Signing Input:', signingInput);
+  
 
   // Create the HMAC SHA-256 signature using crypto-js
   const signature = CryptoJS.HmacSHA256(signingInput, secretKey).toString(CryptoJS.enc.Base64)
@@ -70,8 +70,8 @@ const sign = (payload: any, secretKey: string, options: any) => {
     .replace(/\//g, '_'); // Base64Url encoding
 
   const jwtToken = `${encodedHeader}.${encodedPayload}.${signature}`;
-  console.log('Generated JWT Token:', jwtToken);
-  console.log('sign: ', secretKey);
+  
+  
   return jwtToken;
 };
 
@@ -81,7 +81,7 @@ const verify = (token: string, secretKey: string) => {
 
   // Log inputs used for verification
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  console.log('Signing Input for Verification:', signingInput);
+  
 
   // Recreate the signature for comparison using crypto-js
   const verifiedSignature = CryptoJS.HmacSHA256(signingInput, secretKey).toString(CryptoJS.enc.Base64)
@@ -89,8 +89,8 @@ const verify = (token: string, secretKey: string) => {
     .replace(/\+/g, '-') // Base64Url encoding
     .replace(/\//g, '_'); // Base64Url encoding
 
-  console.log('Token Signature:', signature);
-  console.log('Recreated Signature:', verifiedSignature);
+  
+  
 
   if (verifiedSignature !== signature) {
     throw new Error('Invalid signature');

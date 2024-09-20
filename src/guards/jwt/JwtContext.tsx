@@ -33,7 +33,7 @@ const handlers: any = {
   },
   LOGIN: (state: InitialStateType, action: any) => {
     const { user } = action.payload;
-    console.log("state: ",state);
+    
     return {
       ...state,
       isAuthenticated: true,
@@ -72,10 +72,10 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
   useEffect(() => {
     const initialize = async () => {
-      console.log("called initialize");
+      
       try {
         const accessToken = window.localStorage.getItem('accessToken');
-        console.log("acess tocken aquired", accessToken);
+        
         if(accessToken){
           console.log("valid token: ",isValidToken(accessToken))
         }
@@ -85,7 +85,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
           const response = await axios.get('/api/account/my-account');
           const { user } = response.data;
 
-          console.log("user exists",user);
+          
           dispatch({
             type: 'INITIALIZE',
             payload: {
@@ -94,7 +94,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
             },
           });
         } else {
-          console.log("either user invalid or no acess token invalid");
+          
           dispatch({
             type: 'INITIALIZE',
             payload: {

@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   TimelineItem,
   TimelineOppositeContent,
@@ -10,63 +8,67 @@ import {
   TimelineContent,
   timelineOppositeContentClasses,
 } from '@mui/lab';
-import { Link, Typography } from '@mui/material';
+import { Link, Typography, Box } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import DashboardCard from '../shared/DashboardCard';
+import Loader from '../shared/Loader/Loader'; // Loader component
+
+import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
+import { fetchRecentEventsData } from 'src/store/sections/dashboard/RecentEventsSlice';
+import { AppState } from 'src/store/Store';
 
 const RecentEvents = () => {
+  const dispatch = useDispatch();
+  const { loading, events, error } = useSelector((state: AppState) => state.dashboard.recentEvents);
+
+  useEffect(() => {
+    dispatch(fetchRecentEventsData());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+    <DashboardCard title="Recent Events">
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+    </DashboardCard>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <DashboardCard title="Recent Events">
-      <>
-        <Timeline
-          className="theme-timeline"
-          nonce={undefined}
-          onResize={undefined}
-          onResizeCapture={undefined}
-          sx={{
-            p: 0,
-            mb: '-40px',
-            [`& .${timelineOppositeContentClasses.root}`]: {
-              flex: 0.5,
-              paddingLeft: 0,
-            },
-          }}
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          <TimelineItem>
-            <TimelineOppositeContent>08:15 am</TimelineOppositeContent>
+      <Timeline
+        className="theme-timeline"
+        sx={{
+          p: 0,
+          mb: '-40px',
+          [`& .${timelineOppositeContentClasses.root}`]: {
+            flex: 0.5,
+            paddingLeft: 0,
+          },
+        }} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
+        {events.map((event, index) => (
+          <TimelineItem key={index}>
+            <TimelineOppositeContent>{event.time}</TimelineOppositeContent>
             <TimelineSeparator>
-              <TimelineDot color="primary" variant="outlined" />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>Detected unauthorized login attempt</TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>09:00 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="secondary" variant="outlined" />
-              <TimelineConnector />
+              <TimelineDot color={event.color} variant="outlined" />
+              {index < events.length - 1 && <TimelineConnector />}
             </TimelineSeparator>
             <TimelineContent>
-              <Typography fontWeight="600">Malware detected in network traffic</Typography>{' '}
-              <Link href="/" underline="none">
-                Incident ID #CS-7429
-              </Link>
+              <Typography fontWeight="600">{event.description}</Typography>
+              {event.link && (
+                <Link href={event.link} underline="none">
+                  {event.link}
+                </Link>
+              )}
             </TimelineContent>
           </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>11:45 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="success" variant="outlined" />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>System vulnerability patched successfully</TimelineContent>
-          </TimelineItem>
-
-        </Timeline>
-      </>
+        ))}
+      </Timeline>
     </DashboardCard>
   );
 };

@@ -1,15 +1,15 @@
 import { Box, Grid } from "@mui/material";
 import PageContainer from "src/components/container/PageContainer";
-import RevenueUpdates from "src/components/dashboards/modern/RevenueUpdates";
-import TopCards from "src/components/dashboards/modern/TopCards";
-import WeeklyStats from "src/components/dashboards/modern/WeeklyStats";
-import AlertDistribution from "src/components/home/AlertDistribution";
-import AssetStatus from "src/components/home/AssetStatus";
-import HostResourceTable from "src/components/home/HostResourceTable";
-import OrgBreachesCompare from "src/components/home/OrgBreachesCompare";
+import AlertDistribution from "src/components/home/dashboard/AlertDistribution";
+import AssetStatus from "src/components/home/dashboard/AssetStatus";
+import TopCardsDashboard from "src/components/home/dashboard/TopCards";
+import HostResourceTable from "src/components/home/dashboard/HostResourceTable";
+import OrgBreachesCompare from "src/components/home/dashboard/OrgBreachesCompare";
 import RecentEvents from "src/components/home/RecentEvents";
-import TopVulnerabilities from "src/components/home/TopVulnerabilities";
+import TopVulnerabilities from "src/components/home/dashboard/TopVulnerabilities";
 import Welcome from "src/layouts/full/shared/welcome/Welcome";
+import RevenueUpdates from "src/components/home/dashboard/RevenueUpdates";
+import WeeklyStats from "src/components/home/dashboard/WeeklyStats";
 
 const Dashboard = () => {
   return (
@@ -18,7 +18,7 @@ const Dashboard = () => {
     <Grid container spacing={3}>
       {/* Top Section */}
       <Grid item xs={12} lg={12}>
-            <TopCards  />
+            <TopCardsDashboard  />
       </Grid>
 
       {/* Main Section */}
@@ -55,7 +55,6 @@ const Dashboard = () => {
         </Grid>
       </Grid>
     </Grid>
-
     {/* Footer Section */}
     <Welcome />
   </Box>

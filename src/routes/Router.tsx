@@ -37,8 +37,8 @@ const Router = [
       </AuthGuard>
     ),
     children: [
-        // Home
-      { path: '/home/dashboard', element: <Dashboard/> },
+      // Home
+      { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
 
       // Vulnerabilities
@@ -67,20 +67,22 @@ const Router = [
 
       // Audit
       { path: '/audit/log', element: <Log /> },
-      // Template Routes
-      { path: '/', element: <Navigate to="/home/dashboard" /> },
- 
 
+      // Default Route
+      { path: '/', element: <Navigate to="/home/dashboard" /> },
     ],
   },
   {
     path: '/',
     element: <BlankLayout />,
     children: [
-      { path: '*', element: <Navigate to="/auth/404" /> },
       { path: '/auth/login', element: <Login /> },
+      { path: '/auth/404', element: <Navigate to="/auth/404" /> },
     ],
   },
+  // Catch-all 404 Route (for any undefined route)
+  { path: '*', element: <Navigate to="/auth/404" /> },
 ];
+
 
 export default Router;
