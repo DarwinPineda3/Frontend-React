@@ -21,13 +21,13 @@ import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
+import AiSolution from 'src/views/home/aisolution';
 
-/* ***Layouts**** */
+
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
 
-/* ****Pages***** */
 const Router = [
   {
     path: '/',
@@ -37,9 +37,9 @@ const Router = [
       </AuthGuard>
     ),
     children: [
-        // Home
-      { path: '/home/dashboard', element: <Dashboard/> },
+      { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
+      { path: '/aisolution', element: <AiSolution /> },
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
@@ -67,10 +67,9 @@ const Router = [
 
       // Audit
       { path: '/audit/log', element: <Log /> },
+
       // Template Routes
       { path: '/', element: <Navigate to="/home/dashboard" /> },
- 
-
     ],
   },
   {
