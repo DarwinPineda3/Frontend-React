@@ -1,4 +1,3 @@
-// src/App.tsx
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useRoutes } from "react-router-dom";
 import { useSelector } from "src/store/Store";
@@ -8,7 +7,7 @@ import ScrollToTop from "./components/shared/ScrollToTop";
 import Router from "./routes/Router";
 import { AppState } from "./store/Store";
 
-const App: React.FC = () => {
+function App() {
   const routing = useRoutes(Router);
   const theme = ThemeSettings();
   const customizer = useSelector((state: AppState) => state.customizer);
@@ -21,6 +20,6 @@ const App: React.FC = () => {
       </RTL>
     </ThemeProvider>
   );
-};
+}
 
 export default App;
