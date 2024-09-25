@@ -23,7 +23,6 @@ import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import AiSolution from 'src/views/home/aisolution';
 
-
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
@@ -37,6 +36,7 @@ const Router = [
       </AuthGuard>
     ),
     children: [
+      // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
       { path: '/aisolution', element: <AiSolution /> },
@@ -68,7 +68,7 @@ const Router = [
       // Audit
       { path: '/audit/log', element: <Log /> },
 
-      // Template Routes
+      // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
     ],
   },
@@ -76,10 +76,13 @@ const Router = [
     path: '/',
     element: <BlankLayout />,
     children: [
-      { path: '*', element: <Navigate to="/auth/404" /> },
       { path: '/auth/login', element: <Login /> },
+      { path: '/auth/404', element: <Navigate to="/auth/404" /> },
     ],
   },
+  // Catch-all 404 Route (for any undefined route)
+  { path: '*', element: <Navigate to="/auth/404" /> },
 ];
+
 
 export default Router;

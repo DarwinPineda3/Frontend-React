@@ -127,7 +127,7 @@ mock.onPost('/api/account/register').reply(async (config) => {
 
 mock.onGet('/api/account/my-account').reply((config) => {
   
-  console.log("my-account called");
+  
   try {
     const { Authorization } = config.headers!;
 
@@ -151,7 +151,7 @@ mock.onGet('/api/account/my-account').reply((config) => {
     if (!user) {
       return [401, { message: 'Invalid authorization token' }];
     }
-    console.log("returning user");
+    
 
     return [200, { user }];
   } catch (error) {

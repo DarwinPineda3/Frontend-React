@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -11,22 +9,36 @@ import {
   LinearProgress,
   Chip,
   TableContainer,
+  Box,
 } from '@mui/material';
-import DashboardCard from '../shared/DashboardCard';
-
-const hostData = [
-  {
-    id: 1,
-    hostName: 'OCTAPUS-JUAN',
-    cpuUsage: 0,
-    ramUsage: 70,
-    storageUsage: 36,
-    firewallStatus: 'Active',
-    lastUpdate: '4 hours ago',
-  },
-];
+import DashboardCard from '../../shared/DashboardCard';
+import Loader from '../../shared/Loader/Loader'; // Loader component
+import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
+import { fetchHostData } from 'src/store/sections/dashboard/HostResourceSlice';
+import { AppState } from 'src/store/Store'; // AppState type
 
 const HostResourceTable = () => {
+  const dispatch = useDispatch();
+  const { loading, data, error } = useSelector((state: AppState) => state.dashboard.hosts);
+
+  useEffect(() => {
+    dispatch(fetchHostData());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <DashboardCard title="Host Resource Monitoring" subtitle="System Resource Usage">
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+      </DashboardCard>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <DashboardCard title="Host Resource Monitoring" subtitle="System Resource Usage">
       <TableContainer>
@@ -71,7 +83,7 @@ const HostResourceTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {hostData.map((host) => (
+            {data?.map((host) => (
               <TableRow key={host.id}>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>

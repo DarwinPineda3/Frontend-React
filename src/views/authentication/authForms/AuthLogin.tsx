@@ -134,7 +134,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               fullWidth
               type="button"
               onClick={async()=>{
-                console.log(await formik.validateForm());
+                
                 await formik.submitForm();
               }}
               disabled={isSubmitting}

@@ -1,0 +1,1 @@
+type Severity = 'critical' | 'high' | 'medium' | 'low' | 'total';

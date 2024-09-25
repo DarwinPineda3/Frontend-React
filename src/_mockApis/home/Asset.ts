@@ -281,7 +281,7 @@ mock.onGet(new RegExp('/api/data/assets')).reply((config) => {
 
     const limit = 5;
     const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
-    console.log("API Requested assets for page: ", page);
+    
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
 
