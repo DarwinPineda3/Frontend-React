@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './aisolution.css';
-import { Button, Modal, Box } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 const AiSolution: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -127,36 +127,30 @@ add_filter('upload_mimes', 'restrict_upload_mimes');</code></pre>
           },
         }}
       >
-        Show Vulnerability Report
+        AI Solution
       </Button>
-      <Modal
+
+      <Dialog
         open={showModal}
         onClose={handleClose}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
+        maxWidth="lg" 
+        fullWidth 
       >
-        <Box sx={{ 
-          bgcolor: 'background.paper', 
-          borderRadius: '8px', 
-          boxShadow: 24, 
-          p: 4,
-          maxWidth: '900px',
-          margin: 'auto',
-          overflowY: 'auto', 
-          maxHeight: '80vh', // Limita la altura del modal
-        }}>
-          <h2 id="modal-title">Vulnerability Report</h2>
+        <DialogTitle id="modal-title">AI Solution</DialogTitle>
+        <DialogContent dividers>
           <div 
             dangerouslySetInnerHTML={{ __html: htmlContent }} 
             className="modal-content"
           />
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-            <Button onClick={handleClose} variant="outlined" color="primary">
-              Close
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="outlined" color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
