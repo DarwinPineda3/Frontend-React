@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Chip, Grid, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Chip, Collapse, Grid, Stack, Typography } from '@mui/material';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { IconChevronDown } from '@tabler/icons-react';
+import Loader from 'src/components/shared/Loader/Loader';
 
 interface AlertDetailProps {
   alertId: number;
@@ -10,9 +11,17 @@ interface AlertDetailProps {
 
 const AlertDetail: React.FC<AlertDetailProps> = ({ alertId }) => {
   const [expanded, setExpanded] = useState(false);
+  const [aiSolution, setAiSolution] = useState('');
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  const handleAICall = async () =>{
+    setAiSolution('...');
+    //fake wait 3 seconds
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    setAiSolution(solution);
+  }
 
   // Mock data for alert details based on the alertId
   const alertDetails = {
@@ -22,6 +31,8 @@ const AlertDetail: React.FC<AlertDetailProps> = ({ alertId }) => {
     4: { name: 'Application Error Disclosure', riskLevel: 'Low (Medium)', instances: 5 },
     // Add more details as necessary
   };
+
+
 
   //@ts-ignore@
   const detail = alertDetails[alertId];
@@ -113,46 +124,71 @@ Check the HTTP Referer header to see if the request originated from an expected 
   `;
 
 
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} xl={12}>
         <Breadcrumb title="Scan example Title">
-          <>
-            <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-              <Chip label={`CWE Id: 352`} color="primary" variant="outlined" />
-              <Chip label={`WASC Id: 9`} color="secondary" variant="outlined" />
-              <Chip label={`Plugin Id: 10202`} color="info" variant="outlined" />
-            </Box>
-          </>
+          <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
+            <Chip label={`CWE Id: 352`} color="primary" variant="outlined" />
+            <Chip label={`WASC Id: 9`} color="secondary" variant="outlined" />
+            <Chip label={`Plugin Id: 10202`} color="info" variant="outlined" />
+          </Box>
         </Breadcrumb>
       </Grid>
 
-
-      <Grid item xs={12} xl={6}>
-        <DashboardCard title='Description'>
+      <Grid item xs={12} xl={12}>
+        <DashboardCard title="Description">
           <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
             <Typography sx={{ whiteSpace: 'pre-line' }}>
               {description}
             </Typography>
           </Box>
-
         </DashboardCard>
-
       </Grid>
-      <Grid item xs={12} xl={6}>
-        <DashboardCard title='Solution'>
+
+      <Grid item xs={12} xl={aiSolution ? 6 : 12}>
+        <DashboardCard title="Solution">
           <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
             <Typography sx={{ whiteSpace: 'pre-line' }}>
               {solution}
             </Typography>
           </Box>
+          <Stack direction="row" justifyContent="end" spacing={2} mt={2}>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={handleAICall}
+            >
+              Generate AI Solution
+            </Button>
+          </Stack>
         </DashboardCard>
       </Grid>
 
-      {/**Acordion Table */}
+      <Grid item xs={12} xl={6}>
+          <Collapse in={aiSolution !== ''} timeout={500}>
+            <DashboardCard title="Generated AI Solution">
+              <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
+                {
+                  aiSolution === '...' &&
+                  <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                    <Loader/>
+                  </Box>
+                }
+                {
+                  aiSolution !== '...' &&
+                  <Typography sx={{ whiteSpace: 'pre-line' }}>
+                    {aiSolution}
+                  </Typography>
+                }
+              </Box>
+            </DashboardCard>
+          </Collapse>
+        </Grid>
 
       <Grid item xl={12} xs={12}>
-        <DashboardCard title='URLS'>
+        <DashboardCard title="URLs">
           <Box>
             {alertURLReport.map((alert, index) => (
               <Accordion
@@ -161,24 +197,23 @@ Check the HTTP Referer header to see if the request originated from an expected 
                 onChange={handleChange(`panel${index}`)}
                 sx={{
                   backgroundColor: expanded === `panel${index}` ? '#fccbc5' : '#FEF9F8', // Change color when expanded
-                  transition: 'background-color 0.3s ease'
+                  transition: 'background-color 0.3s ease',
                 }}
               >
                 <AccordionSummary
                   expandIcon={<IconChevronDown />}
                   aria-controls={`panel${index}bh-content`}
                   id={`panel${index}bh-header`}
-
                 >
-                  <Grid container xs={12} >
+                  <Grid container xs={12}>
                     <Grid item xl={8} xs={12}>
                       <Typography variant="h6" sx={{
-                         display: '-webkit-box',
-                         WebkitBoxOrient: 'vertical',
-                         WebkitLineClamp: 2, // Limits to two lines
-                         overflow: 'hidden',
-                         textOverflow: 'ellipsis'
-                      }} >
+                        display: '-webkit-box',
+                        WebkitBoxOrient: 'vertical',
+                        WebkitLineClamp: 2, // Limits to two lines
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}>
                         {alert.URL}
                       </Typography>
                     </Grid>
@@ -204,7 +239,6 @@ Check the HTTP Referer header to see if the request originated from an expected 
             ))}
           </Box>
         </DashboardCard>
-
       </Grid>
     </Grid>
   );
