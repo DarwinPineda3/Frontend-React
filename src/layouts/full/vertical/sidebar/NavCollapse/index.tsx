@@ -1,12 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import React from 'react';
-
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'src/store/Store';
 import { useLocation } from 'react-router-dom';
-
-// mui imports
 import {
   ListItemIcon,
   ListItemButton,
@@ -15,26 +9,13 @@ import {
   ListItemText,
   useTheme,
 } from '@mui/material';
-
-// custom imports
 import NavItem from '../NavItem';
-
-// plugins
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { AppState } from 'src/store/Store';
 
-type NavGroupProps = {
-  [x: string]: any;
-  navlabel?: boolean;
-  subheader?: string;
-  title?: string;
-  icon?: any;
-  href?: any;
-};
-
 interface NavCollapseProps {
-  menu: NavGroupProps;
+  menu: any;
   level: number;
   pathWithoutLastPart: any;
   pathDirect: any;
@@ -42,7 +23,6 @@ interface NavCollapseProps {
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-// FC Component For Dropdown Menu
 const NavCollapse = ({
   menu,
   level,
@@ -56,7 +36,7 @@ const NavCollapse = ({
   const theme = useTheme();
   const { pathname } = useLocation();
   const { t } = useTranslation();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const menuIcon =
     level > 1 ? <Icon stroke={1.5} size="1rem" /> : <Icon stroke={1.5} size="1.3rem" />;
 
@@ -64,21 +44,21 @@ const NavCollapse = ({
     setOpen(!open);
   };
 
-  // menu collapse for sub-levels
-  React.useEffect(() => {
-    setOpen(false);
-    menu?.children?.forEach((item: any) => {
-      if (item?.href === pathname) {
-        setOpen(true);
-      }
-    });
+  // Function to check if the current route matches or is a deeper route of this menu item
+  const isChildActive = (childHref: string) => pathname.startsWith(childHref);
+
+  // Automatically open if the current menu or any of its children are active
+  useEffect(() => {
+    if (menu.children?.some((child: any) => isChildActive(child.href))) {
+      setOpen(true); // Open the parent if any child is active
+    }
   }, [pathname, menu.children]);
 
   const ListItemStyled = styled(ListItemButton)(() => ({
     marginBottom: '2px',
     padding: '8px 10px',
     paddingLeft: hideMenu ? '10px' : level > 2 ? `${level * 15}px` : '10px',
-    backgroundColor: open && level < 2 ? theme.palette.primary.main : '',
+    backgroundColor: isChildActive(menu.href) ? 'theme.palette.primary.light' : '',
     whiteSpace: 'nowrap',
     '&:hover': {
       backgroundColor: pathname.includes(menu.href) || open
@@ -87,15 +67,14 @@ const NavCollapse = ({
       color: pathname.includes(menu.href) || open ? 'white' : theme.palette.primary.main,
     },
     color:
-      open && level < 2
-        ? 'white'
+      isChildActive(menu.href)
+        ? theme.palette.primary.main
         : `inherit` && level > 1 && open
         ? theme.palette.primary.main
         : theme.palette.text.secondary,
     borderRadius: `${customizer.borderRadius}px`,
   }));
 
-  // If Menu has Children
   const submenus = menu.children?.map((item: any) => {
     if (item.children) {
       return (
@@ -127,7 +106,7 @@ const NavCollapse = ({
     <>
       <ListItemStyled
         onClick={handleClick}
-        selected={pathWithoutLastPart === menu.href}
+        selected={isChildActive(menu.href)} // Highlight if this or any child route matches
         key={menu?.id}
       >
         <ListItemIcon

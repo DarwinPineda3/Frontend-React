@@ -40,9 +40,9 @@ const ScanListDetail: React.FC<{ scanId: number, onAlertClick: (alertId: number)
     </Grid>
       {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
-      <Box bgcolor="white" p={3} borderRadius={2} boxShadow={1}>
+      <DashboardCard>
             <ScanAlertTable alerts={mockAlerts} onAlertClick={onAlertClick} />
-          </Box>
+      </DashboardCard>
       </Grid>
     </Grid>
   );

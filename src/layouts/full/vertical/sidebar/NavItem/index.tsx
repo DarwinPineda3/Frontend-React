@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 // mui imports
 import {
@@ -48,8 +48,13 @@ const NavItem = ({ item, level, pathDirect, hideMenu, onClick }: ItemType) => {
   const Icon = item?.icon;
   const theme = useTheme();
   const { t } = useTranslation();
+  const { pathname } = useLocation(); // Get the current location to match deeper paths
+
   const itemIcon =
     level > 1 ? <Icon stroke={1.5} size="1rem" /> : <Icon stroke={1.5} size="1.3rem" />;
+
+  // Check if the current path starts with the item's href to handle deeper routes
+  const isSelected = pathname.startsWith(item?.href);
 
   const ListItemStyled = styled(ListItemButton)(() => ({
     whiteSpace: 'nowrap',
@@ -58,13 +63,13 @@ const NavItem = ({ item, level, pathDirect, hideMenu, onClick }: ItemType) => {
     borderRadius: `${customizer.borderRadius}px`,
     backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
     color:
-      level > 1 && pathDirect === item?.href
+      level > 1 && isSelected
         ? `${theme.palette.primary.main}!important`
         : theme.palette.text.secondary,
     paddingLeft: hideMenu ? '10px' : level > 2 ? `${level * 15}px` : '10px',
     '&:hover': {
       backgroundColor: theme.palette.primary.light,
-      color: theme.palette.primary.main,
+      color: 'white',
     },
     '&.Mui-selected': {
       color: 'white',
@@ -93,7 +98,7 @@ const NavItem = ({ item, level, pathDirect, hideMenu, onClick }: ItemType) => {
       <ListItemStyled
         {...listItemProps}
         disabled={item?.disabled}
-        selected={pathDirect === item?.href}
+        selected={isSelected} // Use isSelected to match deeper routes
         onClick={onClick}
       >
         <ListItemIcon
@@ -101,7 +106,7 @@ const NavItem = ({ item, level, pathDirect, hideMenu, onClick }: ItemType) => {
             minWidth: '36px',
             p: '3px 0',
             color:
-              level > 1 && pathDirect === item?.href
+              level > 1 && isSelected
                 ? `${theme.palette.primary.main}!important`
                 : 'inherit',
           }}

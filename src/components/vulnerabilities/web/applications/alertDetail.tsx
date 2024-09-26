@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Chip, Collapse, Grid, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, alpha, Box, Button, Chip, Collapse, Grid, Stack, Typography, useTheme } from '@mui/material';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { IconChevronDown } from '@tabler/icons-react';
@@ -10,6 +10,7 @@ interface AlertDetailProps {
 }
 
 const AlertDetail: React.FC<AlertDetailProps> = ({ alertId }) => {
+  const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
   const [aiSolution, setAiSolution] = useState('');
   const handleChange = (panel) => (event, isExpanded) => {
@@ -149,6 +150,7 @@ Check the HTTP Referer header to see if the request originated from an expected 
 
       <Grid item xs={12} xl={aiSolution ? 6 : 12}>
         <DashboardCard title="Solution">
+          <>
           <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
             <Typography sx={{ whiteSpace: 'pre-line' }}>
               {solution}
@@ -163,6 +165,7 @@ Check the HTTP Referer header to see if the request originated from an expected 
               Generate AI Solution
             </Button>
           </Stack>
+          </>
         </DashboardCard>
       </Grid>
 
@@ -196,7 +199,7 @@ Check the HTTP Referer header to see if the request originated from an expected 
                 expanded={expanded === `panel${index}`}
                 onChange={handleChange(`panel${index}`)}
                 sx={{
-                  backgroundColor: expanded === `panel${index}` ? '#fccbc5' : '#FEF9F8', // Change color when expanded
+                  backgroundColor: expanded === `panel${index}` ? alpha(theme.palette.secondary.light, .5) : theme.palette.background.default,
                   transition: 'background-color 0.3s ease',
                 }}
               >

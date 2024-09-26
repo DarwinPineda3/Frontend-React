@@ -22,6 +22,7 @@ import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
+import path from 'path';
 
 /* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
@@ -46,6 +47,8 @@ const Router = [
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
       { path: '/vulnerabilities/web', element: <WebVulnerabilities /> },
       { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
+      { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
+      { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
       { path: '/vulnerabilities/web/wordpress', element: <WebVulnerabilities /> },
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
