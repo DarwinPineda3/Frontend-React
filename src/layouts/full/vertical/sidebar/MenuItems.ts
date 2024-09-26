@@ -15,6 +15,7 @@ import {
   IconBook,
   IconClockBolt,
   IconGitMerge,
+  IconPoint,
 } from '@tabler/icons-react';
 
 interface MenuitemsType {
@@ -64,6 +65,21 @@ const Menuitems: MenuitemsType[] = [
     title: 'Web',
     href: '/vulnerabilities/web',
     icon: IconChartDonut3,
+    children:[
+      {
+        id: uniqueId(),
+        title: 'Applications',
+        href: '/vulnerabilities/web/applications',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'Wordpress',
+        href: '/vulnerabilities/web/wordpress',
+        icon: IconPoint,
+      }
+
+    ]
   },
   {
     id: uniqueId(),
