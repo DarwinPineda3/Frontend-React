@@ -69,7 +69,7 @@ const NavItem = ({ item, level, pathDirect, hideMenu, onClick }: ItemType) => {
     paddingLeft: hideMenu ? '10px' : level > 2 ? `${level * 15}px` : '10px',
     '&:hover': {
       backgroundColor: theme.palette.primary.light,
-      color: 'white',
+      color: 'theme.palette.primary.main',
     },
     '&.Mui-selected': {
       color: 'white',

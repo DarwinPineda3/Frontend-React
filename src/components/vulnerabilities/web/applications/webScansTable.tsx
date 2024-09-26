@@ -67,7 +67,7 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   };
 
   return (
-    <Box my={3}>
+    <Box>
             <DashboardCard title="Scans" subtitle="List of all scans">
       <Box >
         <TableContainer>

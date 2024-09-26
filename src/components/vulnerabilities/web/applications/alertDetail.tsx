@@ -76,6 +76,11 @@ const AlertDetail: React.FC<AlertDetailProps> = ({ alertId }) => {
     }
   ];
 
+  const references=[
+    "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+    "https://cwe.mitre.org/data/definitions/352.html"
+  ];
+
   if (!detail) {
     return <Typography>No details found for this alert.</Typography>;
   }
@@ -191,7 +196,7 @@ Check the HTTP Referer header to see if the request originated from an expected 
         </Grid>
 
       <Grid item xl={12} xs={12}>
-        <DashboardCard title="URLs">
+        <DashboardCard title="URLs" >
           <Box>
             {alertURLReport.map((alert, index) => (
               <Accordion
@@ -243,6 +248,19 @@ Check the HTTP Referer header to see if the request originated from an expected 
           </Box>
         </DashboardCard>
       </Grid>
+      <Grid item xs={12}>
+  <DashboardCard title="References">
+    <Box sx={{  overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
+      {references.map((reference, index) => (
+        <Typography key={index} variant="body2" sx={{ mb: 1 }}>
+          <a href={reference} target="_blank" rel="noopener noreferrer" style={{ color: theme.palette.primary.main }}>
+            {reference}
+          </a>
+        </Typography>
+      ))}
+    </Box>
+  </DashboardCard>
+</Grid>
     </Grid>
   );
 };
