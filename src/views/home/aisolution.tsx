@@ -140,7 +140,7 @@ add_filter('upload_mimes', 'restrict_upload_mimes');</code></pre>
           borderRadius: '8px', 
           boxShadow: 24, 
           p: 4,
-          maxWidth: '800px',
+          maxWidth: '900px',
           margin: 'auto',
           overflowY: 'auto', 
           maxHeight: '80vh', // Limita la altura del modal
