@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { Grid, Box, Typography, Divider, Chip, Button } from '@mui/material';
-import ScanTopCards from './scantopCards';
+import React from 'react';
+import { Grid, Box, Chip } from '@mui/material';
 import ScanAlertTable from './scanAlertTable';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import AlertDetail from './alertDetail';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 
 const ScanListDetail: React.FC<{ scanId: number, onAlertClick: (alertId: number) => void; }> = ({ scanId, onAlertClick }) => {

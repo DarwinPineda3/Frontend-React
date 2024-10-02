@@ -45,6 +45,10 @@ const Router = [
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
+      { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities /> },
+      { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities /> },
+      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId', element: <NetworkVulnerabilities /> },
+
       { path: '/vulnerabilities/web', element: <WebVulnerabilities /> },
       { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },

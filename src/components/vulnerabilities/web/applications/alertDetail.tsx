@@ -161,7 +161,9 @@ Check the HTTP Referer header to see if the request originated from an expected 
               {solution}
             </Typography>
           </Box>
-          <Stack direction="row" justifyContent="end" spacing={2} mt={2}>
+          {
+            !aiSolution &&(
+              <Stack direction="row" justifyContent="end" spacing={2} mt={2}>
             <Button
               variant="outlined"
               color="error"
@@ -169,31 +171,45 @@ Check the HTTP Referer header to see if the request originated from an expected 
             >
               Generate AI Solution
             </Button>
-          </Stack>
+            </Stack>
+            )
+          }
           </>
         </DashboardCard>
       </Grid>
+      {
+        aiSolution &&(
+          <Grid item xs={12} xl={6}>
+          <DashboardCard title="Generated AI Solution">
+            <Box sx={{
+              height: '300px',
+              overflow: 'auto',
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': { display: 'none' },
+              animation: aiSolution === '...' ? 'fadeIn 1s ease-in-out' : 'none',
+              '@keyframes fadeIn': {
+                '0%': { opacity: 0 },
+                '100%': { opacity: 1 }
+              }
+            }}>
+              {
+                aiSolution === '...' &&
+                <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+                  <Loader />
+                </Box>
+              }
+              {
+                aiSolution !== '...' &&
+                <Typography sx={{ whiteSpace: 'pre-line' }}>
+                  {aiSolution}
+                </Typography>
+              }
+            </Box>
+          </DashboardCard>
+      </Grid>
 
-      <Grid item xs={12} xl={6}>
-          <Collapse in={aiSolution !== ''} timeout={500}>
-            <DashboardCard title="Generated AI Solution">
-              <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
-                {
-                  aiSolution === '...' &&
-                  <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-                    <Loader/>
-                  </Box>
-                }
-                {
-                  aiSolution !== '...' &&
-                  <Typography sx={{ whiteSpace: 'pre-line' }}>
-                    {aiSolution}
-                  </Typography>
-                }
-              </Box>
-            </DashboardCard>
-          </Collapse>
-        </Grid>
+        )
+      }
 
       <Grid item xl={12} xs={12}>
         <DashboardCard title="URLs" >

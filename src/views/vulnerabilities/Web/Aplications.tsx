@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton } from "@mui/material";
 import ScanListTable from "src/components/vulnerabilities/web/applications/webScansTable"; // New Detail Component
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ScanTopCards from 'src/components/vulnerabilities/web/applications/scantopCards';
-import ScanAlertTable from 'src/components/vulnerabilities/web/applications/scanAlertTable';
 import AlertDetail from 'src/components/vulnerabilities/web/applications/alertDetail';
 import ScanListDetail from 'src/components/vulnerabilities/web/applications/scanDetail';
 
