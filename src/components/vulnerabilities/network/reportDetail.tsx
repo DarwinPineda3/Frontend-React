@@ -55,36 +55,58 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
   
   
     const optionspiechart: ApexOptions = {
-        chart: {
-          id: 'pie-chart',
+      chart: {
+        id: 'pie-chart',
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        foreColor: '#adb0bb',
+        toolbar: {
+          show: false,
+        },
+      },
+      dataLabels: {
+        enabled: true,  // Enable data labels to show values by default
+        formatter: function (val: any, opts: any) {
+          return `${val.toFixed(1)}%`;  // Format the values to show percentages
+        },
+        dropShadow: {
+          enabled: false,  // You can enable drop shadows if you like
+        },
+        style: {
+          fontSize: '14px',
           fontFamily: "'Plus Jakarta Sans', sans-serif",
-          foreColor: '#adb0bb',
-          toolbar: {
-            show: false,
-          },
+          colors: ['#fff'],
         },
-        dataLabels: {
-          enabled: false,
-        },
-        plotOptions: {
-          pie: {
-            donut: {
-              size: '70px',
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '40px',
+            labels: {
+              show: true,
+              total: {
+                show: true,
+                label: 'Total',
+                formatter: function (w) {
+                  return w.globals.seriesTotals.reduce((a: number, b: number) => {
+                    return a + b;
+                  }, 0);
+                },
+              },
             },
           },
         },
-        legend: {
-          show: true,
-          position: 'bottom',
-          //width: '50px',
-        },
-        colors: [primary, primarylight, secondary, secondarylight, warning],
-        tooltip: {
-          fillSeriesColor: false,
-        },
-        labels: ['Critical', 'High', 'Medium', 'Low'],  // Dynamically use labels from state
-      };
-    const seriesdoughnutchart = [45, 15, 27, 18, 35];
+      },
+      legend: {
+        show: true,
+        position: 'bottom',
+      },
+      colors: [primary, primarylight, secondary, secondarylight, warning],
+      tooltip: {
+        fillSeriesColor: false,
+      },
+      labels: ['Critical', 'High', 'Medium', 'Low'],  // Dynamically use labels from state
+    };    
+    const seriesdoughnutchart = [45, 15, 27, 18];
 
 
     const handleClickOpen = (vulnerabilityId:string) => {
@@ -97,7 +119,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
                 <ReportTopCards/>
             </Grid>
             <Grid item xs={12} xl={6}>
-                <DashboardCard title={`Resultados de vulnerabilidades: ${reportID}`}>
+                <DashboardCard title={`Resultados de vulnerabilidades`}>
                 <Chart
                     options={optionspiechart}
                     series={seriesdoughnutchart}
