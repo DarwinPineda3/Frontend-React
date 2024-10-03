@@ -8,7 +8,8 @@ import { TransitionProps } from '@mui/material/transitions';
 import { IconEye, IconX } from '@tabler/icons-react';
 
 interface ReportDetailProps {
-    reportID: number;
+    reportID: string;
+    onClickVulnerability: (vulnerabilityId: string) => void;
 }
 
 const mockData = {
@@ -26,10 +27,10 @@ const mockData = {
     { port: '2052/tcp', host: '104.21.37.171', type: 'Info', severity: 0.0 },
   ],
   vulnerabilities: [
-    { name: 'TCP Timestamps Information Disclosure', host: '172.67.210.197', port: 'general/tcp', type: 'Low', severity: 2.6, date: '29 de agosto de 2024 a las 13:27' },
-    { name: 'TCP Timestamps Information Disclosure', host: '104.21.37.171', port: 'general/tcp', type: 'Low', severity: 2.6, date: '29 de agosto de 2024 a las 13:27' },
-    { name: 'WordPress Plugins Detection (HTTP)', host: '172.67.210.197', port: '443/tcp', type: 'Informational', severity: 0.0, date: '29 de agosto de 2024 a las 13:30' },
-    { name: 'WordPress Plugins Detection (HTTP)', host: '104.21.37.171', port: '443/tcp', type: 'Informational', severity: 0.0, date: '29 de agosto de 2024 a las 13:30' },
+    { id:'1', name: 'TCP Timestamps Information Disclosure', host: '172.67.210.197', port: 'general/tcp', type: 'Low', severity: 2.6, date: '29 de agosto de 2024 a las 13:27' },
+    { id:'2', name: 'TCP Timestamps Information Disclosure', host: '104.21.37.171', port: 'general/tcp', type: 'Low', severity: 2.6, date: '29 de agosto de 2024 a las 13:27' },
+    { id:'3', name: 'WordPress Plugins Detection (HTTP)', host: '172.67.210.197', port: '443/tcp', type: 'Informational', severity: 0.0, date: '29 de agosto de 2024 a las 13:30' },
+    { id:'4', name: 'WordPress Plugins Detection (HTTP)', host: '104.21.37.171', port: '443/tcp', type: 'Informational', severity: 0.0, date: '29 de agosto de 2024 a las 13:30' },
   ],
 };
 
@@ -43,7 +44,7 @@ const mockData = {
   ) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
-const ReportDetail: React.FC<ReportDetailProps> = ({ reportID }) => {
+const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerability }) => {
 
     const theme = useTheme();
     const primary = theme.palette.primary.main;
@@ -85,14 +86,9 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID }) => {
       };
     const seriesdoughnutchart = [45, 15, 27, 18, 35];
 
-    const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
+    const handleClickOpen = (vulnerabilityId:string) => {
+      onClickVulnerability(vulnerabilityId);
     };
     return (
         <>
@@ -101,7 +97,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID }) => {
                 <ReportTopCards/>
             </Grid>
             <Grid item xs={12} xl={6}>
-                <DashboardCard title='Resultados de vulnerabilidades'>
+                <DashboardCard title={`Resultados de vulnerabilidades: ${reportID}`}>
                 <Chart
                     options={optionspiechart}
                     series={seriesdoughnutchart}
@@ -275,7 +271,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID }) => {
                                                 label="Ver"
                                                 color="primary"
                                                 icon={<IconEye></IconEye>}
-                                                onClick={handleClickOpen}
+                                                onClick={() => handleClickOpen(vulnerability.id)}
                                                 style={{ cursor: 'pointer' }}
                                             />
                                         </TableCell>
@@ -287,93 +283,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID }) => {
                 </DashboardCard>
             </Grid>
         </Grid>
-        <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-              <IconX width={24} height={24} />
-            </IconButton>
-            <Typography ml={2} flex={1} variant="h6" component="div">
-              Vulnerability Details
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              Close
-            </Button>
-          </Toolbar>
-        </AppBar>
-        
-        {/* Vulnerability Details */}
-        <Box p={3}>
-          <Typography variant="h6" color="textPrimary" gutterBottom>
-            LOW (CVSS: 2.6) - TCP Timestamps Information Disclosure
-          </Typography>
-
-          {/* Table structure for the details */}
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell><strong>Resultado de la detección del producto:</strong></TableCell>
-                <TableCell>cpe:/a:hubspot:hubspot:11.1.21 OID: 1.3.6.1.4.1.25623.1.0.113634</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Resumen:</strong></TableCell>
-                <TableCell>NA</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Calidad de detección:</strong></TableCell>
-                <TableCell>80</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Resultado de la detección de vulnerabilidades:</strong></TableCell>
-                <TableCell>
-                  It was detected that the host implements RFC1323/RFC7323.
-                  <br />
-                  Packet 1: 159460737
-                  <br />
-                  Packet 2: 4281332233
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Solución:</strong></TableCell>
-                <TableCell>Type:</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Software/SO afectado:</strong></TableCell>
-                <TableCell>NA</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Información sobre vulnerabilidades:</strong></TableCell>
-                <TableCell>
-                  The remote host implements TCP timestamps and therefore allows to compute the uptime.
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Método de detección de vulnerabilidades:</strong></TableCell>
-                <TableCell>NA</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell><strong>Referencias:</strong></TableCell>
-                <TableCell>
-                  <a href="https://datatracker.ietf.org/doc/html/rfc1323">RFC 1323</a><br />
-                  <a href="https://datatracker.ietf.org/doc/html/rfc7323">RFC 7323</a><br />
-                  <a href="https://web.archive.org/web/20151213072445/http://www.microsoft.com/en-us/download/details.aspx?id=9152">Microsoft Details</a><br />
-                  <a href="https://www.fortiguard.com/psirt/FG-IR-16-090">Fortiguard</a>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-
-          {/* Action Buttons */}
-          <Box mt={2}>
-            <Button variant="contained" color="primary" sx={{ mr: 2 }}>
-              Translate to Spanish
-            </Button>
-            <Button variant="contained" color="error">
-              Manage vulnerability
-            </Button>
-          </Box>
-        </Box>
-      </Dialog>
         </>
     );
 };

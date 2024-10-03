@@ -11,7 +11,7 @@ const topCardsData = [
 
 const ReportTopCards = () => {
   return (
-    <Grid container spacing={3} mt={4}>
+    <Grid container spacing={3}>
       {topCardsData.map((card, i) => (
         <Grid item xs={6} sm={6} lg={3} key={i}>
           <Box
