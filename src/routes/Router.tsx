@@ -54,8 +54,13 @@ const Router = [
       { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
+
       { path: '/vulnerabilities/web/wordpress', element: <WebVulnerabilities /> },
+
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
+      { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
+      { path: '/vulnerabilities/cloud/vulnerabilities/:cloudId', element: <CloudVulnerabilities /> },
+
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
 

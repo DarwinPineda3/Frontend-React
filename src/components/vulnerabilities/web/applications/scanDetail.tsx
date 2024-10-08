@@ -34,7 +34,6 @@ const ScanListDetail: React.FC<{ scanId: number, onAlertClick: (alertId: number)
               <Chip label={`False Positives: ${mockFalsePositive}`} color="warning" variant="outlined" />
           </Box>
         </Breadcrumb>
-
     </Grid>
       {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
