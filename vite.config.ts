@@ -6,6 +6,7 @@ import svgr from '@svgr/rollup';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    assetsInclude: ['**/src/locales/**'],
     resolve: {
         alias: {
             src: resolve(__dirname, 'src'),

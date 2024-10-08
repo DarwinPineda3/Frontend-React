@@ -41,6 +41,7 @@ const RecentEvents = () => {
 
   return (
     <DashboardCard title="Recent Events">
+      {/*@ts-ignore*/}
       <Timeline
         className="theme-timeline"
         sx={{
@@ -50,7 +51,7 @@ const RecentEvents = () => {
             flex: 0.5,
             paddingLeft: 0,
           },
-        }} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
+        }} placeholder={undefined}    >
         {events.map((event, index) => (
           <TimelineItem key={index}>
             <TimelineOppositeContent>{event.time}</TimelineOppositeContent>

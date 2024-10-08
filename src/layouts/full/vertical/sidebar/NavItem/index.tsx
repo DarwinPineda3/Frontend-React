@@ -54,7 +54,7 @@ const NavItem = ({ item, level, pathDirect, hideMenu, onClick }: ItemType) => {
     level > 1 ? <Icon stroke={1.5} size="1rem" /> : <Icon stroke={1.5} size="1.3rem" />;
 
   // Check if the current path starts with the item's href to handle deeper routes
-  const isSelected = pathname.startsWith(item?.href);
+  const isSelected = pathname.startsWith(item?.href || '');
 
   const ListItemStyled = styled(ListItemButton)(() => ({
     whiteSpace: 'nowrap',

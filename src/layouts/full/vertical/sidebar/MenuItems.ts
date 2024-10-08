@@ -36,146 +36,145 @@ interface MenuitemsType {
 const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
-    subheader: 'Home',
+    subheader: 'menu.home', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'Tablero',
+    title: 'menu.dashboard', // Translation key for title
     href: '/home/dashboard',
     icon: IconAperture,
   },
   {
     id: uniqueId(),
-    title: 'Assets',
+    title: 'menu.assets', // Translation key for title
     href: '/home/assets',
     icon: IconShoppingCart,
   },
   {
     navlabel: true,
-    subheader: 'Vulnerabilities',
+    subheader: 'menu.vulnerabilities', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'Network',
+    title: 'menu.network', // Translation key for title
     href: '/vulnerabilities/network',
     icon: IconNetwork,
   },
   {
     id: uniqueId(),
-    title: 'Web',
+    title: 'menu.web', // Translation key for title
     href: '/vulnerabilities/web',
     icon: IconChartDonut3,
-    children:[
+    children: [
       {
         id: uniqueId(),
-        title: 'Applications',
+        title: 'menu.applications', // Translation key for title
         href: '/vulnerabilities/web/applications',
         icon: IconPoint,
       },
       {
         id: uniqueId(),
-        title: 'Wordpress',
+        title: 'menu.wordpress', // Translation key for title
         href: '/vulnerabilities/web/wordpress',
         icon: IconPoint,
-      }
-
-    ]
+      },
+    ],
   },
   {
     id: uniqueId(),
-    title: 'Cloud',
+    title: 'menu.cloud', // Translation key for title
     href: '/vulnerabilities/cloud',
     icon: IconCloud,
   },
   {
     id: uniqueId(),
-    title: 'Summary',
+    title: 'menu.summary', // Translation key for title
     href: '/vulnerabilities/summary',
     icon: IconListDetails,
   },
   {
     id: uniqueId(),
-    title: 'Management',
+    title: 'menu.management', // Translation key for title
     href: '/vulnerabilities/management',
     icon: IconUserBolt,
   },
   {
     navlabel: true,
-    subheader: 'Monitoring',
+    subheader: 'menu.monitoring', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'SOC',
+    title: 'menu.soc', // Translation key for title
     href: '/monitoring/soc',
     icon: IconBasket,
   },
   {
     id: uniqueId(),
-    title: 'SIEM',
+    title: 'menu.siem', // Translation key for title
     href: '/monitoring/siem',
     icon: IconMessage2,
   },
   {
     navlabel: true,
-    subheader: 'Observability',
+    subheader: 'menu.observability', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'Network',
+    title: 'menu.network', // Translation key for title
     href: '/observability/network',
     icon: IconNetwork,
   },
   {
     id: uniqueId(),
-    title: 'Cloud',
+    title: 'menu.cloud', // Translation key for title
     href: '/observability/cloud',
     icon: IconCloud,
   },
   {
     id: uniqueId(),
-    title: 'Observed Assets',
+    title: 'menu.observed_assets', // Translation key for title
     href: '/observability/observed-assets',
     icon: IconPackage,
   },
   {
     id: uniqueId(),
-    title: 'Installation Guide',
+    title: 'menu.installation_guide', // Translation key for title
     href: '/observability/installation-guide',
     icon: IconBook,
   },
   {
     navlabel: true,
-    subheader: 'Support',
+    subheader: 'menu.support', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'Tickets',
+    title: 'menu.tickets', // Translation key for title
     href: '/support/tickets',
     icon: IconTicket,
   },
   {
     id: uniqueId(),
-    title: 'Solutions',
+    title: 'menu.solutions', // Translation key for title
     href: '/support/solutions',
     icon: IconNotebook,
   },
   {
     navlabel: true,
-    subheader: 'Configuration',
+    subheader: 'menu.configuration', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'Scheduled Scans',
+    title: 'menu.scheduled_scans', // Translation key for title
     href: '/configuration/scheduled-scans',
     icon: IconClockBolt,
   },
   {
     navlabel: true,
-    subheader: 'Audit',
+    subheader: 'menu.audit', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'Log',
+    title: 'menu.log', // Translation key for title
     href: '/audit/log',
     icon: IconGitMerge,
   },
