@@ -23,13 +23,12 @@ import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import path from 'path';
+import AiSolution from 'src/views/home/aisolution';
 
-/* ***Layouts**** */
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
 
-/* ****Pages***** */
 const Router = [
   {
     path: '/',
@@ -42,6 +41,7 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
+      { path: '/aisolution', element: <AiSolution /> },
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
