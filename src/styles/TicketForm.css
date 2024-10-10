@@ -1,0 +1,116 @@
+/* src/components/ticketform/TicketForm.css */
+
+body {
+    background-color: #f4f4f4;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 100%; 
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; 
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+input[type="text"],
+textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    width: calc(100% - 20px); 
+    max-width: none; 
+}
+
+input[type="text"] {
+    height: 40px;
+}
+
+textarea {
+    height: 120px;
+}
+
+input[type="file"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="file"]:hover {
+    background-color: #eaeaea;
+}
+
+input:focus, textarea:focus {
+    border-color: #f162d2;
+    outline: none;
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color:#FF578F ;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ec3daf;
+}
+
+@media (max-width: 768px) {
+    form {
+        width: 90%;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    input, textarea {
+        font-size: 0.9rem;
+    }
+}
+
+.file-input {
+    display: inline-block; 
+    padding: 0.5rem 1rem; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    background-color: #f9f9f9; 
+    cursor: pointer; 
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.file-input:hover {
+    background-color: #eaeaea; 
+    border-color: #eb70d0; 
+}
+
+.custom-label {
+    margin-top: 0.5rem; 
+  }
+  
