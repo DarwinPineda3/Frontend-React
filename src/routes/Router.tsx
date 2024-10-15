@@ -8,6 +8,7 @@ import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import ObservedAssets from 'src/views/observability/ObservedAssets';
 import Solutions from 'src/views/support/Solutions';
+import SolutionDetail from 'src/components/solutions/SolutionsDetail'; 
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import CloudVulnerabilities from 'src/views/vulnerabilities/Cloud';
@@ -81,12 +82,10 @@ const Router = [
       // Support
       { path: '/support/tickets', element: <Tickets /> },
       { path: '/support/solutions', element: <Solutions /> },
+      { path: '/support/solutions/:id', element: <SolutionDetail /> }, 
       { path: '/support/ticketform', element: <TicketFormComp /> },
       { path: '/support/ticketsview', element: <TicketsView /> },
       { path: '/support/ticket/:id', element: <TicketDetail /> },
-     
-      
-      
 
       // Configuration
       { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
@@ -110,6 +109,5 @@ const Router = [
   // Catch-all 404 Route (for any undefined route)
   { path: '*', element: <Navigate to="/auth/404" /> },
 ];
-
 
 export default Router;
