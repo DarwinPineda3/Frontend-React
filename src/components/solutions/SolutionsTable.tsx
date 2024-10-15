@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Card,
-  CardContent,
-  Typography,
   Table,
   TableBody,
   TableCell,
@@ -12,7 +9,10 @@ import {
   Box,
   Pagination,
   Link,
+  Typography,
 } from '@mui/material';
+import DashboardCard from '../shared/DashboardCard';
+import { Link as RouterLink } from 'react-router-dom'; 
 
 interface Solution {
   id: string;
@@ -25,7 +25,6 @@ const solutionsData: Solution[] = [
   { id: '10000088842', name: 'Vulnerabilities', description: 'Sin descripción' },
   { id: '10000088845', name: 'Observability', description: 'Sin descripción' },
   { id: '10000088959', name: 'Settings', description: 'Sin descripción' },
-  
 ];
 
 interface SolutionsTableProps {
@@ -37,12 +36,10 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
     solution.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  
   const [page, setPage] = useState(1);
-  const [rowsPerPage,] = useState(5); 
+  const [rowsPerPage] = useState(5);
 
   useEffect(() => {
-    
     setPage(1);
   }, [searchTerm]);
 
@@ -55,11 +52,8 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
   const paginatedSolutions = filteredSolutions.slice(startIndex, endIndex);
 
   return (
-    <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Lista de Soluciones
-        </Typography>
+    <DashboardCard title="Lista de Soluciones" subtitle="Lista de soluciones disponibles">
+      <Box>
         <TableContainer>
           <Table aria-label="solutions table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
@@ -80,14 +74,15 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
                 paginatedSolutions.map(solution => (
                   <TableRow key={solution.id}>
                     <TableCell align="center">
-                      <Link 
-                        href={`/support/solutions/${solution.id}/${solution.name}`} 
-                        variant="body2"
-                        underline="hover"
-                        color="primary"
-                      >
-                        {solution.id}
-                      </Link>
+                    <Link 
+                      component={RouterLink} 
+                      to={`/support/solutions/${solution.id}`}
+                      variant="body2"
+                      underline="hover"
+                      color="primary"
+                    >
+                      {solution.id}
+                    </Link>
                     </TableCell>
                     <TableCell align="center">
                       <Typography variant="subtitle2">{solution.name}</Typography>
@@ -115,8 +110,8 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
             onChange={handlePageChange}
           />
         </Box>
-      </CardContent>
-    </Card>
+      </Box>
+    </DashboardCard>
   );
 };
 
