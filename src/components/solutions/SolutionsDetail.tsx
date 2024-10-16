@@ -1,10 +1,13 @@
 import React from 'react';
-import { Card, CardContent, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Card, CardContent, Typography, Accordion, AccordionSummary, AccordionDetails, Alert, Breadcrumbs, IconButton } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import solutionImage from 'src/assets/images/img solutions/monitoring.png'; 
+import { useNavigate } from 'react-router-dom';
 
 const SolutionDetail: React.FC = () => {
-   
+    const navigate = useNavigate();
+
     const solutionDetails = {
         id: '10000088826',
         name: 'Single Installation',
@@ -32,21 +35,39 @@ const SolutionDetail: React.FC = () => {
         ),
     };
 
+    const handleBack = () => {
+        navigate(-1); 
+    };
+
     return (
-        <Card variant="outlined" sx={{ maxWidth: 1200, margin: '30px auto' }}>
-            <CardContent>
-                <Typography variant="h5">{solutionDetails.name}</Typography>
-                <Typography variant="body1">{solutionDetails.description}</Typography>
-                <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography variant="subtitle1">Detalles</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        {solutionDetails.details}
-                    </AccordionDetails>
-                </Accordion>
-            </CardContent>
-        </Card>
+        <div>
+            <Breadcrumbs aria-label="breadcrumb" sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <IconButton onClick={handleBack} sx={{ mr: 1 }} color="primary">
+                    <ArrowBackIcon />
+                </IconButton>
+                <Typography color="text.primary">{solutionDetails.name}</Typography>
+            </Breadcrumbs>
+
+            <Typography variant="h3" sx={{ margin: '20px 0' }}>Detalles</Typography>
+
+            <Card variant="outlined" sx={{ margin: '30px auto', maxWidth: '2500px' }}>
+                <CardContent>
+                    <Accordion defaultExpanded>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Typography variant="h6">{solutionDetails.name}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography variant="body1">{solutionDetails.description}</Typography>
+                            {solutionDetails.details}
+                        </AccordionDetails>
+                    </Accordion>
+
+                    <Alert severity="info" sx={{ marginTop: '20px' }}>
+                        Si no encuentras lo que buscas, puedes <a href="/support/tickets">crear un ticket</a>.
+                    </Alert>
+                </CardContent>
+            </Card>
+        </div>
     );
 };
 

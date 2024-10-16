@@ -41,7 +41,7 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
     };
 
     return (
-        <Box sx={{ margin: '30px', maxWidth: '1200px', width: '100%', mx: 'auto' }}> 
+        <Box sx={{ margin: '30px', maxWidth: '100%', width: '100%', mx: 'auto' }}> 
             <DashboardCard>
                 <Box>
                     <form onSubmit={handleSearch} style={{ width: '100%' }}>
