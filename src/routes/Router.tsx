@@ -22,12 +22,13 @@ import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
+import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import AiSolution from 'src/views/home/aisolution';
+import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import TicketFormComp from 'src/views/support/TicketForm';
 import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
-import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import path from 'path';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
@@ -60,7 +61,9 @@ const Router = [
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
 
-      { path: '/vulnerabilities/web/wordpress', element: <WebVulnerabilities /> },
+      { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
+      { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
+      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
       { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
@@ -75,6 +78,8 @@ const Router = [
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
+      { path: '/observability/network/scans', element: <NetworkObservability /> },
+      { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
       { path: '/observability/cloud', element: <CloudObservability /> },
       { path: '/observability/observed-assets', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
@@ -91,7 +96,7 @@ const Router = [
       { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
 
       // Audit
-      { path: '/audit/log', element: <Log /> },
+      { path: '/audit/log', element: <AuditLogView /> },
       { path: '/audit/logs', element: <AuditLogView /> },
 
       // Default Route
@@ -109,5 +114,6 @@ const Router = [
   // Catch-all 404 Route (for any undefined route)
   { path: '*', element: <Navigate to="/auth/404" /> },
 ];
+
 
 export default Router;
