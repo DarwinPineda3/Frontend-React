@@ -8,6 +8,7 @@ import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import ObservedAssets from 'src/views/observability/ObservedAssets';
 import Solutions from 'src/views/support/Solutions';
+import SolutionDetail from 'src/components/solutions/SolutionsDetail'; 
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import CloudVulnerabilities from 'src/views/vulnerabilities/Cloud';
@@ -22,9 +23,13 @@ import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
-import path from 'path';
 import AiSolution from 'src/views/home/aisolution';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
+import TicketFormComp from 'src/views/support/TicketForm';
+import TicketsView from 'src/views/support/Ticketsview';
+import TicketDetail from 'src/components/ticketform/TicketDetail';
+import AuditLogView from 'src/views/audit/AuditView';
+import path from 'path';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -82,12 +87,17 @@ const Router = [
       // Support
       { path: '/support/tickets', element: <Tickets /> },
       { path: '/support/solutions', element: <Solutions /> },
+      { path: '/support/solutions/:id', element: <SolutionDetail /> }, 
+      { path: '/support/ticketform', element: <TicketFormComp /> },
+      { path: '/support/ticketsview', element: <TicketsView /> },
+      { path: '/support/ticket/:id', element: <TicketDetail /> },
 
       // Configuration
       { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
 
       // Audit
-      { path: '/audit/log', element: <Log /> },
+      { path: '/audit/log', element: <AuditLogView /> },
+      { path: '/audit/logs', element: <AuditLogView /> },
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },

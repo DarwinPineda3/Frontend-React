@@ -8,4 +8,9 @@ export interface TicketType {
   AgentName: string;
   Date: Date;
   deleted: boolean;
+  category: string;
+  subcategory: string;
+  urgency: string;
+  pending: boolean;
+  attachment?: string;
 }
