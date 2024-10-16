@@ -24,6 +24,7 @@ import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import path from 'path';
 import AiSolution from 'src/views/home/aisolution';
+import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -55,7 +56,9 @@ const Router = [
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
 
-      { path: '/vulnerabilities/web/wordpress', element: <WebVulnerabilities /> },
+      { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
+      { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
+      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
       { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
@@ -70,6 +73,8 @@ const Router = [
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
+      { path: '/observability/network/scans', element: <NetworkObservability /> },
+      { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
       { path: '/observability/cloud', element: <CloudObservability /> },
       { path: '/observability/observed-assets', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
