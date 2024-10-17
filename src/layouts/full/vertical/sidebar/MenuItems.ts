@@ -100,22 +100,6 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     navlabel: true,
-    subheader: 'menu.monitoring', // Translation key for subheader
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.soc', // Translation key for title
-    href: '/monitoring/soc',
-    icon: IconBasket,
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.siem', // Translation key for title
-    href: '/monitoring/siem',
-    icon: IconMessage2,
-  },
-  {
-    navlabel: true,
     subheader: 'menu.observability', // Translation key for subheader
   },
   {
@@ -144,19 +128,19 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     navlabel: true,
-    subheader: 'menu.support', // Translation key for subheader
+    subheader: 'menu.monitoring', // Translation key for subheader
   },
   {
     id: uniqueId(),
-    title: 'menu.tickets', // Translation key for title
-    href: '/support/tickets',
-    icon: IconTicket,
+    title: 'menu.soc', // Translation key for title
+    href: '/monitoring/soc',
+    icon: IconBasket,
   },
   {
     id: uniqueId(),
-    title: 'menu.solutions', // Translation key for title
-    href: '/support/solutions',
-    icon: IconNotebook,
+    title: 'menu.siem', // Translation key for title
+    href: '/monitoring/siem',
+    icon: IconMessage2,
   },
   {
     navlabel: true,
@@ -177,6 +161,22 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.log', // Translation key for title
     href: '/audit/log',
     icon: IconGitMerge,
+  },
+  {
+    navlabel: true,
+    subheader: 'menu.support', // Translation key for subheader
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.tickets', // Translation key for title
+    href: '/support/tickets',
+    icon: IconTicket,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.solutions', // Translation key for title
+    href: '/support/solutions',
+    icon: IconNotebook,
   },
 ];
 
