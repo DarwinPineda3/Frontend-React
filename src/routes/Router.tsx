@@ -30,6 +30,18 @@ import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
 import path from 'path';
+import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
+import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
+import CTI from 'src/views/monitoring/SOC/cti';
+import BrandMonitoring from 'src/views/monitoring/SOC/brandMonitoring';
+import SocNews from 'src/views/monitoring/SOC/news';
+import Takedown from 'src/views/monitoring/SOC/takedown';
+import FilesSoc from 'src/views/monitoring/SOC/cti/files';
+import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
+import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
+import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
+import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
+import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -74,7 +86,18 @@ const Router = [
 
       // Monitoring
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
-      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/soc/serviceStatistics', element: <ServiceStatus /> },
+      { path: '/monitoring/soc/sourceMonitoring', element: <SourceMonitoring /> },
+      { path: '/monitoring/soc/cti', element: <CTI /> },
+      { path: '/monitoring/soc/cti/description', element: <DescriptionThreat /> },
+      { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
+      { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
+      { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
+      { path: '/monitoring/soc/brandMonitoring', element: <BrandMonitoring /> },
+      { path: '/monitoring/soc/brandMonitoring/demo', element: <DemoBrand /> },
+      { path: '/monitoring/soc/brandMonitoring/darknet', element: <DarkNet /> },
+      { path: '/monitoring/soc/news', element: <SocNews /> },
+      { path: '/monitoring/soc/takedown', element: <Takedown /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
