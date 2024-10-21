@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import Log from 'src/views/audit/Log';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
+import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import ObservedAssets from 'src/views/observability/ObservedAssets';
 import Solutions from 'src/views/support/Solutions';
@@ -28,7 +29,7 @@ import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
-import path from 'path';
+
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -89,6 +90,7 @@ const Router = [
 
       // Configuration
       { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
+      { path: '/configuration/schedule-scan', element: <ScheduleScanForm /> },
 
       // Audit
       { path: '/audit/log', element: <Log /> },
