@@ -86,16 +86,16 @@ const Router = [
 
       // Monitoring
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
-      { path: '/monitoring/soc/serviceStatistics', element: <ServiceStatus /> },
-      { path: '/monitoring/soc/sourceMonitoring', element: <SourceMonitoring /> },
+      { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
+      { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring /> },
       { path: '/monitoring/soc/cti', element: <CTI /> },
       { path: '/monitoring/soc/cti/description', element: <DescriptionThreat /> },
       { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
       { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
       { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
-      { path: '/monitoring/soc/brandMonitoring', element: <BrandMonitoring /> },
-      { path: '/monitoring/soc/brandMonitoring/demo', element: <DemoBrand /> },
-      { path: '/monitoring/soc/brandMonitoring/darknet', element: <DarkNet /> },
+      { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
+      { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
+      { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/news', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
 
@@ -105,6 +105,8 @@ const Router = [
       { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
       { path: '/observability/cloud', element: <CloudObservability /> },
       { path: '/observability/observed-assets', element: <ObservedAssets /> },
+      { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
+      { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
 
       // Support

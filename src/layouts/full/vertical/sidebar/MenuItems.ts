@@ -121,13 +121,13 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.service_statistics', // Translation key for title
-        href: '/monitoring/soc/serviceStatistics',
+        href: '/monitoring/soc/service-statistics',
         icon: IconReport,
       },
       {
         id: uniqueId(),
         title: 'menu.source_monitoring', // Translation key for title
-        href: '/monitoring/soc/sourceMonitoring',
+        href: '/monitoring/soc/source-monitoring',
         icon: IconBroadcast,
       },
       {
@@ -171,19 +171,19 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.brand_monitoring', // Translation key for title
-        href: '/monitoring/soc/brandMonitoring',
+        href: '/monitoring/soc/brand-monitoring',
         icon: IconSocial,
         children: [
           {
             id: uniqueId(),
             title: 'menu.demo', // Translation key for title
-            href: '/monitoring/soc/brandMonitoring/demo',
+            href: '/monitoring/soc/brand-monitoring/demo',
             icon: IconPoint,
           },
           {
             id: uniqueId(),
             title: 'menu.darknet', // Translation key for title
-            href: '/monitoring/soc/brandMonitoring/darknet',
+            href: '/monitoring/soc/brand-monitoring/darknet',
             icon: IconPoint,
           }
         ]
