@@ -25,7 +25,7 @@ const scanData = [
     id: 1,
     name: '107.173.154.73',
     status: 'Done',
-    reports: 5,
+    reports: 3,
     lastReport: '1 de octubre de 2024 a las 09:08',
     type: 'Full and fast',
     scanConfig: 'Configuration 1',

@@ -111,6 +111,34 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     navlabel: true,
+    subheader: 'menu.observability', // Translation key for subheader
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.network', // Translation key for title
+    href: '/observability/network',
+    icon: IconNetwork,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.cloud', // Translation key for title
+    href: '/observability/cloud',
+    icon: IconCloud,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.observed_assets', // Translation key for title
+    href: '/observability/observed-assets',
+    icon: IconPackage,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.installation_guide', // Translation key for title
+    href: '/observability/installation-guide',
+    icon: IconBook,
+  },
+  {
+    navlabel: true,
     subheader: 'menu.monitoring', // Translation key for subheader
   },
   {
@@ -210,50 +238,6 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     navlabel: true,
-    subheader: 'menu.observability', // Translation key for subheader
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.network', // Translation key for title
-    href: '/observability/network',
-    icon: IconNetwork,
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.cloud', // Translation key for title
-    href: '/observability/cloud',
-    icon: IconCloud,
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.observed_assets', // Translation key for title
-    href: '/observability/observed-assets',
-    icon: IconPackage,
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.installation_guide', // Translation key for title
-    href: '/observability/installation-guide',
-    icon: IconBook,
-  },
-  {
-    navlabel: true,
-    subheader: 'menu.support', // Translation key for subheader
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.tickets', // Translation key for title
-    href: '/support/tickets',
-    icon: IconTicket,
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.solutions', // Translation key for title
-    href: '/support/solutions',
-    icon: IconNotebook,
-  },
-  {
-    navlabel: true,
     subheader: 'menu.configuration', // Translation key for subheader
   },
   {
@@ -271,6 +255,22 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.log', // Translation key for title
     href: '/audit/log',
     icon: IconGitMerge,
+  },
+  {
+    navlabel: true,
+    subheader: 'menu.support', // Translation key for subheader
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.tickets', // Translation key for title
+    href: '/support/tickets',
+    icon: IconTicket,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.solutions', // Translation key for title
+    href: '/support/solutions',
+    icon: IconNotebook,
   },
 ];
 
