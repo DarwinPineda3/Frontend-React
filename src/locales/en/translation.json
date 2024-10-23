@@ -14,6 +14,8 @@
     "monitoring": "Monitoring",
     "soc": "SOC",
     "siem": "SIEM",
+    "cyber_guard": "Cyber Guard",
+    "parameters": "Parameters",
     "observability": "Observability",
     "observed_assets": "Observed Assets",
     "installation_guide": "Installation Guide",
