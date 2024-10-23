@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
-import { ParameterCyberGuardType, ParameterTypeChoice } from "src/types/cyber-guard/parameters/parameter";
+import { ParameterCyberGuardType } from "src/types/cyber-guard/parameters/parameter";
 
 const API_URL = '/api/data/monitoring/cyber-guard/parameters';
 
@@ -63,37 +63,37 @@ export const fetchParameters = (page = 1) => async (dispatch: AppDispatch) => {
   }
 };
 
-// // Async thunk for creating a new parameter (CREATE)
-// export const createParameter = (newParameter: ParameterType) => async (dispatch: AppDispatch) => {
-//   try {
-//     const response = await axios.post(API_URL, newParameter);
-//     dispatch(addParameter(response.data.parameter)); // Assuming the server returns the created parameter
-//   } catch (err: any) {
-//     console.error('Error creating parameter:', err);
-//     dispatch(setError('Failed to create parameter'));
-//   }
-// };
+// Async thunk for creating a new parameter (CREATE)
+export const createParameter = (newParameter: ParameterCyberGuardType) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(API_URL, newParameter);
+    dispatch(addParameter(response.data.parameter)); // Assuming the server returns the created parameter
+  } catch (err: any) {
+    console.error('Error creating parameter:', err);
+    dispatch(setError('Failed to create parameter'));
+  }
+};
 
-// // Async thunk for updating an parameter (UPDATE)
-// export const editParameter = (updatedParameter: ParameterType) => async (dispatch: AppDispatch) => {
-//   try {
-//     const response = await axios.put(`${API_URL}/${updatedParameter.id}`, updatedParameter);
-//     dispatch(updateParameter(response.data.parameter)); // Assuming the server returns the updated parameter
-//   } catch (err: any) {
-//     console.error('Error updating parameter:', err);
-//     dispatch(setError('Failed to update parameter'));
-//   }
-// };
+// Async thunk for updating an parameter (UPDATE)
+export const editParameter = (updatedParameter: ParameterCyberGuardType) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.put(`${API_URL}/${updatedParameter.id}`, updatedParameter);
+    dispatch(updateParameter(response.data.parameter)); // Assuming the server returns the updated parameter
+  } catch (err: any) {
+    console.error('Error updating parameter:', err);
+    dispatch(setError('Failed to update parameter'));
+  }
+};
 
-// // Async thunk for deleting an parameter (DELETE)
-// export const removeParameter = (parameterId: string) => async (dispatch: AppDispatch) => {
-//   try {
-//     await axios.delete(`${API_URL}/${parameterId}`);
-//     dispatch(deleteParameter(parameterId));
-//   } catch (err: any) {
-//     console.error('Error deleting parameter:', err);
-//     dispatch(setError('Failed to delete parameter'));
-//   }
-// };
+// Async thunk for deleting an parameter (DELETE)
+export const removeParameter = (parameterId: string) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${API_URL}/${parameterId}`);
+    dispatch(deleteParameter(parameterId));
+  } catch (err: any) {
+    console.error('Error deleting parameter:', err);
+    dispatch(setError('Failed to delete parameter'));
+  }
+};
 
 export default ParametersSlice.reducer;
