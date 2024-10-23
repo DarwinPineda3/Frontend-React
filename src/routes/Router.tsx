@@ -18,6 +18,7 @@ import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import SOCMonitoring from 'src/views/monitoring/SOC';
+import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
 import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
@@ -98,6 +99,8 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/news', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
+      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },

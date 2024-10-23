@@ -27,6 +27,7 @@ import {
   IconLink,
   IconAlertHexagon,
   IconExternalLink,
+  IconShieldBolt
 } from '@tabler/icons-react';
 
 interface MenuitemsType {
@@ -235,6 +236,20 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.siem', // Translation key for title
     href: '/monitoring/siem',
     icon: IconMessage2,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.cyber_guard', // Translation key for title
+    href: '/monitoring/cyber-guard',
+    icon: IconShieldBolt,
+    children: [
+      {
+        id: uniqueId(),
+        title: 'menu.parameters', // Translation key for title
+        href: '/monitoring/cyber-guard/parameters',
+        icon: IconPoint,
+      }
+    ],
   },
   {
     navlabel: true,
