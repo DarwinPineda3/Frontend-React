@@ -136,16 +136,7 @@ const TechInventoryList = () => {
                       onClick={() => handleEditClick(technology)}
                     >
                       Edit
-                    </Button>                    
-                    <Button
-                        variant="contained"
-                        color="error"
-                        size="small"
-                        sx={{ ml: 2 }}
-                        // onClick={() => handleDeleteClick(technology)}
-                        >
-                        Delete
-                        </Button>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
