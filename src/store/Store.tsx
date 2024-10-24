@@ -15,6 +15,8 @@ import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 // cyber guard reducers
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
+// brand monitoring reducers
+import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 
 
 import { combineReducers } from 'redux';
@@ -42,7 +44,8 @@ export const store = configureStore({
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
     dashboard: dashboardReducer,
-    parametersReducer: ParametersReducer
+    parametersReducer: ParametersReducer,
+    brandMonitoringReducer: BrandMonitoringReducer,
   },
 });
 
@@ -51,7 +54,8 @@ const rootReducer = combineReducers({
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
   dashboard: dashboardReducer,
-  parametersReducer: ParametersReducer
+  parametersReducer: ParametersReducer,
+  brandMonitoringReducer: BrandMonitoringReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
