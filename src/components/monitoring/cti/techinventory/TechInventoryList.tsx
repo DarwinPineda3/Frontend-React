@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchTechInventory, setPage } from 'src/store/sections/cti/TechInventorySlice';
 import CreateUpdateTechnology from './TechInventoryEdition';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import { TechInventoryType } from 'src/types/cti/technologies/techInventory';
 
 const TechInventoryList = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const TechInventoryList = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success'); // Snackbar severity
+  const [TechnologyDelete, setTechnologyDelete] = useState<TechInventoryType | null >(null);
 
   React.useEffect(() => {
     dispatch(fetchTechInventory(currentPage));
@@ -45,6 +47,11 @@ const TechInventoryList = () => {
 
   const handleEditClick = (technology: any = null) => {
     setEditTechonology(technology); // Set the selected technology for editing, or null for new technology creation
+    setOpenDialog(true); // Open the dialog/modal
+  };
+
+  const handleDeleteClick = (technology: any = null) => {
+    setTechnologyDelete(technology); // Delete the selected technology for editing, or null for new technology creation
     setOpenDialog(true); // Open the dialog/modal
   };
 
@@ -129,7 +136,16 @@ const TechInventoryList = () => {
                       onClick={() => handleEditClick(technology)}
                     >
                       Edit
-                    </Button>
+                    </Button>                    
+                    <Button
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        sx={{ ml: 2 }}
+                        // onClick={() => handleDeleteClick(technology)}
+                        >
+                        Delete
+                        </Button>
                   </TableCell>
                 </TableRow>
               ))}
