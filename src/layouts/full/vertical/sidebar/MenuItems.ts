@@ -193,7 +193,13 @@ const Menuitems: MenuitemsType[] = [
             title: 'menu.open_cti', // Translation key for title
             href: 'http://38.87.165.53:8080/dashboard',
             icon: IconExternalLink,
-          }
+          },
+          {
+            id: uniqueId(),
+            title: 'menu.technologies_inventory', // Translation key for title
+            href: '/monitoring/soc/cti/technologies_inventory',
+            icon: IconBroadcast,
+          },
         ]
       },
       {

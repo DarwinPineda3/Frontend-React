@@ -14,6 +14,8 @@ import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 
+//monitoring reducers
+import TechInventoryReducer from './sections/cti/TechInventorySlice';
 
 import { combineReducers } from 'redux';
 import {
@@ -39,7 +41,8 @@ export const store = configureStore({
     customizer: CustomizerReducer,
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    techInventoryReducer: TechInventoryReducer
   },
 });
 
@@ -47,7 +50,8 @@ const rootReducer = combineReducers({
   customizer: CustomizerReducer,
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  techInventoryReducer: TechInventoryReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
