@@ -248,6 +248,12 @@ const Menuitems: MenuitemsType[] = [
         title: 'menu.parameters', // Translation key for title
         href: '/monitoring/cyber-guard/parameters',
         icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.brand_monitoring', // Translation key for title
+        href: '/monitoring/cyber-guard/brand-monitoring',
+        icon: IconPoint,
       }
     ],
   },
