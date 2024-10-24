@@ -29,6 +29,7 @@ import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
+import MittrView from 'src/views/monitoring/mittreview/MittrView';
 
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
@@ -73,6 +74,7 @@ const Router = [
       // Monitoring
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
       { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/mittre', element: <MittrView /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },

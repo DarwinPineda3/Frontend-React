@@ -10,11 +10,16 @@ import {
     Tab,
     Box,
     useTheme,
+    Snackbar,
+    IconButton,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CloseIcon from '@mui/icons-material/Close';
 
 const InstallationGuides = () => {
     const [value, setValue] = React.useState(0);
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+    const [snackbarMessage, setSnackbarMessage] = React.useState('');
     const theme = useTheme();
 
     const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
@@ -24,21 +29,30 @@ const InstallationGuides = () => {
     const copyToClipboard = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);
-            alert('Texto copiado al portapapeles: ' + text);
+            setSnackbarMessage('Texto copiado al portapapeles: ' + text);
+            setSnackbarOpen(true);
+            // Cerrar Snackbar automáticamente después de 2 segundos
+            setTimeout(() => {
+                setSnackbarOpen(false);
+            }, 2000);
         } catch (err) {
             console.error('Error al copiar al portapapeles: ', err);
         }
     };
 
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
+    };
+
     return (
-        <Card sx={{ margin: 2 }}>
+        <Card sx={{ margin: 4 }}>
             <CardContent>
                 <Typography variant="h4" gutterBottom>
                     Guía de instalación
                 </Typography>
-                <Typography variant="body1" sx={{ marginBottom: 2 }}>
+                <Typography variant="body1" sx={{ marginBottom: 3 }}>
                     ¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones
-                    paso a paso para instalar el agente en diferentes sistemas operativos. 
+                    paso a paso para instalar el agente en diferentes sistemas operativos.
                 </Typography>
 
                 {/* Accordion para Windows */}
@@ -128,13 +142,11 @@ if (-not (Test-Path $markerFile)) {
                         <ul>
                             <li><strong>Paso 1:</strong> Abra una terminal en su sistema Linux.</li>
                             <li>
-                                <strong>Paso 2:</strong> Seleccione la pestaña correspondiente a su distribución y copie la instalación `unzip`:
+                                <strong>Paso 2:</strong> Elija su distribución de Linux:
                             </li>
                         </ul>
-
-                        {/* Pestañas para distribuciones de Linux */}
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <Tabs value={value} onChange={handleChange} aria-label="Distribuciones de Linux">
+                        <Box sx={{ marginBottom: 2 }}>
+                            <Tabs value={value} onChange={handleChange} textColor="primary" indicatorColor="primary">
                                 <Tab label="Ubuntu/Debian" />
                                 <Tab label="CentOS/RHEL" />
                                 <Tab label="Fedora" />
@@ -196,6 +208,19 @@ sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb`}
                     </AccordionDetails>
                 </Accordion>
             </CardContent>
+
+            <Snackbar
+                open={snackbarOpen}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                message={snackbarMessage}
+                autoHideDuration={2000} // Cierra automáticamente después de 2 segundos
+                action={
+                    <IconButton size="small" color="inherit" onClick={handleCloseSnackbar}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            />
         </Card>
     );
 };
@@ -207,7 +232,7 @@ const CodeBlock: React.FC<{ children: React.ReactNode; onClick: () => void }> = 
         borderRadius: '4px',
         whiteSpace: 'pre-wrap',
         marginBottom: 2,
-        cursor: 'pointer', 
+        cursor: 'pointer',
     }}>
         {children}
     </Typography>
