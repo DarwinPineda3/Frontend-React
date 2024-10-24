@@ -42,6 +42,7 @@ import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
+import UserProfile from 'src/views/apps/user-profile/UserProfile';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -126,6 +127,9 @@ const Router = [
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
+
+      // User Profile
+      { path: '/user-profile', element: <UserProfile /> },
     ],
   },
   {
