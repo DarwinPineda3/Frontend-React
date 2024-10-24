@@ -23,6 +23,18 @@
     "configuration": "Configuration",
     "scheduled_scans": "Scheduled Scans",
     "audit": "Audit",
-    "log": "Log"
+    "log": "Log",
+    "service_statistics": "Service Statistics",
+    "source_monitoring": "Source Monitoring",
+    "cti": "CTI",
+    "description": "Description",
+    "abusech": "AbuseCH",
+    "files": "Files",
+    "urls": "URLs",
+    "brand_monitoring": "Brand Monitoring",
+    "demo": "Demo",
+    "darknet": "DarkNet",
+    "news": "Newsletters",
+    "takedown": "Takedown"
   }
 }

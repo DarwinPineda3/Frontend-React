@@ -94,7 +94,7 @@ const TicketFormComp: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="ticket-form">
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '0.5rem' }}>
           <CustomFormLabel htmlFor="ticketTitle">Asunto</CustomFormLabel>
