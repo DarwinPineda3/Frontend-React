@@ -8,7 +8,6 @@ import {
   FormControl, 
   FormHelperText, 
   Autocomplete,
-  Icon
 } from '@mui/material';
 import { useDispatch } from 'src/store/Store';
 import { createTechnology, editTechnology } from 'src/store/sections/cti/TechInventorySlice';
@@ -124,7 +123,7 @@ const CreateUpdateTechonology: React.FC<Props> = ({ technology, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {technology ? 'Update Technology' : 'Create Technology'}
+            {technology ? 'Update' : 'Create'}
           </Button>
         </Box>
       </Box>
