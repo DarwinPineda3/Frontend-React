@@ -42,6 +42,7 @@ import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
+import MalwareAnalyses from "src/views/home/malwareAnalyses";
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -59,6 +60,7 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
+      { path: '/home/malwareAnalyses', element: <MalwareAnalyses /> },
       { path: '/aisolution', element: <AiSolution /> },
 
       // Vulnerabilities
