@@ -15,9 +15,6 @@ i18n
     interpolation: {
       escapeValue: false, // React already handles escaping for XSS
     },
-    backend: {
-      loadPath: '/src/locales/{{lng}}/{{ns}}.json',
-    },
     ns: ['translation'], // Namespace for translations
     defaultNS: 'translation',
     react: {
