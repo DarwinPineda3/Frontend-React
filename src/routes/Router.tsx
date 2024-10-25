@@ -42,7 +42,7 @@ import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
-import MalwareAnalyses from "src/views/home/malwareAnalyses";
+import MalwareAnalyses from "src/views/monitoring/malware/MalwareAnalyses";
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
