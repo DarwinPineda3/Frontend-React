@@ -27,6 +27,7 @@ import {
   IconLink,
   IconAlertHexagon,
   IconExternalLink,
+  IconSpy,
 } from '@tabler/icons-react';
 
 interface MenuitemsType {
@@ -130,6 +131,12 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.observed_assets', // Translation key for title
     href: '/observability/observed-assets',
     icon: IconPackage,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.dark_web_monitoring', // Translation key for title
+    href: '/observability/dark-web-monitoring',
+    icon: IconSpy,
   },
   {
     id: uniqueId(),

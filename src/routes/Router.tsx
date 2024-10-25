@@ -43,6 +43,7 @@ import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 import UserProfile from 'src/views/apps/user-profile/UserProfile';
+import DarkWeb from 'src/views/observability/DarkWeb';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -109,6 +110,7 @@ const Router = [
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
+      { path: '/observability/dark-web-monitoring', element: <DarkWeb /> },
 
       // Support
       { path: '/support/tickets', element: <Tickets /> },
