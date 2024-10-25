@@ -79,6 +79,8 @@ const summaryData: SummaryDataType[] = [
     }
 ];
 
+latestData.sort((a, b) => b.total_results - a.total_results);
+summaryData.sort((a, b) => b.total_results - a.total_results);
 
 // GET: Fetch paginated brand monitoring data
 mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/brand-monitoring')).reply((config) => {
