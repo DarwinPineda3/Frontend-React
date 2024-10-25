@@ -101,7 +101,7 @@ const Router = [
       { path: '/monitoring/soc/news', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
       { path: '/monitoring/malwareAnalysis', element: <MalwareAnalyses /> },
-      { path: '/monitoring/malwareAnalysis/:scanId', element: <MalwareAnalyses /> },
+      { path: '/monitoring/malwareAnalysis/:malwareAnalysisId', element: <MalwareAnalyses /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
