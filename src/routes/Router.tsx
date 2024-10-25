@@ -110,7 +110,7 @@ const Router = [
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
-      { path: '/observability/dark-web-monitoring', element: <DarkWeb /> },
+      { path: '/monitoring/threats-overview', element: <DarkWeb /> },
 
       // Support
       { path: '/support/tickets', element: <Tickets /> },

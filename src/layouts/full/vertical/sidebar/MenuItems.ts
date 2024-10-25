@@ -134,12 +134,6 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: 'menu.dark_web_monitoring', // Translation key for title
-    href: '/observability/dark-web-monitoring',
-    icon: IconSpy,
-  },
-  {
-    id: uniqueId(),
     title: 'menu.installation_guide', // Translation key for title
     href: '/observability/installation-guide',
     icon: IconBook,
@@ -242,6 +236,12 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.siem', // Translation key for title
     href: '/monitoring/siem',
     icon: IconMessage2,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.dark_web_monitoring', // Translation key for title
+    href: '/monitoring/threats-overview',
+    icon: IconSpy,
   },
   {
     navlabel: true,
