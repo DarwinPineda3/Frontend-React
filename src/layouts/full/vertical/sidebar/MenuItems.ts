@@ -27,6 +27,7 @@ import {
   IconLink,
   IconAlertHexagon,
   IconExternalLink,
+  IconSpy,
 } from '@tabler/icons-react';
 
 interface MenuitemsType {
@@ -235,6 +236,12 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.siem', // Translation key for title
     href: '/monitoring/siem',
     icon: IconMessage2,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.dark_web_monitoring', // Translation key for title
+    href: '/monitoring/threats-overview',
+    icon: IconSpy,
   },
   {
     navlabel: true,

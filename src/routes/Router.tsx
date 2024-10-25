@@ -3,7 +3,6 @@
 import React, { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
-import Log from 'src/views/audit/Log';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
@@ -31,7 +30,6 @@ import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
 import MittrView from 'src/views/monitoring/mittreview/MittrView';
-import path from 'path';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
 import CTI from 'src/views/monitoring/SOC/cti';
@@ -46,6 +44,7 @@ import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 import UserProfile from 'src/views/apps/user-profile/UserProfile';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import DarkWeb from 'src/views/observability/DarkWeb';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -114,6 +113,7 @@ const Router = [
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
+      { path: '/monitoring/threats-overview', element: <DarkWeb /> },
 
       // Support
       { path: '/support/tickets', element: <Tickets /> },
