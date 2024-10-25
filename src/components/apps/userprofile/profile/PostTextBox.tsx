@@ -45,3 +45,5 @@ export const PostTextBox = () => {
     </ChildCard>
   );
 };
+
+export default PostTextBox; 
