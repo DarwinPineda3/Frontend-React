@@ -43,6 +43,7 @@ import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 import MalwareAnalyses from "src/views/monitoring/malware/MalwareAnalyses";
+import MalwareAnalysesDetail from "src/views/monitoring/malware/malwareAnalyses";
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -60,7 +61,6 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
-      { path: '/home/malwareAnalyses', element: <MalwareAnalyses /> },
       { path: '/aisolution', element: <AiSolution /> },
 
       // Vulnerabilities
@@ -100,6 +100,8 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/news', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
+      { path: '/monitoring/malwareAnalysis', element: <MalwareAnalyses /> },
+      { path: '/monitoring/malwareAnalysis/:scanId', element: <MalwareAnalyses /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
