@@ -1,7 +1,7 @@
 import React from 'react';
 import InstallationGuide from '../../components/installation-guide/InstallationGuides'; 
 
-const App = () => {
+const InstallationGuidePage = () => {
     return (
         <div>
             <InstallationGuide />
@@ -9,4 +9,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default InstallationGuidePage;

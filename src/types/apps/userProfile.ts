@@ -1,22 +1,22 @@
-type ProfileType = {
+export type ProfileType = {
   id: number | string;
   avatar: string;
   name: string;
   time: string;
 };
 
-type Likes = {
+export type Likes = {
   like: boolean;
   value: number;
 };
 
-type PostImageType = {
+export type PostImageType = {
   img: string;
   featured?: boolean;
   title?: string;
 };
 
-type CommentDataType = {
+export type CommentDataType = {
   name?: string;
   comment?: string;
   likes?: Likes;
@@ -24,19 +24,19 @@ type CommentDataType = {
   replies?: Reply[];
 };
 
-type Reply = {
+export type Reply = {
   id?: string | number;
   profile?: ProfileType;
   data: CommentDataType;
 };
 
-type Comment = {
+export type Comment = {
   id: string | number;
   profile: ProfileType;
   data?: CommentDataType;
 };
 
-type PostDataType = {
+export type PostDataType = {
   id?: string | number;
   content: string;
   images: PostImageType[];

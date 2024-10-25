@@ -28,7 +28,7 @@ mock.onGet('/api/dashboard/vulnerabilities').reply(
         severity: 'High',
         name: 'Vulnerability 1',
         date: '2023-05-01',
-        tool: 'Nessus',
+        tool: 'Network',
         aiAssistantSolution: 'Run this patch...',
       },
       {
@@ -38,7 +38,7 @@ mock.onGet('/api/dashboard/vulnerabilities').reply(
         severity: 'Medium',
         name: 'Vulnerability 2',
         date: '2023-05-10',
-        tool: 'Qualys',
+        tool: 'Web App',
         aiAssistantSolution: 'Apply this fix...',
       },
       {
@@ -48,7 +48,7 @@ mock.onGet('/api/dashboard/vulnerabilities').reply(
         severity: 'Low',
         name: 'Vulnerability 3',
         date: '2023-05-20',
-        tool: 'Burp Suite',
+        tool: 'WordPress',
         aiAssistantSolution: 'Mitigate this risk...',
       },
     ]];

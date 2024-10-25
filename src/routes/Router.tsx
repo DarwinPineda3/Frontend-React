@@ -23,14 +23,29 @@ import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
+import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import AiSolution from 'src/views/home/aisolution';
+import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import TicketFormComp from 'src/views/support/TicketForm';
 import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
-import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import MittrView from 'src/views/monitoring/mittreview/MittrView';
-
+import path from 'path';
+import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
+import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
+import CTI from 'src/views/monitoring/SOC/cti';
+import BrandMonitoring from 'src/views/monitoring/SOC/brandMonitoring';
+import SocNews from 'src/views/monitoring/SOC/news';
+import Takedown from 'src/views/monitoring/SOC/takedown';
+import FilesSoc from 'src/views/monitoring/SOC/cti/files';
+import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
+import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
+import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
+import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
+import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
+import UserProfile from 'src/views/apps/user-profile/UserProfile';
+import AccountSettings from 'src/components/account-settings/AccountSettings';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -62,7 +77,9 @@ const Router = [
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
 
-      { path: '/vulnerabilities/web/wordpress', element: <WebVulnerabilities /> },
+      { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
+      { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
+      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
       { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
@@ -75,11 +92,27 @@ const Router = [
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
       { path: '/monitoring/siem', element: <SIEMMonitoring /> },
       { path: '/monitoring/mittre', element: <MittrView /> },
+      { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
+      { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring /> },
+      { path: '/monitoring/soc/cti', element: <CTI /> },
+      { path: '/monitoring/soc/cti/description', element: <DescriptionThreat /> },
+      { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
+      { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
+      { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
+      { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
+      { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
+      { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
+      { path: '/monitoring/soc/news', element: <SocNews /> },
+      { path: '/monitoring/soc/takedown', element: <Takedown /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
+      { path: '/observability/network/scans', element: <NetworkObservability /> },
+      { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
       { path: '/observability/cloud', element: <CloudObservability /> },
       { path: '/observability/observed-assets', element: <ObservedAssets /> },
+      { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
+      { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
 
       // Support
@@ -95,11 +128,15 @@ const Router = [
       { path: '/configuration/schedule-scan', element: <ScheduleScanForm /> },
 
       // Audit
-      { path: '/audit/log', element: <Log /> },
+      { path: '/audit/log', element: <AuditLogView /> },
       { path: '/audit/logs', element: <AuditLogView /> },
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
+
+      // User Profile
+      { path: '/user-profile', element: <UserProfile /> },
+      { path: '/account-settings', element: <AccountSettings /> },
     ],
   },
   {
@@ -113,5 +150,6 @@ const Router = [
   // Catch-all 404 Route (for any undefined route)
   { path: '*', element: <Navigate to="/auth/404" /> },
 ];
+
 
 export default Router;
