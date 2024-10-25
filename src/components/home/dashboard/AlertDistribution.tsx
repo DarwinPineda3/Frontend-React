@@ -55,7 +55,7 @@ const AlertDistribution = () => {
     tooltip: {
       fillSeriesColor: false,
     },
-    labels: labels,  // Dynamically use labels from state
+    labels: labels, 
   };
 
   if (loading) {
