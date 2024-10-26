@@ -15,6 +15,7 @@ import { fetchBrandMonitoringById } from 'src/store/sections/cyber-guard/BrandMo
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import SocialNetworks from './brand-monitoring-details/social-networks/SocialNetworks';
 import Internet from './brand-monitoring-details/internet/Internet';
+import DarkWeb from './brand-monitoring-details/dark-web/DarkWeb';
 
 interface BrandMonitoringDetailProps {
   id: string;
@@ -50,9 +51,9 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       value: 'darkweb',
       icon: <ExclamationIcon />,
       label: 'Dark Web',
-      disabled: true,
-      badge: 'Soon',
-      content: <Typography>Dark Web Content</Typography>,
+      disabled: false,
+      badge: '',
+      content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail}/>,
     },
   ];
   React.useEffect(() => {
