@@ -5,7 +5,7 @@ import SocialNetworksIndicators from '../social-networks/SocialNetworksIndicator
 import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
 import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import SocialNetworksAccordion from './ SocialNetworksAccordion';
+import SocialNetworksAccordion from './SocialNetworksAccordion';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
