@@ -14,6 +14,8 @@
     "monitoring": "Monitoreo",
     "soc": "SOC",
     "siem": "SIEM",
+    "cyber_guard": "Guardia cibernética",
+    "parameters": "Parametros",
     "observability": "Observabilidad",
     "observed_assets": "Activos Observados",
     "dark_web_monitoring": "Resumen de amenazas",

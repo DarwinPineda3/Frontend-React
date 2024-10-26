@@ -18,6 +18,8 @@ import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import SOCMonitoring from 'src/views/monitoring/SOC';
+import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
+import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring'
 import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
@@ -106,6 +108,10 @@ const Router = [
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
       { path: '/monitoring/malwareAnalysis', element: <MalwareAnalyses /> },
       { path: '/monitoring/malwareAnalysis/:malwareAnalysisId', element: <MalwareAnalyses /> },
+      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
