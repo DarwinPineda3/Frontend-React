@@ -260,6 +260,12 @@ const Menuitems: MenuitemsType[] = [
         title: 'menu.brand_monitoring', // Translation key for title
         href: '/monitoring/cyber-guard/brand-monitoring',
         icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.malware', // Translation key for title
+        href: '/monitoring/malwareAnalysis',
+        icon: IconPoint,
       }
     ],
   },
