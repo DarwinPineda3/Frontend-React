@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
-import { BrandMonitoringDataType } from "src/types/cyber-guard/brand-monitoring/brandMonitoring";
+import { BrandMonitoringDataType, Data } from "src/types/cyber-guard/brand-monitoring/brandMonitoring";
 
 const API_URL = '/api/data/monitoring/cyber-guard/brand-monitoring';
+const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/brand-monitoring';
+
 
 interface StateType {
   brandMonitoringData: BrandMonitoringDataType[];
+  brandMonitoringDetail: Data | null;
   page: number;
   totalPages: number;
   error: string | null;
@@ -14,6 +17,7 @@ interface StateType {
 
 const initialState: StateType = {
   brandMonitoringData: [],
+  brandMonitoringDetail: null,
   page: 1,
   totalPages: 1,
   error: null,
@@ -28,6 +32,9 @@ const brandMonitoringSlice = createSlice({
       state.page = action.payload.page;
       state.totalPages = action.payload.totalPages;
     },
+    getBrandMonitoringDetail: (state, action) => {
+      state.brandMonitoringDetail = action.payload.data.brandMonitoring;
+    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -37,7 +44,7 @@ const brandMonitoringSlice = createSlice({
   }
 });
 
-export const { getBrandMonitoringList, setError, setPage } = brandMonitoringSlice.actions;
+export const { getBrandMonitoringList, getBrandMonitoringDetail, setError, setPage } = brandMonitoringSlice.actions;
 
 // Async thunk for fetching brand monitoring list with pagination (READ)
 export const fetchBrandMonitoringData = (page = 1) => async (dispatch: AppDispatch) => {
@@ -55,6 +62,21 @@ export const fetchBrandMonitoringData = (page = 1) => async (dispatch: AppDispat
   } catch (err: any) {
     console.error('Error fetching brand monitoring data:', err);
     dispatch(setError('Failed to fetch brand monitoring data'));
+  }
+};
+
+export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${DETAIL_API_URL}/${id}`);
+    
+    if (response.status === 200) {
+      dispatch(getBrandMonitoringDetail({data: response.data}));
+    } else {
+      dispatch(setError('fetch brand monitoring detail not found'));
+    }
+  } catch (err: any) {
+    console.error('Error fetching brand monitoring detail:', err);
+    dispatch(setError('Failed to fetch brand monitoring detail'));
   }
 };
 export default brandMonitoringSlice.reducer;
