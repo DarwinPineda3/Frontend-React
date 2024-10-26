@@ -13,6 +13,10 @@ import AlertDistribution from './sections/dashboard/AlertDistributionSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
+// cyber guard reducers
+import ParametersReducer from './sections/cyber-guard/ParametersSlice';
+// brand monitoring reducers
+import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 
 
 import { combineReducers } from 'redux';
@@ -39,7 +43,9 @@ export const store = configureStore({
     customizer: CustomizerReducer,
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    parametersReducer: ParametersReducer,
+    brandMonitoringReducer: BrandMonitoringReducer,
   },
 });
 
@@ -47,7 +53,9 @@ const rootReducer = combineReducers({
   customizer: CustomizerReducer,
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  parametersReducer: ParametersReducer,
+  brandMonitoringReducer: BrandMonitoringReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
