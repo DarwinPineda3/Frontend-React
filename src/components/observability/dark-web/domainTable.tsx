@@ -10,10 +10,10 @@ import {
   Box,
   Pagination,
   Button,
-  IconButton,
 } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 const burntData = [
   {
@@ -38,12 +38,12 @@ const burntData = [
     mailExchange: 0,
     ipv4: 1,
   },
-  // Add more rows as needed
 ];
 
 const rowsPerPage = 5;
 
 const DomainTable = () => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, page) => {
@@ -57,71 +57,71 @@ const DomainTable = () => {
 
   return (
     <DashboardCard>
-            <Box>
-      <Box display="flex" justifyContent="space-between" mb={2}>
-        <Typography variant="h6">Domain</Typography>
-        <Button variant="contained" color="primary">
-          Export to CSV
-        </Button>
-      </Box>
-      <TableContainer>
-        <Table aria-label="domain table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Status</TableCell>
-              <TableCell>Found Date</TableCell>
-              <TableCell>Domain</TableCell>
-              <TableCell>Threat</TableCell>
-              <TableCell>Phash</TableCell>
-              <TableCell>Fuzzer</TableCell>
-              <TableCell>DNS NS</TableCell>
-              <TableCell>Mail Exchange</TableCell>
-              <TableCell>IPv4</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {paginatedData.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="error"
-                    endIcon={<KeyboardArrowDown />}
-                  >
-                    {row.status}
-                  </Button>
-                </TableCell>
-                <TableCell>{row.foundDate}</TableCell>
-                <TableCell>{row.domain}</TableCell>
-                <TableCell>{row.threat}</TableCell>
-                <TableCell>
-                  <Button variant="outlined" size="small">
-                    {row.phash}
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Button variant="contained" color="info" size="small">
-                    {row.fuzzer}
-                  </Button>
-                </TableCell>
-                <TableCell>{row.dnsNs}</TableCell>
-                <TableCell>{row.mailExchange}</TableCell>
-                <TableCell>{row.ipv4}</TableCell>
+      <Box>
+        <Box display="flex" justifyContent="space-between" mb={2}>
+          <Typography variant="h6">{t('observability.domain')}</Typography>
+          <Button variant="contained" color="primary">
+            {t('observability.export_to_csv')}
+          </Button>
+        </Box>
+        <TableContainer>
+          <Table aria-label="domain table">
+            <TableHead>
+              <TableRow>
+                <TableCell>{t('observability.status')}</TableCell>
+                <TableCell>{t('observability.found_date')}</TableCell>
+                <TableCell>{t('observability.domain')}</TableCell>
+                <TableCell>{t('observability.threat')}</TableCell>
+                <TableCell>{t('observability.phash')}</TableCell>
+                <TableCell>{t('observability.fuzzer')}</TableCell>
+                <TableCell>{t('observability.dns_ns')}</TableCell>
+                <TableCell>{t('observability.mail_exchange')}</TableCell>
+                <TableCell>{t('observability.ipv4')}</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Box my={3} display="flex" justifyContent="center">
-        <Pagination
-          count={Math.ceil(burntData.length / rowsPerPage)}
-          color="primary"
-          page={currentPage}
-          onChange={handlePageChange}
-        />
+            </TableHead>
+            <TableBody>
+              {paginatedData.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="error"
+                      endIcon={<KeyboardArrowDown />}
+                    >
+                      {t(`observability.${row.status.toLowerCase()}`)}
+                    </Button>
+                  </TableCell>
+                  <TableCell>{row.foundDate}</TableCell>
+                  <TableCell>{row.domain}</TableCell>
+                  <TableCell>{row.threat}</TableCell>
+                  <TableCell>
+                    <Button variant="outlined" size="small">
+                      {row.phash}
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="contained" color="info" size="small">
+                      {row.fuzzer}
+                    </Button>
+                  </TableCell>
+                  <TableCell>{row.dnsNs}</TableCell>
+                  <TableCell>{row.mailExchange}</TableCell>
+                  <TableCell>{row.ipv4}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box my={3} display="flex" justifyContent="center">
+          <Pagination
+            count={Math.ceil(burntData.length / rowsPerPage)}
+            color="primary"
+            page={currentPage}
+            onChange={handlePageChange}
+          />
+        </Box>
       </Box>
-    </Box>
     </DashboardCard>
   );
 };

@@ -14,6 +14,7 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 const burntScansData = [
   {
@@ -71,6 +72,7 @@ interface ScanListTableProps {
 }
 
 const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 1; // Adjust based on the number of pages
 
@@ -88,7 +90,7 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
 
   return (
     <Box>
-      <DashboardCard title="Scans" subtitle="List of all scans">
+      <DashboardCard title={t('observability.scans')!} subtitle={t('observability.list_of_all_scans')!}>
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -96,22 +98,22 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                 <TableRow>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      URL
+                      {t('observability.url')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Fecha
+                      {t('observability.date')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Tipo de escaneo
+                      {t('observability.scan_type')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Acciones
+                      {t('observability.actions')}
                     </Typography>
                   </TableCell>
                 </TableRow>
