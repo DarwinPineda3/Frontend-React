@@ -47,6 +47,34 @@ export interface SecurityLeakData {
   is_subscription_free: string;
 }
 
+export interface DarkWebData {
+  email: string;
+  ip_address: string;
+  username: string;
+  password: string;
+  hashed_password: string;
+  name: string;
+  vin: string;
+  address: string;
+  phone: string;
+  database_name: string;
+  title: string;
+  domain: string;
+  breach_date: string;
+  added_date: string;
+  modified_date: string;
+  pwn_count: string;
+  logo_path: string;
+  data_classes: string;
+  is_verified: string;
+  is_fabricated: string;
+  is_sensitive: string;
+  is_retired: string;
+  is_spam_list: string;
+  is_malware: string;
+  is_subscription_free: string;
+}
+
 export interface InternetData {
   title: string;
   risk: string;
@@ -96,6 +124,14 @@ export interface SecurityLeak {
 export interface SocialNetwork {
   date: string;
   data: SocialNetworksData;
+  generated: null | any;
+  source: string;
+  type: string;
+}
+
+export interface DarkWeb {
+  date: string;
+  data: DarkWebData;
   generated: null | any;
   source: string;
   type: string;
@@ -163,6 +199,14 @@ export interface SocialNetworksCategories {
     type: string;
   };
 }
+
+export interface DarkWebCategories {
+  [key: string]: {
+    data: DarkWebData[];
+    total_results: number;
+    type: string;
+  };
+}
 export interface GraphicsCharts {
   labels: string[];
   values: number[];
@@ -178,9 +222,9 @@ export interface ConsolidatedData {
   security_leaks_data: SecurityLeakCategories[];
   security_leaks_counters: SecurityLeaksCounters;
   graphics_charts_security_leaks: GraphicsCharts;
-  // dark_web_data
-  // dark_web_counters: DarkWebCounters;
-  // graphics_charts_dark_web:GraphicsCharts;
+  dark_web_data: DarkWebCategories[];
+  dark_web_counters: DarkWebCounters;
+  graphics_charts_dark_web:GraphicsCharts;
 
 }
 
