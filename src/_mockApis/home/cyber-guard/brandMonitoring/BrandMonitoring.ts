@@ -43,13 +43,6 @@ const latestData: LatestDataType[] = [
         "id": "PIO5xJIBHPjIIpHRGOo6"
     },
     {
-        "query": "avvillas.com.co",
-        "query_type": "DOMAIN",
-        "scan_date": "2024-10-25T17:16:32.654855Z",
-        "total_results": 962,
-        "id": "7oOuxJIBHPjIIpHRCen0"
-    },
-    {
         "query": "bancodebogota.com",
         "query_type": "DOMAIN",
         "scan_date": "2024-10-25T17:30:27.488378Z",
