@@ -422,6 +422,29 @@
     "scan_type": "Scan Type",
     "port": "Port",
     "protocol": "Protocol",
-    "service": "Service"
-}
+    "service": "Service",
+    "malware_count": "Malware Count",
+    "vip_compromised_count": "Compromised VIPs Count",
+    "fake_app_count": "Fake Applications Count"
+  },
+  "monitoring": {
+    "top_threat_types": "Top Detected Threat Types",
+    "threat_types": "Threat Types",
+    "count_of_incidents": "Incident Count",
+    "malware": "Malware",
+    "fake_apps": "Fake Applications",
+    "phishing": "Phishing",
+    "social_engineering": "Social Engineering",
+    "ransomware": "Ransomware",
+    "spyware": "Spyware",
+    "vips_compromised_by_platform": "VIPs Compromised by Platform",
+    "internet": "Internet",
+    "data_leaks": "Data Leaks",
+    "social_media": "Social Media",
+    "deep_web": "Deep Web",
+    "dark_web": "Dark Web",
+    "compromised_elements_by_type": "Compromised Elements by Type",
+    "top_compromised_vips": "Top Compromised VIPs",
+    "platforms_or_types": "Platforms or Types"
+  }
 }
