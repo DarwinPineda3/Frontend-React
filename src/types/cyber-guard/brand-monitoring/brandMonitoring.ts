@@ -173,6 +173,7 @@ export interface DarkWebCounters {
   iw_phones: number;
   iw_vins: number;
   iw_domains: number;
+  dark_web_total: number;
 }
 
 export interface InternetCategories {

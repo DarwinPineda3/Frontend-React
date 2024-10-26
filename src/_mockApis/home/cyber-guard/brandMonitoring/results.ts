@@ -4710,6 +4710,7 @@ export const consolidateData: Results = {
           iw_phones: 0,
           iw_vins: 0,
           iw_domains: 42,
+          dark_web_total: 85,
         },
         dark_web_data: [
           {
@@ -8258,6 +8259,7 @@ export const consolidateData: Results = {
           iw_phones: 0,
           iw_vins: 0,
           iw_domains: 6,
+          dark_web_total: 12,
         },
         dark_web_data: [
           {
@@ -18955,6 +18957,7 @@ export const consolidateData: Results = {
           iw_phones: 0,
           iw_vins: 0,
           iw_domains: 41,
+          dark_web_total: 82,
         },
 
         dark_web_data: [
