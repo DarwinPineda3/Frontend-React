@@ -112,7 +112,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {asset ? 'Update Asset' : 'Create Asset'}
+            {asset ? 'Update' : 'Create'}
           </Button>
         </Box>
       </Box>

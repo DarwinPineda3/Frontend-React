@@ -195,7 +195,13 @@ const Menuitems: MenuitemsType[] = [
             title: 'menu.open_cti', // Translation key for title
             href: 'http://38.87.165.53:8080/dashboard',
             icon: IconExternalLink,
-          }
+          },
+          {
+            id: uniqueId(),
+            title: 'menu.technologies_inventory', // Translation key for title
+            href: '/monitoring/soc/cti/technologies_inventory',
+            icon: IconBroadcast,
+          },
         ]
       },
       {
@@ -240,6 +246,11 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: 'menu.dark_web_monitoring', // Translation key for title
+    href: '/monitoring/threats-overview',
+    icon: IconSpy,
+  },
+  {
     title: 'menu.cyber_guard', // Translation key for title
     href: '/monitoring/cyber-guard',
     icon: IconShieldBolt,
@@ -254,6 +265,12 @@ const Menuitems: MenuitemsType[] = [
         id: uniqueId(),
         title: 'menu.brand_monitoring', // Translation key for title
         href: '/monitoring/cyber-guard/brand-monitoring',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.malware', // Translation key for title
+        href: '/monitoring/malware-analysis',
         icon: IconPoint,
       },
       {

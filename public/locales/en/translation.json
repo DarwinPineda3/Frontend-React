@@ -38,7 +38,9 @@
     "demo": "Demo",
     "darknet": "DarkNet",
     "news": "Newsletters",
-    "takedown": "Takedown"
+    "takedown": "Takedown",
+    "technologies_inventory": "Technologies Inventory",
+    "malware": "Malware"
   },
   "dashboard": {
     "montly_distribution": "Monthly Distribution",
@@ -121,5 +123,5 @@
     "description_required": "Description is required.",
     "solutions": "Solutions",
     "search_solutions": "Search Solutions"
-  }  
+  }
 }
