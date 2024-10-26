@@ -95,7 +95,7 @@ const OrgBreachesChart: React.FC<OrgBreachesChartChartProps> = ({ security_leaks
   }
 
   return (
-    <DashboardCard title="Organization Breaches">
+    <DashboardCard title="Organization Compromises">
       <Chart
         options={chartOptions}
         series={series}
