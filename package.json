@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "knip": "knip"
+    "knip": "knip",
+    "force-build": "vite build"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -39,6 +40,7 @@
     "react": "^18.3.1",
     "react-apexcharts": "1.4.0",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.2.10",
     "react-helmet": "6.1.0",
     "react-i18next": "^12.3.1",
     "react-jwt": "^1.2.2",

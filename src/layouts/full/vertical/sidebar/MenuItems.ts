@@ -27,6 +27,8 @@ import {
   IconLink,
   IconAlertHexagon,
   IconExternalLink,
+  IconShieldBolt,
+  IconSpy,
 } from '@tabler/icons-react';
 
 interface MenuitemsType {
@@ -241,6 +243,44 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.siem', // Translation key for title
     href: '/monitoring/siem',
     icon: IconMessage2,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.dark_web_monitoring', // Translation key for title
+    href: '/monitoring/threats-overview',
+    icon: IconSpy,
+  },
+  {
+    title: 'menu.cyber_guard', // Translation key for title
+    href: '/monitoring/cyber-guard',
+    icon: IconShieldBolt,
+    children: [
+      {
+        id: uniqueId(),
+        title: 'menu.parameters', // Translation key for title
+        href: '/monitoring/cyber-guard/parameters',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.brand_monitoring', // Translation key for title
+        href: '/monitoring/cyber-guard/brand-monitoring',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.malware', // Translation key for title
+        href: '/monitoring/malware-analysis',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.dark_web_monitoring', // Translation key for title
+        href: '/monitoring/threats-overview',
+        icon: IconSpy,
+      }
+    ],
+   
   },
   {
     navlabel: true,

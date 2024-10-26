@@ -3,8 +3,8 @@
 import React, { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
-import Log from 'src/views/audit/Log';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
+import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import ObservedAssets from 'src/views/observability/ObservedAssets';
 import Solutions from 'src/views/support/Solutions';
@@ -18,6 +18,8 @@ import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import SOCMonitoring from 'src/views/monitoring/SOC';
+import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
+import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring'
 import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
@@ -29,7 +31,7 @@ import TicketFormComp from 'src/views/support/TicketForm';
 import TicketsView from 'src/views/support/Ticketsview';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuditLogView from 'src/views/audit/AuditView';
-import path from 'path';
+import MittrView from 'src/views/monitoring/mittreview/MittrView';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
 import CTI from 'src/views/monitoring/SOC/cti';
@@ -43,6 +45,10 @@ import TechInventory from 'src/views/monitoring/SOC/cti/technologies_inventory';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
+import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
+import UserProfile from 'src/views/apps/user-profile/UserProfile';
+import AccountSettings from 'src/components/account-settings/AccountSettings';
+import DarkWeb from 'src/views/observability/DarkWeb';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -87,6 +93,8 @@ const Router = [
 
       // Monitoring
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
+      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/mittre', element: <MittrView /> },
       { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
       { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring /> },
       { path: '/monitoring/soc/cti', element: <CTI /> },
@@ -100,6 +108,12 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/news', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
+      { path: '/monitoring/malware-analysis', element: <MalwareAnalysis /> },
+      { path: '/monitoring/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
+      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
@@ -110,6 +124,7 @@ const Router = [
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
+      { path: '/monitoring/threats-overview', element: <DarkWeb /> },
 
       // Support
       { path: '/support/tickets', element: <Tickets /> },
@@ -121,6 +136,7 @@ const Router = [
 
       // Configuration
       { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
+      { path: '/configuration/schedule-scan', element: <ScheduleScanForm /> },
 
       // Audit
       { path: '/audit/log', element: <AuditLogView /> },
@@ -128,6 +144,10 @@ const Router = [
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
+
+      // User Profile
+      { path: '/user-profile', element: <UserProfile /> },
+      { path: '/account-settings', element: <AccountSettings /> },
     ],
   },
   {

@@ -17,7 +17,7 @@ const initialState = {
   gallery: [],
 };
 
-const UserProfileSlice = createSlice({
+export const UserProfileSlice = createSlice({
   name: 'UserPost',
   initialState,
   reducers: {
@@ -48,5 +48,64 @@ const UserProfileSlice = createSlice({
     },
   },
 });
+
+export const { getPosts, getFollowers, onToggleFollow, getPhotos } = UserProfileSlice.actions;
+
+export const fetchPosts = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}`);
+    dispatch(getPosts(response.data));
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
+export const likePosts = (postId: number) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post('/api/data/posts/like', { postId });
+    dispatch(getPosts(response.data.posts));
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
+export const addComment = (postId: number, comment: any[]) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post('/api/data/posts/comments/add', { postId, comment });
+    dispatch(getPosts(response.data.posts));
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
+
+export const addReply =
+  (postId: number, commentId: any[], reply: any[]) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post('/api/data/posts/replies/add', {
+        postId,
+        commentId,
+        reply,
+      });
+      dispatch(getPosts(response.data.posts));
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  };
+
+export const fetchFollwores = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`/api/data/users`);
+    dispatch(getFollowers(response.data));
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
+
+export const fetchPhotos = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`/api/data/gallery`);
+    dispatch(getPhotos(response.data));
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
 
 export default UserProfileSlice.reducer;

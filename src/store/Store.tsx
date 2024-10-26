@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import CustomizerReducer from './customizer/CustomizerSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import AssetsReducer from './sections/AssetsSlice';
+import MalwareAnalysesReducer from "./sections/MalwareAnalysisSlice";
 
 //dashboard reducers
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
@@ -13,6 +14,10 @@ import AlertDistribution from './sections/dashboard/AlertDistributionSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
+// cyber guard reducers
+import ParametersReducer from './sections/cyber-guard/ParametersSlice';
+// brand monitoring reducers
+import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 
 //monitoring reducers
 import TechInventoryReducer from './sections/cti/TechInventorySlice';
@@ -42,7 +47,10 @@ export const store = configureStore({
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
     dashboard: dashboardReducer,
-    techInventoryReducer: TechInventoryReducer
+    techInventoryReducer: TechInventoryReducer,
+    malwareAnalysesReducer: MalwareAnalysesReducer,
+    parametersReducer: ParametersReducer,
+    brandMonitoringReducer: BrandMonitoringReducer,
   },
 });
 
@@ -51,7 +59,10 @@ const rootReducer = combineReducers({
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
   dashboard: dashboardReducer,
-  techInventoryReducer: TechInventoryReducer
+  techInventoryReducer: TechInventoryReducer,
+  malwareAnalysesReducer: MalwareAnalysesReducer,
+  parametersReducer: ParametersReducer,
+  brandMonitoringReducer: BrandMonitoringReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

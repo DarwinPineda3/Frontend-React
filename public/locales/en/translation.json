@@ -14,8 +14,11 @@
     "monitoring": "Monitoring",
     "soc": "SOC",
     "siem": "SIEM",
+    "cyber_guard": "Cyber Guard",
+    "parameters": "Parameters",
     "observability": "Observability",
     "observed_assets": "Observed Assets",
+    "dark_web_monitoring": "Threats Overview",
     "installation_guide": "Installation Guide",
     "support": "Support",
     "tickets": "Tickets",
@@ -36,6 +39,7 @@
     "darknet": "DarkNet",
     "news": "Newsletters",
     "takedown": "Takedown",
-    "technologies_inventory": "Technologies Inventory"
+    "technologies_inventory": "Technologies Inventory",
+    "malware": "Malware"
   }
 }
