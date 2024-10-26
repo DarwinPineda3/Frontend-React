@@ -12,6 +12,10 @@ interface InternetAccordionProps {
   internet_data: InternetCategories[];
 }
 
+const formatKey = (key: string) => {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 const InternetAccordion: React.FC<InternetAccordionProps> = ({ internet_data }) => {
   return (
     <Box>
@@ -24,7 +28,7 @@ const InternetAccordion: React.FC<InternetAccordionProps> = ({ internet_data }) 
               id={`${category}-header`}
             >
               <Typography variant="h6">
-                {details.type} ({details.total_results})
+              {formatKey(details.type)} ({details.total_results})
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

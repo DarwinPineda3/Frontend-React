@@ -12,6 +12,10 @@ interface DarkWebAccordionProps {
   dark_web_data: DarkWebCategories[];
 }
 
+const formatKey = (key: string) => {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) => {
   return (
     <Box>
@@ -24,7 +28,7 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
               id={`${category}-header`}
             >
               <Typography variant="h6">
-                {details.type} ({details.total_results})
+                {formatKey(details.type)} ({details.total_results})
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
