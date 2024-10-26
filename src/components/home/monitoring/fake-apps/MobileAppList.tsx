@@ -18,11 +18,19 @@ import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/fake-app/fakeAppSlice';
+import AppleIcon from '@mui/icons-material/Apple';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
+import AndroidIcon from '@mui/icons-material/Android';
+import { ListItemIcon, ListItem, List, styled, ListItemText, useTheme } from '@mui/material';
+
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
 
 interface MobileAppListTableProps {
   onMobileAppClick: (malwareAnalysisId: string) => void;
 }
+
+
 
 const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
   const dispatch = useDispatch();
@@ -55,7 +63,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Mobile app list" subtitle="List of Available mobiles apps" action={addButton}>
+    <DashboardCard title="Search result" subtitle="List mobiles apps found" action={addButton}>
       <Box>
         <TableContainer>
           <Table aria-label="mobileApp table" sx={{ whiteSpace: 'nowrap' }}>
@@ -69,6 +77,11 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
                     Source
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    State
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -105,7 +118,37 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {mobileApp.source}
+                      {mobileApp.source === 'Play Store' && <AndroidIcon />}
+                      {mobileApp.source === 'App Store' && <AppleIcon />}
+                      {!['Play Store', 'App Store'].includes(mobileApp.source) && (
+                        mobileApp.source
+                      )}
+                      
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600} color={
+                      mobileApp.score > 5 ? 'Primary' :
+                        mobileApp.score > 2 ? '#FFA500' :
+                          mobileApp.score > 1 ? 'green' :
+                            'green'
+                    }>
+                      
+                      <Chip
+                        label={mobileApp.score > 5 ? 'Very risk' :
+                          mobileApp.score > 2 ? 'Risky' :
+                            mobileApp.score > 1 ? 'Low' : 'No Risk'}
+                        color="secondary"
+                        size="small"
+                        style={{
+                          backgroundColor:
+                            mobileApp.score > 5 ? 'Primary' :
+                              mobileApp.score > 2 ? 'orange' :
+                                mobileApp.score > 1 ? 'green' :
+                                  'green',
+                          color: 'white'
+                        }}
+                          />
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -121,9 +164,9 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score === 'Critical' ? 'red' :
-                              mobileApp.score === 'High' ? '#FA896B' :
-                                mobileApp.score === 'Medium' ? '#FFA500' :
+                            mobileApp.score > 5 ? 'primary' :
+                              mobileApp.score > 2 ? 'orange' :
+                                mobileApp.score > 1 ? 'green' :
                                   'green',
                           color: 'white'
                         }}
