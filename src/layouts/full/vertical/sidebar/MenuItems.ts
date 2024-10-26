@@ -264,7 +264,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.malware', // Translation key for title
-        href: '/monitoring/malwareAnalysis',
+        href: '/monitoring/malware-analysis',
         icon: IconPoint,
       },
       {
