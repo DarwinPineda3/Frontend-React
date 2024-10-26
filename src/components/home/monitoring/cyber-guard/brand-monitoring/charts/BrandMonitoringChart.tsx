@@ -34,7 +34,13 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
       },
     },
     dataLabels: {
-      enabled: false,
+      enabled: true,
+      style: {
+        colors: ['#000000'],
+      },
+      formatter: (val: number | string) => {
+        return `${val}`;
+      },
     },
     legend: {
       show: false,
@@ -52,9 +58,9 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
         show: false,
       },
       labels: {
-        rotate: 0, // Asegúrate de que la rotación sea 0 para que los labels sean horizontales
+        rotate: 0,
         style: {
-          colors: theme.palette.text.primary, // Opcional: Ajusta el color de los labels
+          colors: theme.palette.text.primary,
         },
       },
     },
