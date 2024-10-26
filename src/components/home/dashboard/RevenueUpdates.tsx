@@ -6,19 +6,21 @@ import { IconGridDots } from '@tabler/icons-react';
 import DashboardCard from '../../shared/DashboardCard';
 import CustomSelect from '../../forms/theme-elements/CustomSelect';
 import Loader from '../../shared/Loader/Loader';
-
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
+import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchRevenueUpdatesData } from 'src/store/sections/dashboard/RevenueUpdatesSlice';
 import { AppState } from 'src/store/Store';
-import { ApexOptions } from 'apexcharts';  // Ensure correct import
+import { ApexOptions } from 'apexcharts';
+import { useTranslation } from 'react-i18next';
 
 const RevenueUpdates = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, totalReports, redTeamReports, blueTeamReports, series, categories, error } = useSelector(
     (state: AppState) => state.dashboard.revenueUpdates
   );
 
   const [month, setMonth] = React.useState('1');
+  const currentYear = new Date().getFullYear();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMonth(event.target.value);
@@ -73,7 +75,7 @@ const RevenueUpdates = () => {
       tickAmount: 4,
     },
     xaxis: {
-      categories: categories, // Use categories from the state
+      categories: categories,
       axisBorder: {
         show: false,
       },
@@ -86,23 +88,21 @@ const RevenueUpdates = () => {
 
   if (loading) {
     return (
-          <DashboardCard
-      title="Reports Updates">
-      <Box display="flex" justifyContent="center" mt={4} mb={4}>
-        <Loader />
-      </Box>
+      <DashboardCard title={t("dashboard.reports_updates")}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
       </DashboardCard>
-
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
   }
 
   return (
     <DashboardCard
-      title="Reports Updates"
+      title={t("dashboard.reports_updates")}
       action={
         <CustomSelect
           labelId="month-dd"
@@ -111,9 +111,9 @@ const RevenueUpdates = () => {
           value={month}
           onChange={handleChange}
         >
-          <MenuItem value={1}>March 2023</MenuItem>
-          <MenuItem value={2}>April 2023</MenuItem>
-          <MenuItem value={3}>May 2023</MenuItem>
+          <MenuItem value={1}>{`${t("dashboard.march")} ${currentYear}`}</MenuItem>
+          <MenuItem value={2}>{`${t("dashboard.april")} ${currentYear}`}</MenuItem>
+          <MenuItem value={3}>{`${t("dashboard.may")} ${currentYear}`}</MenuItem>
         </CustomSelect>
       }
     >
@@ -148,7 +148,7 @@ const RevenueUpdates = () => {
                   {totalReports}
                 </Typography>
                 <Typography variant="subtitle2" color="textSecondary">
-                  Total Reports
+                  {t("dashboard.total_reports")}
                 </Typography>
               </Box>
             </Stack>
@@ -160,7 +160,7 @@ const RevenueUpdates = () => {
               ></Avatar>
               <Box>
                 <Typography variant="subtitle1" color="textSecondary">
-                  Red Team
+                  {t("dashboard.red_team")}
                 </Typography>
                 <Typography variant="h5">{redTeamReports}</Typography>
               </Box>
@@ -171,14 +171,14 @@ const RevenueUpdates = () => {
               ></Avatar>
               <Box>
                 <Typography variant="subtitle1" color="textSecondary">
-                  Blue Team
+                  {t("dashboard.blue_team")}
                 </Typography>
                 <Typography variant="h5">{blueTeamReports}</Typography>
               </Box>
             </Stack>
           </Stack>
           <Button color="primary" variant="contained" fullWidth>
-            View Full Report
+            {t("dashboard.view_full_report")}
           </Button>
         </Grid>
       </Grid>

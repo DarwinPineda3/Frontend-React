@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, TextField, Button, Box } from '@mui/material';
 import DashboardCard from '../shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 interface Solution {
     id: number;
@@ -12,6 +13,7 @@ interface SolutionSearchProps {
 }
 
 const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
+    const { t } = useTranslation();
     const [solutions, setSolutions] = useState<Solution[]>([]);
     const [filteredSolutions, setFilteredSolutions] = useState<Solution[]>([]);
 
@@ -48,7 +50,7 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
                         <Box display="flex" alignItems="center" width="100%">
                             <TextField
                                 variant="outlined"
-                                placeholder="Buscar Soluciones"
+                                placeholder={t("support.search_solutions")}
                                 onChange={handleChange}
                                 required
                                 fullWidth
@@ -72,7 +74,7 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
                                 }}
                             />
                             <Button variant="outlined" type="submit" sx={{ ml: 1, height: '40px' }}>
-                                Buscar
+                                {t("support.search_solutions")}
                             </Button>
                         </Box>
                     </form>

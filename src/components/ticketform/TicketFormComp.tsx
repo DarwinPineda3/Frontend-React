@@ -6,6 +6,7 @@ import { TicketType } from '../../types/apps/ticket';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from 'src/components/shared/DashboardCard'; 
+import { useTranslation } from 'react-i18next';
 import '../../styles/TicketForm.css';
 
 const StyledFileInput = styled('input')({
@@ -23,6 +24,7 @@ const StyledFileInput = styled('input')({
 });
 
 const TicketFormComp: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [ticket, setTicket] = useState<TicketType>({
     Id: Date.now(),
@@ -60,8 +62,8 @@ const TicketFormComp: React.FC = () => {
     e.preventDefault();
     const newErrors: { [key: string]: string } = {};
 
-    if (!ticket.ticketTitle) newErrors.ticketTitle = 'El título es obligatorio.';
-    if (!ticket.ticketDescription) newErrors.ticketDescription = 'La descripción es obligatoria.';
+    if (!ticket.ticketTitle) newErrors.ticketTitle = t("support.title_required");
+    if (!ticket.ticketDescription) newErrors.ticketDescription = t("support.description_required");
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -73,7 +75,6 @@ const TicketFormComp: React.FC = () => {
 
     navigate('/support/ticketsview');
 
-    // Reiniciar el estado del ticket
     setTicket({
       Id: Date.now(),
       ticketTitle: '',
@@ -102,11 +103,11 @@ const TicketFormComp: React.FC = () => {
             <TableBody>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="ticketTitle">Asunto</CustomFormLabel>
+                  <CustomFormLabel htmlFor="ticketTitle">{t("support.subject")}</CustomFormLabel>
                   <CustomTextField
                     id="ticketTitle"
                     name="ticketTitle"
-                    placeholder="Ingrese el asunto del ticket"
+                    placeholder={t("support.enter_ticket_subject")}
                     value={ticket.ticketTitle}
                     onChange={handleChange}
                     fullWidth
@@ -117,7 +118,7 @@ const TicketFormComp: React.FC = () => {
               </TableRow>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
-                  <CustomFormLabel htmlFor="ticketDescription">Descripción</CustomFormLabel>
+                  <CustomFormLabel htmlFor="ticketDescription">{t("support.description")}</CustomFormLabel>
                   <CustomTextField
                     id="ticketDescription"
                     name="ticketDescription"
@@ -133,7 +134,7 @@ const TicketFormComp: React.FC = () => {
               </TableRow>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="file">Adjuntar archivo</CustomFormLabel>
+                  <CustomFormLabel htmlFor="file">{t("support.attach_file")}</CustomFormLabel>
                   <StyledFileInput
                     type="file"
                     id="file"
@@ -146,8 +147,8 @@ const TicketFormComp: React.FC = () => {
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
                   <Box display="flex" justifyContent="flex-start">
-                    <Button type="submit" variant="contained" color="primary">
-                      Crear Ticket
+                    <Button type="submit" variant="contained" color="primary" onClick={handleSubmit}>
+                      {t("support.create_ticket")}
                     </Button>
                   </Box>
                 </TableCell>

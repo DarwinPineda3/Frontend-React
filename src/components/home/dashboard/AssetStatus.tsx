@@ -8,8 +8,12 @@ import Loader from '../../shared/Loader/Loader'; // Loader component
 import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
 import { fetchAssetStatusData } from 'src/store/sections/dashboard/AssetStatusSlice';
 import { AppState } from 'src/store/Store';
+import { useTranslation } from 'react-i18next';
 
 const AssetStatus = () => {
+
+  
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, connectedAssets, disconnectedAssets, error } = useSelector(
     (state: AppState) => state.dashboard.assetStatus
@@ -27,7 +31,7 @@ const AssetStatus = () => {
 
   const stats = [
     {
-      title: 'Connected Assets',
+      title: t('dashboard.connected_assets'),
       subtitle: '',
       amount: connectedAssets?.amount || 0,
       color: secondary,
@@ -35,7 +39,7 @@ const AssetStatus = () => {
       icon: IconNetwork,
     },
     {
-      title: 'Disconnected Assets',
+      title: t('dashboard.disconnected_assets'),
       subtitle: '',
       amount: disconnectedAssets?.amount || 0,
       color: primary,
@@ -60,7 +64,7 @@ const AssetStatus = () => {
   }
 
   return (
-    <DashboardCard title="Asset Status">
+    <DashboardCard title={t("dashboard.asset_status")??"asset_status"}>
       <Stack spacing={3} mt={5}>
         {stats.map((stat, i) => (
           <Stack
