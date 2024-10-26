@@ -47,6 +47,21 @@ export interface SecurityLeakData {
   is_subscription_free: string;
 }
 
+export interface InternetData {
+  title: string;
+  risk: string;
+  name: string;
+  text: string;
+  generated: string;
+  type: string;
+  confidence: string;
+  data: string;
+  module: string;
+  source: string;
+  date: string;
+  risk_level: number;
+}
+
 export interface SocialNetworksData {
   id: string;
   url: string;
@@ -67,7 +82,7 @@ export interface SocialNetworksCounters {
   linkedin: number;
   facebook: number;
   social_network_total: number;
-};
+}
 
 export interface SecurityLeak {
   date: string;
@@ -88,11 +103,10 @@ export interface SocialNetwork {
 
 export interface Internet {
   date: string;
-  data: SecurityLeakData;
+  data: InternetData;
   generated: null | any;
   source: string;
   type: string;
-  risk_level: 'low' | 'medium' | 'high' | 'critical';
 }
 
 export interface SecurityLeaksCounters {
@@ -116,12 +130,21 @@ export interface InternetCounter {
   total: number;
 }
 
-export interface InternetData {
+export interface DarkWebCounters {
+  iw_ips: number;
+  iw_emails: number;
+  iw_names_usernames: number;
+  iw_phones: number;
+  iw_vins: number;
+  iw_domains: number;
+}
+
+export interface InternetCategories {
   [key: string]: {
-    data: SecurityLeak[];
+    data: Internet[];
     total_results: number;
     type: string;
-    description: string;
+    text:string;
   };
 }
 
@@ -146,15 +169,19 @@ export interface GraphicsCharts {
 }
 
 export interface ConsolidatedData {
-  //  internet_counters: InternetCounter;
-  //  internet_data: InternetData[];
-  //  graphics_charts_internet: GraphicsCharts;
-  graphics_charts_social_networks:GraphicsCharts;
-  social_networks_counters:SocialNetworksCounters
+  internet_counters: InternetCounter;
+  internet_data: InternetCategories[];
+  graphics_charts_internet: GraphicsCharts;
+  graphics_charts_social_networks: GraphicsCharts;
+  social_networks_counters: SocialNetworksCounters;
   social_networks_data: SocialNetworksCategories[];
   security_leaks_data: SecurityLeakCategories[];
   security_leaks_counters: SecurityLeaksCounters;
   graphics_charts_security_leaks: GraphicsCharts;
+  // dark_web_data
+  // dark_web_counters: DarkWebCounters;
+  // graphics_charts_dark_web:GraphicsCharts;
+
 }
 
 // Main data type
