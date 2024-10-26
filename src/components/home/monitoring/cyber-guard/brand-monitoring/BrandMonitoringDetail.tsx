@@ -10,7 +10,7 @@ import ListIcon from '@mui/icons-material/List';
 import PersonIcon from '@mui/icons-material/Person';
 import ExclamationIcon from '@mui/icons-material/ErrorOutline';
 import DashboardCard from '../../../../shared/DashboardCard';
-import SecurityLeaks from './brand-monitoring-details/SecurityLeaks';
+import SecurityLeaks from './brand-monitoring-details/security-leaks/SecurityLeaks';
 import { fetchBrandMonitoringById } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
@@ -28,7 +28,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       icon: <GlobeIcon />,
       label: 'Internet',
       disabled: false,
-      content: <Typography>Internet Content</Typography>,
+      content: <SecurityLeaks brandMonitoringDetail={brandMonitoringDetail} />,
     },
     {
       value: 'security-leaks',
@@ -42,7 +42,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       icon: <PersonIcon />,
       label: 'Social Networks',
       disabled: false,
-      content: <Typography>Social Networks Content</Typography>,
+      content: <SecurityLeaks brandMonitoringDetail={brandMonitoringDetail} />,
     },
     {
       value: 'darkweb',

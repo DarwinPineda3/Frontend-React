@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/SecurityLeaksModal'; 
+import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
