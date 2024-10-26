@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
+import SocialNetworkDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 
 interface SecurityLeakTableProps {
   social: SocialNetwork[];
@@ -22,7 +22,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedLeak, setSelectedLeak] = useState<SocialNetwork| null>(null);
+  const [selectedLeak, setSelectedLeak] = useState<SocialNetwork | null>(null);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -45,6 +45,25 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
     setSelectedLeak(null);
   };
 
+  const renderSentimentChip = (sentiment: string) => {
+    switch (sentiment) {
+      case '0':
+        return <Chip label="No expresses feeling" color="default" />;
+      case '1':
+        return <Chip label="Very dissatisfied" color="error" />;
+      case '2':
+        return <Chip label="Dissatisfied" color="warning" />;
+      case '3':
+        return <Chip label="Neutral" color="info" />;
+      case '4':
+        return <Chip label="Satisfied" color="success" />;
+      case '5':
+        return <Chip label="Very satisfied" color="primary" />;
+      default:
+        return <Chip label="Unknown" color="default" />;
+    }
+  };
+
   return (
     <>
       <TableContainer>
@@ -56,7 +75,12 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                   Data
                 </Typography>
               </TableCell>
-              <TableCell align="center">
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  Sentiment Analysis
+                </Typography>
+              </TableCell>
+              <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
                   Date
                 </Typography>
@@ -75,12 +99,23 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                   <Typography
                     variant="subtitle2"
                     onClick={() => handleOpenModal(social)}
-                    sx={{ cursor: 'pointer'}}
+                    sx={{
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: 150,
+                    }}
                   >
-                    {social.data.user_fullname || social.data.username || 'NA'}
+                    {social.data?.user_fullname ||
+                      social.data?.username ||
+                      social.data?.user_url ||
+                      social.data?.url ||
+                      'NA'}
                   </Typography>
                 </TableCell>
-                <TableCell align="center">
+                <TableCell>{renderSentimentChip(social.data?.sentiment_analysis || '0')}</TableCell>
+                <TableCell>
                   <HumanizedDate dateString={social.date} />
                 </TableCell>
                 <TableCell>
@@ -102,7 +137,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
-      <SecurityLeakDetailModal
+      <SocialNetworkDetailModal
         open={modalOpen}
         onClose={handleCloseModal}
         data={selectedLeak ? selectedLeak.data : {}}
