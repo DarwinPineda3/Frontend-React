@@ -11,13 +11,15 @@ import {
 import { Link, Typography, Box } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import DashboardCard from '../shared/DashboardCard';
-import Loader from '../shared/Loader/Loader'; // Loader component
+import Loader from '../shared/Loader/Loader';
 
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
+import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchRecentEventsData } from 'src/store/sections/dashboard/RecentEventsSlice';
 import { AppState } from 'src/store/Store';
+import { useTranslation } from 'react-i18next';
 
 const RecentEvents = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, events, error } = useSelector((state: AppState) => state.dashboard.recentEvents);
 
@@ -27,20 +29,20 @@ const RecentEvents = () => {
 
   if (loading) {
     return (
-    <DashboardCard title="Recent Events">
-      <Box display="flex" justifyContent="center" mt={4} mb={4}>
-        <Loader />
-      </Box>
-    </DashboardCard>
+      <DashboardCard title={t("dashboard.recent_events") as string}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
+      </DashboardCard>
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
   }
 
   return (
-    <DashboardCard title="Recent Events">
+    <DashboardCard title={t("dashboard.recent_events") as string}>
       {/*@ts-ignore*/}
       <Timeline
         className="theme-timeline"
@@ -51,7 +53,8 @@ const RecentEvents = () => {
             flex: 0.5,
             paddingLeft: 0,
           },
-        }} placeholder={undefined}    >
+        }}
+      >
         {events.map((event, index) => (
           <TimelineItem key={index}>
             <TimelineOppositeContent>{event.time}</TimelineOppositeContent>
