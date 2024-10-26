@@ -249,7 +249,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           <TableRow>
             <TableCell>Select</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Risk Level</TableCell>
+            <TableCell>Risk Level1111</TableCell>
             <TableCell>Instances</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
