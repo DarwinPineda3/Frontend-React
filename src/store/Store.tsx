@@ -19,6 +19,8 @@ import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 // brand monitoring reducers
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 
+//monitoring reducers
+import TechInventoryReducer from './sections/cti/TechInventorySlice';
 
 import { combineReducers } from 'redux';
 import {
@@ -44,8 +46,9 @@ export const store = configureStore({
     customizer: CustomizerReducer,
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
-    malwareAnalysesReducer: MalwareAnalysesReducer,
     dashboard: dashboardReducer,
+    techInventoryReducer: TechInventoryReducer,
+    malwareAnalysesReducer: MalwareAnalysesReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
   },
@@ -55,8 +58,9 @@ const rootReducer = combineReducers({
   customizer: CustomizerReducer,
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
-  malwareAnalysesReducer: MalwareAnalysesReducer,
   dashboard: dashboardReducer,
+  techInventoryReducer: TechInventoryReducer,
+  malwareAnalysesReducer: MalwareAnalysesReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
 });
