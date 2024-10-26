@@ -18,6 +18,7 @@ import { IconMail } from '@tabler/icons-react';
 
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
 import unlimitedImg from 'src/assets/images/backgrounds/unlimited-bg.png';
+import LogoutButton from 'src/components/user/LogoutButton';
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -160,9 +161,7 @@ const Profile = () => {
               <img src={unlimitedImg} alt="unlimited" className="signup-bg"></img>
             </Box>
           </Box>
-          <Button to="/auth/login" variant="outlined" color="primary" component={Link} fullWidth>
-            Logout
-          </Button>
+          <LogoutButton />
         </Box>
       </Menu>
     </Box>
