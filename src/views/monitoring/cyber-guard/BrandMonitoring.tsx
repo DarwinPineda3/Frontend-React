@@ -3,10 +3,10 @@ import { Grid, Box, IconButton, Breadcrumbs, Link } from "@mui/material";
 import { useParams, useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PageContainer from "src/components/container/PageContainer";
-import BrandMonitoringList from "src/components/home/monitoring/cyber-guard/brandMonitoring/BrandMonitoringList";
+import BrandMonitoringList from "src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringList";
 import { useSelector } from 'src/store/Store';
-import BrandMonitoringChart from "src/components/home/monitoring/cyber-guard/brandMonitoring/charts/BrandMonitoringChart";
-import BrandMonitoringDetail from 'src/components/home/monitoring/cyber-guard/brandMonitoring/BrandMonitoringDetail';
+import BrandMonitoringChart from "src/components/home/monitoring/cyber-guard/brand-monitoring/charts/BrandMonitoringChart";
+import BrandMonitoringDetail from 'src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringDetail';
 
 const BrandMonitoringCyberGuard = () => {
     

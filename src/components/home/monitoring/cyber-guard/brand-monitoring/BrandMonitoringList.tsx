@@ -79,7 +79,8 @@ const BrandMonitoringList : React.FC<BrandMonitoringListProps> = ({ onBrandMonit
                 brandMonitoring.length > 0 ? brandMonitoring.map((result: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <Typography                       variant="subtitle2"
+                      <Typography                       
+                      variant="subtitle2"
                       fontWeight={600}
                       color="primary"
                       component="a"

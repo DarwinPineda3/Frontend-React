@@ -27,8 +27,8 @@ import {
   IconLink,
   IconAlertHexagon,
   IconExternalLink,
+  IconShieldBolt,
   IconSpy,
-  IconShieldBolt
 } from '@tabler/icons-react';
 
 interface MenuitemsType {
@@ -266,8 +266,15 @@ const Menuitems: MenuitemsType[] = [
         title: 'menu.malware', // Translation key for title
         href: '/monitoring/malwareAnalysis',
         icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.dark_web_monitoring', // Translation key for title
+        href: '/monitoring/threats-overview',
+        icon: IconSpy,
       }
     ],
+   
   },
   {
     navlabel: true,

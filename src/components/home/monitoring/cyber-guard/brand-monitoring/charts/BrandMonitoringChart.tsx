@@ -23,13 +23,13 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
       toolbar: {
         show: false,
       },
-      height: 280,
+      height: 400,
     },
     colors: [primary, primarylight, secondary],
     plotOptions: {
       bar: {
         borderRadius: 4,
-        columnWidth: '35%',
+        columnWidth: '50%',
         distributed: true,
       },
     },
@@ -51,10 +51,19 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
       axisBorder: {
         show: false,
       },
+      labels: {
+        rotate: 0, // Asegúrate de que la rotación sea 0 para que los labels sean horizontales
+        style: {
+          colors: theme.palette.text.primary, // Opcional: Ajusta el color de los labels
+        },
+      },
     },
     yaxis: {
       labels: {
-        show: false,
+        show: true,
+        style: {
+          colors: theme.palette.text.primary,
+        },
       },
     },
     tooltip: {
