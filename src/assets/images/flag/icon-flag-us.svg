@@ -26,8 +26,6 @@
     <!-- Placeholder for stars (simplified) -->
     <circle cx="2" cy="2" r="0.5" fill="#FFFFFF" clip-path="url(#topLeftClip)" />
     <circle cx="4" cy="4" r="0.5" fill="#FFFFFF" clip-path="url(#topLeftClip)" />
-    <circle cx="2" cy="6" r="0.5" fill="#FFFFFF" clip-path="url(#topLeftClip)" />
-    <circle cx="6" cy="6" r="0.5" fill="#FFFFFF" clip-path="url(#topLeftClip)" />
     <circle cx="6" cy="2" r="0.5" fill="#FFFFFF" clip-path="url(#topLeftClip)" />
     <!-- Additional circles can be added for more stars -->
 
