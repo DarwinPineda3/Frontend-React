@@ -128,23 +128,23 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600} color={
-                      mobileApp.score > 5 ? 'Primary' :
-                        mobileApp.score > 2 ? '#FFA500' :
-                          mobileApp.score > 1 ? 'green' :
+                      mobileApp.score > 7 ? 'Primary' :
+                        mobileApp.score > 3.9 ? '#FFA500' :
+                          mobileApp.score > 0 ? 'green' :
                             'green'
                     }>
                       
                       <Chip
-                        label={mobileApp.score > 5 ? 'Very risk' :
-                          mobileApp.score > 2 ? 'Risky' :
-                            mobileApp.score > 1 ? 'Low' : 'No Risk'}
+                        label={mobileApp.score > 7 ? 'Very risk' :
+                          mobileApp.score > 3.9 ? 'Risky' :
+                            mobileApp.score > 0 ? 'Low' : 'No Risk'}
                         color="secondary"
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 5 ? 'Primary' :
-                              mobileApp.score > 2 ? 'orange' :
-                                mobileApp.score > 1 ? 'green' :
+                            mobileApp.score > 7 ? 'Primary' :
+                              mobileApp.score > 3.9 ? 'orange' :
+                                mobileApp.score > 0 ? 'green' :
                                   'green',
                           color: 'white'
                         }}
@@ -164,9 +164,9 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 5 ? 'primary' :
-                              mobileApp.score > 2 ? 'orange' :
-                                mobileApp.score > 1 ? 'green' :
+                            mobileApp.score > 7 ? 'primary' :
+                              mobileApp.score > 3.9 ? 'orange' :
+                                mobileApp.score > 0 ? 'green' :
                                   'green',
                           color: 'white'
                         }}
