@@ -45,6 +45,21 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
     setSelectedInternet(null);
   };
 
+  const getChipColor = (riskLevel: string) => {
+    switch (riskLevel) {
+      case 'info':
+        return { color: '#1B3C48', label: 'Info' };
+      case 'HIGH':
+        return { color: '#EF8E0E', label: 'High' };
+      case 'MEDIUM':
+        return { color: '#c9bc0d', label: 'Medium' };
+      case 'LOW':
+        return { color: '#329223', label: 'Low' };
+      default:
+        return { color: '#90CAF9', label: 'N/A' };
+    }
+  };
+
   return (
     <>
       <TableContainer>
@@ -77,7 +92,17 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                     onClick={() => handleOpenModal(internet)}
                     sx={{ cursor: 'pointer'}}
                   >
-                    {internet.data.data || internet.data.title || 'NA'}
+                    {internet.data.data || internet.data.title || 'NA'} 
+                    {internet.type === 'Correlations' && (
+                      <Chip
+                        label={getChipColor(internet.data.risk).label}
+                        sx={{
+                          backgroundColor: getChipColor(internet.data.risk).color,
+                          color: 'white',
+                          ml: '5px'
+                        }}
+                      />
+                    )}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
