@@ -1,8 +1,7 @@
 import React from 'react';
-import { Grid, Box, Typography, TableContainer, IconButton, Stack, LinearProgress } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 const mittrUrl = 'https://pdfobject.com/pdf/sample.pdf'; 
 const WpScanDetail: React.FC<{ newsLetterId: string }> = ({ newsLetterId }) => {

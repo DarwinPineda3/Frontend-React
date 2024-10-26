@@ -24,7 +24,7 @@ const NewsLetter = () => {
     }, [newsLetterId, location]);
 
     const handleNewsLetterClick = (id: string) => {
-        navigate(`/monitoring/newsLetters/${id}`);
+        navigate(`/monitoring/soc/newsLetters/${id}`);
     };
     return (
         <PageContainer title="Akila">
