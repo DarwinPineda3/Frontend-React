@@ -129,8 +129,6 @@ summaryData.sort((a, b) => b.total_results - a.total_results);
 mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/brand-monitoring')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
-    console.log('entre');
-
     const limit = 5;
     const page = parseInt(urlParams.get('page') || '1', 10);
 
