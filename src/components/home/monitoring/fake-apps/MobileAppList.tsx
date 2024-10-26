@@ -161,5 +161,4 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
     </DashboardCard>
   );
 };
-
 export default MobileAppList;
