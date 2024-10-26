@@ -79,7 +79,7 @@ export interface InternetData {
   title: string;
   risk: string;
   name: string;
-  text: string;
+  description: string;
   generated: string;
   type: string;
   confidence: string;
@@ -102,6 +102,7 @@ export interface SocialNetworksData {
   user_following: string;
   user_url: string;
   user_type: 'user' | 'page' | 'verified' | 'business' | string;
+  sentiment_analysis: string;
 }
 
 export interface SocialNetworksCounters {
@@ -167,12 +168,12 @@ export interface InternetCounter {
 }
 
 export interface DarkWebCounters {
-  iw_ips: number;
-  iw_emails: number;
-  iw_names_usernames: number;
-  iw_phones: number;
-  iw_vins: number;
-  iw_domains: number;
+  dw_ips: number;
+  dw_emails: number;
+  dw_names_usernames: number;
+  dw_phones: number;
+  dw_vins: number;
+  dw_domains: number;
   dark_web_total: number;
 }
 
@@ -181,7 +182,7 @@ export interface InternetCategories {
     data: Internet[];
     total_results: number;
     type: string;
-    text:string;
+    description:string;
   };
 }
 
@@ -203,7 +204,7 @@ export interface SocialNetworksCategories {
 
 export interface DarkWebCategories {
   [key: string]: {
-    data: DarkWebData[];
+    data: DarkWeb[];
     total_results: number;
     type: string;
   };
@@ -218,6 +219,7 @@ export interface ConsolidatedData {
   internet_data: InternetCategories[];
   graphics_charts_internet: GraphicsCharts;
   graphics_charts_social_networks: GraphicsCharts;
+  graphics_charts_social_networks_sentiment_analysis: GraphicsCharts;
   social_networks_counters: SocialNetworksCounters;
   social_networks_data: SocialNetworksCategories[];
   security_leaks_data: SecurityLeakCategories[];
@@ -233,7 +235,7 @@ export interface ConsolidatedData {
 export interface Data {
   id: string;
   query: string;
-  querytype: string;
+  query_type: string;
   scandate: string;
   totalresults: number;
   status: string;
