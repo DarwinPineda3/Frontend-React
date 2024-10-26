@@ -21,6 +21,7 @@ interface BrandMonitoringDetailProps {
 const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => {
   const dispatch = useDispatch();
   const brandMonitoringDetail: Data = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringDetail);
+
   const COMMON_TAB = [
     {
       value: 'internet',
@@ -55,6 +56,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
   React.useEffect(() => {
     dispatch(fetchBrandMonitoringById(id));
   }, [dispatch, id]);
+
   const [value, setValue] = React.useState('internet');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -82,12 +84,13 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
                 }
                 value={tab.value}
                 disabled={tab.disabled}
+                sx={{ mb: 1 }}
               />
             ))}
           </TabList>
         </Box>
         <Divider />
-        <Box mt={2} p={2}>
+        <Box mt={2}>
           {COMMON_TAB.map((panel) => (
             <TabPanel key={panel.value} value={panel.value}>
               {panel.content}
