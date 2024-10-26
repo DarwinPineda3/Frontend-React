@@ -13,6 +13,7 @@ import DashboardCard from '../../../../shared/DashboardCard';
 import SecurityLeaks from './brand-monitoring-details/security-leaks/SecurityLeaks';
 import { fetchBrandMonitoringById } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import SocialNetworks from './brand-monitoring-details/social-networks/SocialNetworks';
 
 interface BrandMonitoringDetailProps {
   id: string;
@@ -42,7 +43,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       icon: <PersonIcon />,
       label: 'Social Networks',
       disabled: false,
-      content: <SecurityLeaks brandMonitoringDetail={brandMonitoringDetail} />,
+      content: <SocialNetworks brandMonitoringDetail={brandMonitoringDetail} />,
     },
     {
       value: 'darkweb',
