@@ -10,6 +10,7 @@ import TopVulnerabilities from "src/components/home/dashboard/TopVulnerabilities
 import Welcome from "src/layouts/full/shared/welcome/Welcome";
 import RevenueUpdates from "src/components/home/dashboard/RevenueUpdates";
 import WeeklyStats from "src/components/home/dashboard/WeeklyStats";
+import SentimentStreamGraph from "src/components/home/dashboard/SentimentHistory";
 
 const Dashboard = () => {
   return (
@@ -30,6 +31,11 @@ const Dashboard = () => {
           <RevenueUpdates />
           <Box my={2} />
           <HostResourceTable />
+          
+          <Box my={2} />
+          <Grid item xs={12}>
+        <SentimentStreamGraph/>
+      </Grid>
         </Grid>
 
         {/* Right Column (Sidebar) */}

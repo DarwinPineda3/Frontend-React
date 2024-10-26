@@ -12,11 +12,19 @@ interface InternetAccordionProps {
   internet_data: InternetCategories[];
 }
 
+const formatKey = (key: string) => {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 const InternetAccordion: React.FC<InternetAccordionProps> = ({ internet_data }) => {
   return (
     <Box>
-      {internet_data.map((security_leaks, index) =>
-        Object.entries(security_leaks).map(([category, details]) => (
+      {internet_data.map((security_leaks, index) => {
+        const sortedEntries = Object.entries(security_leaks).sort(([, detailsA], [, detailsB]) => {
+          return detailsB.total_results - detailsA.total_results;
+        });
+
+        return sortedEntries.map(([category, details]) => (
           <Accordion key={`${category}-${index}`}>
             <AccordionSummary
               expandIcon={<ArrowDownwardIcon />}
@@ -24,15 +32,15 @@ const InternetAccordion: React.FC<InternetAccordionProps> = ({ internet_data }) 
               id={`${category}-header`}
             >
               <Typography variant="h6">
-                {details.type} ({details.total_results})
+                {formatKey(details.type)} ({details.total_results})
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <InternetTable internet={details.data} />
             </AccordionDetails>
           </Accordion>
-        )),
-      )}
+        ));
+      })}
     </Box>
   );
 };

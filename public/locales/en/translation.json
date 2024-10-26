@@ -445,6 +445,16 @@
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Compromised Elements by Type",
     "top_compromised_vips": "Top Compromised VIPs",
-    "platforms_or_types": "Platforms or Types"
+    "platforms_or_ty,pes": "Platforms or Types"
+  },
+  "sentiments":{
+    "sentiment_history": "Sentiment History",
+    "count": "Count",
+    "no_expressed_feeling" : "No Expressed Feeling",
+    "very_dissatisfied": "Very Dissatisfied",
+    "dissatisfied": "Dissatisfied",
+    "neutral":  "Neutral",
+    "satisfied": "Satisfied",
+    "very_satisfied": "Very Satisfied"
   }
 }

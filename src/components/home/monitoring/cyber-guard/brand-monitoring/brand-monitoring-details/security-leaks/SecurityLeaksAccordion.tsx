@@ -11,6 +11,9 @@ import SecurityLeaksTable from './SecurityLeaksTable';
 interface SecurityLeaksAccordionProps {
   security_leaks_data: SecurityLeakCategories[];
 }
+const formatKey = (key: string) => {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+};
 
 const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ security_leaks_data }) => {
   return (
@@ -24,7 +27,7 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
               id={`${category}-header`}
             >
               <Typography variant="h6">
-                {details.type} ({details.total_results})
+                {formatKey(details.type)} ({details.total_results})
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

@@ -6,6 +6,7 @@ import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
 import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import SocialNetworksAccordion from './SocialNetworksAccordion';
+import SentimentAnalysisChart from '../../charts/sentimentAnalysisChart';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
@@ -32,7 +33,7 @@ const SocialNetworks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail })
         />
       </Grid>
 
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} lg={4}>
         <BreachElementTypeChart
           security_leaks_data_chart={
             brandMonitoringDetail.consolidated_data?.graphics_charts_social_networks
@@ -40,10 +41,18 @@ const SocialNetworks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail })
         />
       </Grid>
 
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} lg={4}>
         <OrgBreachesChart
           security_leaks_data_chart={
             brandMonitoringDetail.consolidated_data?.graphics_charts_social_networks
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} lg={4}>
+        <SentimentAnalysisChart
+          social_networks_sentiment_analysis_chart={
+            brandMonitoringDetail.consolidated_data?.graphics_charts_social_networks_sentiment_analysis
           }
         />
       </Grid>

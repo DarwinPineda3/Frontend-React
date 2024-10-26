@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import WpScanDetail from 'src/components/vulnerabilities/web/wordpress/wpscanDetail';
-import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import NetworkScanListTable from 'src/components/observability/network/networkScans';
 import NetworkScanDetail from 'src/components/observability/network/networkScanDetail';
 
