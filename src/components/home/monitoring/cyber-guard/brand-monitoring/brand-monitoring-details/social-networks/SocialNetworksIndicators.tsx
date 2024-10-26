@@ -21,8 +21,6 @@ interface SocialNetworksIndicatorsProps {
 // Function to return color based on value
 const getColorByValue = (value: number) => {
   if (value <= 1) return 'success';
-  if (value <= 5) return 'info';
-  if (value <= 9) return 'warning';
   return 'error';
 };
 
