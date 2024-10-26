@@ -446,5 +446,15 @@
     "compromised_elements_by_type": "Elementos comprometidos por tipo",
     "top_compromised_vips": "Principales VIPs comprometidos",
     "platforms_or_types": "Plataformas o tipos"
+  },
+  "sentiment":{
+    "sentiment_history": "Historial de sentimientos",
+    "count": "Conteo",
+    "no_expressed_feeling": "Sin sentimiento expresado",
+    "very_dissatisfied": "Muy insatisfecho",
+    "dissatisfied": "Insatisfecho",
+    "neutral": "Neutral",
+    "satisfied": "Satisfecho",
+    "very_satisfied": "Muy satisfecho"
   }
 }
