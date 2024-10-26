@@ -22,6 +22,7 @@ import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 import TechInventoryReducer from './sections/cti/TechInventorySlice';
 import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
 import MobileAppsReducer from "./sections/fake-app/fakeAppSlice";
+import ParameterAppsReducer from "./sections/fake-app/parameterAppSlice";
 
 import { combineReducers } from 'redux';
 import {
@@ -53,6 +54,7 @@ export const store = configureStore({
     mobileAppsReducer: MobileAppsReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
+    parameterAppsReducer: ParameterAppsReducer,
   },
 });
 
@@ -66,6 +68,7 @@ const rootReducer = combineReducers({
   mobileAppsReducer: MobileAppsReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
+  parameterAppsReducer: ParameterAppsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

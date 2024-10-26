@@ -1,44 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
-import { MobileAppType } from "src/types/monitoring/fake-apps/fakeApp";
+import { ParameterAppType } from "src/types/monitoring/fake-apps/parameterApp";
 
-const API_URL = '/api/data/mobileApps';
+const API_URL = '/api/data/parameterApps';
 
 interface StateType {
-  mobileApps: MobileAppType[];
+  parameterApps: ParameterAppType[];
   page: number;
   totalPages: number;
   error: string | null;
 }
 
 const initialState: StateType = {
-  mobileApps: [],
+  parameterApps: [],
   page: 1,
   totalPages: 1,
   error: null,
 };
 
-export const FakeAppsSlice = createSlice({
-  name: 'mobileApp',
+export const ParameterAppsSlice = createSlice({
+  name: 'parameterApp',
   initialState,
   reducers: {
-    getMobileApps: (state, action) => {
-      state.mobileApps = Array.isArray(action.payload.mobileApps) ? action.payload.mobileApps : [];
+    getparameterApps: (state, action) => {
+      state.parameterApps = Array.isArray(action.payload.parameterApps) ? action.payload.parameterApps : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages; 
     },
-    addMobileApp: (state, action) => {
-      state.mobileApps.push(action.payload);
+    addParameterApp: (state, action) => {
+      state.parameterApps.push(action.payload);
     },
-    updateMobileApp: (state, action) => {
-      const index = state.mobileApps.findIndex(mobileApp => mobileApp.id === action.payload.id);
+    updateParameterApp: (state, action) => {
+      const index = state.parameterApps.findIndex(parameterApp => parameterApp.id === action.payload.id);
       if (index !== -1) {
-        state.mobileApps[index] = action.payload;
+        state.parameterApps[index] = action.payload;
       }
     },
-    deleteMobileApp: (state, action) => {
-      state.mobileApps = state.mobileApps.filter(mobileApp => mobileApp.id !== action.payload);
+    deleteParameterApp: (state, action) => {
+      state.parameterApps = state.parameterApps.filter(parameterApp => parameterApp.id !== action.payload);
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -49,51 +49,51 @@ export const FakeAppsSlice = createSlice({
   }
 });
 
-export const { getMobileApps, addMobileApp, updateMobileApp, deleteMobileApp, setPage, setError } = FakeAppsSlice.actions;
+export const { getparameterApps, addParameterApp, updateParameterApp, deleteParameterApp, setPage, setError } = ParameterAppsSlice.actions;
 
-// Async thunk for fetching mobileApps with pagination (READ)
-export const fetchMobileApps = (page = 1) => async (dispatch: AppDispatch) => {
+// Async thunk for fetching parameterApps with pagination (READ)
+export const fetchParameterApps = (page = 1) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_URL}?page=${page}`);
-    const { mobileApps, currentPage, totalPages } = response.data;
-    dispatch(getMobileApps({ mobileApps, currentPage, totalPages })); // Dispatch to update state
+    const { parameterApps, currentPage, totalPages } = response.data;
+    dispatch(getparameterApps({ parameterApps, currentPage, totalPages })); // Dispatch to update state
   } catch (err: any) {
-    console.error('Error fetching mobileApps:', err);
-    dispatch(setError('Failed to fetch mobileApps'));
+    console.error('Error fetching parameterApps:', err);
+    dispatch(setError('Failed to fetch parameterApps'));
   }
 };
 
-// Async thunk for creating a new mobileApp (CREATE)
-export const createMobileApp = (newAsset: MobileAppType) => async (dispatch: AppDispatch) => {
+// Async thunk for creating a new parameterApp (CREATE)
+export const createParameterApp = (newAsset: ParameterAppType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(API_URL, newAsset);
-    dispatch(addMobileApp(response.data.mobileApp)); // Assuming the server returns the created mobileApp
+    dispatch(addParameterApp(response.data.parameterApp)); // Assuming the server returns the created parameterApp
   } catch (err: any) {
-    console.error('Error creating mobile App:', err);
-    dispatch(setError('Failed to create mobile App'));
+    console.error('Error creating parameter App:', err);
+    dispatch(setError('Failed to create parameter App'));
   }
 };
 
-// Async thunk for updating an mobileApp (UPDATE)
-export const editMobileApp = (updatedMobileApp: MobileAppType) => async (dispatch: AppDispatch) => {
+// Async thunk for updating an parameterApp (UPDATE)
+export const editMobileApp = (updatedMobileApp: ParameterAppType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.put(`${API_URL}/${updatedMobileApp.id}`, updatedMobileApp);
-    dispatch(updateMobileApp(response.data.mobileApp)); // Assuming the server returns the updated mobileApp
+    dispatch(updateParameterApp(response.data.parameterApp)); // Assuming the server returns the updated parameterApp
   } catch (err: any) {
-    console.error('Error updating mobile App:', err);
-    dispatch(setError('Failed to update mobile App'));
+    console.error('Error updating parameter App:', err);
+    dispatch(setError('Failed to update parameter App'));
   }
 };
 
-// Async thunk for deleting an mobileApp (DELETE)
-export const removeMobileApp = (mobileAppId: string) => async (dispatch: AppDispatch) => {
+// Async thunk for deleting an parameterApp (DELETE)
+export const removeParameterApp = (mobileAppId: string) => async (dispatch: AppDispatch) => {
   try {
     await axios.delete(`${API_URL}/${mobileAppId}`);
-    dispatch(deleteMobileApp(mobileAppId));
+    dispatch(deleteParameterApp(mobileAppId));
   } catch (err: any) {
-    console.error('Error deleting mobile App:', err);
-    dispatch(setError('Failed to delete mobile App'));
+    console.error('Error deleting parameter App:', err);
+    dispatch(setError('Failed to delete parameter App'));
   }
 };
 
-export default FakeAppsSlice.reducer;
+export default ParameterAppsSlice.reducer;
