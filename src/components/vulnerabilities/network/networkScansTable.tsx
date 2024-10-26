@@ -18,6 +18,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 // Mock Data
 const scanData = [
@@ -40,21 +41,12 @@ const scanData = [
     type: 'Standard',
     scanConfig: 'Configuration 2',
     targetHosts: '172.17.7.33',
-  },
-  {
-    id: 3,
-    name: 'Escaneo Octapus (Escaneo Octapus)',
-    status: 'Done',
-    reports: 1,
-    lastReport: '29 de agosto de 2024 a las 10:40',
-    type: 'Fast',
-    scanConfig: 'Configuration 3',
-    targetHosts: 'NA',
-  },
+  }
 ];
 
 // Collapsible row
 const Row: React.FC<{ row: any, onScanClick: (scanId: number) => void; }> = ({ row, onScanClick }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -66,18 +58,18 @@ const Row: React.FC<{ row: any, onScanClick: (scanId: number) => void; }> = ({ r
           </IconButton>
         </TableCell>
         <TableCell>
-          <Typography variant="body2">{row.name}</Typography> {/* Name now shown here */}
+          <Typography variant="body2">{row.name}</Typography>
         </TableCell>
         <TableCell>
           <Typography variant="body2">{row.status}</Typography>
         </TableCell>
         <TableCell>
-            <Chip
+          <Chip
             label={row.reports}
             onClick={() => onScanClick(row.id)}
             style={{ cursor: 'pointer', color: 'blue' }}
             clickable
-            />
+          />
         </TableCell>
         <TableCell>
           <Typography variant="body2">{row.lastReport}</Typography>
@@ -95,15 +87,15 @@ const Row: React.FC<{ row: any, onScanClick: (scanId: number) => void; }> = ({ r
         <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={2}>
-              <Typography variant="h6">Detailed Information:</Typography>
+              <Typography variant="h6">{t("vulnerabilities.detailed_information")}:</Typography>
               <Typography variant="body2">
-                <strong>Type:</strong> {row.type}
+                <strong>{t("vulnerabilities.type")}:</strong> {row.type}
               </Typography>
               <Typography variant="body2">
-                <strong>Scan Configuration:</strong> {row.scanConfig}
+                <strong>{t("vulnerabilities.scan_configuration")}:</strong> {row.scanConfig}
               </Typography>
               <Typography variant="body2">
-                <strong>Target Hosts:</strong> {row.targetHosts}
+                <strong>{t("vulnerabilities.target_hosts")}:</strong> {row.targetHosts}
               </Typography>
             </Box>
           </Collapse>
@@ -118,8 +110,10 @@ interface NetworkScanTableProps {
 }
 
 const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
+  const { t } = useTranslation();
+
   return (
-    <DashboardCard title="Scans" subtitle="List of all scans">
+    <DashboardCard title={t("vulnerabilities.scans")!} subtitle={t("vulnerabilities.list_of_all_scans")!}>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -127,34 +121,34 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
               <TableCell />
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Nombre
+                  {t("vulnerabilities.name")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Estado
+                  {t("vulnerabilities.status")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Reportes
+                  {t("vulnerabilities.reports")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Último Reporte
+                  {t("vulnerabilities.last_report")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Acciones
+                  {t("vulnerabilities.actions")}
                 </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {scanData.map((row) => (
-              <Row key={row.id} row={row} onScanClick={onScanClick}/>
+              <Row key={row.id} row={row} onScanClick={onScanClick} />
             ))}
           </TableBody>
         </Table>
