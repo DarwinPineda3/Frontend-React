@@ -36,7 +36,7 @@ import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
 import CTI from 'src/views/monitoring/SOC/cti';
 import BrandMonitoring from 'src/views/monitoring/SOC/brandMonitoring';
-import SocNews from 'src/views/monitoring/SOC/news';
+import SocNews from 'src/views/monitoring/SOC/newsLetters';
 import Takedown from 'src/views/monitoring/SOC/takedown';
 import FilesSoc from 'src/views/monitoring/SOC/cti/files';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
@@ -106,7 +106,8 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
-      { path: '/monitoring/soc/news', element: <SocNews /> },
+      { path: '/monitoring/soc/newsLetters', element: <SocNews /> },
+      { path: '/monitoring/soc/newsLetters/:newsLetterId', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
       { path: '/monitoring/malware-analysis', element: <MalwareAnalysis /> },
       { path: '/monitoring/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },

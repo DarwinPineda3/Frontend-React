@@ -227,7 +227,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.news', // Translation key for title
-        href: '/monitoring/soc/news',
+        href: '/monitoring/soc/newsLetters',
         icon: IconNews,
       },
       {
