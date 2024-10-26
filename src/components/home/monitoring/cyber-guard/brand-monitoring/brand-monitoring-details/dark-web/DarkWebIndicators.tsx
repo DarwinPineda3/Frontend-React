@@ -11,12 +11,12 @@ import React from 'react';
 
 interface DarkWebIndicatorsProps {
   darkWebCounters: {
-    iw_ips: number;
-    iw_emails: number;
-    iw_names_usernames: number;
-    iw_phones: number;
-    iw_vins: number;
-    iw_domains: number;
+    dw_ips: number;
+    dw_emails: number;
+    dw_names_usernames: number;
+    dw_phones: number;
+    dw_vins: number;
+    dw_domains: number;
     dark_web_total: number;
   };
 }
@@ -37,27 +37,27 @@ const DarkWebIndicators: React.FC<DarkWebIndicatorsProps> = ({ darkWebCounters }
     }, // Security for compromises
     {
       title: 'Domains',
-      value: darkWebCounters.iw_domains,
+      value: darkWebCounters.dw_domains,
       icon: <Language fontSize="large" />,
     }, // Language icon for domains
     {
       title: 'Emails',
-      value: darkWebCounters.iw_emails,
+      value: darkWebCounters.dw_emails,
       icon: <Email fontSize="large" />,
     }, // Email icon for emails
     {
       title: 'IPs',
-      value: darkWebCounters.iw_ips,
+      value: darkWebCounters.dw_ips,
       icon: <Public fontSize="large" />,
     }, // Public icon for IPs
     {
       title: 'Usernames',
-      value: darkWebCounters.iw_names_usernames,
+      value: darkWebCounters.dw_names_usernames,
       icon: <AccountCircle fontSize="large" />,
     }, // AccountCircle for usernames
     {
       title: 'Phones',
-      value: darkWebCounters.iw_phones,
+      value: darkWebCounters.dw_phones,
       icon: <Phone fontSize="large" />,
     }, // Phone icon for phones
   ];
