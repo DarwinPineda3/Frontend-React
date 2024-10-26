@@ -10,34 +10,19 @@ import {
   Chip,
   TablePagination,
 } from '@mui/material';
-import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import { DarkWebData } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/SecurityLeaksModal'; 
+import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
 
-interface SecurityLeakTableProps {
-  leaks: SecurityLeak[];
+interface DarkWebTableProps {
+  dark_web: DarkWebData[];
 }
 
-const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
+const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedLeak, setSelectedLeak] = useState<SecurityLeak| null>(null);
-
-  const getChipColor = (riskLevel: string) => {
-    switch (riskLevel) {
-      case 'critical':
-        return { color: '#EF0E0E', label: 'Critical' };
-      case 'high':
-        return { color: '#EF8E0E', label: 'High' };
-      case 'medium':
-        return { color: '#c9bc0d', label: 'Medium' };
-      case 'low':
-        return { color: '#329223', label: 'Low' };
-      default:
-        return { color: '#90CAF9', label: 'N/A' };
-    }
-  };
+  const [selectedLeak, setSelectedLeak] = useState<DarkWebData| null>(null);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -48,10 +33,10 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
     setPage(0);
   };
 
-  const displayedLeaks = leaks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const displayedLeaks = dark_web.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
-  const handleOpenModal = (leak: SecurityLeak) => {
-    setSelectedLeak(leak);
+  const handleOpenModal = (dark_web: DarkWebData) => {
+    setSelectedLeak(dark_web);
     setModalOpen(true);
   };
 
@@ -63,17 +48,12 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
   return (
     <>
       <TableContainer>
-        <Table aria-label="security leak table">
+        <Table aria-label="security dark_web table">
           <TableHead>
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
                   Data
-                </Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography variant="subtitle2" fontWeight={600}>
-                  Risk Level
                 </Typography>
               </TableCell>
               <TableCell align="center">
@@ -89,31 +69,22 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {displayedLeaks.map((leak, index) => (
+            {displayedLeaks.map((dark_web, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Typography
                     variant="subtitle2"
-                    onClick={() => handleOpenModal(leak)}
+                    onClick={() => handleOpenModal(dark_web)}
                     sx={{ cursor: 'pointer'}}
                   >
-                    {leak.data.email || leak.data.name || leak.data.username || 'NA'}
+                    {dark_web.email || dark_web.username || 'NA'}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Chip
-                    label={getChipColor(leak.risk_level).label}
-                    sx={{
-                      backgroundColor: getChipColor(leak.risk_level).color,
-                      color: 'white',
-                    }}
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <HumanizedDate dateString={leak.date} />
+                  <HumanizedDate dateString={dark_web.added_date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{leak.source}</Typography>
+                  <Typography variant="subtitle2">{dark_web.domain}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -124,20 +95,20 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={leaks.length}
+        count={dark_web.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
-      <SecurityLeakDetailModal
+      <DarkWebDetailModal
         open={modalOpen}
         onClose={handleCloseModal}
-        data={selectedLeak ? selectedLeak.data : {}}
+        data={selectedLeak ? selectedLeak : {}}
       />
     </>
   );
 };
 
-export default SecurityLeakTable;
+export default DarkWebTable;

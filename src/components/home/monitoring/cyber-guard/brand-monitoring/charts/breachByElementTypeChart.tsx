@@ -53,7 +53,7 @@ const BreachElementTypeChart: React.FC<BreachElementTypeChartProps> = ({ securit
     };
 
     return (
-        <DashboardCard title="Breaches by element type">
+        <DashboardCard title="Compromises by element type">
             <Chart options={options} series={series} type="donut" height="300" />
         </DashboardCard>
     );
