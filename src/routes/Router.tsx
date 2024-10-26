@@ -49,6 +49,7 @@ import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
 import UserProfile from 'src/views/apps/user-profile/UserProfile';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
 import DarkWeb from 'src/views/observability/DarkWeb';
+import FakeApp from "src/views/monitoring/fake-app/FakeApp";
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -114,6 +115,8 @@ const Router = [
       { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/fake-app', element: <FakeApp /> },
+      { path: '/monitoring/fake-app/:mobileAppId', element: <FakeApp /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
