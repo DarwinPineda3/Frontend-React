@@ -17,7 +17,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchParameterApps, setPage } from 'src/store/sections/fake-app/fakeAppSlice';
+import { fetchParameterApps, setPage } from 'src/store/sections/fake-app/MobileAppSlice';
 
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
 

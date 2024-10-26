@@ -21,7 +21,7 @@ import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 //monitoring reducers
 import TechInventoryReducer from './sections/cti/TechInventorySlice';
 import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
-import MobileAppsReducer from "./sections/fake-app/fakeAppSlice";
+import MobileAppsReducer from "./sections/fake-app/MobileAppSlice";
 import ParameterAppsReducer from "./sections/fake-app/parameterAppSlice";
 
 import { combineReducers } from 'redux';
