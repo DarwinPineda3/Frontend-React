@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import CustomizerReducer from './customizer/CustomizerSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import AssetsReducer from './sections/AssetsSlice';
+import MalwareAnalysesReducer from "./sections/MalwareAnalysisSlice";
 
 //dashboard reducers
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
@@ -43,6 +44,7 @@ export const store = configureStore({
     customizer: CustomizerReducer,
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
+    malwareAnalysesReducer: MalwareAnalysesReducer,
     dashboard: dashboardReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
@@ -53,6 +55,7 @@ const rootReducer = combineReducers({
   customizer: CustomizerReducer,
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
+  malwareAnalysesReducer: MalwareAnalysesReducer,
   dashboard: dashboardReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
