@@ -1,10 +1,20 @@
 import Chart from 'react-apexcharts';
 import DashboardCard from '../../shared/DashboardCard'; // Replace with your correct card component
 import { useTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const BreachElementTypeChart = () => {
-    // Burned (static) data for now
-    const labels = ['Domain', 'P. Email', 'IP', 'Username', 'Phone'];
+    const { t } = useTranslation();
+    
+    // Static data for now
+    const labels = [
+        t('observability.domain'),
+        t('observability.p_email'),
+        t('observability.ip'),
+        t('observability.username'),
+        t('observability.phone')
+    ];
+
     const series = [10, 20, 30, 25, 15]; // Static series data representing breaches by element type
 
     const theme = useTheme();
@@ -48,7 +58,7 @@ const BreachElementTypeChart = () => {
     };
 
     return (
-        <DashboardCard title="Breaches by element type">
+        <DashboardCard title={t('observability.breaches_by_element_type')!}>
             <Chart options={options} series={series} type="donut" height="300" />
         </DashboardCard>
     );

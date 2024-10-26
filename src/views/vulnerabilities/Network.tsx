@@ -6,68 +6,34 @@ import NetworkScanTable from 'src/components/vulnerabilities/network/networkScan
 import ReportListTable from 'src/components/vulnerabilities/network/reportListTable';
 import ReportDetail from 'src/components/vulnerabilities/network/reportDetail';
 import VulnerabilityDetailView from 'src/components/vulnerabilities/network/vulnerabilityDetail';
-
+import { useTranslation } from 'react-i18next';
 
 const NetworkVulnerabilities = () => {
-  // Get params from the URL
+  const { t } = useTranslation();
   const { scanId, alertId, vulnerabilityId } = useParams<{ scanId?: string, alertId?: string, vulnerabilityId?: string }>();
   const navigate = useNavigate();
-  const location = useLocation();  // Tracks the current URL location
-  
+  const location = useLocation();
+
   const [selectedScan, setSelectedScan] = useState<number | null>(null);
-  const [selectedReport, setSelectedReport] = useState<string | null>(null); 
+  const [selectedReport, setSelectedReport] = useState<string | null>(null);
   const [selectedVulnerability, setSelectedVulnerability] = useState<string | null>(null);
 
-  
-  // Synchronize state with URL parameters
   useEffect(() => {
-    if (scanId) {
-      setSelectedScan(Number(scanId));
-    } else {
-      setSelectedScan(null);
-    }
-
-    if (alertId) {
-      setSelectedReport(alertId);
-    } else {
-      setSelectedReport(null);
-    }
-
-    if (vulnerabilityId) {
-      setSelectedVulnerability(vulnerabilityId);
-    } else {
-      setSelectedVulnerability(null);
-    }
+    setSelectedScan(scanId ? Number(scanId) : null);
+    setSelectedReport(alertId || null);
+    setSelectedVulnerability(vulnerabilityId || null);
   }, [scanId, alertId, vulnerabilityId, location]);
 
-  // Handle navigating to an alert detail
   const handleReportClick = (reportId: string) => {
     navigate(`/vulnerabilities/network/scans/${selectedScan}/reports/${reportId}`);
   };
 
-  // Handle navigating to a scan detail
   const handleScanClick = (scanId: number) => {
     navigate(`/vulnerabilities/network/scans/${scanId}`);
   };
 
-  // Handle navigating to a vulnerability detail
   const handleVulnerabilityClick = (vulnerabilityId: string) => {
     navigate(`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}/vulnerabilities/${vulnerabilityId}`);
-  };
-
-  // Handle navigating back to the scan list
-  const handleBackToScans = () => {
-    navigate('/vulnerabilities/network/scans');
-  };
-
-  // Handle navigating back to the report list
-  const handleBackToReports = () => {
-    navigate(`/vulnerabilities/network/scans/${selectedScan}`);
-  };
-
-  // Handle navigating back to report from vulnerability detail
-  const handleBackToVulnerabilities = () => {
-    navigate(`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}`);
   };
 
   return (
@@ -78,30 +44,29 @@ const NetworkVulnerabilities = () => {
         </IconButton>
         <Breadcrumbs aria-label="breadcrumb">
           <Link component={RouterLink} color="inherit" to="/vulnerabilities/network">
-            Vulnerabilidades
+            {t('vulnerabilities.breadcrumb_vulnerabilidades')}
           </Link>
           <Link component={RouterLink} color="inherit" to="/vulnerabilities/network">
-            Red
+            {t('vulnerabilities.breadcrumb_red')}
           </Link>
           {selectedScan && (
             <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}`}>
-              Escaneos vulnerabilidades Red
+              {t('vulnerabilities.breadcrumb_escaneos')}
             </Link>
           )}
           {selectedReport && (
             <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}`}>
-              Reportes de escaneo
+              {t('vulnerabilities.breadcrumb_reportes')}
             </Link>
           )}
           {selectedVulnerability && (
             <Typography color="textPrimary">
-              Vulnerabilidad
+              {t('vulnerabilities.breadcrumb_vulnerabilidad')}
             </Typography>
           )}
         </Breadcrumbs>
       </Box>
 
-      {/* If a vulnerability is selected, show the vulnerability detail */}
       {selectedVulnerability ? (
         <Grid container spacing={0} mt={1}>
           <Grid item xs={12} xl={12}>
@@ -109,21 +74,18 @@ const NetworkVulnerabilities = () => {
           </Grid>
         </Grid>
       ) : selectedScan && selectedReport ? (
-        // If a report is selected, show report detail
         <Grid container spacing={0} mt={1}>
           <Grid item xs={12} xl={12}>
             <ReportDetail reportID={selectedReport} onClickVulnerability={handleVulnerabilityClick}/>
           </Grid>
         </Grid>
       ) : selectedScan ? (
-        // If a scan is selected and no alert is selected, show scan details
         <Grid container spacing={0} mt={1}>
           <Grid item xs={12} xl={12}>
             <ReportListTable onAlertClick={handleReportClick} />
           </Grid>
         </Grid>
       ) : (
-        // Default view: show scan list
         <Grid container spacing={3} mt={1}>
           <Grid item xs={12} xl={12}>
             <NetworkScanTable onScanClick={handleScanClick} />

@@ -14,6 +14,7 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 const burntScansData = [
   {
@@ -43,7 +44,6 @@ const burntScansData = [
     progress: 100,
     progressTime: 'hace 4 semanas, 1 día',
   },
-  // Add more data similar to this for the other rows in the image
 ];
 
 interface ScanListTableProps {
@@ -51,8 +51,9 @@ interface ScanListTableProps {
 }
 
 const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 1; // Set this according to how many pages of burnt data you want
+  const totalPages = 1;
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -68,99 +69,98 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
 
   return (
     <Box>
-            <DashboardCard title="Scans" subtitle="List of all scans">
-      <Box >
-        <TableContainer>
-          <Table aria-label="scan list table" >
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    Nombre
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    Hosts
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    Fecha
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    Tipo
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    Progreso
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    Acciones
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {burntScansData.map((scan, index) => (
-                <TableRow key={index}>
+      <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!}>
+        <Box>
+          <TableContainer>
+            <Table aria-label="scan list table">
+              <TableHead>
+                <TableRow>
                   <TableCell>
-                    <Typography
-                      variant="subtitle2"
-                      fontWeight={600}
-                      color="primary"
-                      component="a"
-                      onClick={() => onScanClick(scan.id)} // Trigger the parent callback
-                      style={{ cursor: 'pointer' }}
-                    >
-                      {scan.name}
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('vulnerabilities.name')}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body2">{scan.host}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{scan.date}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{scan.type}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{`${scan.progress}%`}</Typography>
-                    <Typography variant="caption" color="textSecondary">
-                      {scan.progressTime}
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('vulnerabilities.hosts')}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
-                      <DownloadIcon />
-                    </IconButton>
-                    <IconButton color="error" onClick={() => handleDelete(scan.id)}>
-                      <DeleteIcon />
-                    </IconButton>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('vulnerabilities.date')}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('vulnerabilities.type')}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('vulnerabilities.progress')}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('vulnerabilities.actions')}
+                    </Typography>
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box my={3} display="flex" justifyContent={'center'}>
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
+              </TableHead>
+              <TableBody>
+                {burntScansData.map((scan, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Typography
+                        variant="subtitle2"
+                        fontWeight={600}
+                        color="primary"
+                        component="a"
+                        onClick={() => onScanClick(scan.id)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {scan.name}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{scan.host}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{scan.date}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{scan.type}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{`${scan.progress}%`}</Typography>
+                      <Typography variant="caption" color="textSecondary">
+                        {scan.progressTime}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
+                        <DownloadIcon />
+                      </IconButton>
+                      <IconButton color="error" onClick={() => handleDelete(scan.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Box my={3} display="flex" justifyContent="center">
+            <Pagination
+              count={totalPages}
+              color="primary"
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Box>
         </Box>
-      </Box>
-    </DashboardCard>
+      </DashboardCard>
     </Box>
-
   );
 };
 

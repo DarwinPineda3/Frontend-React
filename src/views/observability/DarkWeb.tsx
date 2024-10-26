@@ -8,6 +8,9 @@ import BreachElementTypeChart from 'src/components/observability/dark-web/breach
 import ThreatsByFuzzerChart from 'src/components/observability/dark-web/ThreatsByFuzzerChart';
 import UsernamesTable from 'src/components/observability/dark-web/UsernamesTable';
 import DomainTable from 'src/components/observability/dark-web/domainTable';
+import ThreatTypesBarChart from 'src/components/observability/dark-web/threatTypesBarChart';
+import VIPsHeatmapChart from 'src/components/observability/dark-web/vipHeatMap';
+import CompromisedTypesChart from 'src/components/observability/dark-web/vipsRadarChart';
 
 const DarkWeb = () => {
 
@@ -16,14 +19,23 @@ const DarkWeb = () => {
         <Grid item xs={12}>
             <TopCardsDarkWeb />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} lg={3}>
             <OrgBreachesCompare />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} lg={3}>
             <BreachStatusChart />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12} lg={3}>
             <BreachElementTypeChart />
+        </Grid>
+        <Grid item xs={12} lg={3}>
+            <CompromisedTypesChart/>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+            <ThreatTypesBarChart />
+        </Grid>
+        <Grid item xs={12} lg={6}>
+            <VIPsHeatmapChart/>
         </Grid>
         <Grid item xs={12} lg={12}>
             <ThreatsByFuzzerChart />

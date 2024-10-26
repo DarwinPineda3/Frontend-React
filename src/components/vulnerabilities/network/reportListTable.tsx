@@ -17,6 +17,7 @@ import {
 import { IconSearch, IconDownload, IconTrash } from '@tabler/icons-react';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
+import { useTranslation } from 'react-i18next';
 
 interface ScanAlertTableProps {
   onAlertClick: (alertId: string) => void;
@@ -25,6 +26,8 @@ interface ScanAlertTableProps {
 
 const ReportListTable: React.FC<ScanAlertTableProps> = ({ onAlertClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  const { t } = useTranslation();
 
   // Mock Data
   const alertData = [
@@ -59,85 +62,85 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ onAlertClick }) => {
 
   return (
     <Grid container>
-      <Breadcrumb title={"Test Scan Data"}>
+      <Breadcrumb title={t("vulnerabilities.test_scan_data")}>
         <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-              <Chip label={`Settings: Full and fast`} color="primary" variant="outlined" />
-              <Chip label={`Type: 2`} color="secondary" variant="outlined" />
-              <Chip label={`Objective: 107.173.154.73`} color="info" variant="outlined" />
+          <Chip label={`${t("vulnerabilities.settings")}: Full and fast`} color="primary" variant="outlined" />
+          <Chip label={`${t("vulnerabilities.type")}: 2`} color="secondary" variant="outlined" />
+          <Chip label={`${t("vulnerabilities.objective")}: 107.173.154.73`} color="info" variant="outlined" />
         </Box>
       </Breadcrumb>
 
-    <DashboardCard>
-      <Box>
-        {/* Search Bar */}
-        <Box mb={3} my={3}>
-          <TextField
-            placeholder="Search Alerts"
-            variant="outlined"
-            fullWidth
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconSearch size={18} />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+      <DashboardCard>
+        <Box>
+          {/* Search Bar */}
+          <Box mb={3} my={3}>
+            <TextField
+              placeholder={t("vulnerabilities.search_alerts")!}
+              variant="outlined"
+              fullWidth
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconSearch size={18} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
 
-        {/* Alerts Table */}
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Fecha del reporte</TableCell>
-              <TableCell>Severidad</TableCell>
-              <TableCell>Estado</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredAlerts.map((alert) => (
-              <TableRow key={alert.id}>
-                <TableCell>
-                  <Typography
-                    color="primary"
-                    fontWeight={500}
-                    onClick={() => onAlertClick(alert.id)} // Callback added here
-                    style={{ cursor: 'pointer' }}
-                  >
-                    {alert.id}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{alert.reportDate}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{alert.severity}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography>{alert.status}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Tooltip title="Download Report">
-                    <IconButton color="primary">
-                      <IconDownload />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete Report">
-                    <IconButton color="error">
-                      <IconTrash />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
+          {/* Alerts Table */}
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>{t("vulnerabilities.id")}</TableCell>
+                <TableCell>{t("vulnerabilities.report_date")}</TableCell>
+                <TableCell>{t("vulnerabilities.severity")}</TableCell>
+                <TableCell>{t("vulnerabilities.status")}</TableCell>
+                <TableCell>{t("vulnerabilities.actions")}</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </DashboardCard>
+            </TableHead>
+            <TableBody>
+              {filteredAlerts.map((alert) => (
+                <TableRow key={alert.id}>
+                  <TableCell>
+                    <Typography
+                      color="primary"
+                      fontWeight={500}
+                      onClick={() => onAlertClick(alert.id)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {alert.id}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>{alert.reportDate}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>{alert.severity}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography>{alert.status}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Tooltip title={t("vulnerabilities.download_report")}>
+                      <IconButton color="primary">
+                        <IconDownload />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title={t("vulnerabilities.delete_report")}>
+                      <IconButton color="error">
+                        <IconTrash />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </DashboardCard>
     </Grid>
   );
 };
