@@ -32,21 +32,6 @@ const Notifications = () => {
 
   return (
     <Box>
-      <IconButton
-        size="large"
-        aria-label="show 11 new notifications"
-        color="inherit"
-        aria-controls="msgs-menu"
-        aria-haspopup="true"
-        sx={{
-          color: anchorEl2 ? 'primary.main' : 'text.secondary',
-        }}
-        onClick={handleClick2}
-      >
-        <Badge variant="dot" color="primary">
-          <IconBellRinging size="21" stroke="1.5" />
-        </Badge>
-      </IconButton>
       {/* ------------------------------------------- */}
       {/* Message Dropdown */}
       {/* ------------------------------------------- */}
