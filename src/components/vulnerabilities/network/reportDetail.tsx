@@ -6,6 +6,7 @@ import ReportTopCards from './reportTopCards';
 import { ApexOptions } from 'apexcharts';
 import { TransitionProps } from '@mui/material/transitions';
 import { IconEye, IconX } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 interface ReportDetailProps {
     reportID: string;
@@ -53,6 +54,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
     const secondarylight = theme.palette.secondary.light;
     const warning = theme.palette.warning.main;
   
+    const {t} = useTranslation();
   
     const optionspiechart: ApexOptions = {
       chart: {
@@ -113,200 +115,199 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
       onClickVulnerability(vulnerabilityId);
     };
     return (
-        <>
-        <Grid container spacing={3} >
-            <Grid item xs={12}>
-                <ReportTopCards/>
-            </Grid>
-            <Grid item xs={12} xl={6}>
-                <DashboardCard title={`Resultados de vulnerabilidades`}>
-                <Chart
-                    options={optionspiechart}
-                    series={seriesdoughnutchart}
-                    type="donut"
-                    height="300px"
-                />
-                </DashboardCard>
-            </Grid>
+      <>
+      <Grid container spacing={3}>
+          <Grid item xs={12}>
+              <ReportTopCards />
+          </Grid>
+          <Grid item xs={12} xl={6}>
+              <DashboardCard title={t("vulnerabilities.scan_results")!}>
+                  <Chart
+                      options={optionspiechart}
+                      series={seriesdoughnutchart}
+                      type="donut"
+                      height="300px"
+                  />
+              </DashboardCard>
+          </Grid>
 
-            <Grid item xs={12} xl={6}>
-            <DashboardCard title="Detalles técnicos del resumen">
-                <Box p={2}>
-                <Typography variant="body2" fontWeight={600}>Nombre del escaneo</Typography>
-                <Typography variant="body2" mb={2}>Escaneo Octapus</Typography>
+          <Grid item xs={12} xl={6}>
+              <DashboardCard title={t("vulnerabilities.technical_summary_details")!}>
+                  <Box p={2}>
+                      <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_name")!}</Typography>
+                      <Typography variant="body2" mb={2}>Escaneo Octapus</Typography>
 
-                <Typography variant="body2" fontWeight={600}>Id del escaneo</Typography>
-                <Typography variant="body2" mb={2}>063268c2-6662-43ba-a3f9-3690f612da4f</Typography>
+                      <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_id")!}</Typography>
+                      <Typography variant="body2" mb={2}>063268c2-6662-43ba-a3f9-3690f612da4f</Typography>
 
-                <Typography variant="body2" fontWeight={600}>Inicio del escaneo</Typography>
-                <Typography variant="body2" mb={2}>29 de agosto de 2024 a las 10:40</Typography>
+                      <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_start")!}</Typography>
+                      <Typography variant="body2" mb={2}>29 de agosto de 2024 a las 10:40</Typography>
 
-                <Typography variant="body2" fontWeight={600}>Fin del escaneo</Typography>
-                <Typography variant="body2" mb={2}>29 de agosto de 2024 a las 20:14</Typography>
+                      <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_end")!}</Typography>
+                      <Typography variant="body2" mb={2}>29 de agosto de 2024 a las 20:14</Typography>
 
-                <Typography variant="body2" fontWeight={600}>Comentario</Typography>
-                <Typography variant="body2">NA</Typography>
-                </Box>
-            </DashboardCard>
-            </Grid>
+                      <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.comment")!}</Typography>
+                      <Typography variant="body2">NA</Typography>
+                  </Box>
+              </DashboardCard>
+          </Grid>
 
-            {/* Hosts Section */}
-            <Grid item xs={12} xl={6}>
-                <DashboardCard title="Hosts">
-                    <TableContainer >
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Ip</TableCell>
-                                    <TableCell>Id</TableCell>
-                                    <TableCell>Fecha de inicio</TableCell>
-                                    <TableCell>Fecha de fin</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {mockData.hosts.map((host) => (
-                                    <TableRow key={host.id}>
-                                        <TableCell>{host.ip}</TableCell>
-                                        <TableCell>{host.id}</TableCell>
-                                        <TableCell>{host.startDate}</TableCell>
-                                        <TableCell>{host.endDate}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </DashboardCard>
-            </Grid>
+          {/* Hosts Section */}
+          <Grid item xs={12} xl={6}>
+              <DashboardCard title={t("vulnerabilities.hosts")!}>
+                  <TableContainer>
+                      <Table>
+                          <TableHead>
+                              <TableRow>
+                                  <TableCell>{t("vulnerabilities.ip")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.id")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.start_date")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.end_date")!}</TableCell>
+                              </TableRow>
+                          </TableHead>
+                          <TableBody>
+                              {mockData.hosts.map((host) => (
+                                  <TableRow key={host.id}>
+                                      <TableCell>{host.ip}</TableCell>
+                                      <TableCell>{host.id}</TableCell>
+                                      <TableCell>{host.startDate}</TableCell>
+                                      <TableCell>{host.endDate}</TableCell>
+                                  </TableRow>
+                              ))}
+                          </TableBody>
+                      </Table>
+                  </TableContainer>
+              </DashboardCard>
+          </Grid>
 
-            {/* Escaneos Section */}
-            <Grid item xs={12} xl={6}>
-                <DashboardCard title="Escaneos">
-                    <TableContainer >
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Nombre de Host</TableCell>
-                                    <TableCell>Nombre SO encontrado</TableCell>
-                                    <TableCell>Descripción de fuente</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {mockData.escaneos.map((escaneo) => (
-                                    <TableRow key={escaneo.host}>
-                                        <TableCell>{escaneo.host}</TableCell>
-                                        <TableCell>{escaneo.os}</TableCell>
-                                        <TableCell>{escaneo.source}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </DashboardCard>
-            </Grid>
+          {/* Escaneos Section */}
+          <Grid item xs={12} xl={6}>
+              <DashboardCard title={t("vulnerabilities.scans")!}>
+                  <TableContainer>
+                      <Table>
+                          <TableHead>
+                              <TableRow>
+                                  <TableCell>{t("vulnerabilities.host_name")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.os_name")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.source_description")!}</TableCell>
+                              </TableRow>
+                          </TableHead>
+                          <TableBody>
+                              {mockData.escaneos.map((escaneo) => (
+                                  <TableRow key={escaneo.host}>
+                                      <TableCell>{escaneo.host}</TableCell>
+                                      <TableCell>{escaneo.os}</TableCell>
+                                      <TableCell>{escaneo.source}</TableCell>
+                                  </TableRow>
+                              ))}
+                          </TableBody>
+                      </Table>
+                  </TableContainer>
+              </DashboardCard>
+          </Grid>
 
-            {/* Puertos Section */}
-            <Grid item xs={12}>
-                <DashboardCard title="Puertos">
-                    <TableContainer >
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Puerto</TableCell>
-                                    <TableCell>Host</TableCell>
-                                    <TableCell>Tipo</TableCell>
-                                    <TableCell>Severidad</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {mockData.puertos.map((puerto) => (
-                                    <TableRow key={puerto.port}>
-                                        <TableCell>{puerto.port}</TableCell>
-                                        <TableCell>{puerto.host}</TableCell>
-                                        <TableCell>
-                                            <Chip 
-                                            label={puerto.type}
-                                            color={
-                                                puerto.type === 'Info'
-                                                        ? 'info'
-                                                        : puerto.type === 'Low'
-                                                        ? 'warning'
-                                                        : puerto.type === 'Medium'
-                                                        ? 'secondary'
-                                                        : puerto.type === 'High'
-                                                        ? 'primary'
-                                                        : 'info'
-                                                }
-                                            >
-                                            </Chip>
-                                        </TableCell>
-                                        <TableCell>{puerto.severity}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </DashboardCard>
-            </Grid>
+          {/* Puertos Section */}
+          <Grid item xs={12}>
+              <DashboardCard title={t("vulnerabilities.ports")!}>
+                  <TableContainer>
+                      <Table>
+                          <TableHead>
+                              <TableRow>
+                                  <TableCell>{t("vulnerabilities.port")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.host")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.type")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.severity")!}</TableCell>
+                              </TableRow>
+                          </TableHead>
+                          <TableBody>
+                              {mockData.puertos.map((puerto) => (
+                                  <TableRow key={puerto.port}>
+                                      <TableCell>{puerto.port}</TableCell>
+                                      <TableCell>{puerto.host}</TableCell>
+                                      <TableCell>
+                                          <Chip 
+                                              label={puerto.type}
+                                              color={
+                                                  puerto.type === 'Info'
+                                                      ? 'info'
+                                                      : puerto.type === 'Low'
+                                                      ? 'warning'
+                                                      : puerto.type === 'Medium'
+                                                      ? 'secondary'
+                                                      : puerto.type === 'High'
+                                                      ? 'primary'
+                                                      : 'info'
+                                              }
+                                          />
+                                      </TableCell>
+                                      <TableCell>{puerto.severity}</TableCell>
+                                  </TableRow>
+                              ))}
+                          </TableBody>
+                      </Table>
+                  </TableContainer>
+              </DashboardCard>
+          </Grid>
 
-            {/* Vulnerabilities Section */}
-            <Grid item xs={12}>
-                <DashboardCard title="Vulnerabilidades">
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Nombre</TableCell>
-                                    <TableCell>Host</TableCell>
-                                    <TableCell>Puerto</TableCell>
-                                    <TableCell>Tipo</TableCell>
-                                    <TableCell>Severidad</TableCell>
-                                    <TableCell>Fecha</TableCell>
-                                    <TableCell>Detalles</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {mockData.vulnerabilities.map((vulnerability) => (
-                                    <TableRow key={vulnerability.name + vulnerability.host}>
-                                        <TableCell>{vulnerability.name}</TableCell>
-                                        <TableCell>{vulnerability.host}</TableCell>
-                                        <TableCell>{vulnerability.port}</TableCell>
-                                        <TableCell>
-                                            <Chip
-                                                label={vulnerability.type}
-                                                color={
-                                                    vulnerability.type === 'Info'
-                                                        ? 'info'
-                                                        : vulnerability.type === 'Low'
-                                                        ? 'warning'
-                                                        : vulnerability.type === 'Medium'
-                                                        ? 'secondary'
-                                                        : vulnerability.type === 'High'
-                                                        ? 'primary'
-                                                        : 'info'
-                                                }
-                                            />
-                                        </TableCell>
-                                        <TableCell>{vulnerability.severity}</TableCell>
-                                        <TableCell>{vulnerability.date}</TableCell>
-                                        <TableCell>
-                                            <Chip
-                                                label="Ver"
-                                                color="primary"
-                                                icon={<IconEye></IconEye>}
-                                                onClick={() => handleClickOpen(vulnerability.id)}
-                                                style={{ cursor: 'pointer' }}
-                                            />
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </DashboardCard>
-            </Grid>
-        </Grid>
-        </>
-    );
+          {/* Vulnerabilities Section */}
+          <Grid item xs={12}>
+              <DashboardCard title={t("vulnerabilities.vulnerabilities")!}>
+                  <TableContainer>
+                      <Table>
+                          <TableHead>
+                              <TableRow>
+                                  <TableCell>{t("vulnerabilities.name")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.host")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.port")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.type")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.severity")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.report_date")!}</TableCell>
+                                  <TableCell>{t("vulnerabilities.details")!}</TableCell>
+                              </TableRow>
+                          </TableHead>
+                          <TableBody>
+                              {mockData.vulnerabilities.map((vulnerability) => (
+                                  <TableRow key={vulnerability.name + vulnerability.host}>
+                                      <TableCell>{vulnerability.name}</TableCell>
+                                      <TableCell>{vulnerability.host}</TableCell>
+                                      <TableCell>{vulnerability.port}</TableCell>
+                                      <TableCell>
+                                          <Chip
+                                              label={vulnerability.type}
+                                              color={
+                                                  vulnerability.type === 'Info'
+                                                      ? 'info'
+                                                      : vulnerability.type === 'Low'
+                                                      ? 'warning'
+                                                      : vulnerability.type === 'Medium'
+                                                      ? 'secondary'
+                                                      : vulnerability.type === 'High'
+                                                      ? 'primary'
+                                                      : 'info'
+                                              }
+                                          />
+                                      </TableCell>
+                                      <TableCell>{vulnerability.severity}</TableCell>
+                                      <TableCell>{vulnerability.date}</TableCell>
+                                      <TableCell>
+                                          <Chip
+                                              label={t("vulnerabilities.view")!}
+                                              color="primary"
+                                              icon={<IconEye />}
+                                              onClick={() => handleClickOpen(vulnerability.id)}
+                                              style={{ cursor: 'pointer' }}
+                                          />
+                                      </TableCell>
+                                  </TableRow>
+                              ))}
+                          </TableBody>
+                      </Table>
+                  </TableContainer>
+              </DashboardCard>
+          </Grid>
+      </Grid>
+      </>
+  );
 };
 
 export default ReportDetail;

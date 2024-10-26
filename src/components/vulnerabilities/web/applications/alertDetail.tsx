@@ -4,6 +4,7 @@ import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { IconChevronDown } from '@tabler/icons-react';
 import Loader from 'src/components/shared/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 interface AlertDetailProps {
   alertId: number;
@@ -11,9 +12,10 @@ interface AlertDetailProps {
 
 const AlertDetail: React.FC<AlertDetailProps> = ({ alertId }) => {
   const theme = useTheme();
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
   const [aiSolution, setAiSolution] = useState('');
-  const handleChange = (panel) => (event, isExpanded) => {
+  const {t} = useTranslation();
+  const handleChange = (panel: string) => (_event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -130,21 +132,20 @@ Check the HTTP Referer header to see if the request originated from an expected 
   `;
 
 
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} xl={12}>
-        <Breadcrumb title="Scan example Title">
+        <Breadcrumb title={t("vulnerabilities.scan_title")!}>
           <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-            <Chip label={`CWE Id: 352`} color="primary" variant="outlined" />
-            <Chip label={`WASC Id: 9`} color="secondary" variant="outlined" />
-            <Chip label={`Plugin Id: 10202`} color="info" variant="outlined" />
+            <Chip label={t("vulnerabilities.cwe_id", { id: 352 })} color="primary" variant="outlined" />
+            <Chip label={t("vulnerabilities.wasc_id", { id: 9 })} color="secondary" variant="outlined" />
+            <Chip label={t("vulnerabilities.plugin_id", { id: 10202 })} color="info" variant="outlined" />
           </Box>
         </Breadcrumb>
       </Grid>
 
       <Grid item xs={12} xl={12}>
-        <DashboardCard title="Description">
+        <DashboardCard title={t("vulnerabilities.description_title")!}>
           <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
             <Typography sx={{ whiteSpace: 'pre-line' }}>
               {description}
@@ -154,33 +155,27 @@ Check the HTTP Referer header to see if the request originated from an expected 
       </Grid>
 
       <Grid item xs={12} xl={aiSolution ? 6 : 12}>
-        <DashboardCard title="Solution">
+        <DashboardCard title={t("vulnerabilities.solution_title")!}>
           <>
           <Box sx={{ height: '300px', overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
             <Typography sx={{ whiteSpace: 'pre-line' }}>
               {solution}
             </Typography>
           </Box>
-          {
-            !aiSolution &&(
-              <Stack direction="row" justifyContent="end" spacing={2} mt={2}>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={handleAICall}
-            >
-              Generate AI Solution
-            </Button>
+          {!aiSolution && (
+            <Stack direction="row" justifyContent="end" spacing={2} mt={2}>
+              <Button variant="outlined" color="error" onClick={handleAICall}>
+                {t("vulnerabilities.generate_ai_solution")!}
+              </Button>
             </Stack>
-            )
-          }
+          )}
           </>
         </DashboardCard>
       </Grid>
-      {
-        aiSolution &&(
-          <Grid item xs={12} xl={6}>
-          <DashboardCard title="Generated AI Solution">
+
+      {aiSolution && (
+        <Grid item xs={12} xl={6}>
+          <DashboardCard title={t("vulnerabilities.ai_solution_title")!}>
             <Box sx={{
               height: '300px',
               overflow: 'auto',
@@ -192,27 +187,23 @@ Check the HTTP Referer header to see if the request originated from an expected 
                 '100%': { opacity: 1 }
               }
             }}>
-              {
-                aiSolution === '...' &&
+              {aiSolution === '...' && (
                 <Box display="flex" justifyContent="center" alignItems="center" height="100%">
                   <Loader />
                 </Box>
-              }
-              {
-                aiSolution !== '...' &&
+              )}
+              {aiSolution !== '...' && (
                 <Typography sx={{ whiteSpace: 'pre-line' }}>
                   {aiSolution}
                 </Typography>
-              }
+              )}
             </Box>
           </DashboardCard>
-      </Grid>
-
-        )
-      }
+        </Grid>
+      )}
 
       <Grid item xl={12} xs={12}>
-        <DashboardCard title="URLs" >
+        <DashboardCard title={t("vulnerabilities.urls_title")!}>
           <Box>
             {alertURLReport.map((alert, index) => (
               <Accordion
@@ -224,17 +215,13 @@ Check the HTTP Referer header to see if the request originated from an expected 
                   transition: 'background-color 0.3s ease',
                 }}
               >
-                <AccordionSummary
-                  expandIcon={<IconChevronDown />}
-                  aria-controls={`panel${index}bh-content`}
-                  id={`panel${index}bh-header`}
-                >
+                <AccordionSummary expandIcon={<IconChevronDown />} aria-controls={`panel${index}bh-content`} id={`panel${index}bh-header`}>
                   <Grid container xs={12}>
                     <Grid item xl={8} xs={12}>
                       <Typography variant="h6" sx={{
                         display: '-webkit-box',
                         WebkitBoxOrient: 'vertical',
-                        WebkitLineClamp: 2, // Limits to two lines
+                        WebkitLineClamp: 2,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                       }}>
@@ -243,20 +230,20 @@ Check the HTTP Referer header to see if the request originated from an expected 
                     </Grid>
                     <Grid item>
                       <Typography variant="subtitle2" color="textSecondary">
-                        {alert.Método} Method
+                        {t("vulnerabilities.method", { method: alert.Método })}
                       </Typography>
                     </Grid>
                   </Grid>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-                    <strong>Ataque:</strong> {alert.Ataque || "None"}
+                    <strong>{t("vulnerabilities.attack")!}:</strong> {alert.Ataque || "None"}
                   </Typography>
                   <Typography variant="subtitle1" color="textSecondary" gutterBottom>
-                    <strong>Evidencia:</strong> {alert.Evidencia}
+                    <strong>{t("vulnerabilities.evidence")!}:</strong> {alert.Evidencia}
                   </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
-                    <strong>Otra Info:</strong> {alert["Otra Info"]}
+                    <strong>{t("vulnerabilities.extra_info")!}:</strong> {alert["Otra Info"]}
                   </Typography>
                 </AccordionDetails>
               </Accordion>
@@ -264,19 +251,20 @@ Check the HTTP Referer header to see if the request originated from an expected 
           </Box>
         </DashboardCard>
       </Grid>
+
       <Grid item xs={12}>
-  <DashboardCard title="References">
-    <Box sx={{  overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
-      {references.map((reference, index) => (
-        <Typography key={index} variant="body2" sx={{ mb: 1 }}>
-          <a href={reference} target="_blank" rel="noopener noreferrer" style={{ color: theme.palette.primary.main }}>
-            {reference}
-          </a>
-        </Typography>
-      ))}
-    </Box>
-  </DashboardCard>
-</Grid>
+        <DashboardCard title={t("vulnerabilities.references_title")!}>
+          <Box sx={{ overflow: 'auto', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
+            {references.map((reference, index) => (
+              <Typography key={index} variant="body2" sx={{ mb: 1 }}>
+                <a href={reference} target="_blank" rel="noopener noreferrer" style={{ color: theme.palette.primary.main }}>
+                  {reference}
+                </a>
+              </Typography>
+            ))}
+          </Box>
+        </DashboardCard>
+      </Grid>
     </Grid>
   );
 };
