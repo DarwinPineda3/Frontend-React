@@ -18,7 +18,7 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6">No security leaks data available.</Typography>
+          <Typography variant="h6">No internet data available.</Typography>
         </Grid>
       </Grid>
     );
