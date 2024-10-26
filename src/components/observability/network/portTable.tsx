@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography, TableContainer, Paper } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const portData = [
   { port: 80, protocol: 'tcp', service: 'http', status: 'open' },
@@ -7,6 +8,8 @@ const portData = [
 ];
 
 const PortTable = () => {
+  const { t } = useTranslation();
+
   return (
     <TableContainer>
       <Table aria-label="port table">
@@ -14,22 +17,22 @@ const PortTable = () => {
           <TableRow>
             <TableCell>
               <Typography variant="subtitle2" fontWeight={600}>
-                Puerto
+                {t('observability.port')}
               </Typography>
             </TableCell>
             <TableCell>
               <Typography variant="subtitle2" fontWeight={600}>
-                Protocolo
+                {t('observability.protocol')}
               </Typography>
             </TableCell>
             <TableCell>
               <Typography variant="subtitle2" fontWeight={600}>
-                Servicio
+                {t('observability.service')}
               </Typography>
             </TableCell>
             <TableCell>
               <Typography variant="subtitle2" fontWeight={600}>
-                Estado
+                {t('observability.status')}
               </Typography>
             </TableCell>
           </TableRow>

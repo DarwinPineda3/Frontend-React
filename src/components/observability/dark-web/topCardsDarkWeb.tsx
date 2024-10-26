@@ -1,17 +1,18 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { Computer, Security, WifiTethering, Lan, AccountCircle, Email, Language, Phone, Public } from '@mui/icons-material'; // Importing Material UI Icons
+import { Security, Language, Email, Public, AccountCircle, Phone } from '@mui/icons-material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Data for the top cards with font icons
 const topCardsData = [
-    { title: 'Total Compromises', value: 2, icon: <Security fontSize="large" />, }, // Security for compromises
-    { title: 'Domains', value: 2, icon: <Language fontSize="large" />, }, // Language icon for domains
-    { title: 'Emails', value: 1, icon: <Email fontSize="large" />, }, // Email icon for emails
-    { title: 'IPs', value: 30, icon: <Public fontSize="large" />, }, // Public icon for IPs
-    { title: 'Usernames', value: 30, icon: <AccountCircle fontSize="large" />, }, // AccountCircle for usernames
-    { title: 'Phones', value: 30, icon: <Phone fontSize="large" />, }, // Phone icon for phones
-  ];
-  
+    { title: 'total_compromises', value: 2, icon: <Security fontSize="large" /> }, 
+    { title: 'domains', value: 2, icon: <Language fontSize="large" /> },
+    { title: 'emails', value: 1, icon: <Email fontSize="large" /> },
+    { title: 'ips', value: 30, icon: <Public fontSize="large" /> },
+    { title: 'usernames', value: 30, icon: <AccountCircle fontSize="large" /> },
+    { title: 'phones', value: 30, icon: <Phone fontSize="large" /> },
+];
+
 // Function to return color based on value
 const getColorByValue = (value: number) => {
   if (value <= 1) return 'success';
@@ -21,6 +22,8 @@ const getColorByValue = (value: number) => {
 };
 
 const TopCardsDarkWeb = () => {
+  const { t } = useTranslation();
+
   return (
     <Grid container spacing={3}>
       {topCardsData.map((card, i) => {
@@ -46,7 +49,7 @@ const TopCardsDarkWeb = () => {
               {/* Title and Value in a row */}
               <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                 <Typography color={`${color}.main`} variant="subtitle2" fontWeight={600}>
-                  {card.title}
+                  {t(`observability.${card.title}`)}
                 </Typography>
                 <Typography color={`${color}.main`} variant="h5" fontWeight={600}>
                   {card.value}
