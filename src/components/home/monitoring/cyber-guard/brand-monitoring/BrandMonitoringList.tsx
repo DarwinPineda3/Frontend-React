@@ -54,12 +54,12 @@ const BrandMonitoringList : React.FC<BrandMonitoringListProps> = ({ onBrandMonit
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Query
+                    Parameter
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Query Type
+                    Parameter Type
                   </Typography>
                 </TableCell>
                 <TableCell>
