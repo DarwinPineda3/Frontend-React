@@ -90,6 +90,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                   <Typography
                     variant="subtitle2"
                     onClick={() => handleOpenModal(internet)}
+                    color="primary"
                     sx={{ cursor: 'pointer'}}
                   >
                     {internet.data.data || internet.data.title || 'NA'} 

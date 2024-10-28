@@ -95,6 +95,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
                   <Typography
                     variant="subtitle2"
                     onClick={() => handleOpenModal(leak)}
+                    color="primary"
                     sx={{ cursor: 'pointer'}}
                   >
                     {leak.data.email || leak.data.name || leak.data.username || 'NA'}

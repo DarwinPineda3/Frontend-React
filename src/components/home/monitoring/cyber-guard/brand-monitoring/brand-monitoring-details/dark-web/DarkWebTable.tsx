@@ -75,6 +75,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
                   <Typography
                     variant="subtitle2"
                     onClick={() => handleOpenModal(dark_web)}
+                    color="primary"
                     sx={{ cursor: 'pointer'}}
                   >
                     {dark_web.data?.email || dark_web.data?.username || 'NA'}

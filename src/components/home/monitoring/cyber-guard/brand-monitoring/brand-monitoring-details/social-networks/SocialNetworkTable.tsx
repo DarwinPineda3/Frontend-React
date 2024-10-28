@@ -99,6 +99,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                   <Typography
                     variant="subtitle2"
                     onClick={() => handleOpenModal(social)}
+                    color="primary"
                     sx={{
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
