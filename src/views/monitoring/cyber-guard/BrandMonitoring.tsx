@@ -40,7 +40,14 @@ const BrandMonitoringCyberGuard = () => {
             <Link
               component={RouterLink}
               color="inherit"
-              to="/monitoring/cyber-guard/brand-monitoring"
+              to=""
+            >
+              Monitoring
+            </Link>
+            <Link
+              component={RouterLink}
+              color="inherit"
+              to=""
             >
               Cyber Guard
             </Link>
@@ -52,14 +59,14 @@ const BrandMonitoringCyberGuard = () => {
               Brand Monitoring
             </Link>
             {selectedBrandMonitoring ? (
-                <Link
-                  component={RouterLink}
-                  color="inherit"
-                  to={`/monitoring/cyber-guard/brand-monitoring/${selectedBrandMonitoring}`}
-                >
-                  {selectedBrandMonitoring}
-                </Link>
-              ) : null}
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/monitoring/cyber-guard/brand-monitoring/${selectedBrandMonitoring}`}
+              >
+                {selectedBrandMonitoring}
+              </Link>
+            ) : null}
           </Breadcrumbs>
         </Box>
       </Box>
