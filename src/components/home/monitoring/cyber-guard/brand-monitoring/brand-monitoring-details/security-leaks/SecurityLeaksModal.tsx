@@ -26,53 +26,62 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
     return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
+  const isUrl = (value: string) => /^https?:\/\/[^\s]+$/.test(value);
+
   return (
     <Modal
-    open={open}
-    onClose={onClose}
-    aria-labelledby="security-leak-detail-title"
-    aria-describedby="security-leak-detail-description"
-  >
-    <Box
-      sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: { xs: '90%', sm: 500 },
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
-        borderRadius: 2,
-        overflowY: 'auto',
-        maxHeight: '80vh',
-      }}
+      open={open}
+      onClose={onClose}
+      aria-labelledby="security-leak-detail-title"
+      aria-describedby="security-leak-detail-description"
     >
-      <Typography id="security-leak-detail-title" variant="h6" component="h2" gutterBottom>
-        Detailed Information
-      </Typography>
-      <Divider sx={{ mb: 2 }} />
-      <List>
-        {Object.entries(filteredData).map(([key, value]) => (
-          <ListItem key={key}>
-            <ListItemText
-              primary={
-                <Typography
-                  variant="body2"
-                  sx={{
-                    wordBreak: 'break-word',
-                    maxWidth: '100%',
-                  }}
-                >
-                  <strong>{formatKey(key)}:</strong> {value}
-                </Typography>
-              }
-            />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  </Modal>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: { xs: '90%', sm: 500 },
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          p: 4,
+          borderRadius: 2,
+          overflowY: 'auto',
+          maxHeight: '80vh',
+        }}
+      >
+        <Typography id="security-leak-detail-title" variant="h6" component="h2" gutterBottom>
+          Detailed Information
+        </Typography>
+        <Divider sx={{ mb: 2 }} />
+        <List>
+          {Object.entries(filteredData).map(([key, value]) => (
+            <ListItem key={key}>
+              <ListItemText
+                primary={
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      wordBreak: 'break-word',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    <strong>{formatKey(key)}:</strong> {' '}
+                    {isUrl(value) ? (
+                      <a href={value} target="_blank" rel="noopener noreferrer">
+                        {value}
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </Typography>
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </Modal>
   );
 };
 
