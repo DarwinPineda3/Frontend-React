@@ -106,7 +106,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
       <DarkWebDetailModal
         open={modalOpen}
         onClose={handleCloseModal}
-        data={selectedLeak ? selectedLeak : {}}
+        data={selectedLeak ? selectedLeak.data : {}}
       />
     </>
   );
