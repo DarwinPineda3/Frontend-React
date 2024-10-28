@@ -3,12 +3,20 @@ import Chart from 'react-apexcharts';
 import { Box, useTheme } from '@mui/material';
 import DashboardCard from '../../shared/DashboardCard'; 
 import { ApexOptions } from 'apexcharts';
+import { useTranslation } from 'react-i18next';
 
 const BreachStatusChart = () => {
-    // Burned (static) data for now
-    const labels = ['Open', 'In mitigation', 'Completed'];
-    const series = [70, 20, 10]; // Static series data representing breaches by status
+    const { t } = useTranslation();
     const theme = useTheme();
+
+    const labels = [
+        t('observability.open'),
+        t('observability.in_mitigation'),
+        t('observability.completed')
+    ];
+    
+    const series = [70, 20, 10]; // Static series data representing breaches by status
+
     const colors = [
         theme.palette.error.main,     // Red for 'Open'
         theme.palette.warning.main,   // Orange for 'In mitigation'
@@ -47,7 +55,7 @@ const BreachStatusChart = () => {
     };
 
     return (
-        <DashboardCard title="Breaches by Status">
+        <DashboardCard title={t('observability.breaches_by_status')!}>
             <Chart options={options} series={series} type="donut" height="300" />
         </DashboardCard>
     );

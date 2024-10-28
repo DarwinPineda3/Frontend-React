@@ -1,3 +1,5 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -10,7 +12,7 @@ interface InfoCardProps {
 }
 
 const InfoCard = ({ title, data, titleColor }: InfoCardProps) => (
-  <DashboardCard >
+  <DashboardCard>
     <>
       <Typography variant="h6" style={{ color: titleColor }} gutterBottom>
         {title}
@@ -30,76 +32,78 @@ const InfoCard = ({ title, data, titleColor }: InfoCardProps) => (
 );
 
 const SystemInfoCards = () => {
+  const { t } = useTranslation();
+  
   const deviceInfo = [
-    { label: 'Nombre de Host', value: 'OCTAPUS-JUAN' },
-    { label: 'IPs', value: '192.168.1.9, 172.25.96.1' },
-    { label: 'Ip pública', value: '190.69.224.161' },
-    { label: 'ID', value: '6bf865c5-3a7e-4794-ad03-4685dc931660' },
-    { label: 'Agent Version', value: '1.0.5' },
+    { label: t('observability.host_name'), value: 'OCTAPUS-JUAN' },
+    { label: t('observability.ips'), value: '192.168.1.9, 172.25.96.1' },
+    { label: t('observability.public_ip'), value: '190.69.224.161' },
+    { label: t('observability.id'), value: '6bf865c5-3a7e-4794-ad03-4685dc931660' },
+    { label: t('observability.agent_version'), value: '1.0.5' },
   ];
 
   const pcInfo = [
-    { label: 'Modelo', value: 'Dell G15 5525' },
-    { label: 'Fabricante', value: 'Dell Inc.' },
-    { label: 'Número de serial', value: '5V3L4W3' },
+    { label: t('observability.model'), value: 'Dell G15 5525' },
+    { label: t('observability.manufacturer'), value: 'Dell Inc.' },
+    { label: t('observability.serial_number'), value: '5V3L4W3' },
   ];
 
   const cpuInfo = [
-    { label: 'Nombre', value: 'AMD Ryzen 7 6800H with Radeon Graphics' },
-    { label: 'ID del procesador', value: '178BFBFF00A40F41' },
-    { label: 'Arquitectura', value: '64 bits' },
-    { label: 'Número de núcleos', value: '8' },
-    { label: 'Número de procesadores lógicos', value: '16' },
-    { label: 'Velocidad máxima del reloj', value: '3.20 GHz' },
-    { label: 'Número de sockets', value: '1' },
-    { label: 'Number of Services', value: '136' },
+    { label: t('observability.name'), value: 'AMD Ryzen 7 6800H with Radeon Graphics' },
+    { label: t('observability.processor_id'), value: '178BFBFF00A40F41' },
+    { label: t('observability.architecture'), value: '64 bits' },
+    { label: t('observability.core_count'), value: '8' },
+    { label: t('observability.logical_processors'), value: '16' },
+    { label: t('observability.max_clock_speed'), value: '3.20 GHz' },
+    { label: t('observability.socket_count'), value: '1' },
+    { label: t('observability.service_count'), value: '136' },
   ];
 
   const ramInfo = [
-    { label: 'Memoria física total', value: '15.24 GB' },
-    { label: 'Memoria física libre', value: '3.86 GB' },
-    { label: 'Memoria física en uso', value: '11.38 GB' },
+    { label: t('observability.total_physical_memory'), value: '15.24 GB' },
+    { label: t('observability.free_physical_memory'), value: '3.86 GB' },
+    { label: t('observability.used_physical_memory'), value: '11.38 GB' },
   ];
 
   const partitionInfo = [
-    { label: 'Particiones', value: 'Disk #0, Partition #0' },
-    { label: 'Tamaño', value: '0.29 GB' },
-    { label: 'Tipo', value: 'GPT: System' },
-    { label: 'Particiones', value: 'Disk #0, Partition #1' },
-    { label: 'Tamaño', value: '453.53 GB' },
-    { label: 'Tipo', value: 'GPT: Basic Data' },
-    { label: 'Particiones', value: 'Disk #0, Partition #2' },
-    { label: 'Tamaño', value: '1.02 GB' },
-    { label: 'Tipo', value: 'GPT: Unknown' },
-    { label: 'Particiones', value: 'Disk #0, Partition #3' },
-    { label: 'Tamaño', value: '20.54 GB' },
-    { label: 'Tipo', value: 'GPT: Unknown' },
-    { label: 'Particiones', value: 'Disk #0, Partition #4' },
-    { label: 'Tamaño', value: '1.43 GB' },
-    { label: 'Tipo', value: 'GPT: Unknown' },
+    { label: t('observability.partitions'), value: 'Disk #0, Partition #0' },
+    { label: t('observability.size'), value: '0.29 GB' },
+    { label: t('observability.type'), value: 'GPT: System' },
+    { label: t('observability.partitions'), value: 'Disk #0, Partition #1' },
+    { label: t('observability.size'), value: '453.53 GB' },
+    { label: t('observability.type'), value: 'GPT: Basic Data' },
+    { label: t('observability.partitions'), value: 'Disk #0, Partition #2' },
+    { label: t('observability.size'), value: '1.02 GB' },
+    { label: t('observability.type'), value: 'GPT: Unknown' },
+    { label: t('observability.partitions'), value: 'Disk #0, Partition #3' },
+    { label: t('observability.size'), value: '20.54 GB' },
+    { label: t('observability.type'), value: 'GPT: Unknown' },
+    { label: t('observability.partitions'), value: 'Disk #0, Partition #4' },
+    { label: t('observability.size'), value: '1.43 GB' },
+    { label: t('observability.type'), value: 'GPT: Unknown' },
   ];
 
   const osInfo = [
-    { label: 'Nombre del sistema operativo', value: 'Microsoft Windows 11 Home Single Language' },
-    { label: 'Versión', value: '10.0.22631' },
-    { label: 'Número de compilación', value: '22631' },
-    { label: 'Tipo de compilación', value: 'Multiprocessor Free' },
-    { label: 'Fabricante', value: 'Microsoft Corporation' },
-    { label: 'Usuario registrado', value: 'it2secure2o24@hotmail.com' },
-    { label: 'Directorio del sistema', value: 'C:\\WINDOWS\\system32' },
-    { label: 'Fecha de instalación', value: '2024-01-30T12:26:40-05:00' },
-    { label: 'Arquitectura', value: '64 bits' },
+    { label: t('observability.os_name'), value: 'Microsoft Windows 11 Home Single Language' },
+    { label: t('observability.version'), value: '10.0.22631' },
+    { label: t('observability.build_number'), value: '22631' },
+    { label: t('observability.build_type'), value: 'Multiprocessor Free' },
+    { label: t('observability.manufacturer'), value: 'Microsoft Corporation' },
+    { label: t('observability.registered_user'), value: 'it2secure2o24@hotmail.com' },
+    { label: t('observability.system_directory'), value: 'C:\\WINDOWS\\system32' },
+    { label: t('observability.installation_date'), value: '2024-01-30T12:26:40-05:00' },
+    { label: t('observability.architecture'), value: '64 bits' },
   ];
 
   return (
     <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
-      <InfoCard title="INFORMACIÓN DEL DISPOSITIVO" data={deviceInfo} titleColor="#1e40af" />
-      <InfoCard title="INFORMACIÓN DEL PC" data={pcInfo} titleColor="#047857" />
-      <InfoCard title="INFORMACIÓN DEL CPU" data={cpuInfo} titleColor="#10b981" />
-      <InfoCard title="INFORMACIÓN DE LA RAM" data={ramInfo} titleColor="#fbbf24" />
-      <InfoCard title="INFORMACIÓN DE PARTICIONES" data={partitionInfo} titleColor="#ef4444" />
-      <InfoCard title="INFORMACIÓN DEL SISTEMA OPERATIVO" data={osInfo} titleColor="#fb923c" />
-      <DiskCard/>
+      <InfoCard title={t('observability.device_info')} data={deviceInfo} titleColor="#1e40af" />
+      <InfoCard title={t('observability.pc_info')} data={pcInfo} titleColor="#047857" />
+      <InfoCard title={t('observability.cpu_info')} data={cpuInfo} titleColor="#10b981" />
+      <InfoCard title={t('observability.ram_info')} data={ramInfo} titleColor="#fbbf24" />
+      <InfoCard title={t('observability.partition_info')} data={partitionInfo} titleColor="#ef4444" />
+      <InfoCard title={t('observability.os_info')} data={osInfo} titleColor="#fb923c" />
+      <DiskCard />
     </Masonry>
   );
 };

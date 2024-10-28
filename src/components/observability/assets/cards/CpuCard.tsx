@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
 import { Stack, Typography, Avatar } from '@mui/material';
 import { IconArrowUpLeft, IconArrowDownRight } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 import { Props } from 'react-apexcharts';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -18,58 +19,41 @@ interface CpuCardProps {
 }
 
 const CpuCard: React.FC<CpuCardProps> = ({ history }) => {
-  // chart color
+  const { t } = useTranslation();
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const primarylight = theme.palette.primary.light;
   const successlight = theme.palette.success.light;
   const errorlight = theme.palette.error.light;
 
-  // Get the last two history points for current percentage and trend calculation
   const lastPoint = history[history.length - 1];
-  const previousPoint = history[history.length - 2] || { percentage: lastPoint.percentage }; // fallback if no previous point
+  const previousPoint = history[history.length - 2] || { percentage: lastPoint.percentage };
 
   const trend = lastPoint.percentage - previousPoint.percentage;
   const isPositive = trend >= 0;
 
-  // Prepare data for the chart
   const optionscolumnchart: Props = {
     chart: {
       type: 'area',
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
       foreColor: '#adb0bb',
-      toolbar: {
-        show: false,
-      },
+      toolbar: { show: false },
       height: 70,
-      sparkline: {
-        enabled: true,
-      },
+      sparkline: { enabled: true },
       group: 'sparklines',
     },
-    stroke: {
-      curve: 'smooth',
-      width: 2,
-    },
-    fill: {
-      colors: [primarylight],
-      type: 'solid',
-      opacity: 0.05,
-    },
-    markers: {
-      size: 0,
-    },
+    stroke: { curve: 'smooth', width: 2 },
+    fill: { colors: [primarylight], type: 'solid', opacity: 0.05 },
+    markers: { size: 0 },
     tooltip: {
       theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
-      x: {
-        show: false,
-      },
+      x: { show: false },
     },
   };
 
   const seriescolumnchart = [
     {
-      name: 'CPU Usage',
+      name: t('observability.cpu_usage_percentage'),
       color: primary,
       data: history.map((point) => point.percentage),
     },
@@ -77,12 +61,9 @@ const CpuCard: React.FC<CpuCardProps> = ({ history }) => {
 
   return (
     <DashboardCard
-      title="CPU Usage"
+      title={t('observability.cpu_usage')!}
       action={
-        <Avatar
-          variant="rounded"
-          sx={{ bgcolor: (theme) => theme.palette.primary.light, width: 40, height: 40 }}
-        >
+        <Avatar variant="rounded" sx={{ bgcolor: primarylight, width: 40, height: 40 }}>
           <DeveloperBoardIcon />
         </Avatar>
       }
@@ -103,7 +84,8 @@ const CpuCard: React.FC<CpuCardProps> = ({ history }) => {
             )}
           </Avatar>
           <Typography variant="subtitle2" color="textSecondary">
-            {isPositive ? '+' : ''}{trend}%
+            {isPositive ? '+' : ''}
+            {trend}%
           </Typography>
         </Stack>
       </Stack>

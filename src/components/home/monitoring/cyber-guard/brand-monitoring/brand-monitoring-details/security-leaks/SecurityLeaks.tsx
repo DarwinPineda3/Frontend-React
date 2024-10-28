@@ -1,9 +1,9 @@
 //basic component
 
 import { Grid, Typography } from '@mui/material';
-import SecurityLeaksIndicators from './SecurityLeaksIndicators';
-import BreachElementTypeChart from '../charts/breachByElementTypeChart';
-import OrgBreachesChart from '../charts/OrgBreachesChart';
+import SecurityLeaksIndicators from '../security-leaks/SecurityLeaksIndicators';
+import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
+import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import SecurityLeaksAccordion from './SecurityLeaksAccordion';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
@@ -12,7 +12,7 @@ interface SecurityLeaksProps {
 }
 
 const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) => {
-  const securityLeaksData = brandMonitoringDetail.consolidated_data?.security_leaks_data || [];
+  const securityLeaksData = brandMonitoringDetail?.consolidated_data?.security_leaks_data || [];
 
   if (securityLeaksData.length === 0) {
     return (

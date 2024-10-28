@@ -123,6 +123,8 @@ const Router = [
       { path: '/observability/network/scans', element: <NetworkObservability /> },
       { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
       { path: '/observability/cloud', element: <CloudObservability /> },
+      { path: '/observability/cloud/scans/:scanId', element: <CloudObservability /> },
+      { path: '/observability/cloud/scans', element: <CloudObservability /> },
       { path: '/observability/observed-assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },

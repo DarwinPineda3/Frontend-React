@@ -42,7 +42,7 @@ const OrgBreachesCompare = () => {
   if (loading) {
     return (
       <DashboardCard title={t("dashboard.organization_breaches") || ''}>
-        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Box display="flex" justifyContent="center" >
           <Loader />
         </Box>
       </DashboardCard>

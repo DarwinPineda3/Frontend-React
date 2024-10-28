@@ -1,9 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import {
-  Computer,
   Security,
-  WifiTethering,
-  Lan,
   AccountCircle,
   Email,
   Language,
@@ -12,58 +9,57 @@ import {
 } from '@mui/icons-material'; // Importing Material UI Icons
 import React from 'react';
 
-interface SecurityLeaksIndicatorsProps {
-  securityLeakCounters: {
-    security_leaks_total: number;
-    sl_domains: number;
-    sl_emails: number;
-    sl_ips: number;
-    sl_names_usernames: number;
-    sl_phones: number;
+interface InternetIndicatorsProps {
+  internetCounters: {
+    ips: number;
+    emails: number;
+    names_usernames: number;
+    phones: number;
+    vins: number;
+    domains: number;
+    total: number;
   };
 }
 
 // Function to return color based on value
 const getColorByValue = (value: number) => {
   if (value <= 1) return 'success';
-  if (value <= 5) return 'info';
-  if (value <= 9) return 'warning';
   return 'error';
 };
 
-const SecurityLeaksIndicators: React.FC<SecurityLeaksIndicatorsProps> = ({
-  securityLeakCounters,
+const InternetIndicators: React.FC<InternetIndicatorsProps> = ({
+  internetCounters,
 }) => {
   // Data for the top cards with font icons
   const topCardsData = [
     {
       title: 'Total Compromises',
-      value: securityLeakCounters.security_leaks_total,
+      value: internetCounters.total,
       icon: <Security fontSize="large" />,
     }, // Security for compromises
     {
       title: 'Domains',
-      value: securityLeakCounters.sl_domains,
+      value: internetCounters.domains,
       icon: <Language fontSize="large" />,
     }, // Language icon for domains
     {
       title: 'Emails',
-      value: securityLeakCounters.sl_emails,
+      value: internetCounters.emails,
       icon: <Email fontSize="large" />,
     }, // Email icon for emails
     {
       title: 'IPs',
-      value: securityLeakCounters.sl_ips,
+      value: internetCounters.ips,
       icon: <Public fontSize="large" />,
     }, // Public icon for IPs
     {
       title: 'Usernames',
-      value: securityLeakCounters.sl_names_usernames,
+      value: internetCounters.names_usernames,
       icon: <AccountCircle fontSize="large" />,
     }, // AccountCircle for usernames
     {
       title: 'Phones',
-      value: securityLeakCounters.sl_phones,
+      value: internetCounters.phones,
       icon: <Phone fontSize="large" />,
     }, // Phone icon for phones
   ];
@@ -111,4 +107,4 @@ const SecurityLeaksIndicators: React.FC<SecurityLeaksIndicatorsProps> = ({
   );
 };
 
-export default SecurityLeaksIndicators;
+export default InternetIndicators;

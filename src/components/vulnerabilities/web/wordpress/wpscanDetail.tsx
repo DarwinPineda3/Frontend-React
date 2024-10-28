@@ -1,21 +1,40 @@
 import React from 'react';
-import { Grid, Box, Chip, Table, TableBody, TableCell, TableHead, TableRow, Typography, TableContainer, IconButton, Stack, LinearProgress } from '@mui/material';
+import {
+  Grid,
+  Box,
+  Chip,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+  TableContainer,
+  IconButton,
+  Stack,
+  LinearProgress,
+} from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TranslateIcon from '@mui/icons-material/Translate';
 import PluginVersionTable from './pluginVersionTable';
 import WpScanTopCards from './wpScantopCards';
+import { useTranslation } from 'react-i18next';
 
-const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) => void; }> = ({ scanId, onAlertClick }) => {
+const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) => void }> = ({
+  scanId,
+  onAlertClick,
+}) => {
+  const { t } = useTranslation();
 
   const mockAlerts = [
     {
       id: '1',
       url: 'https://prueba-tu-pala.ofertasdepadel.com/',
-      description: 'Headers',
-      type: 'headers',
-      foundBy: 'Headers (Passive Detection)',
+      description: t('vulnerabilities.headers'),
+      type: t('vulnerabilities.type_headers'),
+      foundBy: t('vulnerabilities.detected_by.headers_detection'),
       confidence: '100%',
       references: 'NA',
       entries: true,
@@ -23,9 +42,9 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
     {
       id: '2',
       url: 'https://prueba-tu-pala.ofertasdepadel.com/robots.txt',
-      description: 'robots.txt found: https://prueba-tu-pala.ofertasdepadel.com/robots.txt',
-      type: 'robots_txt',
-      foundBy: 'Robots Txt (Aggressive Detection)',
+      description: t('vulnerabilities.robots_description'),
+      type: t('vulnerabilities.type_robots_txt'),
+      foundBy: t('vulnerabilities.detected_by.robots_detection'),
       confidence: '100%',
       references: 'NA',
       entries: true,
@@ -33,19 +52,19 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
     {
       id: '3',
       url: 'https://prueba-tu-pala.ofertasdepadel.com/xmlrpc.php',
-      description: 'XML-RPC seems to be enabled: https://prueba-tu-pala.ofertasdepadel.com/xmlrpc.php',
-      type: 'xmlrpc',
-      foundBy: 'Direct Access (Aggressive Detection)',
+      description: t('vulnerabilities.xmlrpc_description'),
+      type: t('vulnerabilities.type_xmlrpc'),
+      foundBy: t('vulnerabilities.detected_by.xmlrpc_detection'),
       confidence: '100%',
-      references: 'url http://codex.wordpress.org/XML-RPC_Pingback_API, metasploit auxiliary/scanner/http/wordpress_ghost_scanner, auxiliary/dos/http/wordpress_xmlrpc_dos, auxiliary/scanner/http/wordpress_xmlrpc_login, auxiliary/scanner/http/wordpress_pingback_access',
+      references: t('vulnerabilities.xmlrpc_references'),
       entries: true,
     },
     {
       id: '4',
       url: 'https://prueba-tu-pala.ofertasdepadel.com/readme.html',
-      description: 'WordPress readme found: https://prueba-tu-pala.ofertasdepadel.com/readme.html',
-      type: 'readme',
-      foundBy: 'Direct Access (Aggressive Detection)',
+      description: t('vulnerabilities.readme_description'),
+      type: t('vulnerabilities.type_readme'),
+      foundBy: t('vulnerabilities.detected_by.readme_detection'),
       confidence: '100%',
       references: 'NA',
       entries: true,
@@ -53,36 +72,28 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
     {
       id: '5',
       url: 'https://prueba-tu-pala.ofertasdepadel.com/wp-cron.php',
-      description: 'The external WP-Cron seems to be enabled: https://prueba-tu-pala.ofertasdepadel.com/wp-cron.php',
-      type: 'wp_cron',
-      foundBy: 'Direct Access (Aggressive Detection)',
+      description: t('vulnerabilities.wp_cron_description'),
+      type: t('vulnerabilities.type_wp_cron'),
+      foundBy: t('vulnerabilities.detected_by.wp_cron_detection'),
       confidence: '60%',
-      references: 'url https://www.iplocation.net/defend-wordpress-from-ddos, https://github.com/wpscanteam/wpscan/issues/1299',
+      references: t('vulnerabilities.wp_cron_references'),
       entries: true,
     },
   ];
 
-  const mockDate = new Date('2024-09-23T10:20:30Z');
-  const mockEndDate = new Date('2024-09-23T10:20:30Z');
-  const version = '1.0.0';
-  const effectiveUrl = 'https://example.com';
-  const mockSitesUrl = 'https://example.com';
-  const mockFalsePositive = 1;
-  const scanName = "Scan Name Example";
-  const trust = 12;
-  const status = 'outdated';
-
+  const scanName = t('vulnerabilities.scan_name');
+  const status = t('vulnerabilities.status_outdated');
   const themeDetails = {
     name: 'hello-theme-child-master',
     location: 'https://prueba-tu-pala.ofertasdepadel.com/wp-content/themes/hello-theme-child-master/',
     lastVersion: 'NA',
     lastUpdate: 'NA',
-    description: 'Hello Elementor Child is a child theme of Hello Elementor, created by Elementor team',
+    description: t('vulnerabilities.theme_description'),
     author: 'Elementor Team',
     authorUri: 'https://elementor.com/',
     license: 'GNU General Public License v3 or later.',
     licenseUri: 'https://www.gnu.org/licenses/gpl-3.0.html',
-    foundBy: 'Css Style In Homepage (Passive Detection)',
+    foundBy: t('vulnerabilities.detected_by.css_homepage'),
     confidence: '100%',
   };
 
@@ -90,7 +101,7 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
     <Grid container spacing={3}>
       {/* Scan Metadata Section */}
       <Grid item xs={12} xl={12}>
-        <WpScanTopCards/>
+        <WpScanTopCards />
       </Grid>
       <Grid item xs={12} xl={6}>
         <DashboardCard>
@@ -101,123 +112,77 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
       <Grid item xs={12} xl={6}>
         <Breadcrumb title={scanName}>
           <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-            <Chip label={`Status: ${status.toLocaleString()}`} color="info" variant="filled" />
-            <Chip label={`Version: ${version}`} color="secondary" variant="outlined" />
-            <Chip label={`Site URL: ${mockSitesUrl}`} color="info" variant="outlined" />
-            <Chip label={`Effective URL: ${effectiveUrl}`} color="warning" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.status')}: ${status}`} color="info" variant="filled" />
+            <Chip label={`${t('vulnerabilities.version')}: 1.0.0`} color="secondary" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.site_url')}: https://example.com`} color="info" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.effective_url')}: https://example.com`} color="warning" variant="outlined" />
           </Box>
         </Breadcrumb>
-        <DashboardCard title="Detalles del escaneo" subtitle="Detalles del escaneo">
+        <DashboardCard title={t('vulnerabilities.scan_details')!}>
           <Box display="flex" flexDirection="column" gap={2} mt={3}>
-            
-          <Box>
-              <Stack
-                direction="row"
-                spacing={2}
-                mb={1}
-                justifyContent="space-between"
-                alignItems="center"
-              >
+            <Box>
+              <Stack direction="row" spacing={2} mb={1} justifyContent="space-between" alignItems="center">
                 <Box>
-                  <Typography variant="h6">{"Trust"}</Typography>
+                  <Typography variant="h6">{t('vulnerabilities.trust')}</Typography>
                 </Box>
-                <Chip
-                  sx={{
-                    backgroundColor: 'primary',
-                    color: 'primary',
-                    borderRadius: '4px',
-                    width: 55,
-                    height: 24,
-                  }}
-                  label={trust + '%'}
-                />
+                <Chip sx={{ backgroundColor: 'primary', color: 'primary', width: 55, height: 24 }} label="12%" />
               </Stack>
-              <LinearProgress value={trust} variant="determinate" color={'primary'} />
+              <LinearProgress value={12} variant="determinate" color={'primary'} />
             </Box>
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Nombre:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.name')}:</Typography>
               <Typography variant="body2">{themeDetails.name}</Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Ubicación:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.location')}:</Typography>
               <Typography variant="body2">
                 <a href={themeDetails.location} target="_blank" rel="noopener noreferrer">
                   {themeDetails.location}
                 </a>
               </Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Última versión:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.last_version')}:</Typography>
               <Typography variant="body2">{themeDetails.lastVersion}</Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Última actualización:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.last_update')}:</Typography>
               <Typography variant="body2">{themeDetails.lastUpdate}</Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Descripción:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.description')}:</Typography>
               <Typography variant="body2">{themeDetails.description}</Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Autor:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.author')}:</Typography>
               <Typography variant="body2">{themeDetails.author}</Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Autor Uri:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.author_uri')}:</Typography>
               <Typography variant="body2">
                 <a href={themeDetails.authorUri} target="_blank" rel="noopener noreferrer">
                   {themeDetails.authorUri}
                 </a>
               </Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Licencia:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.license')}:</Typography>
               <Typography variant="body2">{themeDetails.license}</Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Licencia Uri:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.license_uri')}:</Typography>
               <Typography variant="body2">
                 <a href={themeDetails.licenseUri} target="_blank" rel="noopener noreferrer">
                   {themeDetails.licenseUri}
                 </a>
               </Typography>
             </Box>
-
             <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Encontrado por:
-              </Typography>
+              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.detected_by')}:</Typography>
               <Typography variant="body2">{themeDetails.foundBy}</Typography>
             </Box>
           </Box>
         </DashboardCard>
-
       </Grid>
       {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
@@ -226,13 +191,13 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>URL</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>Descripción</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>Tipo</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>Encontrado por</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>Confianza</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>Referencias</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>Entradas interesantes</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.url')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.description')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.type')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.detected_by')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.confidence')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.references')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.interesting_entries')}</Typography></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -243,21 +208,11 @@ const WpScanDetail: React.FC<{ scanId: string, onAlertClick: (alertId: string) =
                         {alert.url}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{alert.description}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{alert.type}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{alert.foundBy}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{alert.confidence}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{alert.references}</Typography>
-                    </TableCell>
+                    <TableCell><Typography variant="body2">{alert.description}</Typography></TableCell>
+                    <TableCell><Typography variant="body2">{alert.type}</Typography></TableCell>
+                    <TableCell><Typography variant="body2">{alert.foundBy}</Typography></TableCell>
+                    <TableCell><Typography variant="body2">{alert.confidence}</Typography></TableCell>
+                    <TableCell><Typography variant="body2">{alert.references}</Typography></TableCell>
                     <TableCell>
                       {alert.entries && (
                         <Box display="flex" gap={1}>

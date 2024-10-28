@@ -4,78 +4,78 @@ import {
   LatestDataType,
   SummaryDataType,
 } from '../../../../types/cyber-guard/brand-monitoring/brandMonitoring';
-import { consolidateData } from './results'
+import { consolidateDataTest } from './result-test'
 
 const latestData: LatestDataType[] = [
     {
         "query": "Banco AV Villas",
         "query_type": "WORD",
-        "scan_date": "2024-10-25T17:23:47.498786Z",
+        "scan_date": "2024-10-26T06:28:37.177703Z",
         "total_results": 55,
         "id": "IYO0xJIBHPjIIpHRrOqy"
     },
     {
         "query": "Banco Popular",
         "query_type": "WORD",
-        "scan_date": "2024-10-25T17:25:29.750333Z",
+        "scan_date": "2024-10-26T06:16:14.837249Z",
         "total_results": 57,
         "id": "K4O2xJIBHPjIIpHRPOpG"
     },
     {
         "query": "Banco de Bogota",
         "query_type": "WORD",
-        "scan_date": "2024-10-25T17:22:06.570062Z",
-        "total_results": 40,
+        "scan_date": "2024-10-26T06:26:00.073638Z",
+        "total_results": 50,
         "id": "FoOzxJIBHPjIIpHRIuo8"
     },
     {
         "query": "Banco de Occidente",
         "query_type": "WORD",
-        "scan_date": "2024-10-25T17:27:02.999362Z",
+        "scan_date": "2024-10-26T06:31:32.473566Z",
         "total_results": 56,
         "id": "NIO3xJIBHPjIIpHRqOoo"
     },
     {
         "query": "Grupo Aval",
         "query_type": "WORD",
-        "scan_date": "2024-10-25T17:28:37.218920Z",
+        "scan_date": "2024-10-26T06:34:02.699429Z",
         "total_results": 58,
         "id": "PIO5xJIBHPjIIpHRGOo6"
     },
     {
         "query": "avvillas.com.co",
         "query_type": "DOMAIN",
-        "scan_date": "2024-10-25T17:16:32.654855Z",
-        "total_results": 962,
-        "id": "7oOuxJIBHPjIIpHRCen0"
+        "scan_date": "2024-10-26T06:20:51.671980Z",
+        "total_results": 71,
+        "id": "vxJIBHPjIIpHRuekRdasRE"
     },
     {
         "query": "bancodebogota.com",
         "query_type": "DOMAIN",
-        "scan_date": "2024-10-25T17:30:27.488378Z",
-        "total_results": 4522,
+        "scan_date": "2024-10-26T06:18:36.188735Z",
+        "total_results": 509,
         "id": "R4O6xJIBHPjIIpHRxur5"
     },
     {
         "query": "bancodeoccidente.com.co",
         "query_type": "DOMAIN",
-        "scan_date": "2024-10-25T17:20:13.121784Z",
-        "total_results": 1015,
-        "id": "B4OxxJIBHPjIIpHRZ-oT"
-    },
-    {
-        "query": "bancopopular.com.co",
-        "query_type": "DOMAIN",
-        "scan_date": "2024-10-25T17:14:47.069952Z",
-        "total_results": 969,
-        "id": "4oOsxJIBHPjIIpHRb-mQ"
+        "scan_date": "2024-10-26T06:37:17.967447Z",
+        "total_results": 417,
+        "id": "E4OLx5IBHPjIIpHRJvRD"
     },
     {
         "query": "grupoaval.com",
         "query_type": "DOMAIN",
-        "scan_date": "2024-10-25T17:18:22.956182Z",
-        "total_results": 165,
-        "id": "-4OvxJIBHPjIIpHRuekR",
+        "scan_date": "2024-10-26T06:23:24.591311Z",
+        "total_results": 177,
+        "id": "-4OvxJIBHPjIIpHRuekR"
+    },
+    {
+        "query": "mi.bancopopular.com.co",
+        "query_type": "DOMAIN",
+        "scan_date": "2024-10-26T07:17:13.479915Z",
+        "total_results": 59,
+        "id": "4oOsxJIBHPjIIpHRb-mQ"
     }
 ];
 
@@ -90,35 +90,35 @@ const summaryData: SummaryDataType[] = [
     },
     {
         "query": "Banco de Bogota",
-        "total_results": 40
+        "total_results": 50
     },
     {
         "query": "Banco de Occidente",
         "total_results": 56
     },
-    {
-        "query": "Grupo Aval",
-        "total_results": 58
-    },
+    // {
+    //     "query": "Grupo Aval",
+    //     "total_results": 58
+    // },
     {
         "query": "avvillas.com.co",
-        "total_results": 962
+        "total_results": 71
     },
     {
         "query": "bancodebogota.com",
-        "total_results": 4522
+        "total_results": 509
     },
     {
         "query": "bancodeoccidente.com.co",
-        "total_results": 1015
-    },
-    {
-        "query": "bancopopular.com.co",
-        "total_results": 969
+        "total_results": 417
     },
     {
         "query": "grupoaval.com",
-        "total_results": 165
+        "total_results": 177
+    },
+    {
+        "query": "mi.bancopopular.com.co",
+        "total_results": 59
     }
 ];
 
@@ -129,8 +129,6 @@ summaryData.sort((a, b) => b.total_results - a.total_results);
 mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/brand-monitoring')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
-    console.log('entre');
-
     const limit = 5;
     const page = parseInt(urlParams.get('page') || '1', 10);
 
@@ -160,13 +158,13 @@ mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/brand-monitoring')).repl
 mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/detail/brand-monitoring/*')).reply((config) => {
     try {
       const id = config.url!.split('/').pop();
-      const brandMonitoringIndex = consolidateData.data.findIndex((result) => result.id === id);
+      const brandMonitoringIndex = consolidateDataTest.data.findIndex((result) => result.id === id);
       
       if (brandMonitoringIndex === -1) {
         return [404, { message: 'Brand Monitoring result not found' }];
       }
   
-      return [200, { brandMonitoring: consolidateData.data[brandMonitoringIndex] }];
+      return [200, { brandMonitoring: consolidateDataTest.data[brandMonitoringIndex] }];
     } catch (error) {
       console.error('Error fetching Brand Monitoring:', error);
       return [500, { message: 'Failed to fetch Brand Monitoring' }];

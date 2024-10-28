@@ -7,12 +7,11 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Paper,
-  Box,
   IconButton,
 } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 // Sample data for services
 const serviceData = [
@@ -35,25 +34,27 @@ const serviceData = [
 ];
 
 const ServiceTable = () => {
+  const { t } = useTranslation();
+
   return (
-    <DashboardCard title='Services'>
-      <TableContainer >
+    <DashboardCard title={t('services')!}>
+      <TableContainer>
         <Table aria-label="service table">
           <TableHead>
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Nombre del Servicio
+                  {t('service_name')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Estado
+                  {t('status')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Tipo de Inicio
+                  {t('startup_type')}
                 </Typography>
               </TableCell>
             </TableRow>

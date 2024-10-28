@@ -1,5 +1,6 @@
 import { Box, Chip, Grid, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import PortTable from "./portTable";
 import DashboardCard from "src/components/shared/DashboardCard";
 import Breadcrumb from "src/components/shared/breadcrumb/Breadcrumb";
@@ -19,48 +20,44 @@ const mockNeo4jGraph = {
         { id: '9', label: 'IoT Device', properties: { ip: '192.168.0.151', name: 'Smart Thermostat' } }
     ],
     relationships: [
-        // Router connections
-        { id: 'r1', source: '1', target: '2', type: 'CONNECTS_TO' }, // Router to Laptop 1
-        { id: 'r2', source: '1', target: '3', type: 'CONNECTS_TO' }, // Router to Laptop 2
-        { id: 'r3', source: '1', target: '4', type: 'CONNECTS_TO' }, // Router to Desktop
-        { id: 'r4', source: '1', target: '8', type: 'CONNECTS_TO' }, // Router to Smart Camera
-        { id: 'r5', source: '1', target: '9', type: 'CONNECTS_TO' }, // Router to Smart Thermostat
-
-        // Device communication
-        { id: 'r6', source: '2', target: '5', type: 'USES' }, // Laptop 1 to Internal File Server
-        { id: 'r7', source: '4', target: '5', type: 'USES' }, // Desktop to Internal File Server
-        { id: 'r8', source: '3', target: '6', type: 'USES' }, // Laptop 2 to External Web Service 1
-        { id: 'r9', source: '4', target: '7', type: 'USES' }, // Desktop to External Web Service 2
-
-        // IoT device communication
-        { id: 'r10', source: '8', target: '6', type: 'USES' }, // Smart Camera to External Web Service 1
-        { id: 'r11', source: '9', target: '6', type: 'USES' }, // Smart Thermostat to External Web Service 1
+        { id: 'r1', source: '1', target: '2', type: 'CONNECTS_TO' },
+        { id: 'r2', source: '1', target: '3', type: 'CONNECTS_TO' },
+        { id: 'r3', source: '1', target: '4', type: 'CONNECTS_TO' },
+        { id: 'r4', source: '1', target: '8', type: 'CONNECTS_TO' },
+        { id: 'r5', source: '1', target: '9', type: 'CONNECTS_TO' },
+        { id: 'r6', source: '2', target: '5', type: 'USES' },
+        { id: 'r7', source: '4', target: '5', type: 'USES' },
+        { id: 'r8', source: '3', target: '6', type: 'USES' },
+        { id: 'r9', source: '4', target: '7', type: 'USES' },
+        { id: 'r10', source: '8', target: '6', type: 'USES' },
+        { id: 'r11', source: '9', target: '6', type: 'USES' }
     ]
 };
 
-
 const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
+    const { t } = useTranslation();
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <NetworkScanCards />
             </Grid>
             <Grid item xs={12}>
-                <Breadcrumb title="Detalles del escaneo">
+                <Breadcrumb title={t('observability.scan_details')}>
                     <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-                        <Chip label={`Settings: ports_tcp`} color="primary" variant="outlined" />
-                        <Chip label={`Type: 2`} color="secondary" variant="outlined" />
-                        <Chip label={`Objective: 107.173.154.73`} color="info" variant="outlined" />
+                        <Chip label={`${t('observability.settings')}: ports_tcp`} color="primary" variant="outlined" />
+                        <Chip label={`${t('observability.type')}: 2`} color="secondary" variant="outlined" />
+                        <Chip label={`${t('observability.objective')}: 107.173.154.73`} color="info" variant="outlined" />
                     </Box>
                 </Breadcrumb>
             </Grid>
             <Grid item xs={12}>
-                <DashboardCard title="Ports">
+                <DashboardCard title={t('observability.ports')!}>
                     <PortTable />
                 </DashboardCard>
             </Grid>
             <Grid item xs={12}>
-                <DashboardCard title="Network Graph">
+                <DashboardCard title={t('observability.network_graph')!}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={8}>
                             <NetworkGraph data={mockNeo4jGraph} />
@@ -70,8 +67,8 @@ const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
                                 <Table>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>IP</TableCell>
-                                            <TableCell>Name</TableCell>
+                                            <TableCell>{t('observability.ip')}</TableCell>
+                                            <TableCell>{t('observability.name')}</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -85,12 +82,8 @@ const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
                                 </Table>
                             </Box>
                         </Grid>
-
                     </Grid>
-
                 </DashboardCard>
-
-
             </Grid>
         </Grid>
     );
