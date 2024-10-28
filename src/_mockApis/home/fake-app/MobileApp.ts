@@ -170,7 +170,7 @@ let mobileApps: MobileAppType[] = [
 ];
 
 // GET: Fetch paginated mobileApps
-mock.onGet(new RegExp('/api/data/mobileApps')).reply((config) => {
+mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 

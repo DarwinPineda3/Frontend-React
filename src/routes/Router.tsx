@@ -117,6 +117,7 @@ const Router = [
       { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/fake-app', element: <FakeApp /> },
       { path: '/monitoring/fake-app/:mobileAppId', element: <FakeApp /> },
+      { path: '/monitoring/parameter-app/:mobileAppId/parameter/:parameterAppId', element: <FakeApp /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },

@@ -3,7 +3,7 @@ import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
 import { MobileAppType } from "src/types/monitoring/fake-apps/fakeApp";
 
-const API_URL = '/api/data/mobileApps';
+const API_URL = '/api/data/mobile-apps';
 
 interface StateType {
   mobileApps: MobileAppType[];
