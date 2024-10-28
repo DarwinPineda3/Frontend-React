@@ -6,6 +6,7 @@ import NetworkScanListTable from 'src/components/observability/network/networkSc
 import NetworkScanDetail from 'src/components/observability/network/networkScanDetail';
 import CloudScansTable from 'src/components/observability/cloud/cloudScans';
 import CloudScansDetailObs from 'src/components/observability/cloud/cloudScanDetail';
+import { useTranslation } from 'react-i18next';
 
 const CloudObservability = () => {
   // Get params from the URL
@@ -14,6 +15,8 @@ const CloudObservability = () => {
   const location = useLocation();  // Tracks the current URL location
   
   const [selectedScan, setSelectedScan] = useState<string | null>(null);
+
+  const {t} = useTranslation();
 
   // Synchronize state with URL parameters
   useEffect(() => {
@@ -37,14 +40,14 @@ const CloudObservability = () => {
         </IconButton>
         <Breadcrumbs aria-label="breadcrumb">
           <Link component={RouterLink} color="inherit" to="/observability/cloud">
-            Observabilidad
+          {t('menu.observability')}
           </Link>
           <Link component={RouterLink} color="inherit" to="/observability/cloud">
-            Red
+          {t('menu.cloud')}
           </Link>
           {selectedScan && (
             <Link component={RouterLink} color="inherit" to={`/observability/cloud/scans/${selectedScan}`}>
-              Escaneos observabilidad Red
+              {t('observability.cloud_obs_scans')} 
             </Link>
           )}
         </Breadcrumbs>

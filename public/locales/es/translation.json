@@ -300,6 +300,8 @@
     "breadcrumb_vulnerabilidad": "Vulnerabilidad"
   },
   "observability":{
+    "cloud_obs_scans": "Escaneos observabilidad Cloud",
+    "assets_obs_scans": "Escaneos observabilidad de Activos",
     "antivirus_info": "Antivirus Info",
     "logo": "Logo",
     "installed_antivirus": "Antivirus Instalados",
