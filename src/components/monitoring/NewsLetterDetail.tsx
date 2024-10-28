@@ -20,7 +20,7 @@ const objFile = {
                 src={mittrUrl}
                 style={{ 
                     overflow: 'hidden', 
-                    height: '100%', 
+                    height: 'calc(100vh - 20px)',
                     width: '100%', 
                     border: 'none', 
                     display: 'block', 
