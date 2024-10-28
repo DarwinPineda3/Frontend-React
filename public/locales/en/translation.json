@@ -40,7 +40,8 @@
     "news": "Newsletters",
     "takedown": "Takedown",
     "technologies_inventory": "Technologies Inventory",
-    "malware": "Malware"
+    "malware": "Malware",
+    "open_cti": "OpenCTI"
   },
   "dashboard": {
     "montly_distribution": "Monthly Distribution",

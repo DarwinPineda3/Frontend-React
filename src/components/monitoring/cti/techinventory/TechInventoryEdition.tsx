@@ -67,7 +67,7 @@ const CreateUpdateTechonology: React.FC<Props> = ({ technology, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {technology ? 'Update Technology' : 'Create Technology'}
+          {technology ? 'Edit Technology' : 'Create Technology'}
         </Typography>
 
         <TextField
@@ -123,7 +123,7 @@ const CreateUpdateTechonology: React.FC<Props> = ({ technology, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {technology ? 'Update' : 'Create'}
+            {technology ? 'Edit' : 'Create'}
           </Button>
         </Box>
       </Box>
