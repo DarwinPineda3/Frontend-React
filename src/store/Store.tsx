@@ -19,7 +19,7 @@ import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 // brand monitoring reducers
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 //monitoring reducers
-import TechInventoryReducer from './sections/cti/TechInventorySlice';
+import TechInventoryReducer from './sections/cti/techInventorySlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 
 

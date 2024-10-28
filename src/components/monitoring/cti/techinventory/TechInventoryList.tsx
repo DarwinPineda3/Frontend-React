@@ -18,7 +18,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchTechInventory, setPage } from 'src/store/sections/cti/TechInventorySlice';
+import { fetchTechInventory, setPage } from 'src/store/sections/cti/techInventorySlice';
 import CreateUpdateTechnology from './TechInventoryEdition';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { TechInventoryType } from 'src/types/cti/technologies/techInventory';

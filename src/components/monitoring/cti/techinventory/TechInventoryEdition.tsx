@@ -10,7 +10,7 @@ import {
   Autocomplete,
 } from '@mui/material';
 import { useDispatch } from 'src/store/Store';
-import { createTechnology, editTechnology } from 'src/store/sections/cti/TechInventorySlice';
+import { createTechnology, editTechnology } from 'src/store/sections/cti/techInventorySlice';
 import { TechInventoryType } from "src/types/cti/technologies/techInventory";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
