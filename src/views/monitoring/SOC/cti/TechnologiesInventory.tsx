@@ -17,6 +17,15 @@ const TechInventory = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
                         Monitoring
                     </Link>
+                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
+                        SOC
+                    </Link>
+                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
+                        CTI
+                    </Link>
+                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
+                        Technologies Inventory
+                    </Link>
                 </Breadcrumbs>
             </Box>
             <Grid container spacing={0} mt={1}>

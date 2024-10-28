@@ -6,5 +6,5 @@ import './home/cyber-guard/brandMonitoring/BrandMonitoring'
 import './home/Dashboard';
 import './monitoring/cti/technologies_inventory/TechInventory';
 import './home/malwareanalysis/MalwareAnalysis'
-import './monitoring/NewsLetters';
+import './monitoring/Newsletter';
 mock.onAny().passThrough();

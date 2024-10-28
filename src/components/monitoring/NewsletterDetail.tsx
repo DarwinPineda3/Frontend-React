@@ -4,7 +4,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 
 
 const mittrUrl = 'https://pdfobject.com/pdf/sample.pdf'; 
-const WpScanDetail: React.FC<{ newsLetterId: string }> = ({ newsLetterId }) => {
+const NewsletterDetail: React.FC<{ newsletterId: string }> = ({ newsletterId }) => {
 const objFile = {
         "id": "1bdc9tg6Q8VrikR98p92WFM5udZ00Di43",
         "name": "Boletin de Ciberseguridad 13 de junio 2024 (1).pdf",
@@ -31,7 +31,7 @@ const objFile = {
             />
         </Grid>
  
-        <DashboardCard title="Details" subtitle="NewsLetter Details">
+        <DashboardCard title="Details" subtitle="Newsletter Details">
             <Box display="flex" flexDirection="column" gap={2} mt={1}>
                 <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
@@ -65,4 +65,4 @@ const objFile = {
   );
 };
 
-export default WpScanDetail;
+export default NewsletterDetail;

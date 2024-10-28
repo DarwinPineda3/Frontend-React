@@ -1,6 +1,6 @@
 import mock from '../mock'; // Ensure correct path to mock
 
-interface NewsLettersType {
+interface NewsletterType {
   id: string|undefined;
   mimeType: string;
   size: number;
@@ -8,7 +8,7 @@ interface NewsLettersType {
   modifiedTime: string;
 }
 
-let newsLetters: NewsLettersType[] = [
+let newsletters: NewsletterType[] = [
   {
       "mimeType": "application/pdf",
       "size": 703711,
@@ -68,7 +68,7 @@ let newsLetters: NewsLettersType[] = [
 ];
 
 // GET: Fetch paginated tecnology inventory
-mock.onGet(new RegExp('/api/data/newsLetter')).reply((config) => {
+mock.onGet(new RegExp('/api/data/newsletter')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
@@ -78,13 +78,13 @@ mock.onGet(new RegExp('/api/data/newsLetter')).reply((config) => {
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
 
-    const paginatedNewsLetter = newsLetters.slice(startIndex, endIndex);
-    const totalNewsLetters = newsLetters.length;
-    const totalPages = Math.ceil(totalNewsLetters / limit);
+    const paginatedNewsletter = newsletters.slice(startIndex, endIndex);
+    const totalNewsletters = newsletters.length;
+    const totalPages = Math.ceil(totalNewsletters / limit);
     return [
       200,
       {
-        newsLetters: paginatedNewsLetter,
+        newsletters: paginatedNewsletter,
         currentPage: page,
         totalPages,
       },

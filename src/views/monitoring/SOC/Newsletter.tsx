@@ -1,27 +1,27 @@
 import PageContainer from "src/components/container/PageContainer";
 import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/material";
-import NewsLettersList from "src/components/monitoring/NewsLettersList";
+import NewsLettersList from "src/components/monitoring/NewsletterList";
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import NewsLetterDetail from "src/components/monitoring/NewsLetterDetail";
+import NewsLetterDetail from "src/components/monitoring/NewsletterDetail";
 
-const NewsLetter = () => {
-    const { newsLetterId } = useParams<{ newsLetterId?: string }>();
+const Newsletter = () => {
+    const { newsletterId } = useParams<{ newsletterId?: string }>();
     const location = useLocation();  // Tracks the current URL location
     const navigate = useNavigate();
 
-    const [selectedNewsLetter, setSelectedNewsLetter] = useState<string | null>(null);
+    const [selectedNewsletter, setSelectedNewsLetter] = useState<string | null>(null);
 
     // Synchronize state with URL parameters
     useEffect(() => {
-        if (newsLetterId) {
-            setSelectedNewsLetter(newsLetterId);
+        if (newsletterId) {
+            setSelectedNewsLetter(newsletterId);
         } else {
             setSelectedNewsLetter(null);
         }
 
-    }, [newsLetterId, location]);
+    }, [newsletterId, location]);
 
     const handleNewsLetterClick = (id: string) => {
         navigate(`/monitoring/soc/newsletters/${id}`);
@@ -36,17 +36,20 @@ const NewsLetter = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
                         Monitoring
                     </Link>
-                    {selectedNewsLetter && (
+                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
+                        Newsletter
+                    </Link>
+                    {selectedNewsletter && (
                         <Typography color="textPrimary">
-                            NewsLetter Details
+                            Newsletter Details
                         </Typography>
                     )}
                 </Breadcrumbs>
             </Box>
-            {selectedNewsLetter ? (
+            {selectedNewsletter ? (
                 <Grid container spacing={0} mt={1}>
                     <Grid item xs={12} xl={12}>
-                        <NewsLetterDetail newsLetterId={selectedNewsLetter!} />
+                        <NewsLetterDetail newsletterId={selectedNewsletter!} />
                     </Grid>
                 </Grid>
             ) : (
@@ -61,4 +64,4 @@ const NewsLetter = () => {
     );
 };
 
-export default NewsLetter;
+export default Newsletter;
