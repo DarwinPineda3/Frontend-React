@@ -47,7 +47,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
 
   const getChipColor = (riskLevel: string) => {
     switch (riskLevel) {
-      case 'info':
+      case 'INFO':
         return { color: '#1B3C48', label: 'Info' };
       case 'HIGH':
         return { color: '#EF8E0E', label: 'High' };
@@ -90,6 +90,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                   <Typography
                     variant="subtitle2"
                     onClick={() => handleOpenModal(internet)}
+                    color="primary"
                     sx={{ cursor: 'pointer'}}
                   >
                     {internet.data.data || internet.data.title || 'NA'} 

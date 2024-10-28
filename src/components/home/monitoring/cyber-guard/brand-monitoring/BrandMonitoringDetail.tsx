@@ -69,8 +69,8 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
   return (
     <DashboardCard title={brandMonitoringDetail?.query}>
       <TabContext value={value}>
-        <Box>
-          <TabList onChange={handleChange} aria-label="Tabs Example">
+        <Box sx={{ p: 0 }}>
+          <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
             {COMMON_TAB.map((tab) => (
               <Tab
                 key={tab.value}
@@ -93,9 +93,9 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
           </TabList>
         </Box>
         <Divider />
-        <Box mt={2}>
+        <Box mt={2} sx={{ p: 0 }}>
           {COMMON_TAB.map((panel) => (
-            <TabPanel key={panel.value} value={panel.value}>
+            <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
               {panel.content}
             </TabPanel>
           ))}

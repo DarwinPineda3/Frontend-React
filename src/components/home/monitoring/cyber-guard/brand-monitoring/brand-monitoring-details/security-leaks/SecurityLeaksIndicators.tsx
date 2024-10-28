@@ -1,15 +1,12 @@
 import { Box, Grid, Typography } from '@mui/material';
 import {
-  Computer,
   Security,
-  WifiTethering,
-  Lan,
-  AccountCircle,
-  Email,
   Language,
-  Phone,
+  Email,
   Public,
-} from '@mui/icons-material'; // Importing Material UI Icons
+  AccountCircle,
+  Phone,
+} from '@mui/icons-material';
 import React from 'react';
 
 interface SecurityLeaksIndicatorsProps {
@@ -25,69 +22,71 @@ interface SecurityLeaksIndicatorsProps {
 
 // Function to return color based on value
 const getColorByValue = (value: number) => {
-  if (value <= 1) return 'success';
+  if (value <= 0) return 'success';
   return 'error';
 };
 
 const SecurityLeaksIndicators: React.FC<SecurityLeaksIndicatorsProps> = ({
   securityLeakCounters,
 }) => {
-  // Data for the top cards with font icons
   const topCardsData = [
     {
       title: 'Total Compromises',
       value: securityLeakCounters.security_leaks_total,
       icon: <Security fontSize="large" />,
-    }, // Security for compromises
+    },
     {
       title: 'Domains',
       value: securityLeakCounters.sl_domains,
       icon: <Language fontSize="large" />,
-    }, // Language icon for domains
+    },
     {
       title: 'Emails',
       value: securityLeakCounters.sl_emails,
       icon: <Email fontSize="large" />,
-    }, // Email icon for emails
+    },
     {
       title: 'IPs',
       value: securityLeakCounters.sl_ips,
       icon: <Public fontSize="large" />,
-    }, // Public icon for IPs
+    },
     {
       title: 'Usernames',
       value: securityLeakCounters.sl_names_usernames,
       icon: <AccountCircle fontSize="large" />,
-    }, // AccountCircle for usernames
+    },
     {
       title: 'Phones',
       value: securityLeakCounters.sl_phones,
       icon: <Phone fontSize="large" />,
-    }, // Phone icon for phones
+    },
   ];
+
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       {topCardsData.map((card, i) => {
         const color = getColorByValue(card.value);
 
         return (
-          <Grid item xs={4} sm={4} lg={2} key={i}>
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={i}>
             <Box
               bgcolor={`${color}.light`}
               display="flex"
               justifyContent="space-between"
+              alignItems="center"
               px={2}
               py={2}
               textAlign="center"
               border={`1px solid ${color}.main`}
               borderRadius="8px"
+              width="100%"
             >
               {/* Font Icon */}
               <Box display="flex" alignItems="center">
                 {React.cloneElement(card.icon, { color })}
               </Box>
 
-              {/* Title and Value in a row */}
+              {/* Title and Value in a column */}
               <Box
                 display="flex"
                 flexDirection="column"

@@ -6,7 +6,7 @@ import {
   Language,
   Phone,
   Public,
-} from '@mui/icons-material'; // Importing Material UI Icons
+} from '@mui/icons-material';
 import React from 'react';
 
 interface DarkWebIndicatorsProps {
@@ -23,68 +23,69 @@ interface DarkWebIndicatorsProps {
 
 // Function to return color based on value
 const getColorByValue = (value: number) => {
-  if (value <= 1) return 'success';
+  if (value <= 0) return 'success';
   return 'error';
 };
 
 const DarkWebIndicators: React.FC<DarkWebIndicatorsProps> = ({ darkWebCounters }) => {
-  // Data for the top cards with font icons
   const topCardsData = [
     {
       title: 'Total Compromises',
       value: darkWebCounters.dark_web_total,
       icon: <Security fontSize="large" />,
-    }, // Security for compromises
+    },
     {
       title: 'Domains',
       value: darkWebCounters.dw_domains,
       icon: <Language fontSize="large" />,
-    }, // Language icon for domains
+    },
     {
       title: 'Emails',
       value: darkWebCounters.dw_emails,
       icon: <Email fontSize="large" />,
-    }, // Email icon for emails
+    },
     {
       title: 'IPs',
       value: darkWebCounters.dw_ips,
       icon: <Public fontSize="large" />,
-    }, // Public icon for IPs
+    },
     {
       title: 'Usernames',
       value: darkWebCounters.dw_names_usernames,
       icon: <AccountCircle fontSize="large" />,
-    }, // AccountCircle for usernames
+    },
     {
       title: 'Phones',
       value: darkWebCounters.dw_phones,
       icon: <Phone fontSize="large" />,
-    }, // Phone icon for phones
+    },
   ];
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       {topCardsData.map((card, i) => {
         const color = getColorByValue(card.value);
 
         return (
-          <Grid item xs={4} sm={3} lg={2} key={i}>
+          <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={i}>
             <Box
               bgcolor={`${color}.light`}
               display="flex"
               justifyContent="space-between"
+              alignItems="center"
               px={2}
               py={2}
               textAlign="center"
               border={`1px solid ${color}.main`}
               borderRadius="8px"
+              width="100%"
             >
               {/* Social Icon */}
               <Box display="flex" alignItems="center">
                 {React.cloneElement(card.icon, { color })}
               </Box>
 
-              {/* Title and Value in a row */}
+              {/* Title and Value in a column */}
               <Box
                 display="flex"
                 flexDirection="column"
