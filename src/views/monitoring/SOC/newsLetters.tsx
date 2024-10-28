@@ -33,7 +33,7 @@ const NewsLetter = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/newsLetter">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
                         Monitoring
                     </Link>
                     {selectedNewsLetter && (
