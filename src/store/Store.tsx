@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import CustomizerReducer from './customizer/CustomizerSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import AssetsReducer from './sections/AssetsSlice';
-import MalwareAnalysesReducer from "./sections/MalwareAnalysisSlice";
 
 //dashboard reducers
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
@@ -21,6 +20,9 @@ import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 
 //monitoring reducers
 import TechInventoryReducer from './sections/cti/TechInventorySlice';
+import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
+import MobileAppsReducer from "./sections/fake-app/MobileAppSlice";
+import ParameterAppsReducer from "./sections/fake-app/ParameterAppSlice";
 
 import { combineReducers } from 'redux';
 import {
@@ -49,8 +51,10 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     techInventoryReducer: TechInventoryReducer,
     malwareAnalysesReducer: MalwareAnalysesReducer,
+    mobileAppsReducer: MobileAppsReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
+    parameterAppsReducer: ParameterAppsReducer,
   },
 });
 
@@ -61,8 +65,10 @@ const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   techInventoryReducer: TechInventoryReducer,
   malwareAnalysesReducer: MalwareAnalysesReducer,
+  mobileAppsReducer: MobileAppsReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
+  parameterAppsReducer: ParameterAppsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

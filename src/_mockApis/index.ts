@@ -5,5 +5,7 @@ import './home/cyber-guard/parameters/Parameter';
 import './home/cyber-guard/brandMonitoring/BrandMonitoring'
 import './home/Dashboard';
 import './monitoring/cti/technologies_inventory/TechInventory';
-import './home/malwareanalysis/MalwareAnalysis'
+import './home/malware-analysis/MalwareAnalysis'
+import './home/fake-app/MobileApp'
+import './home/fake-app/parameterApp'
 mock.onAny().passThrough();
