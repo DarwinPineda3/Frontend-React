@@ -70,7 +70,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
     <DashboardCard title={brandMonitoringDetail?.query}>
       <TabContext value={value}>
         <Box sx={{ p: 0 }}>
-          <TabList onChange={handleChange} aria-label="Tabs Example">
+          <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
             {COMMON_TAB.map((tab) => (
               <Tab
                 key={tab.value}
