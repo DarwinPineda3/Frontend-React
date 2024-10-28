@@ -187,7 +187,7 @@ const CloudScanDetailView = () => {
     
             {/* Service Summary */}
             <Grid item xs={12} xl={12}>
-                <DashboardCard title={t("vulnerabilities.service_summary")}>
+                <DashboardCard title={t("vulnerabilities.service_summary")!}>
                     <TableContainer>
                         <Table aria-label="service table">
                             <TableHead>
@@ -235,7 +235,8 @@ const CloudScanDetailView = () => {
     
             {/* Reports Table */}
             <Grid item xs={12} xl={12}>
-                <DashboardCard title={t("vulnerabilities.report")}>
+                <DashboardCard title={t("vulnerabilities.report")!}>
+                    <>
                     <Box mb={3} my={3}>
                         <TextField
                             placeholder={t("vulnerabilities.search_reports")}
@@ -292,6 +293,7 @@ const CloudScanDetailView = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    </>
                 </DashboardCard>
             </Grid>
         </Grid>
