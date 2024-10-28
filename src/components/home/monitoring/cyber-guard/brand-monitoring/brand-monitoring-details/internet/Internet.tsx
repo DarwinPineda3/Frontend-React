@@ -24,6 +24,14 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
     );
   }
 
+  const { graphics_charts_internet } = brandMonitoringDetail?.consolidated_data;
+  const { labels, values } = graphics_charts_internet;
+
+  const filteredGraphicsCharts = {
+    labels: labels.filter(label => label !== 'Correlations'),
+    values: values.filter((_, index) => labels[index] !== 'Correlations'),
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -35,7 +43,7 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
       <Grid item xs={12} lg={6}>
         <BreachElementTypeChart
           security_leaks_data_chart={
-            brandMonitoringDetail.consolidated_data?.graphics_charts_internet
+            filteredGraphicsCharts
           }
         />
       </Grid>
@@ -43,7 +51,7 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
       <Grid item xs={12} lg={6}>
         <OrgBreachesChart
           security_leaks_data_chart={
-            brandMonitoringDetail.consolidated_data?.graphics_charts_internet
+            filteredGraphicsCharts
           }
         />
       </Grid>
