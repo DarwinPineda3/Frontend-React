@@ -199,7 +199,7 @@ const Menuitems: MenuitemsType[] = [
           {
             id: uniqueId(),
             title: 'menu.technologies_inventory', // Translation key for title
-            href: '/monitoring/soc/cti/technologies_inventory',
+            href: '/monitoring/soc/cti/technologies-inventory',
             icon: IconBroadcast,
           },
         ]
@@ -227,7 +227,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.news', // Translation key for title
-        href: '/monitoring/soc/newsLetters',
+        href: '/monitoring/soc/newsletters',
         icon: IconNews,
       },
       {

@@ -41,7 +41,7 @@ import Takedown from 'src/views/monitoring/SOC/takedown';
 import FilesSoc from 'src/views/monitoring/SOC/cti/files';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
-import TechInventory from 'src/views/monitoring/SOC/cti/technologies_inventory';
+import TechInventory from 'src/views/monitoring/SOC/cti/technologiesInventory';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
@@ -102,12 +102,12 @@ const Router = [
       { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
       { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
       { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
-      { path: '/monitoring/soc/cti/technologies_inventory', element: <TechInventory /> },
+      { path: '/monitoring/soc/cti/technologies-inventory', element: <TechInventory /> },
       { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
-      { path: '/monitoring/soc/newsLetters', element: <SocNews /> },
-      { path: '/monitoring/soc/newsLetters/:newsLetterId', element: <SocNews /> },
+      { path: '/monitoring/soc/newsletters', element: <SocNews /> },
+      { path: '/monitoring/soc/newsletters/:newsLetterId', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
       { path: '/monitoring/malware-analysis', element: <MalwareAnalysis /> },
       { path: '/monitoring/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
