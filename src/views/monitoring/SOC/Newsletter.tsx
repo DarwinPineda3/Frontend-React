@@ -5,11 +5,13 @@ import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-r
 import { useState, useEffect } from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import NewsLetterDetail from "src/components/monitoring/NewsletterDetail";
+import { useTranslation } from 'react-i18next';
 
 const Newsletter = () => {
     const { newsletterId } = useParams<{ newsletterId?: string }>();
     const location = useLocation();  // Tracks the current URL location
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [selectedNewsletter, setSelectedNewsLetter] = useState<string | null>(null);
 
@@ -33,15 +35,15 @@ const Newsletter = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
-                        Monitoring
+                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">                        
+                        {t("menu.monitoring")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
-                        Newsletter
+                    {t("newsletter.newsletters")}
                     </Link>
                     {selectedNewsletter && (
                         <Typography color="textPrimary">
-                            Newsletter Details
+                            {t("newsletter.newsletter_details")}
                         </Typography>
                     )}
                 </Breadcrumbs>

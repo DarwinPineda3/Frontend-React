@@ -459,5 +459,13 @@
     "neutral": "Neutral",
     "satisfied": "Satisfecho",
     "very_satisfied": "Muy satisfecho"
+  },
+  "newsletter":{
+      "newsletters": "Boletines",
+      "newsletters_list": "Lista de Boletines",
+      "newsletter_details": "Detalles del Boletin",
+      "size": "Tamaño",
+      "last_modification":  "Última modificación",
+      "actions": "Acciones"
   }
 }
