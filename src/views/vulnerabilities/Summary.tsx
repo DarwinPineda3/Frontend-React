@@ -3,9 +3,11 @@ import { Box, Grid, IconButton, Breadcrumbs, Link } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SummaryVulnerabilitiesList from "src/components/vulnerabilities/SummaryVulnList";
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SummaryVulnerabilities = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
+    const { t } = useTranslation();
 
     return (
         <PageContainer title="Akila">
@@ -15,10 +17,10 @@ const SummaryVulnerabilities = () => {
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link component={RouterLink} color="inherit" to="/vulnerabilities/summary">
-                        Vulnerabilities
+                        {t("summary.vulnerabilities")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/vulnerabilities/summary">
-                        Summary
+                        {t("summary.summary")}
                     </Link>
                 </Breadcrumbs>
             </Box>

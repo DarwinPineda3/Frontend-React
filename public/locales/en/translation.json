@@ -460,6 +460,10 @@
     "very_satisfied": "Very Satisfied"
   },
   "summary":{
+      "vulnerabilities": "Vulnerabilities",
+      "summary": "Summary",
+      "vulnerabilities_summary": "Vulnerabilities Summary",
+      "vulnerabilities_summary_list": "Vulnerabilities Summary List",
       "managed_selected_vuulnerabilities": "Managed selected vulnerabilities",
       "select": "Select",
       "type": "Type",

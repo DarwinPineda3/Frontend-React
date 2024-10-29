@@ -460,6 +460,10 @@
     "very_satisfied": "Muy satisfecho"
   },
   "summary":{
+      "vulnerabilities": "Vulnerabilidades",
+      "summary": "Resumen",
+      "vulnerabilities_summary": "Resumen de Vulnerabilidades",
+      "vulnerabilities_summary_list": "Lista de vulnerabilidades",
       "managed_selected_vuulnerabilities": "Gestionar vulnerabilidades seleccionadas",
       "select": "Seleccionar",
       "type": "Tipo",
@@ -468,7 +472,7 @@
       "name": "Nombre",
       "date": "Fecha",
       "tool": "Herramienta",
-      "view_report": "Ver reporte",
+      "view_report": "Ver Reporte",
       "ai_solution": "Solución de asistente IA"
   }
 }

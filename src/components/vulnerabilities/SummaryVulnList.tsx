@@ -52,8 +52,8 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 return (
     <DashboardCard 
-        title="Vulnerabilities Summary" 
-        subtitle="Vulnerabilities Summary List"
+        title={t("summary.vulnerabilities_summary")}
+        subtitle={t("summary.vulnerabilities_summary_list")}
         action={
             <CustomSelect
                 labelId="month-dd"
@@ -154,7 +154,7 @@ return (
                                                 borderRadius: '8px',
                                             }}
                                             size="small"
-                                            label={_.capitalize(vulnerability.type)}
+                                            label={t(`dashboard.${_.lowerCase(vulnerability.type)}`)}
                                         />
                                     </Typography>
                                 </TableCell>
