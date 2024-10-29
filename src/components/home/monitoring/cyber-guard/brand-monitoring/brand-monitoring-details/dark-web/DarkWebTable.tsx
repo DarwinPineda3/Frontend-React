@@ -12,17 +12,19 @@ import {
 } from '@mui/material';
 import { DarkWeb } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
+import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import { useTranslation } from 'react-i18next';
 
 interface DarkWebTableProps {
   dark_web: DarkWeb[];
 }
 
 const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedLeak, setSelectedLeak] = useState<DarkWeb| null>(null);
+  const [selectedLeak, setSelectedLeak] = useState<DarkWeb | null>(null);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -53,17 +55,17 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Data
+                  {t('monitoring.data')}
                 </Typography>
               </TableCell>
               <TableCell align="center">
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Date
+                  {t('monitoring.date')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Source
+                  {t('monitoring.source')}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -76,7 +78,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
                     variant="subtitle2"
                     onClick={() => handleOpenModal(dark_web)}
                     color="primary"
-                    sx={{ cursor: 'pointer'}}
+                    sx={{ cursor: 'pointer' }}
                   >
                     {dark_web.data?.email || dark_web.data?.username || 'NA'}
                   </Typography>

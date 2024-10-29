@@ -12,36 +12,37 @@ import {
 } from '@mui/material';
 import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
+import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
 }
 
 const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedLeak, setSelectedLeak] = useState<SecurityLeak| null>(null);
+  const [selectedLeak, setSelectedLeak] = useState<SecurityLeak | null>(null);
   const criticalColor = theme.palette.level.critical;
   const highColor = theme.palette.level.high;
   const mediumColor = theme.palette.level.medium;
   const lowColor = theme.palette.level.low;
   const noneColor = theme.palette.level.none;
 
-
   const getChipColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'critical':
-        return { color: criticalColor, label: 'Critical' };
+        return { color: criticalColor, label: t('monitoring.critical') };
       case 'high':
-        return { color: highColor, label: 'High' };
+        return { color: highColor, label: t('monitoring.high') };
       case 'medium':
-        return { color: mediumColor , label: 'Medium' };
+        return { color: mediumColor, label: t('monitoring.medium') };
       case 'low':
-        return { color: lowColor, label: 'Low' };
+        return { color: lowColor, label: t('monitoring.low') };
       default:
         return { color: noneColor, label: 'N/A' };
     }
@@ -76,22 +77,22 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Data
+                  {t('monitoring.data')}
                 </Typography>
               </TableCell>
               <TableCell align="center">
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Risk Level
+                  {t('monitoring.risk_level')}
                 </Typography>
               </TableCell>
               <TableCell align="center">
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Date
+                  {t('monitoring.date')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Source
+                  {t('monitoring.source')}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -104,7 +105,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
                     variant="subtitle2"
                     onClick={() => handleOpenModal(leak)}
                     color="primary"
-                    sx={{ cursor: 'pointer'}}
+                    sx={{ cursor: 'pointer' }}
                   >
                     {leak.data.email || leak.data.name || leak.data.username || 'NA'}
                   </Typography>

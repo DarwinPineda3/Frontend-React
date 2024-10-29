@@ -102,7 +102,7 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
                     </TableCell>
                     <TableCell>
                       <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {t(`monitoring.${result.query_type.toLowerCase()}`).toUpperCase()}
+                        {t(`monitoring.${result.query_type.toLowerCase()}`).toUpperCase()}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -121,7 +121,7 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
                 <TableRow>
                   <TableCell colSpan={4}>
                     <Typography color="textSecondary" variant="subtitle2" align="center">
-                      No data available
+                      {t('monitoring.no_data_available')}
                     </Typography>
                   </TableCell>
                 </TableRow>

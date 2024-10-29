@@ -12,25 +12,26 @@ import {
 } from '@mui/material';
 import { Internet } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityinternetDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
+import SecurityinternetDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 interface InternetTableProps {
   internet: Internet[];
 }
 
 const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedInternet, setSelectedInternet] = useState<Internet| null>(null);
+  const [selectedInternet, setSelectedInternet] = useState<Internet | null>(null);
   const highColor = theme.palette.level.high;
   const mediumColor = theme.palette.level.medium;
   const lowColor = theme.palette.level.low;
   const noneColor = theme.palette.level.none;
   const infoColor = theme.palette.level.unknown;
-  
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -56,13 +57,13 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
   const getChipColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'INFO':
-        return { color: infoColor, label: 'Info' };
+        return { color: infoColor, label: t('monitoring.info') };
       case 'HIGH':
-        return { color: highColor, label: 'High' };
+        return { color: highColor, label: t('monitoring.high') };
       case 'MEDIUM':
-        return { color: mediumColor, label: 'Medium' };
+        return { color: mediumColor, label: t('monitoring.medium') };
       case 'LOW':
-        return { color: lowColor, label: 'Low' };
+        return { color: lowColor, label: t('monitoring.low') };
       default:
         return { color: noneColor, label: 'N/A' };
     }
@@ -76,17 +77,17 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Data
+                  {t('monitoring.data')}
                 </Typography>
               </TableCell>
               <TableCell align="center">
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Date
+                  {t('monitoring.date')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Source
+                  {t('monitoring.source')}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -99,16 +100,16 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                     variant="subtitle2"
                     onClick={() => handleOpenModal(internet)}
                     color="primary"
-                    sx={{ cursor: 'pointer'}}
+                    sx={{ cursor: 'pointer' }}
                   >
-                    {internet.data.data || internet.data.title || 'NA'} 
+                    {internet.data.data || internet.data.title || 'NA'}
                     {internet.type === 'Correlations' && (
                       <Chip
                         label={getChipColor(internet.data.risk).label}
                         sx={{
                           backgroundColor: getChipColor(internet.data.risk).color,
                           color: 'white',
-                          ml: '5px'
+                          ml: '5px',
                         }}
                       />
                     )}

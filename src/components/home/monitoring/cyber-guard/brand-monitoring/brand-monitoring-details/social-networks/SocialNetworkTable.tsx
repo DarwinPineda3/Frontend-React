@@ -13,12 +13,14 @@ import {
 import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import SocialNetworkDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityLeakTableProps {
   social: SocialNetwork[];
 }
 
 const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
@@ -48,19 +50,19 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
   const renderSentimentChip = (sentiment: string) => {
     switch (sentiment) {
       case '0':
-        return <Chip label="No expresses feeling" color="default" />;
+        return <Chip label={t('monitoring.no_expresses_feeling')} color="default" />;
       case '1':
-        return <Chip label="Very dissatisfied" color="error" />;
+        return <Chip label={t('monitoring.very_dissatisfied')} color="error" />;
       case '2':
-        return <Chip label="Dissatisfied" color="warning" />;
+        return <Chip label={t('monitoring.dissatisfied')} color="warning" />;
       case '3':
-        return <Chip label="Neutral" color="info" />;
+        return <Chip label={t('monitoring.neutral')} color="info" />;
       case '4':
-        return <Chip label="Satisfied" color="success" />;
+        return <Chip label={t('monitoring.satisfied')} color="success" />;
       case '5':
-        return <Chip label="Very satisfied" color="primary" />;
+        return <Chip label={t('monitoring.very_satisfied')} color="primary" />;
       default:
-        return <Chip label="Unknown" color="default" />;
+        return <Chip label={t('monitoring.unknown')} color="default" />;
     }
   };
 
@@ -72,22 +74,22 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Data
+                  {t('monitoring.data')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Sentiment Analysis
+                  {t('monitoring.sentiment_analysis')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Date
+                  {t('monitoring.date')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Source
+                  {t('monitoring.source')}
                 </Typography>
               </TableCell>
             </TableRow>

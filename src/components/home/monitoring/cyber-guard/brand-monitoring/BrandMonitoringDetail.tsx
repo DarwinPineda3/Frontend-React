@@ -16,6 +16,7 @@ import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import SocialNetworks from './brand-monitoring-details/social-networks/SocialNetworks';
 import Internet from './brand-monitoring-details/internet/Internet';
 import DarkWeb from './brand-monitoring-details/dark-web/DarkWeb';
+import { useTranslation } from 'react-i18next';
 
 interface BrandMonitoringDetailProps {
   id: string;
@@ -23,34 +24,35 @@ interface BrandMonitoringDetailProps {
 
 const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const brandMonitoringDetail: Data = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringDetail);
 
   const COMMON_TAB = [
     {
       value: 'internet',
       icon: <GlobeIcon />,
-      label: 'Internet',
+      label: `${t('monitoring.internet')}`,
       disabled: false,
       content: <Internet brandMonitoringDetail={brandMonitoringDetail} />,
     },
     {
       value: 'security-leaks',
       icon: <ListIcon />,
-      label: 'Security Leaks',
+      label: `${t('monitoring.data_leaks')}`,
       disabled: false,
       content: <SecurityLeaks brandMonitoringDetail={brandMonitoringDetail} />,
     },
     {
       value: 'social-networks',
       icon: <PersonIcon />,
-      label: 'Social Networks',
+      label: `${t('monitoring.social_media')}`,
       disabled: false,
       content: <SocialNetworks brandMonitoringDetail={brandMonitoringDetail} />,
     },
     {
       value: 'darkweb',
       icon: <ExclamationIcon />,
-      label: 'Dark Web',
+      label: `${t('monitoring.dark_web')}`,
       disabled: false,
       badge: '',
       content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail}/>,

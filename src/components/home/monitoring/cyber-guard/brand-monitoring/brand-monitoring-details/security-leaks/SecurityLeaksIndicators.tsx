@@ -8,6 +8,7 @@ import {
   Phone,
 } from '@mui/icons-material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityLeaksIndicatorsProps {
   securityLeakCounters: {
@@ -29,19 +30,21 @@ const getColorByValue = (value: number) => {
 const SecurityLeaksIndicators: React.FC<SecurityLeaksIndicatorsProps> = ({
   securityLeakCounters,
 }) => {
+  const { t } = useTranslation();
+
   const topCardsData = [
     {
-      title: 'Total Compromises',
+      title: t('monitoring.total_compromises'),
       value: securityLeakCounters.security_leaks_total,
       icon: <Security fontSize="large" />,
     },
     {
-      title: 'Domains',
+      title: t('monitoring.domains'),
       value: securityLeakCounters.sl_domains,
       icon: <Language fontSize="large" />,
     },
     {
-      title: 'Emails',
+      title: t('monitoring.emails'),
       value: securityLeakCounters.sl_emails,
       icon: <Email fontSize="large" />,
     },
@@ -51,12 +54,12 @@ const SecurityLeaksIndicators: React.FC<SecurityLeaksIndicatorsProps> = ({
       icon: <Public fontSize="large" />,
     },
     {
-      title: 'Usernames',
+      title: t('monitoring.usernames'),
       value: securityLeakCounters.sl_names_usernames,
       icon: <AccountCircle fontSize="large" />,
     },
     {
-      title: 'Phones',
+      title: t('monitoring.phones'),
       value: securityLeakCounters.sl_phones,
       icon: <Phone fontSize="large" />,
     },

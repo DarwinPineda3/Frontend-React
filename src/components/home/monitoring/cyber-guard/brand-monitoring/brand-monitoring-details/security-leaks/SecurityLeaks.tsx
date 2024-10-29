@@ -6,19 +6,23 @@ import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
 import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import SecurityLeaksAccordion from './SecurityLeaksAccordion';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
 }
 
 const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) => {
+  
+  const { t } = useTranslation();
+
   const securityLeaksData = brandMonitoringDetail?.consolidated_data?.security_leaks_data || [];
 
   if (securityLeaksData.length === 0) {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6">No security leaks data available.</Typography>
+          <Typography variant="h6">{t('monitoring.no_data_available')}</Typography>
         </Grid>
       </Grid>
     );

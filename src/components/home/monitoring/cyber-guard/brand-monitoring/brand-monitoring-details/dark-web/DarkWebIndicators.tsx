@@ -8,6 +8,7 @@ import {
   Public,
 } from '@mui/icons-material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface DarkWebIndicatorsProps {
   darkWebCounters: {
@@ -28,19 +29,21 @@ const getColorByValue = (value: number) => {
 };
 
 const DarkWebIndicators: React.FC<DarkWebIndicatorsProps> = ({ darkWebCounters }) => {
+  const { t } = useTranslation();
+
   const topCardsData = [
     {
-      title: 'Total Compromises',
+      title: t('monitoring.total_compromises'),
       value: darkWebCounters.dark_web_total,
       icon: <Security fontSize="large" />,
     },
     {
-      title: 'Domains',
+      title: t('monitoring.domains'),
       value: darkWebCounters.dw_domains,
       icon: <Language fontSize="large" />,
     },
     {
-      title: 'Emails',
+      title: t('monitoring.emails'),
       value: darkWebCounters.dw_emails,
       icon: <Email fontSize="large" />,
     },
@@ -50,12 +53,12 @@ const DarkWebIndicators: React.FC<DarkWebIndicatorsProps> = ({ darkWebCounters }
       icon: <Public fontSize="large" />,
     },
     {
-      title: 'Usernames',
+      title: t('monitoring.usernames'),
       value: darkWebCounters.dw_names_usernames,
       icon: <AccountCircle fontSize="large" />,
     },
     {
-      title: 'Phones',
+      title: t('monitoring.phones'),
       value: darkWebCounters.dw_phones,
       icon: <Phone fontSize="large" />,
     },
