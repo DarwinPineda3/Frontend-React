@@ -72,7 +72,7 @@ return (
             variant="outlined"
             color="primary"
             >
-                Managed selected vulnerabilities
+                {t("summary.managed_selected_vuulnerabilities")}
             </Button>
             <TableContainer>
                 <Table aria-label="technology table" sx={{ whiteSpace: 'nowrap' }}>
@@ -80,47 +80,47 @@ return (
                         <TableRow>
                         <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Select
+                                    {t("summary.select")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Type
+                                    {t("summary.type")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Hosts
+                                    {t("summary.hosts")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Severity
+                                    {t("summary.severity")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Name
+                                    {t("summary.name")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Date
+                                    {t("summary.date")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Tool
+                                    {t("summary.tool")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    View Report
+                                    {t("summary.view_report")}
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    AI Assistant Solution
+                                    {t("summary.ai_solution")}
                                 </Typography>
                             </TableCell>
                         </TableRow>

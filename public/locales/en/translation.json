@@ -458,5 +458,17 @@
     "neutral":  "Neutral",
     "satisfied": "Satisfied",
     "very_satisfied": "Very Satisfied"
+  },
+  "summary":{
+      "managed_selected_vuulnerabilities": "Managed selected vulnerabilities",
+      "select": "Select",
+      "type": "Type",
+      "hosts": "Hosts",
+      "severity": "Severity",
+      "name": "Name",
+      "date": "Date",
+      "tool": "Tool",
+      "view_report": "View Report",
+      "ai_solution": "AI Assistant Solution"
   }
 }
