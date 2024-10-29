@@ -92,27 +92,18 @@ const TopVulnerabilities = () => {
                   <Typography variant="subtitle2" fontWeight={600}>
                       <Chip
                         sx={{
-                          bgcolor:
-                              _.capitalize(report.type) === 'Critical'
-                              ? (theme) => theme.palette.error.light
-                              : _.capitalize(report.type) === 'High'
-                              ? (theme) => theme.palette.error.light
-                              : _.capitalize(report.type) === 'Medium'
-                              ? (theme) => theme.palette.warning.light
-                              : report.severity === 'Low'
-                              ? (theme) => theme.palette.success.light
-                              : (theme) => theme.palette.secondary.light,
-                          color:
-                              _.capitalize(report.type) === 'Critical'
-                              ? (theme) => theme.palette.error.main
-                              : _.capitalize(report.type) === 'High'
-                              ? (theme) => theme.palette.error.main
-                              : _.capitalize(report.type) === 'Medium'
-                              ? (theme) => theme.palette.warning.main
-                              : report.type === 'Low'
-                              ? (theme) => theme.palette.success.main
-                              : (theme) => theme.palette.background.default,
-                          borderRadius: '8px',
+                            bgcolor:
+                            _.capitalize(report.type) === 'Critical'
+                            ? (theme) => theme.palette.level.critical
+                            : _.capitalize(report.type) === 'High'
+                            ? (theme) => theme.palette.level.high
+                            : _.capitalize(report.type) === 'Medium'
+                            ? (theme) => theme.palette.level.medium
+                            : _.capitalize(report.type) === 'Low'
+                            ? (theme) => theme.palette.level.low
+                            : (theme) => theme.palette.level.unknown,
+                        color: (theme) => theme.palette.background.default,
+                            borderRadius: '8px',
                         }}
                         size="small"
                         label={_.capitalize(report.type)}
@@ -126,24 +117,19 @@ const TopVulnerabilities = () => {
                 </TableCell>
                 <TableCell>
                   <Chip
-                    sx={{
-                      bgcolor:
-                        report.severity === 'High'
-                          ? (theme) => theme.palette.error.light
-                          : report.severity === 'Medium'
-                          ? (theme) => theme.palette.warning.light
-                          : report.severity === 'Low'
-                          ? (theme) => theme.palette.success.light
-                          : (theme) => theme.palette.secondary.light,
-                      color:
-                        report.severity === 'High'
-                          ? (theme) => theme.palette.error.main
-                          : report.severity === 'Medium'
-                          ? (theme) => theme.palette.warning.main
-                          : report.severity === 'Low'
-                          ? (theme) => theme.palette.success.main
-                          : (theme) => theme.palette.background.default,
-                      borderRadius: '8px',
+                      sx={{
+                        bgcolor:
+                        report.severity > 9.0
+                        ? (theme) => theme.palette.level.critical
+                        : report.severity > 7.0
+                        ? (theme) => theme.palette.level.high
+                        : report.severity > 4.0
+                        ? (theme) => theme.palette.level.medium
+                        : report.severity > 0
+                        ? (theme) => theme.palette.level.low
+                        : (theme) => theme.palette.level.unknown,
+                    color: (theme) => theme.palette.background.default,
+                    borderRadius: '8px',
                     }}
                     size="small"
                     label={report.severity}

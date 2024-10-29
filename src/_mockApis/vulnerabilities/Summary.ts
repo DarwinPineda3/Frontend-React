@@ -68,8 +68,8 @@ let summaryVuln: vulnerabilityType[] = [
     },
     {
         "id": "CVE-2023-32801",
-        "type": "MEDIUM",
-        "severity": 6.1,
+        "type": "LOW",
+        "severity": 2,
         "name": "CVE-2023-32801 woocommerce",
         "creation_time": "2024-10-15T22:42:09.183142+00:00",
         "qod": "0",

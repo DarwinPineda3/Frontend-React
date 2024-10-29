@@ -141,22 +141,17 @@ return (
                                         <Chip
                                             sx={{
                                             bgcolor:
-                                            _.capitalize(vulnerability.type) === 'High'
-                                                ? (theme) => theme.palette.error.light
+                                                _.capitalize(vulnerability.type) === 'Critical'
+                                                ? (theme) => theme.palette.level.critical
+                                                : _.capitalize(vulnerability.type) === 'High'
+                                                ? (theme) => theme.palette.level.high
                                                 : _.capitalize(vulnerability.type) === 'Medium'
-                                                ? (theme) => theme.palette.warning.light
+                                                ? (theme) => theme.palette.level.medium
                                                 : _.capitalize(vulnerability.type) === 'Low'
-                                                ? (theme) => theme.palette.success.light
-                                                : (theme) => theme.palette.secondary.light,
-                                            color:
-                                            _.capitalize(vulnerability.type) === 'High'
-                                                ? (theme) => theme.palette.error.main
-                                                : _.capitalize(vulnerability.type) === 'Medium'
-                                                ? (theme) => theme.palette.warning.main
-                                                : _.capitalize(vulnerability.type) === 'Low'
-                                                ? (theme) => theme.palette.success.main
-                                                : (theme) => theme.palette.background.default,
-                                            borderRadius: '8px',
+                                                ? (theme) => theme.palette.level.low
+                                                : (theme) => theme.palette.level.unknown,
+                                            color: (theme) => theme.palette.background.default,
+                                                borderRadius: '8px',
                                             }}
                                             size="small"
                                             label={_.capitalize(vulnerability.type)}
@@ -173,21 +168,16 @@ return (
                                     <Chip
                                         sx={{
                                             bgcolor:
-                                            vulnerability.severity > 9.0
-                                                ? (theme) => theme.palette.error.light
+                                                vulnerability.severity > 9.0
+                                                ? (theme) => theme.palette.level.critical
                                                 : vulnerability.severity > 7.0
-                                                ? (theme) => theme.palette.warning.light
+                                                ? (theme) => theme.palette.level.high
                                                 : vulnerability.severity > 4.0
-                                                ? (theme) => theme.palette.success.light
-                                                : (theme) => theme.palette.secondary.light,
-                                            color:
-                                            vulnerability.severity > 9.0
-                                                ? (theme) => theme.palette.error.main
-                                                : vulnerability.severity > 7.0
-                                                ? (theme) => theme.palette.warning.main
-                                                : vulnerability.severity > 4.0
-                                                ? (theme) => theme.palette.success.main
-                                                : (theme) => theme.palette.background.default,
+                                                ? (theme) => theme.palette.level.medium
+                                                : vulnerability.severity > 0
+                                                ? (theme) => theme.palette.level.low
+                                                : (theme) => theme.palette.level.unknown,
+                                            color: (theme) => theme.palette.background.default,
                                             borderRadius: '8px',
                                             }}
                                             size="small"
