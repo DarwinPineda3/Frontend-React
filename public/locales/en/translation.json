@@ -447,7 +447,44 @@
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Compromised Elements by Type",
     "top_compromised_vips": "Top Compromised VIPs",
-    "platforms_or_ty,pes": "Platforms or Types"
+    "platforms_or_ty,pes": "Platforms or Types",
+    "monitoring": "Monitoring",
+    "cyber_guard": "Cyber Guard",
+    "parameters": "Parameters",
+    "parameter_list": "Parameter List",
+    "list_of_available_parameters": "List of Available parameters",
+    "parameter": "Parameter",
+    "parameter_type": "Parameter Type",
+    "actions": "Actions",
+    "create_parameter": "Create Parameter",
+    "update_parameter": "Update Parameter",
+    "edit_parameter": "Edit",
+    "delete_parameter": "Delete",
+    "confirm_delete": "Confirm Deletion",
+    "delete_message_confirm": "Are you sure you want to proceed with this action?",
+    "cancel_delete": "Cancel",
+    "parameter_name": "Parameter Name",
+    "parameter_required": "Parameter is required",
+    "parameter_type_required": "Parameter type is required",
+    "parameter_updated_successfully": "Parameter updated successfully",
+    "parameter_created_successfully": "Parameter created successfully",
+    "parameter_deleted_successfully": "Parameter has been successfully deleted",
+    "domain": "Domain",
+    "subdomain": "Subdomain",
+    "subnet": "Subnet",
+    "email": "Email",
+    "phone": "Phone",
+    "name": "Name",
+    "username": "Username",
+    "word": "Word",
+    "ipv4": "IPv4",
+    "ipv6": "IPv6",
+    "vin": "Vin"
+
+    
+    
+
+    
   },
   "sentiments":{
     "sentiment_history": "Sentiment History",

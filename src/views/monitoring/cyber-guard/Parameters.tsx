@@ -3,9 +3,11 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PageContainer from 'src/components/container/PageContainer';
 import ParameterList from 'src/components/home/monitoring/cyber-guard/parameters/ParameterList';
+import { useTranslation } from 'react-i18next';
 
 const Parameters = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <PageContainer title="Akila">
@@ -20,13 +22,13 @@ const Parameters = () => {
               color="inherit"
               to="/monitoring/cyber-guard/brand-monitoring"
             >
-              Monitoring
+              {t('monitoring.monitoring')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/parameters">
-              Cyber Guard
+              {t('monitoring.cyber_guard')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/parameters">
-              Parameters
+              {t('monitoring.parameters')}
             </Link>
           </Breadcrumbs>
         </Box>
