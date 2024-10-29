@@ -479,7 +479,11 @@
     "word": "Palabra",
     "ipv4": "IPv4",
     "ipv6": "IPv6",
-    "vin": "Vin"
+    "vin": "Vin",
+    "total_results_by_parameters": "Resultados totales por parámetro",
+    "total_results": "Resultados totales",
+    "list_of_available_brand_monitoring_scans": "Lista de escaneos de monitoreo de marca disponibles",
+    "last_search": "Última búsqueda"
   },
   "sentiment":{
     "sentiment_history": "Historial de sentimientos",

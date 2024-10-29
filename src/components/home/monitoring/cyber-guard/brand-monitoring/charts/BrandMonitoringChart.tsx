@@ -4,6 +4,7 @@ import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 interface BrandMonitoringChartProps {
   data: any[];
@@ -11,6 +12,8 @@ interface BrandMonitoringChartProps {
 
 const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
+
   const primary = theme.palette.primary.main;
   const primarylight = theme.palette.grey[400];
   const secondary = theme.palette.info.main;
@@ -79,13 +82,14 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
 
   const chartSeries = [
     {
-      name: 'Total Results',
+      name: `${t('monitoring.total_results')}`,
       data: data.map((entry: any) => entry.total_results) || [],
     },
   ];
 
   return (
-    <DashboardCard title="Total Results by Parameter"> 
+    <DashboardCard title={t('monitoring.total_results_by_parameters')}
+> 
       <Box mb={3}>
         <Chart
           options={options}

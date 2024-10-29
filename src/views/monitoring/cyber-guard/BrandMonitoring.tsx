@@ -7,11 +7,13 @@ import BrandMonitoringList from 'src/components/home/monitoring/cyber-guard/bran
 import { useSelector } from 'src/store/Store';
 import BrandMonitoringChart from 'src/components/home/monitoring/cyber-guard/brand-monitoring/charts/BrandMonitoringChart';
 import BrandMonitoringDetail from 'src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringDetail';
+import { useTranslation } from 'react-i18next';
 
 const BrandMonitoringCyberGuard = () => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const brandMonitoringChart = useSelector(
     (state: any) => state.brandMonitoringReducer.brandMonitoringData?.summary_data || [],
   );
@@ -37,26 +39,18 @@ const BrandMonitoringCyberGuard = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to=""
-            >
-              Monitoring
+            <Link component={RouterLink} color="inherit" to="">
+              {t('menu.monitoring')}
             </Link>
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to=""
-            >
-              Cyber Guard
+            <Link component={RouterLink} color="inherit" to="">
+              {t('monitoring.cyber_guard')}
             </Link>
             <Link
               component={RouterLink}
               color="inherit"
               to="/monitoring/cyber-guard/brand-monitoring"
             >
-              Brand Monitoring
+              {t('menu.brand_monitoring')}
             </Link>
             {selectedBrandMonitoring ? (
               <Link

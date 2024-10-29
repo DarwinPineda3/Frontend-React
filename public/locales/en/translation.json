@@ -479,7 +479,12 @@
     "word": "Word",
     "ipv4": "IPv4",
     "ipv6": "IPv6",
-    "vin": "Vin"
+    "vin": "Vin",
+    "total_results_by_parameters": "Total Results by Parameter",
+    "total_results": "Total Results",
+    "list_of_available_brand_monitoring_scans": "List of Available Brand Monitoring Scans",
+    "last_search": "Last Search"
+
   },
   "sentiments":{
     "sentiment_history": "Sentiment History",
