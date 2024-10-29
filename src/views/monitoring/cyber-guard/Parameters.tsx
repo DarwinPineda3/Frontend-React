@@ -20,7 +20,7 @@ const Parameters = () => {
             <Link
               component={RouterLink}
               color="inherit"
-              to="/monitoring/cyber-guard/brand-monitoring"
+              to="/monitoring/cyber-guard/monitoring"
             >
               {t('monitoring.monitoring')}
             </Link>

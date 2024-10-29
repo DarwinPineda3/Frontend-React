@@ -20,7 +20,7 @@ const BrandMonitoringCyberGuard = () => {
   const [selectedBrandMonitoring, setselectedBrandMonitoring] = useState<string | null>(null);
 
   const handleBrandMonitoringClick = (id: string) => {
-    navigate(`/monitoring/cyber-guard/brand-monitoring/${id}`);
+    navigate(`/monitoring/cyber-guard/monitoring/${id}`);
   };
 
   useEffect(() => {
@@ -48,15 +48,15 @@ const BrandMonitoringCyberGuard = () => {
             <Link
               component={RouterLink}
               color="inherit"
-              to="/monitoring/cyber-guard/brand-monitoring"
+              to="/monitoring/cyber-guard/monitoring"
             >
-              {t('menu.brand_monitoring')}
+              {t('menu.monitoring')}
             </Link>
             {selectedBrandMonitoring ? (
               <Link
                 component={RouterLink}
                 color="inherit"
-                to={`/monitoring/cyber-guard/brand-monitoring/${selectedBrandMonitoring}`}
+                to={`/monitoring/cyber-guard/monitoring/${selectedBrandMonitoring}`}
               >
                 {selectedBrandMonitoring}
               </Link>

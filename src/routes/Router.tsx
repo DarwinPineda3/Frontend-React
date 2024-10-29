@@ -112,8 +112,8 @@ const Router = [
       { path: '/monitoring/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
       { path: '/monitoring/siem', element: <SIEMMonitoring /> },
       { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
-      { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
-      { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },

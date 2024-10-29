@@ -54,8 +54,8 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
 
   return (
     <DashboardCard
-      title={t('menu.brand_monitoring')}
-      subtitle={t('monitoring.list_of_available_brand_monitoring_scans')}
+      title={t('menu.monitoring')}
+      subtitle={t('monitoring.list_of_available_monitoring_scans')}
     >
       <Box>
         <TableContainer>
