@@ -13,16 +13,24 @@ import {
 import { Internet } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import SecurityinternetDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
+import { useTheme } from '@mui/material/styles';
 
 interface InternetTableProps {
   internet: Internet[];
 }
 
 const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
+  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedInternet, setSelectedInternet] = useState<Internet| null>(null);
+  const highColor = theme.palette.level.high;
+  const mediumColor = theme.palette.level.medium;
+  const lowColor = theme.palette.level.low;
+  const noneColor = theme.palette.level.none;
+  const infoColor = theme.palette.level.unknown;
+  
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -48,15 +56,15 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
   const getChipColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'INFO':
-        return { color: '#1B3C48', label: 'Info' };
+        return { color: infoColor, label: 'Info' };
       case 'HIGH':
-        return { color: '#EF8E0E', label: 'High' };
+        return { color: highColor, label: 'High' };
       case 'MEDIUM':
-        return { color: '#c9bc0d', label: 'Medium' };
+        return { color: mediumColor, label: 'Medium' };
       case 'LOW':
-        return { color: '#329223', label: 'Low' };
+        return { color: lowColor, label: 'Low' };
       default:
-        return { color: '#90CAF9', label: 'N/A' };
+        return { color: noneColor, label: 'N/A' };
     }
   };
 

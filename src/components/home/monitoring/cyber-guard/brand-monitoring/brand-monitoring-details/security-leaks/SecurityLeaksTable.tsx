@@ -13,29 +13,37 @@ import {
 import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal'; 
+import { useTheme } from '@mui/material/styles';
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
 }
 
 const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
+  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<SecurityLeak| null>(null);
+  const criticalColor = theme.palette.level.critical;
+  const highColor = theme.palette.level.high;
+  const mediumColor = theme.palette.level.medium;
+  const lowColor = theme.palette.level.low;
+  const noneColor = theme.palette.level.none;
+
 
   const getChipColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'critical':
-        return { color: '#EF0E0E', label: 'Critical' };
+        return { color: criticalColor, label: 'Critical' };
       case 'high':
-        return { color: '#EF8E0E', label: 'High' };
+        return { color: highColor, label: 'High' };
       case 'medium':
-        return { color: '#c9bc0d', label: 'Medium' };
+        return { color: mediumColor , label: 'Medium' };
       case 'low':
-        return { color: '#329223', label: 'Low' };
+        return { color: lowColor, label: 'Low' };
       default:
-        return { color: '#90CAF9', label: 'N/A' };
+        return { color: noneColor, label: 'N/A' };
     }
   };
 
