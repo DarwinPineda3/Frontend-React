@@ -30,12 +30,12 @@ const LightThemeColors = [
         main: 'linear-gradient(90deg, #FF578F 0%, #F66859 100%)',  // Gradient from Deep Pink to Coral Orange
       },
       level:{
-        none: '#24b667',
-        low: '#ffca3a',
-        medium: '#fd8824',
-        high: '#d31212',
-        critical: '#6a020c',
-        unknown: '#b1c0c5',
+        none: '#90CAF9',
+        low: '#329223',
+        medium: '#f4be34',
+        high: '#EF8E0E',
+        critical: '#EF0E0E',
+        unknown: '#1B3C48',
       }
     }
   },
