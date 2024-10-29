@@ -23,6 +23,9 @@ import TechInventoryReducer from './sections/cti/techInventorySlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 
 
+//vulnerabilities
+import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
+
 import { combineReducers } from 'redux';
 import {
   useDispatch as useAppDispatch,
@@ -52,6 +55,7 @@ export const store = configureStore({
     malwareAnalysesReducer: MalwareAnalysesReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
+    summaryVulnReducer: SummaryVulnReducer,
     newsLettersReducer: NewsLettersReducer,
   },
 });
@@ -65,6 +69,7 @@ const rootReducer = combineReducers({
   malwareAnalysesReducer: MalwareAnalysesReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
+  summaryVulnReducer: SummaryVulnReducer,
   newsLettersReducer: NewsLettersReducer,
 });
 
