@@ -3,7 +3,7 @@ import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
 import { AppScanType } from "src/types/monitoring/mobile-apps/AppScan";
 
-const API_URL = '/api/data/AppScans';
+const API_URL = '/api/data/appScans';
 
 interface StateType {
   appScans: AppScanType[];
@@ -20,7 +20,7 @@ const initialState: StateType = {
 };
 
 export const AppScansSlice = createSlice({
-  name: 'appScan',
+  name: 'appScans',
   initialState,
   reducers: {
     getAppScans: (state, action) => {

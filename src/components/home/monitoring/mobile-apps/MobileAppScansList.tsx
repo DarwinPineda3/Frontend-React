@@ -17,26 +17,28 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchParameterApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
+import { fetchAppScans, setPage } from 'src/store/sections/mobile-app/AppScanSlice';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+
 
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
 
-interface ParameterAppListTableProps {
-  onParameterAppClick: (parameterAppId: string) => void;
+interface AppScanListTableProps {
+  onAppScanClick: (AppScanId: number) => void;
 }
 
 
 
-const MobileAppList: React.FC<ParameterAppListTableProps> = ({ onParameterAppClick }) => {
+const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const dispatch = useDispatch();
-  const parameterApps = useSelector((state: any) => state.parameterAppsReducer.parameterApps);
-  const currentPage = useSelector((state: any) => state.parameterAppsReducer.page);
-  const totalPages = useSelector((state: any) => state.parameterAppsReducer.totalPages);
-  const [editParameterApp, setEditParameterApp] = useState<null | any>(null); // State to hold the parameterApp being edited or created
+  const appScans = useSelector((state: any) => state.appScansReducer.appScans);
+  const currentPage = useSelector((state: any) => state.appScansReducer.page);
+  const totalPages = useSelector((state: any) => state.appScansReducer.totalPages);
+  const [editAppScan, setEditAppScan] = useState<null | any>(null); // State to hold the appScan being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
 
   React.useEffect(() => {
-    dispatch(fetchParameterApps(currentPage));
+    dispatch(fetchAppScans(currentPage));
   }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -45,28 +47,28 @@ const MobileAppList: React.FC<ParameterAppListTableProps> = ({ onParameterAppCli
     }
   };
 
-  const handleEditClick = (parameterApp: any = null) => {
-    setEditParameterApp(parameterApp); // Set the selected parameterApp for editing, or null for new parameterApp creation
+  const handleEditClick = (appScan: any = null) => {
+    setEditAppScan(appScan); // Set the selected appScan for editing, or null for new appScan creation
     setOpenDialog(true); // Open the dialog/modal
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setEditParameterApp(null); // Reset the edit state when closing
+    setEditAppScan(null); // Reset the edit state when closing
   };
 
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Search result" subtitle="List mobiles apps found" action={addButton}>
+    <DashboardCard title="Apps" subtitle="List app scans found" action={addButton}>
       <Box>
         <TableContainer>
-          <Table aria-label="parameterApp table" sx={{ whiteSpace: 'nowrap' }}>
+          <Table aria-label="appScan table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Parameter
+                    App
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -82,7 +84,7 @@ const MobileAppList: React.FC<ParameterAppListTableProps> = ({ onParameterAppCli
               </TableRow>
             </TableHead>
             <TableBody>
-              {parameterApps.map((parameterApp: any, index: number) => (
+              {appScans.map((appScan: any, index: number) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Typography
@@ -90,15 +92,15 @@ const MobileAppList: React.FC<ParameterAppListTableProps> = ({ onParameterAppCli
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onParameterAppClick(parameterApp.id)}
+                      onClick={() => onAppScanClick(appScan.id)}
                       style={{ cursor: 'pointer' }}
                     >
-                      {parameterApp.parameter}
+                      {appScan.name}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography fontWeight={400}>
-                      {parameterApp.createdOn}
+                    <HumanizedDate dateString={appScan.createdOn} />
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -114,11 +116,11 @@ const MobileAppList: React.FC<ParameterAppListTableProps> = ({ onParameterAppCli
             onChange={handlePageChange}
           />
         </Box>
-        {/* Edit/Create MalwareAnalysis Dialog/Modal */}
+        {/* Edit/Create MalwareAnalysis Dialog/Modal*/}
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
           <DialogContent sx={{ padding: '50px' }}>
             {/* Pass the onSubmit callback */}
-            {/* <CreateUpdateMalwareAnalysis parameterApp={editParameterApp ?? undefined} onSubmit={handleFormSubmit} /> */}
+            {/* <CreateUpdateMalwareAnalysis appScan={editAppScan ?? undefined} onSubmit={handleFormSubmit} /> */}
           </DialogContent>
         </Dialog>
       </Box>
@@ -127,4 +129,4 @@ const MobileAppList: React.FC<ParameterAppListTableProps> = ({ onParameterAppCli
     </DashboardCard>
   );
 };
-export default MobileAppList;
+export default AppScanList;

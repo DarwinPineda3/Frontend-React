@@ -54,7 +54,7 @@ export const store = configureStore({
     mobileAppsReducer: MobileAppsReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
-    appScansreducer: AppScansReducer
+    appScansReducer: AppScansReducer
   },
 });
 
@@ -68,7 +68,7 @@ const rootReducer = combineReducers({
   mobileAppsReducer: MobileAppsReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
-  appScansreducer: AppScansReducer
+  appScansReducer: AppScansReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

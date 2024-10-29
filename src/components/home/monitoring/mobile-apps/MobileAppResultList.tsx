@@ -27,7 +27,7 @@ import { ListItemIcon, ListItem, List, styled, ListItemText, useTheme } from '@m
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (malwareAnalysisId: string) => void;
+  onMobileAppClick: (malwareAnalysisId: number) => void;
 }
 
 

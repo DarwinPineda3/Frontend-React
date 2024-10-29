@@ -7,5 +7,5 @@ import './home/Dashboard';
 import './monitoring/cti/technologies_inventory/TechInventory';
 import './monitoring/malware-analysis/MalwareAnalysis'
 import './monitoring/mobile-app/MobileApp'
-import './monitoring/mobile-app/parameterApp'
+import './monitoring/mobile-app/appScan'
 mock.onAny().passThrough();
