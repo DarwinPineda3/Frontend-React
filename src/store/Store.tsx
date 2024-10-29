@@ -17,12 +17,14 @@ import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 // brand monitoring reducers
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
-
 //monitoring reducers
-import TechInventoryReducer from './sections/cti/TechInventorySlice';
 import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
 import MobileAppsReducer from "./sections/mobile-app/MobileAppSlice";
 import AppScansReducer from "./sections/mobile-app/AppScanSlice";
+import TechInventoryReducer from './sections/cti/techInventorySlice';
+import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
+//vulnerabilities
+import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 
 import { combineReducers } from 'redux';
 import {
@@ -54,7 +56,9 @@ export const store = configureStore({
     mobileAppsReducer: MobileAppsReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
-    appScansReducer: AppScansReducer
+    appScansReducer: AppScansReducer,
+    summaryVulnReducer: SummaryVulnReducer,
+    newsLettersReducer: NewsLettersReducer,
   },
 });
 
@@ -68,7 +72,9 @@ const rootReducer = combineReducers({
   mobileAppsReducer: MobileAppsReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
-  appScansReducer: AppScansReducer
+  appScansReducer: AppScansReducer,
+  summaryVulnReducer: SummaryVulnReducer,
+  newsLettersReducer: NewsLettersReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

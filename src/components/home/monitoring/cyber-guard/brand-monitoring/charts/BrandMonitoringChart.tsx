@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Tooltip, IconButton } from '@mui/material';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
+import InfoIcon from '@mui/icons-material/Info';
 
 interface BrandMonitoringChartProps {
   data: any[];
@@ -11,6 +13,8 @@ interface BrandMonitoringChartProps {
 
 const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
+
   const primary = theme.palette.primary.main;
   const primarylight = theme.palette.grey[400];
   const secondary = theme.palette.info.main;
@@ -79,13 +83,20 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
 
   const chartSeries = [
     {
-      name: 'Total Results',
+      name: `${t('monitoring.total_results')}`,
       data: data.map((entry: any) => entry.total_results) || [],
     },
   ];
 
+  const addTooltip = (
+    <Tooltip title={t('monitoring.explain_chart_monitoring')} arrow>
+      <IconButton size="small">
+        <InfoIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
+  );
   return (
-    <DashboardCard title="Total Results by Parameter"> 
+    <DashboardCard title={t('monitoring.total_results_by_parameters')} action={addTooltip}>
       <Box mb={3}>
         <Chart
           options={options}

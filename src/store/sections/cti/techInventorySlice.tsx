@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AppDispatch } from "../.././Store";
+import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
 import { TechInventoryType } from "src/types/cti/technologies/techInventory";
 

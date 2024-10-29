@@ -5,11 +5,13 @@ import DashboardCard from '../../../../../shared/DashboardCard';
 // import Loader from '../../../../../shared/Loader/Loader'; // Loader component
 import { ApexOptions } from 'apexcharts';  // Correct type
 import { GraphicsCharts } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import { useTranslation } from 'react-i18next';
 
 interface OrgBreachesChartChartProps {
   security_leaks_data_chart: GraphicsCharts;
 }
 const OrgBreachesChart: React.FC<OrgBreachesChartChartProps> = ({ security_leaks_data_chart }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const primarylight = theme.palette.grey[400];
@@ -95,7 +97,7 @@ const OrgBreachesChart: React.FC<OrgBreachesChartChartProps> = ({ security_leaks
   }
 
   return (
-    <DashboardCard title="Organization Compromises">
+    <DashboardCard title={t('monitoring.organization_data_found')}>
       <Chart
         options={chartOptions}
         series={series}

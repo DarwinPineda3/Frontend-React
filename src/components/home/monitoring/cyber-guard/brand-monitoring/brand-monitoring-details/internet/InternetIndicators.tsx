@@ -8,6 +8,8 @@ import {
   Public,
 } from '@mui/icons-material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 interface InternetIndicatorsProps {
   internetCounters: {
@@ -30,19 +32,21 @@ const getColorByValue = (value: number) => {
 const InternetIndicators: React.FC<InternetIndicatorsProps> = ({
   internetCounters,
 }) => {
+  const { t } = useTranslation();
+
   const topCardsData = [
     {
-      title: 'Total Compromises',
+      title: t('monitoring.total_compromises'),
       value: internetCounters.total,
       icon: <Security fontSize="large" />,
     },
     {
-      title: 'Domains',
+      title: t('monitoring.domains'),
       value: internetCounters.domains,
       icon: <Language fontSize="large" />,
     },
     {
-      title: 'Emails',
+      title: t('monitoring.emails'),
       value: internetCounters.emails,
       icon: <Email fontSize="large" />,
     },
@@ -52,12 +56,12 @@ const InternetIndicators: React.FC<InternetIndicatorsProps> = ({
       icon: <Public fontSize="large" />,
     },
     {
-      title: 'Usernames',
+      title: t('monitoring.usernames'),
       value: internetCounters.names_usernames,
       icon: <AccountCircle fontSize="large" />,
     },
     {
-      title: 'Phones',
+      title: t('monitoring.phones'),
       value: internetCounters.phones,
       icon: <Phone fontSize="large" />,
     },

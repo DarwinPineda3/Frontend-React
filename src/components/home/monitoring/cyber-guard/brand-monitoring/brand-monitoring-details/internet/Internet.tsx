@@ -6,19 +6,22 @@ import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import InternetIndicators from './InternetIndicators';
 import InternetAccordion from './InternetAccordion';
+import { useTranslation } from 'react-i18next';
 
 interface InternetProps {
   brandMonitoringDetail: Data;
 }
 
 const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
+  const { t } = useTranslation();
+
   const InternetData = brandMonitoringDetail?.consolidated_data?.internet_data || [];
 
   if (InternetData.length === 0) {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6">No internet data available.</Typography>
+          <Typography variant="h6">{t('monitoring.no_data_available')}</Typography>
         </Grid>
       </Grid>
     );
