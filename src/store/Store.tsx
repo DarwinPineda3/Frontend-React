@@ -22,6 +22,9 @@ import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 //monitoring reducers
 import TechInventoryReducer from './sections/cti/TechInventorySlice';
 
+//vulnerabilities
+import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
+
 import { combineReducers } from 'redux';
 import {
   useDispatch as useAppDispatch,
@@ -51,6 +54,7 @@ export const store = configureStore({
     malwareAnalysesReducer: MalwareAnalysesReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
+    summaryVulnReducer: SummaryVulnReducer,
   },
 });
 
@@ -63,6 +67,7 @@ const rootReducer = combineReducers({
   malwareAnalysesReducer: MalwareAnalysesReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
+  summaryVulnReducer: SummaryVulnReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

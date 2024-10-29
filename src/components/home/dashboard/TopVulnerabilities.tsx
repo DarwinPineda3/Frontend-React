@@ -9,16 +9,20 @@ import {
   TableRow,
   Chip,
   TableContainer,
+  IconButton,
   Box,
 } from '@mui/material';
 import CustomSelect from '../../forms/theme-elements/CustomSelect';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { IconEye } from '@tabler/icons-react';
 
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchVulnerabilityReports } from 'src/store/sections/dashboard/TopVulnerabilitiesSlice';
 import { AppState } from 'src/store/Store';
 import { useTranslation } from 'react-i18next';
+import _ from 'lodash';
 
 const TopVulnerabilities = () => {
   const { t } = useTranslation();
@@ -86,7 +90,33 @@ const TopVulnerabilities = () => {
               <TableRow key={report.id}>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {report.type}
+                      <Chip
+                        sx={{
+                          bgcolor:
+                              _.capitalize(report.type) === 'Critical'
+                              ? (theme) => theme.palette.error.light
+                              : _.capitalize(report.type) === 'High'
+                              ? (theme) => theme.palette.error.light
+                              : _.capitalize(report.type) === 'Medium'
+                              ? (theme) => theme.palette.warning.light
+                              : report.severity === 'Low'
+                              ? (theme) => theme.palette.success.light
+                              : (theme) => theme.palette.secondary.light,
+                          color:
+                              _.capitalize(report.type) === 'Critical'
+                              ? (theme) => theme.palette.error.main
+                              : _.capitalize(report.type) === 'High'
+                              ? (theme) => theme.palette.error.main
+                              : _.capitalize(report.type) === 'Medium'
+                              ? (theme) => theme.palette.warning.main
+                              : report.type === 'Low'
+                              ? (theme) => theme.palette.success.main
+                              : (theme) => theme.palette.background.default,
+                          borderRadius: '8px',
+                        }}
+                        size="small"
+                        label={_.capitalize(report.type)}
+                      />
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -131,12 +161,24 @@ const TopVulnerabilities = () => {
                   <Typography variant="subtitle2">{report.tool}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2" component="a" target="_blank" href="#">
-                    {t("dashboard.view_report")}
-                  </Typography>
+                    <IconButton
+                        size="small"
+                        color="primary"
+                        href="#"
+                        target="_blank"
+                    >
+                        <IconEye />
+                    </IconButton>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{report.aiAssistantSolution}</Typography>
+                    <IconButton
+                        size="small"
+                        color="primary"
+                        href="#"
+                        target="_blank"
+                        >
+                            <AutoAwesomeIcon />
+                    </IconButton>
                 </TableCell>
               </TableRow>
             ))}
