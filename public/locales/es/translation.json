@@ -98,7 +98,8 @@
     "url": "URL",
     "actions": "Acciones",
     "edit": "Editar",
-    "operation_status": "Estado de la Operación"
+    "operation_status": "Estado de la Operación",
+    "create": "Crear"
   },
   "audit": {
     "list_of_audit_logs": "Lista de Registros de Auditoría",
@@ -465,7 +466,14 @@
       "newsletters_list": "Lista de Boletines",
       "newsletter_details": "Detalles del Boletin",
       "size": "Tamaño",
-      "last_modification":  "Última modificación",
-      "actions": "Acciones"
+      "last_modification":  "Última modificación"
+  },
+  "technologies_inventory":{
+    "technologies_inventory": "Inventario de Tecnologías",
+    "technologies_list": "Lista de Tecnologías",
+    "category":  "Categoria",
+    "version": "Versión",
+    "create_technology": "Crear Tecnología",
+    "edit_technology": "Editar Tecnología"
   }
 }

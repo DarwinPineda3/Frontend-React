@@ -70,7 +70,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subtitle2" fontWeight={600}>
-                                        {t("newsletter.actions")}
+                                        {t("dashboard.actions")}
                                     </Typography>
                                 </TableCell>
                             </TableRow>

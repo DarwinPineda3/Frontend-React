@@ -3,9 +3,11 @@ import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/mater
 import TechInventoryList from "src/components/monitoring/cti/techinventory/TechInventoryList";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const TechInventory = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <PageContainer title="Akila">
@@ -15,16 +17,16 @@ const TechInventory = () => {
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
-                        Monitoring
+                        {t("menu.monitoring")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
-                        SOC
+                        {t("menu.soc")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
-                        CTI
+                        {t("menu.cti")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
-                        Technologies Inventory
+                        {t("technologies_inventory.technologies_inventory")}
                     </Link>
                 </Breadcrumbs>
             </Box>
