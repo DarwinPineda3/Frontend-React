@@ -14,9 +14,11 @@ import VIPsHeatmapChart from 'src/components/observability/dark-web/vipHeatMap';
 import CompromisedTypesChart from 'src/components/observability/dark-web/vipsRadarChart';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PageContainer from 'src/components/container/PageContainer';
+import { useTranslation } from 'react-i18next';
 
 const DarkWeb = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <PageContainer title="Akila">
@@ -26,18 +28,14 @@ const DarkWeb = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to=""
-            >
-              Monitoring
+            <Link component={RouterLink} color="inherit" to="">
+              {t('monitoring.monitoring')}
             </Link>
             <Link component={RouterLink} color="inherit" to="">
-              Cyber Guard
+              {t('monitoring.cyber_guard')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/monitoring/threats-overview">
-              Threats Overview
+              {t('menu.dark_web_monitoring')}
             </Link>
           </Breadcrumbs>
         </Box>
@@ -56,13 +54,13 @@ const DarkWeb = () => {
           <BreachElementTypeChart />
         </Grid>
         <Grid item xs={12} lg={3}>
-            <CompromisedTypesChart/>
+          <CompromisedTypesChart />
         </Grid>
         <Grid item xs={12} lg={6}>
-            <ThreatTypesBarChart />
+          <ThreatTypesBarChart />
         </Grid>
         <Grid item xs={12} lg={6}>
-            <VIPsHeatmapChart/>
+          <VIPsHeatmapChart />
         </Grid>
         <Grid item xs={12} lg={12}>
           <ThreatsByFuzzerChart />
