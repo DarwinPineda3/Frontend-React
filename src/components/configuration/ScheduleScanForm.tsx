@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Button, TextField, Select, MenuItem, FormControl, InputLabel, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Card, CardContent, Button, TextField, Select, MenuItem, FormControl, InputLabel, Typography, Box, Breadcrumbs, Link, IconButton } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const ScheduleScanForm: React.FC = () => {
     const navigate = useNavigate(); 
@@ -26,6 +27,7 @@ const ScheduleScanForm: React.FC = () => {
 
         navigate('/configuration/scheduled-scans'); 
 
+        // Reset form fields
         setScanType('');
         setName('');
         setFrequency('');
@@ -33,8 +35,24 @@ const ScheduleScanForm: React.FC = () => {
     };
 
     return (
+        <>
         <div>
-            <h2 style={{ marginBottom: '30px' }}>Programar Escaneos</h2>
+            <Box display="flex" alignItems="center" mt={2} mb={2}>
+                <IconButton onClick={() => navigate(-1)} color="primary">
+                    <ArrowBack />
+                </IconButton>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link component={RouterLink} to="/configuration/scheduled-scans" color="inherit">
+                        Escaneos programados
+                    </Link>
+                    <Typography color="textPrimary">Programar Escaneos</Typography>
+                </Breadcrumbs>
+            </Box>
+        
+        </div>
+
+        <div style={{ margin: '30px 0' }}>
+
             <Card>
                 <CardContent>
                     <form onSubmit={handleSubmit}>
@@ -90,7 +108,7 @@ const ScheduleScanForm: React.FC = () => {
 
                         <div style={{ margin: '20px 0' }}>
                             <Typography variant="body1" component="div">
-                                Debes crear un/a <Link to="/vulnerabilities/network/scans/create">tarea</Link>
+                                Debes crear un/a <RouterLink to="/vulnerabilities/network/scans/create">tarea</RouterLink>
                             </Typography>
                         </div>
 
@@ -101,6 +119,7 @@ const ScheduleScanForm: React.FC = () => {
                 </CardContent>
             </Card>
         </div>
+        </>
     );
 };
 

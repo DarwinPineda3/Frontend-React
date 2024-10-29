@@ -9,9 +9,11 @@ import {
   TableContainer,
   Box,
   Pagination,
+  IconButton,
   Button,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
+import { Link, useNavigate } from 'react-router-dom';
 import { TicketType } from '../../types/apps/ticket';
 import DashboardCard from '../shared/DashboardCard';
 
@@ -21,19 +23,27 @@ interface TicketListProps {
 }
 
 const TicketList: React.FC<TicketListProps> = ({ tickets, onDelete }) => {
+  const navigate = useNavigate(); // Usamos useNavigate para redirigir
   const [currentPage, setCurrentPage] = useState(1);
   const [ticketsPerPage] = useState(5);
 
   const totalPages = Math.ceil(tickets.length / ticketsPerPage);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
   };
 
   const paginatedTickets = tickets.slice((currentPage - 1) * ticketsPerPage, currentPage * ticketsPerPage);
 
   return (
-    <DashboardCard title="Lista de Tickets">
+    <DashboardCard
+      title="Lista de Tickets"
+      action={
+        <IconButton color="primary" onClick={() => navigate('/support/ticketform')}>
+          <AddIcon />
+        </IconButton>
+      }
+    >
       <Box>
         <TableContainer>
           <Table>

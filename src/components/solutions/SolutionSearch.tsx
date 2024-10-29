@@ -71,8 +71,8 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
                                     boxShadow: 'none',
                                 }}
                             />
-                            <Button variant="outlined" type="submit" sx={{ ml: 1, height: '40px' }}>
-                                Buscar
+                            <Button variant="contained" color="primary" type="submit" sx={{ ml: 1, height: '40px' }}>
+                                Search
                             </Button>
                         </Box>
                     </form>

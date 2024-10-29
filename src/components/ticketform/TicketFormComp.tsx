@@ -71,7 +71,7 @@ const TicketFormComp: React.FC = () => {
     const existingTickets = JSON.parse(localStorage.getItem('tickets') || '[]');
     localStorage.setItem('tickets', JSON.stringify([...existingTickets, ticket]));
 
-    navigate('/support/ticketsview');
+    navigate('/support/tickets');
 
     // Reiniciar el estado del ticket
     setTicket({
@@ -84,7 +84,7 @@ const TicketFormComp: React.FC = () => {
       AgentName: '',
       Date: new Date(),
       deleted: false,
-      category: 'None',
+      category: 'none',
       subcategory: '',
       urgency: '',
       pending: false,
@@ -97,64 +97,66 @@ const TicketFormComp: React.FC = () => {
   return (
     <Box sx={{ mt: 4 }}>
       <DashboardCard>
-        <TableContainer>
-          <Table sx={{ border: 'none' }}>
-            <TableBody>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="ticketTitle">Asunto</CustomFormLabel>
-                  <CustomTextField
-                    id="ticketTitle"
-                    name="ticketTitle"
-                    placeholder="Ingrese el asunto del ticket"
-                    value={ticket.ticketTitle}
-                    onChange={handleChange}
-                    fullWidth
-                    sx={{ mt: 0.1 }} 
-                  />
-                  {errors.ticketTitle && <span className="error">{errors.ticketTitle}</span>}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
-                  <CustomFormLabel htmlFor="ticketDescription">Descripción</CustomFormLabel>
-                  <CustomTextField
-                    id="ticketDescription"
-                    name="ticketDescription"
-                    value={ticket.ticketDescription}
-                    onChange={handleChange}
-                    multiline
-                    rows={4}
-                    fullWidth
-                    sx={{ mt: 0.1 }}
-                  />
-                  {errors.ticketDescription && <span className="error">{errors.ticketDescription}</span>}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="file">Adjuntar archivo</CustomFormLabel>
-                  <StyledFileInput
-                    type="file"
-                    id="file"
-                    name="file"
-                    onChange={handleFileChange}
-                    style={{ width: '100%', backgroundColor: 'white' }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
-                  <Box display="flex" justifyContent="flex-start">
-                    <Button type="submit" variant="contained" color="primary">
-                      Crear Ticket
-                    </Button>
-                  </Box>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <form onSubmit={handleSubmit}>
+          <TableContainer>
+            <Table sx={{ border: 'none' }}>
+              <TableBody>
+                <TableRow>
+                  <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
+                    <CustomFormLabel htmlFor="ticketTitle">Asunto</CustomFormLabel>
+                    <CustomTextField
+                      id="ticketTitle"
+                      name="ticketTitle"
+                      placeholder="Ingrese el asunto del ticket"
+                      value={ticket.ticketTitle}
+                      onChange={handleChange}
+                      fullWidth
+                      sx={{ mt: 0.1 }} 
+                    />
+                    {errors.ticketTitle && <span className="error">{errors.ticketTitle}</span>}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
+                    <CustomFormLabel htmlFor="ticketDescription">Descripción</CustomFormLabel>
+                    <CustomTextField
+                      id="ticketDescription"
+                      name="ticketDescription"
+                      value={ticket.ticketDescription}
+                      onChange={handleChange}
+                      multiline
+                      rows={4}
+                      fullWidth
+                      sx={{ mt: 0.1 }}
+                    />
+                    {errors.ticketDescription && <span className="error">{errors.ticketDescription}</span>}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
+                    <CustomFormLabel htmlFor="file">Adjuntar archivo</CustomFormLabel>
+                    <StyledFileInput
+                      type="file"
+                      id="file"
+                      name="file"
+                      onChange={handleFileChange}
+                      style={{ width: '100%', backgroundColor: 'white' }}
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
+                    <Box display="flex" justifyContent="flex-start">
+                      <Button type="submit" variant="contained" color="primary">
+                        Crear Ticket
+                      </Button>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </form>
       </DashboardCard>
     </Box>
   );
