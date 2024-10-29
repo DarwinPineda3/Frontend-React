@@ -2,13 +2,13 @@ import React from 'react';
 import { Grid, Box, Chip,  Typography,  Stack } from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
-import AlphaSuspicionLevel from './MalwareAnalysisAlphaSuspicionLevel';
-import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
+// import AlphaSuspicionLevel from './MalwareAnalysisAlphaSuspicionLevel';
+// import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
 
 
 
 
-const MalwareAnalysisDetail: React.FC<{ malwareAnalysisId: string }> = ({ malwareAnalysisId }) => {
+const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => {
 
   const analysisReport = {
     id: 1,
@@ -344,8 +344,6 @@ const MalwareAnalysisDetail: React.FC<{ malwareAnalysisId: string }> = ({ malwar
     }
   ];
 
-  const orderedSignatures = orderSignatures(signatures);
-
   const mockDate = new Date('2024-09-23T10:20:30Z');
   
 
@@ -362,7 +360,7 @@ const MalwareAnalysisDetail: React.FC<{ malwareAnalysisId: string }> = ({ malwar
       </Grid>
       <Grid item xs={12} xl={6}>
         <DashboardCard title="Malware Analisys" subtitle="Analysis Malware Detail">
-          <Box display="flex" flexDirection="column" gap={2} mt={1}>
+          {/* <Box display="flex" flexDirection="column" gap={2} mt={1}>
 
             <AlphaSuspicionLevel score={analysisReport.summary.score} />
             <Box>
@@ -416,13 +414,13 @@ const MalwareAnalysisDetail: React.FC<{ malwareAnalysisId: string }> = ({ malwar
                 </Typography>
               ))}
             </Box>
-          </Box>
+          </Box> */}
         </DashboardCard>
       </Grid>
 
       <Grid item xs={12} xl={6}>
         <DashboardCard title="Detalles del objetivo" subtitle="Detalles del objetivo analizado">
-          <Box display="flex" flexDirection="column" gap={2} mt={1}>
+          {/* <Box display="flex" flexDirection="column" gap={2} mt={1}>
 
             <Box>
               <Stack
@@ -528,19 +526,16 @@ const MalwareAnalysisDetail: React.FC<{ malwareAnalysisId: string }> = ({ malwar
                 {analysisReport.summary.ssdeep}
               </Typography>
             </Box>
-          </Box>
+          </Box> */}
         </DashboardCard>
 
       </Grid>
 
       <Grid item xs={12} xl={12}>
-        <DashboardCard title="Results" subtitle="Target malware analysis results">
-          {/* <SignaturesTable signatures={signatures} /> */}
-          <MalwareAnalysisAccordion signature_data={orderedSignatures} />
-        </DashboardCard>
+        tabla
       </Grid>
     </Grid>
   );
 };
 
-export default MalwareAnalysisDetail;
+export default MobileAppDetail;
