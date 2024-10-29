@@ -17,7 +17,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchMobileApps, setPage } from 'src/store/sections/fake-app/MobileAppSlice';
+import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
 import AppleIcon from '@mui/icons-material/Apple';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
