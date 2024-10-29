@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import {
-Typography,
-Table,
-TableBody,
-TableCell,
-TableHead,
-TableRow,
-TableContainer,
-Box,
-Pagination,
-Button,
-IconButton,
-Dialog,
-DialogContent,
-Chip
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TableContainer,
+    Box,
+    Pagination,
+    Button,
+    IconButton,
+    Dialog,
+    DialogContent,
+    Chip
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchTechInventory, setPage } from 'src/store/sections/cti/TechInventorySlice';
+import { fetchTechInventory, setPage } from 'src/store/sections/cti/techInventorySlice';
 import CreateUpdateTechnology from './TechInventoryEdition';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { TechInventoryType } from 'src/types/cti/technologies/techInventory';
+import { useTranslation } from 'react-i18next';
 
 const TechInventoryList = () => {
     const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const TechInventoryList = () => {
     const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
     const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success'); // Snackbar severity
     const [TechnologyDelete, setTechnologyDelete] = useState<TechInventoryType | null >(null);
+    const { t } = useTranslation();
+    
 
 React.useEffect(() => {
     dispatch(fetchTechInventory(currentPage));
@@ -78,95 +81,98 @@ const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warni
 const addButton =<IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
 return (
-    <DashboardCard title="Technologies Inventory" subtitle="Techologies Inventory List" action={addButton}>
-        <Box>    
-            <TableContainer>
-                <Table aria-label="technology table" sx={{ whiteSpace: 'nowrap' }}>
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>
+    <DashboardCard 
+        title={t("technologies_inventory.technologies_inventory")} 
+        subtitle={t("technologies_inventory.technologies_list")}
+        action={addButton}>
+    <Box>    
+        <TableContainer>
+        <Table aria-label="technology table" sx={{ whiteSpace: 'nowrap' }}>
+            <TableHead>
+            <TableRow>
+                <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                        {t("dashboard.name")}
+                    </Typography>
+                    </TableCell>
+                    <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                            Name
+                            {t("technologies_inventory.category")}
                         </Typography>
-                        </TableCell>
-                        <TableCell>
+                    </TableCell>
+                    <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                            Category
+                            {t("technologies_inventory.version")}
                         </Typography>
-                        </TableCell>
-                        <TableCell>
+                    </TableCell>
+                    <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                            Version
+                            {t("dashboard.actions")}
                         </Typography>
-                        </TableCell>
-                        <TableCell>
-                        <Typography variant="subtitle2" fontWeight={600}>
-                            Actions
-                        </Typography>
-                        {/* Add New Technology Button */}
-
-                        </TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {techsInventory.map((technology: any, index: number) => (
-                        <TableRow key={index}>
-                        <TableCell>
-                            <Typography variant="subtitle2" fontWeight={600}>
-                            {technology.name}
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                            {technology.category === 'OS' ? (
-                                <Chip label={technology.category} color="primary" variant="outlined" />
-                            ) : (
-                                <Chip label={technology.category} color="info" variant="outlined" />
-                            )}                                                
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="subtitle2">{technology.version}</Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            onClick={() => handleEditClick(technology)}
-                            >
-                            Edit
-                            </Button>
-                        </TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
-                <Pagination
-                    count={totalPages}
+                </TableCell>
+            </TableRow>
+            </TableHead>
+            <TableBody>
+            {techsInventory.map((technology: any, index: number) => (
+                <TableRow key={index}>
+                <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                    {technology.name}
+                    </Typography>
+                </TableCell>
+                <TableCell>
+                    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                    {technology.category === 'OS' ? (
+                        <Chip label={technology.category} color="primary" variant="outlined" />
+                    ) : (
+                        <Chip label={technology.category} color="info" variant="outlined" />
+                    )}                                                
+                    </Typography>
+                </TableCell>
+                <TableCell>
+                    <Typography variant="subtitle2">{technology.version}</Typography>
+                </TableCell>
+                <TableCell>
+                    <Button
+                    variant="contained"
                     color="primary"
-                    page={currentPage}
-                    onChange={handlePageChange}
-                />
-            </Box>
-            {/* Edit/Create Techonology Dialog/Modal */}
-            <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
-                <DialogContent sx={{ padding: '50px' }}>
-                    <CreateUpdateTechnology technology={editTechnology ?? undefined} onSubmit={handleFormSubmit} /> {/* Pass the onSubmit callback */}
-                </DialogContent>
-            </Dialog>
-
-            {/* Snackbar */}
-            {snackbarOpen && (
-                <SnackBarInfo
-                color={snackbarSeverity}
-                title="Operation Status"
-                message={snackbarMessage}
-                />
-            )}
+                    size="small"
+                    onClick={() => handleEditClick(technology)}
+                    >
+                        {t("dashboard.edit")}
+                    </Button>
+                </TableCell>
+                </TableRow>
+            ))}
+            </TableBody>
+        </Table>
+        </TableContainer>
+        <Box my={3} display="flex" justifyContent={'center'}>
+        <Pagination
+            count={totalPages}
+            color="primary"
+            page={currentPage}
+            onChange={handlePageChange}
+        />
         </Box>
+        {/* Edit/Create Techonology Dialog/Modal */}
+    <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
+        <DialogContent sx={{ padding: '50px' }}>
+        <CreateUpdateTechnology technology={editTechnology ?? undefined} onSubmit={handleFormSubmit} /> {/* Pass the onSubmit callback */}
+        </DialogContent>
+    </Dialog>
+
+    {/* Snackbar */}
+    {snackbarOpen && (
+        <SnackBarInfo
+        color={snackbarSeverity}
+        title="Operation Status"
+        message={snackbarMessage}
+        />
+    )}
+    </Box>
+
+    
     </DashboardCard>
 );
 };
