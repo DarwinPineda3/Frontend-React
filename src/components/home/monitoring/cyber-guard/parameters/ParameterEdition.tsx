@@ -91,7 +91,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {parameter ? 'Update Parameter' : 'Create Parameter'}
+          {parameter ? 'Edit Parameter' : 'Create Parameter'}
         </Typography>
 
         <TextField
@@ -133,7 +133,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {parameter ? 'Update Parameter' : 'Create Parameter'}
+            {parameter ? 'Edit' : 'Create'}
           </Button>
         </Box>
       </Box>
