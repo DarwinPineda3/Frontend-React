@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Tooltip, IconButton } from '@mui/material';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { useTranslation } from 'react-i18next';
+import InfoIcon from '@mui/icons-material/Info';
 
 interface BrandMonitoringChartProps {
   data: any[];
@@ -87,8 +88,15 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
     },
   ];
 
+  const addTooltip = (
+    <Tooltip title={t('monitoring.explain_chart_monitoring')} arrow>
+      <IconButton size="small">
+        <InfoIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
+  );
   return (
-    <DashboardCard title={t('monitoring.total_results_by_parameters')} subtitle={t('monitoring.explain_chart_monitoring')}> 
+    <DashboardCard title={t('monitoring.total_results_by_parameters')} action={addTooltip}>
       <Box mb={3}>
         <Chart
           options={options}
