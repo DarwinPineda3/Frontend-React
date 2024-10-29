@@ -480,11 +480,6 @@
     "ipv4": "IPv4",
     "ipv6": "IPv6",
     "vin": "Vin"
-
-    
-    
-
-    
   },
   "sentiments":{
     "sentiment_history": "Sentiment History",
