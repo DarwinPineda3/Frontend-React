@@ -19,7 +19,7 @@ const initialState: StateType = {
   error: null,
 };
 
-export const FakeAppsSlice = createSlice({
+export const MobileAppsSlice = createSlice({
   name: 'mobileApp',
   initialState,
   reducers: {
@@ -49,7 +49,7 @@ export const FakeAppsSlice = createSlice({
   }
 });
 
-export const { getMobileApps, addMobileApp, updateMobileApp, deleteMobileApp, setPage, setError } = FakeAppsSlice.actions;
+export const { getMobileApps, addMobileApp, updateMobileApp, deleteMobileApp, setPage, setError } = MobileAppsSlice.actions;
 
 // Async thunk for fetching mobileApps with pagination (READ)
 export const fetchMobileApps = (page = 1) => async (dispatch: AppDispatch) => {
@@ -96,4 +96,4 @@ export const removeMobileApp = (mobileAppId: string) => async (dispatch: AppDisp
   }
 };
 
-export default FakeAppsSlice.reducer;
+export default MobileAppsSlice.reducer;

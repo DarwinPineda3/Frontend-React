@@ -49,7 +49,7 @@ import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
 import UserProfile from 'src/views/apps/user-profile/UserProfile';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
 import DarkWeb from 'src/views/observability/DarkWeb';
-import FakeApp from "src/views/monitoring/mobile-app/MobileApp";
+import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -115,9 +115,10 @@ const Router = [
       { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
-      { path: '/monitoring/fake-app', element: <FakeApp /> },
-      { path: '/monitoring/fake-app/:mobileAppId', element: <FakeApp /> },
-      { path: '/monitoring/parameter-app/:mobileAppId/parameter/:parameterAppId', element: <FakeApp /> },
+      { path: '/monitoring/mobile-app', element: <MobileApp /> },
+      // { path: '/monitoring/mobile-app/scanApp/:id/results/:mobileAppId', element: <MobileApp /> }, ruta para listado de resultados
+      { path: '/monitoring/mobile-app/scanApp/:id', element: <MobileApp /> },
+      // { path: '/monitoring/parameter-app/:mobileAppId/parameter/:parameterAppId', element: <MobileApp /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
