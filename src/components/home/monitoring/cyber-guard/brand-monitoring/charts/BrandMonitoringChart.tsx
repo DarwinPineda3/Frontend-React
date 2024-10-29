@@ -88,8 +88,7 @@ const BrandMonitoringChart: React.FC<BrandMonitoringChartProps> = ({ data }) => 
   ];
 
   return (
-    <DashboardCard title={t('monitoring.total_results_by_parameters')}
-> 
+    <DashboardCard title={t('monitoring.total_results_by_parameters')} subtitle={t('monitoring.explain_chart_monitoring')}> 
       <Box mb={3}>
         <Chart
           options={options}

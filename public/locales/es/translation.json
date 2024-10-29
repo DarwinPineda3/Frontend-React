@@ -545,7 +545,8 @@
     "user_following": "Siguiendo del usuario",
     "user_url": "URL del usuario",
     "user_type": "Tipo de usuario",
-    "detailed_information": "Información Detallada"
+    "detailed_information": "Información Detallada",
+    "explain_chart_monitoring" : "El cuadro a continuación ilustra los parámetros que arrojaron la mayor cantidad de resultados durante el proceso de monitoreo o búsqueda, destacando aquellos con la mayor cantidad de hallazgos para priorizar su análisis."
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",

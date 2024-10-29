@@ -545,7 +545,8 @@
     "user_following": "User Following",
     "user_url": "User URL",
     "user_type": "User Type",
-    "detailed_information": "Detailed Information"
+    "detailed_information": "Detailed Information",
+    "explain_chart_monitoring" : "The chart below illustrates the parameters that yielded the highest number of results during the monitoring or search process, highlighting those with the most findings to prioritize your analysis."
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
