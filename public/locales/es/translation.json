@@ -41,6 +41,7 @@
     "takedown": "Takedown",
     "technologies_inventory": "Inventario de Tecnologías",
     "malware": "Malware",
+    "mobile_apps": "Aplicaciones Móviles",
     "open_cti": "OpenCTI"
   },
   "dashboard": {

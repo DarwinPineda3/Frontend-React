@@ -1,34 +1,34 @@
 import PageContainer from "src/components/container/PageContainer";
-import MalwareAnalysisList from "src/components/home/monitoring/malware-analyses/MalwareAnalysisList";
-import MalwareAnalysisDetail from "src/components/home/monitoring/malware-analyses/MalwareAnalysisDetail";
 import { useState, useEffect } from "react";
 import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 
+import MobileAppList from "src/components/home/monitoring/mobile-apps/MobileAppResultList";
+// import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 
 
-const MalwareAnalysis = () => {
+const MobileApp = () => {
 
-    const { malwareAnalysisId } = useParams<{ malwareAnalysisId?: string }>();
+    const { mobileAppId } = useParams<{ mobileAppId?: string }>();
     const location = useLocation();  // Tracks the current URL location
 
-    const [selectedMalwareAnalysis, setSelectedMalwareAnalysis] = useState<string | null>(null);
+    const [selectedMobileApp, setSelectedMobileApp] = useState<string | null>(null);
     const navigate = useNavigate();
 
     // Synchronize state with URL parameters
     useEffect(() => {
-        if (malwareAnalysisId) {
-            setSelectedMalwareAnalysis(malwareAnalysisId);
+        if (mobileAppId) {
+            setSelectedMobileApp(mobileAppId);
         } else {
-            setSelectedMalwareAnalysis(null);
+            setSelectedMobileApp(null);
         }
 
-    }, [malwareAnalysisId, location]);
+    }, [mobileAppId, location]);
 
-    const handleMalwareAnalysisClick = (id: string) => {
-        navigate(`/monitoring/malware-analysis/${id}`);
+    const handleMobileAppClick = (id: number) => {
+        navigate(`/monitoring/mobile-app/${id}`);
     };
     return (
         <Box>
@@ -37,24 +37,23 @@ const MalwareAnalysis = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/malware-analysis">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/mobile-app">
                         Monitoring
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/malware-analysis">
-                        Cyber Guard
+                    <Link component={RouterLink} color="inherit" to="/monitoring/mobile-app">
+                        Mobile apps
                     </Link>
-                    {selectedMalwareAnalysis && (
-                        // TODO: no muestra este breadcrumb
+                    {selectedMobileApp && (
                         <Typography color="textPrimary">
-                            Malware analysis
+                            Detalle app móvil
                         </Typography>
                     )}
                 </Breadcrumbs>
             </Box>
-            {selectedMalwareAnalysis ? (
+            {selectedMobileApp ? (
                 <Grid container spacing={0} mt={1}>
                     <Grid item xs={12} xl={12}>
-                        <MalwareAnalysisDetail malwareAnalysisId={selectedMalwareAnalysis!} />
+                        {/* <MalwareAnalysisDetail mobileAppId={selectedMobileApp!} /> */}
                     </Grid>
                 </Grid>
             ) : (
@@ -63,7 +62,7 @@ const MalwareAnalysis = () => {
                         {/* <AssetsCards/> */}
                     </Grid>
                     <Grid item xs={12} lg={12}>
-                        <MalwareAnalysisList onMalwareAnalysisClick={handleMalwareAnalysisClick} />
+                        <MobileAppList onMobileAppClick={handleMobileAppClick} />
                     </Grid>
                 </Grid>
             )}
@@ -72,4 +71,4 @@ const MalwareAnalysis = () => {
     );
 };
 
-export default MalwareAnalysis;
+export default MobileApp;
