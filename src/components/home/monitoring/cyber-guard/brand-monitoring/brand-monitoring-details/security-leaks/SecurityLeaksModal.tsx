@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Box, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityLeakDetailModalProps {
   open: boolean;
@@ -12,6 +13,8 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
   onClose,
   data,
 }) => {
+  const { t } = useTranslation();
+
   const filteredData = Object.entries(data).reduce((acc, [key, value]) => {
     if (value !== null && value !== undefined) {
       const valueStr = String(value);
@@ -23,7 +26,10 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
   }, {} as Record<string, string>);
 
   const formatKey = (key: string) => {
-    return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+    return (
+      t(`monitoring.${key}`) ||
+      key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+    );
   };
 
   const isUrl = (value: string) => /^https?:\/\/[^\s]+$/.test(value);
@@ -51,7 +57,7 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
         }}
       >
         <Typography id="security-leak-detail-title" variant="h6" component="h2" gutterBottom>
-          Detailed Information
+          {t('monitoring.detailed_information')}
         </Typography>
         <Divider sx={{ mb: 2 }} />
         <List>
@@ -66,7 +72,7 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
                       maxWidth: '100%',
                     }}
                   >
-                    <strong>{formatKey(key)}:</strong> {' '}
+                    <strong>{formatKey(key)}:</strong>{' '}
                     {isUrl(value) ? (
                       <a href={value} target="_blank" rel="noopener noreferrer">
                         {value}

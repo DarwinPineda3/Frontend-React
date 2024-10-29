@@ -14,6 +14,7 @@ import { createParameter, updateParameter } from 'src/store/sections/cyber-guard
 import { ParameterCyberGuardType, ParameterTypeChoice } from 'src/types/cyber-guard/parameters/parameter';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   parameter?: ParameterCyberGuardType; // Optional for edit
@@ -22,6 +23,7 @@ interface Props {
 
 const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -33,7 +35,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
       updated_date: parameter?.updated_date || new Date().toISOString(),
     },
     validationSchema: Yup.object({
-      parameter: Yup.string().required('Parameter is required'),
+      parameter: Yup.string().required(`${t('monitoring.parameter_required')}`),
       parameter_type: Yup.string()
         .oneOf([
           "DOMAIN",
@@ -49,7 +51,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
           "WORD",
           null
         ])
-        .required('Parameter type is required'),
+        .required(`${t('monitoring.parameter_type_required')}`),
     }),
     onSubmit: (values) => {
       const newParameter: ParameterCyberGuardType = {
@@ -63,26 +65,26 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
 
       if (parameter) {
         dispatch(updateParameter(newParameter));
-        onSubmit('Parameter updated successfully', 'success');
+        onSubmit(`${t('monitoring.parameter_updated_successfully')}`, 'success');
       } else {
         dispatch(createParameter(newParameter));
-        onSubmit('Parameter created successfully', 'success');
+        onSubmit(`${t('monitoring.parameter_created_successfully')}`, 'success');
       }
     },
   });
 
   const menuItems = [
-    { value: "DOMAIN", label: "Domain" },
-    { value: "IPV4", label: "IPv4" },
-    { value: "IPV6", label: "IPv6" },
-    { value: "SUBDOMAIN", label: "Subdomain" },
-    { value: "SUBNET", label: "Subnet" },
-    { value: "EMAIL", label: "Email" },
-    { value: "PHONE", label: "Phone" },
-    { value: "NAME", label: "Name" },
-    { value: "USERNAME", label: "Username" },
-    { value: "VIN", label: "VIN" },
-    { value: "WORD", label: "Word" },
+    { value: "DOMAIN", label: `${t('monitoring.domain')}` },
+    { value: "IPV4", label: `${t('monitoring.ipv4')}` },
+    { value: "IPV6", label: `${t('monitoring.ipv6')}` },
+    { value: "SUBDOMAIN", label: `${t('monitoring.subdomain')}` },
+    { value: "SUBNET", label: `${t('monitoring.subnet')}` },
+    { value: "EMAIL", label: `${t('monitoring.email')}` },
+    { value: "PHONE", label: `${t('monitoring.phone')}` },
+    { value: "NAME", label: `${t('monitoring.name')}` },
+    { value: "USERNAME", label: `${t('monitoring.username')}` },
+    { value: "VIN", label: `${t('monitoring.vin')}` },
+    { value: "WORD", label: `${t('monitoring.word')}` },
   ];
 
   const selectedOption = menuItems.find(item => item.value === formik.values.parameter_type);
@@ -91,13 +93,13 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {parameter ? 'Edit Parameter' : 'Create Parameter'}
+          {parameter ? `${t('monitoring.update_parameter')}` : `${t('monitoring.create_parameter')}`}
         </Typography>
 
         <TextField
           fullWidth
           margin="normal"
-          label="Parameter Name"
+          label={t('monitoring.parameter_name')}
           name="parameter"
           value={formik.values.parameter}
           onChange={formik.handleChange}
@@ -117,7 +119,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Parameter Type"
+                        label={t('monitoring.parameter_type')}
                         variant="outlined"
                         error={formik.touched.parameter_type && Boolean(formik.errors.parameter_type)}
                     />
@@ -133,7 +135,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {parameter ? 'Edit' : 'Create'}
+            {parameter ? `${t('monitoring.update_parameter')}` : `${t('monitoring.create_parameter')}`}
           </Button>
         </Box>
       </Box>

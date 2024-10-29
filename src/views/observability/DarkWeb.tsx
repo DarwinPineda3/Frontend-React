@@ -1,6 +1,7 @@
 //basic component
 
-import { Grid } from '@mui/material';
+import { Grid, Box, IconButton, Breadcrumbs, Link } from '@mui/material';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import TopCardsDarkWeb from 'src/components/observability/dark-web/topCardsDarkWeb';
 import OrgBreachesCompare from 'src/components/home/dashboard/OrgBreachesCompare';
 import BreachStatusChart from 'src/components/observability/dark-web/breachStatus';
@@ -11,22 +12,48 @@ import DomainTable from 'src/components/observability/dark-web/domainTable';
 import ThreatTypesBarChart from 'src/components/observability/dark-web/threatTypesBarChart';
 import VIPsHeatmapChart from 'src/components/observability/dark-web/vipHeatMap';
 import CompromisedTypesChart from 'src/components/observability/dark-web/vipsRadarChart';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PageContainer from 'src/components/container/PageContainer';
 
 const DarkWeb = () => {
+  const navigate = useNavigate();
 
   return (
-    <Grid container spacing={3} mt={2}>
+    <PageContainer title="Akila">
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBackIcon />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link
+              component={RouterLink}
+              color="inherit"
+              to=""
+            >
+              Monitoring
+            </Link>
+            <Link component={RouterLink} color="inherit" to="">
+              Cyber Guard
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/monitoring/threats-overview">
+              Threats Overview
+            </Link>
+          </Breadcrumbs>
+        </Box>
+      </Box>
+      <Grid container spacing={3} mt={2}>
         <Grid item xs={12}>
-            <TopCardsDarkWeb />
+          <TopCardsDarkWeb />
         </Grid>
-        <Grid item xs={12} lg={3}>
-            <OrgBreachesCompare />
+        <Grid item xs={12} lg={4}>
+          <OrgBreachesCompare />
         </Grid>
-        <Grid item xs={12} lg={3}>
-            <BreachStatusChart />
+        <Grid item xs={12} lg={4}>
+          <BreachStatusChart />
         </Grid>
-        <Grid item xs={12} lg={3}>
-            <BreachElementTypeChart />
+        <Grid item xs={12} lg={4}>
+          <BreachElementTypeChart />
         </Grid>
         <Grid item xs={12} lg={3}>
             <CompromisedTypesChart/>
@@ -38,16 +65,16 @@ const DarkWeb = () => {
             <VIPsHeatmapChart/>
         </Grid>
         <Grid item xs={12} lg={12}>
-            <ThreatsByFuzzerChart />
+          <ThreatsByFuzzerChart />
         </Grid>
         <Grid item xs={12} lg={12}>
-            <UsernamesTable />
+          <UsernamesTable />
         </Grid>
         <Grid item xs={12} lg={12}>
-            <DomainTable />
+          <DomainTable />
         </Grid>
-        
-    </Grid>
+      </Grid>
+    </PageContainer>
   );
 };
 

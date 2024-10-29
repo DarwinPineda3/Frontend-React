@@ -163,8 +163,8 @@ const Menuitems: MenuitemsType[] = [
       },
       {
         id: uniqueId(),
-        title: 'menu.brand_monitoring', // Translation key for title
-        href: '/monitoring/cyber-guard/brand-monitoring',
+        title: 'menu.monitoring', // Translation key for title
+        href: '/monitoring/cyber-guard/monitoring',
         icon: IconPoint,
       },
       {
@@ -238,7 +238,7 @@ const Menuitems: MenuitemsType[] = [
       },
       {
         id: uniqueId(),
-        title: 'menu.brand_monitoring', // Translation key for title
+        title: 'menu.monitoring', // Translation key for title
         href: '/monitoring/soc/brand-monitoring',
         icon: IconSocial,
         children: [
