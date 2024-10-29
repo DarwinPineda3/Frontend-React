@@ -173,6 +173,12 @@ const Menuitems: MenuitemsType[] = [
         href: '/monitoring/malware-analysis',
         icon: IconPoint,
       },
+      {
+        id: uniqueId(),
+        title: 'menu.mobile_apps', // Translation key for title
+        href: '/monitoring/cyber-guard/mobile-app',
+        icon: IconPoint,
+      },
     ],
   },
   {

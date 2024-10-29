@@ -12,6 +12,7 @@ import {
   IconButton,
   Dialog,
   DialogContent,
+  Button,
   Chip
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -19,6 +20,8 @@ import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAppScans, setPage } from 'src/store/sections/mobile-app/AppScanSlice';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
+import CreateUpdateAppScan from '../mobile-apps/MobileAppEdition';
+import { useTranslation } from 'react-i18next';
 
 
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
@@ -36,6 +39,8 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const totalPages = useSelector((state: any) => state.appScansReducer.totalPages);
   const [editAppScan, setEditAppScan] = useState<null | any>(null); // State to hold the appScan being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
+  const [snackbarName, setSnackbarName] = useState('');
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     dispatch(fetchAppScans(currentPage));
@@ -55,6 +60,9 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setEditAppScan(null); // Reset the edit state when closing
+  };
+  const handleFormSubmit = (name: string) => {
+    setSnackbarName(name);
   };
 
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
@@ -103,6 +111,16 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
                     <HumanizedDate dateString={appScan.createdOn} />
                     </Typography>
                   </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={() => handleEditClick(appScan)}
+                    >
+                      {t("dashboard.edit")}
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -120,7 +138,7 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
           <DialogContent sx={{ padding: '50px' }}>
             {/* Pass the onSubmit callback */}
-            {/* <CreateUpdateMalwareAnalysis appScan={editAppScan ?? undefined} onSubmit={handleFormSubmit} /> */}
+            <CreateUpdateAppScan appScan={editAppScan ?? undefined} onSubmit={handleFormSubmit} />
           </DialogContent>
         </Dialog>
       </Box>

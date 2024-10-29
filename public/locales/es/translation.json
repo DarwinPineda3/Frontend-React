@@ -40,7 +40,8 @@
     "news": "Boletines",
     "takedown": "Takedown",
     "technologies_inventory": "Inventario de Tecnologías",
-    "malware": "Malware"
+    "malware": "Malware",
+    "mobile_apps": "Aplicaciones Mobiles"
   },
   "dashboard": {
     "montly_distribution": "Distribución mensual",

@@ -40,7 +40,8 @@
     "news": "Newsletters",
     "takedown": "Takedown",
     "technologies_inventory": "Technologies Inventory",
-    "malware": "Malware"
+    "malware": "Malware",
+    "mobile_apps": "Mobile Apps"
   },
   "dashboard": {
     "montly_distribution": "Monthly Distribution",
@@ -447,7 +448,7 @@
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Compromised Elements by Type",
     "top_compromised_vips": "Top Compromised VIPs",
-    "platforms_or_ty,pes": "Platforms or Types"
+    "platforms_or_ty,pes": "Platforms or Types"    
   },
   "sentiments":{
     "sentiment_history": "Sentiment History",
