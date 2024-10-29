@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
-import { ParameterAppType } from "src/types/monitoring/fake-apps/parameterApp";
+import { ParameterAppType } from "src/types/monitoring/mobile-apps/parameterApp";
 
 const API_URL = '/api/data/parameterApps';
 
