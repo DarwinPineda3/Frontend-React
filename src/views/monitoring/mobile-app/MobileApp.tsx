@@ -4,12 +4,12 @@ import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/mater
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 
-import MobileAppList from "src/components/home/monitoring/fake-apps/MobileAppList";
+import MobileAppList from "src/components/home/monitoring/mobile-apps/MobileAppList";
 // import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 
 
-const FakeApp = () => {
+const MobileApp = () => {
 
     const { mobileAppId } = useParams<{ mobileAppId?: string }>();
     const location = useLocation();  // Tracks the current URL location
@@ -28,7 +28,7 @@ const FakeApp = () => {
     }, [mobileAppId, location]);
 
     const handleMobileAppClick = (id: string) => {
-        navigate(`/monitoring/fake-app/${id}`);
+        navigate(`/monitoring/mobile-app/${id}`);
     };
     return (
         <Box>
@@ -37,8 +37,11 @@ const FakeApp = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/fake-app">
-                        Monitoreo
+                    <Link component={RouterLink} color="inherit" to="/monitoring/mobile-app">
+                        Monitoring
+                    </Link>
+                    <Link component={RouterLink} color="inherit" to="/monitoring/mobile-app">
+                        Mobile apps
                     </Link>
                     {selectedMobileApp && (
                         <Typography color="textPrimary">
@@ -68,4 +71,4 @@ const FakeApp = () => {
     );
 };
 
-export default FakeApp;
+export default MobileApp;

@@ -49,7 +49,7 @@ import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
 import UserProfile from 'src/views/apps/user-profile/UserProfile';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
 import DarkWeb from 'src/views/observability/DarkWeb';
-import FakeApp from "src/views/monitoring/fake-app/FakeApp";
+import FakeApp from "src/views/monitoring/mobile-app/MobileApp";
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));

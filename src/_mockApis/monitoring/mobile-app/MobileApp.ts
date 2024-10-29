@@ -198,7 +198,7 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   }
 });
 
-// POST: Create a new malwareAnalysis
+// POST: Create a new mobileApp
 mock.onPost('/api/data/mobileApps').reply((config) => {
   try {
     const { appName, downloadLink, releaseDate, version, score, source, digitalSignature, apkHash, details } = JSON.parse(config.data);
@@ -216,48 +216,48 @@ mock.onPost('/api/data/mobileApps').reply((config) => {
           score,
       };
 
-    mobileApps.push(newMobileApp); // Add new malwareAnalysis to mock database
+    mobileApps.push(newMobileApp); // Add new mobileApp to mock database
 
-    return [200, { malwareAnalysis: newMobileApp }];
+    return [200, { mobileApp: newMobileApp }];
   } catch (error) {
     console.error('Error in creating mobile app:', error);
     return [500, { message: 'Failed to create mobile app' }];
   }
 });
 
-// PUT: Update an existing malwareAnalysis
+// PUT: Update an existing mobileApp
 mock.onPut(new RegExp('/api/data/mobileApps/*')).reply((config) => {
   try {
-    const mobileAppId = config.url!.split('/').pop(); // Extract the malwareAnalysis ID from the URL
-    const updatedData = JSON.parse(config.data); // New data for the malwareAnalysis
+    const mobileAppId = config.url!.split('/').pop(); // Extract the mobileApp ID from the URL
+    const updatedData = JSON.parse(config.data); // New data for the mobileApp
 
-    const mobileAppIndex = mobileApps.findIndex((malwareAnalysis) => malwareAnalysis.id === mobileAppId);
+    const mobileAppIndex = mobileApps.findIndex((mobileApp) => mobileApp.id === mobileAppId);
     if (mobileAppIndex === -1) {
-      return [404, { message: 'Analysis malware not found' }];
+      return [404, { message: 'Mobile App not found' }];
     }
 
-    mobileApps[mobileAppIndex] = { ...mobileApps[mobileAppIndex], ...updatedData }; // Update the malwareAnalysis
+    mobileApps[mobileAppIndex] = { ...mobileApps[mobileAppIndex], ...updatedData }; // Update the mobileApp
 
-    return [200, { malwareAnalysis: mobileApps[mobileAppIndex] }];
+    return [200, { mobileApp: mobileApps[mobileAppIndex] }];
   } catch (error) {
     console.error('Error updating mobile app:', error);
     return [500, { message: 'Failed to update mobile app' }];
   }
 });
 
-// DELETE: Delete an malwareAnalysis
+// DELETE: Delete an mobileApp
 mock.onDelete(new RegExp('/api/data/mobileApps/*')).reply((config) => {
   try {
-    const mobileAppId = config.url!.split('/').pop(); // Extract the malwareAnalysis ID from the URL
+    const mobileAppId = config.url!.split('/').pop(); // Extract the mobileApp ID from the URL
 
-    const mobileAppIndex = mobileApps.findIndex((malwareAnalysis) => malwareAnalysis.id === mobileAppId);
+    const mobileAppIndex = mobileApps.findIndex((mobileApp) => mobileApp.id === mobileAppId);
     if (mobileAppIndex === -1) {
-      return [404, { message: 'Analysis malware not found' }];
+      return [404, { message: 'Mobile App not found' }];
     }
 
-    mobileApps.splice(mobileAppIndex, 1); // Remove malwareAnalysis from the mock database
+    mobileApps.splice(mobileAppIndex, 1); // Remove mobileApp from the mock database
 
-    return [200, { message: 'Analysis malware deleted successfully' }];
+    return [200, { message: 'Mobile App deleted successfully' }];
   } catch (error) {
     console.error('Error deleting mobile app:', error);
     return [500, { message: 'Failed to delete mobile app' }];
