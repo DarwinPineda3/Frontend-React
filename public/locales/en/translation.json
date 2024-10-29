@@ -40,7 +40,8 @@
     "news": "Newsletters",
     "takedown": "Takedown",
     "technologies_inventory": "Technologies Inventory",
-    "malware": "Malware"
+    "malware": "Malware",
+    "open_cti": "OpenCTI"
   },
   "dashboard": {
     "montly_distribution": "Monthly Distribution",
@@ -97,7 +98,8 @@
     "url": "URL",
     "actions": "Actions",
     "edit": "Edit",
-    "operation_status": "Operation Status"
+    "operation_status": "Operation Status",
+    "create": "Create"
   },
   "audit": {
     "list_of_audit_logs": "List of Audit Logs",
@@ -557,5 +559,19 @@
     "neutral": "Neutral",
     "satisfied": "Satisfied",
     "very_satisfied": "Very Satisfied"
+  },
+  "newsletter":{
+    "newsletters": "Newsletters",
+    "newsletters_list": "Newsletters List",
+    "size": "Size",
+    "last_modification":  "Last Modification"
+  },
+  "technologies_inventory":{
+      "technologies_inventory": "Technologies Inventory",
+      "technologies_list": "Technologies List",
+      "category":  "Category",
+      "version": "Version",
+      "create_technology": "Create Technology",
+      "edit_technology": "Edit Technology"
   }
 }
