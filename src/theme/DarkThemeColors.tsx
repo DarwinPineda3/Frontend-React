@@ -34,6 +34,14 @@ const DarkThemeColors = [
       gradient: {
         main: 'linear-gradient(90deg, #FF578F 0%, #F66859 100%)',  // Gradient from Deep Pink to Coral Orange
       },
+      level:{
+        none: '#24b667',
+        low: '#ffca3a',
+        medium: '#fd8824',
+        high: '#d31212',
+        critical: '#6a020c',
+        unknown: '#b1c0c5',
+      }
     },
   },
   {
