@@ -24,8 +24,6 @@ import CreateUpdateAppScan from '../mobile-apps/MobileAppEdition';
 import { useTranslation } from 'react-i18next';
 
 
-// import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
-
 interface AppScanListTableProps {
   onAppScanClick: (AppScanId: number) => void;
 }
@@ -68,7 +66,7 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Apps" subtitle="List app scans found" action={addButton}>
+    <DashboardCard title="Apps" subtitle="List of scanned mobile applications" action={addButton}>
       <Box>
         <TableContainer>
           <Table aria-label="appScan table" sx={{ whiteSpace: 'nowrap' }}>
@@ -134,7 +132,6 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
             onChange={handlePageChange}
           />
         </Box>
-        {/* Edit/Create MalwareAnalysis Dialog/Modal*/}
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
           <DialogContent sx={{ padding: '50px' }}>
             {/* Pass the onSubmit callback */}

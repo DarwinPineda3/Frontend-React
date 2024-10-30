@@ -31,7 +31,7 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
         name: Yup.string().required('Name is required'),
         // createdOn: Yup.date().('Invalid URL format').required('URL is required'), //validarfecha
       }),
-      onSubmit: (values) => {
+      onSubmit: (values:string, severity: 'success' | 'info' | 'warning' | 'error') => {
         const newAppScan: AppScanType = {
           ...values,
           id: appScan?.id || undefined, // Only include `id` if updating
@@ -51,7 +51,7 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {appScan ? 'Update Malware Analysis' : 'Create Malware Analysis'}
+          {appScan ? 'Update app for scanning' : 'Create app for scanning'}
         </Typography>
 
         <TextField

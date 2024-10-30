@@ -36,18 +36,16 @@ const AppScan = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/malware-analysis">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
                         Monitoring
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/malware-analysis">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
                         Cyber Guard
                     </Link>
-                    {selectedAppScan && (
-                        // TODO: no muestra este breadcrumb
-                        <Typography color="textPrimary">
-                            Mobile Apps
-                        </Typography>
-                    )}
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                        Mobile Apps
+                    </Link>
+
                 </Breadcrumbs>
             </Box>
             <Grid container spacing={0} mt={1}>

@@ -119,7 +119,7 @@ const Router = [
       { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
       { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
-      // { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
+      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
       
       { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },

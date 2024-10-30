@@ -63,7 +63,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Search result" subtitle="List mobiles apps found" action={addButton}>
+    <DashboardCard title="Search result" subtitle="List of mobile applications found">
       <Box>
         <TableContainer>
           <Table aria-label="mobileApp table" sx={{ whiteSpace: 'nowrap' }}>
@@ -194,8 +194,6 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
         {/* Edit/Create MalwareAnalysis Dialog/Modal */}
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
           <DialogContent sx={{ padding: '50px' }}>
-            {/* Pass the onSubmit callback */}
-            {/* <CreateUpdateMalwareAnalysis mobileApp={editMobileApp ?? undefined} onSubmit={handleFormSubmit} /> */}
           </DialogContent>
         </Dialog>
       </Box>
