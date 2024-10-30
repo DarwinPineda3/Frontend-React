@@ -13,9 +13,8 @@ import * as Yup from 'yup';
 import { AppScanType } from 'src/types/monitoring/mobile-apps/AppScan';
 
 interface Props {
-    // appScan?: AppScanType; // Optional for edit
     appScan?: any; // Optional for edit
-    onSubmit: (name: string) => void; // Callback after submission
+    onSubmit: (name: string) => void; 
 }
 
 const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
@@ -34,15 +33,15 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
       onSubmit: (values:string, severity: 'success' | 'info' | 'warning' | 'error') => {
         const newAppScan: AppScanType = {
           ...values,
-          id: appScan?.id || undefined, // Only include `id` if updating
+          id: appScan?.id || undefined, 
         };
   
         if (appScan) {
           dispatch(editAppScan(newAppScan));
-          onSubmit('App Scan updated successfully', 'success'); // Show success message for update
+          onSubmit('App Scan updated successfully', 'success');
         } else {
           dispatch(createAppScan(newAppScan));
-          onSubmit('App Scan created successfully', 'success'); // Show success message for create
+          onSubmit('App Scan created successfully', 'success');
         }
       },
     });
@@ -63,7 +62,6 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.name && Boolean(formik.errors.name)}
-          // helperText={formik.touched.name && formik.errors.name}
         />
 
         <Box mt={2}>
