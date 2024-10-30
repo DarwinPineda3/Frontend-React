@@ -30,7 +30,7 @@ const MobileApp = () => {
     }, [mobileAppId, location]);
 
     const handleMobileAppClick = (id: number) => {
-        navigate(`/monitoring/cyber-guard/mobile-app/scan-app/${id}/result-app/${id}`);
+        navigate(`/monitoring/cyber-guard/mobile-apps/scan-app/${id}/result-app/${id}`);
     };
     return (
         <Box>
@@ -39,16 +39,16 @@ const MobileApp = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("menu.monitoring")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("menu.cyber_guard")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app/scan-app/12">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps/scan-app/12">
                         {t("mobile_apps.mobile_apps")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("mobile_apps.results_app_scans")}
                     </Link>
                     {selectedMobileApp && (
