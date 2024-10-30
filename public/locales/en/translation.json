@@ -427,7 +427,9 @@
     "service": "Service",
     "malware_count": "Malware Count",
     "vip_compromised_count": "Compromised VIPs Count",
-    "fake_app_count": "Fake Applications Count"
+    "fake_app_count": "Fake Applications Count",
+    "social_media_total": "Social Media Count",
+    "dark_web_total": "Dark Web Count"
   },
   "monitoring": {
     "top_threat_types": "Top Detected Threat Types",
@@ -446,8 +448,8 @@
     "deep_web": "Deep Web",
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Compromised Elements by Type",
-    "top_compromised_vips": "Top Compromised VIPs",
-    "platforms_or_ty,pes": "Platforms or Types"
+    "top_compromised_vips": "Top Compromises",
+    "platforms_or_types": "Platforms or Types"
   },
   "sentiments":{
     "sentiment_history": "Sentiment History",
