@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, Chip,  Typography,  Stack } from '@mui/material';
+import { Grid, Box, Chip, Typography, Stack } from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 // import AlphaSuspicionLevel from './MalwareAnalysisAlphaSuspicionLevel';
@@ -122,16 +122,13 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
     }
   }
 
-  const mockDate = new Date('2024-09-23T10:20:30Z');
-  
-
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} xl={12}>
-      <Breadcrumb title={mobileApp.appName}>
+        <Breadcrumb title={mobileApp.appName}>
           <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
             <Chip label={`Score: ${mobileApp.score}`} color="secondary" variant="outlined" />
-            <Chip label={`Category: ${analysisReport.informationExecution.category}`} color="info" variant="outlined" />
+            <Chip label={`Version: ${mobileApp.version}`} color="info" variant="outlined" />
             <Chip label={`Release Date: ${mobileApp.releaseDate}`} color="primary" variant="outlined" />
           </Box>
         </Breadcrumb>
@@ -151,34 +148,41 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
+                App name:
+              </Typography>
+              <Typography variant="body2">{mobileApp.appName}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle2" fontWeight={600}>
                 Id:
               </Typography>
-              <Typography variant="body2">{mobileApp.id}</Typography>
+              <Typography variant="body2">{mobileApp.idApp}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Started:
+                Version:
               </Typography>
-              <Typography variant="body2">{mobileApp.id}</Typography>
+              <Typography variant="body2">{mobileApp.version}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-              Completed:
+                Download link:
               </Typography>
-              <Typography variant="body2">{mobileApp.id}</Typography>
+              <Typography variant="body2">{mobileApp.downloadLink}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Duration:
+                Release date:
               </Typography>
-              <Typography variant="body2">{mobileApp.id}</Typography>
+              <Typography variant="body2">{mobileApp.releaseDate}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Routing:
+                Source:
               </Typography>
-              <Typography variant="body2">{mobileApp.id}</Typography>
+              <Typography variant="body2">{mobileApp.source}</Typography>
             </Box>
+            
 
             {/* <Box>
               <Typography variant="subtitle2" fontWeight={600}>
@@ -195,7 +199,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
       </Grid>
 
       <Grid item xs={12} xl={6}>
-        <DashboardCard title="Detalles del objetivo" subtitle="Detalles del objetivo analizado">
+        <DashboardCard title="Security" subtitle="Security and Integrity Analysis">
           <Box display="flex" flexDirection="column" gap={2} mt={1}>
 
             <Box>
@@ -208,46 +212,11 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               >
               </Stack>
             </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                File Name:
-              </Typography>
-              <Typography variant="body2">{analysisReport.summary.file}</Typography>
-            </Box>
+            
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Size:
-              </Typography>
-              <Typography variant="body2">
-                {analysisReport.summary.size}
-              </Typography>
-            </Box>
-
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Type:
-              </Typography>
-              <Typography variant="body2">{analysisReport.summary.type}</Typography>
-            </Box>
-
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                MD5:
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
-                }}
-              >
-                {analysisReport.summary.md5}
-              </Typography>
-            </Box>
-
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                SHA1:
+                Score:
               </Typography>
               <Typography
                 variant="body2"
