@@ -549,7 +549,16 @@
     "user_url": "User URL",
     "user_type": "User Type",
     "detailed_information": "Detailed Information",
-    "explain_chart_monitoring" : "The chart below illustrates the parameters that yielded the highest number of results during the monitoring or search process, highlighting those with the most findings to prioritize your analysis."
+    "explain_chart_monitoring" : "The chart below illustrates the parameters that yielded the highest number of results during the monitoring or search process, highlighting those with the most findings to prioritize your analysis.",
+    "description_correlations": "Correlations",
+    "description_affiliate_emailaddr": "E-mail addresses associated with affiliates or entities related to the investigated entity.",
+    "description_internet_name": "Alias, user name, nickname or public identifier that a person, entity or system uses on the Internet.",
+    "description_username": "User names (aliases or handles) found online, which could be linked to a person or entity on various websites or services.",
+    "description_emailaddr": "E-mail addresses related to an entity, found in filtered databases, forums, social networks, websites, among others.",
+    "description_social_media": "Collection of profiles and activities of an entity (person, organization, etc.) on social media platforms.",
+    "description_blacklisted_ipaddr": "An IP address associated with the domain under investigation has been detected on a blacklist.",
+    "description_malicious_ipaddr": "An IP address specifically identified as malicious due to its association with hostile or fraudulent activity on the Internet.",
+    "description_not_available": "Description not available"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
