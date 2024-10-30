@@ -1,17 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import { Box, CardContent, Divider, Grid, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/layouts/full/shared/breadcrumb/Breadcrumb';
-import { Grid, Tabs, Tab, Box, CardContent, Divider } from '@mui/material';
 
 // components
-import AccountTab from '../../components/pages/account-setting/AccountTab';
 import { IconArticle, IconBell, IconLock, IconUserCircle } from '@tabler/icons-react';
-import BlankCard from '../../components/shared/BlankCard';
-import NotificationTab from '../../components/pages/account-setting/NotificationTab';
+import AccountTab from '../../components/pages/account-setting/AccountTab';
 import BillsTab from '../../components/pages/account-setting/BillsTab';
+import NotificationTab from '../../components/pages/account-setting/NotificationTab';
 import SecurityTab from '../../components/pages/account-setting/SecurityTab';
+import BlankCard from '../../components/shared/BlankCard';
 
 const BCrumb = [
   {
@@ -63,10 +63,7 @@ const AccountSetting = () => {
 
   return (
     <PageContainer title="Account Setting" description="this is Account Setting page">
-      {/* breadcrumb */}
       <Breadcrumb title="Account Setting" items={BCrumb} />
-      {/* end breadcrumb */}
-
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <BlankCard>

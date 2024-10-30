@@ -1,11 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
-import { Grid, Typography, Box, Breadcrumbs, Link, Theme } from '@mui/material';
+import { Box, Breadcrumbs, Grid, Link, Theme, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-import breadcrumbImg from 'src/assets/images/breadcrumb/ChatBc.png';
 import { IconCircle } from '@tabler/icons-react';
+import breadcrumbImg from 'src/assets/images/breadcrumb/ChatBc.png';
 
 interface BreadCrumbType {
   subtitle?: string;
@@ -21,7 +20,8 @@ const Breadcrumb = ({ subtitle, items, title, children }: BreadCrumbType) => (
       backgroundColor: 'primary.light',
       borderRadius: (theme: Theme) => theme.shape.borderRadius / 4,
       p: '30px 25px 20px',
-      marginBottom: '30px',
+      marginBottom: '20px',
+      marginTop: '20px',
       position: 'relative',
       overflow: 'hidden',
     }}
@@ -45,16 +45,16 @@ const Breadcrumb = ({ subtitle, items, title, children }: BreadCrumbType) => (
       >
         {items
           ? items.map((item) => (
-              <div key={item.title}>
-                {item.to ? (
-                  <Link underline="none" color="inherit" component={NavLink} to={item.to}>
-                    {item.title}
-                  </Link>
-                ) : (
-                  <Typography color="textPrimary">{item.title}</Typography>
-                )}
-              </div>
-            ))
+            <div key={item.title}>
+              {item.to ? (
+                <Link underline="none" color="inherit" component={NavLink} to={item.to}>
+                  {item.title}
+                </Link>
+              ) : (
+                <Typography color="textPrimary">{item.title}</Typography>
+              )}
+            </div>
+          ))
           : ''}
       </Breadcrumbs>
     </Grid>
