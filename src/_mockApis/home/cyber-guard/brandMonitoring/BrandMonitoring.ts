@@ -97,10 +97,10 @@ const summaryData: SummaryDataType[] = [
         "query": "Banco de Occidente",
         "total_results": 56
     },
-    // {
-    //     "query": "Grupo Aval",
-    //     "total_results": 58
-    // },
+    {
+        "query": "Grupo Aval",
+        "total_results": 58
+    },
     {
         "query": "avvillas.com.co",
         "total_results": 71
@@ -222,11 +222,11 @@ mock.onGet('/api/data/monitoring/cyber-guard/brand-monitoring/resume').reply(() 
 
 
 // GET: Fetch paginated brand monitoring data
-mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/brand-monitoring')).reply((config) => {
-    try {
-        const urlParams = new URLSearchParams(config.url!.split('?')[1]);
-        const limit = 5;
-        const page = parseInt(urlParams.get('page') || '1', 10);
+mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/monitoring')).reply((config) => {
+  try {
+    const urlParams = new URLSearchParams(config.url!.split('?')[1]);
+    const limit = 5;
+    const page = parseInt(urlParams.get('page') || '1', 10);
 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
@@ -251,7 +251,7 @@ mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/brand-monitoring')).repl
 });
 
 
-mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/detail/brand-monitoring/*')).reply((config) => {
+mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/detail/monitoring/*')).reply((config) => {
     try {
         const id = config.url!.split('/').pop();
         const brandMonitoringIndex = consolidateDataTest.data.findIndex((result) => result.id === id);

@@ -7,19 +7,22 @@ import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import SocialNetworksAccordion from './SocialNetworksAccordion';
 import SentimentAnalysisChart from '../../charts/sentimentAnalysisChart';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
 }
 
 const SocialNetworks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) => {
+  
+  const { t } = useTranslation();
   const socialNetworksData = brandMonitoringDetail?.consolidated_data?.social_networks_data || [];
 
   if (socialNetworksData.length === 0) {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6">No social networks data available.</Typography>
+          <Typography variant="h6">{t('monitoring.no_data_available')}</Typography>
         </Grid>
       </Grid>
     );

@@ -163,14 +163,20 @@ const Menuitems: MenuitemsType[] = [
       },
       {
         id: uniqueId(),
-        title: 'menu.brand_monitoring', // Translation key for title
-        href: '/monitoring/cyber-guard/brand-monitoring',
+        title: 'menu.monitoring', // Translation key for title
+        href: '/monitoring/cyber-guard/monitoring',
         icon: IconPoint,
       },
       {
         id: uniqueId(),
         title: 'menu.malware', // Translation key for title
         href: '/monitoring/malware-analysis',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.mobile_apps', // Translation key for title
+        href: '/monitoring/cyber-guard/mobile-app',
         icon: IconPoint,
       },
     ],
@@ -231,14 +237,14 @@ const Menuitems: MenuitemsType[] = [
           {
             id: uniqueId(),
             title: 'menu.technologies_inventory', // Translation key for title
-            href: '/monitoring/soc/cti/technologies_inventory',
+            href: '/monitoring/soc/cti/technologies-inventory',
             icon: IconBroadcast,
           },
         ]
       },
       {
         id: uniqueId(),
-        title: 'menu.brand_monitoring', // Translation key for title
+        title: 'menu.monitoring', // Translation key for title
         href: '/monitoring/soc/brand-monitoring',
         icon: IconSocial,
         children: [
@@ -259,7 +265,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.news', // Translation key for title
-        href: '/monitoring/soc/news',
+        href: '/monitoring/soc/newsletters',
         icon: IconNews,
       },
       {

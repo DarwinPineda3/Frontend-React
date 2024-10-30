@@ -3,8 +3,8 @@ import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
 import { BrandMonitoringDataType, Data } from "src/types/cyber-guard/brand-monitoring/brandMonitoring";
 
-const API_URL = '/api/data/monitoring/cyber-guard/brand-monitoring';
-const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/brand-monitoring';
+const API_URL = '/api/data/monitoring/cyber-guard/monitoring';
+const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/monitoring';
 
 
 interface StateType {

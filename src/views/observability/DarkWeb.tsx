@@ -107,7 +107,7 @@ const DarkWeb = () => {
             </Grid>
             {/* Optional chart
         <Grid item xs={12} lg={12}>
-            <ThreatsByFuzzerChart />
+          <ThreatsByFuzzerChart />
         </Grid>
         */}
             <Grid item xs={12} lg={12}>
@@ -121,3 +121,4 @@ const DarkWeb = () => {
 };
 
 export default DarkWeb;
+
