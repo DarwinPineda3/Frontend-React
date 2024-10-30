@@ -598,14 +598,14 @@
   },
   "newsletter": {
     "newsletters": "Boletines",
-    "newsletters_list": "Lista de Boletines",
+    "newsletters_list": "Lista de Boletines Disponibles",
     "newsletter_details": "Detalles del Boletin",
     "size": "Tamaño",
     "last_modification": "Última modificación"
   },
   "technologies_inventory": {
     "technologies_inventory": "Inventario de Tecnologías",
-    "technologies_list": "Lista de Tecnologías",
+    "technologies_list": "Lista de Tecnologías Disponibles",
     "category": "Categoria",
     "version": "Versión",
     "create_technology": "Crear Tecnología",
@@ -637,7 +637,9 @@
     "crc32": "CRC32",
     "ssdeep": "SSDEEP",
     "results": "Resultados",
-    "results_description": "Resultados del análisis de malware"
+    "results_description": "Resultados del análisis de malware",
+    "malware_analysis_detail": "Análisis de Malware",
+    "malware_analysis_detail_description": "Detalle del análisis de Malware"
   },
   "mobile_apps": {
     "mobile_apps": "Aplicaciones Móviles",

@@ -14,6 +14,7 @@ const Newsletter = () => {
     const { t } = useTranslation();
 
     const [selectedNewsletter, setSelectedNewsLetter] = useState<string | null>(null);
+    const [selectedNewsletterName, setSelectedNewsletterName] = useState<string | null>(null);
 
     // Synchronize state with URL parameters
     useEffect(() => {
@@ -25,7 +26,8 @@ const Newsletter = () => {
 
     }, [newsletterId, location]);
 
-    const handleNewsLetterClick = (id: string) => {
+    const handleNewsLetterClick = (id: string, newsletterName: string) => {
+        setSelectedNewsletterName(newsletterName);
         navigate(`/monitoring/soc/newsletters/${id}`);
     };
     return (
@@ -38,12 +40,18 @@ const Newsletter = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">                        
                         {t("menu.monitoring")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
-                    {t("newsletter.newsletters")}
-                    </Link>
+                    {selectedNewsletter ? (
+                        <Link component={RouterLink} color="inherit" to="/monitoring/soc/newsletters">
+                            {t("newsletter.newsletters")}
+                        </Link>
+                    ) : (
+                        <Typography color="textPrimary">
+                            {t("newsletter.newsletters")}
+                        </Typography>
+                    )}
                     {selectedNewsletter && (
                         <Typography color="textPrimary">
-                            {t("newsletter.newsletter_details")}
+                            {selectedNewsletterName}
                         </Typography>
                     )}
                 </Breadcrumbs>
