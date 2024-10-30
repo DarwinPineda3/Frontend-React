@@ -6,6 +6,7 @@ import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
 import DataTable from './MobileAppTable';
 import AlphaSuspicionLevel from '../malware-analyses/MalwareAnalysisAlphaSuspicionLevel';
+import MobileAppAccordion from './MobileAppAccordion';
 
 
 
@@ -136,7 +137,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
         </Breadcrumb>
       </Grid>
       <Grid item xs={12} xl={6}>
-        <DashboardCard title="Summary" subtitle="Detail mobile app">
+        <DashboardCard title="Summary" subtitle="Mobile application details">
           <Box display="flex" flexDirection="column" gap={2} mt={1}>
             <Box>
               <Stack
@@ -148,7 +149,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               >
               </Stack>
             </Box>
-            <AlphaSuspicionLevel score={mobileApp.score} />
+            <AlphaSuspicionLevel score={mobileApp.score} type={"mobile app"}/>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Source:
@@ -252,24 +253,9 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
 
       </Grid>
 
-      <Grid item xs={12} xl={6}>
-      <DashboardCard>
-        <DataTable data={mobileApp.details.permissions} title={"Permissions"} />
-      </DashboardCard>
-      </Grid>
-      <Grid item xs={12} xl={6}>
-      <DashboardCard>
-        <DataTable data={mobileApp.details.risks}  title={"Risks"}/>
-      </DashboardCard>
-      </Grid>
-      <Grid item xs={12} xl={6}>
-      <DashboardCard>
-        <DataTable data={mobileApp.details.OWASP} title={"OWASP"}/>
-      </DashboardCard>
-      </Grid>
-      <Grid item xs={12} xl={6}>
-      <DashboardCard>
-        <DataTable data={mobileApp.details.externalCommunications} title={"External Communications"}/>
+      <Grid item xs={12} xl={12}>
+      <DashboardCard title='Application Analysis Report'>
+        <MobileAppAccordion data={mobileApp} />
       </DashboardCard>
       </Grid>
     </Grid>
