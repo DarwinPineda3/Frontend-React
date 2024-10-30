@@ -602,6 +602,21 @@
     "created_on": "Created on",
     "pending": "Pending",
     "completed": "Completed",
-    "failed": "Failed"
+    "failed": "Failed",
+    "started": "Started",
+    "duration": "Duration",
+    "rounting": "Routing",
+    "rules": "Rules",
+    "file_name": "File Name",
+    "size": "Size",
+    "type": "Type",
+    "md5": "MD5",
+    "sha1": "SHA1",
+    "sha256": "SHA256",
+    "sha512": "SHA512",
+    "crc32": "CRC32",
+    "ssdeep": "SSDEEP",
+    "results": "Results",
+    "results_description": "Target malware analysis results"
   }
 }
