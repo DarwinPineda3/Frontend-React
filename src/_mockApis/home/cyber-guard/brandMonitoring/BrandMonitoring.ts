@@ -128,7 +128,7 @@ summaryData.sort((a, b) => b.total_results - a.total_results);
 
 
 // GET: Fetch brand monitoring resume
-mock.onGet('/api/data/monitoring/cyber-guard/brand-monitoring/resume').reply(() => {
+mock.onGet('/api/data/monitoring/cyber-guard/monitoring/resume').reply(() => {
 
     // Initialize an object to store the required structure
     const aggregatedData = {
