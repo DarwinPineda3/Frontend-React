@@ -50,7 +50,7 @@ const cardConfig: Record<string, {
 };
 
 const TopCards = () => {
-  const { t } = useTranslation(); // Initialize translation
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, data, error } = useSelector((state: AppState) => state.dashboard.topCards);
 
@@ -67,7 +67,7 @@ const TopCards = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
   }
 
   return (
@@ -78,9 +78,9 @@ const TopCards = () => {
           <Grid item xs={6} sm={4} lg={2.4} key={i}>
             <Box bgcolor={config.bgcolor + '.light'} textAlign="center">
               <CardContent>
-                <img src={config.icon}  width="50" />
+                <img src={config.icon} width="50" />
                 <Typography color={config.txtcolor} mt={1} variant="subtitle1" fontWeight={600}>
-                  {t(config.title)}
+                  {t(`dashboard.${config.title}`)}
                 </Typography>
                 <Typography color={config.txtcolor} variant="h4" fontWeight={600}>
                   {card.value}

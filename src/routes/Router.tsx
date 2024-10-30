@@ -18,6 +18,8 @@ import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import SOCMonitoring from 'src/views/monitoring/SOC';
+import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
+import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring'
 import CloudObservability from 'src/views/observability/Cloud';
 import NetworkObservability from 'src/views/observability/Network';
 import Tickets from 'src/views/support/Tickets';
@@ -34,17 +36,21 @@ import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
 import CTI from 'src/views/monitoring/SOC/cti';
 import BrandMonitoring from 'src/views/monitoring/SOC/brandMonitoring';
-import SocNews from 'src/views/monitoring/SOC/news';
+import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import Takedown from 'src/views/monitoring/SOC/takedown';
 import FilesSoc from 'src/views/monitoring/SOC/cti/files';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
+import TechInventory from 'src/views/monitoring/SOC/cti/TechnologiesInventory';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
+import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
 import UserProfile from 'src/views/apps/user-profile/UserProfile';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
 import DarkWeb from 'src/views/observability/DarkWeb';
+import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
+import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -98,17 +104,33 @@ const Router = [
       { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
       { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
       { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
+      { path: '/monitoring/soc/cti/technologies-inventory', element: <TechInventory /> },
       { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
-      { path: '/monitoring/soc/news', element: <SocNews /> },
+      { path: '/monitoring/soc/newsletters', element: <SocNews /> },
+      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
+      { path: '/monitoring/malware-analysis', element: <MalwareAnalysis /> },
+      { path: '/monitoring/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
+      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
+      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
+      // { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
+      
+      { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
+      { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
       { path: '/observability/network/scans', element: <NetworkObservability /> },
       { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
       { path: '/observability/cloud', element: <CloudObservability /> },
+      { path: '/observability/cloud/scans/:scanId', element: <CloudObservability /> },
+      { path: '/observability/cloud/scans', element: <CloudObservability /> },
       { path: '/observability/observed-assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },

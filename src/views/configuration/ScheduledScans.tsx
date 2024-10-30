@@ -1,33 +1,41 @@
-import React, { useState } from 'react';
-import ScansTable from '../../components/configuration/ScanTable';
-import { Box, Breadcrumbs, Link, IconButton } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
+import ScansTable from '../../components/configuration/ScanTable';
+
 
 const ScheduledScans: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     return (
-        <Box>
-            <Box display="flex" alignItems="center" mb={2} mt={2}>
-                <IconButton onClick={() => navigate(-1)} color="primary">
-                    <ArrowBack />
-                </IconButton>
-                <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} to="/" color="inherit">
-                        Home
-                    </Link>
-                    <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
-                        Escaneos Programados
-                    </Link>
-                </Breadcrumbs>
+        <PageContainer title="Akila">
+            <Box mb={2}>
+                <Box display="flex" alignItems="center" mt={2}>
+                    <IconButton onClick={() => navigate(-1)} color="primary">
+                        <ArrowBack />
+                    </IconButton>
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
+                            {t('menu.configuration')}
+                        </Link>
+                        <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
+                            {t('menu.scheduled_scans')}
+                        </Link>
+                    </Breadcrumbs>
+                </Box>
             </Box>
-
-            <div style={{ margin: '30px 0' }}>
-                <ScansTable searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            </div>
-        </Box>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <ScansTable searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                </Grid>
+            </Grid>
+        </PageContainer>
     );
 };
 

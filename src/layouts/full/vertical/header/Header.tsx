@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Language from './Language';
 import { AppState } from 'src/store/Store';
 import MobileRightSidebar from './MobileRightSidebar';
+import DarkMode from './DarkMode';
 
 const Header = () => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
@@ -55,6 +56,7 @@ const Header = () => {
         */}
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
+          <DarkMode />
           <Language />
           {/* ------------------------------------------- */}
           {/* End Ecommerce Dropdown */}

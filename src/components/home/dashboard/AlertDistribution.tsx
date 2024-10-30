@@ -9,9 +9,13 @@ import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
 import { fetchAlertDistributionData } from 'src/store/sections/dashboard/AlertDistributionSlice';
 import { AppState } from 'src/store/Store';
 import { ApexOptions } from 'apexcharts';  // Correct type
+import { useTranslation } from 'react-i18next';
 
 const AlertDistribution = () => {
   const dispatch = useDispatch();
+  
+  const { t } = useTranslation();
+  
   const { loading, labels, series, error } = useSelector(
     (state: AppState) => state.dashboard.alertDistribution
   );
@@ -74,7 +78,7 @@ const AlertDistribution = () => {
   }
 
   return (
-    <DashboardCard title="Monthly Distribution">
+    <DashboardCard title={t("dashboard.montly_distribution")??"montly_distribution"}>
       <Chart options={optionspiechart} series={series} type="pie" height="300px" />
     </DashboardCard>
   );

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, PaletteColorOptions } from '@mui/material/styles';
 import { useSelector } from 'src/store/Store';
 import { useEffect } from 'react';
 import { AppState } from '../store/Store';
@@ -11,6 +11,28 @@ import { LightThemeColors } from './LightThemeColors';
 import { baseDarkTheme, baselightTheme } from './DefaultColors';
 import * as locales from '@mui/material/locale';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    level: {
+      none: string;
+      low: string;
+      medium: string;
+      high: string;
+      critical: string;
+      unknown: string;
+    };
+  }
+  interface PaletteOptions {
+    level?: {
+      none?: string;
+      low?: string;
+      medium?: string;
+      high?: string;
+      critical?: string;
+      unknown?: string;
+    };
+  }
+}
 const BuildTheme = (config: any = {}) => {
   const themeOptions = LightThemeColors.find((theme) => theme.name === config.theme);
   const darkthemeOptions = DarkThemeColors.find((theme) => theme.name === config.theme);

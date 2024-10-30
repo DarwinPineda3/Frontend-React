@@ -27,6 +27,7 @@ import {
   IconLink,
   IconAlertHexagon,
   IconExternalLink,
+  IconShieldBolt,
   IconSpy,
 } from '@tabler/icons-react';
 
@@ -144,6 +145,44 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: 'menu.dark_web_monitoring', // Translation key for title
+    href: '/monitoring/threats-overview',
+    icon: IconSpy,
+  },
+  
+  {
+    title: 'menu.cyber_guard', // Translation key for title
+    href: '/monitoring/cyber-guard',
+    icon: IconShieldBolt,
+    children: [
+      {
+        id: uniqueId(),
+        title: 'menu.parameters', // Translation key for title
+        href: '/monitoring/cyber-guard/parameters',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.monitoring', // Translation key for title
+        href: '/monitoring/cyber-guard/monitoring',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.malware', // Translation key for title
+        href: '/monitoring/malware-analysis',
+        icon: IconPoint,
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.mobile_apps', // Translation key for title
+        href: '/monitoring/cyber-guard/mobile-app',
+        icon: IconPoint,
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
     title: 'menu.soc', // Translation key for title
     icon: IconBasket,
     children: [
@@ -194,12 +233,18 @@ const Menuitems: MenuitemsType[] = [
             title: 'menu.open_cti', // Translation key for title
             href: 'http://38.87.165.53:8080/dashboard',
             icon: IconExternalLink,
-          }
+          },
+          {
+            id: uniqueId(),
+            title: 'menu.technologies_inventory', // Translation key for title
+            href: '/monitoring/soc/cti/technologies-inventory',
+            icon: IconBroadcast,
+          },
         ]
       },
       {
         id: uniqueId(),
-        title: 'menu.brand_monitoring', // Translation key for title
+        title: 'menu.monitoring', // Translation key for title
         href: '/monitoring/soc/brand-monitoring',
         icon: IconSocial,
         children: [
@@ -220,7 +265,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.news', // Translation key for title
-        href: '/monitoring/soc/news',
+        href: '/monitoring/soc/newsletters',
         icon: IconNews,
       },
       {
@@ -236,12 +281,6 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.siem', // Translation key for title
     href: '/monitoring/siem',
     icon: IconMessage2,
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.dark_web_monitoring', // Translation key for title
-    href: '/monitoring/threats-overview',
-    icon: IconSpy,
   },
   {
     navlabel: true,

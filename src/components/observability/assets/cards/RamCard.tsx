@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
 import { Stack, Typography, Avatar } from '@mui/material';
 import { IconArrowUpLeft, IconArrowDownRight } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 import { Props } from 'react-apexcharts';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -18,21 +19,19 @@ interface CpuCardProps {
 }
 
 const RamCard: React.FC<CpuCardProps> = ({ history }) => {
-  // chart color
+  const { t } = useTranslation();
   const theme = useTheme();
   const info = theme.palette.info.main;
   const infolight = theme.palette.info.light;
   const successlight = theme.palette.success.light;
   const errorlight = theme.palette.error.light;
 
-  // Get the last two history points for current percentage and trend calculation
   const lastPoint = history[history.length - 1];
-  const previousPoint = history[history.length - 2] || { percentage: lastPoint.percentage }; // fallback if no previous point
+  const previousPoint = history[history.length - 2] || { percentage: lastPoint.percentage };
 
   const trend = lastPoint.percentage - previousPoint.percentage;
   const isPositive = trend >= 0;
 
-  // Prepare data for the chart
   const optionscolumnchart: Props = {
     chart: {
       type: 'area',
@@ -69,7 +68,7 @@ const RamCard: React.FC<CpuCardProps> = ({ history }) => {
 
   const seriescolumnchart = [
     {
-      name: 'Ram Usage',
+      name: t('observability.ram_usage'),
       color: info,
       data: history.map((point) => point.percentage),
     },
@@ -77,13 +76,13 @@ const RamCard: React.FC<CpuCardProps> = ({ history }) => {
 
   return (
     <DashboardCard
-      title="Ram Usage"
+      title={t('observability.ram_usage')!}
       action={
         <Avatar
           variant="rounded"
           sx={{ bgcolor: (theme) => theme.palette.info.light, width: 40, height: 40 }}
         >
-          <MemoryIcon color="info"/>
+          <MemoryIcon color="info" />
         </Avatar>
       }
       footer={
@@ -103,7 +102,8 @@ const RamCard: React.FC<CpuCardProps> = ({ history }) => {
             )}
           </Avatar>
           <Typography variant="subtitle2" color="textSecondary">
-            {isPositive ? '+' : ''}{trend}%
+            {isPositive ? '+' : ''}
+            {trend}%
           </Typography>
         </Stack>
       </Stack>

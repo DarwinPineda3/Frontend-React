@@ -4,6 +4,7 @@ import { Box, Grid, IconButton, Breadcrumbs, Link } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloudScanTable from 'src/components/vulnerabilities/cloud/cloudScansTable';
 import CloudScanDetailView from 'src/components/vulnerabilities/cloud/cloudScanDetailView';
+import { useTranslation } from 'react-i18next';
 
 
 const CloudVulnerabilities = () => {
@@ -14,7 +15,7 @@ const CloudVulnerabilities = () => {
   
   const [ selectedCloud , setSelectedCloud] = useState<string | null>(null);
 
-  
+  const { t } = useTranslation();
   // Synchronize state with URL parameters
   useEffect(() => {
     if (cloudId) {
@@ -37,10 +38,11 @@ const CloudVulnerabilities = () => {
         </IconButton>
         <Breadcrumbs aria-label="breadcrumb">
           <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
-            Vulnerabilidades
+            {t('vulnerabilities.vulnerabilities')}
           </Link>
           <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
-            Cloud
+            {t('vulnerabilities.cloud')}
+        
           </Link>
         </Breadcrumbs>
       </Box>

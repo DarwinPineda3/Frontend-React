@@ -13,8 +13,10 @@ import {
 import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useTranslation } from 'react-i18next';
 
 const PluginVersionTable: React.FC = () => {
+  const { t } = useTranslation();
   const pluginData = [
     { name: 'contact-form-7', version: '5.8.2', latestVersion: '5.9.8', lastUpdate: '2024-07-25T08:29:00.000Z', vulnerabilities: true, status: 'outdated' },
     { name: 'cookie-law-info', version: '3.1.6', latestVersion: '3.2.6', lastUpdate: '2024-08-13T06:43:00.000Z', vulnerabilities: false, status: 'outdated' },
@@ -37,27 +39,27 @@ const PluginVersionTable: React.FC = () => {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Nombre
+                  {t('vulnerabilities.plugin_name')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Versión
+                  {t('vulnerabilities.version')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Última versión
+                  {t('vulnerabilities.latest_version')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Última actualización
+                  {t('vulnerabilities.last_update')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Vulnerabilidades
+                  {t('vulnerabilities.vulnerabilities')}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -86,13 +88,11 @@ const PluginVersionTable: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   {plugin.vulnerabilities ? (
-                    <IconButton color="error" onClick={
-                      () => console.log('Show vulnerabilities')
-                    }>
+                    <IconButton color="error" onClick={() => console.log(t('vulnerabilities.show_vulnerabilities'))}>
                       <VisibilityIcon />
                     </IconButton>
                   ) : (
-                    <Typography variant="body2">No</Typography>
+                    <Typography variant="body2">{t('vulnerabilities.no')}</Typography>
                   )}
                 </TableCell>
               </TableRow>

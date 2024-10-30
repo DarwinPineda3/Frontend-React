@@ -13,7 +13,18 @@ import AlertDistribution from './sections/dashboard/AlertDistributionSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
-
+// cyber guard reducers
+import ParametersReducer from './sections/cyber-guard/ParametersSlice';
+// brand monitoring reducers
+import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
+//monitoring reducers
+import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
+import MobileAppsReducer from "./sections/mobile-app/MobileAppSlice";
+import AppScansReducer from "./sections/mobile-app/AppScanSlice";
+import TechInventoryReducer from './sections/cti/techInventorySlice';
+import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
+//vulnerabilities
+import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 
 import { combineReducers } from 'redux';
 import {
@@ -39,7 +50,15 @@ export const store = configureStore({
     customizer: CustomizerReducer,
     userpostsReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    techInventoryReducer: TechInventoryReducer,
+    malwareAnalysesReducer: MalwareAnalysesReducer,
+    mobileAppsReducer: MobileAppsReducer,
+    parametersReducer: ParametersReducer,
+    brandMonitoringReducer: BrandMonitoringReducer,
+    appScansReducer: AppScansReducer,
+    summaryVulnReducer: SummaryVulnReducer,
+    newsLettersReducer: NewsLettersReducer,
   },
 });
 
@@ -47,7 +66,15 @@ const rootReducer = combineReducers({
   customizer: CustomizerReducer,
   userpostsReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  techInventoryReducer: TechInventoryReducer,
+  malwareAnalysesReducer: MalwareAnalysesReducer,
+  mobileAppsReducer: MobileAppsReducer,
+  parametersReducer: ParametersReducer,
+  brandMonitoringReducer: BrandMonitoringReducer,
+  appScansReducer: AppScansReducer,
+  summaryVulnReducer: SummaryVulnReducer,
+  newsLettersReducer: NewsLettersReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

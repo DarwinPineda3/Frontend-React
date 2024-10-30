@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
 import {
+  Box,
+  Link,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  Link,
   Typography,
 } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 import DashboardCard from '../shared/DashboardCard';
-import { Link as RouterLink } from 'react-router-dom'; 
 
 interface Solution {
   id: string;
@@ -32,12 +33,13 @@ interface SolutionsTableProps {
 }
 
 const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
+  const { t } = useTranslation();
   const filteredSolutions = solutionsData.filter(solution =>
     solution.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const [page, setPage] = useState(1);
-  const [rowsPerPage] = useState(5);
+  const [rowsPerPage] = useState(25);
 
   useEffect(() => {
     setPage(1);
@@ -52,20 +54,20 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
   const paginatedSolutions = filteredSolutions.slice(startIndex, endIndex);
 
   return (
-    <DashboardCard title="Lista de Soluciones" subtitle="Lista de soluciones disponibles">
+    <DashboardCard title={t("support.solutions_list") as string} subtitle={t("support.available_solutions_list") as string}>
       <Box>
         <TableContainer>
           <Table aria-label="solutions table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
               <TableRow>
                 <TableCell align="center">
-                  <Typography variant="subtitle2" fontWeight={600}>ID</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>{t("support.id")}</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography variant="subtitle2" fontWeight={600}>Nombre</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>{t("support.name")}</Typography>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography variant="subtitle2" fontWeight={600}>Descripción</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>{t("support.description")}</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -74,15 +76,15 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
                 paginatedSolutions.map(solution => (
                   <TableRow key={solution.id}>
                     <TableCell align="center">
-                    <Link 
-                      component={RouterLink} 
-                      to={`/support/solutions/${solution.id}`}
-                      variant="body2"
-                      underline="hover"
-                      color="primary"
-                    >
-                      {solution.id}
-                    </Link>
+                      <Link
+                        component={RouterLink}
+                        to={`/support/solutions/${solution.id}`}
+                        variant="body2"
+                        underline="hover"
+                        color="primary"
+                      >
+                        {solution.id}
+                      </Link>
                     </TableCell>
                     <TableCell align="center">
                       <Typography variant="subtitle2">{solution.name}</Typography>
@@ -95,7 +97,7 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
               ) : (
                 <TableRow>
                   <TableCell colSpan={3} align="center">
-                    <Typography variant="body2">No se encontraron soluciones</Typography>
+                    <Typography variant="body2">{t("support.no_solutions_found")}</Typography>
                   </TableCell>
                 </TableRow>
               )}

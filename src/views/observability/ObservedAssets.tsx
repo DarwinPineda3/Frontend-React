@@ -8,12 +8,14 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
+import { useTranslation } from 'react-i18next';
 
 const ObservedAssets = () => {
   // Get params from the URL
   const { id: id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const location = useLocation();  // Tracks the current URL location
+  const {t} = useTranslation();
 
   // State to manage the selected asset
   const [selectedAsset, setSelectedAsset] = useState<string | null>(null);
@@ -48,19 +50,20 @@ const ObservedAssets = () => {
         </IconButton>
         <Breadcrumbs aria-label="breadcrumb">
           <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
-            Observabilidad
+          {t('menu.observability')}
           </Link>
           <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
-            Assets
+          {t('menu.assets')}
           </Link>
           {selectedAsset && (
             <Link component={RouterLink} color="inherit" to={`/observability/observed-assets/assets/${selectedAsset}`}>
-              Escaneos observabilidad Red
+              {t('observability.assets_obs_scans')} 
             </Link>
           )}
         </Breadcrumbs>
         <Box flexGrow={1} />
-        <Box display="flex" alignItems="center" mt={2}>
+        {
+          selectedAsset && <Box display="flex" alignItems="center" mt={2}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               renderInput={(props) => (
@@ -111,6 +114,7 @@ const ObservedAssets = () => {
             />
           </LocalizationProvider>
         </Box>
+        }
       </Box>
 
       {selectedAsset ? (

@@ -12,12 +12,14 @@ import {
   Box,
 } from '@mui/material';
 import DashboardCard from '../../shared/DashboardCard';
-import Loader from '../../shared/Loader/Loader'; // Loader component
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
+import Loader from '../../shared/Loader/Loader';
+import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchHostData } from 'src/store/sections/dashboard/HostResourceSlice';
-import { AppState } from 'src/store/Store'; // AppState type
+import { AppState } from 'src/store/Store';
+import { useTranslation } from 'react-i18next';
 
 const HostResourceTable = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, data, error } = useSelector((state: AppState) => state.dashboard.hosts);
 
@@ -27,57 +29,57 @@ const HostResourceTable = () => {
 
   if (loading) {
     return (
-      <DashboardCard title="Host Resource Monitoring" subtitle="System Resource Usage">
-      <Box display="flex" justifyContent="center" mt={4} mb={4}>
-        <Loader />
-      </Box>
+      <DashboardCard title={t("dashboard.host_resource_monitoring") as string} subtitle={t("dashboard.system_resource_usage") as string}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
       </DashboardCard>
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
   }
 
   return (
-    <DashboardCard title="Host Resource Monitoring" subtitle="System Resource Usage">
+    <DashboardCard title={t("dashboard.host_resource_monitoring") as string} subtitle={t("dashboard.system_resource_usage") as string}>
       <TableContainer>
         <Table aria-label="host resource table" sx={{ whiteSpace: 'nowrap' }}>
           <TableHead>
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  #
+                  {t("dashboard.number")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Nombre de Host
+                  {t("dashboard.host_name")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  CPU
+                  {t("dashboard.cpu")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  RAM
+                  {t("dashboard.ram")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Storage
+                  {t("dashboard.storage")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Firewall
+                  {t("dashboard.firewall")}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Última Actualización
+                  {t("dashboard.last_update")}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -144,7 +146,7 @@ const HostResourceTable = () => {
                 </TableCell>
                 <TableCell>
                   <Chip
-                    label={host.firewallStatus}
+                    label={t(host.firewallStatus === 'Active' ? 'active' : 'inactive')}
                     color={host.firewallStatus === 'Active' ? 'success' : 'error'}
                     icon={<span role="img" aria-label="firewall">🔥</span>}
                   />

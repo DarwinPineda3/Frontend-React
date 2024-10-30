@@ -4,7 +4,7 @@ import Logo from '../../shared/logo/Logo';
 import { useSelector, useDispatch } from 'src/store/Store';
 import { hoverSidebar, toggleMobileSidebar } from 'src/store/customizer/CustomizerSlice';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
-import { Profile } from './SidebarProfile/Profile';
+// import { Profile } from './SidebarProfile/Profile';
 import { AppState } from 'src/store/Store';
 
 const Sidebar = () => {
@@ -71,13 +71,14 @@ const Sidebar = () => {
             <Box px={3}>
               <Logo />
             </Box>
-            <Scrollbar sx={{ height: 'calc(100% - 190px)' }}>
+            {/* <Scrollbar sx={{ height: 'calc(100% - 190px)' }}> */}
+            <Scrollbar sx={{ height: 'calc(100% - 75px)' }}>
               {/* ------------------------------------------- */}
               {/* Sidebar Items */}
               {/* ------------------------------------------- */}
               <SidebarItems />
             </Scrollbar>
-            <Profile />
+            {/* <Profile /> */}
           </Box>
         </Drawer>
       </Box>

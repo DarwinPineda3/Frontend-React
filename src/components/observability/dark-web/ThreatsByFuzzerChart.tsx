@@ -1,10 +1,12 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme, Box } from '@mui/material';
-import DashboardCard from '../../shared/DashboardCard'; // Replace with your correct card component
+import DashboardCard from '../../shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 const ThreatsByFuzzerChart = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   // Using theme colors for the chart bars
   const colors = [
@@ -19,8 +21,8 @@ const ThreatsByFuzzerChart = () => {
   // Burned (static) data for now
   const series = [
     {
-      name: 'Threats by Fuzzer',
-      data: [10, 4, 3, 3, 2, 2, 1], // Each number corresponds to the count of threats by fuzzer type
+      name: t('observability.threats_by_fuzzer'),
+      data: [10, 4, 3, 3, 2, 2, 1],
     },
   ];
 
@@ -50,7 +52,14 @@ const ThreatsByFuzzerChart = () => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: ['tld-swap', 'subdomain', 'addition', 'bitsquatting', 'insertion', 'vowel-swap'],
+      categories: [
+        t('observability.tld_swap'),
+        t('observability.subdomain'),
+        t('observability.addition'),
+        t('observability.bitsquatting'),
+        t('observability.insertion'),
+        t('observability.vowel_swap'),
+      ],
       labels: {
         show: true,
         rotate: -45,
@@ -58,7 +67,7 @@ const ThreatsByFuzzerChart = () => {
     },
     yaxis: {
       title: {
-        text: 'Count',
+        text: t('observability.count'),
       },
     },
     fill: {
@@ -80,7 +89,7 @@ const ThreatsByFuzzerChart = () => {
   };
 
   return (
-    <DashboardCard title="Threats by Fuzzer">
+    <DashboardCard title={t('observability.threats_by_fuzzer')!}>
       <Chart options={options} series={series} type="bar" height="300" />
     </DashboardCard>
   );

@@ -59,7 +59,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {asset ? 'Update Asset' : 'Create Asset'}
+          {asset ? 'Edit Asset' : 'Create Asset'}
         </Typography>
 
         <TextField
@@ -112,7 +112,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {asset ? 'Update Asset' : 'Create Asset'}
+            {asset ? 'Edit' : 'Create'}
           </Button>
         </Box>
       </Box>

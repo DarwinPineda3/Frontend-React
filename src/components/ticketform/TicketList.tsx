@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 import {
-  Typography,
+  Box,
+  Button,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  IconButton,
-  Button,
+  Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { TicketType } from '../../types/apps/ticket';
 import DashboardCard from '../shared/DashboardCard';
@@ -23,7 +24,8 @@ interface TicketListProps {
 }
 
 const TicketList: React.FC<TicketListProps> = ({ tickets, onDelete }) => {
-  const navigate = useNavigate(); // Usamos useNavigate para redirigir
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [ticketsPerPage] = useState(5);
 
@@ -37,7 +39,8 @@ const TicketList: React.FC<TicketListProps> = ({ tickets, onDelete }) => {
 
   return (
     <DashboardCard
-      title="Lista de Tickets"
+      title={t("support.tickets_management") as string}
+      subtitle={t("support.tickets_subtitle") as string}
       action={
         <IconButton color="primary" onClick={() => navigate('/support/ticketform')}>
           <AddIcon />
@@ -88,10 +91,10 @@ const TicketList: React.FC<TicketListProps> = ({ tickets, onDelete }) => {
           </Table>
         </TableContainer>
         <Box my={3} display="flex" justifyContent={'center'}>
-          <Pagination 
-            count={totalPages} 
-            page={currentPage} 
-            onChange={handlePageChange} 
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
             color="primary"
           />
         </Box>
