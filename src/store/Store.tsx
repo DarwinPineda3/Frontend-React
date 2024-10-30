@@ -25,6 +25,7 @@ import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 
 //vulnerabilities
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
+import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 
 import { combineReducers } from 'redux';
 import {
@@ -57,6 +58,7 @@ export const store = configureStore({
     brandMonitoringReducer: BrandMonitoringReducer,
     summaryVulnReducer: SummaryVulnReducer,
     newsLettersReducer: NewsLettersReducer,
+    managementVulnReducer: ManagementVulnReducer,
   },
 });
 
@@ -71,6 +73,7 @@ const rootReducer = combineReducers({
   brandMonitoringReducer: BrandMonitoringReducer,
   summaryVulnReducer: SummaryVulnReducer,
   newsLettersReducer: NewsLettersReducer,
+  managementVulnReducer: ManagementVulnReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

@@ -8,4 +8,5 @@ import './monitoring/cti/technologies_inventory/TechInventory';
 import './home/malwareanalysis/MalwareAnalysis'
 import './vulnerabilities/Summary';
 import './monitoring/Newsletter';
+import './vulnerabilities/Management';
 mock.onAny().passThrough();
