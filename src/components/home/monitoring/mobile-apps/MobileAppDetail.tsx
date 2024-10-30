@@ -3,7 +3,7 @@ import { Grid, Box, Chip,  Typography,  Stack } from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 // import AlphaSuspicionLevel from './MalwareAnalysisAlphaSuspicionLevel';
-// import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
+import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
 
 
 
@@ -100,249 +100,27 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
     },
 
   };
-  const signatures = [
-    {
-      title: "Checks if process is being debugged by a debugger",
-      events: 2,
-      type: "Info",
-      table: {
-        headers: ["Time & API", "Arguments", "Status", "Return", "Repeated"],
-        rows: [
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 1
-          },
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          }
-        ]
-      }
-    },
-    {
-      title: "Queries for the computername",
-      events: 2,
-      type: "Info",
-      table: {
-        headers: ["Time & API", "Arguments", "Status", "Return", "Repeated"],
-        rows: [
-          {
-            api: "GetComputerNameA",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "computer_name: RAWJDBQVXIMOE",
-            status: 8,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "GetComputerNameW",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "computer_name: RAWJDBQVXIMOE",
-            status: 3,
-            return: 1,
-            repeated: 0
-          }
-        ]
-      }
-    },
-    {
-      title:
-        "Allocates execute permission to another process indicative of possible code injection",
-      events: 2,
-      type: "Danger",
-      table: {
-        headers: ["Time & API", "Arguments", "Status", "Return", "Repeated"],
-        rows: [
-          {
-            api: "NtAllocateVirtualMemory",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments:
-              "NtAllocateVirtualMemory arguments process_identifier: 820",
-            status: 1,
-            return: 0,
-            repeated: 0
-          }
-        ]
-      }
-    },
-    {
-      title:
-        "Potential code injection by writing to the memory of another process",
-      events: 2,
-      type: "Danger",
-      table: {
-        headers: [
-          "Time & API",
-          "process",
-          "Arguments",
-          "Status",
-          "Return",
-          "Repeated"
-        ],
-        rows: [
-          {
-            api: "NtAllocateVirtualMemory",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            process:
-              "Process 2164 called NtSetContextThread to modify thread in remote process 820",
-            arguments:
-              "NtAllocateVirtualMemory arguments process_identifier: 820",
-            status: 1,
-            return: 0,
-            repeated: 0
-          }
-        ]
-      }
-    },
-    {
-      title:
-        "The binary likely contains encrypted or compressed data indicative of a packer",
-      events: 2,
-      type: "Warning",
-      table: {
-        headers: ["section", "entropy", "Description"],
-        rows: [
-          {
-            section:
-              "{u'size_of_data': u'0x0000f800', u'virtual_address': u'0x00032000', u'entropy': 7.834603186197649, u'name': u'.data', u'virtual_size': u'0x000106c4'}",
-            entropy: 7.8346031862,
-            description: "A section with a high entropy has been found"
-          },
-          {
-            section: "",
-            entropy: 0.226691042048,
-            description: "Overall entropy of this PE file is high"
-          }
-        ]
-      }
-    },
-    
-    {
-      title: "Yara rules detected for file",
-      events: 2,
-      type: "Info",
-      table: {
-        headers: ["Description", "rule"],
-        rows: [
-          {
-            description: "Checks if being debugged",
-            rule: "anti_dbg"
-          },
-          {
-            description: "Affect private profile",
-            rule: "win_files_operation"
-          }
-        ]
-      }
-    },
-    {
-      title: "The executable contains unknown PE section names indicative of a packer (could be a false positive)",
-      events: 1,
-      type: "Info",
-      table: {
-        headers: ["section"],
-        rows: [
-          {
-            value: ".AAA"
-          }
-        ]
-      }
-    },
-    {
-      title: "Checks if process is being debugged by a debugger",
-      events: 2,
-      type: "Info",
-      table: {
-        headers: ["Time & API", "Arguments", "Status", "Return", "Repeated"],
-        rows: [
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "IsDebuggerPresent",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments: "",
-            status: 1,
-            return: 1,
-            repeated: 0
-          }
-        ]
-      }
-    },
-    {
-      title: "One or more processes crashed",
-      events: 2,
-      type: "Info",
-      table: {
-        headers: ["Time & API", "Arguments", "Status", "Return", "Repeated"],
-        rows: [
-          {
-            api: "__exception__",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments:
-              "stacktrace:\n  <pre>f2e7fcb20146+0x560b @ 0x2560b</pre>\n  <br>\n  exception.symbol: asd\n  <br>\n  exception.exception_code: 0xc0000005\n  <br>\n  exception.address: 0x0\n  <br>\n  registers.esp: 8780980\n  <br>\n  registers.edi: 4254654\n  <br>\n  registers.eax: 1\n  <br>\n  registers.ebp: 8781036\n  <br>\n  registers.edx: 2130553844\n  <br>\n  registers.ebx: 80\n  <br>\n  registers.esi: 4718592\n  <br>\n  registers.ecx: 3635871744\n",
-            status: 1,
-            return: 1,
-            repeated: 0
-          },
-          {
-            api: "__exception__",
-            time: "Oct. 23, 2024, 12:10 a.m.",
-            arguments:
-              "stacktrace:\n f2e7fcb20146+0x6981 @ 0x26981\n  f2e7fcb20146+0x1348 @ 0x21348\n  f2e7fcb20146+0x5764 @ 0x25764\n  f2e7fcb20146+0x96b7 @ 0x296b7\n  BaseThreadInitThunk+0x12 VerifyConsoleIoHandle-0xb3 kernel32+0x133aa @ 0x766233aa\n  RtlInitializeExceptionChain+0x63 RtlAllocateActivationContextStack-0xa5 ntdll+0x39f72 @ 0x77139f72\n  RtlInitializeExceptionChain+0x36 RtlAllocateActivationContextStack-0xd2 ntdll+0x39f45 @ 0x77139f45\n\nexception.instruction_r: c9 c2 10 00 cc cc cc cc cc 8b ff 55 8b ec 56 8b\nexception.symbol: RaiseException+0x58 CloseHandle-0x9 kernelbase+0xc41f\nexception.instruction: leave\nexception.module: KERNELBASE.dll\nexception.exception_code: 0xc0000005\nexception.offset: 50207\nexception.address: 0x761ac41f\nregisters.esp: 3274268\nregisters.edi: 3274472\nregisters.eax: 3274268\nregisters.ebp: 3274348\nregisters.edx: 0\nregisters.ebx: 2130567168\nregisters.esi: 5157676\nregisters.ecx: 2",
-            status: 1,
-            return: 1,
-            repeated: 0
-          }
-        ]
-      }
+
+  const mobileApp = {
+    id: "123867435",
+    idApp: "com.bancodebogota.apklive",
+    appName: "Banco de Bogotá",
+    downloadLink: "https://apklive.com/bancodebogota",
+    releaseDate: "2024-08-15",
+    version: "3.4.7",
+    source: "APK Live",
+    digitalSignature: "3082025D308201C6A0030201020214A7B4C6D5F8A3B9E5D4C1F2B7A6E8F9C1",
+    apkHash: "C1D8B5A4F7C2A9E3F5D1C4B9E7A6B3D8F1C2E9A4B5D3F6A7",
+    score: 5,
+    details: {
+      language: "Español",
+      downloads: "2 millones+",
+      permissions: ["Acceso a contactos", "Ubicación"],
+      risks: ["Almacenamiento inseguro de datos", "Exposición de ubicaciones de usuarios"],
+      OWASP: ["A7 - Almacenamiento de datos inseguro", "A4 - Configuración insegura"],
+      externalCommunications: ["Comunicación no cifrada detectada", "Análisis de tráfico no autorizado"]
     }
-  ];
+  }
 
   const mockDate = new Date('2024-09-23T10:20:30Z');
   
@@ -350,19 +128,17 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} xl={12}>
-      <Breadcrumb title={analysisReport.summary.file}>
+      <Breadcrumb title={mobileApp.appName}>
           <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-            <Chip label={`Score: ${analysisReport.summary.score}`} color="secondary" variant="outlined" />
+            <Chip label={`Score: ${mobileApp.score}`} color="secondary" variant="outlined" />
             <Chip label={`Category: ${analysisReport.informationExecution.category}`} color="info" variant="outlined" />
-            <Chip label={`Date: ${mockDate.toLocaleString()}`} color="primary" variant="outlined" />
+            <Chip label={`Release Date: ${mobileApp.releaseDate}`} color="primary" variant="outlined" />
           </Box>
         </Breadcrumb>
       </Grid>
       <Grid item xs={12} xl={6}>
-        <DashboardCard title="Malware Analisys" subtitle="Analysis Malware Detail">
-          {/* <Box display="flex" flexDirection="column" gap={2} mt={1}>
-
-            <AlphaSuspicionLevel score={analysisReport.summary.score} />
+        <DashboardCard title="Summary" subtitle="Detail mobile app">
+          <Box display="flex" flexDirection="column" gap={2} mt={1}>
             <Box>
               <Stack
                 direction="row"
@@ -375,52 +151,52 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                State:
+                Id:
               </Typography>
-              <Typography variant="body2">{analysisReport.informationExecution.state}</Typography>
+              <Typography variant="body2">{mobileApp.id}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Started:
               </Typography>
-              <Typography variant="body2">{analysisReport.informationExecution.started}</Typography>
+              <Typography variant="body2">{mobileApp.id}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
               Completed:
               </Typography>
-              <Typography variant="body2">{analysisReport.informationExecution.completed}</Typography>
+              <Typography variant="body2">{mobileApp.id}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Duration:
               </Typography>
-              <Typography variant="body2">{analysisReport.informationExecution.duration}</Typography>
+              <Typography variant="body2">{mobileApp.id}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Routing:
               </Typography>
-              <Typography variant="body2">{analysisReport.informationExecution.routing}</Typography>
+              <Typography variant="body2">{mobileApp.id}</Typography>
             </Box>
 
-            <Box>
+            {/* <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Rules (Yara):
               </Typography>
-              {analysisReport.informationExecution.yara.map((rule, index) => (
+              {mobileApp.id((rule, index) => (
                 <Typography key={index} variant="body2">
                   {rule}
                 </Typography>
               ))}
-            </Box>
-          </Box> */}
+            </Box> */}
+          </Box>
         </DashboardCard>
       </Grid>
 
       <Grid item xs={12} xl={6}>
         <DashboardCard title="Detalles del objetivo" subtitle="Detalles del objetivo analizado">
-          {/* <Box display="flex" flexDirection="column" gap={2} mt={1}>
+          <Box display="flex" flexDirection="column" gap={2} mt={1}>
 
             <Box>
               <Stack
@@ -526,7 +302,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
                 {analysisReport.summary.ssdeep}
               </Typography>
             </Box>
-          </Box> */}
+          </Box>
         </DashboardCard>
 
       </Grid>

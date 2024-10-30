@@ -5,6 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 
 import MobileAppList from "src/components/home/monitoring/mobile-apps/MobileAppResultList";
+import MobileAppDetail from "src/components/home/monitoring/mobile-apps/MobileAppDetail";
 // import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 
@@ -56,10 +57,11 @@ const MobileApp = () => {
                     )}
                 </Breadcrumbs>
             </Box>
+            asgdjasgd
             {selectedMobileApp ? (
                 <Grid container spacing={0} mt={1}>
                     <Grid item xs={12} xl={12}>
-                        {/* <MalwareAnalysisDetail mobileAppId={selectedMobileApp!} /> */}
+                        <MobileAppDetail mobileAppId={selectedMobileApp!} />
                     </Grid>
                 </Grid>
             ) : (
