@@ -32,7 +32,7 @@ const MobileApp = () => {
 
     const handleMobileAppClick = (id: number, appName: string) => {
         setselectedMobileAppName(appName);
-        navigate(`/monitoring/cyber-guard/mobile-apps/scan-app/${id}/result-app/${id}`);
+        navigate(`/monitoring/cyber-guard/mobile-apps/${id}/results/${id}`);
     };
     return (
         <Box>
@@ -50,9 +50,15 @@ const MobileApp = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("mobile_apps.mobile_apps")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to={`/monitoring/cyber-guard/mobile-apps/scan-app/${selectedMobileApp}`}>
-                        {t("mobile_apps.results_app_scans")}
-                    </Link>
+                    {selectedMobileApp ? (
+                        <Link component={RouterLink} color="inherit" to={`/monitoring/cyber-guard/mobile-apps/${selectedMobileApp}`}>
+                            {t("mobile_apps.results_app_scans")}
+                        </Link>
+                    ) : (
+                        <Typography color="textPrimary">
+                            {t("mobile_apps.results_app_scans")}
+                        </Typography>
+                    )}
                     {selectedMobileApp && (
                         <Typography color="textPrimary">
                             {selectedMobileAppName}

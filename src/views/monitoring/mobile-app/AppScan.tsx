@@ -27,7 +27,7 @@ const AppScan = () => {
     }, [appScanId, location]);
 
     const handleAppScanClick = (id: number) => {
-        navigate(`/monitoring/cyber-guard/mobile-apps/scan-app/${id}`); //ruta hacia el siguiente listado
+        navigate(`/monitoring/cyber-guard/mobile-apps/${id}`); //ruta hacia el siguiente listado
     };
     return (
         <Box>
@@ -42,9 +42,9 @@ const AppScan = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("menu.cyber_guard")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
+                    <Typography color="textPrimary">
                         {t("mobile_apps.mobile_apps")}
-                    </Link>
+                    </Typography>
 
                 </Breadcrumbs>
             </Box>
