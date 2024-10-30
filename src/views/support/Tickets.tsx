@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import TicketList from '../../components/ticketform/Ticketlist';
-import { TicketType } from '../../types/apps/ticket';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
+import TicketList from '../../components/ticketform/TicketList';
+import { TicketType } from '../../types/apps/ticket';
 
 const Tickets: React.FC = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [tickets, setTickets] = useState<TicketType[]>([]);
 
   useEffect(() => {
@@ -22,16 +24,32 @@ const Tickets: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>{t("support.tickets_management")}</h2>
-      <Button variant="contained" color="primary" onClick={() => navigate('/support/ticketform')}>
-        {t("support.create_new_ticket")}
-      </Button>
-
-      <div style={{ marginTop: '20px' }}>
-        <TicketList tickets={tickets} onDelete={handleDeleteTicket} />
-      </div>
-    </div>
+    <PageContainer title="Akila">
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBackIcon />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link
+              component={RouterLink}
+              color="inherit"
+              to="/support/tickets"
+            >
+              {t("menu.support")}
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/support/tickets">
+              {t("support.tickets_management")}
+            </Link>
+          </Breadcrumbs>
+        </Box>
+      </Box>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <TicketList tickets={tickets} onDelete={handleDeleteTicket} />
+        </Grid>
+      </Grid>
+    </PageContainer>
   );
 };
 

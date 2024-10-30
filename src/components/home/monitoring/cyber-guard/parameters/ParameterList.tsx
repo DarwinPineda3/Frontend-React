@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 import {
-  Typography,
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  Button,
-  IconButton,
-  Dialog,
-  DialogContent,
+  Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DashboardCard from '../../../../shared/DashboardCard';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
+  deleteParameter,
   fetchParameters,
   setPage,
-  deleteParameter,
 } from 'src/store/sections/cyber-guard/ParametersSlice';
-import CreateUpdateParameter from './../../../monitoring/cyber-guard/parameters/ParameterEdition';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import { ParameterCyberGuardType } from 'src/types/cyber-guard/parameters/parameter';
-import { useTranslation } from 'react-i18next';
+import DashboardCard from '../../../../shared/DashboardCard';
+import CreateUpdateParameter from './../../../monitoring/cyber-guard/parameters/ParameterEdition';
 
 const ParameterList = () => {
   const dispatch = useDispatch();
@@ -112,8 +112,8 @@ const ParameterList = () => {
 
   return (
     <DashboardCard
-      title={t('monitoring.parameter_list')}
-      subtitle={t('monitoring.list_of_available_parameters')}
+      title={t('monitoring.parameter_list') as string}
+      subtitle={t('monitoring.list_of_available_parameters') as string}
       action={addButton}
     >
       <Box>
