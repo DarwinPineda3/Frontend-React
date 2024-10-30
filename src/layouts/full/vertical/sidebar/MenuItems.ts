@@ -170,7 +170,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.malware', // Translation key for title
-        href: '/monitoring/malware-analysis',
+        href: '/monitoring/cyber-guard/malware-analysis',
         icon: IconPoint,
       },
       {
