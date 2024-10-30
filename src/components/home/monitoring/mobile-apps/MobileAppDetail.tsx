@@ -4,6 +4,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 // import AlphaSuspicionLevel from './MalwareAnalysisAlphaSuspicionLevel';
 import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
+import DataTable from './MobileAppTable';
 
 
 
@@ -154,15 +155,9 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Id:
+                Source:
               </Typography>
-              <Typography variant="body2">{mobileApp.idApp}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Version:
-              </Typography>
-              <Typography variant="body2">{mobileApp.version}</Typography>
+              <Typography variant="body2">{mobileApp.source}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
@@ -178,22 +173,10 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Source:
+                Language:
               </Typography>
-              <Typography variant="body2">{mobileApp.source}</Typography>
+              <Typography variant="body2">{mobileApp.details.language}</Typography>
             </Box>
-            
-
-            {/* <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Rules (Yara):
-              </Typography>
-              {mobileApp.id((rule, index) => (
-                <Typography key={index} variant="body2">
-                  {rule}
-                </Typography>
-              ))}
-            </Box> */}
           </Box>
         </DashboardCard>
       </Grid>
@@ -212,7 +195,12 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               >
               </Stack>
             </Box>
-            
+            <Box>
+              <Typography variant="subtitle2" fontWeight={600}>
+                Id:
+              </Typography>
+              <Typography variant="body2">{mobileApp.idApp}</Typography>
+            </Box>
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
@@ -224,13 +212,20 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
                   wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
                 }}
               >
-                {analysisReport.summary.sha1}
+                {mobileApp.score}
               </Typography>
             </Box>
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                SHA256:
+                Version:
+              </Typography>
+              <Typography variant="body2">{mobileApp.version}</Typography>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" fontWeight={600}>
+                Digital Signature:
               </Typography>
               <Typography
                 variant="body2"
@@ -238,13 +233,13 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
                   wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
                 }}
               >
-                {analysisReport.summary.sha256}
+                {mobileApp.digitalSignature}
               </Typography>
             </Box>
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                SHA512:
+                Hash:
               </Typography>
               <Typography
                 variant="body2"
@@ -252,32 +247,19 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
                   wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
                 }}
               >
-                {analysisReport.summary.sha512}
+                {mobileApp.apkHash}
               </Typography>
             </Box>
 
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                CRC32:
-              </Typography>
-              <Typography variant="body2">{analysisReport.summary.crc32}</Typography>
-            </Box>
-
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                SSDEEP:
-              </Typography>
-              <Typography variant="body2">
-                {analysisReport.summary.ssdeep}
-              </Typography>
-            </Box>
           </Box>
         </DashboardCard>
 
       </Grid>
 
       <Grid item xs={12} xl={12}>
-        tabla
+      <DashboardCard title="Security" subtitle="Security and Integrity Analysis">
+        <DataTable data={mobileApp.details.permissions} />
+      </DashboardCard>
       </Grid>
     </Grid>
   );

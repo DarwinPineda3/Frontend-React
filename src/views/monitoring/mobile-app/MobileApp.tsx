@@ -57,7 +57,6 @@ const MobileApp = () => {
                     )}
                 </Breadcrumbs>
             </Box>
-            asgdjasgd
             {selectedMobileApp ? (
                 <Grid container spacing={0} mt={1}>
                     <Grid item xs={12} xl={12}>
