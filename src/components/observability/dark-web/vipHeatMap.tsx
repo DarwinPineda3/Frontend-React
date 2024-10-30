@@ -17,7 +17,7 @@ interface VIPsHeatmapChartProps {
 const VIPsHeatmapChart: React.FC<VIPsHeatmapChartProps> = ({ varList }) => {
     const theme = useTheme();
     const { t } = useTranslation();
-    const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/brand-monitoring';
+    const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/monitoring';
 
     const [dataSeries, setDataSeries] = useState([
         { name: t('monitoring.dark_web'), data: [] },
