@@ -2,20 +2,25 @@ import Chart from 'react-apexcharts';
 import DashboardCard from '../../shared/DashboardCard'; // Replace with your correct card component
 import { useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import React from 'react';
 
-const BreachElementTypeChart = () => {
+interface BreachElementTypeChartProps {
+    series: number[];
+}
+
+const BreachElementTypeChart: React.FC<BreachElementTypeChartProps> = ({ series }) => {
     const { t } = useTranslation();
     
     // Static data for now
     const labels = [
-        t('observability.domain'),
-        t('observability.p_email'),
         t('observability.ip'),
+        t('observability.p_email'),
+        t('observability.phone'),
+        t('observability.domain'),
         t('observability.username'),
-        t('observability.phone')
     ];
 
-    const series = [10, 20, 30, 25, 15]; // Static series data representing breaches by element type
+    //const series = [10, 20, 30, 25, 15]; 
 
     const theme = useTheme();
     const colors = [
@@ -45,7 +50,7 @@ const BreachElementTypeChart = () => {
         plotOptions: {
             pie: {
                 donut: {
-                    size: '70%',
+                    size: '50%',
                 },
             },
         },
@@ -58,8 +63,8 @@ const BreachElementTypeChart = () => {
     };
 
     return (
-        <DashboardCard title={t('observability.breaches_by_element_type')!}>
-            <Chart options={options} series={series} type="donut" height="300" />
+        <DashboardCard title={t('observability.breaches_by_element_type')!}  style={{ height: '100%' }}>
+            <Chart options={options} series={series} type="donut" height="300px" />
         </DashboardCard>
     );
 };

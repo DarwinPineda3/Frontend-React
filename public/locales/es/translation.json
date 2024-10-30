@@ -438,7 +438,9 @@
     "service": "Servicio",
     "malware_count": "Cantidad de Malware",
     "vip_compromised_count": "Cantidad de VIPs comprometidos",
-    "fake_app_count": "Cantidad de Aplicaciones Falsas"
+    "fake_app_count": "Cantidad de Aplicaciones Falsas",
+    "social_media_total": "Total de Redes Sociales",
+    "dark_web_total": "Total de Dark Web"
   },
   "monitoring": {
     "top_threat_types": "Principales tipos de amenazas detectadas",
@@ -457,7 +459,7 @@
     "deep_web": "Deep Web",
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Elementos comprometidos por tipo",
-    "top_compromised_vips": "Principales VIPs comprometidos",
+    "top_compromised_vips": "Principales compromisos",
     "platforms_or_types": "Plataformas o tipos",
     "monitoring": "Monitoreo",
     "cyber_guard": "Guardia Cibernética",
