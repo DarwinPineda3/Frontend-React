@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next';
 
 
 interface AppScanListTableProps {
-  onAppScanClick: (AppScanId: number) => void;
+  onAppScanClick: (AppScanId: number, AppScanName: string) => void;
 }
 
 
@@ -98,7 +98,7 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onAppScanClick(appScan.id)}
+                      onClick={() => onAppScanClick(appScan.id, appScan.name)}
                       style={{ cursor: 'pointer' }}
                     >
                       {appScan.name}

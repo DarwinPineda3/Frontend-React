@@ -593,8 +593,8 @@
   },
   "malware":{
     "malware": "Malware",
-    "malware_analysys": "Malware analysis List",
-    "malware_analysys_list": "List of Available Malware analyses",
+    "malware_analysys": "Malware analysis",
+    "malware_analysys_list": "Suspicious files scanned by Akila",
     "target": "Target",
     "media_type": "Media Type",
     "state": "State",

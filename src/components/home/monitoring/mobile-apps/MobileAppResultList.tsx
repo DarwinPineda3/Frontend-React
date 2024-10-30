@@ -27,12 +27,12 @@ import { ListItemIcon, ListItem, List, styled, ListItemText, useTheme } from '@m
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (malwareAnalysisId: number) => void;
+  onMobileAppClick: (mobileAppId: number) => void;
 }
 
+// React.FC<{ mobileAppId: string }> = ({ mobileAppId })
 
-
-const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
+const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, AppScanId, AppScanName }) => {
   const dispatch = useDispatch();
   const mobileApps = useSelector((state: any) => state.mobileAppsReducer.mobileApps);
   const currentPage = useSelector((state: any) => state.mobileAppsReducer.page);
@@ -63,7 +63,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Search result" subtitle="List of mobile applications found">
+    <DashboardCard title="Search result for" subtitle="List of mobile applications found">
       <Box>
         <TableContainer>
           <Table aria-label="mobileApp table" sx={{ whiteSpace: 'nowrap' }}>

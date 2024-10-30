@@ -594,8 +594,8 @@
   },
   "malware":{
     "malware": "Malware",
-    "malware_analysys": "Lista de análisis de malware",
-    "malware_analysys_list": "Lista de análisis de malware disponible",
+    "malware_analysys": "Archivos analizados",
+    "malware_analysys_list": "Archivos sospechosos escaneados por Akila",
     "target": "Objetivo",
     "media_type": "Tipo de Archivo",
     "state": "Estado",
