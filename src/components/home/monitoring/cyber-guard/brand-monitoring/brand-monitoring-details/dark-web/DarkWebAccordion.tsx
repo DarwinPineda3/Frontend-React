@@ -17,26 +17,34 @@ const formatKey = (key: string) => {
 };
 
 const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) => {
+  const sortedData = dark_web_data
+    .flatMap((security_leaks) =>
+      Object.entries(security_leaks).map(([category, details]) => ({
+        category,
+        details,
+      }))
+    )
+    .filter(({ details }) => details.data && details.data.length > 0)
+    .sort((a, b) => b.details.total_results - a.details.total_results);
+
   return (
     <Box>
-      {dark_web_data.map((security_leaks, index) =>
-        Object.entries(security_leaks).map(([category, details]) => (
-          <Accordion key={`${category}-${index}`}>
-            <AccordionSummary
-              expandIcon={<ArrowDownwardIcon />}
-              aria-controls={`${category}-content`}
-              id={`${category}-header`}
-            >
-              <Typography variant="h6">
-                {formatKey(details.type)} ({details.total_results})
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <DarkWebTable dark_web={details.data} />
-            </AccordionDetails>
-          </Accordion>
-        )),
-      )}
+      {sortedData.map(({ category, details }, index) => (
+        <Accordion key={`${category}-${index}`}>
+          <AccordionSummary
+            expandIcon={<ArrowDownwardIcon />}
+            aria-controls={`${category}-content`}
+            id={`${category}-header`}
+          >
+            <Typography variant="h6">
+              {formatKey(details.type)} ({details.total_results})
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <DarkWebTable dark_web={details.data} category={details.type} />
+          </AccordionDetails>
+        </Accordion>
+      ))}
     </Box>
   );
 };
