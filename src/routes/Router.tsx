@@ -142,7 +142,6 @@ const Router = [
       { path: '/support/solutions', element: <Solutions /> },
       { path: '/support/solutions/:id', element: <SolutionDetail /> }, 
       { path: '/support/ticketform', element: <TicketFormComp /> },
-      { path: '/support/ticketsview', element: <TicketsView /> },
       { path: '/support/ticket/:id', element: <TicketDetail /> },
 
       // Configuration
@@ -157,8 +156,8 @@ const Router = [
       { path: '/', element: <Navigate to="/home/dashboard" /> },
 
       // User Profile
-      { path: '/user-profile', element: <UserProfile /> },
-      { path: '/account-settings', element: <AccountSettings /> },
+      { path: '/user-profile', element: <AccountSettings /> },
+      
     ],
   },
   {

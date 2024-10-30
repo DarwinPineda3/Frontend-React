@@ -1,13 +1,13 @@
+import { Box, Button, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import DashboardCard from 'src/components/shared/DashboardCard';
 import CustomFormLabel from '../../components/forms/theme-elements/CustomFormLabel';
 import CustomTextField from '../../components/forms/theme-elements/CustomTextField';
-import { Button, Box, Table, TableBody, TableCell, TableRow, TableContainer } from '@mui/material';
-import { TicketType } from '../../types/apps/ticket';
-import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import DashboardCard from 'src/components/shared/DashboardCard'; 
-import { useTranslation } from 'react-i18next';
 import '../../styles/TicketForm.css';
+import { TicketType } from '../../types/apps/ticket';
 
 const StyledFileInput = styled('input')({
   display: 'block',
@@ -40,7 +40,7 @@ const TicketFormComp: React.FC = () => {
     subcategory: '',
     urgency: '',
     pending: false,
-    attachment: '', 
+    attachment: '',
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -53,8 +53,8 @@ const TicketFormComp: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      const fileUrl = URL.createObjectURL(selectedFile); 
-      setTicket((prev) => ({ ...prev, attachment: fileUrl })); 
+      const fileUrl = URL.createObjectURL(selectedFile);
+      setTicket((prev) => ({ ...prev, attachment: fileUrl }));
     }
   };
 
@@ -73,7 +73,7 @@ const TicketFormComp: React.FC = () => {
     const existingTickets = JSON.parse(localStorage.getItem('tickets') || '[]');
     localStorage.setItem('tickets', JSON.stringify([...existingTickets, ticket]));
 
-    navigate('/support/ticketsview');
+    navigate('/support/tickets');
 
     setTicket({
       Id: Date.now(),
@@ -85,19 +85,22 @@ const TicketFormComp: React.FC = () => {
       AgentName: '',
       Date: new Date(),
       deleted: false,
-      category: 'None',
+      category: 'none',
       subcategory: '',
       urgency: '',
       pending: false,
-      attachment: '', 
+      attachment: '',
     });
 
     setErrors({});
   };
 
   return (
-    <Box sx={{ mt: 4 }}>
-      <DashboardCard>
+    <DashboardCard
+      title={t("support.create_ticket") as string}
+      subtitle={t("support.create_ticket_subtitle") as string}
+    >
+      <form onSubmit={handleSubmit}>
         <TableContainer>
           <Table sx={{ border: 'none' }}>
             <TableBody>
@@ -111,7 +114,7 @@ const TicketFormComp: React.FC = () => {
                     value={ticket.ticketTitle}
                     onChange={handleChange}
                     fullWidth
-                    sx={{ mt: 0.1 }} 
+                    sx={{ mt: 0.1 }}
                   />
                   {errors.ticketTitle && <span className="error">{errors.ticketTitle}</span>}
                 </TableCell>
@@ -145,9 +148,9 @@ const TicketFormComp: React.FC = () => {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
+                <TableCell sx={{ border: 'none', padding: '0.1rem', paddingTop: 3 }}>
                   <Box display="flex" justifyContent="flex-start">
-                    <Button type="submit" variant="contained" color="primary" onClick={handleSubmit}>
+                    <Button type="submit" variant="contained" color="primary">
                       {t("support.create_ticket")}
                     </Button>
                   </Box>
@@ -156,8 +159,8 @@ const TicketFormComp: React.FC = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </DashboardCard>
-    </Box>
+      </form>
+    </DashboardCard>
   );
 };
 

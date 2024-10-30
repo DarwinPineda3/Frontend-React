@@ -102,9 +102,15 @@
     "operation_status": "Operation Status",
     "create": "Create"
   },
+  "configuration": {
+    "scheduled_scans_subtitle": "Your scheduled scans that are running automatically",
+    "create_scheduled_scan": "Create scheduled scan",
+    "create_scheduled_scan_subtitle": "Fill the form to submit a new scheduled scan",
+    "create": "Create"
+  },
   "audit": {
-    "list_of_audit_logs": "List of Audit Logs",
-    "audit_log_details_and_actions": "Audit Log Details and Actions",
+    "list_of_audit_logs": "Audit Logs",
+    "audit_log_details_and_actions": "Users actions audit log",
     "execution_date": "Execution Date",
     "route": "Route",
     "ip": "IP",
@@ -114,8 +120,10 @@
     "operation": "Operation"
   },
   "support": {
-    "tickets_management": "Ticket Management",
+    "tickets_management": "Tickets",
+    "tickets_subtitle": "Your created tickets list",
     "create_ticket": "Create Ticket",
+    "create_ticket_subtitle": "Fill the form to submit a new ticket",
     "ticket_form": "Ticket Form",
     "create_new_ticket": "Create New Ticket",
     "subject": "Subject",
@@ -124,13 +132,13 @@
     "attach_file": "Attach File",
     "title_required": "Title is required.",
     "description_required": "Description is required.",
-    "solutions_list": "Solutions List",
-    "available_solutions_list": "Available Solutions List",
+    "solutions_list": "Solutions",
+    "available_solutions_list": "Available solutions list",
     "id": "ID",
     "name": "Name",
     "no_solutions_found": "No solutions found",
     "solutions": "Solutions",
-    "search_solutions": "Search Solutions"
+    "search_solutions": "Search"
   },
   "vulnerabilities": {
     "date": "Date",
@@ -430,7 +438,9 @@
     "service": "Service",
     "malware_count": "Malware Count",
     "vip_compromised_count": "Compromised VIPs Count",
-    "fake_app_count": "Fake Applications Count"
+    "fake_app_count": "Fake Applications Count",
+    "social_media_total": "Social Media Count",
+    "dark_web_total": "Dark Web Count"
   },
   "monitoring": {
     "top_threat_types": "Top Detected Threat Types",
@@ -449,13 +459,14 @@
     "deep_web": "Deep Web",
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Compromised Elements by Type",
-    "top_compromised_vips": "Top Compromised VIPs",
+    "top_compromised_vips": "Top Compromises",
+    "platforms_or_types": "Platforms or Types",
     "platforms_or_ty,pes": "Platforms or Types",
     "monitoring": "Monitoring",
     "cyber_guard": "Cyber Guard",
     "parameters": "Parameters",
-    "parameter_list": "Parameter List",
-    "list_of_available_parameters": "List of Available parameters",
+    "parameter_list": "Parameters",
+    "list_of_available_parameters": "Available parameters list for monitoring",
     "parameter": "Parameter",
     "parameter_type": "Parameter Type",
     "actions": "Actions",
@@ -549,7 +560,7 @@
     "user_url": "User URL",
     "user_type": "User Type",
     "detailed_information": "Detailed Information",
-    "explain_chart_monitoring" : "The chart below illustrates the parameters that yielded the highest number of results during the monitoring or search process, highlighting those with the most findings to prioritize your analysis."
+    "explain_chart_monitoring": "The chart below illustrates the parameters that yielded the highest number of results during the monitoring or search process, highlighting those with the most findings to prioritize your analysis."
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -561,27 +572,27 @@
     "satisfied": "Satisfied",
     "very_satisfied": "Very Satisfied"
   },
-  "summary":{
-      "vulnerabilities": "Vulnerabilities",
-      "summary": "Summary",
-      "vulnerabilities_summary": "Vulnerabilities Summary",
-      "vulnerabilities_summary_list": "Vulnerabilities Summary List",
-      "managed_selected_vuulnerabilities": "Managed selected vulnerabilities",
-      "select": "Select",
-      "type": "Type",
-      "hosts": "Hosts",
-      "severity": "Severity",
-      "name": "Name",
-      "date": "Date",
-      "tool": "Tool",
-      "view_report": "View Report",
-      "ai_solution": "AI Assistant Solution"
+  "summary": {
+    "vulnerabilities": "Vulnerabilities",
+    "summary": "Summary",
+    "vulnerabilities_summary": "Vulnerabilities Summary",
+    "vulnerabilities_summary_list": "Vulnerabilities Summary List",
+    "managed_selected_vuulnerabilities": "Managed selected vulnerabilities",
+    "select": "Select",
+    "type": "Type",
+    "hosts": "Hosts",
+    "severity": "Severity",
+    "name": "Name",
+    "date": "Date",
+    "tool": "Tool",
+    "view_report": "View Report",
+    "ai_solution": "AI Assistant Solution"
   },
-  "newsletter":{
+  "newsletter": {
     "newsletters": "Newsletters",
     "newsletters_list": "Newsletters List",
     "size": "Size",
-    "last_modification":  "Last Modification"
+    "last_modification": "Last Modification"
   },
   "technologies_inventory":{
       "technologies_inventory": "Technologies Inventory",
