@@ -24,7 +24,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedInternet, setSelectedInternet] = useState<Internet | null>(null);
   const highColor = theme.palette.level.high;
@@ -128,7 +128,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={internet.length}
         rowsPerPage={rowsPerPage}
