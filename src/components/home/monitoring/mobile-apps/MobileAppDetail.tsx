@@ -5,6 +5,7 @@ import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 // import AlphaSuspicionLevel from './MalwareAnalysisAlphaSuspicionLevel';
 import MalwareAnalysisAccordion from './MalwareAnalysisAccordion';
 import DataTable from './MobileAppTable';
+import AlphaSuspicionLevel from '../malware-analyses/MalwareAnalysisAlphaSuspicionLevel';
 
 
 
@@ -147,12 +148,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               >
               </Stack>
             </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                App name:
-              </Typography>
-              <Typography variant="body2">{mobileApp.appName}</Typography>
-            </Box>
+            <AlphaSuspicionLevel score={mobileApp.score} />
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Source:
@@ -165,12 +161,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               </Typography>
               <Typography variant="body2">{mobileApp.downloadLink}</Typography>
             </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>
-                Release date:
-              </Typography>
-              <Typography variant="body2">{mobileApp.releaseDate}</Typography>
-            </Box>
+            
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Language:
@@ -222,7 +213,12 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               </Typography>
               <Typography variant="body2">{mobileApp.version}</Typography>
             </Box>
-
+            <Box>
+              <Typography variant="subtitle2" fontWeight={600}>
+                Release date:
+              </Typography>
+              <Typography variant="body2">{mobileApp.releaseDate}</Typography>
+            </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
                 Digital Signature:
@@ -256,9 +252,24 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
 
       </Grid>
 
-      <Grid item xs={12} xl={12}>
-      <DashboardCard title="Security" subtitle="Security and Integrity Analysis">
-        <DataTable data={mobileApp.details.permissions} />
+      <Grid item xs={12} xl={6}>
+      <DashboardCard>
+        <DataTable data={mobileApp.details.permissions} title={"Permissions"} />
+      </DashboardCard>
+      </Grid>
+      <Grid item xs={12} xl={6}>
+      <DashboardCard>
+        <DataTable data={mobileApp.details.risks}  title={"Risks"}/>
+      </DashboardCard>
+      </Grid>
+      <Grid item xs={12} xl={6}>
+      <DashboardCard>
+        <DataTable data={mobileApp.details.OWASP} title={"OWASP"}/>
+      </DashboardCard>
+      </Grid>
+      <Grid item xs={12} xl={6}>
+      <DashboardCard>
+        <DataTable data={mobileApp.details.externalCommunications} title={"External Communications"}/>
       </DashboardCard>
       </Grid>
     </Grid>

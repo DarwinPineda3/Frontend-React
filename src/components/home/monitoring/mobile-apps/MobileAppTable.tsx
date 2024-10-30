@@ -8,7 +8,7 @@ import {
     Typography,
   } from '@mui/material';
   
-  const DataTable = ({ data }) => {
+  const DataTable = ({ data, title }) => {
     if (!data || data.length === 0) {
       return <Typography variant="body2">No data available.</Typography>;
     }
@@ -20,7 +20,7 @@ import {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  Table
+                  {title}
                 </Typography>
               </TableCell>
             </TableRow>
