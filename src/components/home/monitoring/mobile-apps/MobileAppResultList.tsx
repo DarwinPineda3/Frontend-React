@@ -27,7 +27,7 @@ import { ListItemIcon, ListItem, List, styled, ListItemText, useTheme } from '@m
 // import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (mobileAppId: number) => void;
+  onMobileAppClick: (mobileAppId: number, AppName: string) => void;
 }
 
 // React.FC<{ mobileAppId: string }> = ({ mobileAppId })
@@ -110,7 +110,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, Ap
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onMobileAppClick(mobileApp.id)}
+                      onClick={() => onMobileAppClick(mobileApp.id, mobileApp.appName)}
                       style={{ cursor: 'pointer' }}
                     >
                       {mobileApp.appName}

@@ -17,6 +17,7 @@ const MobileApp = () => {
     const location = useLocation();  // Tracks the current URL location
 
     const [selectedMobileApp, setSelectedMobileApp] = useState<string | null>(null);
+    const [selectedMobileAppName, setselectedMobileAppName] = useState<string | null>(null);
     const navigate = useNavigate();
 
     // Synchronize state with URL parameters
@@ -29,7 +30,8 @@ const MobileApp = () => {
 
     }, [mobileAppId, location]);
 
-    const handleMobileAppClick = (id: number) => {
+    const handleMobileAppClick = (id: number, appName: string) => {
+        setselectedMobileAppName(appName);
         navigate(`/monitoring/cyber-guard/mobile-apps/scan-app/${id}/result-app/${id}`);
     };
     return (
@@ -45,15 +47,15 @@ const MobileApp = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("menu.cyber_guard")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps/scan-app/12">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("mobile_apps.mobile_apps")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
+                    <Link component={RouterLink} color="inherit" to={`/monitoring/cyber-guard/mobile-apps/scan-app/${selectedMobileApp}`}>
                         {t("mobile_apps.results_app_scans")}
                     </Link>
                     {selectedMobileApp && (
                         <Typography color="textPrimary">
-                            {t("mobile_apps.mobile_apps_details")}
+                            {selectedMobileAppName}
                         </Typography>
                     )}
                 </Breadcrumbs>
