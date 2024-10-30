@@ -590,5 +590,18 @@
       "version": "Version",
       "create_technology": "Create Technology",
       "edit_technology": "Edit Technology"
+  },
+  "malware":{
+    "malware": "Malware",
+    "malware_analysys": "Malware analysis List",
+    "malware_analysys_list": "List of Available Malware analyses",
+    "target": "Target",
+    "media_type": "Media Type",
+    "state": "State",
+    "score": "Score",
+    "created_on": "Created on",
+    "pending": "Pending",
+    "completed": "Completed",
+    "failed": "Failed"
   }
 }

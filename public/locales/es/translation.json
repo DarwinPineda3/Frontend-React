@@ -14,7 +14,7 @@
     "monitoring": "Monitoreo",
     "soc": "SOC",
     "siem": "SIEM",
-    "cyber_guard": "Guardia cibernética",
+    "cyber_guard": "Cyber Guard",
     "parameters": "Parametros",
     "observability": "Observabilidad",
     "observed_assets": "Activos Observados",
@@ -591,5 +591,18 @@
     "version": "Versión",
     "create_technology": "Crear Tecnología",
     "edit_technology": "Editar Tecnología"
+  },
+  "malware":{
+    "malware": "Malware",
+    "malware_analysys": "Lista de análisis de malware",
+    "malware_analysys_list": "Lista de análisis de malware disponible",
+    "target": "Objetivo",
+    "media_type": "Tipo de Archivo",
+    "state": "Estado",
+    "score": "Puntaje",
+    "created_on": "Fecha de Creación",
+    "pending": "Pendiente",
+    "completed": "Completado",
+    "failed": "Fallido"
   }
 }
