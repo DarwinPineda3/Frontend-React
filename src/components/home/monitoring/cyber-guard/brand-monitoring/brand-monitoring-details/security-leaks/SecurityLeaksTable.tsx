@@ -18,9 +18,10 @@ import { useTranslation } from 'react-i18next';
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
+  category: string;
 }
 
-const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
+const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [page, setPage] = useState(0);
@@ -69,6 +70,23 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
     setSelectedLeak(null);
   };
 
+  const getCategoryData = (leak: SecurityLeak) => {
+    switch (category) {
+      case 'Domains':
+        return leak.data.domain;
+      case 'Emails':
+        return leak.data.email;
+      case 'IPs':
+        return leak.data.ip_address;
+      case 'Usernames':
+        return leak.data.username || leak.data.name;
+      case 'Phones':
+        return leak.data.phone;
+      default:
+        return 'NA';
+    }
+  };
+
   return (
     <>
       <TableContainer>
@@ -107,7 +125,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
                     color="primary"
                     sx={{ cursor: 'pointer' }}
                   >
-                    {leak.data.email || leak.data.name || leak.data.username || 'NA'}
+                    {getCategoryData(leak) || 'NA'}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
