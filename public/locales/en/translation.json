@@ -618,5 +618,15 @@
     "ssdeep": "SSDEEP",
     "results": "Results",
     "results_description": "Target malware analysis results"
+  },
+  "mobile_apps": {
+    "mobile_apps": "Mobile Apps",
+    "mobile_apps_list_scanned": "List scanned mobile applications",
+    "mobile_apps_details": "App Details",
+    "results_app_scans": "Results app scans",
+    "app": "App",
+    "created_on": "Created on",
+    "actions": "Actions",
+    "apps": "Apps"
   }
 }

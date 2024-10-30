@@ -619,5 +619,18 @@
     "ssdeep": "SSDEEP",
     "results": "Resultados",
     "results_description": "Resultados del análisis de malware"
+  },
+  "mobile_apps": {
+    "mobile_apps": "Aplicaciones Móviles",
+    "mobile_apps_list_scanned": "Lista de Aplicaciones Móviles Escaneadas",
+    "mobile_apps_details": "Detalles de la Aplicación Móvil",
+    "size": "Tamaño",
+    "last_modification": "Última Modificación",
+    "results_app_scans": "Resultados de escaneos de aplicaciones",
+    "app": "Aplicación",
+    "created_on": "Fecha de Creación",
+    "actions": "Acciones",
+    "apps": "Aplicaciones"
+
   }
 }

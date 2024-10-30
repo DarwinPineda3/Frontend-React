@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 
 
 
 const AppScan = () => {
-
+    const { t } = useTranslation();
     const { appScanId } = useParams<{ appScanId?: string }>();
     const location = useLocation();  // Tracks the current URL location
 
@@ -37,13 +37,13 @@ const AppScan = () => {
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
-                        Monitoring
+                        {t("menu.monitoring")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
-                        Cyber Guard
+                        {t("menu.cyber_guard")}
                     </Link>
                     <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
-                        Mobile Apps
+                        {t("mobile_apps.mobile_apps")}
                     </Link>
 
                 </Breadcrumbs>
