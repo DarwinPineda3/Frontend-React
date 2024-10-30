@@ -31,7 +31,7 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <SecurityLeaksTable leaks={details.data} />
+              <SecurityLeaksTable leaks={details.data} category={details.type} />
             </AccordionDetails>
           </Accordion>
         )),

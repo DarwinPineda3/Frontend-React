@@ -4,8 +4,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import AlphaSuspicionLevel from '../malware-analyses/MalwareAnalysisAlphaSuspicionLevel';
 import MobileAppAccordion from './MobileAppAccordion';
-
-
+import { useTranslation } from 'react-i18next';
 
 
 const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => {

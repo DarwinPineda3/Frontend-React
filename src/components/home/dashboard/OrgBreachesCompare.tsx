@@ -39,6 +39,7 @@ const OrgBreachesCompare = () => {
     },
   };
 
+  console.log(series);
   if (loading) {
     return (
       <DashboardCard title={t("dashboard.organization_breaches") || ''}>

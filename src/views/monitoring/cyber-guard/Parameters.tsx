@@ -1,9 +1,9 @@
-import { Grid, Box, IconButton, Breadcrumbs, Link } from '@mui/material';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import ParameterList from 'src/components/home/monitoring/cyber-guard/parameters/ParameterList';
-import { useTranslation } from 'react-i18next';
 
 const Parameters = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Parameters = () => {
             <Link
               component={RouterLink}
               color="inherit"
-              to="/monitoring/cyber-guard/monitoring"
+              to="/monitoring/cyber-guard/parameters"
             >
               {t('monitoring.monitoring')}
             </Link>
@@ -33,10 +33,8 @@ const Parameters = () => {
           </Breadcrumbs>
         </Box>
       </Box>
-
       <Grid container spacing={3}>
-        <Grid item xs={12} lg={12}></Grid>
-        <Grid item xs={12} lg={12}>
+        <Grid item xs={12}>
           <ParameterList />
         </Grid>
       </Grid>

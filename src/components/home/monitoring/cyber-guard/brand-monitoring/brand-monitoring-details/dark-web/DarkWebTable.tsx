@@ -17,9 +17,10 @@ import { useTranslation } from 'react-i18next';
 
 interface DarkWebTableProps {
   dark_web: DarkWeb[];
+  category: string;
 }
 
-const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
+const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -45,6 +46,23 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedLeak(null);
+  };
+
+  const getCategoryData = (dark_web: DarkWeb) => {
+    switch (category) {
+      case 'Domains':
+        return dark_web.data.domain;
+      case 'Emails':
+        return dark_web.data.email;
+      case 'IPs':
+        return dark_web.data.ip_address;
+      case 'Usernames':
+        return dark_web.data.username || dark_web.data.name;
+      case 'Phones':
+        return dark_web.data.phone;
+      default:
+        return 'NA';
+    }
   };
 
   return (
@@ -80,7 +98,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
                     color="primary"
                     sx={{ cursor: 'pointer' }}
                   >
-                    {dark_web.data?.email || dark_web.data?.username || 'NA'}
+                    {getCategoryData(dark_web) || 'NA'}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">

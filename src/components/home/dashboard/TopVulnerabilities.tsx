@@ -23,6 +23,7 @@ import { fetchVulnerabilityReports } from 'src/store/sections/dashboard/TopVulne
 import { AppState } from 'src/store/Store';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
+import { useTheme } from '@mui/material/styles';
 
 const TopVulnerabilities = () => {
   const { t } = useTranslation();
@@ -53,6 +54,42 @@ const TopVulnerabilities = () => {
   if (error) {
     return <div>{t("dashboard.error", { error })}</div>;
   }
+
+  const theme = useTheme();
+  const criticalColor = theme.palette.level.critical;
+  const highColor = theme.palette.level.high;
+  const mediumColor = theme.palette.level.medium;
+  const lowColor = theme.palette.level.low;
+  const noneColor = theme.palette.level.none;
+
+  const getChipColor = (riskLevel: string) => {
+      switch (riskLevel) {
+        case 'critical':
+          return { color: criticalColor, label: t('monitoring.critical') };
+        case 'high':
+          return { color: highColor, label: t('monitoring.high') };
+        case 'medium':
+          return { color: mediumColor, label: t('monitoring.medium') };
+        case 'low':
+          return { color: lowColor, label: t('monitoring.low') };
+        default:
+          return { color: noneColor, label: 'N/A' };
+      }
+  };
+
+  const getChipColorSeverity = (severity: number) => {
+    if (severity > 9.0) {
+        return { color: criticalColor};
+    } else if (severity > 7.0) {
+        return { color: highColor};
+    } else if (severity > 4.0) {
+        return { color: mediumColor};
+    } else if (severity > 0) {
+      return { color: lowColor};
+    } else {
+        return { color: noneColor};
+    }
+  };
 
   return (
     <DashboardCard
@@ -91,22 +128,11 @@ const TopVulnerabilities = () => {
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
                       <Chip
-                        sx={{
-                            bgcolor:
-                            _.capitalize(report.type) === 'Critical'
-                            ? (theme) => theme.palette.level.critical
-                            : _.capitalize(report.type) === 'High'
-                            ? (theme) => theme.palette.level.high
-                            : _.capitalize(report.type) === 'Medium'
-                            ? (theme) => theme.palette.level.medium
-                            : _.capitalize(report.type) === 'Low'
-                            ? (theme) => theme.palette.level.low
-                            : (theme) => theme.palette.level.unknown,
-                        color: (theme) => theme.palette.background.default,
-                            borderRadius: '8px',
-                        }}
-                        size="small"
-                        label={_.capitalize(report.type)}
+                          label={getChipColor(_.lowerCase(report.type)).label}
+                          sx={{
+                            backgroundColor: getChipColor(_.lowerCase(report.type)).color,
+                            color: 'white',
+                          }}
                       />
                   </Typography>
                 </TableCell>
@@ -116,24 +142,13 @@ const TopVulnerabilities = () => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Chip
-                      sx={{
-                        bgcolor:
-                        report.severity > 9.0
-                        ? (theme) => theme.palette.level.critical
-                        : report.severity > 7.0
-                        ? (theme) => theme.palette.level.high
-                        : report.severity > 4.0
-                        ? (theme) => theme.palette.level.medium
-                        : report.severity > 0
-                        ? (theme) => theme.palette.level.low
-                        : (theme) => theme.palette.level.unknown,
-                    color: (theme) => theme.palette.background.default,
-                    borderRadius: '8px',
-                    }}
-                    size="small"
-                    label={report.severity}
-                  />
+                    <Chip
+                          label={report.severity}
+                          sx={{
+                            backgroundColor: getChipColorSeverity(report.severity).color,
+                            color: 'white',
+                          }}
+                    />
                 </TableCell>
                 <TableCell>
                   <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>

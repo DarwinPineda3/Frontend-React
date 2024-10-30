@@ -66,7 +66,10 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Apps" subtitle="List of scanned mobile applications" action={addButton}>
+    <DashboardCard 
+        title={t("mobile_apps.apps")}
+        subtitle={t("mobile_apps.mobile_apps_list_scanned")}
+        action={addButton}>
       <Box>
         <TableContainer>
           <Table aria-label="appScan table" sx={{ whiteSpace: 'nowrap' }}>
@@ -74,17 +77,17 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    App
+                      {t("mobile_apps.app")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Created on
+                      {t("mobile_apps.created_on")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Actions
+                      {t("mobile_apps.actions")}
                   </Typography>
                 </TableCell>
               </TableRow>

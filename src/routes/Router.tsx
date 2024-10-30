@@ -117,9 +117,9 @@ const Router = [
       { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/brand-monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/brand-monitoring/:id', element: <BrandMonitoringCyberGuard /> },
-      { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
-      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
-      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
+      { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan /> },
+      { path: '/monitoring/cyber-guard/mobile-apps/scan-app/:appScanId', element: <MobileApp /> },
+      { path: '/monitoring/cyber-guard/mobile-apps/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
       
       { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
@@ -142,7 +142,6 @@ const Router = [
       { path: '/support/solutions', element: <Solutions /> },
       { path: '/support/solutions/:id', element: <SolutionDetail /> }, 
       { path: '/support/ticketform', element: <TicketFormComp /> },
-      { path: '/support/ticketsview', element: <TicketsView /> },
       { path: '/support/ticket/:id', element: <TicketDetail /> },
 
       // Configuration
@@ -157,8 +156,8 @@ const Router = [
       { path: '/', element: <Navigate to="/home/dashboard" /> },
 
       // User Profile
-      { path: '/user-profile', element: <UserProfile /> },
-      { path: '/account-settings', element: <AccountSettings /> },
+      { path: '/user-profile', element: <AccountSettings /> },
+      
     ],
   },
   {

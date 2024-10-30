@@ -1,9 +1,9 @@
 import React from 'react';
-import { Card, CardContent, Typography, Accordion, AccordionSummary, AccordionDetails, Alert, Breadcrumbs, IconButton } from '@mui/material';
+import { Card, CardContent, Typography, Accordion, AccordionSummary, AccordionDetails, Alert, Breadcrumbs, IconButton, Box, Link } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import solutionImage from 'src/assets/images/img solutions/monitoring.png'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const SolutionDetail: React.FC = () => {
     const navigate = useNavigate();
@@ -35,20 +35,19 @@ const SolutionDetail: React.FC = () => {
         ),
     };
 
-    const handleBack = () => {
-        navigate(-1); 
-    };
-
     return (
         <div>
-            <Breadcrumbs aria-label="breadcrumb" sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                <IconButton onClick={handleBack} sx={{ mr: 1 }} color="primary">
+            <Box display="flex" alignItems="center" mt={2}>
+                <IconButton onClick={() => navigate(-1)} color="primary">
                     <ArrowBackIcon />
                 </IconButton>
-                <Typography color="text.primary">{solutionDetails.name}</Typography>
-            </Breadcrumbs>
-
-            <Typography variant="h3" sx={{ margin: '20px 0' }}>Detalles</Typography>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link component={RouterLink} color="inherit" to="/support/solutions">
+                        Solutions
+                    </Link>
+                    <Link color="inherit">{solutionDetails.name}</Link>
+                </Breadcrumbs>
+            </Box>
 
             <Card variant="outlined" sx={{ margin: '30px auto', maxWidth: '2500px' }}>
                 <CardContent>
