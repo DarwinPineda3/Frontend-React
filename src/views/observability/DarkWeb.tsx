@@ -109,13 +109,14 @@ const DarkWeb = () => {
         <Grid item xs={12} lg={12}>
           <ThreatsByFuzzerChart />
         </Grid>
-        */}
+        
             <Grid item xs={12} lg={12}>
                 <UsernamesTable />
             </Grid>
             <Grid item xs={12} lg={12}>
                 <DomainTable />
             </Grid>
+            */}
         </Grid>
     );
 };

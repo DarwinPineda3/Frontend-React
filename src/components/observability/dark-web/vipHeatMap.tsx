@@ -87,7 +87,7 @@ const VIPsHeatmapChart: React.FC<VIPsHeatmapChartProps> = ({ varList }) => {
         dataLabels: { enabled: false },
         tooltip: {
             y: {
-                formatter: (val: number) => `${val}%`
+                formatter: (val: number) => `${val}`
             }
         }
     };
