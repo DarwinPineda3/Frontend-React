@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 import {
+  Box,
+  Button,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  Button,
-  IconButton,
-  Typography,
   TextField,
+  Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DashboardCard from '../shared/DashboardCard';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import DashboardCard from '../shared/DashboardCard';
 
 interface Scan {
   id: string;
@@ -33,6 +34,7 @@ interface ScansTableProps {
 
 const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [scans, setScans] = useState<Scan[]>([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(5);
@@ -71,7 +73,10 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
   );
 
   return (
-    <DashboardCard title="Lista de Escaneos" action={addButton}>
+    <DashboardCard
+      title={t('menu.scheduled_scans') as string}
+      subtitle={t('configuration.scheduled_scans_subtitle') as string}
+      action={addButton}>
       <Box>
         <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between' }}>
           <TextField
@@ -128,11 +133,11 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
                     </TableCell>
                     <TableCell align="center">
                       <Button variant="contained" color="primary" size="small">Editar</Button>
-                      <Button 
-                        variant="outlined" 
-                        color="secondary" 
-                        size="small" 
-                        sx={{ marginLeft: 1 }} 
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        size="small"
+                        sx={{ marginLeft: 1 }}
                         onClick={() => handleDelete(scan.id)}
                       >
                         Eliminar

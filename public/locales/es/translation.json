@@ -102,9 +102,15 @@
     "operation_status": "Estado de la Operación",
     "create": "Crear"
   },
+  "configuration": {
+    "scheduled_scans_subtitle": "Tus escaneos programados que se ejecutan automáticamente",
+    "create_scheduled_scan": "Crear escaneo programado",
+    "create_scheduled_scan_subtitle": "Completa el formulario para crear un nuevo escaneo programado",
+    "create": "Crear"
+  },
   "audit": {
-    "list_of_audit_logs": "Lista de Registros de Auditoría",
-    "audit_log_details_and_actions": "Detalles y Acciones de los Registros de Auditoría",
+    "list_of_audit_logs": "Registros de Auditoría",
+    "audit_log_details_and_actions": "Registro de las acciones de los usuarios",
     "execution_date": "Fecha de ejecución",
     "route": "Ruta",
     "ip": "IP",
@@ -114,8 +120,10 @@
     "operation": "Operación"
   },
   "support": {
-    "tickets_management": "Gestión de Tickets",
+    "tickets_management": "Tickets",
+    "tickets_subtitle": "Lista de tus tickets creados",
     "create_ticket": "Crear Ticket",
+    "create_ticket_subtitle": "Completa el formulario para crear un nuevo ticket",
     "ticket_form": "Formulario de Ticket",
     "create_new_ticket": "Crear Nuevo Ticket",
     "subject": "Asunto",
@@ -124,13 +132,13 @@
     "attach_file": "Adjuntar archivo",
     "title_required": "El título es obligatorio.",
     "description_required": "La descripción es obligatoria.",
-    "solutions_list": "Lista de Soluciones",
+    "solutions_list": "Soluciones",
     "available_solutions_list": "Lista de soluciones disponibles",
     "id": "ID",
     "name": "Nombre",
     "no_solutions_found": "No se encontraron soluciones",
     "solutions": "Soluciones",
-    "search_solutions": "Buscar Soluciones"
+    "search_solutions": "Buscar"
   },
   "vulnerabilities": {
     "date": "Fecha",
@@ -430,7 +438,9 @@
     "service": "Servicio",
     "malware_count": "Cantidad de Malware",
     "vip_compromised_count": "Cantidad de VIPs comprometidos",
-    "fake_app_count": "Cantidad de Aplicaciones Falsas"
+    "fake_app_count": "Cantidad de Aplicaciones Falsas",
+    "social_media_total": "Total de Redes Sociales",
+    "dark_web_total": "Total de Dark Web"
   },
   "monitoring": {
     "top_threat_types": "Principales tipos de amenazas detectadas",
@@ -449,7 +459,7 @@
     "deep_web": "Deep Web",
     "dark_web": "Dark Web",
     "compromised_elements_by_type": "Elementos comprometidos por tipo",
-    "top_compromised_vips": "Principales VIPs comprometidos",
+    "top_compromised_vips": "Principales compromisos",
     "platforms_or_types": "Plataformas o tipos",
     "monitoring": "Monitoreo",
     "cyber_guard": "Guardia Cibernética",
@@ -570,33 +580,33 @@
     "satisfied": "Satisfecho",
     "very_satisfied": "Muy satisfecho"
   },
-  "summary":{
-      "vulnerabilities": "Vulnerabilidades",
-      "summary": "Resumen",
-      "vulnerabilities_summary": "Resumen de Vulnerabilidades",
-      "vulnerabilities_summary_list": "Lista de vulnerabilidades",
-      "managed_selected_vuulnerabilities": "Gestionar vulnerabilidades seleccionadas",
-      "select": "Seleccionar",
-      "type": "Tipo",
-      "hosts": "Hosts",
-      "severity": "Severidad",
-      "name": "Nombre",
-      "date": "Fecha",
-      "tool": "Herramienta",
-      "view_report": "Ver Reporte",
-      "ai_solution": "Solución de asistente IA"
+  "summary": {
+    "vulnerabilities": "Vulnerabilidades",
+    "summary": "Resumen",
+    "vulnerabilities_summary": "Resumen de Vulnerabilidades",
+    "vulnerabilities_summary_list": "Lista de vulnerabilidades",
+    "managed_selected_vuulnerabilities": "Gestionar vulnerabilidades seleccionadas",
+    "select": "Seleccionar",
+    "type": "Tipo",
+    "hosts": "Hosts",
+    "severity": "Severidad",
+    "name": "Nombre",
+    "date": "Fecha",
+    "tool": "Herramienta",
+    "view_report": "Ver Reporte",
+    "ai_solution": "Solución de asistente IA"
   },
-  "newsletter":{
-      "newsletters": "Boletines",
-      "newsletters_list": "Lista de Boletines",
-      "newsletter_details": "Detalles del Boletin",
-      "size": "Tamaño",
-      "last_modification":  "Última modificación"
+  "newsletter": {
+    "newsletters": "Boletines",
+    "newsletters_list": "Lista de Boletines",
+    "newsletter_details": "Detalles del Boletin",
+    "size": "Tamaño",
+    "last_modification": "Última modificación"
   },
-  "technologies_inventory":{
+  "technologies_inventory": {
     "technologies_inventory": "Inventario de Tecnologías",
     "technologies_list": "Lista de Tecnologías",
-    "category":  "Categoria",
+    "category": "Categoria",
     "version": "Versión",
     "create_technology": "Crear Tecnología",
     "edit_technology": "Editar Tecnología"
