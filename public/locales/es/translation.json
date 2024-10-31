@@ -676,6 +676,14 @@
     "risks": "Riesgos",
     "owasp_issues": "Problemas OWASP",
     "external_communications": "Comunicaciones externas",
-    "name": "Nombre"
+    "name": "Nombre",
+    "application_analysis_report":"Informe de análisis de aplicaciones",
+    "name_is_required": "El nombre es obligatorio",
+    "app_scan_updated_successfully": "Escaneo de la aplicación actualizado con éxito",
+    "app_scan_created_successfully": "Escaneo de la aplicación creado con éxito",
+    "update_app_for_scanning": "Actualizar aplicación para escaneo",
+    "create_app_for_scanning": "Crear aplicación para escaneo",
+    "update_app_scan": "Actualizar escaneo de aplicación",
+    "create_app_scan": "Crear escaneo de aplicación"
   }
 }

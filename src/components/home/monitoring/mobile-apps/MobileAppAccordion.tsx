@@ -11,9 +11,6 @@ import { useTranslation } from 'react-i18next';
 interface MobileAppAccordionProps {
   data: any;
 }
-
-
-
 const MobileAppAccordion: React.FC<MobileAppAccordionProps> = ({ data }) => {
   const { t } = useTranslation();
   const groupedDetails = [
@@ -22,8 +19,6 @@ const MobileAppAccordion: React.FC<MobileAppAccordionProps> = ({ data }) => {
     { title: t("mobile_apps.owasp_issues"), data: data.details.OWASP },
     { title: t("mobile_apps.external_communications"), data: data.details.externalCommunications },
   ];
-
-
   return (
     <Box>
       {groupedDetails.map((group, index) => (

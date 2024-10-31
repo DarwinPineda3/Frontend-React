@@ -82,7 +82,10 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
       </Grid>
 
       <Grid item xs={12} xl={6}>
-        <DashboardCard title="Security" subtitle="Security and Integrity Analysis">
+        <DashboardCard 
+         title={t("mobile_apps.security")}
+         subtitle={t("mobile_apps.security_and_integrity_analysis")}
+         >
           <Box display="flex" flexDirection="column" gap={2} mt={1}>
 
             <Box>
@@ -109,7 +112,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               <Typography
                 variant="body2"
                 sx={{
-                  wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
+                  wordBreak: "break-all"
                 }}
               >
                 {mobileApp.score}
@@ -135,7 +138,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               <Typography
                 variant="body2"
                 sx={{
-                  wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
+                  wordBreak: "break-all"
                 }}
               >
                 {mobileApp.digitalSignature}
@@ -149,7 +152,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               <Typography
                 variant="body2"
                 sx={{
-                  wordBreak: "break-all" // Rompe el texto en una nueva línea si es necesario
+                  wordBreak: "break-all"
                 }}
               >
                 {mobileApp.apkHash}
@@ -162,7 +165,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
       </Grid>
 
       <Grid item xs={12} xl={12}>
-        <DashboardCard title='Application Analysis Report'>
+        <DashboardCard title={t("mobile_apps.application_analysis_report")}>
           <MobileAppAccordion data={mobileApp} />
         </DashboardCard>
       </Grid>

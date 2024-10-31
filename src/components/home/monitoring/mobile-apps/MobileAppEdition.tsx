@@ -11,13 +11,15 @@ import { createAppScan, editAppScan } from 'src/store/sections/mobile-app/AppSca
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AppScanType } from 'src/types/monitoring/mobile-apps/AppScan';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
-    appScan?: any; // Optional for edit
+    appScan?: any; 
     onSubmit: (name: string) => void; 
 }
 
 const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
     // Formik setup with Yup validation schema
     const formik = useFormik({
@@ -27,7 +29,7 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
         
       },
       validationSchema: Yup.object({
-        name: Yup.string().required('Name is required'),
+        name: Yup.string().required(t("mobile_apps.name_is_required")),
         // createdOn: Yup.date().('Invalid URL format').required('URL is required'), //validarfecha
       }),
       onSubmit: (values:string, severity: 'success' | 'info' | 'warning' | 'error') => {
@@ -38,10 +40,10 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
   
         if (appScan) {
           dispatch(editAppScan(newAppScan));
-          onSubmit('App Scan updated successfully', 'success');
+          onSubmit(t("mobile_apps.app_scan_updated_successfully"), 'success');
         } else {
           dispatch(createAppScan(newAppScan));
-          onSubmit('App Scan created successfully', 'success');
+          onSubmit(t("mobile_apps.app_scan_created_successfully"), 'success');
         }
       },
     });
@@ -50,13 +52,13 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {appScan ? 'Update app for scanning' : 'Create app for scanning'}
+          {appScan ? t("mobile_apps.update_app_for_scanning") : t("mobile_apps.create_app_for_scanning")}
         </Typography>
 
         <TextField
           fullWidth
           margin="normal"
-          label="Name"
+          label={t("mobile_apps.name")}
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
@@ -66,7 +68,7 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
 
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {appScan ? 'Update App Scan' : 'Create App Scan'}
+            {appScan ? t("mobile_apps.update_app_for_scanning") : t("mobile_apps.create_app_scan")}
           </Button>
         </Box>
       </Box>

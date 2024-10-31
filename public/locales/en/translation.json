@@ -677,6 +677,14 @@
     "risks": "Risks",
     "owasp_issues": "OWASP issues",
     "external_communications": "External communications",
-    "name": "Name"
+    "name": "Name",
+    "application_analysis_report":"Application Analysis Report",
+    "name_is_required": "Name is required",
+    "app_scan_updated_successfully": "App Scan updated successfully",
+    "app_scan_created_successfully": "App Scan created successfully",
+    "update_app_for_scanning": "Update app for scanning",
+    "create_app_for_scanning": "Create app for scanning",
+    "update_app_scan": "Update App Scan",
+    "create_app_scan": "Create App Scan"
   }
 }
