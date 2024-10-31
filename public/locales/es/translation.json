@@ -15,11 +15,11 @@
         "soc": "SOC",
         "siem": "SIEM",
         "cyber_guard": "Cyber Guard",
-        "parameters": "Parametros",
+        "parameters": "Parámetros",
         "observability": "Observabilidad",
         "observed_assets": "Activos Observados",
-        "dark_web_monitoring": "Resumen de amenazas",
-        "installation_guide": "Guía de Instalación",
+        "dark_web_monitoring": "Resumen Amenazas",
+        "installation_guide": "Guía Instalación",
         "support": "Soporte",
         "tickets": "Tickets",
         "solutions": "Soluciones",
@@ -27,22 +27,24 @@
         "scheduled_scans": "Escaneos Programados",
         "audit": "Auditoría",
         "log": "Registro",
-        "service_statistics": "Estadísticas del Servicio",
-        "source_monitoring": "Monitoreo de Fuentes",
+        "service_statistics": "Estadísticas Servicio",
+        "source_monitoring": "Monitoreo Fuentes",
         "cti": "CTI",
         "description": "Descripción",
         "abusech": "AbuseCH",
         "files": "Archivos",
         "urls": "URLs",
-        "brand_monitoring": "Monitoreo de Marca",
+        "brand_monitoring": "Monitoreo Marca",
         "demo": "Demo",
         "darknet": "DarkNet",
         "news": "Boletines",
         "takedown": "Takedown",
-        "technologies_inventory": "Inventario de Tecnologías",
+        "technologies_inventory": "Inventario Tecnologías",
         "malware": "Malware",
         "mobile_apps": "Aplicaciones Móviles",
-        "open_cti": "OpenCTI"
+        "open_cti": "OpenCTI",
+        "threat_intelligence": "Inteligencia Amenazas",
+        "emerging_risks": "Riesgos Emergentes"
     },
     "dashboard": {
         "montly_distribution": "Distribución mensual",
@@ -701,8 +703,8 @@
         "create_app_scan": "Crear escaneo de la aplicación"
     },
     "risk_analysis": {
-      "potential_risk": "Riesgo Potencial",
-      "no_risk": "Sin Riesgo",
-      "not_enough_info": "Información Insuficiente"
+        "potential_risk": "Riesgo Potencial",
+        "no_risk": "Sin Riesgo",
+        "not_enough_info": "Información Insuficiente"
     }
-  }
+}

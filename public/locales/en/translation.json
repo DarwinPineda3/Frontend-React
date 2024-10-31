@@ -39,10 +39,12 @@
         "darknet": "DarkNet",
         "news": "Newsletters",
         "takedown": "Takedown",
-        "technologies_inventory": "Technologies Inventory",
+        "technologies_inventory": "Tech Inventory",
         "malware": "Malware",
         "mobile_apps": "Mobile Apps",
-        "open_cti": "OpenCTI"
+        "open_cti": "OpenCTI",
+        "threat_intelligence": "Threat Intelligence",
+        "emerging_risks": "Emerging Risks"
     },
     "dashboard": {
         "montly_distribution": "Monthly Distribution",
@@ -702,8 +704,8 @@
         "create_app_scan": "Create App Scan"
     },
     "risk_analysis": {
-      "potential_risk": "Potential Risk",
-      "no_risk": "No Risk",
-      "not_enough_info": "Not Enough Information"
+        "potential_risk": "Potential Risk",
+        "no_risk": "No Risk",
+        "not_enough_info": "Not Enough Information"
     }
 }

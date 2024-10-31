@@ -26,8 +26,10 @@ import BrandMonitoring from 'src/views/monitoring/SOC/brandMonitoring';
 import CTI from 'src/views/monitoring/SOC/cti';
 import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
 import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
+import EmergingRisks from 'src/views/monitoring/SOC/cti/emerging-risks';
 import FilesSoc from 'src/views/monitoring/SOC/cti/files';
 import TechInventory from 'src/views/monitoring/SOC/cti/TechnologiesInventory';
+import ThreatIntelligence from 'src/views/monitoring/SOC/cti/threat-intelligence';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
@@ -55,116 +57,118 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
 
 const Router = [
-  {
-    path: '/',
-    element: (
-      <AuthGuard>
-        <FullLayout />
-      </AuthGuard>
-    ),
-    children: [
-      // Home
-      { path: '/home/dashboard', element: <Dashboard /> },
-      { path: '/home/assets', element: <Assets /> },
-      { path: '/aisolution', element: <AiSolution /> },
+    {
+        path: '/',
+        element: (
+            <AuthGuard>
+                <FullLayout />
+            </AuthGuard>
+        ),
+        children: [
+            // Home
+            { path: '/home/dashboard', element: <Dashboard /> },
+            { path: '/home/assets', element: <Assets /> },
+            { path: '/aisolution', element: <AiSolution /> },
 
-      // Vulnerabilities
-      { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId', element: <NetworkVulnerabilities /> },
+            // Vulnerabilities
+            { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
+            { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities /> },
+            { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities /> },
+            { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId', element: <NetworkVulnerabilities /> },
+            { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId', element: <NetworkVulnerabilities /> },
 
-      { path: '/vulnerabilities/web', element: <WebVulnerabilities /> },
-      { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
-      { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
-      { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
+            { path: '/vulnerabilities/web', element: <WebVulnerabilities /> },
+            { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
+            { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
+            { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
 
-      { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
-      { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
-      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
+            { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
+            { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
+            { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
 
-      { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
-      { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
-      { path: '/vulnerabilities/cloud/vulnerabilities/:cloudId', element: <CloudVulnerabilities /> },
+            { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
+            { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
+            { path: '/vulnerabilities/cloud/vulnerabilities/:cloudId', element: <CloudVulnerabilities /> },
 
-      { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
-      { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
+            { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
+            { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
 
-      // Monitoring
-      { path: '/monitoring/threats-overview', element: <DarkWeb /> },
+            // Monitoring
+            { path: '/monitoring/threats-overview', element: <DarkWeb /> },
 
-      { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
-      { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
-      { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
-      { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis /> },
-      { path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
-      { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
-      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
-      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
+            { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard /> },
+            { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
+            { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
+            { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis /> },
+            { path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
+            { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
+            { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
+            { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
 
-      { path: '/monitoring/soc', element: <SOCMonitoring /> },
-      { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
-      { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring /> },
-      { path: '/monitoring/soc/cti', element: <CTI /> },
-      { path: '/monitoring/soc/cti/description', element: <DescriptionThreat /> },
-      { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
-      { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
-      { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
-      { path: '/monitoring/soc/cti/technologies-inventory', element: <TechInventory /> },
-      { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
-      { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
-      { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
-      { path: '/monitoring/soc/newsletters', element: <SocNews /> },
-      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
-      { path: '/monitoring/soc/takedown', element: <Takedown /> },
+            { path: '/monitoring/soc', element: <SOCMonitoring /> },
+            { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
+            { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring /> },
+            { path: '/monitoring/soc/cti', element: <CTI /> },
+            { path: '/monitoring/soc/cti/description', element: <DescriptionThreat /> },
+            { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
+            { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
+            { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
+            { path: '/monitoring/soc/cti/threat-intelligence', element: <ThreatIntelligence /> },
+            { path: '/monitoring/soc/cti/emerging-risks', element: <EmergingRisks /> },
+            { path: '/monitoring/soc/cti/technologies-inventory', element: <TechInventory /> },
+            { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
+            { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
+            { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
+            { path: '/monitoring/soc/newsletters', element: <SocNews /> },
+            { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
+            { path: '/monitoring/soc/takedown', element: <Takedown /> },
 
-      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
-      { path: '/monitoring/mittre', element: <MittrView /> },
+            { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+            { path: '/monitoring/mittre', element: <MittrView /> },
 
-      // Observability
-      { path: '/observability/network', element: <NetworkObservability /> },
-      { path: '/observability/network/scans', element: <NetworkObservability /> },
-      { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
-      { path: '/observability/cloud', element: <CloudObservability /> },
-      { path: '/observability/cloud/scans/:scanId', element: <CloudObservability /> },
-      { path: '/observability/cloud/scans', element: <CloudObservability /> },
-      { path: '/observability/observed-assets', element: <ObservedAssets /> },
-      { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
-      { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
-      { path: '/observability/installation-guide', element: <InstallationGuide /> },
+            // Observability
+            { path: '/observability/network', element: <NetworkObservability /> },
+            { path: '/observability/network/scans', element: <NetworkObservability /> },
+            { path: '/observability/network/scans/:scanId', element: <NetworkObservability /> },
+            { path: '/observability/cloud', element: <CloudObservability /> },
+            { path: '/observability/cloud/scans/:scanId', element: <CloudObservability /> },
+            { path: '/observability/cloud/scans', element: <CloudObservability /> },
+            { path: '/observability/observed-assets', element: <ObservedAssets /> },
+            { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
+            { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
+            { path: '/observability/installation-guide', element: <InstallationGuide /> },
 
-      // Support
-      { path: '/support/tickets', element: <Tickets /> },
-      { path: '/support/solutions', element: <Solutions /> },
-      { path: '/support/solutions/:id', element: <SolutionDetail /> },
-      { path: '/support/ticketform', element: <TicketFormComp /> },
-      { path: '/support/ticket/:id', element: <TicketDetail /> },
+            // Support
+            { path: '/support/tickets', element: <Tickets /> },
+            { path: '/support/solutions', element: <Solutions /> },
+            { path: '/support/solutions/:id', element: <SolutionDetail /> },
+            { path: '/support/ticketform', element: <TicketFormComp /> },
+            { path: '/support/ticket/:id', element: <TicketDetail /> },
 
-      // Configuration
-      { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
-      { path: '/configuration/schedule-scan', element: <ScheduleScanForm /> },
+            // Configuration
+            { path: '/configuration/scheduled-scans', element: <ScheduledScans /> },
+            { path: '/configuration/schedule-scan', element: <ScheduleScanForm /> },
 
-      // Audit
-      { path: '/audit/logs', element: <AuditLogView /> },
+            // Audit
+            { path: '/audit/logs', element: <AuditLogView /> },
 
-      // User Profile
-      { path: '/user-profile', element: <AccountSettings /> },
+            // User Profile
+            { path: '/user-profile', element: <AccountSettings /> },
 
-      // Default Route
-      { path: '/', element: <Navigate to="/home/dashboard" /> },
-    ],
-  },
-  {
-    path: '/',
-    element: <BlankLayout />,
-    children: [
-      { path: '/auth/login', element: <Login /> },
-      { path: '/auth/404', element: <Navigate to="/auth/404" /> },
-    ],
-  },
-  // Catch-all 404 Route (for any undefined route)
-  { path: '*', element: <Navigate to="/auth/404" /> },
+            // Default Route
+            { path: '/', element: <Navigate to="/home/dashboard" /> },
+        ],
+    },
+    {
+        path: '/',
+        element: <BlankLayout />,
+        children: [
+            { path: '/auth/login', element: <Login /> },
+            { path: '/auth/404', element: <Navigate to="/auth/404" /> },
+        ],
+    },
+    // Catch-all 404 Route (for any undefined route)
+    { path: '*', element: <Navigate to="/auth/404" /> },
 ];
 
 
