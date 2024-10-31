@@ -19,6 +19,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
+import { useTranslation } from 'react-i18next';
 
 // const theme = useTheme();
 // const { high, medium, low, critical } = theme.palette.level;
@@ -27,13 +28,14 @@ interface MobileAppListTableProps {
   onMobileAppClick: (mobileAppId: number) => void;
 }
 
-  const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
+const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
   const dispatch = useDispatch();
   const mobileApps = useSelector((state: any) => state.mobileAppsReducer.mobileApps);
   const currentPage = useSelector((state: any) => state.mobileAppsReducer.page);
   const totalPages = useSelector((state: any) => state.mobileAppsReducer.totalPages);
   const [editMobileApp, setEditMobileApp] = useState<null | any>(null); // State to hold the mobileApp being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     dispatch(fetchMobileApps(currentPage));
@@ -61,6 +63,7 @@ interface MobileAppListTableProps {
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
+    // pendiente de traducción
     <DashboardCard title="Search result" subtitle="List of mobile applications found">
       <Box>
         <TableContainer>
@@ -69,32 +72,32 @@ interface MobileAppListTableProps {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    App Name
+                    {t("mobile_apps.app_name")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Source
+                    {t("mobile_apps.source")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    State
+                    {t("mobile_apps.state")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Version
+                    {t("mobile_apps.version")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Score
+                    {t("mobile_apps.score")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Downloads
+                    {t("mobile_apps.downloads")}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -124,24 +127,31 @@ interface MobileAppListTableProps {
                     <Typography variant="subtitle2" fontWeight={600} color={
                       mobileApp.score > 7 ? high :
                         mobileApp.score > 3.9 ? medium :
-                            low
+                          low
                     }>
-                      
+
                       <Chip
-                        label={mobileApp.score > 7 ? 'Very risk' :
-                          mobileApp.score > 3.9 ? 'Risky' :
-                            mobileApp.score >= 0 ? 'Not very risky' : 'No Risk'}
+                        label={
+                          mobileApp.score > 7
+                            ? t("mobile_apps.very_risky")
+                            : mobileApp.score > 3.9
+                              ? t("mobile_apps.risky")
+                              : mobileApp.score >= 0
+                                ? t("mobile_apps.not_very_risky")
+                                : t("mobile_apps.no_risk") // Asegúrate de agregar esta clave en el archivo de traducción
+                        }
                         color="secondary"
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 7 ? high :
-                              mobileApp.score > 3.9 ? medium :
-                                mobileApp.score >= 0 ? low :
-                                  low,
+                            mobileApp.score > 7
+                              ? high
+                              : mobileApp.score > 3.9
+                                ? medium
+                                : low,
                           color: 'white'
                         }}
-                          />
+                      />
                     </Typography>
                   </TableCell>
                   <TableCell>
