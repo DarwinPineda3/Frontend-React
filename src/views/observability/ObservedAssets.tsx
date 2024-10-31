@@ -1,137 +1,140 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
-import { Box, Grid, IconButton, Breadcrumbs, Link } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ObservedAssetsTable from 'src/components/observability/assets/ObservedAssetsTableView';
-import ObservedAssetDetail from 'src/components/observability/assets/ObservedAssetDetail';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
+import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
+import ObservedAssetDetail from 'src/components/observability/assets/ObservedAssetDetail';
+import ObservedAssetsTable from 'src/components/observability/assets/ObservedAssetsTableView';
 
 const ObservedAssets = () => {
-  // Get params from the URL
-  const { id: id } = useParams<{ id?: string }>();
-  const navigate = useNavigate();
-  const location = useLocation();  // Tracks the current URL location
-  const {t} = useTranslation();
+    // Get params from the URL
+    const { id: id } = useParams<{ id?: string }>();
+    const navigate = useNavigate();
+    const location = useLocation();  // Tracks the current URL location
+    const { t } = useTranslation();
 
-  // State to manage the selected asset
-  const [selectedAsset, setSelectedAsset] = useState<string | null>(null);
+    // State to manage the selected asset
+    const [selectedAsset, setSelectedAsset] = useState<string | null>(null);
 
-  // State for the date picker
-  const [startDate, setStartDate] = useState<Date | null>(() => {
-    const date = new Date();
-    date.setDate(date.getDate() - 1);
-    return date;
-  });
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
+    // State for the date picker
+    const [startDate, setStartDate] = useState<Date | null>(() => {
+        const date = new Date();
+        date.setDate(date.getDate() - 1);
+        return date;
+    });
+    const [endDate, setEndDate] = useState<Date | null>(new Date());
 
-  // Synchronize state with URL parameters
-  useEffect(() => {
-    if (id) {
-      setSelectedAsset(id);
-    } else {
-      setSelectedAsset(null);
-    }
-  }, [id, location]);
-
-
-  // Handle navigating to a scan detail
-  const handleScanClick = (assetId: string) => {
-    navigate(`/observability/observed-assets/assets/${assetId}`);
-  };
-  return (
-    <Box>
-      <Box display="flex" alignItems="center" mt={2}>
-        <IconButton onClick={() => navigate(-1)} color="primary">
-          <ArrowBackIcon />
-        </IconButton>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
-          {t('menu.observability')}
-          </Link>
-          <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
-          {t('menu.assets')}
-          </Link>
-          {selectedAsset && (
-            <Link component={RouterLink} color="inherit" to={`/observability/observed-assets/assets/${selectedAsset}`}>
-              {t('observability.assets_obs_scans')} 
-            </Link>
-          )}
-        </Breadcrumbs>
-        <Box flexGrow={1} />
-        {
-          selectedAsset && <Box display="flex" alignItems="center" mt={2}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              renderInput={(props) => (
-                <CustomTextField
-                  {...props}
-                  fullWidth
-                  size="small"
-                  sx={{
-                    '& .MuiSvgIcon-root': {
-                      width: '18px',
-                      height: '18px',
-                    },
-                    '& .MuiFormHelperText-root': {
-                      display: 'none',
-                    },
-                  }}
-                />
-              )}
-              value={startDate}
-              onChange={(newValue) => {
-                setStartDate(newValue);
-              }}
-            />
-          </LocalizationProvider>
-          -
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              renderInput={(props) => (
-                <CustomTextField
-                  {...props}
-                  fullWidth
-                  size="small"
-                  sx={{
-                    '& .MuiSvgIcon-root': {
-                      width: '18px',
-                      height: '18px',
-                    },
-                    '& .MuiFormHelperText-root': {
-                      display: 'none',
-                    },
-                  }}
-                />
-              )}
-              value={endDate}
-              onChange={(newValue) => {
-                setEndDate(newValue);
-              }}
-            />
-          </LocalizationProvider>
-        </Box>
+    // Synchronize state with URL parameters
+    useEffect(() => {
+        if (id) {
+            setSelectedAsset(id);
+        } else {
+            setSelectedAsset(null);
         }
-      </Box>
+    }, [id, location]);
 
-      {selectedAsset ? (
-        <Grid container spacing={0} mt={1}>
-          <Grid item xs={12} xl={12}>
-            <ObservedAssetDetail id={selectedAsset!} />
-          </Grid>
-        </Grid>
-      ) : (
-        <Grid container spacing={3} mt={1}>
-          <Grid item xs={12} xl={12}>
-            <ObservedAssetsTable onScanClick={handleScanClick} />
-          </Grid>
-        </Grid>
-      )}
-    </Box>
-  );
+
+    // Handle navigating to a scan detail
+    const handleScanClick = (assetId: string) => {
+        navigate(`/observability/observed-assets/assets/${assetId}`);
+    };
+    return (
+        <PageContainer title="Akila">
+            <Box mb={2}>
+                <Box display="flex" alignItems="center" mt={2}>
+                    <IconButton onClick={() => navigate(-1)} color="primary">
+                        <ArrowBackIcon />
+                    </IconButton>
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
+                            {t('menu.observability')}
+                        </Link>
+                        <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
+                            {t('menu.assets')}
+                        </Link>
+                        {selectedAsset && (
+                            <Link component={RouterLink} color="inherit" to={`/observability/observed-assets/assets/${selectedAsset}`}>
+                                {t('observability.assets_obs_scans')}
+                            </Link>
+                        )}
+                    </Breadcrumbs>
+                    <Box flexGrow={1} />
+                    {
+                        selectedAsset && <Box display="flex" alignItems="center" mt={2}>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    renderInput={(props) => (
+                                        <CustomTextField
+                                            {...props}
+                                            fullWidth
+                                            size="small"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': {
+                                                    width: '18px',
+                                                    height: '18px',
+                                                },
+                                                '& .MuiFormHelperText-root': {
+                                                    display: 'none',
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    value={startDate}
+                                    onChange={(newValue) => {
+                                        setStartDate(newValue);
+                                    }}
+                                />
+                            </LocalizationProvider>
+                            -
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    renderInput={(props) => (
+                                        <CustomTextField
+                                            {...props}
+                                            fullWidth
+                                            size="small"
+                                            sx={{
+                                                '& .MuiSvgIcon-root': {
+                                                    width: '18px',
+                                                    height: '18px',
+                                                },
+                                                '& .MuiFormHelperText-root': {
+                                                    display: 'none',
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    value={endDate}
+                                    onChange={(newValue) => {
+                                        setEndDate(newValue);
+                                    }}
+                                />
+                            </LocalizationProvider>
+                        </Box>
+                    }
+                </Box>
+            </Box>
+
+            {selectedAsset ? (
+                <Grid container spacing={0}>
+                    <Grid item xs={12}>
+                        <ObservedAssetDetail id={selectedAsset!} />
+                    </Grid>
+                </Grid>
+            ) : (
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <ObservedAssetsTable onScanClick={handleScanClick} />
+                    </Grid>
+                </Grid>
+            )}
+        </PageContainer>
+    );
 };
 
 export default ObservedAssets;
