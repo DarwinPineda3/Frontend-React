@@ -9,5 +9,5 @@ import './monitoring/malware-analysis/MalwareAnalysis'
 import './monitoring/mobile-app/MobileApp'
 import './monitoring/mobile-app/appScan'
 import './vulnerabilities/Summary';
-import './monitoring/Newsletter';
+import './monitoring/soc/Newsletter';
 mock.onAny().passThrough();

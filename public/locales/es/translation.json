@@ -601,7 +601,9 @@
     "newsletters_list": "Lista de Boletines Disponibles",
     "newsletter_details": "Detalles del Boletin",
     "size": "Tamaño",
-    "last_modification": "Última modificación"
+    "last_modification": "Última modificación",
+    "mime_type": "Mime Type",
+    "details": "Detalles"
   },
   "technologies_inventory": {
     "technologies_inventory": "Inventario de Tecnologías",
