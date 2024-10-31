@@ -1,11 +1,21 @@
 import { ArrowBack } from '@mui/icons-material';
-import { Box, Breadcrumbs, Button, FormControl, Grid, IconButton, InputLabel, Link, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, FormControl, Grid, IconButton, Link, MenuItem, Select, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../shared/DashboardCard';
+import { styled } from '@mui/material/styles';
+import { TextField, TextFieldProps } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
 
+const CustomTextField = styled((props: TextFieldProps) => <TextField {...props} />)(({ theme }) => ({
+  marginTop: '4px', 
+  '& .MuiOutlinedInput-input::-webkit-input-placeholder': {
+    color: theme.palette.text.secondary,
+    opacity: '0.8',
+  },
+}));
 
 const ScheduleScanForm: React.FC = () => {
     const navigate = useNavigate();
@@ -18,7 +28,6 @@ const ScheduleScanForm: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         const newScan = {
             id: Date.now().toString(),
             name,
@@ -27,17 +36,29 @@ const ScheduleScanForm: React.FC = () => {
             executionTime,
             status: 'Activo',
         };
-
         const existingScans = JSON.parse(localStorage.getItem('scans') || '[]');
         localStorage.setItem('scans', JSON.stringify([...existingScans, newScan]));
-
         navigate('/configuration/scheduled-scans');
-
-        // Reset form fields
         setScanType('');
         setName('');
         setFrequency('');
         setExecutionTime('');
+    };
+
+    const handleScanTypeChange = (e: SelectChangeEvent<string>) => {
+        setScanType(e.target.value);
+    };
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    };
+
+    const handleFrequencyChange = (e: SelectChangeEvent<string>) => {
+        setFrequency(e.target.value);
+    };
+
+    const handleExecutionTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setExecutionTime(e.target.value);
     };
 
     return (
@@ -48,11 +69,7 @@ const ScheduleScanForm: React.FC = () => {
                         <ArrowBack />
                     </IconButton>
                     <Breadcrumbs aria-label="breadcrumb">
-                        <Link
-                            component={RouterLink}
-                            color="inherit"
-                            to="/configuration/scheduled-scans"
-                        >
+                        <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
                             {t('menu.configuration')}
                         </Link>
                         <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
@@ -70,55 +87,73 @@ const ScheduleScanForm: React.FC = () => {
                     >
                         <Box>
                             <form onSubmit={handleSubmit}>
-                                <FormControl fullWidth variant="outlined" margin="normal">
-                                    <InputLabel id="scan_type_label">Tipo de escaneo</InputLabel>
-                                    <Select
-                                        labelId="scan_type_label"
-                                        value={scanType}
-                                        onChange={(e) => setScanType(e.target.value)}
-                                        required
-                                    >
-                                        <MenuItem value="1">Escaneos vulnerabilidad Red</MenuItem>
-                                        <MenuItem value="2">Escaneos vulnerabilidad Web</MenuItem>
-                                        <MenuItem value="3">Escaneos vulnerabilidad WordPress</MenuItem>
-                                        <MenuItem value="4">Escaneos observabilidad Red</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <label htmlFor="scan_type" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                                            Tipo de escaneo
+                                        </label>
+                                        <FormControl fullWidth variant="outlined">
+                                            <Select
+                                                id="scan_type"
+                                                value={scanType}
+                                                onChange={handleScanTypeChange}
+                                                required
+                                            >
+                                                <MenuItem value="1">Escaneos vulnerabilidad Red</MenuItem>
+                                                <MenuItem value="2">Escaneos vulnerabilidad Web</MenuItem>
+                                                <MenuItem value="3">Escaneos vulnerabilidad WordPress</MenuItem>
+                                                <MenuItem value="4">Escaneos observabilidad Red</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
 
-                                <TextField
-                                    label="Nombre"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    required
-                                    margin="normal"
-                                />
+                                    <Grid item xs={12}>
+                                        <label htmlFor="name" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                                            Nombre
+                                        </label>
+                                        <CustomTextField
+                                            id="name"
+                                            variant="outlined"
+                                            fullWidth
+                                            value={name}
+                                            onChange={handleNameChange}
+                                            required
+                                        />
+                                    </Grid>
 
-                                <FormControl fullWidth variant="outlined" margin="normal">
-                                    <InputLabel id="execution_frequency_label">Frecuencia de ejecución</InputLabel>
-                                    <Select
-                                        labelId="execution_frequency_label"
-                                        value={frequency}
-                                        onChange={(e) => setFrequency(e.target.value)}
-                                        required
-                                    >
-                                        <MenuItem value="daily">Cada día</MenuItem>
-                                        <MenuItem value="weekly">Cada semana</MenuItem>
-                                        <MenuItem value="monthly">Cada mes</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                    <Grid item xs={12}>
+                                        <label htmlFor="frequency" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                                            Frecuencia de ejecución
+                                        </label>
+                                        <FormControl fullWidth variant="outlined">
+                                            <Select
+                                                id="frequency"
+                                                value={frequency}
+                                                onChange={handleFrequencyChange}
+                                                required
+                                            >
+                                                <MenuItem value="daily">Cada día</MenuItem>
+                                                <MenuItem value="weekly">Cada semana</MenuItem>
+                                                <MenuItem value="monthly">Cada mes</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
 
-                                <TextField
-                                    label="Hora de ejecución"
-                                    type="time"
-                                    variant="outlined"
-                                    fullWidth
-                                    value={executionTime}
-                                    onChange={(e) => setExecutionTime(e.target.value)}
-                                    required
-                                    margin="normal"
-                                />
+                                    <Grid item xs={12}>
+                                        <label htmlFor="execution_time" style={{ display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                                            Hora de ejecución
+                                        </label>
+                                        <CustomTextField
+                                            id="execution_time"
+                                            type="time"
+                                            variant="outlined"
+                                            fullWidth
+                                            value={executionTime}
+                                            onChange={handleExecutionTimeChange}
+                                            required
+                                        />
+                                    </Grid>
+                                </Grid>
 
                                 <div style={{ margin: '20px 0' }}>
                                     <Typography variant="body1" component="div">

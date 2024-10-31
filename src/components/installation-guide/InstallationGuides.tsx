@@ -23,7 +23,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from '../shared/DashboardCard';
 
-
 const InstallationGuides = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
@@ -255,17 +254,28 @@ sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb`}
     );
 };
 
-const CodeBlock: React.FC<{ children: React.ReactNode; onClick: () => void }> = ({ children, onClick }) => (
-    <Typography variant="body2" onClick={onClick} sx={{
-        backgroundColor: '#f4f4f4',
-        padding: '8px',
-        borderRadius: '4px',
-        whiteSpace: 'pre-wrap',
-        marginBottom: 2,
-        cursor: 'pointer',
-    }}>
-        {children}
-    </Typography>
-);
+const CodeBlock: React.FC<{ children: React.ReactNode; onClick: () => void }> = ({ children, onClick }) => {
+    const theme = useTheme();
+
+    return (
+        <Typography 
+            variant="body2" 
+            onClick={onClick} 
+            sx={{
+                backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background.paper : '#f5f5f5',
+                color: theme.palette.mode === 'dark' ? theme.palette.text.primary : '#333',
+                padding: '8px',
+                borderRadius: '4px',
+                whiteSpace: 'pre-wrap',
+                marginBottom: 2,
+                cursor: 'pointer',
+                border: `1px solid ${theme.palette.divider}`,
+                boxShadow: theme.palette.mode === 'light' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', // Sombra para el modo claro
+            }}
+        >
+            {children}
+        </Typography>
+    );
+};
 
 export default InstallationGuides;
