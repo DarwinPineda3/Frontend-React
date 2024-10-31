@@ -601,7 +601,10 @@
     "newsletters": "Newsletters",
     "newsletters_list": "List of newsletters available",
     "size": "Size",
-    "last_modification": "Last Modification"
+    "last_modification": "Last Modification",
+    "mime_type": "Mime Type",
+    "details": "Details",
+    "newsletter_details": "Newsletter Details"
   },
   "technologies_inventory":{
       "technologies_inventory": "Technologies Inventory",
