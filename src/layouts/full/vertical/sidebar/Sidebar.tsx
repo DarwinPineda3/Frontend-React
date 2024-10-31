@@ -1,11 +1,12 @@
-import { useMediaQuery, Box, Drawer, useTheme } from '@mui/material';
-import SidebarItems from './SidebarItems';
-import Logo from '../../shared/logo/Logo';
-import { useSelector, useDispatch } from 'src/store/Store';
-import { hoverSidebar, toggleMobileSidebar } from 'src/store/customizer/CustomizerSlice';
+import { Box, Drawer, useMediaQuery, useTheme } from '@mui/material';
 import Scrollbar from 'src/components/custom-scroll/Scrollbar';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { hoverSidebar, toggleMobileSidebar } from 'src/store/customizer/CustomizerSlice';
+import Logo from '../../shared/logo/Logo';
+import SidebarItems from './SidebarItems';
 // import { Profile } from './SidebarProfile/Profile';
 import { AppState } from 'src/store/Store';
+import LogoIcon from '../../shared/logo/LogoIcon';
 
 const Sidebar = () => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
@@ -69,7 +70,11 @@ const Sidebar = () => {
             {/* Logo */}
             {/* ------------------------------------------- */}
             <Box px={3}>
-              <Logo />
+              {customizer.isCollapse ? (
+                <LogoIcon />
+              ) : (
+                <Logo />
+              )}
             </Box>
             {/* <Scrollbar sx={{ height: 'calc(100% - 190px)' }}> */}
             <Scrollbar sx={{ height: 'calc(100% - 75px)' }}>
