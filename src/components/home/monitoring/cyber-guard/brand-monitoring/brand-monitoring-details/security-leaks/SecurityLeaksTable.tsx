@@ -141,7 +141,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
                   <HumanizedDate dateString={leak.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{leak.source}</Typography>
+                  <Typography variant="subtitle2">{leak.data.database_name}</Typography>
                 </TableCell>
               </TableRow>
             ))}

@@ -105,7 +105,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
                   <HumanizedDate dateString={dark_web.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{dark_web.source}</Typography>
+                  <Typography variant="subtitle2">{dark_web.data.database_name || dark_web.source}</Typography>
                 </TableCell>
               </TableRow>
             ))}
