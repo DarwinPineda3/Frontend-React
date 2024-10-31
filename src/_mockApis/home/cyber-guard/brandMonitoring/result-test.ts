@@ -4810,6 +4810,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4830,6 +4831,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4858,6 +4860,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/diegocorreagran',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4878,6 +4881,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/diegocorreagran',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4898,6 +4902,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/doblezzeta',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4918,6 +4923,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/doblezzeta',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4946,6 +4952,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/general-dock-logistics',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4966,6 +4973,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/geovana-luisa-1868b5211',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -4986,6 +4994,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/edoardaozorio',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5006,6 +5015,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/jornal-de-neg-cios/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5026,6 +5036,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/thomaz-luiz-sant-ana-86080b20',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5046,6 +5057,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/alexandre-baldanza-49b3161b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5066,6 +5078,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/progressus-ead-9bb47232a',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5086,6 +5099,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/ocean-express-brasil',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5106,6 +5120,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/jornal-de-neg-cios/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -5126,6 +5141,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/nix-international/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'grupoaval.com',
@@ -9729,6 +9745,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'avvillas.com.co',
@@ -9749,6 +9766,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'avvillas.com.co',
@@ -9777,6 +9795,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/cesarpaternina',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'avvillas.com.co',
@@ -9797,6 +9816,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/motiva_in',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'avvillas.com.co',
@@ -9817,6 +9837,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/nataliagrantt',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'avvillas.com.co',
@@ -9845,6 +9866,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/saving-the-amazon/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'avvillas.com.co',
@@ -21037,6 +21059,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21065,6 +21088,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/glortegon',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21085,6 +21109,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/PaolaLopezTv',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Potential risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21113,6 +21138,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/juliana-lima-47a52a85',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21133,6 +21159,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/fondo-colombia-sostenible-b900a221b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Potential risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21153,6 +21180,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/fundacionsantodomingo/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21174,6 +21202,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/company/international-advisory-panel-on-biodiversity-credits/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21194,6 +21223,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/cercarbono/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Potential risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21214,6 +21244,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/maría-paula-acosta-chávez-14a84821b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21234,6 +21265,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/campo-capital/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21254,6 +21286,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/tatianacomunicacionambiental',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21274,6 +21307,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/victor-mieres-608ba41b4',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -21294,6 +21328,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/acdivoca-colombia/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Potential risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
@@ -24317,6 +24352,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24337,6 +24373,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24357,6 +24394,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24377,6 +24415,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24397,6 +24436,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24425,6 +24465,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/ultimafuente/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24445,6 +24486,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/myl-johann-r-amsid-ph-d-618734144',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24465,6 +24507,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/showcase/north-carolina-biotech-networks/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24485,6 +24528,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/registrationwala-com/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24505,6 +24549,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/gundappa-srinivas-1170472a',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24525,6 +24570,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/latest-ind/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24545,6 +24591,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/industrynewsmx/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24565,6 +24612,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/pankajmahto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24585,6 +24633,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/anup-singh-a5128020b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -24606,6 +24655,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/hugo-carlos-domingo-argumedo-reyes-16a73353',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'mi.bancopopular.com.co',
@@ -34763,6 +34813,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34783,6 +34834,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34811,6 +34863,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/samechadra',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34839,6 +34892,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/by-noticias-es/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34859,6 +34913,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/josé-mujica-29b28712b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34880,6 +34935,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/moisés-dos-santos-brandão-moniz-b7aa26268',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34900,6 +34956,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/denis-mairena-coach',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34920,6 +34977,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/borjarubi',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34940,6 +34998,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/yecutieli',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34960,6 +35019,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/editorialrionegro/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -34980,6 +35040,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/bajolalupanews',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -35000,6 +35061,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/erik-ortuño-gonzález',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -35020,6 +35082,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/tomasferreradecastro',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'bancodeoccidente.com.co',
@@ -37935,6 +37998,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -37955,6 +38019,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -37983,6 +38048,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38003,6 +38069,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38023,6 +38090,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38051,6 +38119,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/MobimetricsCO',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38071,6 +38140,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/BrenpCom',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38091,6 +38161,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/elyex',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38111,6 +38182,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/jhoyos',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38131,6 +38203,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/L_G_R_R',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38151,6 +38224,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ositoisthinking',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38171,6 +38245,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ositoisthinking',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38191,6 +38266,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/EventosGaviAgro',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38211,6 +38287,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/rafaelconsuegra',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38231,6 +38308,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/enriquetrespg',
                     user_type: 'user',
                     sentiment_analysis: '8',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38251,6 +38329,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/KamHermansson',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38271,6 +38350,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/JuliannaForero',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38291,6 +38371,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/gatozgates',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38311,6 +38392,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/MarguiArellanoG',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38331,6 +38413,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/carlosaalf',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38351,6 +38434,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/magicarito',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38371,6 +38455,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/andresroarueda',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38400,6 +38485,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/oscar-andres-martinez-martinez-59a437240',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38420,6 +38506,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/banco-av-villas/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38440,6 +38527,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/maria-paula-chamucero-santana-2362a4196',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38460,6 +38548,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/emilce-muñoz-gomez-595a3992',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38480,6 +38569,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/eliana-cristina-gomez-alvarez-72699a116',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38500,6 +38590,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/grupoaval/',
                     user_type: 'company',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38520,6 +38611,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/banco-av-villas/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38540,6 +38632,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/erika-xiomara-lópez-romero-306a53132',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38560,6 +38653,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/saving-the-amazon/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38580,6 +38674,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/jenny-paola-ortiz-gomez-7944a076',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38608,6 +38703,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/casapropiaofi',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38628,6 +38724,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ciclosong',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38648,6 +38745,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/jorgegambaagente',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38668,6 +38766,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/papeleriadetoditoplus',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38688,6 +38787,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/nahiscarolinauzcategui',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38708,6 +38808,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/karollg.finanzas',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38728,6 +38829,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/sintrasecfin',
                     user_type: 'user',
                     sentiment_analysis: '8',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38748,6 +38850,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/casapropiaofi',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38768,6 +38871,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/casapropiaofi',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38788,6 +38892,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/casapropiaofi',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38808,6 +38913,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/caritodelmar',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38828,6 +38934,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/_geraldinewhite',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38848,6 +38955,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38868,6 +38976,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/grupoadrenalinatravel',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38888,6 +38997,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/sintrasecfin',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38908,6 +39018,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/inmobiliaria__grupo_laverde',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38928,6 +39039,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elespectador',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38948,6 +39060,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/tecnoturnos_sas',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38968,6 +39081,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/luchifitmom',
                     user_type: 'user',
                     sentiment_analysis: '8',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -38988,6 +39102,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/grupoadrenalinatravel',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -39008,6 +39123,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/djyovacolombia',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -39028,6 +39144,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/suchancehuilaoficial',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -39048,6 +39165,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/vivienda.total',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -39068,6 +39186,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/danimeloe',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco AV Villas',
@@ -39233,6 +39352,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39253,6 +39373,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39273,6 +39394,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39293,6 +39415,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39321,6 +39444,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39341,6 +39465,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39369,6 +39494,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ContraReplica_C',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39389,6 +39515,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/William69616808',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39409,6 +39536,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Divadzersom85',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39429,6 +39557,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Davo_24',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39449,6 +39578,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ultravioleta_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39469,6 +39599,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/SandraL61884501',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39489,6 +39620,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/SepulvedaManuel',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39509,6 +39641,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/investinbogota',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39529,6 +39662,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Stephsilvag',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39549,6 +39683,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/jmanuelsaenzdeb',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39569,6 +39704,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/investinbogota',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39589,6 +39725,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Korraleja',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39617,6 +39754,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/andrea-turriago-campuzano',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39637,6 +39775,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/sandra-marcela-murcia-mora-aa036051',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39657,6 +39796,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/maría-alejandra-peña-rubio-409b86183',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39677,6 +39817,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/itau-colombia/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39697,6 +39838,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/banco-av-villas/',
                     user_type: 'company',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39717,6 +39859,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/david-pérez-b2ab262a',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39737,6 +39880,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/stephanie-obando',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39757,6 +39901,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/casa-editorial-el-tiempo/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39777,6 +39922,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/ecoclic-by-xm/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39797,6 +39943,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/alexey-villa-t-53812323a',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39825,6 +39972,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/inversiones.colombia.33',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39845,6 +39993,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lasillavaciaoficial',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39865,6 +40014,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/thaelosorioofficial',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39885,6 +40035,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lealdaccarett',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39905,6 +40056,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/urbanizacionnuevovallejo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39925,6 +40077,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/urbanizacionnuevovallejo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39945,6 +40098,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/urbanizacionvallejo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39965,6 +40119,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/urbanizacionvallejo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -39985,6 +40140,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/urbanizacionnuevovallejo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40005,6 +40161,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/motowork',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40025,6 +40182,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/beatrizcamacho3',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40045,6 +40203,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40065,6 +40224,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/niupicocinacreativa',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40085,6 +40245,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/pipediaz9102',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40105,6 +40266,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/has_diaz03',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40125,6 +40287,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/juandavidgaleano1',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40145,6 +40308,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/loramotors.barranquilla',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40165,6 +40329,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ase.auteco.cali',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40185,6 +40350,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/onvacation.fabian',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40205,6 +40371,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40225,6 +40392,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lore_sbakery',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40245,6 +40413,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/expoelectrik',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40265,6 +40434,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40285,6 +40455,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/susuerte',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Bogota',
@@ -40448,6 +40619,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40468,6 +40640,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40488,6 +40661,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40508,6 +40682,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40536,6 +40711,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40556,6 +40732,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40584,6 +40761,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/djwats01',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40604,6 +40782,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Bco_Occidente',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40624,6 +40803,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/charls517',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40665,6 +40845,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/RedServiciosCor',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40685,6 +40866,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/zoomhummer',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40705,6 +40887,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/eltransportecom',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40725,6 +40908,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/MasContainer',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40745,6 +40929,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Bancocci',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40765,6 +40950,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/hrrh75',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40785,6 +40971,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Electrohuila',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40805,6 +40992,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/luceroclubg',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40825,6 +41013,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Flavia__Motta',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40845,6 +41034,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Bancocci',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40865,6 +41055,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/AlcaldiaLeticia',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40885,6 +41076,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/antilavado',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40905,6 +41097,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/abocca73',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40925,6 +41118,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/antilavado',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40953,6 +41147,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/leonelrivas88',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40973,6 +41168,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/allison-juliana-diaz-masmela-3a79411ab',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -40993,6 +41189,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/jose-luis-velásquez-rodríguez-9a773289',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41013,6 +41210,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/banco-de-occidente/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41033,6 +41231,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/victor-usuga-86615765',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41053,6 +41252,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/canietioccidente',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41076,6 +41276,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/departamento-de-derecho-del-medio-ambiente-de-la-universidad-externado-de-colombia-70013b1b2',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41097,6 +41298,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/company/asociaci%C3%B3n-de-fiduciarias-de-colombia/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41117,6 +41319,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/lina-maria-mancilla-fernandez-14b474331',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41137,6 +41340,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/julian-david-pinto-herrera-2766b5177',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41165,6 +41369,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/susuerte',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41185,6 +41390,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/supergiroschocooficial',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41205,6 +41411,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/guillermomahchi',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41225,6 +41432,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/angelicafrancoasesoria',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41245,6 +41453,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/supergirosoficial',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41265,6 +41474,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/revista_estilo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41285,6 +41495,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/inversiones.colombia.33',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41305,6 +41516,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/3rsinmobiliaria',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41325,6 +41537,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/noticiasrcn',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41345,6 +41558,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41365,6 +41579,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/diparco_oficial',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41385,6 +41600,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/revista_estilo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41405,6 +41621,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/bancocci',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41425,6 +41642,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/gomezsierrapropiedades',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41445,6 +41663,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/jfcadavid',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41465,6 +41684,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/el_mindo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41485,6 +41705,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/pajonmiguel',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41505,6 +41726,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41525,6 +41747,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ferskoda',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41545,6 +41768,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/mchonduras',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41565,6 +41789,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/bancocci',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41585,6 +41810,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/jeffexplora',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41605,6 +41831,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ucenm_hn',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41625,6 +41852,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/el_mindo',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco de Occidente',
@@ -41788,6 +42016,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41808,6 +42037,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41828,6 +42058,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41848,6 +42079,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41868,6 +42100,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41888,6 +42121,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41908,6 +42142,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41936,6 +42171,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41956,6 +42192,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -41984,6 +42221,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/puntarenasseoye',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42004,6 +42242,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/elnuevodiariord',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42024,6 +42263,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/AccionesEspana',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42044,6 +42284,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/LoQueSucedioLQS',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42064,6 +42305,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/guaraguao200',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42084,6 +42326,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/puntarenasseoye',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42104,6 +42347,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/SIN24Horas',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42124,6 +42368,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ElDia_do',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42144,6 +42389,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/HoyEnRD07',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42164,6 +42410,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/eldamerodigital',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42184,6 +42431,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/correiodeminas',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42204,6 +42452,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/acdmediard',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42224,6 +42473,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ElDia_do',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42244,6 +42494,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/HilandoFinoTV',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42264,6 +42515,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/lemba2012',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42284,6 +42536,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/ElDia_do',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42304,6 +42557,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Sarevat',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42324,6 +42578,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/GUASABARAeditor',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42344,6 +42599,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/SIN24Horas',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42372,6 +42628,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/maria-denisse-vasquez-sena-b5906a20b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42392,6 +42649,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/cctmc/',
                     user_type: 'company',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42412,6 +42670,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/jpberthelemy',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42432,6 +42691,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/sávio-coelho-ba5b31193',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42452,6 +42712,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/sinzerocobro/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42472,6 +42733,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/banco-popular-dominicano/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42493,6 +42755,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/sherry-altagracia-rodríguez-bautista-8a5874211',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42513,6 +42776,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/alexandra-vargas-infante-b044626a',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42533,6 +42797,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/gregaladoa',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42553,6 +42818,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/carlos-rodriguez-a16b24',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42581,6 +42847,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elpandaqueanda',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42601,6 +42868,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/theadrenalinetraveler',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42621,6 +42889,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/revistapodercol',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42641,6 +42910,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/bonaisima1',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42661,6 +42931,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elpandaqueanda',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42681,6 +42952,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/primeralineacr',
                     user_type: 'user',
                     sentiment_analysis: '1',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42701,6 +42973,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/desenredandoelespectaculodo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42721,6 +42994,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/acrnoticiascostarica',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42741,6 +43015,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/luminariastv',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42761,6 +43036,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/mich.brown',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42781,6 +43057,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elinmobiliariodo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42801,6 +43078,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/popularenlinea',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42821,6 +43099,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ozamatrucks',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42841,6 +43120,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/luminariastv',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42861,6 +43141,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/pregonerord',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42881,6 +43162,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/cinevisioncanal19',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42901,6 +43183,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elnuevodiariord',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42921,6 +43204,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/rcavada',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42941,6 +43225,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/periodico.com.do',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42961,6 +43246,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/detodounpocord2',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -42981,6 +43267,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/panorama_do',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -43001,6 +43288,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elnuevodiariord',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -43021,6 +43309,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/sorayalaracaba',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -43041,6 +43330,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/e3noticiasrd',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Banco Popular',
@@ -43204,6 +43494,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43224,6 +43515,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43252,6 +43544,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43280,6 +43573,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43300,6 +43594,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43320,6 +43615,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43340,6 +43636,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43360,6 +43657,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43380,6 +43678,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43400,6 +43699,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43420,6 +43720,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43440,6 +43741,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43460,6 +43762,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43480,6 +43783,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43500,6 +43804,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43520,6 +43825,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43540,6 +43846,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43560,6 +43867,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43580,6 +43888,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43600,6 +43909,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43620,6 +43930,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43640,6 +43951,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43660,6 +43972,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/fastmaracucho',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43689,6 +44002,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/high-altitude-periódico-deportivo-digital-b03a69205',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43709,6 +44023,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/expansioncom/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43729,6 +44044,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/industrynewsmx/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43750,6 +44066,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/manifiesto-tamaulipas-noticias-190361106',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43770,6 +44087,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/cio-m%C3%A9xico/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43790,6 +44108,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/carolina-ignarra',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43810,6 +44129,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/dr-julio-jiménez-a9207533',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43830,6 +44150,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/valeria-b-27b579206',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43850,6 +44171,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/giselaorozco',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43870,6 +44192,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/comentariodeldia/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43898,6 +44221,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/munaykipagos',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43918,6 +44242,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/bloomberglineacolombia',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43938,6 +44263,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/cristianchiquiza_r',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43958,6 +44284,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/forbescolombia',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43978,6 +44305,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/germador_',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -43998,6 +44326,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/leo_caricaturista',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44018,6 +44347,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/supergiroschocooficial',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44038,6 +44368,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/forbescolombia',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44058,6 +44389,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/economiaparalapipol',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44078,6 +44410,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44098,6 +44431,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/gpavaldr',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44118,6 +44452,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/viveelmeta',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44138,6 +44473,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/entrenadorjose',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44158,6 +44494,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/toyotacarlosramirez',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44178,6 +44515,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44198,6 +44536,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/fundacionjpgc',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44218,6 +44557,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/manuel588_9',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44238,6 +44578,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/pipediaz9102',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44258,6 +44599,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/elcolombiano_',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44278,6 +44620,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/sebas_cg97',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44298,6 +44641,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/larepublica_co',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44318,6 +44662,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/manuel588_9',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44338,6 +44683,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/forbescolombia',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',
@@ -44358,6 +44704,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/laorejaroja',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "Not Enough Information"
                   },
                   generated: null,
                   source: 'Grupo Aval',

@@ -69,7 +69,6 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
     }
   };
 
-  const risk_analysis = "no risk"
   return (
     <>
       <TableContainer>
@@ -128,16 +127,15 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                 </TableCell>
                 <TableCell>{renderSentimentChip(social.data?.sentiment_analysis || '0')}</TableCell>
                 <TableCell>
-                  {/* social.data?.risk_analysis */}
                   <Chip
-                    label={ t("risk_analysis.potential_risk")}
+                    label={social.data?.risk_analysis}
                     color="secondary"
                     size="small"
                     style={{
                       backgroundColor:
-                      risk_analysis.toLowerCase() == "Potential Risk".toLowerCase()
-                          ? high
-                          : risk_analysis.toLowerCase() == "No risk".toLowerCase()
+                      social.data?.risk_analysis.toLowerCase() == "Potential risk".toLowerCase()
+                          ? critical
+                          : social.data?.risk_analysis.toLowerCase() == "No risk".toLowerCase()
                             ? low
                             : unknown,
                       color: 'white'

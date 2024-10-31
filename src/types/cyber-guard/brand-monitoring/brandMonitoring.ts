@@ -103,6 +103,7 @@ export interface SocialNetworksData {
   user_url: string;
   user_type: 'user' | 'page' | 'verified' | 'business' | string;
   sentiment_analysis: string;
+  risk_analysis: string;
 }
 
 export interface SocialNetworksCounters {
