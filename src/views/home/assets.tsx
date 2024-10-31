@@ -7,15 +7,15 @@ const Assets = () => {
     return (
         <PageContainer title="Akila">
             <Grid container spacing={3}>
-                <Grid item xs={12} lg={12}>
-                    <AssetsCards/>
+                <Grid item xs={12}>
+                    <AssetsCards />
                 </Grid>
-                <Grid item xs={12} lg={12}>
-                    <AssetList/>
+                <Grid item xs={12}>
+                    <AssetList />
                 </Grid>
             </Grid>
         </PageContainer>
-        
+
     );
 };
 
