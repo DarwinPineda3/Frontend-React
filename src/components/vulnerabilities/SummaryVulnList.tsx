@@ -23,6 +23,7 @@ import { fetchSummaryVuln, setPage } from 'src/store/vulnerabilities/SummaryVuln
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
+import { useTheme } from '@mui/material/styles';
 
 const SummaryVulnerabilitiesList = () => {
     const { t } = useTranslation();
@@ -33,22 +34,57 @@ const SummaryVulnerabilitiesList = () => {
     const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
     const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
     const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success'); // Snackbar severity
+    const theme = useTheme();
+    const criticalColor = theme.palette.level.critical;
+    const highColor = theme.palette.level.high;
+    const mediumColor = theme.palette.level.medium;
+    const lowColor = theme.palette.level.low;
+    const noneColor = theme.palette.level.none;
 
-React.useEffect(() => {
-    dispatch(fetchSummaryVuln(currentPage));
-}, [dispatch, currentPage]);
+    const getChipColor = (riskLevel: string) => {
+        switch (riskLevel) {
+          case 'critical':
+            return { color: criticalColor, label: t('monitoring.critical') };
+          case 'high':
+            return { color: highColor, label: t('monitoring.high') };
+          case 'medium':
+            return { color: mediumColor, label: t('monitoring.medium') };
+          case 'low':
+            return { color: lowColor, label: t('monitoring.low') };
+          default:
+            return { color: noneColor, label: 'N/A' };
+        }
+    };
 
-const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-    dispatch(setPage(page));
-    }
-};
-const [month, setMonth] = React.useState('1');
-const currentYear = new Date().getFullYear();
+    const getChipColorSeverity = (severity: number) => {
+        if (severity > 9.0) {
+            return { color: criticalColor};
+        } else if (severity > 7.0) {
+            return { color: highColor};
+        } else if (severity > 4.0) {
+            return { color: mediumColor};
+        } else if (severity > 0) {
+        return { color: lowColor};
+        } else {
+            return { color: noneColor};
+        }
+    };
 
-const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMonth(event.target.value);
-};
+    React.useEffect(() => {
+        dispatch(fetchSummaryVuln(currentPage));
+    }, [dispatch, currentPage]);
+
+    const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+        if (page !== currentPage) {
+        dispatch(setPage(page));
+        }
+    };
+    const [month, setMonth] = React.useState('1');
+    const currentYear = new Date().getFullYear();
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMonth(event.target.value);
+    };
 
 return (
     <DashboardCard 
@@ -139,22 +175,11 @@ return (
                                 <TableCell>
                                     <Typography variant="subtitle2" fontWeight={600}>
                                         <Chip
+                                            label={getChipColor(_.lowerCase(vulnerability.type)).label}
                                             sx={{
-                                            bgcolor:
-                                                _.capitalize(vulnerability.type) === 'Critical'
-                                                ? (theme) => theme.palette.level.critical
-                                                : _.capitalize(vulnerability.type) === 'High'
-                                                ? (theme) => theme.palette.level.high
-                                                : _.capitalize(vulnerability.type) === 'Medium'
-                                                ? (theme) => theme.palette.level.medium
-                                                : _.capitalize(vulnerability.type) === 'Low'
-                                                ? (theme) => theme.palette.level.low
-                                                : (theme) => theme.palette.level.unknown,
-                                            color: (theme) => theme.palette.background.default,
-                                                borderRadius: '8px',
+                                            backgroundColor: getChipColor(_.lowerCase(vulnerability.type)).color,
+                                            color: 'white',
                                             }}
-                                            size="small"
-                                            label={t(`dashboard.${_.lowerCase(vulnerability.type)}`)}
                                         />
                                     </Typography>
                                 </TableCell>
@@ -165,23 +190,12 @@ return (
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subtitle2" fontWeight={600}>
-                                    <Chip
-                                        sx={{
-                                            bgcolor:
-                                                vulnerability.severity > 9.0
-                                                ? (theme) => theme.palette.level.critical
-                                                : vulnerability.severity > 7.0
-                                                ? (theme) => theme.palette.level.high
-                                                : vulnerability.severity > 4.0
-                                                ? (theme) => theme.palette.level.medium
-                                                : vulnerability.severity > 0
-                                                ? (theme) => theme.palette.level.low
-                                                : (theme) => theme.palette.level.unknown,
-                                            color: (theme) => theme.palette.background.default,
-                                            borderRadius: '8px',
-                                            }}
-                                            size="small"
+                                        <Chip
                                             label={vulnerability.severity}
+                                            sx={{
+                                                backgroundColor: getChipColorSeverity(vulnerability.severity).color,
+                                                color: 'white',
+                                            }}
                                         />
                                     </Typography>
                                 </TableCell>

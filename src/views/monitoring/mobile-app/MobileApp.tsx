@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import MobileAppList from "src/components/home/monitoring/mobile-apps/MobileAppResultList";
+import MobileAppDetail from "src/components/home/monitoring/mobile-apps/MobileAppDetail";
 // import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 
 
 const MobileApp = () => {
-
+    const { t } = useTranslation();
     const { mobileAppId } = useParams<{ mobileAppId?: string }>();
     const location = useLocation();  // Tracks the current URL location
 
@@ -28,7 +30,7 @@ const MobileApp = () => {
     }, [mobileAppId, location]);
 
     const handleMobileAppClick = (id: number) => {
-        navigate(`/monitoring/mobile-app/${id}`);
+        navigate(`/monitoring/cyber-guard/mobile-app/scan-app/${id}/result-app/${id}`);
     };
     return (
         <Box>
@@ -37,15 +39,21 @@ const MobileApp = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/mobile-app">
-                        Monitoring
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                        {t("menu.monitoring")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/mobile-app">
-                        Mobile apps
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                        {t("menu.cyber_guard")}
+                    </Link>
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app/scan-app/12">
+                        {t("mobile_apps.mobile_apps")}
+                    </Link>
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                        {t("mobile_apps.results_app_scans")}
                     </Link>
                     {selectedMobileApp && (
                         <Typography color="textPrimary">
-                            Detalle app móvil
+                            {t("mobile_apps.mobile_apps_details")}
                         </Typography>
                     )}
                 </Breadcrumbs>
@@ -53,7 +61,7 @@ const MobileApp = () => {
             {selectedMobileApp ? (
                 <Grid container spacing={0} mt={1}>
                     <Grid item xs={12} xl={12}>
-                        {/* <MalwareAnalysisDetail mobileAppId={selectedMobileApp!} /> */}
+                        <MobileAppDetail mobileAppId={selectedMobileApp!} />
                     </Grid>
                 </Grid>
             ) : (

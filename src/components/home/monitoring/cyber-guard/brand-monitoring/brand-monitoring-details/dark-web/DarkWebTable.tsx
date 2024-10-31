@@ -17,12 +17,13 @@ import { useTranslation } from 'react-i18next';
 
 interface DarkWebTableProps {
   dark_web: DarkWeb[];
+  category: string;
 }
 
-const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
+const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<DarkWeb | null>(null);
 
@@ -45,6 +46,23 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedLeak(null);
+  };
+
+  const getCategoryData = (dark_web: DarkWeb) => {
+    switch (category) {
+      case 'Domains':
+        return dark_web.data.domain;
+      case 'Emails':
+        return dark_web.data.email;
+      case 'IPs':
+        return dark_web.data.ip_address;
+      case 'Usernames':
+        return dark_web.data.username || dark_web.data.name;
+      case 'Phones':
+        return dark_web.data.phone;
+      default:
+        return 'NA';
+    }
   };
 
   return (
@@ -80,14 +98,14 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
                     color="primary"
                     sx={{ cursor: 'pointer' }}
                   >
-                    {dark_web.data?.email || dark_web.data?.username || 'NA'}
+                    {getCategoryData(dark_web) || 'NA'}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
                   <HumanizedDate dateString={dark_web.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{dark_web.source}</Typography>
+                  <Typography variant="subtitle2">{dark_web.data.database_name || dark_web.data.domain}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -96,7 +114,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={dark_web.length}
         rowsPerPage={rowsPerPage}

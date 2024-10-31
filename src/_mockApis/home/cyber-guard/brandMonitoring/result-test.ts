@@ -3,12 +3,13 @@ import { Results } from '../../../../types/cyber-guard/brand-monitoring/brandMon
 export const consolidateDataTest: Results = {
   data: [
     //////////////////////////// DOMINIOS ////////////////////////////
+    ////////////////////grupoaval.com////////////////////
     {
       id: '-4OvxJIBHPjIIpHRuekR',
       query: 'grupoaval.com',
       query_type: 'DOMAIN',
       scandate: '2024-10-25T17:18:22.956182+00:00',
-      totalresults: 177,
+      totalresults: 197,
       status: 'COMPLETED',
       consolidated_data: {
         internet_counters: {
@@ -17,8 +18,8 @@ export const consolidateDataTest: Results = {
           names_usernames: 11,
           phones: 0,
           vins: 0,
-          domains: 1,
-          total: 22,
+          domains: 21,
+          total: 42,
         },
         internet_data: [
           {
@@ -852,11 +853,425 @@ export const consolidateDataTest: Results = {
               description:
                 'User names (aliases or handles) found online, which could be linked to a person or entity on various websites or services.',
             },
+            'Phishing Domains': {
+              data: [
+                {
+                  date: '2024-10-26T07:21:38.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoafal.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoavam.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:42.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoavil.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoeval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'portalgrupoaval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:52.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'gruposaval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:58.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoacval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:00.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoava.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoavl.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:42.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoagal.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoabal.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:54.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grup.oaval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:58.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoaval.app',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:23:02.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoaval.info',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:23:06.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoaval.cn',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:23:10.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoaval.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:23:14.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupoaval.net',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:23:18.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupovaal.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:23:22.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'grupooval.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'grupoaval.com',
+                  type: 'PHISHING_DOMAINS',
+                },
+              ],
+              total_results: 20,
+              type: 'phishing_domains',
+              description: '',
+            },
           },
         ],
         graphics_charts_internet: {
-          labels: ['Correlations', 'Emailaddr', 'Internet name', 'Social media', 'Username'],
-          values: [15, 10, 1, 2, 11],
+          labels: [
+            'Correlations',
+            'Emailaddr',
+            'Internet name',
+            'Social media',
+            'Username',
+            'Phishing Domains',
+          ],
+          values: [15, 10, 1, 2, 11, 20],
         },
         security_leaks_data: [
           {
@@ -7618,12 +8033,13 @@ export const consolidateDataTest: Results = {
         },
       },
     },
+    ////////////////////avvillas.com.co////////////////////
     {
       id: 'vxJIBHPjIIpHRuekRdasRE',
       query: 'avvillas.com.co',
       query_type: 'DOMAIN',
       scandate: '2024-10-25T17:18:22.956182+00:00',
-      totalresults: 71,
+      totalresults: 83,
       status: 'COMPLETED',
       consolidated_data: {
         internet_counters: {
@@ -7632,8 +8048,8 @@ export const consolidateDataTest: Results = {
           names_usernames: 5,
           phones: 0,
           vins: 0,
-          domains: 2,
-          total: 40,
+          domains: 14,
+          total: 52,
         },
         internet_data: [
           {
@@ -8872,6 +9288,253 @@ export const consolidateDataTest: Results = {
               description:
                 'User names (aliases or handles) found online, which could be linked to a person or entity on various websites or services.',
             },
+            'Phishing Domains': {
+              data: [
+                {
+                  date: '2024-10-26T07:18:38.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'wwwavvillas.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avillas.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:43.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvilas.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvilla.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvvillas.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:52.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvillaa.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:58.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvill.as.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:00.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvillas.online',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvillas.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:42.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvillas.biz',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvillas.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'avvillas.net',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'avvillas.com.co',
+                  type: 'PHISING_DOMAINS',
+                },
+              ],
+              total_results: 12,
+              type: 'phishing_domains',
+              description: '',
+            },
           },
         ],
         graphics_charts_internet: {
@@ -8884,8 +9547,9 @@ export const consolidateDataTest: Results = {
             'Malicious ipaddr',
             'Social media',
             'Username',
+            'Phishing Domains',
           ],
-          values: [17, 28, 1, 3, 2, 1, 1, 5],
+          values: [17, 28, 1, 3, 2, 1, 1, 5, 12],
         },
         security_leaks_data: [
           {
@@ -9480,12 +10144,13 @@ export const consolidateDataTest: Results = {
         },
       },
     },
+    ////////////////////bancodebogota.com////////////////////
     {
       id: 'R4O6xJIBHPjIIpHRxur5',
       query: 'bancodebogota.com',
       query_type: 'DOMAIN',
       scandate: '2024-10-25T17:30:27.488378+00:00',
-      totalresults: 509,
+      totalresults: 519,
       status: 'COMPLETED',
       consolidated_data: {
         internet_counters: {
@@ -9494,8 +10159,8 @@ export const consolidateDataTest: Results = {
           names_usernames: 9,
           phones: 0,
           vins: 0,
-          domains: 29,
-          total: 109,
+          domains: 39,
+          total: 119,
         },
         internet_data: [
           {
@@ -19423,6 +20088,222 @@ export const consolidateDataTest: Results = {
               description:
                 'User names (aliases or handles) found online, which could be linked to a person or entity on various websites or services.',
             },
+            'Phishing Domains': {
+              data: [
+                {
+                  date: '2024-10-26T07:18:38.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancodebogotas.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'wwwbancodebogota.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:43.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancosdebogota.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'banco.debogota.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancode.bogota.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:52.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancodebogota.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:19:58.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancodebogota.info',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:00.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancodebogota.net',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancodebogota.org',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:20:42.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancadebogota.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+
+                  generated: null,
+                  source: 'bancodebogota.com',
+                  type: 'PHISING_DOMAINS',
+                },
+              ],
+              total_results: 10,
+              type: 'phishing_domains',
+              description: '',
+            },
           },
         ],
         graphics_charts_internet: {
@@ -19435,8 +20316,9 @@ export const consolidateDataTest: Results = {
             'Malicious ipaddr',
             'Social media',
             'Username',
+            'Phishing Domains',
           ],
-          values: [347, 65, 1, 4, 29, 1, 4, 9],
+          values: [347, 65, 1, 4, 29, 1, 4, 9, 10],
         },
         security_leaks_data: [
           {
@@ -22265,12 +23147,13 @@ export const consolidateDataTest: Results = {
         },
       },
     },
+    ////////////////////bancopopular.com.co////////////////////
     {
       id: '4oOsxJIBHPjIIpHRb-mQ',
       query: 'mi.bancopopular.com.co',
       query_type: 'DOMAIN',
       scandate: '2024-10-25T17:14:47.069952+00:00',
-      totalresults: 53,
+      totalresults: 66,
       status: 'COMPLETED',
       consolidated_data: {
         internet_counters: {
@@ -22279,8 +23162,8 @@ export const consolidateDataTest: Results = {
           names_usernames: 0,
           phones: 0,
           vins: 0,
-          domains: 0,
-          total: 35,
+          domains: 13,
+          total: 48,
         },
         internet_data: [
           {
@@ -23128,11 +24011,278 @@ export const consolidateDataTest: Results = {
               description:
                 'E-mail addresses associated with affiliates or entities related to the investigated entity.',
             },
+            'Phishing Domains': {
+              data: [
+                {
+                  date: '2024-10-26T07:21:38.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'wwwbancopopular.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopoplar.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:42.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'banco.popular.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopul.ar.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.eu',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:52.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.info',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:21:58.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.de',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:00.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.net',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:40.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.com',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:42.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.biz',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:46.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:50.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancopopular.org',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+                {
+                  date: '2024-10-26T07:22:54.038549Z',
+                  data: {
+                    generated: '1729803969.55276',
+                    type: 'PHISHING_DOMAINS',
+                    confidence: '',
+                    risk: '0',
+                    data: 'bancapopular.com.co',
+                    module: 'phishing_domains',
+                    source: 'dnstwist.it',
+                    date: '',
+                    title: '',
+                    name: '',
+                    description: '',
+                    risk_level: 0,
+                  },
+                  generated: null,
+                  source: 'bancopopular.com.co',
+                  type: 'PHISHING_DOMAINS',
+                },
+              ],
+              total_results: 13,
+              type: 'phishing_domains',
+              description: '',
+            },
           },
         ],
         graphics_charts_internet: {
-          labels: ['Correlations', 'Affiliate emailaddr'],
-          values: [6, 35],
+          labels: ['Correlations', 'Affiliate emailaddr', 'Phishing Domains'],
+          values: [6, 35, 13],
         },
         security_leaks_data: [],
         security_leaks_counters: {
@@ -39158,22 +40308,22 @@ export const consolidateDataTest: Results = {
           values: [4, 2, 12, 10, 24],
         },
         graphics_charts_social_networks_sentiment_analysis: {
-            labels: [
-                'No expresses feeling',    // 0
-                'Very dissatisfied',       // 1
-                'Dissatisfied',            // 2
-                'Neutral',                 // 3
-                'Satisfied',               // 4
-                'Very satisfied',          // 5
-              ],
-              values: [
-                37, // Count of No expresses feeling (0)
-                5,  // Count of Very dissatisfied (1)
-                1,  // Count of Dissatisfied (2)
-                0,  // Count of Neutral (3)
-                1,  // Count of Satisfied (4)
-                7,  // Count of Very satisfied (5)
-              ],
+          labels: [
+            'No expresses feeling', // 0
+            'Very dissatisfied', // 1
+            'Dissatisfied', // 2
+            'Neutral', // 3
+            'Satisfied', // 4
+            'Very satisfied', // 5
+          ],
+          values: [
+            37, // Count of No expresses feeling (0)
+            5, // Count of Very dissatisfied (1)
+            1, // Count of Dissatisfied (2)
+            0, // Count of Neutral (3)
+            1, // Count of Satisfied (4)
+            7, // Count of Very satisfied (5)
+          ],
         },
         dark_web_data: [],
         dark_web_counters: {
@@ -40498,22 +41648,22 @@ export const consolidateDataTest: Results = {
           values: [4, 2, 18, 10, 24],
         },
         graphics_charts_social_networks_sentiment_analysis: {
-            labels: [
-                'No expresses feeling',    // 0
-                'Very dissatisfied',         // 1
-                'Dissatisfied',              // 2
-                'Neutral',                   // 3
-                'Satisfied',                 // 4
-                'Very satisfied',            // 5
-              ],
-              values: [
-                32, // Count of No expresses feeling (0)
-                5,  // Count of Very dissatisfied (1)
-                1,  // Count of Dissatisfied (2)
-                0,  // Count of Neutral (3)
-                5,  // Count of Satisfied (4)
-                8,  // Count of Very satisfied (5)
-              ],
+          labels: [
+            'No expresses feeling', // 0
+            'Very dissatisfied', // 1
+            'Dissatisfied', // 2
+            'Neutral', // 3
+            'Satisfied', // 4
+            'Very satisfied', // 5
+          ],
+          values: [
+            32, // Count of No expresses feeling (0)
+            5, // Count of Very dissatisfied (1)
+            1, // Count of Dissatisfied (2)
+            0, // Count of Neutral (3)
+            5, // Count of Satisfied (4)
+            8, // Count of Very satisfied (5)
+          ],
         },
         dark_web_data: [],
         dark_web_counters: {
@@ -41914,22 +43064,22 @@ export const consolidateDataTest: Results = {
           values: [7, 2, 19, 10, 24],
         },
         graphics_charts_social_networks_sentiment_analysis: {
-            labels: [
-                'No expresses feeling',              // 0
-                'Very Dissatisfied',         // 1
-                'Dissatisfied',              // 2
-                'Neutral',                   // 3
-                'Satisfied',                 // 4
-                'Very Satisfied',            // 5
-              ],
-              values: [
-                35, // Count of No expresses feeling (0)
-                3,  // Count of Very Dissatisfied (1)
-                1,  // Count of Dissatisfied (2)
-                0,  // Count of Neutral (3)
-                5,  // Count of Satisfied (4)
-                9,  // Count of Very Satisfied (5)
-              ],
+          labels: [
+            'No expresses feeling', // 0
+            'Very Dissatisfied', // 1
+            'Dissatisfied', // 2
+            'Neutral', // 3
+            'Satisfied', // 4
+            'Very Satisfied', // 5
+          ],
+          values: [
+            35, // Count of No expresses feeling (0)
+            3, // Count of Very Dissatisfied (1)
+            1, // Count of Dissatisfied (2)
+            0, // Count of Neutral (3)
+            5, // Count of Satisfied (4)
+            9, // Count of Very Satisfied (5)
+          ],
         },
         dark_web_data: [],
         dark_web_counters: {
@@ -43231,22 +44381,22 @@ export const consolidateDataTest: Results = {
           values: [2, 1, 20, 10, 24],
         },
         graphics_charts_social_networks_sentiment_analysis: {
-            labels: [
-                'No expresses feeling',      // 0
-                'Very Dissatisfied',         // 1
-                'Dissatisfied',              // 2
-                'Neutral',                   // 3
-                'Satisfied',                 // 4
-                'Very Satisfied',            // 5
-              ],
-              values: [
-                48, // Count of No expresses feeling (0)
-                0,  // Count of Very Dissatisfied (1)
-                0,  // Count of Dissatisfied (2)
-                0,  // Count of Neutral (3)
-                0,  // Count of Satisfied (4)
-                7,  // Count of Very Satisfied (5)
-              ],
+          labels: [
+            'No expresses feeling', // 0
+            'Very Dissatisfied', // 1
+            'Dissatisfied', // 2
+            'Neutral', // 3
+            'Satisfied', // 4
+            'Very Satisfied', // 5
+          ],
+          values: [
+            48, // Count of No expresses feeling (0)
+            0, // Count of Very Dissatisfied (1)
+            0, // Count of Dissatisfied (2)
+            0, // Count of Neutral (3)
+            0, // Count of Satisfied (4)
+            7, // Count of Very Satisfied (5)
+          ],
         },
         dark_web_data: [],
         dark_web_counters: {

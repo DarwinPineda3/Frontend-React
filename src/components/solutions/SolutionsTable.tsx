@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
 import {
+  Box,
+  Link,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  Link,
   Typography,
 } from '@mui/material';
-import DashboardCard from '../shared/DashboardCard';
-import { Link as RouterLink } from 'react-router-dom'; 
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
+import DashboardCard from '../shared/DashboardCard';
 
 interface Solution {
   id: string;
@@ -39,7 +39,7 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
   );
 
   const [page, setPage] = useState(1);
-  const [rowsPerPage] = useState(5);
+  const [rowsPerPage] = useState(25);
 
   useEffect(() => {
     setPage(1);
@@ -76,8 +76,8 @@ const SolutionsTable: React.FC<SolutionsTableProps> = ({ searchTerm }) => {
                 paginatedSolutions.map(solution => (
                   <TableRow key={solution.id}>
                     <TableCell align="center">
-                      <Link 
-                        component={RouterLink} 
+                      <Link
+                        component={RouterLink}
                         to={`/support/solutions/${solution.id}`}
                         variant="body2"
                         underline="hover"

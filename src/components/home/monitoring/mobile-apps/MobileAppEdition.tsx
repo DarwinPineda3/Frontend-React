@@ -13,9 +13,8 @@ import * as Yup from 'yup';
 import { AppScanType } from 'src/types/monitoring/mobile-apps/AppScan';
 
 interface Props {
-    // appScan?: AppScanType; // Optional for edit
     appScan?: any; // Optional for edit
-    onSubmit: (name: string) => void; // Callback after submission
+    onSubmit: (name: string) => void; 
 }
 
 const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
@@ -31,18 +30,18 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
         name: Yup.string().required('Name is required'),
         // createdOn: Yup.date().('Invalid URL format').required('URL is required'), //validarfecha
       }),
-      onSubmit: (values) => {
+      onSubmit: (values:string, severity: 'success' | 'info' | 'warning' | 'error') => {
         const newAppScan: AppScanType = {
           ...values,
-          id: appScan?.id || undefined, // Only include `id` if updating
+          id: appScan?.id || undefined, 
         };
   
         if (appScan) {
           dispatch(editAppScan(newAppScan));
-          onSubmit('App Scan updated successfully', 'success'); // Show success message for update
+          onSubmit('App Scan updated successfully', 'success');
         } else {
           dispatch(createAppScan(newAppScan));
-          onSubmit('App Scan created successfully', 'success'); // Show success message for create
+          onSubmit('App Scan created successfully', 'success');
         }
       },
     });
@@ -51,7 +50,7 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {appScan ? 'Update Malware Analysis' : 'Create Malware Analysis'}
+          {appScan ? 'Update app for scanning' : 'Create app for scanning'}
         </Typography>
 
         <TextField
@@ -63,7 +62,6 @@ const CreateUpdateAppScan: React.FC<Props> = ({ appScan, onSubmit }) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.name && Boolean(formik.errors.name)}
-          // helperText={formik.touched.name && formik.errors.name}
         />
 
         <Box mt={2}>

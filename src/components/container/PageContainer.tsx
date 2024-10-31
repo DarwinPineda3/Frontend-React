@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
 
 import { Helmet } from 'react-helmet';
 
@@ -11,7 +10,9 @@ type Props = {
 };
 
 const PageContainer = ({ title, description, children }: Props) => (
-  <div>
+  <div
+    style={{ paddingBottom: 60 }}
+  >
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />

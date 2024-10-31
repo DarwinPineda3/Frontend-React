@@ -1,5 +1,6 @@
 export interface MobileAppType {
     id: string;
+    idApp: string;
     appName: string;
     downloadLink: string;
     releaseDate: string;
