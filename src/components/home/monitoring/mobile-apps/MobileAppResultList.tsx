@@ -55,6 +55,9 @@ interface MobileAppListTableProps {
     setEditMobileApp(null); // Reset the edit state when closing
   };
 
+  const theme = useTheme();
+  const { high, medium, low, critical } = theme.palette.level;
+
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
@@ -105,7 +108,7 @@ interface MobileAppListTableProps {
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onMobileAppClick(mobileApp.id, mobileApp.appName)}
+                      onClick={() => onMobileAppClick(mobileApp.id)}
                       style={{ cursor: 'pointer' }}
                     >
                       {mobileApp.appName}
@@ -119,24 +122,23 @@ interface MobileAppListTableProps {
                   <TableCell>
                     {/* aqui cambio de color */}
                     <Typography variant="subtitle2" fontWeight={600} color={
-                      mobileApp.score > 7 ? 'Primary' :
-                        mobileApp.score > 3.9 ? '#FFA500' :
-                          mobileApp.score > 0 ? 'green' :
-                            'green'
+                      mobileApp.score > 7 ? high :
+                        mobileApp.score > 3.9 ? medium :
+                            low
                     }>
                       
                       <Chip
                         label={mobileApp.score > 7 ? 'Very risk' :
                           mobileApp.score > 3.9 ? 'Risky' :
-                            mobileApp.score > 0 ? 'Low' : 'No Risk'}
+                            mobileApp.score >= 0 ? 'Not very risky' : 'No Risk'}
                         color="secondary"
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 7 ? 'Primary' :
-                              mobileApp.score > 3.9 ? 'orange' :
-                                mobileApp.score > 0 ? 'green' :
-                                  'green',
+                            mobileApp.score > 7 ? high :
+                              mobileApp.score > 3.9 ? medium :
+                                mobileApp.score >= 0 ? low :
+                                  low,
                           color: 'white'
                         }}
                           />
@@ -155,10 +157,10 @@ interface MobileAppListTableProps {
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 7 ? 'primary' :
-                              mobileApp.score > 3.9 ? 'orange' :
-                                mobileApp.score > 0 ? 'green' :
-                                  'green',
+                            mobileApp.score > 7 ? high :
+                              mobileApp.score > 3.9 ? medium :
+                                mobileApp.score >= 0 ? low :
+                                  low,
                           color: 'white'
                         }}
                       />
