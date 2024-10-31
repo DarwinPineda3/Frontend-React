@@ -136,7 +136,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                           ? critical
                           : social.data?.risk_analysis.toLowerCase() == "No risk".toLowerCase()
                             ? low
-                            : none,
+                            : "#539bff",
                       color: 'white'
                     }}
                   />
