@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 
 const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => {
-
+  const { t } = useTranslation();
   const mobileApp = {
     id: "123867435",
     idApp: "com.bancodebogota.apklive",
@@ -42,7 +42,10 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
         </Breadcrumb>
       </Grid>
       <Grid item xs={12} xl={6}>
-        <DashboardCard title="Summary" subtitle="Mobile application details">
+        <DashboardCard
+          title={t("mobile_apps.summary")}
+          subtitle={t("mobile_apps.mobile_application_details")}
+        >
           <Box display="flex" flexDirection="column" gap={2} mt={1}>
             <Box>
               <Stack
@@ -54,23 +57,23 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
               >
               </Stack>
             </Box>
-            <AlphaSuspicionLevel score={mobileApp.score} type={"mobile app"}/>
+            <AlphaSuspicionLevel score={mobileApp.score} type={"mobile app"} />
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Source:
+                {t("mobile_apps.source")}
               </Typography>
               <Typography variant="body2">{mobileApp.source}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Download link:
+                {t("mobile_apps.download_link")}
               </Typography>
               <Typography variant="body2">{mobileApp.downloadLink}</Typography>
             </Box>
-            
+
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Language:
+                {t("mobile_apps.language")}
               </Typography>
               <Typography variant="body2">{mobileApp.details.language}</Typography>
             </Box>
@@ -94,14 +97,14 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Id:
+                {t("mobile_apps.id")}
               </Typography>
               <Typography variant="body2">{mobileApp.idApp}</Typography>
             </Box>
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Score:
+                {t("mobile_apps.score")}
               </Typography>
               <Typography
                 variant="body2"
@@ -115,19 +118,19 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Version:
+                {t("mobile_apps.version")}
               </Typography>
               <Typography variant="body2">{mobileApp.version}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Release date:
+                {t("mobile_apps.release_date")}
               </Typography>
               <Typography variant="body2">{mobileApp.releaseDate}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Digital Signature:
+                {t("mobile_apps.digital_signature")}
               </Typography>
               <Typography
                 variant="body2"
@@ -141,7 +144,7 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
 
             <Box>
               <Typography variant="subtitle2" fontWeight={600}>
-                Hash:
+                {t("mobile_apps.hash")}
               </Typography>
               <Typography
                 variant="body2"
@@ -159,9 +162,9 @@ const MobileAppDetail: React.FC<{ mobileAppId: string }> = ({ mobileAppId }) => 
       </Grid>
 
       <Grid item xs={12} xl={12}>
-      <DashboardCard title='Application Analysis Report'>
-        <MobileAppAccordion data={mobileApp} />
-      </DashboardCard>
+        <DashboardCard title='Application Analysis Report'>
+          <MobileAppAccordion data={mobileApp} />
+        </DashboardCard>
       </Grid>
     </Grid>
   );
