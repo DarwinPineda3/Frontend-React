@@ -25,7 +25,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
   const { t } = useTranslation();
   const theme = useTheme();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<SecurityLeak | null>(null);
   const criticalColor = theme.palette.level.critical;
@@ -150,7 +150,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={leaks.length}
         rowsPerPage={rowsPerPage}

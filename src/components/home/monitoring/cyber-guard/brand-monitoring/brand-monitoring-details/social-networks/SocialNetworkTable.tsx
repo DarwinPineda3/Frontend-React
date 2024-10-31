@@ -22,7 +22,7 @@ interface SecurityLeakTableProps {
 const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<SocialNetwork | null>(null);
 
@@ -131,7 +131,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25 , 50, 100]}
         component="div"
         count={social.length}
         rowsPerPage={rowsPerPage}
