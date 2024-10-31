@@ -49719,6 +49719,12 @@ export const consolidateDataTest: Results = {
                     "user_fullname": "RakXu",
                     "text": "",
                     "engine": "facebook_post",
+                    "posted_date": "",
+                    "user_followers": "",
+                    "user_following": "",
+                    "user_url": "",
+                    "user_type": "",
+                    "username": "",
                     "sentiment_analysis": "0"
                   },
                   "generated": null,
@@ -49733,6 +49739,12 @@ export const consolidateDataTest: Results = {
                     "user_fullname": "RakXu",
                     "text": "INVERTIMOS EN EQUIPOS Y EN NUESTROS GASTOS CONTINUOS DE VISITA EN TODA LA ISLA\nConstruir una Prensa Comunitaria que se sostenga por donaciones voluntarias es difícil ….PERO LO ESTAMOS LOGRANDO!!\nIMPORTANTE…… personas que han intentado ayudar a Prensa Comunitaria por dirección de correo en el envío de donaciones les ha sido devuelto el envío porque tienen que poner la dirección de la siguiente forma:\nCORREO SANTA JUANITA UU-1 -C/39 SUITE 368, BAY, PR,00956\nAquellos seguidores que prefieren hacerlo digital están disponibles;\nATH MÓVIL…….787-379-3663\nPay Pal………….observadorxpress@gmail.com\nVenmo…………..observadorxpress@gmail.com\nSeguimos!!",
                     "engine": "facebook_post",
+                    "posted_date": "",
+                    "user_followers": "",
+                    "user_following": "",
+                    "user_url": "",
+                    "user_type": "",
+                    "username": "",
                     "sentiment_analysis": "0"
                   },
                   "generated": null,
@@ -49747,6 +49759,12 @@ export const consolidateDataTest: Results = {
                     "user_fullname": "RakXu",
                     "text": "INVERTIMOS EN EQUIPOS Y EN NUESTROS GASTOS CONTINUOS DE VISITA EN TODA LA ISLA\nConstruir una Prensa Comunitaria que se sostenga por donaciones voluntarias es difícil ….PERO LO ESTAMOS LOGRANDO!!\nIMPORTANTE…… personas que han intentado ayudar a Prensa Comunitaria por dirección de correo en el envío de donaciones les ha sido devuelto el envío porque tienen que poner la dirección de la siguiente forma:\nCORREO SANTA JUANITA UU-1 -C/39 SUITE 368, BAY, PR,00956\nAquellos seguidores que prefieren hacerlo digital están disponibles;\nATH MÓVIL…….787-379-3663\nPay Pal………….observadorxpress@gmail.com\nVenmo…………..observadorxpress@gmail.com\nSeguimos!!",
                     "engine": "facebook_post",
+                    "posted_date": "",
+                    "user_followers": "",
+                    "user_following": "",
+                    "user_url": "",
+                    "user_type": "",
+                    "username": "",
                     "sentiment_analysis": "0"
                   },
                   "generated": null,
@@ -72210,8 +72228,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/in/dfelipemoreno",
-                    "user_type": "user"
-
+                    "user_type": "user",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72230,7 +72248,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72249,7 +72268,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/in/nestor-sanchez-torres-ms",
-                    "user_type": "user"
+                    "user_type": "user",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72268,7 +72288,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72287,7 +72308,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "4"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72306,7 +72328,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
