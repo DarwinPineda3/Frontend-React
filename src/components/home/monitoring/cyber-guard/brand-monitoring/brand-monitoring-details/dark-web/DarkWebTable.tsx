@@ -47,28 +47,28 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
     setSelectedLeak(null);
   };
 
-  const getCategoryData = (leak: DarkWeb) => {
+  const getCategoryData = (dark_web: DarkWeb) => {
     switch (category) {
       case 'Domains':
-        return Array.isArray(leak.data.domain) && leak.data.domain.length > 0
-          ? leak.data.domain.join(', ')
+        return Array.isArray(dark_web.data.domain) && dark_web.data.domain.length > 0
+          ? dark_web.data.domain.join(', ')
           : 'NA';
       case 'Emails':
-        return Array.isArray(leak.data.email) && leak.data.email.length > 0
-          ? leak.data.email.join(', ')
+        return Array.isArray(dark_web.data.email) && dark_web.data.email.length > 0
+          ? dark_web.data.email.join(', ')
           : 'NA';
       case 'IPs':
-        return Array.isArray(leak.data.ip_address) && leak.data.ip_address.length > 0
-          ? leak.data.ip_address.join(', ')
+        return Array.isArray(dark_web.data.ip_address) && dark_web.data.ip_address.length > 0
+          ? dark_web.data.ip_address.join(', ')
           : 'NA';
       case 'Usernames':
-        if (Array.isArray(leak.data.username) && leak.data.username.length > 0) {
-          return leak.data.username.join(', ');
+        if (Array.isArray(dark_web.data.username) && dark_web.data.username.length > 0) {
+          return dark_web.data.username.join(', ');
         }
-        return leak.data.name || 'NA';
+        return dark_web.data.name || 'NA';
       case 'Phones':
-        return Array.isArray(leak.data.phone) && leak.data.phone.length > 0
-          ? leak.data.phone.join(', ')
+        return Array.isArray(dark_web.data.phone) && dark_web.data.phone.length > 0
+          ? dark_web.data.phone.join(', ')
           : 'NA';
       default:
         return 'NA';
@@ -121,7 +121,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">
-                    {dark_web.data.database_name || dark_web.data.domain}
+                    {getDatabaseNames(dark_web) || dark_web.data.domain || 'NA'}
                   </Typography>
                 </TableCell>
               </TableRow>
