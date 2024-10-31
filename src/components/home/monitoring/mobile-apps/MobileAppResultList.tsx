@@ -12,27 +12,22 @@ import {
   IconButton,
   Dialog,
   DialogContent,
-  Chip
+  Chip,
+  useTheme
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
-import AppleIcon from '@mui/icons-material/Apple';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
-import AndroidIcon from '@mui/icons-material/Android';
-import { ListItemIcon, ListItem, List, styled, ListItemText, useTheme } from '@mui/material';
 
-// import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
+// const theme = useTheme();
+// const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (mobileAppId: number, AppName: string) => void;
+  onMobileAppClick: (mobileAppId: number) => void;
 }
 
-// React.FC<{ mobileAppId: string }> = ({ mobileAppId })
-
-const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, AppScanId, AppScanName }) => {
+  const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
   const dispatch = useDispatch();
   const mobileApps = useSelector((state: any) => state.mobileAppsReducer.mobileApps);
   const currentPage = useSelector((state: any) => state.mobileAppsReducer.page);
@@ -63,7 +58,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, Ap
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Search result for" subtitle="List of mobile applications found">
+    <DashboardCard title="Search result" subtitle="List of mobile applications found">
       <Box>
         <TableContainer>
           <Table aria-label="mobileApp table" sx={{ whiteSpace: 'nowrap' }}>
@@ -118,15 +113,11 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, Ap
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {mobileApp.source === 'Play Store' && <AndroidIcon />}
-                      {mobileApp.source === 'App Store' && <AppleIcon />}
-                      {!['Play Store', 'App Store'].includes(mobileApp.source) && (
-                        mobileApp.source
-                      )}
-                      
+                      {mobileApp.source}
                     </Typography>
                   </TableCell>
                   <TableCell>
+                    {/* aqui cambio de color */}
                     <Typography variant="subtitle2" fontWeight={600} color={
                       mobileApp.score > 7 ? 'Primary' :
                         mobileApp.score > 3.9 ? '#FFA500' :

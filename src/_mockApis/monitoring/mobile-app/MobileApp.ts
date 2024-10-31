@@ -33,7 +33,7 @@ let mobileApps: MobileAppType[] = [
     source: "Play Store",
     digitalSignature: "3082025D308201C6A0030201020214A9B7C3D5F6E8B2A5D1C9F3A8B7E6C5D1F0A3",
     apkHash: "91A6B4D8F3C7A9E5B2C4E1F5D8A3B7C9F1E4D6A2C5B8F3D1A9C7E8F2B4D5A6E1",
-    score: 6,
+    score: 9,
     details: {
       language: "Español",
       downloads: "10 millones+",
