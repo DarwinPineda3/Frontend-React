@@ -176,7 +176,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: 'menu.mobile_apps', // Translation key for title
-        href: '/monitoring/cyber-guard/mobile-app',
+        href: '/monitoring/cyber-guard/mobile-apps',
         icon: IconPoint,
       },
     ],
