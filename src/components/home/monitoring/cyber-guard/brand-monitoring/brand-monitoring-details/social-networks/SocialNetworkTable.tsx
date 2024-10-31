@@ -22,7 +22,7 @@ interface SecurityLeakTableProps {
 
 const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
   const theme = useTheme();
-  const { high, medium, low, critical, unknown } = theme.palette.level;
+  const { high, medium, low, critical, unknown, none } = theme.palette.level;
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -130,14 +130,13 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                   <Chip
                     label={social.data?.risk_analysis}
                     color="secondary"
-                    size="small"
                     style={{
                       backgroundColor:
                       social.data?.risk_analysis.toLowerCase() == "Potential risk".toLowerCase()
                           ? critical
                           : social.data?.risk_analysis.toLowerCase() == "No risk".toLowerCase()
                             ? low
-                            : unknown,
+                            : none,
                       color: 'white'
                     }}
                   />
