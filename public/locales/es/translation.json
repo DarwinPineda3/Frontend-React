@@ -571,7 +571,8 @@
         "description_blacklisted_ipaddr": "Se ha detectado en una lista negra una dirección IP asociada al dominio investigado.",
         "description_malicious_ipaddr": "Una dirección IP identificada específicamente como maliciosa debido a su asociación con actividad hostil o fraudulenta en Internet.",
         "description_phishing_domains": "Nombres de dominio que se parecen a la entidad investigada, potencialmente utilizados en esquemas de phishing para suplantar o engañar a los usuarios asociados con la organización objetivo.",
-        "description_not_available": "Descripción no disponible"
+        "description_not_available": "Descripción no disponible",
+        "risk_analysis": "Análisis de Riesgo"
     },
     "sentiment": {
         "sentiment_history": "Historial de sentimientos",
@@ -698,5 +699,10 @@
         "create_app_for_scanning": "Crear aplicación para escaneo",
         "update_app_scan": "Actualizar escaneo de la aplicación",
         "create_app_scan": "Crear escaneo de la aplicación"
+    },
+    "risk_analysis": {
+      "potential_risk": "Riesgo Potencial",
+      "no_risk": "Sin Riesgo",
+      "not_enough_info": "Información Insuficiente"
     }
-}
+  }
