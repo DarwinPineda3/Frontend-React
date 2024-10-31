@@ -570,7 +570,8 @@
     "description_blacklisted_ipaddr": "An IP address associated with the domain under investigation has been detected on a blacklist.",
     "description_malicious_ipaddr": "An IP address specifically identified as malicious due to its association with hostile or fraudulent activity on the Internet.",
     "description_phishing_domains": "Domain names resembling the investigated entity, potentially used in phishing schemes to impersonate or mislead users associated with the targeted organization",
-    "description_not_available": "Description not available"
+    "description_not_available": "Description not available",
+    "risk_analysis": "Risk Analysis"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -697,5 +698,10 @@
     "create_app_for_scanning": "Create app for scanning",
     "update_app_scan": "Update App Scan",
     "create_app_scan": "Create App Scan"
+  },
+  "risk_analysis": {
+    "potential_risk": "Potential Risk",
+    "no_risk": "No Risk",
+    "not_enough_info": "Not Enough Information"
   }
 }

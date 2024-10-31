@@ -9,6 +9,7 @@ import {
   Typography,
   Chip,
   TablePagination,
+  useTheme,
 } from '@mui/material';
 import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
@@ -20,6 +21,8 @@ interface SecurityLeakTableProps {
 }
 
 const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
+  const theme = useTheme();
+  const { high, medium, low, critical, unknown } = theme.palette.level;
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -66,6 +69,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
     }
   };
 
+  const risk_analysis = "no risk"
   return (
     <>
       <TableContainer>
@@ -80,6 +84,11 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
                   {t('monitoring.sentiment_analysis')}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  {t('monitoring.risk_analysis')}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -119,6 +128,23 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                 </TableCell>
                 <TableCell>{renderSentimentChip(social.data?.sentiment_analysis || '0')}</TableCell>
                 <TableCell>
+                  {/* social.data?.risk_analysis */}
+                  <Chip
+                    label={ t("risk_analysis.potential_risk")}
+                    color="secondary"
+                    size="small"
+                    style={{
+                      backgroundColor:
+                      risk_analysis.toLowerCase() == "Potential Risk".toLowerCase()
+                          ? high
+                          : risk_analysis.toLowerCase() == "No risk".toLowerCase()
+                            ? low
+                            : unknown,
+                      color: 'white'
+                    }}
+                  />
+                </TableCell>
+                <TableCell>
                   <HumanizedDate dateString={social.date} />
                 </TableCell>
                 <TableCell>
@@ -131,7 +157,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25 , 50, 100]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={social.length}
         rowsPerPage={rowsPerPage}
