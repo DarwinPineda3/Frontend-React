@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
 import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  Chip,
-  TablePagination,
 } from '@mui/material';
-import { DarkWeb } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { DarkWeb } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
 interface DarkWebTableProps {
   dark_web: DarkWeb[];
@@ -48,21 +47,37 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
     setSelectedLeak(null);
   };
 
-  const getCategoryData = (dark_web: DarkWeb) => {
+  const getCategoryData = (leak: DarkWeb) => {
     switch (category) {
       case 'Domains':
-        return dark_web.data.domain;
+        return Array.isArray(leak.data.domain) && leak.data.domain.length > 0
+          ? leak.data.domain.join(', ')
+          : 'NA';
       case 'Emails':
-        return dark_web.data.email;
+        return Array.isArray(leak.data.email) && leak.data.email.length > 0
+          ? leak.data.email.join(', ')
+          : 'NA';
       case 'IPs':
-        return dark_web.data.ip_address;
+        return Array.isArray(leak.data.ip_address) && leak.data.ip_address.length > 0
+          ? leak.data.ip_address.join(', ')
+          : 'NA';
       case 'Usernames':
-        return dark_web.data.username || dark_web.data.name;
+        if (Array.isArray(leak.data.username) && leak.data.username.length > 0) {
+          return leak.data.username.join(', ');
+        }
+        return leak.data.name || 'NA';
       case 'Phones':
-        return dark_web.data.phone;
+        return Array.isArray(leak.data.phone) && leak.data.phone.length > 0
+          ? leak.data.phone.join(', ')
+          : 'NA';
       default:
         return 'NA';
     }
+  };
+
+  const getDatabaseNames = (leak: DarkWeb) => {
+    const dbNames = leak.data.database_name;
+    return Array.isArray(dbNames) ? dbNames.join(', ') : dbNames;
   };
 
   return (
@@ -105,7 +120,9 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
                   <HumanizedDate dateString={dark_web.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{dark_web.data.database_name || dark_web.data.domain}</Typography>
+                  <Typography variant="subtitle2">
+                    {dark_web.data.database_name || dark_web.data.domain}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))}

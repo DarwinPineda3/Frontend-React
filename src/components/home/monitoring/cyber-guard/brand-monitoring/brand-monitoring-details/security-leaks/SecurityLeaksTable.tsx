@@ -73,18 +73,34 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
   const getCategoryData = (leak: SecurityLeak) => {
     switch (category) {
       case 'Domains':
-        return leak.data.domain;
+        return Array.isArray(leak.data.domain) && leak.data.domain.length > 0
+          ? leak.data.domain.join(', ')
+          : 'NA';
       case 'Emails':
-        return leak.data.email;
+        return Array.isArray(leak.data.email) && leak.data.email.length > 0
+          ? leak.data.email.join(', ')
+          : 'NA';
       case 'IPs':
-        return leak.data.ip_address;
+        return Array.isArray(leak.data.ip_address) && leak.data.ip_address.length > 0
+          ? leak.data.ip_address.join(', ')
+          : 'NA';
       case 'Usernames':
-        return leak.data.username || leak.data.name;
+        if (Array.isArray(leak.data.username) && leak.data.username.length > 0) {
+          return leak.data.username.join(', ');
+        }
+        return leak.data.name || 'NA';
       case 'Phones':
-        return leak.data.phone;
+        return Array.isArray(leak.data.phone) && leak.data.phone.length > 0
+          ? leak.data.phone.join(', ')
+          : 'NA';
       default:
         return 'NA';
     }
+  };
+
+  const getDatabaseNames = (leak: SecurityLeak) => {
+    const dbNames = leak.data.database_name;
+    return Array.isArray(dbNames) ? dbNames.join(', ') : dbNames;
   };
 
   return (
@@ -141,7 +157,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
                   <HumanizedDate dateString={leak.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{leak.data.database_name}</Typography>
+                  <Typography variant="subtitle2">{getDatabaseNames(leak) ||'N/A'}</Typography>
                 </TableCell>
               </TableRow>
             ))}
