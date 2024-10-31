@@ -21109,7 +21109,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/PaolaLopezTv',
                     user_type: 'user',
                     sentiment_analysis: '4',
-                    risk_analysis: "Potential risk"
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'bancodebogota.com',
