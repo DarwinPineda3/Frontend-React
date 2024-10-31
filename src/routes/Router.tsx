@@ -101,9 +101,9 @@ const Router = [
             { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
             { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis /> },
             { path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
-            { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
-            { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
-            { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
+            { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan /> },
+            { path: '/monitoring/cyber-guard/mobile-apps/:appScanId', element: <MobileApp /> },
+            { path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:mobileAppId', element: <MobileApp /> },
 
             { path: '/monitoring/soc', element: <SOCMonitoring /> },
             { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
