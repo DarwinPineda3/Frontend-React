@@ -18,10 +18,10 @@ const AuditLogView: React.FC = () => {
                         <ArrowBack />
                     </IconButton>
                     <Breadcrumbs aria-label="breadcrumb">
-                        <Link component={RouterLink} color="inherit" to="/audit/log">
+                        <Link component={RouterLink} color="inherit" to="/audit/logs">
                             {t('menu.audit')}
                         </Link>
-                        <Link component={RouterLink} color="inherit" to="/audit/log">
+                        <Link component={RouterLink} color="inherit" to="/audit/logs">
                             {t('menu.log')}
                         </Link>
                     </Breadcrumbs>

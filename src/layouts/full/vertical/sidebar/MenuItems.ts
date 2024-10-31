@@ -1,35 +1,35 @@
-import { uniqueId } from 'lodash';
 import {
-  IconAperture,
-  IconShoppingCart,
-  IconPackage,
-  IconChartDonut3,
-  IconBasket,
-  IconMessage2,
-  IconTicket,
-  IconNotebook,
-  IconCloud,
-  IconListDetails,
-  IconUserBolt,
-  IconNetwork,
-  IconBook,
-  IconClockBolt,
-  IconGitMerge,
-  IconPoint,
-  IconBroadcast,
-  IconReport,
-  IconMenu,
-  IconSocial,
-  IconNews,
-  IconBrandWordpress,
-  IconSquaresFilled,
-  IconFiles,
-  IconLink,
   IconAlertHexagon,
+  IconAperture,
+  IconBasket,
+  IconBook,
+  IconBrandWordpress,
+  IconBroadcast,
+  IconChartDonut3,
+  IconClockBolt,
+  IconCloud,
   IconExternalLink,
+  IconFiles,
+  IconGitMerge,
+  IconLink,
+  IconListDetails,
+  IconMenu,
+  IconMessage2,
+  IconNetwork,
+  IconNews,
+  IconNotebook,
+  IconPackage,
+  IconPoint,
+  IconReport,
   IconShieldBolt,
+  IconShoppingCart,
+  IconSocial,
   IconSpy,
+  IconSquaresFilled,
+  IconTicket,
+  IconUserBolt,
 } from '@tabler/icons-react';
+import { uniqueId } from 'lodash';
 
 interface MenuitemsType {
   [x: string]: any;
@@ -149,7 +149,7 @@ const Menuitems: MenuitemsType[] = [
     href: '/monitoring/threats-overview',
     icon: IconSpy,
   },
-  
+
   {
     title: 'menu.cyber_guard', // Translation key for title
     href: '/monitoring/cyber-guard',
@@ -231,8 +231,9 @@ const Menuitems: MenuitemsType[] = [
           {
             id: uniqueId(),
             title: 'menu.open_cti', // Translation key for title
-            href: 'http://38.87.165.53:8080/dashboard',
+            href: 'http://201.149.34.142:8080/dashboard',
             icon: IconExternalLink,
+            external: true,
           },
           {
             id: uniqueId(),
@@ -299,7 +300,7 @@ const Menuitems: MenuitemsType[] = [
   {
     id: uniqueId(),
     title: 'menu.log', // Translation key for title
-    href: '/audit/log',
+    href: '/audit/logs',
     icon: IconGitMerge,
   },
   {
