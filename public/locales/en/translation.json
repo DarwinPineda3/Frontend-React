@@ -569,6 +569,7 @@
     "description_social_media": "Collection of profiles and activities of an entity (person, organization, etc.) on social media platforms.",
     "description_blacklisted_ipaddr": "An IP address associated with the domain under investigation has been detected on a blacklist.",
     "description_malicious_ipaddr": "An IP address specifically identified as malicious due to its association with hostile or fraudulent activity on the Internet.",
+    "description_phishing_domains": "Domain names resembling the investigated entity, potentially used in phishing schemes to impersonate or mislead users associated with the targeted organization",
     "description_not_available": "Description not available"
   },
   "sentiments": {

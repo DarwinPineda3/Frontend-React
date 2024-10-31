@@ -47,14 +47,14 @@ const latestData: LatestDataType[] = [
         "query": "avvillas.com.co",
         "query_type": "DOMAIN",
         "scan_date": "2024-10-26T06:20:51.671980Z",
-        "total_results": 71,
+        "total_results": 83,
         "id": "vxJIBHPjIIpHRuekRdasRE"
     },
     {
         "query": "bancodebogota.com",
         "query_type": "DOMAIN",
         "scan_date": "2024-10-26T06:18:36.188735Z",
-        "total_results": 509,
+        "total_results": 519,
         "id": "R4O6xJIBHPjIIpHRxur5"
     },
     {
@@ -68,14 +68,14 @@ const latestData: LatestDataType[] = [
         "query": "grupoaval.com",
         "query_type": "DOMAIN",
         "scan_date": "2024-10-26T06:23:24.591311Z",
-        "total_results": 177,
+        "total_results": 197,
         "id": "-4OvxJIBHPjIIpHRuekR"
     },
     {
         "query": "mi.bancopopular.com.co",
         "query_type": "DOMAIN",
         "scan_date": "2024-10-26T07:17:13.479915Z",
-        "total_results": 59,
+        "total_results": 66,
         "id": "4oOsxJIBHPjIIpHRb-mQ"
     }
 ];
@@ -103,11 +103,11 @@ const summaryData: SummaryDataType[] = [
     },
     {
         "query": "avvillas.com.co",
-        "total_results": 71
+        "total_results": 83
     },
     {
         "query": "bancodebogota.com",
-        "total_results": 509
+        "total_results": 519
     },
     {
         "query": "bancodeoccidente.com.co",
@@ -115,11 +115,11 @@ const summaryData: SummaryDataType[] = [
     },
     {
         "query": "grupoaval.com",
-        "total_results": 177
+        "total_results": 197
     },
     {
         "query": "mi.bancopopular.com.co",
-        "total_results": 59
+        "total_results": 66
     }
 ];
 
