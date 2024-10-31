@@ -157,7 +157,7 @@ const Menuitems: MenuitemsType[] = [
     children: [
       {
         id: uniqueId(),
-        title: 'menu.parameters', // Translation key for title
+        title: 'monitoring.parameters', // Translation key for title
         href: '/monitoring/cyber-guard/parameters',
         icon: IconPoint,
       },
