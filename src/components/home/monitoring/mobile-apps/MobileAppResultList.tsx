@@ -12,25 +12,21 @@ import {
   IconButton,
   Dialog,
   DialogContent,
-  Chip
+  Chip,
+  useTheme
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DashboardCard from '../../../shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
-import AppleIcon from '@mui/icons-material/Apple';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
-import AndroidIcon from '@mui/icons-material/Android';
-import { ListItemIcon, ListItem, List, styled, ListItemText, useTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
-// import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
+// const theme = useTheme();
+// const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (malwareAnalysisId: number) => void;
+  onMobileAppClick: (mobileAppId: number) => void;
 }
-
-
 
 const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
   const dispatch = useDispatch();
@@ -39,6 +35,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
   const totalPages = useSelector((state: any) => state.mobileAppsReducer.totalPages);
   const [editMobileApp, setEditMobileApp] = useState<null | any>(null); // State to hold the mobileApp being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     dispatch(fetchMobileApps(currentPage));
@@ -60,9 +57,13 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
     setEditMobileApp(null); // Reset the edit state when closing
   };
 
+  const theme = useTheme();
+  const { high, medium, low, critical } = theme.palette.level;
+
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
+    // pendiente de traducción
     <DashboardCard title="Search result" subtitle="List of mobile applications found">
       <Box>
         <TableContainer>
@@ -71,32 +72,32 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    App Name
+                    {t("mobile_apps.app_name")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Source
+                    {t("mobile_apps.source")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    State
+                    {t("mobile_apps.state")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Version
+                    {t("mobile_apps.version")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Score
+                    {t("mobile_apps.score")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Downloads
+                    {t("mobile_apps.downloads")}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -118,37 +119,39 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {mobileApp.source === 'Play Store' && <AndroidIcon />}
-                      {mobileApp.source === 'App Store' && <AppleIcon />}
-                      {!['Play Store', 'App Store'].includes(mobileApp.source) && (
-                        mobileApp.source
-                      )}
-                      
+                      {mobileApp.source}
                     </Typography>
                   </TableCell>
                   <TableCell>
+                    {/* aqui cambio de color */}
                     <Typography variant="subtitle2" fontWeight={600} color={
-                      mobileApp.score > 7 ? 'Primary' :
-                        mobileApp.score > 3.9 ? '#FFA500' :
-                          mobileApp.score > 0 ? 'green' :
-                            'green'
+                      mobileApp.score > 7 ? high :
+                        mobileApp.score > 3.9 ? medium :
+                          low
                     }>
-                      
+
                       <Chip
-                        label={mobileApp.score > 7 ? 'Very risk' :
-                          mobileApp.score > 3.9 ? 'Risky' :
-                            mobileApp.score > 0 ? 'Low' : 'No Risk'}
+                        label={
+                          mobileApp.score > 7
+                            ? t("mobile_apps.very_risky")
+                            : mobileApp.score > 3.9
+                              ? t("mobile_apps.risky")
+                              : mobileApp.score >= 0
+                                ? t("mobile_apps.not_very_risky")
+                                : t("mobile_apps.no_risk") // Asegúrate de agregar esta clave en el archivo de traducción
+                        }
                         color="secondary"
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 7 ? 'Primary' :
-                              mobileApp.score > 3.9 ? 'orange' :
-                                mobileApp.score > 0 ? 'green' :
-                                  'green',
+                            mobileApp.score > 7
+                              ? high
+                              : mobileApp.score > 3.9
+                                ? medium
+                                : low,
                           color: 'white'
                         }}
-                          />
+                      />
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -164,10 +167,10 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 7 ? 'primary' :
-                              mobileApp.score > 3.9 ? 'orange' :
-                                mobileApp.score > 0 ? 'green' :
-                                  'green',
+                            mobileApp.score > 7 ? high :
+                              mobileApp.score > 3.9 ? medium :
+                                mobileApp.score >= 0 ? low :
+                                  low,
                           color: 'white'
                         }}
                       />

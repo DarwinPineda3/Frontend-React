@@ -17,6 +17,7 @@ const MobileApp = () => {
     const location = useLocation();  // Tracks the current URL location
 
     const [selectedMobileApp, setSelectedMobileApp] = useState<string | null>(null);
+    const [selectedMobileAppName, setselectedMobileAppName] = useState<string | null>(null);
     const navigate = useNavigate();
 
     // Synchronize state with URL parameters
@@ -29,8 +30,9 @@ const MobileApp = () => {
 
     }, [mobileAppId, location]);
 
-    const handleMobileAppClick = (id: number) => {
-        navigate(`/monitoring/cyber-guard/mobile-app/scan-app/${id}/result-app/${id}`);
+    const handleMobileAppClick = (id: number, appName: string) => {
+        setselectedMobileAppName(appName);
+        navigate(`/monitoring/cyber-guard/mobile-apps/${id}/results/${id}`);
     };
     return (
         <Box>
@@ -39,21 +41,27 @@ const MobileApp = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("menu.monitoring")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("menu.cyber_guard")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app/scan-app/12">
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
                         {t("mobile_apps.mobile_apps")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-app">
-                        {t("mobile_apps.results_app_scans")}
-                    </Link>
+                    {selectedMobileApp ? (
+                        <Link component={RouterLink} color="inherit" to={`/monitoring/cyber-guard/mobile-apps/${selectedMobileApp}`}>
+                            {t("mobile_apps.results_app_scans")}
+                        </Link>
+                    ) : (
+                        <Typography color="textPrimary">
+                            {t("mobile_apps.results_app_scans")}
+                        </Typography>
+                    )}
                     {selectedMobileApp && (
                         <Typography color="textPrimary">
-                            {t("mobile_apps.mobile_apps_details")}
+                            {selectedMobileAppName}
                         </Typography>
                     )}
                 </Breadcrumbs>
