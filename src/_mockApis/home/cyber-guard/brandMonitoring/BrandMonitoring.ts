@@ -313,7 +313,7 @@ mock.onGet('/api/data/monitoring/cyber-guard/monitoring/resume').reply(() => {
 mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/monitoring')).reply((config) => {
     try {
         const urlParams = new URLSearchParams(config.url!.split('?')[1]);
-        const limit = 5;
+        const limit = 25;
         const page = parseInt(urlParams.get('page') || '1', 10);
 
         const startIndex = (page - 1) * limit;
