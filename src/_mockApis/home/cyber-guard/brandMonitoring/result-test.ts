@@ -44977,6 +44977,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -44997,6 +44998,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45025,6 +45027,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45045,6 +45048,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45065,6 +45069,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45093,6 +45098,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/saulmanuelpaz',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45113,6 +45119,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/monicaguerrerorodriguez',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45133,6 +45140,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/daniel-osorio-martínez',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45153,6 +45161,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/redsis-it/',
                     user_type: 'company',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45174,6 +45183,7 @@ export const consolidateDataTest: Results = {
                       'https://www.linkedin.com/in/oscar-mauricio-echavarria-estrada-5a880080',
                     user_type: 'user',
                     sentiment_analysis: '2',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45194,6 +45204,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/oscarbernalquintero',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45214,6 +45225,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/marcelabcolombia',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45234,6 +45246,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/alveiroquintero',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45254,6 +45267,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/gustavo-andres-castro-guevara-a6472aa8',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45274,6 +45288,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/teobaldo-coronado-hurtado-0748bb1a',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Óscar Bernal Quintero',
@@ -45437,6 +45452,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45457,6 +45473,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45477,6 +45494,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45497,6 +45515,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45517,6 +45536,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45537,6 +45557,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45557,6 +45578,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45577,6 +45599,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45597,6 +45620,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45617,6 +45641,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45637,6 +45662,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45657,6 +45683,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45677,6 +45704,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45697,6 +45725,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45725,6 +45754,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45745,6 +45775,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45765,6 +45796,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45793,6 +45825,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/trinidadcultura',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45813,6 +45846,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/escovars',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45833,6 +45867,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/VivirpersonasC',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45853,6 +45888,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/RumbaBucaros',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45881,6 +45917,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/carolinapastranaardila',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45901,6 +45938,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/andres-victoria-pelaez',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45921,6 +45959,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/maria-queiruga',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45941,6 +45980,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/uppe-t-project-700591201',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45961,6 +46001,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/andrea-briones-möller-69b60560',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -45981,6 +46022,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/juan-diego-suarez',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46001,6 +46043,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/davidzuluagaramirez',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46021,6 +46064,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/alejandra-díaz-agudelo-95660313b',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46041,6 +46085,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/carlosgutierrezriveros',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46061,6 +46106,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/bbva-technology-en-america/',
                     user_type: 'company',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46089,6 +46135,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/alcaldiadesince',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46109,6 +46156,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/petroguiaimagen',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46129,6 +46177,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lucygobernadora',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46149,6 +46198,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lavibrante',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46169,6 +46219,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/radiounica945fm',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -46189,6 +46240,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/cohenycohen',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'María Fernanda Suárez',
@@ -47175,6 +47227,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47195,6 +47248,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47223,6 +47277,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/alexhuaricallo',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47243,6 +47298,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/johan-salamanca-09743990',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47263,6 +47319,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/grupoaval/',
                     user_type: 'company',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47283,6 +47340,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/isabelcristinamartinezcoral',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47303,6 +47361,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/iñigo-josu-argaluza-larrinaga-981181a',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47323,6 +47382,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/e-omar-quenaya-amasifuén-688072102',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47343,6 +47403,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/wradiocolombia/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47363,6 +47424,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/grupoaval/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47383,6 +47445,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/daniel-osorio-martínez',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47403,6 +47466,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/iñigo-josu-argaluza-larrinaga-981181a',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47431,6 +47495,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/giroprogresista',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47451,6 +47516,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/germador_',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47471,6 +47537,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/wradioco',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Luis Carlos Sarmiento Gutiérrez',
@@ -47634,6 +47701,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47654,6 +47722,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47674,6 +47743,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47694,6 +47764,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47714,6 +47785,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47734,6 +47806,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47754,6 +47827,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47774,6 +47848,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47794,6 +47869,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47814,6 +47890,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47834,6 +47911,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47854,6 +47932,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47874,6 +47953,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47894,6 +47974,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47922,6 +48003,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '3',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47942,6 +48024,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47970,6 +48053,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Crimaga92',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -47990,6 +48074,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CrisMToda',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -48010,6 +48095,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CokieCris',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -48030,6 +48116,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CokieCris',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -48050,6 +48137,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CokieCris',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'Isabel Cristina Martínez',
@@ -48213,6 +48301,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/the-pri/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48233,6 +48322,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/césar-prado-villegas-930a9189',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48253,6 +48343,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/showcase/360-radio-colombia/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48273,6 +48364,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/grupoaval/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48293,6 +48385,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/sebastian-tobón-palacio-bb30a527',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48313,6 +48406,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/in/dianabaronq-9aaa632',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48333,6 +48427,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/revistaclevel/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48353,6 +48448,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/la-republica/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48373,6 +48469,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/grupoaval/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48393,6 +48490,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.linkedin.com/company/banco-de-bogota/',
                     user_type: 'company',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'César Prado Villegas',
@@ -48556,6 +48654,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48576,6 +48675,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48596,6 +48696,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48616,6 +48717,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48636,6 +48738,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48656,6 +48759,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48676,6 +48780,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48696,6 +48801,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48716,6 +48822,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48744,6 +48851,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48764,6 +48872,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48784,6 +48893,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48812,6 +48922,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Venomcrypto3',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48832,6 +48943,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/crypt_options',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48852,6 +48964,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48872,6 +48985,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48892,6 +49006,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48912,6 +49027,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48932,6 +49048,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/StockShaman',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48952,6 +49069,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/DeFiHerald',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48972,6 +49090,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CryptoLorenzzo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -48992,6 +49111,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CryptoPollDoc',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49012,6 +49132,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/YakuzaInCrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49032,6 +49153,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/TndGems',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49052,6 +49174,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/nadim_zidan',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49072,6 +49195,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/TopTrendingSol',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49092,6 +49216,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/goat_finance',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49120,6 +49245,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/stratoss.barber',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49140,6 +49266,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/brasserie_des_indecis',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49160,6 +49287,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/cryptopouuse_academy',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49180,6 +49308,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/motoholicsgr',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49200,6 +49329,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/akowahbybullededetente',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49220,6 +49350,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/athcarwashduiven',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49240,6 +49371,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/prof.john.cronin',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49260,6 +49392,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/athenscomedy',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49280,6 +49413,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/sorosokegossip',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49300,6 +49434,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lentreguillemets',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49320,6 +49455,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/prettytipsbytee_',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49340,6 +49476,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/motoholicsgr',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49360,6 +49497,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/mubite_official',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49380,6 +49518,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/taromania_destiny',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49400,6 +49539,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/haridusteaduste.instituut',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49420,6 +49560,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/jhonney_arrioja',
                     user_type: 'user',
                     sentiment_analysis: '8',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49440,6 +49581,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/giannoulisinteriors',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49460,6 +49602,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/273ath',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49480,6 +49623,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/remedyblog',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49500,6 +49644,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/itsestellacom',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49520,6 +49665,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/vasguide',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49540,6 +49686,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ath_educationinstitute',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49560,6 +49707,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/airdrops_dot_com',
                     user_type: 'user',
                     sentiment_analysis: '3',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -49580,6 +49728,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/remedyblog',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -57908,6 +58057,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -57928,6 +58078,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -57948,6 +58099,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -57968,6 +58120,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -57988,6 +58141,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58008,6 +58162,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58028,6 +58183,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58048,6 +58204,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58068,6 +58225,7 @@ export const consolidateDataTest: Results = {
                     user_url: '',
                     user_type: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58095,7 +58253,8 @@ export const consolidateDataTest: Results = {
                     "user_url": "",
                     "user_type": "",
                     "username": "",
-                    "sentiment_analysis": "5"
+                    "sentiment_analysis": "5",
+                    "risk_analysis": "No risk"
                   },
                   "generated": null,
                   "source": "ATH",
@@ -58115,7 +58274,8 @@ export const consolidateDataTest: Results = {
                     "user_url": "",
                     "user_type": "",
                     "username": "",
-                    "sentiment_analysis": "0"
+                    "sentiment_analysis": "0",
+                    "risk_analysis": "No risk"
                   },
                   "generated": null,
                   "source": "ATH",
@@ -58135,7 +58295,8 @@ export const consolidateDataTest: Results = {
                     "user_url": "",
                     "user_type": "",
                     "username": "",
-                    "sentiment_analysis": "0"
+                    "sentiment_analysis": "0",
+                    "risk_analysis": "No risk"
                   },
                   "generated": null,
                   "source": "ATH",
@@ -58164,6 +58325,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Venomcrypto3',
                     user_type: 'user',
                     sentiment_analysis: '4',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58224,6 +58386,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58244,6 +58407,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58264,6 +58428,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58284,6 +58449,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/StockShaman',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58304,6 +58470,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/DeFiHerald',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58324,6 +58491,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CryptoLorenzzo',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58344,6 +58512,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/CryptoPollDoc',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58364,6 +58533,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/YakuzaInCrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58384,6 +58554,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/TndGems',
                     user_type: 'user',
                     sentiment_analysis: '8',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58404,6 +58575,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/nadim_zidan',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58424,6 +58596,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/TopTrendingSol',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58444,6 +58617,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/goat_finance',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58472,6 +58646,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/stratoss.barber',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58492,6 +58667,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/brasserie_des_indecis',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58512,6 +58688,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/cryptopouuse_academy',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58532,6 +58709,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/motoholicsgr',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58552,6 +58730,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/akowahbybullededetente',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58572,6 +58751,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/athcarwashduiven',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58592,6 +58772,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/prof.john.cronin',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58612,6 +58793,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/athenscomedy',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58632,6 +58814,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/sorosokegossip',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58652,6 +58835,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/lentreguillemets',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58672,6 +58856,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/prettytipsbytee_',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58692,6 +58877,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/motoholicsgr',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58711,7 +58897,8 @@ export const consolidateDataTest: Results = {
                     "user_following": "",
                     "user_url": "https://www.instagram.com/mubite_official",
                     "user_type": "user",
-                    "sentiment_analysis": "7"
+                    "sentiment_analysis": "7",
+                    "risk_analysis": "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58732,6 +58919,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/taromania_destiny',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58752,6 +58940,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/haridusteaduste.instituut',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58772,6 +58961,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/jhonney_arrioja',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58792,6 +58982,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/giannoulisinteriors',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58812,6 +59003,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/273ath',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58832,6 +59024,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/remedyblog',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58852,6 +59045,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/itsestellacom',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58872,6 +59066,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/vasguide',
                     user_type: 'user',
                     sentiment_analysis: '5',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58892,6 +59087,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/ath_educationinstitute',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58912,6 +59108,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/airdrops_dot_com',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -58932,6 +59129,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://www.instagram.com/remedyblog',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -80767,6 +80965,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '1',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'bancopopular.com.co',
@@ -80787,6 +80986,7 @@ export const consolidateDataTest: Results = {
                     user_type: '',
                     username: '',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'bancopopular.com.co',
