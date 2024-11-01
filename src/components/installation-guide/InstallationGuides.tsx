@@ -39,7 +39,7 @@ const InstallationGuides = () => {
     const copyToClipboard = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);
-            setSnackbarMessage('Texto copiado al portapapeles: ' + text);
+            setSnackbarMessage(`${t('snackbar.copied_text')} ${text}`);
             setSnackbarOpen(true);
             setTimeout(() => {
                 setSnackbarOpen(false);
@@ -75,58 +75,49 @@ const InstallationGuides = () => {
                     <DashboardCard>
                         <Box>
                             <Typography variant="h4" gutterBottom>
-                                Guía de instalación
+                                {t('installation_guide.title')}
                             </Typography>
                             <Typography variant="body1" sx={{ marginBottom: 3 }}>
-                                ¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones
-                                paso a paso para instalar el agente en diferentes sistemas operativos.
+                                {t('installation_guide.welcome_message')}
                             </Typography>
 
                             {/* Accordion para Windows */}
                             <Accordion defaultExpanded>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h6"><FaWindows style={{ marginRight: '8px' }} /> Windows</Typography>
+                                    <Typography variant="h6"><FaWindows style={{ marginRight: '8px' }} /> {t('installation_guide.windows.title')}</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="h6">Instalación Individual</Typography>
+                                    <Typography variant="h6">{t('installation_guide.windows.individual_installation.title')}</Typography>
                                     <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                                        Para ejecutar el comando en Windows, siga estos pasos:
+                                        {t('installation_guide.windows.individual_installation.steps.intro')}
                                     </Typography>
                                     <ul>
-                                        <li><strong>Paso 1:</strong> Abra PowerShell con privilegios administrativos.</li>
+                                        <li><strong>{t('installation_guide.windows.individual_installation.steps.step1')}</strong></li>
                                         <li>
-                                            <strong>Paso 2:</strong> Copie el siguiente comando:
+                                            <strong>{t('installation_guide.windows.individual_installation.steps.step2')}</strong>
                                         </li>
                                     </ul>
-                                    <CodeBlock onClick={() => copyToClipboard(`Invoke-WebRequest -Uri "https://git.lorius.cloud/aordonez/installers_agent_akila/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilamonitoring1.akila-dev.octapus.io/" API_KEY="hytKMeKI.1Tk3sAkriiE7xOYs986DvMl4DecIzhQx" Version="1.0.5"' -Wait`)}>
-                                        {`Invoke-WebRequest -Uri "https://git.lorius.cloud/aordonez/installers_agent_akila/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilamonitoring1.akila-dev.octapus.io/" API_KEY="hytKMeKI.1Tk3sAkriiE7xOYs986DvMl4DecIzhQx" Version="1.0.5"' -Wait`}
+                                    <CodeBlock onClick={() => copyToClipboard(`Invoke-WebRequest -Uri "https://gitlab.octapus.io/public-releases/akila-agent-installers/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilademo1.akila-dev.octapus.io/" API_KEY="BjTcUCJp.tQQur17OOtoTrkehEVH6msKsI7q10C6o" Version="1.0.5"' -Wait`)}>
+                                        {`Invoke-WebRequest -Uri "https://gitlab.octapus.io/public-releases/akila-agent-installers/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilademo1.akila-dev.octapus.io/" API_KEY="BjTcUCJp.tQQur17OOtoTrkehEVH6msKsI7q10C6o" Version="1.0.5"' -Wait`}
                                     </CodeBlock>
                                     <ul>
-                                        <li><strong>Paso 3:</strong> Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.</li>
-                                        <li>El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas.</li>
+                                        <li><strong>{t('installation_guide.windows.individual_installation.steps.step3')}</strong></li>
+                                        <li>{t('installation_guide.windows.individual_installation.steps.note')}</li>
                                     </ul>
 
-                                    <Typography variant="h6" sx={{ marginTop: 2 }}>Instalación Masiva</Typography>
+                                    <Typography variant="h6" sx={{ marginTop: 2 }}>{t('installation_guide.windows.bulk_installation.title')}</Typography>
                                     <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                                        Para crear un script para instalación masiva, siga estos pasos:
+                                        {t('installation_guide.windows.bulk_installation.steps.intro')}
                                     </Typography>
                                     <ul>
-                                        <li><strong>Paso 1:</strong> Cree un nuevo archivo de script de PowerShell con una extensión .ps1, por ejemplo, install_agent.ps1.</li>
-                                        <li><strong>Paso 2:</strong> Copie el siguiente script en el archivo de script de PowerShell recién creado:</li>
+                                        <li><strong>{t('installation_guide.windows.bulk_installation.steps.step1')}</strong></li>
+                                        <li><strong>{t('installation_guide.windows.bulk_installation.steps.step2')}</strong></li>
                                     </ul>
-                                    <CodeBlock onClick={() => copyToClipboard(`$markerFile = "$env:ProgramData\\AkilaAgentInstalled.txt"
-if (-not (Test-Path $markerFile)) {
-    Invoke-WebRequest -Uri "https://git.lorius.cloud/aordonez/installers_agent_akila/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilamonitoring1.akila-dev.octapus.io/" API_KEY="hytKMeKI.1Tk3sAkriiE7xOYs986DvMl4DecIzhQx" Version="1.0.5"' -Wait
-    New-Item -ItemType File -Path $markerFile -Force
-}`)}>
-                                        {`$markerFile = "$env:ProgramData\\AkilaAgentInstalled.txt"
-if (-not (Test-Path $markerFile)) {
-    Invoke-WebRequest -Uri "https://git.lorius.cloud/aordonez/installers_agent_akila/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilamonitoring1.akila-dev.octapus.io/" API_KEY="hytKMeKI.1Tk3sAkriiE7xOYs986DvMl4DecIzhQx" Version="1.0.5"' -Wait
-    New-Item -ItemType File -Path $markerFile -Force
-}`}
+                                    <CodeBlock onClick={() => copyToClipboard(`$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "https://gitlab.octapus.io/public-releases/akila-agent-installers/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilademo1.akila-dev.octapus.io/" API_KEY="BjTcUCJp.tQQur17OOtoTrkehEVH6msKsI7q10C6o" Version="1.0.5"' -Wait New-Item -ItemType File -Path $markerFile -Force }`)}>
+                                        {`$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "https://gitlab.octapus.io/public-releases/akila-agent-installers/-/raw/main/Akila_Agent_setup.exe" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://akilademo1.akila-dev.octapus.io/" API_KEY="BjTcUCJp.tQQur17OOtoTrkehEVH6msKsI7q10C6o" Version="1.0.5"' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
                                     </CodeBlock>
                                     <ul>
-                                        <li><strong>Paso 3:</strong> Guarde el archivo de script.</li>
+                                        <li><strong>{t('installation_guide.windows.bulk_installation.steps.step3')}</strong></li>
                                     </ul>
 
                                     <Box sx={{
@@ -135,23 +126,23 @@ if (-not (Test-Path $markerFile)) {
                                         marginTop: 2,
                                     }}>
                                         <Typography variant="h6">
-                                            Instrucciones para la Directiva de Grupo de Active Directory
+                                            {t('installation_guide.windows.active_directory.title')}
                                         </Typography>
                                         <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                                            Para aplicar políticas de grupo en Active Directory, siga estos pasos:
+                                            {t('installation_guide.windows.active_directory.intro')}
                                         </Typography>
                                         <ul>
-                                            <li><strong>Paso 1:</strong> Abra la Consola de Administración de Directivas de Grupo (GPMC).</li>
-                                            <li><strong>Paso 2:</strong> Navegue hasta la Unidad Organizativa (OU) o dominio deseado.</li>
-                                            <li><strong>Paso 3:</strong> Cree un nuevo Objeto de Directiva de Grupo (GPO) o edite uno existente.</li>
-                                            <li><strong>Paso 4:</strong> Navegue a Configuración del Equipo &gt; Directivas &gt; Scripts (Inicio/Apagado).</li>
-                                            <li><strong>Paso 5:</strong> Agregue un nuevo script de inicio y especifique la ruta de su script de PowerShell (por ejemplo, install_agent.ps1).</li>
-                                            <li><strong>Paso 6:</strong> Asegúrese de que la directiva de ejecución permita que el script se ejecute.</li>
-                                            <li><strong>Paso 7:</strong> Una vez que la Directiva de Grupo se aplique a las computadoras deseadas, el script se ejecutará durante el inicio.</li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step1')}</strong></li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step2')}</strong></li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step3')}</strong></li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step4')}</strong></li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step5')}</strong></li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step6')}</strong></li>
+                                            <li><strong>{t('installation_guide.windows.active_directory.steps.step7')}</strong></li>
                                         </ul>
                                     </Box>
                                     <Typography variant="body2">
-                                        Notas: El agente de Windows es compatible con las versiones de Windows Server 2008 R2 y posteriores.
+                                        {t('installation_guide.windows.notes')}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -159,17 +150,17 @@ if (-not (Test-Path $markerFile)) {
                             {/* Accordion para Linux */}
                             <Accordion defaultExpanded>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h6"><FaLinux style={{ marginRight: '8px' }} /> Linux</Typography>
+                                    <Typography variant="h6"><FaLinux style={{ marginRight: '8px' }} /> {t('installation_guide.linux.title')}</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="h6">Instalación Individual</Typography>
+                                    <Typography variant="h6">{t('installation_guide.linux.individual_installation.title')}</Typography>
                                     <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                                        Para ejecutar el comando en Linux, siga estos pasos:
+                                        {t('installation_guide.linux.individual_installation.steps.intro')}
                                     </Typography>
                                     <ul>
-                                        <li><strong>Paso 1:</strong> Abra una terminal en su sistema Linux.</li>
+                                        <li><strong>{t('installation_guide.linux.individual_installation.steps.step1')}</strong></li>
                                         <li>
-                                            <strong>Paso 2:</strong> Elija su distribución de Linux:
+                                            <strong>{t('installation_guide.linux.individual_installation.steps.step2')}</strong>
                                         </li>
                                     </ul>
                                     <Box sx={{ marginBottom: 2 }}>
@@ -210,27 +201,25 @@ if (-not (Test-Path $markerFile)) {
                                     </Box>
 
                                     <ul>
-                                        <li><strong>Paso 3:</strong> Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.</li>
+                                        <li><strong>{t('installation_guide.linux.individual_installation.steps.step3')}</strong></li>
                                         <li>
-                                            <strong>Paso 4:</strong> Copie el siguiente comando:
+                                            <strong>{t('installation_guide.linux.individual_installation.steps.step4')}</strong>
                                         </li>
                                     </ul>
-                                    <CodeBlock onClick={() => copyToClipboard(`sudo curl -o- https://git.lorius.cloud/aordonez/installers_agent_akila/-/raw/main/agent_linux.sh | sudo bash -s -- --url "https://akilamonitoring1.akila-dev.octapus.io/" --api-key "hytKMeKI.1Tk3sAkriiE7xOYs986DvMl4DecIzhQx" --version "1.0.5"`)} >
-                                        {`sudo curl -o- https://git.lorius.cloud/aordonez/installers_agent_akila/-/raw/main/agent_linux.sh | sudo bash -s -- --url "https://akilamonitoring1.akila-dev.octapus.io/" --api-key "hytKMeKI.1Tk3sAkriiE7xOYs986DvMl4DecIzhQx" --version "1.0.5"`}
+                                    <CodeBlock onClick={() => copyToClipboard(`sudo curl -o- https://gitlab.octapus.io/public-releases/akila-agent-installers/-/raw/main/agent_linux.sh | sudo bash -s -- --url "https://akilademo1.akila-dev.octapus.io/" --api-key "BjTcUCJp.tQQur17OOtoTrkehEVH6msKsI7q10C6o" --version "1.0.5"`)} >
+                                        {`sudo curl -o- https://gitlab.octapus.io/public-releases/akila-agent-installers/-/raw/main/agent_linux.sh | sudo bash -s -- --url "https://akilademo1.akila-dev.octapus.io/" --api-key "BjTcUCJp.tQQur17OOtoTrkehEVH6msKsI7q10C6o" --version "1.0.5"`}
                                     </CodeBlock>
                                     <ul>
-                                        <li><strong>Paso 5:</strong> Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.</li>
-                                        <li>El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas.</li>
+                                        <li><strong>{t('installation_guide.linux.individual_installation.steps.step5')}</strong></li>
+                                        <li>{t('installation_guide.linux.individual_installation.steps.note')}</li>
                                     </ul>
 
-                                    <Typography variant="h6" sx={{ marginTop: 2 }}>Notas de error</Typography>
+                                    <Typography variant="h6" sx={{ marginTop: 2 }}>{t('installation_guide.linux.error_notes.title')}</Typography>
                                     <Typography variant="body2">
-                                        Si hay problemas, intente con los siguientes comandos:
+                                        {t('installation_guide.linux.error_notes.intro')}
                                     </Typography>
-                                    <CodeBlock onClick={() => copyToClipboard(`wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb
-sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb`)}>
-                                        {`wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb
-sudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb`}
+                                    <CodeBlock onClick={() => copyToClipboard(`wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb\nsudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb`)}>
+                                        {`wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb\nsudo dpkg -i libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb`}
                                     </CodeBlock>
                                 </AccordionDetails>
                             </Accordion>
@@ -270,7 +259,7 @@ const CodeBlock: React.FC<{ children: React.ReactNode; onClick: () => void }> = 
                 marginBottom: 2,
                 cursor: 'pointer',
                 border: `1px solid ${theme.palette.divider}`,
-                boxShadow: theme.palette.mode === 'light' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none', // Sombra para el modo claro
+                boxShadow: theme.palette.mode === 'light' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
             }}
         >
             {children}
