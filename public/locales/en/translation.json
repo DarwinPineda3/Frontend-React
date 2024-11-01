@@ -450,7 +450,8 @@
     "vip_compromised_count": "Compromised VIPs Count",
     "fake_app_count": "Fake Applications Count",
     "social_media_total": "Social Media Count",
-    "dark_web_total": "Dark Web Count"
+    "dark_web_total": "Dark Web Count",
+    "network_scans": "Network Observability Scans"
   },
   "monitoring": {
     "top_threat_types": "Top Detected Threat Types",

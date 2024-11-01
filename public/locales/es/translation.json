@@ -450,7 +450,8 @@
     "vip_compromised_count": "Cantidad de VIPs comprometidos",
     "fake_app_count": "Cantidad de Aplicaciones Falsas",
     "social_media_total": "Total de Redes Sociales",
-    "dark_web_total": "Total de Dark Web"
+    "dark_web_total": "Total de Dark Web",
+    "network_scans": "Escaneos de observabilidad de red"
   },
   "monitoring": {
     "top_threat_types": "Principales tipos de amenazas detectadas",
