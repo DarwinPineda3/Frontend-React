@@ -2,52 +2,52 @@
 
 import mock from '../../../mock';
 
-import { ParameterCyberGuardType } from '../../../../types/cyber-guard/parameters/parameter'
+import { ParameterCyberGuardType } from '../../../../types/cyber-guard/parameters/parameter';
 
 
 
 
 let parameters: ParameterCyberGuardType[] = [
-    {
-        "id": "1",
-        "parameter": "bancodebogota.com",
-        "is_active": true,
-        "created_date": "2024-10-18T21:58:05.347941+00:00",
-        "updated_date": "2024-10-18T21:58:05.347950+00:00",
-        "parameter_type": "DOMAIN"
-    },
-    {
-        "id": "2",
-        "parameter": "grupoaval.com",
-        "is_active": true,
-        "created_date": "2024-10-18T21:58:54.430846+00:00",
-        "updated_date": "2024-10-18T21:58:54.430853+00:00",
-        "parameter_type": "DOMAIN"
-    },
-    {
-        "id": "3",
-        "parameter": "bancodeoccidente.com.co",
-        "is_active": true,
-        "created_date": "2024-10-18T21:59:18.696749+00:00",
-        "updated_date": "2024-10-18T21:59:18.696758+00:00",
-        "parameter_type": "DOMAIN"
-    },
-    {
-        "id": "4",
-        "parameter": "bancopopular.com.co",
-        "is_active": true,
-        "created_date": "2024-10-18T21:59:34.331907+00:00",
-        "updated_date": "2024-10-18T21:59:34.331915+00:00",
-        "parameter_type": "DOMAIN"
-    },
-    {
-        "id": "5",
-        "parameter": "avvillas.com.co",
-        "is_active": true,
-        "created_date": "2024-10-18T21:59:50.624479+00:00",
-        "updated_date": "2024-10-18T21:59:50.624488+00:00",
-        "parameter_type": "DOMAIN"
-    },
+  {
+    "id": "1",
+    "parameter": "bancodebogota.com",
+    "is_active": true,
+    "created_date": "2024-10-18T21:58:05.347941+00:00",
+    "updated_date": "2024-10-18T21:58:05.347950+00:00",
+    "parameter_type": "DOMAIN"
+  },
+  {
+    "id": "2",
+    "parameter": "grupoaval.com",
+    "is_active": true,
+    "created_date": "2024-10-18T21:58:54.430846+00:00",
+    "updated_date": "2024-10-18T21:58:54.430853+00:00",
+    "parameter_type": "DOMAIN"
+  },
+  {
+    "id": "3",
+    "parameter": "bancodeoccidente.com.co",
+    "is_active": true,
+    "created_date": "2024-10-18T21:59:18.696749+00:00",
+    "updated_date": "2024-10-18T21:59:18.696758+00:00",
+    "parameter_type": "DOMAIN"
+  },
+  {
+    "id": "4",
+    "parameter": "bancopopular.com.co",
+    "is_active": true,
+    "created_date": "2024-10-18T21:59:34.331907+00:00",
+    "updated_date": "2024-10-18T21:59:34.331915+00:00",
+    "parameter_type": "DOMAIN"
+  },
+  {
+    "id": "5",
+    "parameter": "avvillas.com.co",
+    "is_active": true,
+    "created_date": "2024-10-18T21:59:50.624479+00:00",
+    "updated_date": "2024-10-18T21:59:50.624488+00:00",
+    "parameter_type": "DOMAIN"
+  },
 ];
 
 // GET: Fetch paginated parameters
@@ -55,7 +55,7 @@ mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/parameters')).reply((con
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
-    const limit = 5;
+    const limit = 25;
     const page = parseInt(urlParams.get('page') || '1', 10);
 
     const activeParameters = parameters.filter(parameter => parameter.is_active);

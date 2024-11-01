@@ -582,7 +582,8 @@
     "description_malicious_ipaddr": "An IP address specifically identified as malicious due to its association with hostile or fraudulent activity on the Internet.",
     "description_phishing_domains": "Domain names resembling the investigated entity, potentially used in phishing schemes to impersonate or mislead users associated with the targeted organization",
     "description_not_available": "Description not available",
-    "risk_analysis": "Risk Analysis"
+    "risk_analysis": "Risk Analysis",
+    "domain_up": "Domain Up"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
