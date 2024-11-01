@@ -213,7 +213,7 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
-    const limit = 5;
+    const limit = 25;
     const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
 
     const startIndex = (page - 1) * limit;
