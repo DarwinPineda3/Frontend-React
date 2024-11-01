@@ -25,7 +25,7 @@ import DashboardCard from '../../../shared/DashboardCard';
 // const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (mobileAppId: number, appName: string) => void;
+  onMobileAppClick: (mobileAppId: number) => void;
 }
 
 const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
