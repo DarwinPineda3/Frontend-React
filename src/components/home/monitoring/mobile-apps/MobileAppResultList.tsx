@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 import {
-  Typography,
+  Box,
+  Chip,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  IconButton,
-  Dialog,
-  DialogContent,
-  Chip,
+  Typography,
   useTheme
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DashboardCard from '../../../shared/DashboardCard';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
-import { useTranslation } from 'react-i18next';
+import DashboardCard from '../../../shared/DashboardCard';
 
 // const theme = useTheme();
 // const { high, medium, low, critical } = theme.palette.level;
@@ -82,17 +82,12 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.state")}
+                    {t("mobile_apps.risk")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("mobile_apps.version")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.score")}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -157,23 +152,6 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                   <TableCell>
                     <Typography fontWeight={400}>
                       {mobileApp.version}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2">
-                      <Chip
-                        label={mobileApp.score}
-                        color="secondary"
-                        size="small"
-                        style={{
-                          backgroundColor:
-                            mobileApp.score > 7 ? high :
-                              mobileApp.score > 3.9 ? medium :
-                                mobileApp.score >= 0 ? low :
-                                  low,
-                          color: 'white'
-                        }}
-                      />
                     </Typography>
                   </TableCell>
                   <TableCell>
