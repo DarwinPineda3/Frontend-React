@@ -1,5 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
@@ -10,11 +11,14 @@ const Newsletter = () => {
   const { newsletterId } = useParams<{ newsletterId?: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [selectedNewsletterName, setSelectedNewsletterName] = useState<string | null>(null);
 
-  const handleNewsLetterClick = (id: string) => {
+  const handleNewsLetterClick = (id: string, name: string) => {
+    setSelectedNewsletterName(name);
     navigate(`/monitoring/soc/newsletters/${id}`);
   };
 
+  // TODO obtener todo el objeto
   if (newsletterId) {
     // return <NewsLetterDetail newsletterId={newsletterId} />;
   }
@@ -36,9 +40,7 @@ const Newsletter = () => {
           ) : (
             <Typography color="textPrimary">{t('newsletter.newsletters')}</Typography>
           )}
-          {newsletterId && (
-            <Typography color="textPrimary">{/* {selectedNewsletterName} */}</Typography>
-          )}
+          {newsletterId && <Typography color="textPrimary">{selectedNewsletterName}</Typography>}
         </Breadcrumbs>
       </Box>
       {newsletterId ? (

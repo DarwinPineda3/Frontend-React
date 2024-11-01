@@ -18,7 +18,7 @@ import { fetchNewsletters, setPage } from 'src/store/sections/newsletter/Newslet
 import DashboardCard from '../shared/DashboardCard';
 
 interface NewsletterTableProps {
-  onNewsLetterClick: (newsletterId: string) => void;
+  onNewsLetterClick: (newsletterId: string, newsletterName: string) => void;
 }
 
 const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) => {
@@ -80,7 +80,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onNewsLetterClick(newsletter.id)}
+                      onClick={() => onNewsLetterClick(newsletter.id, newsletter.name)}
                       style={{ cursor: 'pointer' }}
                     >
                       {newsletter.name}
