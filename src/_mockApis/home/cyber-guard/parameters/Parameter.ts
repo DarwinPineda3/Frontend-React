@@ -48,6 +48,110 @@ let parameters: ParameterCyberGuardType[] = [
     "updated_date": "2024-10-18T21:59:50.624488+00:00",
     "parameter_type": "DOMAIN"
   },
+  {
+    "id": "6",
+    "parameter": "bancopopular.com.co",
+    "is_active": true,
+    "created_date": "2024-10-31T03:38:48.687155Z",
+    "updated_date": "2024-10-31T03:38:48.687170Z",
+    "parameter_type": "DOMAIN"
+  },
+  {
+    "id": "7",
+    "parameter": "César Prado Villegas",
+    "is_active": true,
+    "created_date": "2024-10-31T03:46:34.498108Z",
+    "updated_date": "2024-10-31T03:46:34.498132Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "8",
+    "parameter": "Óscar Bernal Quintero",
+    "is_active": true,
+    "created_date": "2024-10-31T03:46:48.411496Z",
+    "updated_date": "2024-10-31T03:46:48.411518Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "9",
+    "parameter": "María Fernanda Suárez",
+    "is_active": true,
+    "created_date": "2024-10-31T03:47:17.969402Z",
+    "updated_date": "2024-10-31T03:47:17.969422Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "10",
+    "parameter": "Luis Carlos Sarmiento Gutiérrez",
+    "is_active": true,
+    "created_date": "2024-10-31T03:47:31.054456Z",
+    "updated_date": "2024-10-31T03:47:31.054475Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "11",
+    "parameter": "Isabel Cristina Martínez",
+    "is_active": true,
+    "created_date": "2024-10-31T03:48:13.261615Z",
+    "updated_date": "2024-10-31T03:48:13.261641Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "12",
+    "parameter": "ath.com.co",
+    "is_active": true,
+    "created_date": "2024-10-31T03:48:30.916471Z",
+    "updated_date": "2024-10-31T03:48:30.916492Z",
+    "parameter_type": "DOMAIN"
+  },
+  {
+    "id": "13",
+    "parameter": "ATH",
+    "is_active": true,
+    "created_date": "2024-10-31T03:49:51.356149Z",
+    "updated_date": "2024-10-31T03:49:51.356179Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "14",
+    "parameter": "Banco de Bogota",
+    "is_active": true,
+    "created_date": "2024-10-25T15:49:32.827006Z",
+    "updated_date": "2024-10-25T15:49:32.827024Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "15",
+    "parameter": "Banco de Occidente",
+    "is_active": true,
+    "created_date": "2024-10-25T15:49:42.248362Z",
+    "updated_date": "2024-10-25T15:49:42.248383Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "16",
+    "parameter": "Banco Popular",
+    "is_active": true,
+    "created_date": "2024-10-25T15:49:49.708290Z",
+    "updated_date": "2024-10-25T15:49:49.708304Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "17",
+    "parameter": "Banco AV Villas",
+    "is_active": true,
+    "created_date": "2024-10-25T15:49:56.291497Z",
+    "updated_date": "2024-10-25T15:49:56.291516Z",
+    "parameter_type": "WORD"
+  },
+  {
+    "id": "18",
+    "parameter": "Grupo Aval",
+    "is_active": true,
+    "created_date": "2024-10-25T15:50:05.113127Z",
+    "updated_date": "2024-10-25T15:50:05.113148Z",
+    "parameter_type": "WORD"
+  },
 ];
 
 // GET: Fetch paginated parameters
