@@ -33,7 +33,7 @@ let mobileApps: MobileAppType[] = [
     source: "APK Support",
     digitalSignature: "3082025D308201C6A0030201020214C8F3A5D7E9B2C1A6F4D7E3B8A2C4D5E7",
     apkHash: "B2A6E8C5D9F3C4A1B5E7F1C8A3D2B9F6E4C1A5B8D7F3",
-    score: 2,
+    score: 4,
     details: {
       language: "Español",
       downloads: "15.41 mil",
@@ -49,6 +49,46 @@ let mobileApps: MobileAppType[] = [
       risks: ["High - External data in SQL queries", "high - A5 - Configuración de seguridad incorrecta", "medium - JS enabled in a WebView"],
       OWASP: ["External data in SQL queries", "A5 - Configuración de seguridad incorrecta", "JS enabled in a WebView", "Usage of unencrypted HTTP protocol", "Hardcoded data", "Missing tapjacking protection", "Usage of implicit intent"],
       externalCommunications: ["No se detectaron comunicaciones no autorizadas"]
+    }
+  },
+  {
+    id: "123867435456",
+    idApp: "com.bancodebogota.appmirror",
+    appName: "Banco de Bogotá",
+    downloadLink: "https://appmirror.com/bancodebogota",
+    releaseDate: "2024-06-30",
+    version: "3.2.1",
+    source: "App Mirror",
+    digitalSignature: "3082025D308201C6A0030201020214D7A9B6C4E5A1B3F8C2D1E7A3B5F9C6D8",
+    apkHash: "A3B5F8C4D7A2C9E5B3D6F1A7E8C1D4B9F2C3E9A6D8",
+    score: 2,
+    details: {
+      language: "Español",
+      downloads: "500,000+",
+      permissions: ["Cámara", "Ubicación", "Almacenamiento"],
+      risks: ["Exposición de datos personales", "Acceso no controlado a la cámara"],
+      OWASP: ["A2 - Autenticación inadecuada", "A9 - Uso de APIs inseguras"],
+      externalCommunications: ["Tráfico sin cifrar detectado", "Uso de servidores externos no autorizados"]
+    }
+  },
+  {
+    id: "12312344867435",
+    idApp: "com.bancodebogota.apklive",
+    appName: "Banco de Bogotá",
+    downloadLink: "https://apklive.com/bancodebogota",
+    releaseDate: "2024-08-15",
+    version: "3.4.7",
+    source: "APK Live",
+    digitalSignature: "3082025D308201C6A0030201020214A7B4C6D5F8A3B9E5D4C1F2B7A6E8F9C1",
+    apkHash: "C1D8B5A4F7C2A9E3F5D1C4B9E7A6B3D8F1C2E9A4B5D3F6A7",
+    score: 1,
+    details: {
+      language: "Español",
+      downloads: "2 millones+",
+      permissions: ["Acceso a contactos", "Ubicación"],
+      risks: ["Almacenamiento inseguro de datos", "Exposición de ubicaciones de usuarios"],
+      OWASP: ["A7 - Almacenamiento de datos inseguro", "A4 - Configuración insegura"],
+      externalCommunications: ["Comunicación no cifrada detectada", "Análisis de tráfico no autorizado"]
     }
   },
   {
@@ -126,47 +166,6 @@ let mobileApps: MobileAppType[] = [
     }
   },
   {
-    id: "12312344867435",
-    idApp: "com.bancodebogota.apklive",
-    appName: "Banco de Bogotá",
-    downloadLink: "https://apklive.com/bancodebogota",
-    releaseDate: "2024-08-15",
-    version: "3.4.7",
-    source: "APK Live",
-    digitalSignature: "3082025D308201C6A0030201020214A7B4C6D5F8A3B9E5D4C1F2B7A6E8F9C1",
-    apkHash: "C1D8B5A4F7C2A9E3F5D1C4B9E7A6B3D8F1C2E9A4B5D3F6A7",
-    score: 1,
-    details: {
-      language: "Español",
-      downloads: "2 millones+",
-      permissions: ["Acceso a contactos", "Ubicación"],
-      risks: ["Almacenamiento inseguro de datos", "Exposición de ubicaciones de usuarios"],
-      OWASP: ["A7 - Almacenamiento de datos inseguro", "A4 - Configuración insegura"],
-      externalCommunications: ["Comunicación no cifrada detectada", "Análisis de tráfico no autorizado"]
-    }
-  },
-
-  {
-    id: "123867435456",
-    idApp: "com.bancodebogota.appmirror",
-    appName: "Banco de Bogotá",
-    downloadLink: "https://appmirror.com/bancodebogota",
-    releaseDate: "2024-06-30",
-    version: "3.2.1",
-    source: "App Mirror",
-    digitalSignature: "3082025D308201C6A0030201020214D7A9B6C4E5A1B3F8C2D1E7A3B5F9C6D8",
-    apkHash: "A3B5F8C4D7A2C9E5B3D6F1A7E8C1D4B9F2C3E9A6D8",
-    score: 2,
-    details: {
-      language: "Español",
-      downloads: "500,000+",
-      permissions: ["Cámara", "Ubicación", "Almacenamiento"],
-      risks: ["Exposición de datos personales", "Acceso no controlado a la cámara"],
-      OWASP: ["A2 - Autenticación inadecuada", "A9 - Uso de APIs inseguras"],
-      externalCommunications: ["Tráfico sin cifrar detectado", "Uso de servidores externos no autorizados"]
-    }
-  },
-  {
     id: "1238674364565",
     idApp: "com.bancodebogota.mobogenie",
     appName: "Banco de Bogotá",
@@ -176,7 +175,7 @@ let mobileApps: MobileAppType[] = [
     source: "Mobogenie",
     digitalSignature: "3082025D308201C6A0030201020214B6D9F2C5E3A8B4F7C1A3D2E9A5F1B8C7",
     apkHash: "F1A9C7E3B5D8C1A4F2D6B9E5A7C3D4B1F8A3C9",
-    score: 2.1,
+    score: 0,
     details: {
       language: "Español",
       downloads: "200,000+",

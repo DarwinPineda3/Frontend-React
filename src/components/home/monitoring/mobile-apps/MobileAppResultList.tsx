@@ -132,8 +132,8 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                             : mobileApp.score > 3.9
                               ? t("mobile_apps.risky")
                               : mobileApp.score > 0
-                                ? t("mobile_apps.not_very_risky")
-                                : t("mobile_apps.no_risk") // Asegúrate de agregar esta clave en el archivo de traducción
+                                ? t("mobile_apps.no_risk")
+                                : t("mobile_apps.no_risk")
                         }
                         color="secondary"
                         size="small"
