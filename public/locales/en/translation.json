@@ -682,8 +682,8 @@
     "version": "Version",
     "score": "Score",
     "downloads": "Downloads",
-    "very_risky": "Very risky",
-    "risky": "Risky",
+    "very_risky": "High risk",
+    "risky": "Potential risk",
     "not_very_risky": "Not very risky",
     "no_risk": "No risk",
     "release_date": "Release date",
@@ -716,3 +716,5 @@
     "not_enough_info": "Not Enough Information"
   }
 }
+
+
