@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -60,7 +60,11 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
   const theme = useTheme();
   const { high, medium, low, critical } = theme.palette.level;
 
-  const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
+  const addButton = (
+    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+      <AddIcon />
+    </IconButton>
+  );
 
   return (
     // pendiente de traducción
@@ -72,27 +76,27 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.app_name")}
+                    {t('mobile_apps.app_name')}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.source")}
+                    {t('mobile_apps.source')}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.risk")}
+                    {t('mobile_apps.risk')}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.version")}
+                    {t('mobile_apps.version')}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    {t("mobile_apps.downloads")}
+                    {t('mobile_apps.downloads')}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -119,45 +123,36 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                   </TableCell>
                   <TableCell>
                     {/* aqui cambio de color */}
-                    <Typography variant="subtitle2" fontWeight={600} color={
-                      mobileApp.score > 7 ? high :
-                        mobileApp.score > 3.9 ? medium :
-                          low
-                    }>
-
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={600}
+                      color={mobileApp.score > 7 ? high : mobileApp.score > 3.9 ? medium : low}
+                    >
                       <Chip
                         label={
                           mobileApp.score > 7
-                            ? t("mobile_apps.very_risky")
+                            ? t('mobile_apps.very_risky')
                             : mobileApp.score > 3.9
-                              ? t("mobile_apps.risky")
-                              : mobileApp.score > 0
-                                ? t("mobile_apps.no_risk")
-                                : t("mobile_apps.no_risk")
+                            ? t('mobile_apps.risky')
+                            : mobileApp.score > 0
+                            ? t('mobile_apps.no_risk')
+                            : t('mobile_apps.no_risk')
                         }
                         color="secondary"
                         size="small"
                         style={{
                           backgroundColor:
-                            mobileApp.score > 7
-                              ? high
-                              : mobileApp.score > 3.9
-                                ? medium
-                                : low,
-                          color: 'white'
+                            mobileApp.score > 7 ? high : mobileApp.score > 3.9 ? medium : low,
+                          color: 'white',
                         }}
                       />
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography fontWeight={400}>
-                      {mobileApp.version}
-                    </Typography>
+                    <Typography fontWeight={400}>{mobileApp.version}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2">
-                      {mobileApp.details.downloads}
-                    </Typography>
+                    <Typography variant="subtitle2">{mobileApp.details.downloads}</Typography>
                   </TableCell>
                 </TableRow>
               ))}
@@ -173,13 +168,10 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
           />
         </Box>
         {/* Edit/Create MalwareAnalysis Dialog/Modal */}
-        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
-          <DialogContent sx={{ padding: '50px' }}>
-          </DialogContent>
+        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+          <DialogContent sx={{ padding: '50px' }}></DialogContent>
         </Dialog>
       </Box>
-
-
     </DashboardCard>
   );
 };
