@@ -1,7 +1,13 @@
-import { Box, Grid } from '@mui/material';
-import { useEffect } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import BreachElementTypeChart from 'src/components/observability/dark-web/breachByElementTypeChart';
 import BreachStatusChart from 'src/components/observability/dark-web/breachStatus';
 import SecurityIncidentsPolygon from 'src/components/observability/dark-web/SecurityIncidentsPolygon';
@@ -17,6 +23,7 @@ const DarkWeb = () => {
 
   const brandMonitoringData: any = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringData);
 
+  const navigate = useNavigate();
 
   // Fetch brand monitoring data
   const dispatch = useDispatch();
@@ -59,11 +66,17 @@ const DarkWeb = () => {
     t('observability.domain'),
     t('observability.username'),
   ]
-
   const series = {
     name: 'Breaches',
     data: polygonValues,
   };
+
+  const [startDate, setStartDate] = useState<Date | null>(() => {
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    return date;
+  });
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
 
 
 
@@ -71,7 +84,74 @@ const DarkWeb = () => {
   return (
 
     <PageContainer title="Akila">
-      <Grid container spacing={3} mt={2} alignItems="stretch">
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBackIcon />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link component={RouterLink} color="inherit" to="/monitoring/threats-overview">
+              {t('menu.monitoring')}
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/monitoring/threats-overview">
+              {t('menu.dark_web_monitoring')}
+            </Link>
+          </Breadcrumbs>
+          <Box flexGrow={1} />
+          <Box display="flex" alignItems="center" mt={2}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                renderInput={(props) => (
+                  <CustomTextField
+                    {...props}
+                    fullWidth
+                    size="small"
+                    sx={{
+                      '& .MuiSvgIcon-root': {
+                        width: '18px',
+                        height: '18px',
+                      },
+                      '& .MuiFormHelperText-root': {
+                        display: 'none',
+                      },
+                    }}
+                  />
+                )}
+                value={startDate}
+                onChange={(newValue) => {
+                  setStartDate(newValue);
+                }}
+              />
+            </LocalizationProvider>
+            -
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                renderInput={(props) => (
+                  <CustomTextField
+                    {...props}
+                    fullWidth
+                    size="small"
+                    sx={{
+                      '& .MuiSvgIcon-root': {
+                        width: '18px',
+                        height: '18px',
+                      },
+                      '& .MuiFormHelperText-root': {
+                        display: 'none',
+                      },
+                    }}
+                  />
+                )}
+                value={endDate}
+                onChange={(newValue) => {
+                  setEndDate(newValue);
+                }}
+              />
+            </LocalizationProvider>
+          </Box>
+        </Box>
+      </Box>
+      <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12}>
           <TopCardsDarkWeb values={cardsValues} />
         </Grid>

@@ -55,7 +55,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
     setSelectedInternet(null);
   };
 
-  const getChipColor = (riskLevel: string) => {
+  const getChipColor = (riskLevel: string | undefined) => {
     switch (riskLevel) {
       case 'INFO':
         return { color: infoColor, label: t('monitoring.info') };
@@ -140,9 +140,14 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                       )}
                     </TableCell>
                     <TableCell>
-                      <Typography variant="subtitle2">
-                        {internet.data?.potential_risk || 'N/A'}
-                      </Typography>
+                      <Chip
+                        label={getChipColor(internet.data.potential_risk).label}
+                        sx={{
+                          backgroundColor: getChipColor(internet.data.potential_risk).color,
+                          color: 'white',
+                          ml: '5px',
+                        }}
+                      />
                     </TableCell>
                   </>
                 )}
