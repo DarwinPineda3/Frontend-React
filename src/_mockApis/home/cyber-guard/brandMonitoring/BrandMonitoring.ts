@@ -75,7 +75,7 @@ const latestData: LatestDataType[] = [
         "query_type": "DOMAIN",
         "scan_date": "2024-10-26T07:17:13.479915Z",
         "total_results": 66,
-        "id": "4oOsxJIBHPjIIpHRb-mQ"
+        "id": "4oOsxJIBHPjIIpHRb-mQ1"
     },
     {
         "query": "ATH",

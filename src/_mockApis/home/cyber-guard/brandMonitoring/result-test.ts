@@ -77471,8 +77471,9 @@ export const consolidateDataTest: Results = {
             'Internet name unresolved',
             'Social media',
             'Username',
+            'Potential Phishing Domains'
           ],
-          values: [37, 22, 141, 11, 5, 2, 50],
+          values: [37, 22, 141, 11, 5, 2, 50, 13],
         },
         security_leaks_data: [
           {
