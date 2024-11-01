@@ -33,7 +33,7 @@ let mobileApps: MobileAppType[] = [
     source: "Play Store",
     digitalSignature: "3082025D308201C6A0030201020214A9B7C3D5F6E8B2A5D1C9F3A8B7E6C5D1F0A3",
     apkHash: "91A6B4D8F3C7A9E5B2C4E1F5D8A3B7C9F1E4D6A2C5B8F3D1A9C7E8F2B4D5A6E1",
-    score: 9,
+    score: 0,
     details: {
       language: "Español",
       downloads: "10 millones+",
@@ -53,7 +53,7 @@ let mobileApps: MobileAppType[] = [
     source: "Play Store",
     digitalSignature: "3082025D308201C6A0030201020214BCF5C9A4B20E89B8E7A7CC59B2A5C5E7F1A5C5E",
     apkHash: "53A7B52B8DFA34A9A3C7D8F1E8D1A5C7F2A3B2C4E5D7F6B7A9B5C6D8E9F7C3B5",
-    score: 3,
+    score: 0,
     details: {
       language: "Español",
       downloads: "500 millones+",
@@ -74,7 +74,7 @@ let mobileApps: MobileAppType[] = [
     source: "Play Store",
     digitalSignature: "3082025D308201C6A0030201020214A9B7C3D5F6E8B2A5D1C9F3A8B7E6C5D1F0A3",
     apkHash: "91A6B4D8F3C7A9E5B2C4E1F5D8A3B7C9F1E4D6A2C5B8F3D1A9C7E8F2B4D5A6E1",
-    score: 6,
+    score: 0,
     details: {
       language: "Español",
       downloads: "10 millones+",
@@ -94,7 +94,7 @@ let mobileApps: MobileAppType[] = [
     source: "APK Live",
     digitalSignature: "3082025D308201C6A0030201020214A7B4C6D5F8A3B9E5D4C1F2B7A6E8F9C1",
     apkHash: "C1D8B5A4F7C2A9E3F5D1C4B9E7A6B3D8F1C2E9A4B5D3F6A7",
-    score: 5,
+    score: 3,
     details: {
       language: "Español",
       downloads: "2 millones+",
@@ -114,7 +114,7 @@ let mobileApps: MobileAppType[] = [
     source: "APK Pure",
     digitalSignature: "3082025D308201C6A0030201020214C8F3A5D7E9B2C1A6F4D7E3B8A2C4D5E7",
     apkHash: "B2A6E8C5D9F3C4A1B5E7F1C8A3D2B9F6E4C1A5B8D7F3",
-    score: 6,
+    score: 2,
     details: {
       language: "Español",
       downloads: "1 millón+",
@@ -134,7 +134,7 @@ let mobileApps: MobileAppType[] = [
     source: "App Mirror",
     digitalSignature: "3082025D308201C6A0030201020214D7A9B6C4E5A1B3F8C2D1E7A3B5F9C6D8",
     apkHash: "A3B5F8C4D7A2C9E5B3D6F1A7E8C1D4B9F2C3E9A6D8",
-    score: 4,
+    score: 5,
     details: {
       language: "Español",
       downloads: "500,000+",
