@@ -25,31 +25,59 @@ interface Detail {
 let mobileApps: MobileAppType[] = [
   {
     id: "123867435",
-    idApp: "com.bancodebogota.app",
+    idApp: "co.com.ath.bbog.icbs",
+    appName: "Banco de Bogotá App Negocios APK",
+    downloadLink: "https://apk.support/download-app-es/co.com.ath.bbog.icbs",
+    releaseDate: "2024-10-21",
+    version: "1.15.3",
+    source: "APK Support",
+    digitalSignature: "3082025D308201C6A0030201020214C8F3A5D7E9B2C1A6F4D7E3B8A2C4D5E7",
+    apkHash: "B2A6E8C5D9F3C4A1B5E7F1C8A3D2B9F6E4C1A5B8D7F3",
+    score: 2,
+    details: {
+      language: "Español",
+      downloads: "15.41 mil",
+      permissions: [
+        "Dangerous - Allows application to take pictures and videos with the camera. This allows the application to collect images that the camera is seeing at any time",
+        "Dangerous - Allows the application to access the phone features of the device. An application with this permission can determine the phone number and serial number of this phone, whether a call is active, the number that call is connected to and so on.",
+        "Normal - Allows an application to view the status of all networks.",
+        "Normal - Allows a regular application to use Service.startForeground.",
+        "Normal - Allows an application to create network sockets.",
+        "Normal - Allows the application to control the vibrator.",
+        "Normal - Allows an application to prevent the phone from going to sleep."
+      ],
+      risks: ["High - External data in SQL queries", "high - A5 - Configuración de seguridad incorrecta", "medium - JS enabled in a WebView"],
+      OWASP: ["External data in SQL queries", "A5 - Configuración de seguridad incorrecta", "JS enabled in a WebView", "Usage of unencrypted HTTP protocol", "Hardcoded data", "Missing tapjacking protection", "Usage of implicit intent"],
+      externalCommunications: ["No se detectaron comunicaciones no autorizadas"]
+    }
+  },
+  {
+    id: "123867123435",
+    idApp: "com.bancodebogota.bancamovil",
     appName: "Banco de Bogotá",
-    downloadLink: "https://play.google.com/store/apps/details?id=com.bancodebogota.app",
-    releaseDate: "2024-09-30",
-    version: "4.5.2",
+    downloadLink: "https://play.google.com/store/apps/details?id=com.bancodebogota.bancamovil&hl=es_419",
+    releaseDate: "2024-10-27",
+    version: "10.20",
     source: "Play Store",
     digitalSignature: "3082025D308201C6A0030201020214A9B7C3D5F6E8B2A5D1C9F3A8B7E6C5D1F0A3",
     apkHash: "91A6B4D8F3C7A9E5B2C4E1F5D8A3B7C9F1E4D6A2C5B8F3D1A9C7E8F2B4D5A6E1",
     score: 0,
     details: {
       language: "Español",
-      downloads: "10 millones+",
-      permissions: ["Acceso a contactos", "Ubicación", "Acceso a cámara"],
-      risks: ["Exposición de datos personales", "Vulnerabilidad en la autenticación"],
-      OWASP: ["A3 - Exposición de datos sensibles", "A5 - Configuración de seguridad incorrecta"],
-      externalCommunications: ["Cifrado HTTPS", "No se detectaron comunicaciones no autorizadas"]
+      downloads: "5 millones+",
+      permissions: ["The mobile application can access external storage", "The mobile application can answer and place calls, or access/modify phone state"],
+      risks: ["High - External data in SQL queries", "high - A5 - Configuración de seguridad incorrecta", "medium - JS enabled in a WebView"],
+      OWASP: ["External data in SQL queries", "A5 - Configuración de seguridad incorrecta", "JS enabled in a WebView", "Usage of unencrypted HTTP protocol", "Hardcoded data", "Missing tapjacking protection", "Usage of implicit intent"],
+      externalCommunications: ["No se detectaron comunicaciones no autorizadas"]
     }
   },
   {
-    id: "123867435",
-    idApp: "com.whatsapp.client",
-    appName: "BdB Colombia",
+    id: "12386743235",
+    idApp: "co.com.ath.bbog.icbs",
+    appName: "Banco de Bogota App Negocios",
     downloadLink: "https://play.google.com/store/apps/details?id=com.whatsapp",
     releaseDate: "2024-10-20",
-    version: "2.23.20.79",
+    version: "1.15.3",
     source: "Play Store",
     digitalSignature: "3082025D308201C6A0030201020214BCF5C9A4B20E89B8E7A7CC59B2A5C5E7F1A5C5E",
     apkHash: "53A7B52B8DFA34A9A3C7D8F1E8D1A5C7F2A3B2C4E5D7F6B7A9B5C6D8E9F7C3B5",
@@ -57,15 +85,28 @@ let mobileApps: MobileAppType[] = [
     details: {
       language: "Español",
       downloads: "500 millones+",
-      permissions: ["Acceso a contactos", "Ubicación", "Almacenamiento"],
+      permissions: [
+        "Dangerous - Allows application to take pictures and videos with the camera. This allows the application to collect images that the camera is seeing at any time",
+        "Dangerous - Allows the application to access the phone features of the device. An application with this permission can determine the phone number and serial number of this phone, whether a call is active, the number that call is connected to and so on.",
+        "Normal - Allows an application to view the status of all networks.",
+        "Normal - Allows a regular application to use Service.startForeground.",
+        "Normal - Allows an application to create network sockets.",
+        "Normal - Allows the application to control the vibrator.",
+        "Normal - Allows an application to prevent the phone from going to sleep."
+      ],
       risks: ["Posibles fugas de datos", "Uso intensivo de recursos"],
-      OWASP: ["A2 - Control de acceso roto", "A4 - Autenticación rota"],
+      OWASP: [
+        "High - External data in SQL queries",
+        "Medium -Hardcoded Sensitive Data",
+        "Medium - JS enabled in a WebView",
+        "Use of Hidden UI elements"
+      ],
       externalCommunications: ["Uso de conexiones encriptadas", "Detección de IPs externas"]
     },
 
   },
   {
-    id: "123867435",
+    id: "123812367435",
     idApp: "com.bancodebogota.app",
     appName: "Banco de Bogotá",
     downloadLink: "https://play.google.com/store/apps/details?id=com.bancodebogota.app",
@@ -85,7 +126,7 @@ let mobileApps: MobileAppType[] = [
     }
   },
   {
-    id: "123867435",
+    id: "12312344867435",
     idApp: "com.bancodebogota.apklive",
     appName: "Banco de Bogotá",
     downloadLink: "https://apklive.com/bancodebogota",
@@ -104,28 +145,9 @@ let mobileApps: MobileAppType[] = [
       externalCommunications: ["Comunicación no cifrada detectada", "Análisis de tráfico no autorizado"]
     }
   },
+
   {
-    id: "123867435",
-    idApp: "com.bancodebogota.apkpure",
-    appName: "Banco de Bogotá",
-    downloadLink: "https://apkpure.com/bancodebogota",
-    releaseDate: "2024-07-22",
-    version: "3.5.3",
-    source: "APK Pure",
-    digitalSignature: "3082025D308201C6A0030201020214C8F3A5D7E9B2C1A6F4D7E3B8A2C4D5E7",
-    apkHash: "B2A6E8C5D9F3C4A1B5E7F1C8A3D2B9F6E4C1A5B8D7F3",
-    score: 2,
-    details: {
-      language: "Español",
-      downloads: "1 millón+",
-      permissions: ["Almacenamiento", "Ubicación"],
-      risks: ["Intercepción de datos no cifrados", "Acceso no autorizado a archivos de usuario"],
-      OWASP: ["A3 - Exposición de datos sensibles", "A5 - Configuración incorrecta de permisos"],
-      externalCommunications: ["Uso de conexiones HTTP", "Detección de solicitudes no cifradas"]
-    }
-  },
-  {
-    id: "123867435",
+    id: "123867435456",
     idApp: "com.bancodebogota.appmirror",
     appName: "Banco de Bogotá",
     downloadLink: "https://appmirror.com/bancodebogota",
@@ -145,7 +167,7 @@ let mobileApps: MobileAppType[] = [
     }
   },
   {
-    id: "123867435",
+    id: "1238674364565",
     idApp: "com.bancodebogota.mobogenie",
     appName: "Banco de Bogotá",
     downloadLink: "https://mobogenie.com/bancodebogota",
@@ -165,7 +187,7 @@ let mobileApps: MobileAppType[] = [
     }
   },
   {
-    id: "123867435",
+    id: "12386743422235",
     idApp: "com.bancodebogota.appsapk",
     appName: "Banco de Bogotá App Negocios APK",
     downloadLink: "https://apksuport.com/bancodebogota",

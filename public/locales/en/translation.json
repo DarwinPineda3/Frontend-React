@@ -679,7 +679,7 @@
     "apps": "Apps",
     "app_name": "App name",
     "source": "Source",
-    "state": "State",
+    "risk": "Risk",
     "version": "Version",
     "score": "Score",
     "downloads": "Downloads",
