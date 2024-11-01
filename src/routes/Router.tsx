@@ -33,7 +33,6 @@ import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
-import Takedown from 'src/views/monitoring/SOC/takedown';
 import CloudObservability from 'src/views/observability/Cloud';
 import DarkWeb from 'src/views/observability/DarkWeb';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
@@ -120,7 +119,7 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/newsletters', element: <SocNews /> },
       { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
-      { path: '/monitoring/soc/takedown', element: <Takedown /> },
+      { path: '/monitoring/soc/takedown', element: <TicketFormComp /> },
 
       { path: '/monitoring/siem', element: <SIEMMonitoring /> },
 
