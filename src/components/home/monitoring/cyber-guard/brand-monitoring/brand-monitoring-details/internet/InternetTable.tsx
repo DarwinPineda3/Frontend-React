@@ -85,12 +85,12 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                 <>
                   <TableCell>
                     <Typography align="center" variant="subtitle2" fontWeight={600}>
-                      Domain Up
+                      {t('monitoring.domain_up')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Potential Risk
+                      {t('risk_analysis.potential_risk')}
                     </Typography>
                   </TableCell>
                 </>
