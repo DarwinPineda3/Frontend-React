@@ -49791,7 +49791,7 @@ export const consolidateDataTest: Results = {
       query: 'ath.com.co',
       query_type: 'DOMAIN',
       scandate: '2024-10-31T17:55:38.072518+00:00',
-      totalresults: 465,
+      totalresults: 496,
       status: 'COMPLETED',
       consolidated_data: {
         internet_counters: {
@@ -49800,7 +49800,7 @@ export const consolidateDataTest: Results = {
           names_usernames: 26,
           phones: 0,
           vins: 0,
-          domains: 2,
+          domains: 35,
           total: 99,
         },
         internet_data: [
@@ -71868,7 +71868,7 @@ export const consolidateDataTest: Results = {
       query: 'bancopopular.com.co',
       query_type: 'DOMAIN',
       scandate: '2024-10-31T17:40:05.703370+00:00',
-      totalresults: 531,
+      totalresults: 544,
       status: 'COMPLETED',
       consolidated_data: {
         internet_counters: {
@@ -71877,7 +71877,7 @@ export const consolidateDataTest: Results = {
           names_usernames: 50,
           phones: 0,
           vins: 0,
-          domains: 16,
+          domains: 29,
           total: 229,
         },
         internet_data: [
