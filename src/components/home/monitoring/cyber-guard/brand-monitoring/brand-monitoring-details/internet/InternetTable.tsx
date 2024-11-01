@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import { Cancel, CheckCircle } from '@mui/icons-material';
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  Chip,
-  TablePagination,
 } from '@mui/material';
-import { Internet } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityinternetDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 import { useTheme } from '@mui/material/styles';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import SecurityinternetDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { Internet } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
 interface InternetTableProps {
   internet: Internet[];
@@ -54,7 +55,7 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
     setSelectedInternet(null);
   };
 
-  const getChipColor = (riskLevel: string) => {
+  const getChipColor = (riskLevel: string | undefined) => {
     switch (riskLevel) {
       case 'INFO':
         return { color: infoColor, label: t('monitoring.info') };
@@ -80,6 +81,20 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                   {t('monitoring.data')}
                 </Typography>
               </TableCell>
+              {internet.some((item) => item.type === 'PHISHING_DOMAINS') && (
+                <>
+                  <TableCell>
+                    <Typography align="center" variant="subtitle2" fontWeight={600}>
+                      {t('monitoring.domain_up')}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t('risk_analysis.potential_risk')}
+                    </Typography>
+                  </TableCell>
+                </>
+              )}
               <TableCell align="center">
                 <Typography variant="subtitle2" fontWeight={600}>
                   {t('monitoring.date')}
@@ -115,6 +130,27 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                     )}
                   </Typography>
                 </TableCell>
+                {internet.type === 'PHISHING_DOMAINS' && (
+                  <>
+                    <TableCell align="center">
+                      {internet.data?.domain_up ? (
+                        <CheckCircle color="success" />
+                      ) : (
+                        <Cancel color="error" />
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Chip
+                        label={getChipColor(internet.data.potential_risk).label}
+                        sx={{
+                          backgroundColor: getChipColor(internet.data.potential_risk).color,
+                          color: 'white',
+                          ml: '5px',
+                        }}
+                      />
+                    </TableCell>
+                  </>
+                )}
                 <TableCell align="center">
                   <HumanizedDate dateString={internet.date} />
                 </TableCell>
