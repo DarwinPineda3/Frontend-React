@@ -88,6 +88,8 @@ export interface InternetData {
   source: string;
   date: string;
   risk_level: number;
+  domain_up?: boolean;
+  potential_risk?: string;
 }
 
 export interface SocialNetworksData {
@@ -183,7 +185,7 @@ export interface InternetCategories {
     data: Internet[];
     total_results: number;
     type: string;
-    description:string;
+    description: string;
   };
 }
 
@@ -228,8 +230,7 @@ export interface ConsolidatedData {
   graphics_charts_security_leaks: GraphicsCharts;
   dark_web_data: DarkWebCategories[];
   dark_web_counters: DarkWebCounters;
-  graphics_charts_dark_web:GraphicsCharts;
-
+  graphics_charts_dark_web: GraphicsCharts;
 }
 
 // Main data type
