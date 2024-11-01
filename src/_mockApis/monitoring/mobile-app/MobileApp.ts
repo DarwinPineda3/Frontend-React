@@ -237,6 +237,28 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   }
 });
 
+
+// GET: Fetch paginated tecnology inventory
+mock.onDelete(new RegExp('/api/data/mobileApps/detail/*')).reply((config) => {
+  try {
+    const mobileAppId = config.url!.split('/').pop(); // Extract the asset ID from the URL
+
+    const mobileAppIndex = mobileApps.findIndex((mobileApp) => mobileApp.id === mobileAppId);
+    if (mobileAppIndex === -1) {
+      return [404, { message: 'Newsletter not found' }];
+    }
+    return [
+      200,
+      {
+        mobileApp: mobileApps[mobileAppIndex]
+      },
+    ];
+  } catch (error) {
+    console.error('Error in Mobile App API:', error);
+    return [500, { message: 'Internal server error' }];
+  }
+});
+
 // POST: Create a new mobileApp
 mock.onPost('/api/data/mobileApps').reply((config) => {
   try {
@@ -302,3 +324,4 @@ mock.onDelete(new RegExp('/api/data/mobileApps/*')).reply((config) => {
     return [500, { message: 'Failed to delete mobile app' }];
   }
 });
+

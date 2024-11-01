@@ -67,6 +67,28 @@ let newsletters: NewsletterType[] = [
     }
 ];
 
+
+// GET: Fetch tecnology inventory
+mock.onGet(new RegExp('/api/data/newsletter/detail/*')).reply((config) => {
+    try {
+        const newsletterId = config.url!.split('/').pop(); // Extract the asset ID from the URL
+        console.log('newsletterId MOCKUPI', newsletterId);
+        const newsletterIndex = newsletters.findIndex((result) => result.id === newsletterId);
+        if (newsletterIndex === -1) {
+            return [404, { message: 'Newsletter not found' }];
+        }
+        return [
+            200,
+            {
+                newsletter: newsletters[newsletterIndex]
+            },
+        ];
+    } catch (error) {
+        console.error('Error in newsletters API:', error);
+        return [500, { message: 'Internal server error' }];
+    }
+});
+
 // GET: Fetch paginated tecnology inventory
 mock.onGet(new RegExp('/api/data/newsletter')).reply((config) => {
     try {
@@ -95,23 +117,5 @@ mock.onGet(new RegExp('/api/data/newsletter')).reply((config) => {
     }
 });
 
-// GET: Fetch paginated tecnology inventory
-mock.onGet(new RegExp('/api/data/newsletter/*')).reply((config) => {
-    try {
-        const newsletterId = config.url!.split('/').pop(); // Extract the asset ID from the URL
 
-        const newsletterIndex = newsletters.findIndex((newsletter) => newsletter.id === newsletterId);
-        if (newsletterIndex === -1) {
-            return [404, { message: 'Newsletter not found' }];
-        }
-        return [
-            200,
-            {
-                newsletter: newsletters[newsletterIndex]
-            },
-        ];
-    } catch (error) {
-        console.error('Error in newsletters API:', error);
-        return [500, { message: 'Internal server error' }];
-    }
-});
+
