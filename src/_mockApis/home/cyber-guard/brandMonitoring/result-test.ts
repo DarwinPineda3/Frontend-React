@@ -20213,7 +20213,7 @@ export const consolidateDataTest: Results = {
                     name: '',
                     description: '',
                     risk_level: 0,
-                    domain_up: false,
+                    domain_up: true,
                     potential_risk: 'HIGH',
                   },
 
@@ -20327,7 +20327,7 @@ export const consolidateDataTest: Results = {
                     name: '',
                     description: '',
                     risk_level: 0,
-                    domain_up: true,
+                    domain_up: false,
                     potential_risk: 'LOW',
                   },
 
@@ -20350,7 +20350,7 @@ export const consolidateDataTest: Results = {
                     name: '',
                     description: '',
                     risk_level: 0,
-                    domain_up: true,
+                    domain_up: false,
                     potential_risk: 'LOW',
                   },
 
@@ -20373,7 +20373,7 @@ export const consolidateDataTest: Results = {
                     name: '',
                     description: '',
                     risk_level: 0,
-                    domain_up: true,
+                    domain_up: false,
                     potential_risk: 'LOW',
                   },
 
