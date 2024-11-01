@@ -3,42 +3,42 @@
 import mock from '../../mock'; // Ensure correct path to mock
 
 interface AppScanType {
-  id: string|undefined;
+  id: string | undefined;
   name: string;
   createdOn?: Date;
 }
 
 
 let appScans: AppScanType[] = [
-    {
-      id: '1',
-      name: 'Banco de Bogotá Móvil',
-      createdOn: new Date()
-    },
-    {
-      id: '2',
-      name: 'Banco de Occidente Móvil',
-      createdOn: new Date()
-    },
-    {
-      id: '3',
-      name: 'AV Villas App',
-      createdOn: new Date()
-    },
-    {
-      id: '4',
-      name: 'Banco Popular App',
-      createdOn: new Date()
-    }
-  ];
+  {
+    id: '1',
+    name: 'Banco de Bogotá Móvil',
+    createdOn: new Date()
+  },
+  {
+    id: '2',
+    name: 'Banco de Occidente Móvil',
+    createdOn: new Date()
+  },
+  {
+    id: '3',
+    name: 'AV Villas App',
+    createdOn: new Date()
+  },
+  {
+    id: '4',
+    name: 'Banco Popular App',
+    createdOn: new Date()
+  }
+];
 // GET: Fetch paginated appScans
 mock.onGet(new RegExp('/api/data/appScans')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
-    const limit = 5;
+    const limit = 25;
     const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
-    
+
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
 
@@ -63,13 +63,13 @@ mock.onGet(new RegExp('/api/data/appScans')).reply((config) => {
 // POST: Create a new appScan
 mock.onPost('/api/data/appScans').reply((config) => {
   try {
-    const { name, createdOn} = JSON.parse(config.data);
+    const { name, createdOn } = JSON.parse(config.data);
 
-      const newparameterApp: AppScanType = {
-          id: (appScans.length + 1).toString(), // Simple id generation
-          name,
-          createdOn
-      };
+    const newparameterApp: AppScanType = {
+      id: (appScans.length + 1).toString(), // Simple id generation
+      name,
+      createdOn
+    };
 
     appScans.push(newparameterApp); // Add new appScan to mock database
 
