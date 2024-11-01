@@ -94,7 +94,7 @@ let mobileApps: MobileAppType[] = [
     source: "APK Live",
     digitalSignature: "3082025D308201C6A0030201020214A7B4C6D5F8A3B9E5D4C1F2B7A6E8F9C1",
     apkHash: "C1D8B5A4F7C2A9E3F5D1C4B9E7A6B3D8F1C2E9A4B5D3F6A7",
-    score: 3,
+    score: 1,
     details: {
       language: "Español",
       downloads: "2 millones+",
@@ -134,7 +134,7 @@ let mobileApps: MobileAppType[] = [
     source: "App Mirror",
     digitalSignature: "3082025D308201C6A0030201020214D7A9B6C4E5A1B3F8C2D1E7A3B5F9C6D8",
     apkHash: "A3B5F8C4D7A2C9E5B3D6F1A7E8C1D4B9F2C3E9A6D8",
-    score: 5,
+    score: 2,
     details: {
       language: "Español",
       downloads: "500,000+",
@@ -154,7 +154,7 @@ let mobileApps: MobileAppType[] = [
     source: "Mobogenie",
     digitalSignature: "3082025D308201C6A0030201020214B6D9F2C5E3A8B4F7C1A3D2E9A5F1B8C7",
     apkHash: "F1A9C7E3B5D8C1A4F2D6B9E5A7C3D4B1F8A3C9",
-    score: 3,
+    score: 2.1,
     details: {
       language: "Español",
       downloads: "200,000+",
@@ -167,14 +167,14 @@ let mobileApps: MobileAppType[] = [
   {
     id: "123867435",
     idApp: "com.bancodebogota.appsapk",
-    appName: "Banco de Bogotá",
-    downloadLink: "https://appsapk.com/bancodebogota",
+    appName: "Banco de Bogotá App Negocios APK",
+    downloadLink: "https://apksuport.com/bancodebogota",
     releaseDate: "2024-04-10",
     version: "3.0.2",
-    source: "Apps APK",
+    source: "APK Support",
     digitalSignature: "3082025D308201C6A0030201020214C9B2A6E4F8D3B1C7A5F2D9C3E7A1F6",
     apkHash: "A7C1F9D4B3A2E8F5D6C7B1F3C9D2A8E4B5F7",
-    score: 4,
+    score: 0,
     details: {
       language: "Español",
       downloads: "100,000+",
