@@ -1,31 +1,29 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
 import {
-  Box,
-  Typography,
-  FormGroup,
-  FormControlLabel,
-  Button,
-  Stack,
-  Divider,
   Alert,
+  Box,
+  Button,
+  FormControlLabel,
+  FormGroup,
+  Stack,
+  Typography
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { loginType } from 'src/types/auth/auth';
+import { Form, FormikProvider, useFormik } from 'formik';
 import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
-import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from 'src/components/forms/theme-elements/CustomFormLabel';
-import { Form, useFormik, FormikProvider } from 'formik';
-import * as Yup from 'yup';
+import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import useAuth from 'src/guards/authGuard/UseAuth';
 import useMounted from 'src/guards/authGuard/UseMounted';
+import { loginType } from 'src/types/auth/auth';
+import * as Yup from 'yup';
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
   const mounted = useMounted();
   const { signin } = useAuth();
-  
+
   const navigate = useNavigate();
 
   const LoginSchema = Yup.object().shape({
@@ -37,8 +35,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 
   const formik = useFormik({
     initialValues: {
-      email: 'demo@demo.com',
-      password: 'demo123',
+      email: '',
+      password: '',
       submit: null,
     },
 
@@ -133,8 +131,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               size="large"
               fullWidth
               type="button"
-              onClick={async()=>{
-                
+              onClick={async () => {
+
                 await formik.submitForm();
               }}
               disabled={isSubmitting}
