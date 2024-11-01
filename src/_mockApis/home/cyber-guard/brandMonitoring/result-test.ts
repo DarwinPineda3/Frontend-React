@@ -45253,12 +45253,12 @@ export const consolidateDataTest: Results = {
             'Very satisfied', // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
+            7, // Count of No expresses feeling
             1, // Count of Very dissatisfied
             0, // Count of Dissatisfied
-            0, // Count of Neutral
+            1, // Count of Neutral
             1, // Count of Satisfied
-            0, // Count of Very satisfied
+            6, // Count of Very satisfied
           ],
         },
       }
@@ -46211,16 +46211,16 @@ export const consolidateDataTest: Results = {
             "Very satisfied" // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
-            1, // Count of Very dissatisfied
+            31, // Count of No expresses feeling
+            0, // Count of Very dissatisfied
             0, // Count of Dissatisfied
             0, // Count of Neutral
-            1, // Count of Satisfied
-            0 // Count of Very satisfied
+            2, // Count of Satisfied
+            4 // Count of Very satisfied
           ]
         }
       }
-      ////////////////////MARIA////////////////////
+      ////////////////////////////////////////
     },
     ////////////////////LUIS////////////////////
     {
@@ -47526,12 +47526,12 @@ export const consolidateDataTest: Results = {
             "Very satisfied" // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
-            1, // Count of Very dissatisfied
+            9, // Count of No expresses feeling
+            0, // Count of Very dissatisfied
             0, // Count of Dissatisfied
             0, // Count of Neutral
-            1, // Count of Satisfied
-            0 // Count of Very satisfied
+            0, // Count of Satisfied
+            6 // Count of Very satisfied
           ]
         }
       }
@@ -48144,12 +48144,12 @@ export const consolidateDataTest: Results = {
             "Very satisfied" // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
-            1, // Count of Very dissatisfied
+            17, // Count of No expresses feeling
+            0, // Count of Very dissatisfied
             0, // Count of Dissatisfied
-            0, // Count of Neutral
-            1, // Count of Satisfied
-            0 // Count of Very satisfied
+            1, // Count of Neutral
+            2, // Count of Satisfied
+            1 // Count of Very satisfied
           ]
         }
       }
@@ -48522,12 +48522,12 @@ export const consolidateDataTest: Results = {
             "Very satisfied" // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
-            1, // Count of Very dissatisfied
+            9, // Count of No expresses feeling
+            0, // Count of Very dissatisfied
             0, // Count of Dissatisfied
             0, // Count of Neutral
-            1, // Count of Satisfied
-            0 // Count of Very satisfied
+            0, // Count of Satisfied
+            1 // Count of Very satisfied
           ]
         }
       }
@@ -50066,6 +50066,12 @@ export const consolidateDataTest: Results = {
                     "user_fullname": "RakXu",
                     "text": "",
                     "engine": "facebook_post",
+                    "posted_date": "",
+                    "user_followers": "",
+                    "user_following": "",
+                    "user_url": "",
+                    "user_type": "",
+                    "username": "",
                     "sentiment_analysis": "0"
                   },
                   "generated": null,
@@ -50080,6 +50086,12 @@ export const consolidateDataTest: Results = {
                     "user_fullname": "RakXu",
                     "text": "INVERTIMOS EN EQUIPOS Y EN NUESTROS GASTOS CONTINUOS DE VISITA EN TODA LA ISLA\nConstruir una Prensa Comunitaria que se sostenga por donaciones voluntarias es difícil ….PERO LO ESTAMOS LOGRANDO!!\nIMPORTANTE…… personas que han intentado ayudar a Prensa Comunitaria por dirección de correo en el envío de donaciones les ha sido devuelto el envío porque tienen que poner la dirección de la siguiente forma:\nCORREO SANTA JUANITA UU-1 -C/39 SUITE 368, BAY, PR,00956\nAquellos seguidores que prefieren hacerlo digital están disponibles;\nATH MÓVIL…….787-379-3663\nPay Pal………….observadorxpress@gmail.com\nVenmo…………..observadorxpress@gmail.com\nSeguimos!!",
                     "engine": "facebook_post",
+                    "posted_date": "",
+                    "user_followers": "",
+                    "user_following": "",
+                    "user_url": "",
+                    "user_type": "",
+                    "username": "",
                     "sentiment_analysis": "0"
                   },
                   "generated": null,
@@ -50094,6 +50106,12 @@ export const consolidateDataTest: Results = {
                     "user_fullname": "RakXu",
                     "text": "INVERTIMOS EN EQUIPOS Y EN NUESTROS GASTOS CONTINUOS DE VISITA EN TODA LA ISLA\nConstruir una Prensa Comunitaria que se sostenga por donaciones voluntarias es difícil ….PERO LO ESTAMOS LOGRANDO!!\nIMPORTANTE…… personas que han intentado ayudar a Prensa Comunitaria por dirección de correo en el envío de donaciones les ha sido devuelto el envío porque tienen que poner la dirección de la siguiente forma:\nCORREO SANTA JUANITA UU-1 -C/39 SUITE 368, BAY, PR,00956\nAquellos seguidores que prefieren hacerlo digital están disponibles;\nATH MÓVIL…….787-379-3663\nPay Pal………….observadorxpress@gmail.com\nVenmo…………..observadorxpress@gmail.com\nSeguimos!!",
                     "engine": "facebook_post",
+                    "posted_date": "",
+                    "user_followers": "",
+                    "user_following": "",
+                    "user_url": "",
+                    "user_type": "",
+                    "username": "",
                     "sentiment_analysis": "0"
                   },
                   "generated": null,
@@ -50670,7 +50688,7 @@ export const consolidateDataTest: Results = {
                     "user_following": "",
                     "user_url": "https://www.instagram.com/mubite_official",
                     "user_type": "user",
-                    "sentiment_analysis": "7"
+                    "sentiment_analysis": "5"
                   },
                   "generated": null,
                   "source": "ATH",
@@ -62724,13 +62742,13 @@ export const consolidateDataTest: Results = {
           }
         ],
         "dark_web_counters": {
-          "dw_ips": 0,
-          "dw_emails": 0,
-          "dw_names_usernames": 0,
+          "dw_ips": 11,
+          "dw_emails": 164,
+          "dw_names_usernames": 17,
           "dw_phones": 0,
           "dw_vins": 0,
           "dw_domains": 0,
-          "dark_web_total": 0
+          "dark_web_total": 192
         },
         "graphics_charts_dark_web": {
           "labels": [
@@ -62742,9 +62760,9 @@ export const consolidateDataTest: Results = {
             "Domains"
           ],
           "values": [
-            0,
-            0,
-            0,
+            11,
+            164,
+            17,
             0,
             0,
             0
@@ -62760,12 +62778,12 @@ export const consolidateDataTest: Results = {
             "Very satisfied" // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
-            1, // Count of Very dissatisfied
+            45, // Count of No expresses feeling
+            0, // Count of Very dissatisfied
             0, // Count of Dissatisfied
             0, // Count of Neutral
             1, // Count of Satisfied
-            0 // Count of Very satisfied
+            5 // Count of Very satisfied
           ]
         }
 
@@ -72557,8 +72575,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/in/dfelipemoreno",
-                    "user_type": "user"
-
+                    "user_type": "user",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72577,7 +72595,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72596,7 +72615,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/in/nestor-sanchez-torres-ms",
-                    "user_type": "user"
+                    "user_type": "user",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72615,7 +72635,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72634,7 +72655,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "4"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -72653,7 +72675,8 @@ export const consolidateDataTest: Results = {
                     "user_followers": "",
                     "user_following": "",
                     "user_url": "https://www.linkedin.com/company/banco-popular/",
-                    "user_type": "company"
+                    "user_type": "company",
+                    "sentiment_analysis": "0"
                   },
                   "generated": null,
                   "source": "bancopopular.com.co",
@@ -83096,10 +83119,10 @@ export const consolidateDataTest: Results = {
           }
         ],
         "dark_web_counters": {
-          "dw_ips": 0,
-          "dw_emails": 0,
-          "dw_names_usernames": 0,
-          "dw_phones": 0,
+          "dw_ips": 2,
+          "dw_emails": 154,
+          "dw_names_usernames": 2,
+          "dw_phones": 2,
           "dw_vins": 0,
           "dw_domains": 0,
           "dark_web_total": 0
@@ -83114,10 +83137,10 @@ export const consolidateDataTest: Results = {
             "Domains"
           ],
           "values": [
-            0,
-            0,
-            0,
-            0,
+            2,
+            154,
+            2,
+            2,
             0,
             0
           ]
@@ -83132,11 +83155,11 @@ export const consolidateDataTest: Results = {
             "Very satisfied" // 5
           ],
           "values": [
-            4, // Count of No expresses feeling
+            10, // Count of No expresses feeling
             1, // Count of Very dissatisfied
             0, // Count of Dissatisfied
             0, // Count of Neutral
-            1, // Count of Satisfied
+            3, // Count of Satisfied
             0 // Count of Very satisfied
           ]
         }
