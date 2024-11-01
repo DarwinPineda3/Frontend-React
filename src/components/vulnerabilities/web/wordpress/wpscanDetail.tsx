@@ -1,26 +1,26 @@
-import React from 'react';
+import TranslateIcon from '@mui/icons-material/Translate';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
-  Grid,
   Box,
   Chip,
+  Grid,
+  IconButton,
+  LinearProgress,
+  Stack,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
-  TableContainer,
-  IconButton,
-  Stack,
-  LinearProgress,
 } from '@mui/material';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import TranslateIcon from '@mui/icons-material/Translate';
 import PluginVersionTable from './pluginVersionTable';
 import WpScanTopCards from './wpScantopCards';
-import { useTranslation } from 'react-i18next';
 
 const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) => void }> = ({
   scanId,
@@ -34,7 +34,7 @@ const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) =
       url: 'https://prueba-tu-pala.ofertasdepadel.com/',
       description: t('vulnerabilities.headers'),
       type: t('vulnerabilities.type_headers'),
-      foundBy: t('vulnerabilities.detected_by.headers_detection'),
+      foundBy: t('vulnerabilities.detected_by_headers_detection'),
       confidence: '100%',
       references: 'NA',
       entries: true,
@@ -44,7 +44,7 @@ const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) =
       url: 'https://prueba-tu-pala.ofertasdepadel.com/robots.txt',
       description: t('vulnerabilities.robots_description'),
       type: t('vulnerabilities.type_robots_txt'),
-      foundBy: t('vulnerabilities.detected_by.robots_detection'),
+      foundBy: t('vulnerabilities.detected_by_robots_detection'),
       confidence: '100%',
       references: 'NA',
       entries: true,
@@ -54,7 +54,7 @@ const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) =
       url: 'https://prueba-tu-pala.ofertasdepadel.com/xmlrpc.php',
       description: t('vulnerabilities.xmlrpc_description'),
       type: t('vulnerabilities.type_xmlrpc'),
-      foundBy: t('vulnerabilities.detected_by.xmlrpc_detection'),
+      foundBy: t('vulnerabilities.detected_by_xmlrpc_detection'),
       confidence: '100%',
       references: t('vulnerabilities.xmlrpc_references'),
       entries: true,
@@ -64,7 +64,7 @@ const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) =
       url: 'https://prueba-tu-pala.ofertasdepadel.com/readme.html',
       description: t('vulnerabilities.readme_description'),
       type: t('vulnerabilities.type_readme'),
-      foundBy: t('vulnerabilities.detected_by.readme_detection'),
+      foundBy: t('vulnerabilities.detected_by_readme_detection'),
       confidence: '100%',
       references: 'NA',
       entries: true,
@@ -74,7 +74,7 @@ const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) =
       url: 'https://prueba-tu-pala.ofertasdepadel.com/wp-cron.php',
       description: t('vulnerabilities.wp_cron_description'),
       type: t('vulnerabilities.type_wp_cron'),
-      foundBy: t('vulnerabilities.detected_by.wp_cron_detection'),
+      foundBy: t('vulnerabilities.detected_by_wp_cron_detection'),
       confidence: '60%',
       references: t('vulnerabilities.wp_cron_references'),
       entries: true,
@@ -88,12 +88,12 @@ const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) =
     location: 'https://prueba-tu-pala.ofertasdepadel.com/wp-content/themes/hello-theme-child-master/',
     lastVersion: 'NA',
     lastUpdate: 'NA',
-    description: t('vulnerabilities.theme_description'),
+    description: 'NA',
     author: 'Elementor Team',
     authorUri: 'https://elementor.com/',
     license: 'GNU General Public License v3 or later.',
     licenseUri: 'https://www.gnu.org/licenses/gpl-3.0.html',
-    foundBy: t('vulnerabilities.detected_by.css_homepage'),
+    foundBy: 'Urls In Homepage (Passive Detection)',
     confidence: '100%',
   };
 
