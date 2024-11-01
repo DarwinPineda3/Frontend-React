@@ -4,8 +4,7 @@ import {
     LatestDataType,
     SummaryDataType,
 } from '../../../../types/cyber-guard/brand-monitoring/brandMonitoring';
-import { consolidateDataTest } from './result-test'
-import { number } from 'yup';
+import { consolidateDataTest } from './result-test';
 
 const latestData: LatestDataType[] = [
     {
@@ -77,6 +76,62 @@ const latestData: LatestDataType[] = [
         "scan_date": "2024-10-26T07:17:13.479915Z",
         "total_results": 66,
         "id": "4oOsxJIBHPjIIpHRb-mQ"
+    },
+    {
+        "query": "ATH",
+        "query_type": "WORD",
+        "scan_date": "2024-10-31T17:58:07.641115Z",
+        "total_results": 43,
+        "id": "O4S645IBHPjIIpHRQVTu"
+    },
+    {
+        "query": "César Prado Villegas",
+        "query_type": "WORD",
+        "scan_date": "2024-10-31T17:42:30.129844Z",
+        "total_results": 14,
+        "id": "soSr45IBHPjIIpHR9FM-"
+    },
+    {
+        "query": "Isabel Cristina Martínez",
+        "query_type": "WORD",
+        "scan_date": "2024-10-31T17:53:10.108713Z",
+        "total_results": 9,
+        "id": "DoS145IBHPjIIpHRuFTl"
+    },
+    {
+        "query": "Luis Carlos Sarmiento Gutiérrez",
+        "query_type": "WORD",
+        "scan_date": "2024-10-31T17:50:25.807784Z",
+        "total_results": 56,
+        "id": "-ISz45IBHPjIIpHRNlMM"
+    },
+    {
+        "query": "María Fernanda Suárez",
+        "query_type": "WORD",
+        "scan_date": "2024-10-31T17:47:15.418583Z",
+        "total_results": 24,
+        "id": "24Sw45IBHPjIIpHRT1Mp"
+    },
+    {
+        "query": "ath.com.co",
+        "query_type": "DOMAIN",
+        "scan_date": "2024-10-31T17:55:38.072518Z",
+        "total_results": 465,
+        "id": "JYS345IBHPjIIpHR-VSL"
+    },
+    {
+        "query": "bancopopular.com.co",
+        "query_type": "DOMAIN",
+        "scan_date": "2024-10-31T17:40:05.703370Z",
+        "total_results": 377,
+        "id": "noSp45IBHPjIIpHRwVNK"
+    },
+    {
+        "query": "Óscar Bernal Quintero",
+        "query_type": "WORD",
+        "scan_date": "2024-10-31T17:44:18.149613Z",
+        "total_results": 14,
+        "id": "woSt45IBHPjIIpHRmlPT"
     }
 ];
 
@@ -119,7 +174,40 @@ const summaryData: SummaryDataType[] = [
     },
     {
         "query": "mi.bancopopular.com.co",
-        "total_results": 66
+        "total_results": 66,
+
+    },
+    {
+        "query": "ATH",
+        "total_results": 43
+    },
+    {
+        "query": "César Prado Villegas",
+        "total_results": 14
+    },
+    {
+        "query": "Isabel Cristina Martínez",
+        "total_results": 9
+    },
+    {
+        "query": "Luis Carlos Sarmiento Gutiérrez",
+        "total_results": 56
+    },
+    {
+        "query": "María Fernanda Suárez",
+        "total_results": 24
+    },
+    {
+        "query": "ath.com.co",
+        "total_results": 465
+    },
+    {
+        "query": "bancopopular.com.co",
+        "total_results": 377
+    },
+    {
+        "query": "Óscar Bernal Quintero",
+        "total_results": 14
     }
 ];
 
@@ -223,10 +311,10 @@ mock.onGet('/api/data/monitoring/cyber-guard/monitoring/resume').reply(() => {
 
 // GET: Fetch paginated brand monitoring data
 mock.onGet(new RegExp('/api/data/monitoring/cyber-guard/monitoring')).reply((config) => {
-  try {
-    const urlParams = new URLSearchParams(config.url!.split('?')[1]);
-    const limit = 5;
-    const page = parseInt(urlParams.get('page') || '1', 10);
+    try {
+        const urlParams = new URLSearchParams(config.url!.split('?')[1]);
+        const limit = 25;
+        const page = parseInt(urlParams.get('page') || '1', 10);
 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
