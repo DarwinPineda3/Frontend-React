@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
@@ -17,19 +17,13 @@ const Parameters = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to="/monitoring/cyber-guard/parameters"
-            >
+            <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/parameters">
               {t('monitoring.monitoring')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/parameters">
               {t('monitoring.cyber_guard')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/parameters">
-              {t('monitoring.parameters')}
-            </Link>
+            <Typography color="textPrimary">{t('monitoring.parameters')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>
