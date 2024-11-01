@@ -212,7 +212,7 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   try {
     const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
-    const limit = 5;
+    const limit = 25;
     const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
 
     const startIndex = (page - 1) * limit;
@@ -232,6 +232,28 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
     ];
   } catch (error) {
     console.error('Error in mobileApps API:', error);
+    return [500, { message: 'Internal server error' }];
+  }
+});
+
+
+// GET: Fetch paginated tecnology inventory
+mock.onDelete(new RegExp('/api/data/mobileApps/detail/*')).reply((config) => {
+  try {
+    const mobileAppId = config.url!.split('/').pop(); // Extract the asset ID from the URL
+
+    const mobileAppIndex = mobileApps.findIndex((mobileApp) => mobileApp.id === mobileAppId);
+    if (mobileAppIndex === -1) {
+      return [404, { message: 'Newsletter not found' }];
+    }
+    return [
+      200,
+      {
+        mobileApp: mobileApps[mobileAppIndex]
+      },
+    ];
+  } catch (error) {
+    console.error('Error in Mobile App API:', error);
     return [500, { message: 'Internal server error' }];
   }
 });
@@ -301,3 +323,4 @@ mock.onDelete(new RegExp('/api/data/mobileApps/*')).reply((config) => {
     return [500, { message: 'Failed to delete mobile app' }];
   }
 });
+
