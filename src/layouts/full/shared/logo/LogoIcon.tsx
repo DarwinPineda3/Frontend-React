@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'src/store/Store';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import LogoDark from 'src/assets/images/logos/akila_logo_compressed.png';
+import LogoDark from 'src/assets/images/logos/akila_icon_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import LogoDarkRTL from 'src/assets/images/logos/akila_logo_compressed.png';
+import LogoDarkRTL from 'src/assets/images/logos/akila_icon_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import LogoLight from 'src/assets/images/logos/akila_white_logo_compressed.png';
+import LogoLight from 'src/assets/images/logos/akila_white_icon_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { styled } from '@mui/material';
-import LogoLightRTL from 'src/assets/images/logos/akila_white_logo_compressed.png';
+import LogoLightRTL from 'src/assets/images/logos/akila_white_icon_compressed.png';
 import { AppState } from 'src/store/Store';
 
-const Logo: FC = () => {
+const LogoIcon: FC = () => {
   const customizer = useSelector((state: AppState) => state.customizer);
   const LinkStyled = styled(Link)(() => ({
     height: customizer.TopbarHeight,
@@ -33,7 +33,7 @@ const Logo: FC = () => {
           display: 'flex',
           alignItems: 'center',
           marginTop: 5,
-          marginLeft: 15
+          marginLeft: 3
         }}
       >
         {customizer.activeMode === 'dark' ? (
@@ -63,4 +63,4 @@ const Logo: FC = () => {
   );
 };
 
-export default Logo;
+export default LogoIcon;

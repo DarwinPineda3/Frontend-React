@@ -9,7 +9,6 @@ import {
   IconClockBolt,
   IconCloud,
   IconExternalLink,
-  IconFiles,
   IconGitMerge,
   IconLink,
   IconListDetails,
@@ -27,7 +26,7 @@ import {
   IconSpy,
   IconSquaresFilled,
   IconTicket,
-  IconUserBolt,
+  IconUserBolt
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -204,28 +203,52 @@ const Menuitems: MenuitemsType[] = [
         href: '/monitoring/soc/cti',
         icon: IconMenu,
         children: [
+          //   {
+          //     id: uniqueId(),
+          //     title: 'menu.description', // Translation key for title
+          //     href: '/monitoring/soc/cti/description',
+          //     icon: IconAlertHexagon,
+          //   },
+          //   {
+          //     id: uniqueId(),
+          //     title: 'menu.abusech', // Translation key for title
+          //     href: '/monitoring/soc/cti/abusech',
+          //     icon: IconClockBolt,
+          //   },
+          //   {
+          //     id: uniqueId(),
+          //     title: 'menu.files', // Translation key for title
+          //     href: '/monitoring/soc/cti/files',
+          //     icon: IconFiles,
+          //   },
+          //   {
+          //     id: uniqueId(),
+          //     title: 'menu.urls', // Translation key for title
+          //     href: '/monitoring/soc/cti/urls',
+          //     icon: IconLink,
+          //   },
           {
             id: uniqueId(),
-            title: 'menu.description', // Translation key for title
-            href: '/monitoring/soc/cti/description',
+            title: 'menu.technologies_inventory', // Translation key for title
+            href: '/monitoring/soc/cti/technologies-inventory',
+            icon: IconBroadcast,
+          },
+          {
+            id: uniqueId(),
+            title: 'menu.threat_intelligence', // Translation key for title
+            href: '/monitoring/soc/cti/threat-intelligence',
             icon: IconAlertHexagon,
           },
           {
             id: uniqueId(),
-            title: 'menu.abusech', // Translation key for title
-            href: '/monitoring/soc/cti/abusech',
+            title: 'menu.emerging_risks', // Translation key for title
+            href: '/monitoring/soc/cti/emerging-risks',
             icon: IconClockBolt,
           },
           {
             id: uniqueId(),
-            title: 'menu.files', // Translation key for title
-            href: '/monitoring/soc/cti/files',
-            icon: IconFiles,
-          },
-          {
-            id: uniqueId(),
-            title: 'menu.urls', // Translation key for title
-            href: '/monitoring/soc/cti/urls',
+            title: 'menu.mitre', // Translation key for title
+            href: '/monitoring/soc/cti/mitre',
             icon: IconLink,
           },
           {
@@ -234,13 +257,7 @@ const Menuitems: MenuitemsType[] = [
             href: 'http://201.149.34.142:8080/dashboard',
             icon: IconExternalLink,
             external: true,
-          },
-          {
-            id: uniqueId(),
-            title: 'menu.technologies_inventory', // Translation key for title
-            href: '/monitoring/soc/cti/technologies-inventory',
-            icon: IconBroadcast,
-          },
+          }
         ]
       },
       {

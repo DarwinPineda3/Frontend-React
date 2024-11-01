@@ -15,7 +15,7 @@ import Dashboard from 'src/views/home/dashboard';
 import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring';
 import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
 import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
-import MittrView from 'src/views/monitoring/mittreview/MittrView';
+import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
 import SIEMMonitoring from 'src/views/monitoring/SIEM';
@@ -25,9 +25,10 @@ import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
 import BrandMonitoring from 'src/views/monitoring/SOC/brandMonitoring';
 import CTI from 'src/views/monitoring/SOC/cti';
 import AbuseCH from 'src/views/monitoring/SOC/cti/abusesh';
-import DescriptionThreat from 'src/views/monitoring/SOC/cti/description';
+import EmergingRisks from 'src/views/monitoring/SOC/cti/emerging-risks';
 import FilesSoc from 'src/views/monitoring/SOC/cti/files';
 import TechInventory from 'src/views/monitoring/SOC/cti/TechnologiesInventory';
+import ThreatIntelligence from 'src/views/monitoring/SOC/cti/threat-intelligence';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
@@ -99,19 +100,21 @@ const Router = [
       { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis /> },
       { path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
-      { path: '/monitoring/cyber-guard/mobile-app', element: <AppScan /> },
-      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId', element: <MobileApp /> },
-      { path: '/monitoring/cyber-guard/mobile-app/scan-app/:appScanId/result-app/:mobileAppId', element: <MobileApp /> },
+      { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan /> },
+      { path: '/monitoring/cyber-guard/mobile-apps/:appScanId', element: <MobileApp /> },
+      { path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:mobileAppId', element: <MobileApp /> },
 
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
       { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
       { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring /> },
       { path: '/monitoring/soc/cti', element: <CTI /> },
-      { path: '/monitoring/soc/cti/description', element: <DescriptionThreat /> },
       { path: '/monitoring/soc/cti/abusech', element: <AbuseCH /> },
       { path: '/monitoring/soc/cti/files', element: <FilesSoc /> },
       { path: '/monitoring/soc/cti/urls', element: <UrlsSoc /> },
+      { path: '/monitoring/soc/cti/threat-intelligence', element: <ThreatIntelligence /> },
+      { path: '/monitoring/soc/cti/emerging-risks', element: <EmergingRisks /> },
       { path: '/monitoring/soc/cti/technologies-inventory', element: <TechInventory /> },
+      { path: '/monitoring/soc/cti/mitre', element: <MitreView /> },
       { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring /> },
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
@@ -120,7 +123,6 @@ const Router = [
       { path: '/monitoring/soc/takedown', element: <Takedown /> },
 
       { path: '/monitoring/siem', element: <SIEMMonitoring /> },
-      { path: '/monitoring/mittre', element: <MittrView /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },

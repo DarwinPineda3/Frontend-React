@@ -16,14 +16,19 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
   const { t } = useTranslation();
 
   const filteredData = Object.entries(data).reduce((acc, [key, value]) => {
-    if (value !== null && value !== undefined) {
+    if (key === 'data_classes') return acc;
+    if (Array.isArray(value)) {
+      if (value.length > 0) {
+        acc[key] = value;
+      }
+    } else if (value !== null && value !== undefined) {
       const valueStr = String(value);
       if (valueStr.trim() !== '' && valueStr !== '0') {
         acc[key] = valueStr;
       }
     }
     return acc;
-  }, {} as Record<string, string>);
+  }, {} as Record<string, string | string[]>);
 
   const formatKey = (key: string) => {
     return (
@@ -72,13 +77,27 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
                       maxWidth: '100%',
                     }}
                   >
-                    <strong>{formatKey(key)}:</strong>{' '}
-                    {isUrl(value) ? (
-                      <a href={value} target="_blank" rel="noopener noreferrer">
-                        {value}
-                      </a>
+                    <strong>{formatKey(key)}:</strong>
+                    {Array.isArray(value) ? (
+                      value.map((item, index) => (
+                        <div key={index}>
+                          {isUrl(item) ? (
+                            <a href={item} target="_blank" rel="noopener noreferrer">
+                              {item}
+                            </a>
+                          ) : (
+                            item
+                          )}
+                        </div>
+                      ))
                     ) : (
-                      value
+                      isUrl(value) ? (
+                        <a href={value} target="_blank" rel="noopener noreferrer">
+                          {value}
+                        </a>
+                      ) : (
+                        value
+                      )
                     )}
                   </Typography>
                 }
