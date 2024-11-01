@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  Chip,
-  TablePagination,
   useTheme,
 } from '@mui/material';
-import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SocialNetworkDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import SocialNetworkDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
 interface SecurityLeakTableProps {
   social: SocialNetwork[];
@@ -132,9 +132,9 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                     color="secondary"
                     style={{
                       backgroundColor:
-                      social.data?.risk_analysis.toLowerCase() == "Potential risk".toLowerCase()
+                        social.data?.risk_analysis?.toLowerCase() == "Potential risk".toLowerCase()
                           ? critical
-                          : social.data?.risk_analysis.toLowerCase() == "No risk".toLowerCase()
+                          : social.data?.risk_analysis?.toLowerCase() == "No risk".toLowerCase()
                             ? low
                             : "#539bff",
                       color: 'white'
