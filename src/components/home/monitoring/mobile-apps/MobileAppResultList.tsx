@@ -25,7 +25,7 @@ import DashboardCard from '../../../shared/DashboardCard';
 // const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (mobileAppId: number) => void;
+  onMobileAppClick: (mobileAppId: number, appName: string) => void;
 }
 
 const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
@@ -110,7 +110,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onMobileAppClick(mobileApp.id)}
+                      onClick={() => onMobileAppClick(mobileApp.id, mobileApp.appName)}
                       style={{ cursor: 'pointer' }}
                     >
                       {mobileApp.appName}

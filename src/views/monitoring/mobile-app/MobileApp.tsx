@@ -7,7 +7,6 @@ import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-r
 
 import MobileAppDetail from 'src/components/home/monitoring/mobile-apps/MobileAppDetail';
 import MobileAppList from 'src/components/home/monitoring/mobile-apps/MobileAppResultList';
-import { fetchMobielAppById } from 'src/store/sections/mobile-app/MobileAppSlice';
 // import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 const MobileApp = () => {
@@ -25,7 +24,7 @@ const MobileApp = () => {
   useEffect(() => {
     if (mobileAppId) {
       setSelectedMobileApp(mobileAppId);
-      dispatch(fetchMobielAppById(mobileAppId));
+      // dispatch(fetchMobielAppById(mobileAppId));
     } else {
       setSelectedMobileApp(null);
     }
@@ -51,11 +50,11 @@ const MobileApp = () => {
           <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
             {t('mobile_apps.mobile_apps')}
           </Link>
-          {selectedMobileApp ? (
+          {selectedMobileAppName ? (
             <Link
               component={RouterLink}
               color="inherit"
-              to={`/monitoring/cyber-guard/mobile-apps/${selectedMobileApp}`}
+              to={`/monitoring/cyber-guard/mobile-apps/${selectedMobileAppName}`}
             >
               {t('mobile_apps.results_app_scans')}
             </Link>
