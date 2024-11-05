@@ -18,7 +18,6 @@ import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
-import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
@@ -53,6 +52,9 @@ import Loadable from '../layouts/full/shared/loadable/Loadable';
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
+const Error = Loadable(lazy(() => import('../views/general/Error')));
+const Maintenance = Loadable(lazy(() => import('../views/general/Maintenance')));
+
 
 const Router = [
   {
@@ -121,7 +123,8 @@ const Router = [
       { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
       { path: '/monitoring/soc/takedown', element: <TicketFormComp /> },
 
-      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      //{ path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/siem', element: <Navigate to="/maintenance" /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
@@ -154,6 +157,9 @@ const Router = [
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
+
+
+      { path: '/maintenance', element: <Maintenance /> },
     ],
   },
   {
@@ -161,11 +167,10 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <Login /> },
-      { path: '/auth/404', element: <Navigate to="/auth/404" /> },
+      { path: '/404', element: <Error /> },
     ],
   },
-  // Catch-all 404 Route (for any undefined route)
-  { path: '*', element: <Navigate to="/auth/404" /> },
+  { path: '*', element: <Navigate to="/404" /> },
 ];
 
 

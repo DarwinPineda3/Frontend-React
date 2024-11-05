@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  Chip,
-  TablePagination,
 } from '@mui/material';
-import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 import { useTheme } from '@mui/material/styles';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
@@ -157,7 +157,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
                   <HumanizedDate dateString={leak.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{getDatabaseNames(leak) ||'N/A'}</Typography>
+                  <Typography variant="subtitle2">{getDatabaseNames(leak) || 'N/A'}</Typography>
                 </TableCell>
               </TableRow>
             ))}
