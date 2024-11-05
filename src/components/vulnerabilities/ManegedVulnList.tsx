@@ -109,7 +109,7 @@ const ManegedVulnerabilitiesList = () => {
           justifyContent="space-between"
           width="100%"
         >
-          <Button variant="contained" startIcon={<IconDownload />} onClick={handleDownloadExcel}>
+          <Button variant="outlined" startIcon={<IconDownload />} onClick={handleDownloadExcel}>
             {t('vulnerabilities.management.download_excel')}
           </Button>
 
