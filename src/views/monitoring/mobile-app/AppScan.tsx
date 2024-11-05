@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { Box, Grid, IconButton, Breadcrumbs, Link, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 
 
 
 const AppScan = () => {
-
+    const { t } = useTranslation();
     const { appScanId } = useParams<{ appScanId?: string }>();
     const location = useLocation();  // Tracks the current URL location
 
@@ -27,7 +27,7 @@ const AppScan = () => {
     }, [appScanId, location]);
 
     const handleAppScanClick = (id: number) => {
-        navigate(`/monitoring/cyber-guard/mobile-app/scan-app/${id}`); //ruta hacia el siguiente listado
+        navigate(`/monitoring/cyber-guard/mobile-apps/${id}`); //ruta hacia el siguiente listado
     };
     return (
         <Box>
@@ -36,18 +36,16 @@ const AppScan = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/monitoring/malware-analysis">
-                        Monitoring
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
+                        {t("menu.monitoring")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/malware-analysis">
-                        Cyber Guard
+                    <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
+                        {t("menu.cyber_guard")}
                     </Link>
-                    {selectedAppScan && (
-                        // TODO: no muestra este breadcrumb
-                        <Typography color="textPrimary">
-                            Mobile Apps
-                        </Typography>
-                    )}
+                    <Typography color="textPrimary">
+                        {t("mobile_apps.mobile_apps")}
+                    </Typography>
+
                 </Breadcrumbs>
             </Box>
             <Grid container spacing={0} mt={1}>

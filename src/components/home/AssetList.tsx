@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 import {
-  Typography,
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  Button,
-  IconButton,
-  Dialog,
-  DialogContent,
+  Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DashboardCard from '../shared/DashboardCard';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAssets, setPage } from 'src/store/sections/AssetsSlice';
+import DashboardCard from '../shared/DashboardCard';
 import CreateUpdateAsset from './AssetEdition';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { useTranslation } from 'react-i18next';
 
 const AssetList = () => {
   const { t } = useTranslation();
@@ -75,7 +75,11 @@ const AssetList = () => {
   );
 
   return (
-    <DashboardCard title={t("dashboard.asset_list")} subtitle={t("dashboard.list_of_available_assets")} action={addButton}>
+    <DashboardCard
+      title={t("dashboard.asset_list") as string}
+      subtitle={t("dashboard.list_of_available_assets") as string}
+      action={addButton}
+    >
       <Box>
         <TableContainer>
           <Table aria-label="asset table" sx={{ whiteSpace: 'nowrap' }}>
@@ -152,7 +156,7 @@ const AssetList = () => {
             onChange={handlePageChange}
           />
         </Box>
-        
+
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
           <DialogContent sx={{ padding: '50px' }}>
             <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />

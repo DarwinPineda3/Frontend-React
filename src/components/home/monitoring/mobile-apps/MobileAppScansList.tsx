@@ -23,14 +23,9 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import CreateUpdateAppScan from '../mobile-apps/MobileAppEdition';
 import { useTranslation } from 'react-i18next';
 
-
-// import CreateUpdateMalwareAnalysis from '../malware-analyses/MalwareAnalysisEdition';
-
 interface AppScanListTableProps {
-  onAppScanClick: (AppScanId: number) => void;
+  onAppScanClick: (AppScanId: number, AppScanName: string) => void;
 }
-
-
 
 const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const dispatch = useDispatch();
@@ -68,7 +63,10 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
   const addButton = <IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
 
   return (
-    <DashboardCard title="Apps" subtitle="List app scans found" action={addButton}>
+    <DashboardCard 
+        title={t("mobile_apps.apps")}
+        subtitle={t("mobile_apps.mobile_apps_list_scanned")}
+        action={addButton}>
       <Box>
         <TableContainer>
           <Table aria-label="appScan table" sx={{ whiteSpace: 'nowrap' }}>
@@ -76,17 +74,17 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    App
+                      {t("mobile_apps.app")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Created on
+                      {t("mobile_apps.created_on")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Actions
+                      {t("mobile_apps.actions")}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -100,7 +98,7 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onAppScanClick(appScan.id)}
+                      onClick={() => onAppScanClick(appScan.id, appScan.name)}
                       style={{ cursor: 'pointer' }}
                     >
                       {appScan.name}
@@ -134,7 +132,6 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
             onChange={handlePageChange}
           />
         </Box>
-        {/* Edit/Create MalwareAnalysis Dialog/Modal*/}
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
           <DialogContent sx={{ padding: '50px' }}>
             {/* Pass the onSubmit callback */}

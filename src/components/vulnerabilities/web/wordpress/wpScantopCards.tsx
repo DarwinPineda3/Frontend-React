@@ -1,10 +1,9 @@
-import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
-import iconYellow from '../../../../assets/images/svgs/icon-alert-yellow.svg';
-import iconRed from '../../../../assets/images/svgs/icon-alert-red.svg';
-import iconOrange from '../../../../assets/images/svgs/icon-alert-orange.svg';
 import { Person } from '@mui/icons-material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import iconOrange from '../../../../assets/images/svgs/icon-alert-orange.svg';
+import iconRed from '../../../../assets/images/svgs/icon-alert-red.svg';
+import iconYellow from '../../../../assets/images/svgs/icon-alert-yellow.svg';
 
 const cardConfig: Record<Severity, {
   icon: any;
@@ -14,25 +13,25 @@ const cardConfig: Record<Severity, {
 }> = {
   critical: {
     icon: iconRed,
-    title: 'wp_scan_top_cards.vulnerabilities',
-    bgcolor: '#FFE6E6', 
+    title: 'vulnerabilities.vulnerabilities',
+    bgcolor: '#FFE6E6',
     txtcolor: '#FF0000',
   },
   high: {
     icon: iconOrange,
-    title: 'wp_scan_top_cards.outdated_plugins',
+    title: 'vulnerabilities.outdated_plugins',
     bgcolor: '#FFF4E6',
     txtcolor: '#FFA500',
   },
   medium: {
     icon: Person,
-    title: 'wp_scan_top_cards.users',
+    title: 'vulnerabilities.users',
     bgcolor: '#E6FFE6',
     txtcolor: '#008000',
   },
   low: {
     icon: iconYellow,
-    title: 'wp_scan_top_cards.interesting_findings',
+    title: 'vulnerabilities.interesting_findings',
     bgcolor: '#E6E6FF',
     txtcolor: '#0000FF',
   },
@@ -69,7 +68,7 @@ const WpScanTopCards = () => {
               )}
               <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                 <Typography color={config.txtcolor} variant="subtitle2" fontWeight={600}>
-                  {t(config.title)}
+                  {t(config.title).toUpperCase()}
                 </Typography>
                 <Typography color={config.txtcolor} variant="h5" fontWeight={600}>
                   {card.value}

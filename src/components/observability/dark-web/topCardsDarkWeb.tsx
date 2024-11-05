@@ -1,39 +1,48 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { Security, Language, Email, Public, AccountCircle, Phone, BugReport, VerifiedUser, Apps } from '@mui/icons-material';
+import { Security, Language, Email, Public, AccountCircle, Phone, Hvac, VerifiedUser, Apps, People} from '@mui/icons-material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Data for the first row of top cards
 const firstRowData = [
-    { title: 'total_compromises', value: 2, icon: <Security fontSize="large" /> }, 
-    { title: 'domains', value: 2, icon: <Language fontSize="large" /> },
-    { title: 'emails', value: 1, icon: <Email fontSize="large" /> },
-    { title: 'ips', value: 30, icon: <Public fontSize="large" /> },
-    { title: 'usernames', value: 30, icon: <AccountCircle fontSize="large" /> },
-    { title: 'phones', value: 30, icon: <Phone fontSize="large" /> },
+    { title: 'total_compromises', icon: <Security fontSize="large" /> }, 
+    { title: 'domains', icon: <Language fontSize="large" /> },
+    { title: 'emails', icon: <Email fontSize="large" /> },
+    { title: 'ips', icon: <Public fontSize="large" /> },
+    { title: 'usernames', icon: <AccountCircle fontSize="large" /> },
+    { title: 'phones', icon: <Phone fontSize="large" /> },
 ];
 
 // Data for the second row of top cards
 const secondRowData = [
-    { title: 'malware_count', value: 5, icon: <BugReport fontSize="large" /> },
-    { title: 'vip_compromised_count', value: 3, icon: <VerifiedUser fontSize="large" /> },
-    { title: 'fake_app_count', value: 7, icon: <Apps fontSize="large" /> },
+    { title: 'social_media_total', icon: <People fontSize="large" /> },
+    { title: 'vip_compromised_count', icon: <VerifiedUser fontSize="large" /> },
+    { title: 'dark_web_total', icon: <Hvac fontSize="large" /> },
 ];
 
 // Function to return color based on value
-const getColorByValue = (value: number) => {
+const getColorByValue = (value:number) => {
   if (value < 1) return 'success';
   return 'error';
 };
 
-const TopCardsDarkWeb = () => {
+interface TopCardsDarkWebProps {
+  values: number[];
+}
+
+const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
   const { t } = useTranslation();
+
+  // Ensure values array has at least the expected length, fill missing values with 0
+  const completeValues = values.length >= firstRowData.length + secondRowData.length
+    ? values
+    : [...values, ...Array(firstRowData.length + secondRowData.length - values.length).fill(0)];
 
   return (
     <Grid container spacing={3}>
       {/* First row with wider cards */}
       {firstRowData.map((card, i) => {
-        const color = getColorByValue(card.value);
+        const color = getColorByValue(completeValues[i]);
         return (
           <Grid item xs={6} sm={4} lg={2} key={i}>
             <Box
@@ -57,7 +66,7 @@ const TopCardsDarkWeb = () => {
                   {t(`observability.${card.title}`)}
                 </Typography>
                 <Typography color={`${color}.main`} variant="h5" fontWeight={600}>
-                  {card.value}
+                  {completeValues[i]}
                 </Typography>
               </Box>
             </Box>
@@ -67,7 +76,7 @@ const TopCardsDarkWeb = () => {
 
       {/* Second row with narrower cards */}
       {secondRowData.map((card, i) => {
-        const color = getColorByValue(card.value);
+        const color = getColorByValue(completeValues[firstRowData.length + i]);
         return (
           <Grid item xs={12} sm={6} lg={4} key={i}>
             <Box
@@ -91,7 +100,7 @@ const TopCardsDarkWeb = () => {
                   {t(`observability.${card.title}`)}
                 </Typography>
                 <Typography color={`${color}.main`} variant="h5" fontWeight={600}>
-                  {card.value}
+                  {completeValues[firstRowData.length + i]}
                 </Typography>
               </Box>
             </Box>

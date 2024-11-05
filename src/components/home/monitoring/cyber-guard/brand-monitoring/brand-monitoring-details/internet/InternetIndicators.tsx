@@ -36,7 +36,7 @@ const InternetIndicators: React.FC<InternetIndicatorsProps> = ({
 
   const topCardsData = [
     {
-      title: t('monitoring.total_compromises'),
+      title: t('monitoring.total_results'),
       value: internetCounters.total,
       icon: <Security fontSize="large" />,
     },

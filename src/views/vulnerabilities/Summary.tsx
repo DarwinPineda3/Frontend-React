@@ -1,36 +1,37 @@
-import PageContainer from "src/components/container/PageContainer";
-import { Box, Grid, IconButton, Breadcrumbs, Link } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SummaryVulnerabilitiesList from "src/components/vulnerabilities/SummaryVulnList";
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
+import SummaryVulnerabilitiesList from "src/components/vulnerabilities/SummaryVulnList";
 
 const SummaryVulnerabilities = () => {
-    const navigate = useNavigate();    
+    const navigate = useNavigate();
     const { t } = useTranslation();
 
     return (
         <PageContainer title="Akila">
-            <Box display="flex" alignItems="center" mt={2}>
-                <IconButton onClick={() => navigate(-1)} color="primary">
-                    <ArrowBackIcon />
-                </IconButton>
-                <Breadcrumbs aria-label="breadcrumb">
-                    <Link component={RouterLink} color="inherit" to="/vulnerabilities/summary">
-                        {t("summary.vulnerabilities")}
-                    </Link>
-                    <Link component={RouterLink} color="inherit" to="/vulnerabilities/summary">
-                        {t("summary.summary")}
-                    </Link>
-                </Breadcrumbs>
+            <Box mb={2}>
+                <Box display="flex" alignItems="center" mt={2}>
+                    <IconButton onClick={() => navigate(-1)} color="primary">
+                        <ArrowBackIcon />
+                    </IconButton>
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link component={RouterLink} color="inherit" to="/vulnerabilities/summary">
+                            {t("summary.vulnerabilities")}
+                        </Link>
+                        <Link component={RouterLink} color="inherit" to="/vulnerabilities/summary">
+                            {t("summary.summary")}
+                        </Link>
+                    </Breadcrumbs>
+                </Box>
             </Box>
-            <Grid container spacing={3} mt={1}>
-                <Grid item xs={12} lg={12}>
-                    <SummaryVulnerabilitiesList/>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+                    <SummaryVulnerabilitiesList />
                 </Grid>
             </Grid>
         </PageContainer>
-        
     );
 };
 

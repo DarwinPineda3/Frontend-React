@@ -33,7 +33,7 @@ const DarkWebIndicators: React.FC<DarkWebIndicatorsProps> = ({ darkWebCounters }
 
   const topCardsData = [
     {
-      title: t('monitoring.total_compromises'),
+      title: t('monitoring.total_results'),
       value: darkWebCounters.dark_web_total,
       icon: <Security fontSize="large" />,
     },

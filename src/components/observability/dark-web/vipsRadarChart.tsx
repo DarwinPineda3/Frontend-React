@@ -32,42 +32,29 @@ const CompromisedTypesChart: React.FC = () => {
             theme.palette.info.main,        // Blue for Data Leaks
             theme.palette.secondary.main,   // Purple for Social Media
         ],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val: number) {
-                return `${val.toFixed(1)}%`;
-            },
-        },
         legend: {
             show: true,
-            position: 'bottom',
+            position: 'top' as 'top',
             horizontalAlign: 'center',
         },
-        tooltip: {
-            y: {
-                formatter: function (val: number) {
-                    return `${val.toFixed(1)}%`;
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: '50%',
                 },
             },
         },
-        responsive: [
-            {
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 300,
-                    },
-                    legend: {
-                        position: 'bottom',
-                    },
-                },
-            },
-        ],
+        dataLabels: {
+            enabled: false,
+        },
+        tooltip: {
+            enabled: true,
+        },
     };
 
     return (
         <DashboardCard title={t('monitoring.compromised_elements_by_type')!}>
-            <Chart options={options} series={series} type="donut" height={350} />
+            <Chart options={options} series={series} type="donut" height='300px' />
         </DashboardCard>
     );
 };

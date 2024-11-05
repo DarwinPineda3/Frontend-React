@@ -55,8 +55,8 @@ const BreachStatusChart = () => {
     };
 
     return (
-        <DashboardCard title={t('observability.breaches_by_status')!}>
-            <Chart options={options} series={series} type="donut" height="300" />
+        <DashboardCard title={t('observability.breaches_by_status')!} >
+            <Chart options={options} series={series} type="donut" height="300px" />
         </DashboardCard>
     );
 };

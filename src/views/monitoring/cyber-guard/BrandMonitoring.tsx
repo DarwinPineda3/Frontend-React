@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Grid, Box, IconButton, Breadcrumbs, Link, Typography } from '@mui/material';
-import { useParams, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import PageContainer from 'src/components/container/PageContainer';
-import BrandMonitoringList from 'src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringList';
-import { useSelector } from 'src/store/Store';
-import BrandMonitoringChart from 'src/components/home/monitoring/cyber-guard/brand-monitoring/charts/BrandMonitoringChart';
-import BrandMonitoringDetail from 'src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringDetail';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
+import BrandMonitoringDetail from 'src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringDetail';
+import BrandMonitoringList from 'src/components/home/monitoring/cyber-guard/brand-monitoring/BrandMonitoringList';
+import BrandMonitoringChart from 'src/components/home/monitoring/cyber-guard/brand-monitoring/charts/BrandMonitoringChart';
+import { useSelector } from 'src/store/Store';
 
 const BrandMonitoringCyberGuard = () => {
   const { id } = useParams<{ id?: string }>();
@@ -45,21 +45,15 @@ const BrandMonitoringCyberGuard = () => {
             <Link component={RouterLink} color="inherit" to="">
               {t('monitoring.cyber_guard')}
             </Link>
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to="/monitoring/cyber-guard/monitoring"
-            >
-              {t('menu.monitoring')}
-            </Link>
             {selectedBrandMonitoring ? (
-              <Link
-                component={RouterLink}
-                color="inherit"
-                to={`/monitoring/cyber-guard/monitoring/${selectedBrandMonitoring}`}
-              >
-                {selectedBrandMonitoring}
+              <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/monitoring">
+                {t('menu.monitoring')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('menu.monitoring')}</Typography>
+            )}
+            {selectedBrandMonitoring ? (
+              <Typography color="textPrimary">{selectedBrandMonitoring}</Typography>
             ) : null}
           </Breadcrumbs>
         </Box>

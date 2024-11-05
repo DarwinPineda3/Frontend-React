@@ -8,97 +8,38 @@ interface TechInventoryType {
 }
 
 let techsInventory: TechInventoryType[] = [
-    {
-      "id": "1",
-      "name": "SQL SERVER",
-      "category": "APPS",
-      "version": "2008 R2"
-    },
-    {
-      "id": "2",
-      "name": "SQL SERVER",
-      "category": "APPS",
-      "version": "2005"
-    },
-    {
-      "id": "3",
-      "name": "SQL SERVER",
-      "category": "APPS",
-      "version": "2012"
-    },
-    {
-      "id": "4",
-      "name": "SQL SERVER",
-      "category": "APPS",
-      "version": "2014"
-    },
-    {
-      "id": "5",
-      "name": "WINDOWS SERVER",
-      "category": "OS",
-      "version": "2003"
-    },
-    {
-      "id": "6",
-      "name": "WINDOWS SERVER",
-      "category": "OS",
-      "version": "2008"
-    },
-    {
-      "id": "7",
-      "name": "WINDOWS SERVER",
-      "category": "OS",
-      "version": "2008 R2"
-    },
-    {
-      "id": "8",
-      "name": "WINDOWS SERVER",
-      "category": "OS",
-      "version": "2012 R2"
-    },
-    {
-      "id": "9",
-      "name": "WINDOWS SERVER",
-      "category": "OS",
-      "version": "2016"
-    },
-    {
-      "id": "10",
-      "name": "WINDOWS SERVER",
-      "category": "OS",
-      "version": "2019"
-    },
-    {
-      "id": "11",
-      "name": "Red Hat Enterprise",
-      "category": "OS",
-      "version": "4"
-    },
-    {
-      "id": "12",
-      "name": "Red Hat Enterprise",
-      "category": "OS",
-      "version": "6.4"
-    },
-    {
-      "id": "13",
-      "name": "Red Hat Enterprise",
-      "category": "OS",
-      "version": "7.3"
-    },
-    {
-      "id": "14",
-      "name": "CentOs",
-      "category": "OS",
-      "version": "5"
-    },
-    {
-      "id": "15",
-      "name": "CentOs",
-      "category": "OS",
-      "version": "6"
-    }
-];
+  { "id": "1", "name": "Windows Server", "category": "OS", "version": "2018 R2" },
+  { "id": "2", "name": "Microsoft SQL Server", "category": "Base de Datos", "version": "2019" },
+  { "id": "3", "name": "Oracle Database", "category": "Base de Datos", "version": "19c" },
+  { "id": "4", "name": "Ubuntu Server", "category": "OS", "version": "20.04 LTS" },
+  { "id": "5", "name": "IBM WebSphere", "category": "Servidor Web", "version": "9.0" },
+  { "id": "6", "name": "Apache Tomcat", "category": "Servidor Web", "version": "9.0.41" },
+  { "id": "7", "name": "Red Hat Enterprise", "category": "OS", "version": "8.2" },
+  { "id": "8", "name": "Cisco ASA", "category": "Firewall", "version": "9.14" },
+  { "id": "9", "name": "Fortinet FortiGate", "category": "Firewall", "version": "6.4" },
+  { "id": "10", "name": "PostgreSQL", "category": "Base de Datos", "version": "13" },
+  { "id": "11", "name": "SAP HANA", "category": "ERP", "version": "2.0 SPS04" },
+  { "id": "12", "name": "Microsoft Dynamics", "category": "CRM", "version": "365" },
+  { "id": "13", "name": "Citrix XenApp", "category": "Virtualización", "version": "7.15" },
+  { "id": "14", "name": "VMware ESXi", "category": "Virtualización", "version": "7.0" },
+  { "id": "15", "name": "IBM MQ", "category": "Mensajería", "version": "9.1" },
+  { "id": "16", "name": "Check Point", "category": "Firewall", "version": "R80.40" },
+  { "id": "17", "name": "Symantec Endpoint", "category": "Seguridad", "version": "14.3" },
+  { "id": "18", "name": "Palo Alto Networks", "category": "Firewall", "version": "PAN-OS 10.0" },
+  { "id": "19", "name": "Elastic Stack", "category": "Análisis", "version": "7.10" },
+  { "id": "20", "name": "Zabbix", "category": "Monitorización", "version": "5.2" },
+  { "id": "21", "name": "Jira", "category": "Gestión Proyectos", "version": "8.13" },
+  { "id": "22", "name": "FortiAnalyzer", "category": "Gestión de Logs", "version": "6.4" },
+  { "id": "23", "name": "FortiAuthenticator", "category": "Autenticación", "version": "6.0" },
+  { "id": "24", "name": "FortiWeb", "category": "Firewall de Aplicaciones Web", "version": "6.3" },
+  { "id": "25", "name": "FortiMail", "category": "Seguridad de Correo", "version": "6.4" },
+  { "id": "26", "name": "FortiSandbox", "category": "Sandbox y Análisis de Amenazas", "version": "3.2" },
+  { "id": "27", "name": "FortiSIEM", "category": "SIEM", "version": "5.3" },
+  { "id": "28", "name": "FortiClient", "category": "Seguridad Endpoint", "version": "6.4" },
+  { "id": "29", "name": "FortiManager", "category": "Gestión de Redes", "version": "6.4" },
+  { "id": "30", "name": "FortiToken", "category": "Autenticación Multifactor", "version": "5.4" },
+  { "id": "31", "name": "FortiGate-VM", "category": "Firewall Virtual", "version": "7.0" }
+]
 
 // GET: Fetch paginated tecnology inventory
 mock.onGet(new RegExp('/api/data/techinventory')).reply((config) => {
