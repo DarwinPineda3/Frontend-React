@@ -130,7 +130,7 @@ let summaryVuln: vulnerabilityType[] = [
         "report_id": "PdxYkpIBrQYYP_4wrz3C",
         "creation_time_format": "2024-10-15T22:42:09.183142Z"
     },
-  
+
 ];
 
 // GET: Fetch paginated tecnology inventory
@@ -138,9 +138,9 @@ mock.onGet(new RegExp('/api/data/summary')).reply((config) => {
     try {
         const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
-        const limit = 5;
+        const limit = 25;
         const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
-        
+
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
 
