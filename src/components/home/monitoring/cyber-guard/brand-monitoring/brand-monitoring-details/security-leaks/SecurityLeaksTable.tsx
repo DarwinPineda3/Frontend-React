@@ -18,13 +18,14 @@ import { useTranslation } from 'react-i18next';
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
+  category: string;
 }
 
-const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
+const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<SecurityLeak | null>(null);
   const criticalColor = theme.palette.level.critical;
@@ -69,6 +70,39 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
     setSelectedLeak(null);
   };
 
+  const getCategoryData = (leak: SecurityLeak) => {
+    switch (category) {
+      case 'Domains':
+        return Array.isArray(leak.data.domain) && leak.data.domain.length > 0
+          ? leak.data.domain.join(', ')
+          : 'NA';
+      case 'Emails':
+        return Array.isArray(leak.data.email) && leak.data.email.length > 0
+          ? leak.data.email.join(', ')
+          : 'NA';
+      case 'IPs':
+        return Array.isArray(leak.data.ip_address) && leak.data.ip_address.length > 0
+          ? leak.data.ip_address.join(', ')
+          : 'NA';
+      case 'Usernames':
+        if (Array.isArray(leak.data.username) && leak.data.username.length > 0) {
+          return leak.data.username.join(', ');
+        }
+        return leak.data.name || 'NA';
+      case 'Phones':
+        return Array.isArray(leak.data.phone) && leak.data.phone.length > 0
+          ? leak.data.phone.join(', ')
+          : 'NA';
+      default:
+        return 'NA';
+    }
+  };
+
+  const getDatabaseNames = (leak: SecurityLeak) => {
+    const dbNames = leak.data.database_name;
+    return Array.isArray(dbNames) ? dbNames.join(', ') : dbNames;
+  };
+
   return (
     <>
       <TableContainer>
@@ -107,7 +141,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
                     color="primary"
                     sx={{ cursor: 'pointer' }}
                   >
-                    {leak.data.email || leak.data.name || leak.data.username || 'NA'}
+                    {getCategoryData(leak) || 'NA'}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
@@ -123,7 +157,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
                   <HumanizedDate dateString={leak.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{leak.source}</Typography>
+                  <Typography variant="subtitle2">{getDatabaseNames(leak) ||'N/A'}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -132,7 +166,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={leaks.length}
         rowsPerPage={rowsPerPage}

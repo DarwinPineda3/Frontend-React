@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  Chip,
-  TablePagination,
+  useTheme,
 } from '@mui/material';
-import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SocialNetworkDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import SocialNetworkDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { SocialNetwork } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
 interface SecurityLeakTableProps {
   social: SocialNetwork[];
 }
 
 const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
+  const theme = useTheme();
+  const { high, medium, low, critical, unknown, none } = theme.palette.level;
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<SocialNetwork | null>(null);
 
@@ -84,6 +87,11 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
+                  {t('monitoring.risk_analysis')}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
                   {t('monitoring.date')}
                 </Typography>
               </TableCell>
@@ -119,6 +127,21 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                 </TableCell>
                 <TableCell>{renderSentimentChip(social.data?.sentiment_analysis || '0')}</TableCell>
                 <TableCell>
+                  <Chip
+                    label={social.data?.risk_analysis}
+                    color="secondary"
+                    style={{
+                      backgroundColor:
+                        social.data?.risk_analysis?.toLowerCase() == "Potential risk".toLowerCase()
+                          ? critical
+                          : social.data?.risk_analysis?.toLowerCase() == "No risk".toLowerCase()
+                            ? low
+                            : "#539bff",
+                      color: 'white'
+                    }}
+                  />
+                </TableCell>
+                <TableCell>
                   <HumanizedDate dateString={social.date} />
                 </TableCell>
                 <TableCell>
@@ -131,7 +154,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={social.length}
         rowsPerPage={rowsPerPage}

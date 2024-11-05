@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import CustomizerReducer from './customizer/CustomizerSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import AssetsReducer from './sections/AssetsSlice';
-import MalwareAnalysesReducer from "./sections/MalwareAnalysisSlice";
 
 //dashboard reducers
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
@@ -19,10 +18,11 @@ import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 // brand monitoring reducers
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice'
 //monitoring reducers
+import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
+import MobileAppsReducer from "./sections/mobile-app/MobileAppSlice";
+import AppScansReducer from "./sections/mobile-app/AppScanSlice";
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
-
-
 //vulnerabilities
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
@@ -54,8 +54,10 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     techInventoryReducer: TechInventoryReducer,
     malwareAnalysesReducer: MalwareAnalysesReducer,
+    mobileAppsReducer: MobileAppsReducer,
     parametersReducer: ParametersReducer,
     brandMonitoringReducer: BrandMonitoringReducer,
+    appScansReducer: AppScansReducer,
     summaryVulnReducer: SummaryVulnReducer,
     newsLettersReducer: NewsLettersReducer,
     managementVulnReducer: ManagementVulnReducer,
@@ -69,8 +71,10 @@ const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   techInventoryReducer: TechInventoryReducer,
   malwareAnalysesReducer: MalwareAnalysesReducer,
+  mobileAppsReducer: MobileAppsReducer,
   parametersReducer: ParametersReducer,
   brandMonitoringReducer: BrandMonitoringReducer,
+  appScansReducer: AppScansReducer,
   summaryVulnReducer: SummaryVulnReducer,
   newsLettersReducer: NewsLettersReducer,
   managementVulnReducer: ManagementVulnReducer,

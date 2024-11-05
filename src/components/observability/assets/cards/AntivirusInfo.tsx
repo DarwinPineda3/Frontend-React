@@ -1,7 +1,6 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box } from '@mui/material';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
 
 const AntivirusTable = () => {
   const { t } = useTranslation();
@@ -13,7 +12,7 @@ const AntivirusTable = () => {
       productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
       reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
       status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Sophos_logo.png',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
     },
     {
       name: 'Sophos Intercept X',
@@ -21,7 +20,7 @@ const AntivirusTable = () => {
       productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
       reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
       status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Sophos_logo.png',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
     },
     {
       name: 'Sophos Intercept X',
@@ -29,7 +28,7 @@ const AntivirusTable = () => {
       productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
       reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
       status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Sophos_logo.png',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
     },
   ];
 

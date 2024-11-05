@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
 import {
-  Typography,
+  Box,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
+  Typography,
 } from '@mui/material';
+import React, { useState } from 'react';
 
-import DashboardCard from '../shared/DashboardCard';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useTranslation } from 'react-i18next';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import DashboardCard from '../shared/DashboardCard';
 
 interface LogEntry {
   date: string;
@@ -46,7 +46,7 @@ const AuditLogList: React.FC = () => {
   ]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [logsPerPage] = useState(10);
+  const [logsPerPage] = useState(25);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
@@ -71,8 +71,8 @@ const AuditLogList: React.FC = () => {
 
   return (
     <DashboardCard
-      title={t("audit.list_of_audit_logs")}
-      subtitle={t("audit.audit_log_details_and_actions")}
+      title={t("audit.list_of_audit_logs") as string}
+      subtitle={t("audit.audit_log_details_and_actions") as string}
     >
       <Box>
         <TableContainer>

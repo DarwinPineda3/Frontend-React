@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
 import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  Chip,
-  TablePagination,
 } from '@mui/material';
-import { DarkWeb } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { DarkWeb } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 
 interface DarkWebTableProps {
   dark_web: DarkWeb[];
+  category: string;
 }
 
-const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
+const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<DarkWeb | null>(null);
 
@@ -45,6 +45,39 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedLeak(null);
+  };
+
+  const getCategoryData = (dark_web: DarkWeb) => {
+    switch (category) {
+      case 'Domains':
+        return Array.isArray(dark_web.data.domain) && dark_web.data.domain.length > 0
+          ? dark_web.data.domain.join(', ')
+          : 'NA';
+      case 'Emails':
+        return Array.isArray(dark_web.data.email) && dark_web.data.email.length > 0
+          ? dark_web.data.email.join(', ')
+          : 'NA';
+      case 'IPs':
+        return Array.isArray(dark_web.data.ip_address) && dark_web.data.ip_address.length > 0
+          ? dark_web.data.ip_address.join(', ')
+          : 'NA';
+      case 'Usernames':
+        if (Array.isArray(dark_web.data.username) && dark_web.data.username.length > 0) {
+          return dark_web.data.username.join(', ');
+        }
+        return dark_web.data.name || 'NA';
+      case 'Phones':
+        return Array.isArray(dark_web.data.phone) && dark_web.data.phone.length > 0
+          ? dark_web.data.phone.join(', ')
+          : 'NA';
+      default:
+        return 'NA';
+    }
+  };
+
+  const getDatabaseNames = (leak: DarkWeb) => {
+    const dbNames = leak.data.database_name;
+    return Array.isArray(dbNames) ? dbNames.join(', ') : dbNames;
   };
 
   return (
@@ -80,14 +113,16 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
                     color="primary"
                     sx={{ cursor: 'pointer' }}
                   >
-                    {dark_web.data?.email || dark_web.data?.username || 'NA'}
+                    {getCategoryData(dark_web) || 'NA'}
                   </Typography>
                 </TableCell>
                 <TableCell align="center">
                   <HumanizedDate dateString={dark_web.date} />
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{dark_web.source}</Typography>
+                  <Typography variant="subtitle2">
+                    {getDatabaseNames(dark_web) || dark_web.data.domain || 'NA'}
+                  </Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -96,7 +131,7 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web }) => {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
         count={dark_web.length}
         rowsPerPage={rowsPerPage}

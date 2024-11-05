@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { useSelector } from 'src/store/Store';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'src/store/Store';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import LogoDark from 'src/assets/images/logos/akila_logo_compressed.png';
@@ -12,8 +12,8 @@ import LogoDarkRTL from 'src/assets/images/logos/akila_logo_compressed.png';
 import LogoLight from 'src/assets/images/logos/akila_white_logo_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import LogoLightRTL from 'src/assets/images/logos/akila_white_logo_compressed.png';
 import { styled } from '@mui/material';
+import LogoLightRTL from 'src/assets/images/logos/akila_white_logo_compressed.png';
 import { AppState } from 'src/store/Store';
 
 const Logo: FC = () => {
@@ -37,9 +37,9 @@ const Logo: FC = () => {
         }}
       >
         {customizer.activeMode === 'dark' ? (
-          <img style={{maxWidth: '100%'}} src={LogoLight} />
+          <img style={{ maxWidth: '100%' }} src={LogoLight} />
         ) : (
-          <img style={{maxWidth: '100%'}} src={LogoDark} />
+          <img style={{ maxWidth: '100%' }} src={LogoDark} />
         )}
       </LinkStyled>
     );
@@ -51,13 +51,13 @@ const Logo: FC = () => {
       style={{
         display: 'flex',
         alignItems: 'center',
-          maxWidth: '100%'
+        maxWidth: '100%'
       }}
     >
       {customizer.activeMode === 'dark' ? (
-        <img style={{maxWidth: '100%'}} src={LogoLightRTL} />
+        <img style={{ maxWidth: '100%' }} src={LogoLightRTL} />
       ) : (
-        <img style={{maxWidth: '100%'}} src={LogoDarkRTL} />
+        <img style={{ maxWidth: '100%' }} src={LogoDarkRTL} />
       )}
     </LinkStyled>
   );

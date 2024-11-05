@@ -1,9 +1,9 @@
 import { Box, CardContent, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import iconOrange from '../../assets/images/svgs/icon-alert-orange.svg';
 import iconYellow from '../../assets/images/svgs/icon-alert-yellow.svg';
 import iconRed from '../../assets/images/svgs/icon-bars.svg';
-import iconOrange from '../../assets/images/svgs/icon-alert-orange.svg';
 import iconTan from '../../assets/images/svgs/icon-connect.svg';
 
 interface cardType {
@@ -49,7 +49,7 @@ const AssetsCards = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid container spacing={3} mt={4}>
+    <Grid container spacing={3} mt={0}>
       {assetsCards.map((topcard, i) => (
         <Grid item xs={6} sm={4} lg={3} key={i}>
           <Box bgcolor={topcard.bgcolor + '.light'} textAlign="center">

@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Security, Facebook, Twitter, Instagram, LinkedIn } from '@mui/icons-material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SocialNetworksIndicatorsProps {
   socialNetworkCounters: {
@@ -21,29 +22,31 @@ const getColorByValue = (value: number) => {
 const SocialNetworksIndicators: React.FC<SocialNetworksIndicatorsProps> = ({
   socialNetworkCounters,
 }) => {
+  const { t } = useTranslation();
+
   const topCardsData = [
     {
-      title: 'Total Compromises',
+      title: t('monitoring.total_results'),
       value: socialNetworkCounters.social_network_total,
       icon: <Security fontSize="large" />,
     },
     {
-      title: 'FACEBOOK',
+      title: 'Facebook',
       value: socialNetworkCounters.facebook,
       icon: <Facebook fontSize="large" />,
     },
     {
-      title: 'TWITTER',
+      title: 'Twitter',
       value: socialNetworkCounters.twitter,
       icon: <Twitter fontSize="large" />,
     },
     {
-      title: 'INSTAGRAM',
+      title: 'Instagram',
       value: socialNetworkCounters.instagram,
       icon: <Instagram fontSize="large" />,
     },
     {
-      title: 'LINKEDIN',
+      title: 'LinkedIn',
       value: socialNetworkCounters.linkedin,
       icon: <LinkedIn fontSize="large" />,
     },
@@ -74,7 +77,12 @@ const SocialNetworksIndicators: React.FC<SocialNetworksIndicatorsProps> = ({
               </Box>
 
               {/* Title and Value in a column */}
-              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Typography color={`${color}.main`} variant="subtitle2" fontWeight={600}>
                   {card.title}
                 </Typography>

@@ -25,9 +25,9 @@ const TechInventory = () => {
                     <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
                         {t("menu.cti")}
                     </Link>
-                    <Link component={RouterLink} color="inherit" to="/monitoring/soc/cti/technologies-inventory">
+                    <Typography color="textPrimary">
                         {t("technologies_inventory.technologies_inventory")}
-                    </Link>
+                    </Typography>
                 </Breadcrumbs>
             </Box>
             <Grid container spacing={0} mt={1}>
