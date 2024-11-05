@@ -236,6 +236,27 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   }
 });
 
+// GET: Fetch mobile app by id
+mock.onGet(new RegExp('/api/data/mobile-apps/detail/*')).reply((config) => {
+  try {
+      const mobileAppId = config.url!.split('/').pop();
+      // console.log('mobileAppId MOCKUPI', mobileAppId);
+      const mobileAppIndex = mobileApps.findIndex((result) => result.id === mobileAppId);
+      if (mobileAppIndex === -1) {
+          return [404, { message: 'MobileApp not found' }];
+      }
+      return [
+          200,
+          {
+              mobileApp: mobileApps[mobileAppIndex]
+          },
+      ];
+  } catch (error) {
+      console.error('Error in mobileApps API:', error);
+      return [500, { message: 'Internal server error' }];
+  }
+});
+
 
 // GET: Fetch paginated tecnology inventory
 mock.onDelete(new RegExp('/api/data/mobileApps/detail/*')).reply((config) => {

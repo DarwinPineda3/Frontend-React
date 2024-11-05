@@ -31,6 +31,9 @@ export const MobileAppsSlice = createSlice({
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
+    getMobileAppDetail: (state, action) => {
+      state.mobileAppDetails = action.payload.data;
+    },
     addMobileApp: (state, action) => {
       state.mobileApps.push(action.payload);
     },
