@@ -24,7 +24,7 @@ import CreateUpdateAppScan from '../mobile-apps/MobileAppEdition';
 import { useTranslation } from 'react-i18next';
 
 interface AppScanListTableProps {
-  onAppScanClick: (AppScanId: number, AppScanName: string) => void;
+  onAppScanClick: (AppScanId: string) => void;
 }
 
 const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
@@ -98,7 +98,7 @@ const AppScanList: React.FC<AppScanListTableProps> = ({ onAppScanClick }) => {
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onAppScanClick(appScan.id, appScan.name)}
+                      onClick={() => onAppScanClick(appScan.id)}
                       style={{ cursor: 'pointer' }}
                     >
                       {appScan.name}

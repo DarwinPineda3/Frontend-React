@@ -2,7 +2,7 @@
 
 import mock from '../../mock'; // Ensure correct path to mock
 
-interface MobileAppType {
+interface ResultAppType {
   id: string | undefined;
   idApp: string;
   appName: string;
@@ -15,6 +15,12 @@ interface MobileAppType {
   details?: any;
   score: number;
 }
+interface MobileAppType {
+  id: string | undefined;
+  name: string;
+  createdOn: Date;
+  results: ResultAppType[]
+}
 
 interface Detail {
   language: string;
@@ -22,7 +28,8 @@ interface Detail {
   permissions: string[];
 }
 
-let mobileApps: MobileAppType[] = [
+
+let resultsApp: ResultAppType[] = [
   {
     id: "123867435",
     idApp: "co.com.ath.bbog.icbs",
@@ -207,6 +214,34 @@ let mobileApps: MobileAppType[] = [
   }
 ];
 
+let mobileApp: MobileAppType = {
+  id: '1',
+  name: 'Banco de Bogotá Móvil',
+  createdOn: new Date(),
+  results: resultsApp
+}
+
+// GET: Fetch mobile app by id
+mock.onGet(new RegExp('/api/data/mobile-apps/detail/*')).reply((config) => {
+  try {
+    const mobileAppId = config.url!.split('/').pop();
+
+    if (mobileApp.id !== mobileAppId) {
+      return [404, { message: 'MobileApp not found' }];
+    }
+
+    return [
+      200,
+      {
+        mobileApp: mobileApp
+      },
+    ];
+  } catch (error) {
+    console.error('Error in mobileApps API:', error);
+    return [500, { message: 'Internal server error' }];
+  }
+});
+
 // GET: Fetch paginated mobileApps
 mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   try {
@@ -218,8 +253,8 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
 
-    const paginatedMobileApps = mobileApps.slice(startIndex, endIndex);
-    const totalmobileApps = mobileApps.length;
+    const paginatedMobileApps = mobileApp.results.slice(startIndex, endIndex);
+    const totalmobileApps = mobileApp.results.length;
     const totalPages = Math.ceil(totalmobileApps / limit);
 
     return [
@@ -236,41 +271,20 @@ mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
   }
 });
 
-// GET: Fetch mobile app by id
-mock.onGet(new RegExp('/api/data/mobile-apps/detail/*')).reply((config) => {
-  try {
-      const mobileAppId = config.url!.split('/').pop();
-      // console.log('mobileAppId MOCKUPI', mobileAppId);
-      const mobileAppIndex = mobileApps.findIndex((result) => result.id === mobileAppId);
-      if (mobileAppIndex === -1) {
-          return [404, { message: 'MobileApp not found' }];
-      }
-      return [
-          200,
-          {
-              mobileApp: mobileApps[mobileAppIndex]
-          },
-      ];
-  } catch (error) {
-      console.error('Error in mobileApps API:', error);
-      return [500, { message: 'Internal server error' }];
-  }
-});
-
 
 // GET: Fetch paginated tecnology inventory
 mock.onDelete(new RegExp('/api/data/mobileApps/detail/*')).reply((config) => {
   try {
     const mobileAppId = config.url!.split('/').pop(); // Extract the asset ID from the URL
 
-    const mobileAppIndex = mobileApps.findIndex((mobileApp) => mobileApp.id === mobileAppId);
+    const mobileAppIndex = mobileApp.results.findIndex((mobileApp) => mobileApp.id === mobileAppId);
     if (mobileAppIndex === -1) {
       return [404, { message: 'Newsletter not found' }];
     }
     return [
       200,
       {
-        mobileApp: mobileApps[mobileAppIndex]
+        mobileApp: mobileApp.results[mobileAppIndex]
       },
     ];
   } catch (error) {
@@ -282,19 +296,13 @@ mock.onDelete(new RegExp('/api/data/mobileApps/detail/*')).reply((config) => {
 // POST: Create a new mobileApp
 mock.onPost('/api/data/mobileApps').reply((config) => {
   try {
-    const { appName, downloadLink, releaseDate, version, score, source, digitalSignature, apkHash, details } = JSON.parse(config.data);
+    const { name, createdOn, results } = JSON.parse(config.data);
 
     const newMobileApp: MobileAppType = {
       id: (mobileApps.length + 1).toString(), // Simple id generation
-      appName,
-      downloadLink,
-      releaseDate,
-      version,
-      source,
-      digitalSignature,
-      apkHash,
-      details,
-      score,
+      name,
+      createdOn,
+      results
     };
 
     mobileApps.push(newMobileApp); // Add new mobileApp to mock database

@@ -7,32 +7,34 @@ import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-r
 
 import MobileAppDetail from 'src/components/home/monitoring/mobile-apps/MobileAppDetail';
 import MobileAppList from 'src/components/home/monitoring/mobile-apps/MobileAppResultList';
+import { fetchMobileAppById } from 'src/store/sections/mobile-app/MobileAppSlice';
 // import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 const MobileApp = () => {
   const { t } = useTranslation();
-  const { mobileAppId } = useParams<{ mobileAppId?: string }>();
+  const { appScanId } = useParams<{ appScanId?: string }>();
+
   const dispatch = useDispatch();
   const location = useLocation(); // Tracks the current URL location
 
   const [selectedMobileApp, setSelectedMobileApp] = useState<string | null>(null);
   const [selectedMobileAppName, setselectedMobileAppName] = useState<string | null>(null);
   const navigate = useNavigate();
-  const mobileAppDetails = useSelector((state: any) => state.mobileAppsReducer.mobileAppDetails);
+  const mobileAppResults = useSelector((state: any) => state.mobileAppsReducer.mobileAppResults);
 
   // Synchronize state with URL parameters
   useEffect(() => {
-    if (mobileAppId) {
-      setSelectedMobileApp(mobileAppId);
-      // dispatch(fetchMobielAppById(mobileAppId));
+    if (appScanId) {
+      // setSelectedMobileApp(appScanId);
+      dispatch(fetchMobileAppById(appScanId));
     } else {
       setSelectedMobileApp(null);
     }
-  }, [mobileAppId, location, dispatch]);
+  }, [appScanId, location, dispatch]);
 
-  const handleMobileAppClick = (id: number, appName: string) => {
-    setselectedMobileAppName(appName);
-    navigate(`/monitoring/cyber-guard/mobile-apps/${id}/results/${id}`);
+  const handleMobileAppClick = (id: number) => {
+    // setselectedMobileAppName(appName);
+    navigate(`/monitoring/cyber-guard/mobile-apps/${appScanId}/results/${id}`);
   };
   return (
     <Box>
@@ -50,26 +52,36 @@ const MobileApp = () => {
           <Link component={RouterLink} color="inherit" to="/monitoring/cyber-guard/mobile-apps">
             {t('mobile_apps.mobile_apps')}
           </Link>
-          {selectedMobileAppName ? (
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to={`/monitoring/cyber-guard/mobile-apps/${selectedMobileAppName}`}
-            >
-              {t('mobile_apps.results_app_scans')}
-            </Link>
-          ) : (
-            <Typography color="textPrimary">{t('mobile_apps.results_app_scans')}</Typography>
-          )}
-          {selectedMobileApp && (
-            <Typography color="textPrimary">{selectedMobileAppName}</Typography>
-          )}
+          {/* {newsletterDetails && (
+            <Typography color="textPrimary">{newsletterDetails.name}</Typography>
+          )} */}
+          {mobileAppResults &&
+
+            (<>
+              {selectedMobileAppName ? (
+                <Link
+                  component={RouterLink}
+                  color="inherit"
+                  to={`/monitoring/cyber-guard/mobile-apps/${appScanId}`}
+                >
+                  {mobileAppResults.name}
+                </Link>
+              ) : (
+                <Typography color="textPrimary">{mobileAppResults.name}</Typography>
+              )}
+            </>)
+
+          }
+
+          {/* {selectedMobileApp && (
+            // <Typography color="textPrimary">{mobileAppResults}</Typography>
+          )} */}
         </Breadcrumbs>
       </Box>
       {selectedMobileApp ? (
         <Grid container spacing={0} mt={1}>
           <Grid item xs={12} xl={12}>
-            <MobileAppDetail mobileAppId={selectedMobileApp!} />
+            <MobileAppDetail mobileAppDetail={mobileAppResults} />
           </Grid>
         </Grid>
       ) : (
@@ -78,7 +90,10 @@ const MobileApp = () => {
             {/* <AssetsCards/> */}
           </Grid>
           <Grid item xs={12} lg={12}>
-            <MobileAppList onMobileAppClick={handleMobileAppClick} />
+            {mobileAppResults &&
+              (
+                <MobileAppList results={mobileAppResults.results} onMobileAppClick={handleMobileAppClick} />)
+            }
           </Grid>
         </Grid>
       )}

@@ -20,15 +20,17 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
 import DashboardCard from '../../../shared/DashboardCard';
+import { MobileAppType, ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
 
 // const theme = useTheme();
 // const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
   onMobileAppClick: (mobileAppId: number) => void;
+  results: ResultAppType[]; 
 }
 
-const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
+const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, results }) => {
   const dispatch = useDispatch();
   const mobileApps = useSelector((state: any) => state.mobileAppsReducer.mobileApps);
   const currentPage = useSelector((state: any) => state.mobileAppsReducer.page);
@@ -102,7 +104,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
               </TableRow>
             </TableHead>
             <TableBody>
-              {mobileApps.map((mobileApp: any, index: number) => (
+              {results.map((mobileApp: any, index: number) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Typography
@@ -110,7 +112,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onMobileAppClick(mobileApp.id, mobileApp.appName)}
+                      onClick={() => onMobileAppClick(mobileApp.id)}
                       style={{ cursor: 'pointer' }}
                     >
                       {mobileApp.appName}
