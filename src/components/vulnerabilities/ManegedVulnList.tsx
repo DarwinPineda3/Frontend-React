@@ -128,7 +128,25 @@ const ManegedVulnerabilitiesList = () => {
       }
     >
       <Box>
-        <TableContainer sx={{ maxHeight: { xs: 300, sm: 500 } }}>
+        <TableContainer
+          sx={{
+            maxHeight: { xs: 300, sm: 500 },
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: theme.palette.background.default,
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: theme.palette.primary.main,
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              backgroundColor: theme.palette.primary.dark,
+            },
+          }}
+        >
           <Table aria-label="technology table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
               <TableRow>
