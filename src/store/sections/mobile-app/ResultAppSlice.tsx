@@ -8,12 +8,12 @@ const DETAIL_API_URL = '/api/data/mobile-apps/result-detail';
 
 
 interface StateType {
-  AppResultDetail: ResultAppType | null;
+  appResultDetail: ResultAppType | null;
   error: string | null;
 }
 
 const initialState: StateType = {
-  AppResultDetail: null,
+  appResultDetail: null,
   error: null
 };
 
@@ -22,7 +22,8 @@ export const ResultAppsSlice = createSlice({
   initialState,
   reducers: {
     getResultApp: (state, action) => {
-      state.AppResultDetail = action.payload;
+      state.appResultDetail = action.payload;
+      state.error = null;
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -38,16 +39,19 @@ export const {
 export const fetchResultAppById = (mobileAppId: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${DETAIL_API_URL}/${mobileAppId}`);
-    console.log(response.data.resultApp);
-    
+
     if (response.status === 200) {
       dispatch(getResultApp(response.data.resultApp));
+      // console.log(response.data.resultApp);
+      return Promise.resolve();
     } else {
       dispatch(setError('fetch result app not found'));
+      return Promise.reject('fetch result app not found');
     }
   } catch (err) {
     console.error('Error fetching result app detail:', err);
     dispatch(setError('Failed to fetch result app detail'));
+    return Promise.reject(err);
   }
 };
 

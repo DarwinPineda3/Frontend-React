@@ -1,10 +1,8 @@
-import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
   Chip,
   Dialog,
   DialogContent,
-  IconButton,
   Pagination,
   Table,
   TableBody,
@@ -13,21 +11,21 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme,
+  useTheme
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
-import DashboardCard from '../../../shared/DashboardCard';
 import { ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
+import DashboardCard from '../../../shared/DashboardCard';
 
 // const theme = useTheme();
 // const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (mobileAppId: number) => void;
-  results: ResultAppType[]; 
+  onMobileAppClick: (mobileAppId: string) => void;
+  results: ResultAppType[];
 }
 
 const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, results }) => {
@@ -130,10 +128,10 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, re
                           mobileApp.score > 7
                             ? t('mobile_apps.very_risky')
                             : mobileApp.score > 3.9
-                            ? t('mobile_apps.risky')
-                            : mobileApp.score > 0
-                            ? t('mobile_apps.no_risk')
-                            : t('mobile_apps.no_risk')
+                              ? t('mobile_apps.risky')
+                              : mobileApp.score > 0
+                                ? t('mobile_apps.no_risk')
+                                : t('mobile_apps.no_risk')
                         }
                         color="secondary"
                         size="small"
