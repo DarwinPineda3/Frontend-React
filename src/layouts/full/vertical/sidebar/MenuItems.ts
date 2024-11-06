@@ -26,7 +26,8 @@ import {
   IconSpy,
   IconSquaresFilled,
   IconTicket,
-  IconUserBolt
+  IconUserBolt,
+  IconGauge
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -137,6 +138,12 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.installation_guide', // Translation key for title
     href: '/observability/installation-guide',
     icon: IconBook,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.threshold_settings', // Translation key for title
+    href: '/observability/threshold-settings',
+    icon: IconGauge,
   },
   {
     navlabel: true,

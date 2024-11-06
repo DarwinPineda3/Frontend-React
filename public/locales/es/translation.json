@@ -20,6 +20,7 @@
         "observed_assets": "Activos Observados",
         "dark_web_monitoring": "Resumen Amenazas",
         "installation_guide": "Guía Instalación",
+        "threshold_settings":"Configuración de umbral",
         "support": "Soporte",
         "tickets": "Tickets",
         "solutions": "Soluciones",
@@ -791,5 +792,24 @@
         "network_observability": "Escaneos observabilidad Red",
         "create_task_link": "Debes crear un/a",
         "task": "tarea"
-    }
+    },
+
+   
+ "threshold": {
+          "threshold_settings": "Configuración de Umbral"
+        },
+        "thresholdForm": {
+          "subtitle": "Ajusta los límites de uso de recursos para establecer tus umbrales.",
+          "cpu_threshold": "Umbral de CPU (%)",
+          "ram_threshold": "Umbral de RAM (%)",
+          "storage_threshold": "Umbral de Almacenamiento (%)",
+          "user_email": "Dirección de Correo Electrónico",
+          "save_changes": "Guardar Cambios"
+        },
+
+ "breadcrumb": {
+    "observability": "Observabilidad",
+    "threshold_settings": "Configuración de Umbral",
+    "threshold_details": "Detalles del Umbral"
+  }
 }
