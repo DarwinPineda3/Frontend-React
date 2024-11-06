@@ -1,43 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from "src/store/Store";
-import { MobileAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
+import { ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
+// import AlphaSuspicionLevel from '../malware-analyses/MalwareAnalysisAlphaSuspicionLevel';
+// import MobileAppAccordion from './MobileAppAccordion';
 
 
-const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileAppDetail }) => {
+const MobileAppDetail: React.FC<{ resultAppDetail: ResultAppType }> = ({ resultAppDetail }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  // const mobileApp = {
-  //   id: "123867435",
-  //   idApp: "co.com.ath.bbog.icbs",
-  //   appName: "Banco de Bogotá App Negocios APK",
-  //   downloadLink: "https://apk.support/download-app-es/co.com.ath.bbog.icbs",
-  //   releaseDate: "2024-10-21",
-  //   version: "1.15.3",
-  //   source: "APK Support",
-  //   digitalSignature: "3082025D308201C6A0030201020214C8F3A5D7E9B2C1A6F4D7E3B8A2C4D5E7",
-  //   apkHash: "B2A6E8C5D9F3C4A1B5E7F1C8A3D2B9F6E4C1A5B8D7F3",
-  //   score: 4,
-  //   details: {
-  //     language: "Español",
-  //     downloads: "15.41 mil",
-  //     permissions: [
-  //       "Dangerous - Allows application to take pictures and videos with the camera. This allows the application to collect images that the camera is seeing at any time",
-  //       "Dangerous - Allows the application to access the phone features of the device. An application with this permission can determine the phone number and serial number of this phone, whether a call is active, the number that call is connected to and so on.",
-  //       "Normal - Allows an application to view the status of all networks.",
-  //       "Normal - Allows a regular application to use Service.startForeground.",
-  //       "Normal - Allows an application to create network sockets.",
-  //       "Normal - Allows the application to control the vibrator.",
-  //       "Normal - Allows an application to prevent the phone from going to sleep."
-  //     ],
-  //     risks: ["High - External data in SQL queries", "high - A5 - Configuración de seguridad incorrecta", "medium - JS enabled in a WebView"],
-  //     OWASP: ["External data in SQL queries", "A5 - Configuración de seguridad incorrecta", "JS enabled in a WebView", "Usage of unencrypted HTTP protocol", "Hardcoded data", "Missing tapjacking protection", "Usage of implicit intent"],
-  //     externalCommunications: ["No se detectaron comunicaciones no autorizadas"]
-  //   }
-  // }
-  // const mobileApp = useSelector((state: any) => state.mobileAppsReducer.mobileApp);
 
-  console.log(mobileAppDetail);
+  console.log("--------------");
+  console.log(resultAppDetail);
+  console.log("--------------");
 
 
   return (
@@ -47,11 +22,11 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
 
     // <Grid container spacing={1}>
     //   <Grid item xs={12} xl={12}>
-    //     <Breadcrumb title={mobileApp.results.appName}>
+    //     <Breadcrumb title={mobileAppDetail.results.appName}>
     //       <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-    //         <Chip label={`Score: ${mobileApp.score}`} color="secondary" variant="outlined" />
-    //         <Chip label={`Version: ${mobileApp.version}`} color="info" variant="outlined" />
-    //         <Chip label={`Release Date: ${mobileApp.releaseDate}`} color="primary" variant="outlined" />
+    //         <Chip label={`Score: ${mobileAppDetail.score}`} color="secondary" variant="outlined" />
+    //         <Chip label={`Version: ${mobileAppDetail.version}`} color="info" variant="outlined" />
+    //         <Chip label={`Release Date: ${mobileAppDetail.releaseDate}`} color="primary" variant="outlined" />
     //       </Box>
     //     </Breadcrumb>
     //   </Grid>
@@ -71,25 +46,25 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
     //           >
     //           </Stack>
     //         </Box>
-    //         <AlphaSuspicionLevel score={mobileApp.score} type={"mobile app"} />
+    //         <AlphaSuspicionLevel score={mobileAppDetail.score} type={"mobile app"} />
     //         <Box>
     //           <Typography variant="subtitle2" fontWeight={600}>
     //             {t("mobile_apps.source")}
     //           </Typography>
-    //           <Typography variant="body2">{mobileApp.source}</Typography>
+    //           <Typography variant="body2">{mobileAppDetail.source}</Typography>
     //         </Box>
     //         <Box>
     //           <Typography variant="subtitle2" fontWeight={600}>
     //             {t("mobile_apps.download_link")}
     //           </Typography>
-    //           <Typography variant="body2">{mobileApp.downloadLink}</Typography>
+    //           <Typography variant="body2">{mobileAppDetail.downloadLink}</Typography>
     //         </Box>
 
     //         <Box>
     //           <Typography variant="subtitle2" fontWeight={600}>
     //             {t("mobile_apps.language")}
     //           </Typography>
-    //           <Typography variant="body2">{mobileApp.details.language}</Typography>
+    //           <Typography variant="body2">{mobileAppDetail.details.language}</Typography>
     //         </Box>
     //       </Box>
     //     </DashboardCard>
@@ -116,7 +91,7 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
     //           <Typography variant="subtitle2" fontWeight={600}>
     //             {t("mobile_apps.id")}
     //           </Typography>
-    //           <Typography variant="body2">{mobileApp.idApp}</Typography>
+    //           <Typography variant="body2">{mobileAppDetail.idApp}</Typography>
     //         </Box>
 
     //         <Box>
@@ -129,7 +104,7 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
     //               wordBreak: "break-all"
     //             }}
     //           >
-    //             {mobileApp.score}
+    //             {mobileAppDetail.score}
     //           </Typography>
     //         </Box>
 
@@ -137,13 +112,13 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
     //           <Typography variant="subtitle2" fontWeight={600}>
     //             {t("mobile_apps.version")}
     //           </Typography>
-    //           <Typography variant="body2">{mobileApp.version}</Typography>
+    //           <Typography variant="body2">{mobileAppDetail.version}</Typography>
     //         </Box>
     //         <Box>
     //           <Typography variant="subtitle2" fontWeight={600}>
     //             Número de descargas
     //           </Typography>
-    //           <Typography variant="body2">{mobileApp.details.downloads}</Typography>
+    //           <Typography variant="body2">{mobileAppDetail.details.downloads}</Typography>
     //         </Box>
     //         <Box>
     //           <Typography variant="subtitle2" fontWeight={600}>
@@ -155,7 +130,7 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
     //               wordBreak: "break-all"
     //             }}
     //           >
-    //             {mobileApp.digitalSignature}
+    //             {mobileAppDetail.digitalSignature}
     //           </Typography>
     //         </Box>
 
@@ -169,7 +144,7 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
     //               wordBreak: "break-all"
     //             }}
     //           >
-    //             {mobileApp.apkHash}
+    //             {mobileAppDetail.apkHash}
     //           </Typography>
     //         </Box>
 
@@ -180,7 +155,7 @@ const MobileAppDetail: React.FC<{ mobileAppDetail: MobileAppType }> = ({ mobileA
 
     //   <Grid item xs={12} xl={12}>
     //     <DashboardCard title={t("mobile_apps.application_analysis_report")}>
-    //       <MobileAppAccordion data={mobileApp} />
+    //       <MobileAppAccordion data={mobileAppDetail} />
     //     </DashboardCard>
     //   </Grid>
     // </Grid>

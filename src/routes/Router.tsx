@@ -124,7 +124,7 @@ const Router = [
       { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan /> },
       { path: '/monitoring/cyber-guard/mobile-apps/:appScanId', element: <MobileApp /> },
       {
-        path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:mobileAppId',
+        path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:resultAppId',
         element: <MobileApp />,
       },
 

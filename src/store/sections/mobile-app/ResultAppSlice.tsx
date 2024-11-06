@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { MobileAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
+import { ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
@@ -8,21 +8,21 @@ const DETAIL_API_URL = '/api/data/mobile-apps/result-detail';
 
 
 interface StateType {
-  mobileAppResult: MobileAppType | null;
+  AppResultDetail: ResultAppType | null;
   error: string | null;
 }
 
 const initialState: StateType = {
-  mobileAppResult: null,
+  AppResultDetail: null,
   error: null
 };
 
-export const ResultApps = createSlice({
+export const ResultAppsSlice = createSlice({
   name: 'resultApp',
   initialState,
   reducers: {
     getResultApp: (state, action) => {
-      state.mobileAppResult = action.payload.data;
+      state.AppResultDetail = action.payload;
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -33,21 +33,22 @@ export const ResultApps = createSlice({
 export const {
   getResultApp,
   setError
-} = ResultApps.actions;
+} = ResultAppsSlice.actions;
 
 export const fetchResultAppById = (mobileAppId: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${DETAIL_API_URL}/${mobileAppId}`);
-
+    console.log(response.data.resultApp);
+    
     if (response.status === 200) {
-      dispatch(getResultApp({ data: response.data }));
+      dispatch(getResultApp(response.data.resultApp));
     } else {
       dispatch(setError('fetch result app not found'));
     }
-  } catch (err: any) {
+  } catch (err) {
     console.error('Error fetching result app detail:', err);
     dispatch(setError('Failed to fetch result app detail'));
   }
 };
 
-export default ResultApps.reducer;
+export default ResultAppsSlice.reducer;
