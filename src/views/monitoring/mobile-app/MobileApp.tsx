@@ -8,7 +8,6 @@ import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-r
 import MobileAppDetail from 'src/components/home/monitoring/mobile-apps/MobileAppDetail';
 import MobileAppList from 'src/components/home/monitoring/mobile-apps/MobileAppResultList';
 import { fetchMobileAppById } from 'src/store/sections/mobile-app/MobileAppSlice';
-// import MalwareAnalysisDetail from "src/components/home/malwareAnalyses/MalwareAnalysisDetail";
 
 const MobileApp = () => {
   const { t } = useTranslation();
@@ -18,22 +17,28 @@ const MobileApp = () => {
   const location = useLocation(); // Tracks the current URL location
 
   const [selectedMobileApp, setSelectedMobileApp] = useState<string | null>(null);
-  const [selectedMobileAppName, setselectedMobileAppName] = useState<string | null>(null);
+  const [selectedMobileAppId, setselectedMobileAppId] = useState<string | null>(null);
   const navigate = useNavigate();
   const mobileAppResults = useSelector((state: any) => state.mobileAppsReducer.mobileAppResults);
+  // const resultAppResults = useSelector((state: any) => state.resultAppsReducer.resultAppResults);
 
   // Synchronize state with URL parameters
   useEffect(() => {
+    // if con otro select del id del detail
     if (appScanId) {
       // setSelectedMobileApp(appScanId);
       dispatch(fetchMobileAppById(appScanId));
-    } else {
-      setSelectedMobileApp(null);
     }
-  }, [appScanId, location, dispatch]);
+    if (selectedMobileAppId) {
+      // setSelectedMobileApp(appScanId);
+      dispatch(fetchMobileAppById(selectedMobileAppId));
+    }
+  }, [appScanId, selectedMobileAppId, location, dispatch]);
 
-  const handleMobileAppClick = (id: number) => {
-    // setselectedMobileAppName(appName);
+  const handleMobileAppClick = (id: string) => {
+    setselectedMobileAppId(id);
+    // console.log(id);
+
     navigate(`/monitoring/cyber-guard/mobile-apps/${appScanId}/results/${id}`);
   };
   return (
@@ -58,7 +63,7 @@ const MobileApp = () => {
           {mobileAppResults &&
 
             (<>
-              {selectedMobileAppName ? (
+              {selectedMobileAppId ? (
                 <Link
                   component={RouterLink}
                   color="inherit"

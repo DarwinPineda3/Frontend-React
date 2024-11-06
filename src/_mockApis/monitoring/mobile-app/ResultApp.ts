@@ -15,48 +15,6 @@ interface ResultAppType {
   details?: any;
   score: number;
 }
-interface MobileAppType {
-  id: string | undefined;
-  name: string;
-  createdOn: Date;
-  results: ResultAppType[]
-}
-
-interface Detail {
-  language: string;
-  downloads: string;
-  permissions: string[];
-}
-
-let resultappdetail: ResultAppType =
-{
-  id: "123867435",
-  idApp: "co.com.ath.bbog.icbs",
-  appName: "Banco de Bogotá App Negocios APK",
-  downloadLink: "https://apk.support/download-app-es/co.com.ath.bbog.icbs",
-  releaseDate: "2024-10-21",
-  version: "1.15.3",
-  source: "APK Support",
-  digitalSignature: "3082025D308201C6A0030201020214C8F3A5D7E9B2C1A6F4D7E3B8A2C4D5E7",
-  apkHash: "B2A6E8C5D9F3C4A1B5E7F1C8A3D2B9F6E4C1A5B8D7F3",
-  score: 4,
-  details: {
-    language: "Español",
-    downloads: "15.41 mil",
-    permissions: [
-      "Dangerous - Allows application to take pictures and videos with the camera. This allows the application to collect images that the camera is seeing at any time",
-      "Dangerous - Allows the application to access the phone features of the device. An application with this permission can determine the phone number and serial number of this phone, whether a call is active, the number that call is connected to and so on.",
-      "Normal - Allows an application to view the status of all networks.",
-      "Normal - Allows a regular application to use Service.startForeground.",
-      "Normal - Allows an application to create network sockets.",
-      "Normal - Allows the application to control the vibrator.",
-      "Normal - Allows an application to prevent the phone from going to sleep."
-    ],
-    risks: ["High - External data in SQL queries", "high - A5 - Configuración de seguridad incorrecta", "medium - JS enabled in a WebView"],
-    OWASP: ["External data in SQL queries", "A5 - Configuración de seguridad incorrecta", "JS enabled in a WebView", "Usage of unencrypted HTTP protocol", "Hardcoded data", "Missing tapjacking protection", "Usage of implicit intent"],
-    externalCommunications: ["No se detectaron comunicaciones no autorizadas"]
-  }
-}
 
 let resultsApp: ResultAppType[] = [
   {
@@ -243,35 +201,6 @@ let resultsApp: ResultAppType[] = [
   }
 ];
 
-let mobileApp: MobileAppType = {
-  id: '1',
-  name: 'Banco de Bogotá Móvil',
-  createdOn: new Date(),
-  results: resultsApp
-}
-
-// GET: Fetch mobile app by id
-mock.onGet(new RegExp('/api/data/mobile-apps/detail/*')).reply((config) => {
-  try {
-    const mobileAppId = config.url!.split('/').pop();
-
-    if (mobileApp.id !== mobileAppId) {
-      return [404, { message: 'MobileApp not found' }];
-    }
-
-    return [
-      200,
-      {
-        mobileApp: mobileApp
-      },
-    ];
-  } catch (error) {
-    console.error('Error in mobileApps API:', error);
-    return [500, { message: 'Internal server error' }];
-  }
-});
-
-
 // GET: Fetch result mobile app by id
 mock.onGet(new RegExp('/api/data/mobile-apps/result-detail/*')).reply((config) => {
   try {
@@ -295,93 +224,3 @@ mock.onGet(new RegExp('/api/data/mobile-apps/result-detail/*')).reply((config) =
     return [500, { message: 'Internal server error' }];
   }
 });
-
-// GET: Fetch paginated mobileApps
-mock.onGet(new RegExp('/api/data/mobile-apps')).reply((config) => {
-  try {
-    const urlParams = new URLSearchParams(config.url!.split('?')[1]);
-
-    const limit = 25;
-    const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
-
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-
-    const paginatedMobileApps = mobileApp.results.slice(startIndex, endIndex);
-    const totalmobileApps = mobileApp.results.length;
-    const totalPages = Math.ceil(totalmobileApps / limit);
-
-    return [
-      200,
-      {
-        mobileApps: paginatedMobileApps,
-        currentPage: page,
-        totalPages,
-      },
-    ];
-  } catch (error) {
-    console.error('Error in mobileApps API:', error);
-    return [500, { message: 'Internal server error' }];
-  }
-});
-
-// POST: Create a new mobileApp
-mock.onPost('/api/data/mobileApps').reply((config) => {
-  try {
-    const { name, createdOn, results } = JSON.parse(config.data);
-
-    const newMobileApp: MobileAppType = {
-      id: (mobileApp.results.length + 1).toString(), // Simple id generation
-      name,
-      createdOn,
-      results
-    };
-
-    mobileApp.results.push(newMobileApp); // Add new mobileApp to mock database
-
-    return [200, { mobileApp: newMobileApp }];
-  } catch (error) {
-    console.error('Error in creating mobile app:', error);
-    return [500, { message: 'Failed to create mobile app' }];
-  }
-});
-
-// PUT: Update an existing mobileApp
-mock.onPut(new RegExp('/api/data/mobileApps/*')).reply((config) => {
-  try {
-    const mobileAppId = config.url!.split('/').pop(); // Extract the mobileApp ID from the URL
-    const updatedData = JSON.parse(config.data); // New data for the mobileApp
-
-    const mobileAppIndex = mobileApp.results.findIndex((mobileApp) => mobileApp.id === mobileAppId);
-    if (mobileAppIndex === -1) {
-      return [404, { message: 'Mobile App not found' }];
-    }
-
-    mobileApp.results[mobileAppIndex] = { ...mobileApp.results[mobileAppIndex], ...updatedData }; // Update the mobileApp
-
-    return [200, { mobileApp: mobileApp.results[mobileAppIndex] }];
-  } catch (error) {
-    console.error('Error updating mobile app:', error);
-    return [500, { message: 'Failed to update mobile app' }];
-  }
-});
-
-// DELETE: Delete an mobileApp
-mock.onDelete(new RegExp('/api/data/mobileApps/*')).reply((config) => {
-  try {
-    const mobileAppId = config.url!.split('/').pop(); // Extract the mobileApp ID from the URL
-
-    const mobileAppIndex = mobileApp.results.findIndex((mobileApp) => mobileApp.id === mobileAppId);
-    if (mobileAppIndex === -1) {
-      return [404, { message: 'Mobile App not found' }];
-    }
-
-    mobileApp.results.splice(mobileAppIndex, 1); // Remove mobileApp from the mock database
-
-    return [200, { message: 'Mobile App deleted successfully' }];
-  } catch (error) {
-    console.error('Error deleting mobile app:', error);
-    return [500, { message: 'Failed to delete mobile app' }];
-  }
-});
-

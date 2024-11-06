@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
 import DashboardCard from '../../../shared/DashboardCard';
-import { MobileAppType, ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
+import { ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
 
 // const theme = useTheme();
 // const { high, medium, low, critical } = theme.palette.level;
@@ -60,13 +60,8 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, re
   };
 
   const theme = useTheme();
-  const { high, medium, low, critical } = theme.palette.level;
-
-  const addButton = (
-    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
-      <AddIcon />
-    </IconButton>
-  );
+  const { high, medium, low } = theme.palette.level;
+  const sortedResults = [...results].sort((a, b) => b.score - a.score);
 
   return (
     // pendiente de traducción
@@ -104,7 +99,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, re
               </TableRow>
             </TableHead>
             <TableBody>
-              {results.map((mobileApp: any, index: number) => (
+              {sortedResults.map((mobileApp: any, index: number) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Typography
