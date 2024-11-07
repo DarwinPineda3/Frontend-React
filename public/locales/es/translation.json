@@ -373,7 +373,14 @@
       "vulnerability_management_form_subtitle": "En este formulario puedes llevar la trazabilidad de tu vulnerabilidad",
       "submit": "Guardar",
       "managed_vulnerability_updated": "Vulnerabilidad gestionada actualizada",
-      "date_in_past": "La fecha estimada de cierre estimada no puede ser anterior a la fecha actual."
+      "date_in_past": "La fecha estimada de cierre estimada no puede ser anterior a la fecha actual.",
+      "closure_reason_management": "Por favor, seleccione la razón del porqué va a cerrar la gestión de esta  vulnerabilidad:",
+      "select_option": "Seleccione una opción",
+      "resolved": "Resuelto",
+      "accept_risk": "Aceptar Riesgo",
+      "transferred_risk": "Riesgo Transferido",
+      "removed": "Eliminado",
+      "confirm": "Confirmar"
     }
   },
   "observability": {

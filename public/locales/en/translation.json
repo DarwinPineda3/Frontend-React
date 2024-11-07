@@ -373,7 +373,14 @@
       "vulnerability_management_form_subtitle": "In this form you can track your vulnerability",
       "submit": "Save",
       "managed_vulnerability_updated": "Managed vulnerability updated",
-      "date_in_past": "The estimated closing date cannot be earlier than the current date."
+      "date_in_past": "The estimated closing date cannot be earlier than the current date.",
+      "closure_reason_management": "Please select the reason why you are closing management of this vulnerability:",
+      "select_option": "Select an option",
+      "resolved": "Resolved",
+      "accept_risk": "Accept Risk",
+      "transferred_risk": "Transferred Risk",
+      "removed": "Removed",
+      "confirm": "Confirm"
     }
   },
   "observability": {
