@@ -22,6 +22,7 @@ import solutionImage from 'src/assets/images/img solutions/monitoring.png';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import { useTranslation } from 'react-i18next';  
+
 const SolutionDetail: React.FC = () => {
     const { t } = useTranslation();  
     const navigate = useNavigate();
@@ -76,8 +77,14 @@ const SolutionDetail: React.FC = () => {
             }, 2000);
         } catch (err) {
             console.error('Error al copiar al portapapeles: ', err);
+            setSnackbarMessage(t('solutionDetail.copyToClipboardError') ?? 'Error al copiar al portapapeles.'); 
+            setSnackbarOpen(true);
+            setTimeout(() => {
+                setSnackbarOpen(false);
+            }, 2000);
         }
     };
+    
 
     const handleCloseSnackbar = () => {
         setSnackbarOpen(false);

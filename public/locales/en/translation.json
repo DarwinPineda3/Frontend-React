@@ -829,6 +829,7 @@
     "pageTitle": "Solution Detail",
     "snackbarMessage": "Text copied to clipboard: ",
     "alertText": "If you can't find what you're looking for, you can",
-    "createTicketLinkText": "create a ticket"
+    "createTicketLinkText": "create a ticket",
+    "copyToClipboardError": "Error copying to clipboard. Please try again."
     }
 }    

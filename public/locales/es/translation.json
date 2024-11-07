@@ -828,7 +828,8 @@
         "pageTitle": "Detalle de la Solución",
         "snackbarMessage": "Texto copiado al portapapeles: ",
         "alertText": "Si no encuentras lo que buscas, puedes",
-        "createTicketLinkText": "crear un ticket"
+        "createTicketLinkText": "crear un ticket",
+        "copyToClipboardError": "Error al copiar al portapapeles. Intenta nuevamente."
   }
 
 }
