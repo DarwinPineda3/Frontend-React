@@ -6,6 +6,7 @@ import { AppDispatch } from '../Store';
 const API_URL = '/api/data/vulnerabilities/management';
 const DETAIL_API_URL = '/api/data/vulnerabilities/detail/management';
 const UPDATE_API_URL = '/api/data/vulnerabilities/form/management';
+const CLOSE_API_URL = '/api/data/vulnerabilities/close/management';
 
 interface StateType {
   managedVuln: managementVulnerabilityType[];
@@ -85,6 +86,27 @@ export const editVulnerability =
   (vulnerability: managementVulnerabilityType) => async (dispatch: AppDispatch) => {
     try {
       const response = await axios.put(`${UPDATE_API_URL}/${vulnerability?.id!}`, vulnerability);
+      dispatch(updateVulnerability(response.data.vulnerability));
+    } catch (err: any) {
+      console.error('Error updating vulnerability:', err.response || err.message || err);
+      dispatch(setError('Failed to update vulnerability'));
+    }
+  };
+
+export const closeVulnerability =
+  (
+    id: number,
+    updatedFields: {
+      closure_date?: string | null;
+      status?: string;
+      closure_reason?: string | null;
+    },
+  ) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.put(`${CLOSE_API_URL}/${id}`, updatedFields);
+      console.log(response);
+
       dispatch(updateVulnerability(response.data.vulnerability));
     } catch (err: any) {
       console.error('Error updating vulnerability:', err.response || err.message || err);
