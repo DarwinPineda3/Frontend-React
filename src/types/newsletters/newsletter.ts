@@ -1,5 +1,5 @@
 export interface NewsletterType {
-    id: string|undefined;
+    id: string | undefined;
     mimeType: string;
     size: number;
     name: string;
@@ -7,11 +7,11 @@ export interface NewsletterType {
 }
 
 export interface Data {
-    id: string|undefined;
+    id: string | undefined;
     mimeType: string;
     size: number;
     name: string;
     modifiedTime: string;
-    pdf: string;
+    url: string;
 }
 

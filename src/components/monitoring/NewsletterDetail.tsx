@@ -2,17 +2,11 @@ import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import { fetchNewsLetterById } from 'src/store/sections/newsletter/NewslettersSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { Data } from 'src/types/newsletters/newsletter';
 import Loader from '../shared/Loader/Loader';
 
-const NewsletterDetail: React.FC<{ newsletterId: string }> = ({ newsletterId }) => {
+const NewsletterDetail: React.FC<{ newsletterDetails: Data }> = ({ newsletterDetails }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const newsletterDetails = useSelector((state: any) => state.newsLettersReducer.newsletterDetails);
-  React.useEffect(() => {
-    dispatch(fetchNewsLetterById(newsletterId));
-  }, [dispatch, newsletterId]);
 
   return (
     <Grid container spacing={1}>

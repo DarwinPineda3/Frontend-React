@@ -71,11 +71,11 @@ const latestData: LatestDataType[] = [
         "id": "-4OvxJIBHPjIIpHRuekR"
     },
     {
-        "query": "mi.bancopopular.com.co",
+        "query": "bancopopular.com.co",
         "query_type": "DOMAIN",
         "scan_date": "2024-10-26T07:17:13.479915Z",
-        "total_results": 66,
-        "id": "4oOsxJIBHPjIIpHRb-mQ1"
+        "total_results": 377,
+        "id": "4oOsxJIBHPjIIpHRb-mQ"
     },
     {
         "query": "ATH",
@@ -119,13 +119,13 @@ const latestData: LatestDataType[] = [
         "total_results": 465,
         "id": "JYS345IBHPjIIpHR-VSL"
     },
-    {
-        "query": "bancopopular.com.co",
-        "query_type": "DOMAIN",
-        "scan_date": "2024-10-31T17:40:05.703370Z",
-        "total_results": 377,
-        "id": "4oOsxJIBHPjIIpHRb-mQ"
-    },
+    // {
+    //     "query": "bancopopular.com.co",
+    //     "query_type": "DOMAIN",
+    //     "scan_date": "2024-10-31T17:40:05.703370Z",
+    //     "total_results": 377,
+    //     "id": "noSp45IBHPjIIpHRwVNK"
+    // },
     {
         "query": "Óscar Bernal Quintero",
         "query_type": "WORD",
@@ -173,8 +173,8 @@ const summaryData: SummaryDataType[] = [
         "total_results": 197
     },
     {
-        "query": "mi.bancopopular.com.co",
-        "total_results": 66,
+        "query": "bancopopular.com.co",
+        "total_results": 377,
 
     },
     {
@@ -201,10 +201,10 @@ const summaryData: SummaryDataType[] = [
         "query": "ath.com.co",
         "total_results": 465
     },
-    {
-        "query": "bancopopular.com.co",
-        "total_results": 377
-    },
+    // {
+    //     "query": "bancopopular.com.co",
+    //     "total_results": 377
+    // },
     {
         "query": "Óscar Bernal Quintero",
         "total_results": 14

@@ -1,19 +1,20 @@
+import * as locales from '@mui/material/locale';
+import { createTheme } from '@mui/material/styles';
 import _ from 'lodash';
-import { createTheme, PaletteColorOptions } from '@mui/material/styles';
-import { useSelector } from 'src/store/Store';
 import { useEffect } from 'react';
+import { useSelector } from 'src/store/Store';
 import { AppState } from '../store/Store';
 import components from './Components';
-import typography from './Typography';
-import { shadows, darkshadows } from './Shadows';
 import { DarkThemeColors } from './DarkThemeColors';
-import { LightThemeColors } from './LightThemeColors';
 import { baseDarkTheme, baselightTheme } from './DefaultColors';
-import * as locales from '@mui/material/locale';
+import { LightThemeColors } from './LightThemeColors';
+import { darkshadows, shadows } from './Shadows';
+import typography from './Typography';
 
 declare module '@mui/material/styles' {
   interface Palette {
     level: {
+      info: string;
       none: string;
       low: string;
       medium: string;
@@ -24,6 +25,7 @@ declare module '@mui/material/styles' {
   }
   interface PaletteOptions {
     level?: {
+      info: string;
       none?: string;
       low?: string;
       medium?: string;
@@ -75,3 +77,4 @@ const ThemeSettings = () => {
 };
 
 export { ThemeSettings };
+

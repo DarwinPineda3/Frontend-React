@@ -14,11 +14,11 @@ import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring';
 import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
-import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
+import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
+// import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
-import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
@@ -31,6 +31,7 @@ import TechInventory from 'src/views/monitoring/SOC/cti/TechnologiesInventory';
 import ThreatIntelligence from 'src/views/monitoring/SOC/cti/threat-intelligence';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import SocNews from 'src/views/monitoring/SOC/Newsletter';
+import SocNewsDetails from 'src/views/monitoring/SOC/NewsletterDetails';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
 import CloudObservability from 'src/views/observability/Cloud';
@@ -55,6 +56,9 @@ import ManagedVulnerabilitiesForm from 'src/views/vulnerabilities/ManagedVulnera
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
+const Error = Loadable(lazy(() => import('../views/general/Error')));
+const Maintenance = Loadable(lazy(() => import('../views/general/Maintenance')));
+
 
 const Router = [
   {
@@ -74,21 +78,36 @@ const Router = [
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
       { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities /> },
       { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId', element: <NetworkVulnerabilities /> },
+      {
+        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId',
+        element: <NetworkVulnerabilities />,
+      },
+      {
+        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId',
+        element: <NetworkVulnerabilities />,
+      },
 
       { path: '/vulnerabilities/web', element: <WebVulnerabilities /> },
       { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
-      { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
+      {
+        path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId',
+        element: <WebApplications />,
+      },
 
       { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
       { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
-      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
+      {
+        path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId',
+        element: <WordpressAplications />,
+      },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
       { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
-      { path: '/vulnerabilities/cloud/vulnerabilities/:cloudId', element: <CloudVulnerabilities /> },
+      {
+        path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
+        element: <CloudVulnerabilities />,
+      },
 
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
@@ -102,10 +121,16 @@ const Router = [
       { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis /> },
-      { path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
+      {
+        path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId',
+        element: <MalwareAnalysis />,
+      },
       { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan /> },
       { path: '/monitoring/cyber-guard/mobile-apps/:appScanId', element: <MobileApp /> },
-      { path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:mobileAppId', element: <MobileApp /> },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:resultAppId',
+        element: <MobileApp />,
+      },
 
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
       { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
@@ -122,10 +147,11 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/newsletters', element: <SocNews /> },
-      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
+      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNewsDetails /> },
       { path: '/monitoring/soc/takedown', element: <TicketFormComp /> },
 
-      { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      //{ path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/siem', element: <Navigate to="/maintenance" /> },
 
       // Observability
       { path: '/observability/network', element: <NetworkObservability /> },
@@ -158,6 +184,9 @@ const Router = [
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
+
+
+      { path: '/maintenance', element: <Maintenance /> },
     ],
   },
   {
@@ -165,12 +194,10 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <Login /> },
-      { path: '/auth/404', element: <Navigate to="/auth/404" /> },
+      { path: '/404', element: <Error /> },
     ],
   },
-  // Catch-all 404 Route (for any undefined route)
-  { path: '*', element: <Navigate to="/auth/404" /> },
+  { path: '*', element: <Navigate to="/404" /> },
 ];
-
 
 export default Router;
