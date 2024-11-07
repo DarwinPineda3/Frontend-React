@@ -3,6 +3,7 @@ import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from "@mui/mater
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
 import EHReportList from 'src/components/vulnerabilities/redteam/EHReportsList';
 
 
@@ -29,7 +30,7 @@ const EHReport = () => {
     // navigate(`/monitoring/cyber-guard/mobile-apps/${id}`); //ruta hacia el siguiente listado
   };
   return (
-    <Box>
+    <PageContainer title="Akila">
       <Box display="flex" alignItems="center" mt={2}>
         <IconButton onClick={() => navigate(-1)} color="primary">
           <ArrowBackIcon />
@@ -55,7 +56,7 @@ const EHReport = () => {
           <EHReportList onEHReportClick={handleEHReportClick}/>
         </Grid>
       </Grid>
-    </Box>
+    </PageContainer>
 
   );
 };
