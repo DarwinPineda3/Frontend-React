@@ -668,7 +668,8 @@
     "create": "Create",
     "file": "File",
     "files": "Files",
-    "message_select_files": "Drag 'n' drop some files here, or click to select files"
+    "message_select_files": "Drag 'n' drop some files here, or click to select files",
+    "risk": "Risk"
   },
   "mobile_apps": {
     "mobile_apps": "Mobile Apps",
