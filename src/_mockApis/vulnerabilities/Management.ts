@@ -564,3 +564,48 @@ mock.onGet(new RegExp('/api/data/vulnerabilities/management')).reply((config) =>
     return [500, { message: 'Internal server error' }];
   }
 });
+
+mock.onGet(new RegExp('/api/data/vulnerabilities/detail/management/*')).reply((config) => {
+  try {
+    const id = parseInt(config.url!.split('/').pop()!, 10);
+    const vulnerability = managementVuln.find((vuln) => vuln.id === id);
+    if (vulnerability) {
+      return [200, vulnerability];
+    } else {
+      return [404, { message: 'Vulnerability not found' }];
+    }
+  } catch (error) {
+    console.error('Error in vulnerability by ID API:', error);
+    return [500, { message: 'Internal server error' }];
+  }
+});
+
+mock.onPut(new RegExp('/api/data/vulnerabilities/form/management/*')).reply((config) => {
+  try {
+    const id = parseInt(config.url!.split('/').pop()!, 10);
+    const vulnerability = managementVuln.find((vuln) => vuln.id === id);
+
+    if (!vulnerability) {
+      return [404, { message: 'Vulnerability not found' }];
+    }
+
+    const filledVulnerability = {
+      ...vulnerability,
+      responsible: vulnerability.responsible ?? null,
+      role: vulnerability.role ?? null,
+      notes: vulnerability.notes ?? null,
+      work_plan: vulnerability.work_plan ?? null,
+      compensatory_controls: vulnerability.compensatory_controls ?? null,
+      recategorization: vulnerability.recategorization ?? null,
+      estimated_budget: vulnerability.estimated_budget ?? 0,
+      last_revision_date: vulnerability.last_revision_date ?? new Date().toISOString(),
+      estimated_closure_date: vulnerability.estimated_closure_date ?? null,
+      evidence: vulnerability.evidence ?? null,
+    };
+
+    return [200, { vulnerability: filledVulnerability }];
+  } catch (error) {
+    console.error('Error in processing vulnerability data:', error);
+    return [500, { message: 'Failed to process vulnerability data' }];
+  }
+});
