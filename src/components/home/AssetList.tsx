@@ -127,7 +127,7 @@ const AssetList = () => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {asset.dominio}
+                      {asset.domain}
                     </Typography>
                   </TableCell>
                   <TableCell>
