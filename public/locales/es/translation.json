@@ -371,7 +371,9 @@
       "managed_vulnerability_update_error": "Vulnerabilidad gestionada no se puede actualizar correctamente",
       "vulnerability_management_form": "Formulario para la gestión de la vulnerabilidad",
       "vulnerability_management_form_subtitle": "En este formulario puedes llevar la trazabilidad de tu vulnerabilidad",
-      "submit": "Guardar"
+      "submit": "Guardar",
+      "managed_vulnerability_updated": "Vulnerabilidad gestionada actualizada",
+      "date_in_past": "La fecha estimada de cierre estimada no puede ser anterior a la fecha actual."
     }
   },
   "observability": {

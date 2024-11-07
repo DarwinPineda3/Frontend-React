@@ -371,7 +371,9 @@
       "managed_vulnerability_update_error": "Managed vulnerability cannot be updated correctly",
       "vulnerability_management_form": "Vulnerability management form",
       "vulnerability_management_form_subtitle": "In this form you can track your vulnerability",
-      "submit": "Save"
+      "submit": "Save",
+      "managed_vulnerability_updated": "Managed vulnerability updated",
+      "date_in_past": "The estimated closing date cannot be earlier than the current date."
     }
   },
   "observability": {
