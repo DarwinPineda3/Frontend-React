@@ -3,9 +3,9 @@ import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/mater
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import ManegedVulnerabilitiesList from 'src/components/vulnerabilities/ManegedVulnList';
+import ManagedVulnerabilitiesList from 'src/components/vulnerabilities/management/managedVulnerabilityList';
 
-const ManegedVulnerabilities = () => {
+const ManagedVulnerabilities = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -28,11 +28,11 @@ const ManegedVulnerabilities = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ManegedVulnerabilitiesList />
+          <ManagedVulnerabilitiesList />
         </Grid>
       </Grid>
     </PageContainer>
   );
 };
 
-export default ManegedVulnerabilities;
+export default ManagedVulnerabilities;
