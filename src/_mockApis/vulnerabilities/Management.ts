@@ -603,3 +603,30 @@ mock.onPut(new RegExp('/api/data/vulnerabilities/form/management/*')).reply((con
     return [500, { message: 'Failed to process vulnerability data' }];
   }
 });
+
+mock.onPut(new RegExp('/api/data/vulnerabilities/close/management/*')).reply((config) => {
+  try {
+    const id = parseInt(config.url!.split('/').pop()!, 10);
+    const vulnerabilityIndex = managementVuln.findIndex((vuln) => vuln.id === id);
+
+    if (vulnerabilityIndex === -1) {
+      return [404, { message: 'Vulnerability not found' }];
+    }
+
+    const updatedData = JSON.parse(config.data);
+    const { closure_date, status, closure_reason } = updatedData;
+
+    managementVuln[vulnerabilityIndex] = {
+      ...managementVuln[vulnerabilityIndex],
+      closure_date: closure_date ?? managementVuln[vulnerabilityIndex].closure_date,
+      status: status ?? managementVuln[vulnerabilityIndex].status,
+      closure_reason: closure_reason ?? managementVuln[vulnerabilityIndex].closure_reason,
+      last_revision_date: new Date().toISOString(),
+    };
+
+    return [200, { vulnerability: managementVuln[vulnerabilityIndex] }];
+  } catch (error) {
+    console.error('Error in processing vulnerability data:', error);
+    return [500, { message: 'Failed to process vulnerability data' }];
+  }
+});
