@@ -8,7 +8,7 @@ const DETAIL_API_URL = '/api/data/mobile-apps/detail';
 
 interface StateType {
   mobileApps: MobileAppType[];
-  mobileAppDetails: MobileAppType | null;
+  mobileAppResults: MobileAppType | null;
   page: number;
   totalPages: number;
   error: string | null;
@@ -16,7 +16,7 @@ interface StateType {
 
 const initialState: StateType = {
   mobileApps: [],
-  mobileAppDetails: null,
+  mobileAppResults: null,
   page: 1,
   totalPages: 1,
   error: null,
@@ -31,6 +31,9 @@ export const MobileAppsSlice = createSlice({
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
+    getMobileAppDetail: (state, action) => {
+      state.mobileAppResults = action.payload.data;
+    },
     addMobileApp: (state, action) => {
       state.mobileApps.push(action.payload);
     },
@@ -42,9 +45,6 @@ export const MobileAppsSlice = createSlice({
     },
     deleteMobileApp: (state, action) => {
       state.mobileApps = state.mobileApps.filter((mobileApp) => mobileApp.id !== action.payload);
-    },
-    getmobileAppDetails: (state, action) => {
-      state.mobileAppDetails = action.payload.data.brandMonitoring;
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -60,7 +60,7 @@ export const {
   addMobileApp,
   updateMobileApp,
   deleteMobileApp,
-  getmobileAppDetails,
+  getMobileAppDetail,
   setPage,
   setError,
 } = MobileAppsSlice.actions;
@@ -68,16 +68,16 @@ export const {
 // Async thunk for fetching mobileApps with pagination (READ)
 export const fetchMobileApps =
   (page = 1) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}?page=${page}`);
-      const { mobileApps, currentPage, totalPages } = response.data;
-      dispatch(getMobileApps({ mobileApps, currentPage, totalPages })); // Dispatch to update state
-    } catch (err: any) {
-      console.error('Error fetching mobileApps:', err);
-      dispatch(setError('Failed to fetch mobileApps'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${API_URL}?page=${page}`);
+        const { mobileApps, currentPage, totalPages } = response.data;
+        dispatch(getMobileApps({ mobileApps, currentPage, totalPages })); // Dispatch to update state
+      } catch (err: any) {
+        console.error('Error fetching mobileApps:', err);
+        dispatch(setError('Failed to fetch mobileApps'));
+      }
+    };
 
 // Async thunk for creating a new mobileApp (CREATE)
 export const createMobileApp = (newAsset: MobileAppType) => async (dispatch: AppDispatch) => {
@@ -112,12 +112,12 @@ export const removeMobileApp = (mobileAppId: string) => async (dispatch: AppDisp
   }
 };
 
-export const fetchMobielAppById = (mobileAppId: string) => async (dispatch: AppDispatch) => {
+export const fetchMobileAppById = (mobileAppId: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${DETAIL_API_URL}/${mobileAppId}`);
 
     if (response.status === 200) {
-      dispatch(getmobileAppDetails({ data: response.data }));
+      dispatch(getMobileAppDetail({ data: response.data.mobileApp }));
     } else {
       dispatch(setError('fetch mobile app not found'));
     }

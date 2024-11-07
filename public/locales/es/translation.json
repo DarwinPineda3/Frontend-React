@@ -666,7 +666,8 @@
         "create": "Crear",
         "file": "Archivo",
         "files": "Archivos",
-        "message_select_files": "Arrastra y suelta algunos archivos aquí, o haz clic para seleccionar archivos"
+        "message_select_files": "Arrastra y suelta algunos archivos aquí, o haz clic para seleccionar archivos",
+        "risk": "Riesgo"
     },
     "mobile_apps": {
         "mobile_apps": "Aplicaciones móviles",

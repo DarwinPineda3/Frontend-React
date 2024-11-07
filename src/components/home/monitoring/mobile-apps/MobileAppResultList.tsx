@@ -1,10 +1,8 @@
-import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
   Chip,
   Dialog,
   DialogContent,
-  IconButton,
   Pagination,
   Table,
   TableBody,
@@ -13,22 +11,24 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme,
+  useTheme
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchMobileApps, setPage } from 'src/store/sections/mobile-app/MobileAppSlice';
+import { ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
 import DashboardCard from '../../../shared/DashboardCard';
 
 // const theme = useTheme();
 // const { high, medium, low, critical } = theme.palette.level;
 
 interface MobileAppListTableProps {
-  onMobileAppClick: (mobileAppId: number, appName: string) => void;
+  onMobileAppClick: (mobileAppId: string) => void;
+  results: ResultAppType[];
 }
 
-const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) => {
+const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick, results }) => {
   const dispatch = useDispatch();
   const mobileApps = useSelector((state: any) => state.mobileAppsReducer.mobileApps);
   const currentPage = useSelector((state: any) => state.mobileAppsReducer.page);
@@ -58,13 +58,8 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
   };
 
   const theme = useTheme();
-  const { high, medium, low, critical } = theme.palette.level;
-
-  const addButton = (
-    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
-      <AddIcon />
-    </IconButton>
-  );
+  const { high, medium, low } = theme.palette.level;
+  const sortedResults = [...results].sort((a, b) => b.score - a.score);
 
   return (
     // pendiente de traducción
@@ -102,7 +97,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
               </TableRow>
             </TableHead>
             <TableBody>
-              {mobileApps.map((mobileApp: any, index: number) => (
+              {sortedResults.map((mobileApp: any, index: number) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Typography
@@ -110,7 +105,7 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      onClick={() => onMobileAppClick(mobileApp.id, mobileApp.appName)}
+                      onClick={() => onMobileAppClick(mobileApp.id)}
                       style={{ cursor: 'pointer' }}
                     >
                       {mobileApp.appName}
@@ -133,10 +128,10 @@ const MobileAppList: React.FC<MobileAppListTableProps> = ({ onMobileAppClick }) 
                           mobileApp.score > 7
                             ? t('mobile_apps.very_risky')
                             : mobileApp.score > 3.9
-                            ? t('mobile_apps.risky')
-                            : mobileApp.score > 0
-                            ? t('mobile_apps.no_risk')
-                            : t('mobile_apps.no_risk')
+                              ? t('mobile_apps.risky')
+                              : mobileApp.score > 0
+                                ? t('mobile_apps.no_risk')
+                                : t('mobile_apps.no_risk')
                         }
                         color="secondary"
                         size="small"
