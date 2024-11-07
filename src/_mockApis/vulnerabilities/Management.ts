@@ -583,27 +583,21 @@ mock.onGet(new RegExp('/api/data/vulnerabilities/detail/management/*')).reply((c
 mock.onPut(new RegExp('/api/data/vulnerabilities/form/management/*')).reply((config) => {
   try {
     const id = parseInt(config.url!.split('/').pop()!, 10);
-    const vulnerability = managementVuln.find((vuln) => vuln.id === id);
+    const vulnerabilityIndex = managementVuln.findIndex((vuln) => vuln.id === id);
 
-    if (!vulnerability) {
+    if (vulnerabilityIndex === -1) {
       return [404, { message: 'Vulnerability not found' }];
     }
 
-    const filledVulnerability = {
-      ...vulnerability,
-      responsible: vulnerability.responsible ?? null,
-      role: vulnerability.role ?? null,
-      notes: vulnerability.notes ?? null,
-      work_plan: vulnerability.work_plan ?? null,
-      compensatory_controls: vulnerability.compensatory_controls ?? null,
-      recategorization: vulnerability.recategorization ?? null,
-      estimated_budget: vulnerability.estimated_budget ?? 0,
-      last_revision_date: vulnerability.last_revision_date ?? new Date().toISOString(),
-      estimated_closure_date: vulnerability.estimated_closure_date ?? null,
-      evidence: vulnerability.evidence ?? null,
+    const updatedData = JSON.parse(config.data);
+
+    managementVuln[vulnerabilityIndex] = {
+      ...managementVuln[vulnerabilityIndex],
+      ...updatedData,
+      last_revision_date: updatedData.last_revision_date ?? new Date().toISOString(),
     };
 
-    return [200, { vulnerability: filledVulnerability }];
+    return [200, { vulnerability: managementVuln[vulnerabilityIndex] }];
   } catch (error) {
     console.error('Error in processing vulnerability data:', error);
     return [500, { message: 'Failed to process vulnerability data' }];
