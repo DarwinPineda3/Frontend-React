@@ -21,8 +21,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import solutionImage from 'src/assets/images/img solutions/monitoring.png'; 
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-
+import { useTranslation } from 'react-i18next';  
 const SolutionDetail: React.FC = () => {
+    const { t } = useTranslation();  
     const navigate = useNavigate();
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState('');
@@ -30,15 +31,15 @@ const SolutionDetail: React.FC = () => {
 
     const solutionDetails = {
         id: '10000088826',
-        name: 'Single Installation',
-        description: 'To execute the command on Windows, follow these steps:',
+        name: t('solutionDetail.solution'), 
+        description: t('solutionDetail.description'),  
         details: (
             <>
-                <Typography variant="body1" fontWeight="bold">Step 1: </Typography>
-                <Typography variant="body1">Open PowerShell with administrative privileges.</Typography>
+                <Typography variant="body1" fontWeight="bold">{t('solutionDetail.step1')} </Typography>
+                <Typography variant="body1">{t('solutionDetail.step1Text')}</Typography>
                 
-                <Typography variant="body1" fontWeight="bold">Step 2: </Typography>
-                <Typography variant="body1">Copy the following command:</Typography>
+                <Typography variant="body1" fontWeight="bold">{t('solutionDetail.step2')}</Typography>
+                <Typography variant="body1">{t('solutionDetail.step2Text')}</Typography>
                 <Typography
                     variant="body1"
                     sx={{
@@ -50,19 +51,17 @@ const SolutionDetail: React.FC = () => {
                         border: (theme) => `1px solid ${theme.palette.divider}`,
                         cursor: 'pointer'
                     }}
-                    onClick={() => copyToClipboard(`Invoke-WebRequest -Uri "https://git.lorius.cloud/aordonez/installers_balam/-/raw/main/Balam_Agent_setup.exe" -OutFile "$env:temp\\Balam_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Balam_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://amunoz1.balam-dev.octapus.io/" API_KEY="twHJnYRQ.4cqNxLPdaJrE9dD30Ax1H1dIuxMixU7b"' -Wait`)}
+                    onClick={() => copyToClipboard(t('solutionDetail.commandText'))} 
                 >
-                    Invoke-WebRequest -Uri "https://git.lorius.cloud/aordonez/installers_balam/-/raw/main/Balam_Agent_setup.exe" -OutFile "$env:temp\Balam_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Balam_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="https://amunoz1.balam-dev.octapus.io/" API_KEY="twHJnYRQ.4cqNxLPdaJrE9dD30Ax1H1dIuxMixU7b"' -Wait
+                    {t('solutionDetail.commandText')}
                 </Typography>
                 
-                <Typography variant="body1" fontWeight="bold">Step 3: </Typography>
-                <Typography variant="body1">Paste the command into the PowerShell window and press Enter to execute it.</Typography>
+                <Typography variant="body1" fontWeight="bold">{t('solutionDetail.step3')}</Typography>
+                <Typography variant="body1">{t('solutionDetail.step3Text')}</Typography>
                 
-                <Typography variant="body1">
-                    The command will download and execute the Balam Agent with the provided URL and API key.
-                </Typography>
+                <Typography variant="body1">{t('solutionDetail.additionalInfo')}</Typography>
                 
-                <img src={solutionImage} alt="Monitoring" style={{ width: '100%', marginTop: '20px', borderRadius: '4px' }} />
+                <img src={solutionImage} alt={t('image.description') ?? 'Default image description'} style={{ width: '100%', marginTop: '20px', borderRadius: '4px' }} />
             </>
         ),
     };
@@ -70,7 +69,7 @@ const SolutionDetail: React.FC = () => {
     const copyToClipboard = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);
-            setSnackbarMessage('Texto copiado al portapapeles: ' + text);
+            setSnackbarMessage(t('solutionDetail.snackbarMessage') + text); 
             setSnackbarOpen(true);
             setTimeout(() => {
                 setSnackbarOpen(false);
@@ -85,7 +84,7 @@ const SolutionDetail: React.FC = () => {
     };
 
     return (
-        <PageContainer title="Akila">
+        <PageContainer title={t('solutions.solution_detail_title') ?? 'Solution Detail'}>
             <Box mb={2}>
                 <Box display="flex" alignItems="center" mt={2}>
                     <IconButton onClick={() => navigate(-1)} color="primary">
@@ -93,7 +92,7 @@ const SolutionDetail: React.FC = () => {
                     </IconButton>
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link component={RouterLink} color="inherit" to="/support/solutions">
-                            Solutions
+                            {t('menu.solutions')}  
                         </Link>
                         <Link color="inherit">{solutionDetails.name}</Link>
                     </Breadcrumbs>
@@ -113,23 +112,27 @@ const SolutionDetail: React.FC = () => {
                     </Accordion>
 
                     <Alert severity="info" sx={{ marginTop: '20px' }}>
-                        Si no encuentras lo que buscas, puedes <a href="/support/tickets">crear un ticket</a>.
+                    {t('solutionDetail.alertText')} 
+                        {' '}
+                        <Link component={RouterLink} to="/support/tickets" color="inherit">
+                     {t('solutionDetail.createTicketLinkText')}
+                        </Link>
                     </Alert>
                 </CardContent>
             </Card>
 
             <Snackbar
-                open={snackbarOpen}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                message={snackbarMessage}
-                autoHideDuration={2000}
-                action={
-                    <MuiIconButton size="small" color="inherit" onClick={handleCloseSnackbar}>
-                        <CloseIcon fontSize="small" />
-                    </MuiIconButton>
-                }
-            />
+    open={snackbarOpen}
+    onClose={handleCloseSnackbar}
+    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+    message={snackbarMessage || ''} 
+    autoHideDuration={2000}
+    action={
+        <MuiIconButton size="small" color="inherit" onClick={handleCloseSnackbar}>
+            <CloseIcon fontSize="small" />
+        </MuiIconButton>
+    }
+/>
         </PageContainer>
     );
 };

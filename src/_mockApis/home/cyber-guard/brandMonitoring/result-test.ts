@@ -59227,6 +59227,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/crypt_options',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',
@@ -59247,6 +59248,7 @@ export const consolidateDataTest: Results = {
                     user_url: 'https://x.com/Nagahitamcrypto',
                     user_type: 'user',
                     sentiment_analysis: '0',
+                    risk_analysis: "No risk"
                   },
                   generated: null,
                   source: 'ATH',

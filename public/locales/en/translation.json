@@ -668,7 +668,8 @@
         "create": "Create",
         "file": "File",
         "files": "Files",
-        "message_select_files": "Drag 'n' drop some files here, or click to select files"
+        "message_select_files": "Drag 'n' drop some files here, or click to select files",
+        "risk": "Risk"
     },
     "mobile_apps": {
         "mobile_apps": "Mobile Apps",
@@ -778,7 +779,7 @@
                    "intro": "Next commands:"
                }
            }
-       },
+    },
    
    "scan": {
            "type": "Scan Type",
@@ -794,11 +795,11 @@
            "network_observability": "Network Observability Scans",
            "create_task_link": "You must create a",
            "task": "task"
-           },
+    },
            
 "threshold": {
               "threshold_settings": "Threshold Settings"
-            },
+    },
             "thresholdForm": {
               "subtitle": "Adjust resource usage limits to set your thresholds.",
               "cpu_threshold": "CPU Threshold (%)",
@@ -806,11 +807,28 @@
               "storage_threshold": "Storage Threshold (%)",
               "user_email": "Email Address",
               "save_changes": "Save Changes"
-            },
+    },
 
              "breadcrumb": {
                   "observability": "Observability",
                   "threshold_settings": "Threshold Settings",
                   "threshold_details": "Threshold Details"
-                }
-   }    
+    },
+
+    "solutionDetail": {
+    "solution": "Single Installation",
+    "description": "To execute the command on Windows, follow these steps:",
+    "step1": "Step 1:",
+    "step1Text": "Open PowerShell with administrative privileges.",
+    "step2": "Step 2:",
+    "step2Text": "Copy the following command:",
+    "commandText": "Invoke-WebRequest -Uri \"https://git.lorius.cloud/aordonez/installers_balam/-/raw/main/Balam_Agent_setup.exe\" -OutFile \"$env:temp\\Balam_Agent_setup.exe\"; Start-Process -FilePath \"$env:temp\\Balam_Agent_setup.exe\" -ArgumentList \"/VERYSILENT URL=\"https://amunoz1.balam-dev.octapus.io/\" API_KEY=\"twHJnYRQ.4cqNxLPdaJrE9dD30Ax1H1dIuxMixU7b\"\" -Wait",
+    "step3": "Step 3:",
+    "step3Text": "Paste the command into the PowerShell window and press Enter to execute it.",
+    "additionalInfo": "The command will download and execute the Balam Agent with the provided URL and API key.",
+    "pageTitle": "Solution Detail",
+    "snackbarMessage": "Text copied to clipboard: ",
+    "alertText": "If you can't find what you're looking for, you can",
+    "createTicketLinkText": "create a ticket"
+    }
+}    
