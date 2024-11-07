@@ -42,6 +42,7 @@ import Solutions from 'src/views/support/Solutions';
 import TicketFormComp from 'src/views/support/TicketForm';
 import Tickets from 'src/views/support/Tickets';
 import CloudVulnerabilities from 'src/views/vulnerabilities/Cloud';
+import ManagedVulnerabilitiesDetail from 'src/views/vulnerabilities/ManagedVulnerabilitiesDetail';
 import ManagementVulnerabilities from 'src/views/vulnerabilities/Management';
 import NetworkVulnerabilities from 'src/views/vulnerabilities/Network';
 import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
@@ -49,6 +50,7 @@ import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
+import ManagedVulnerabilitiesForm from 'src/views/vulnerabilities/ManagedVulnerabilitiesForm';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -90,6 +92,8 @@ const Router = [
 
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
+      { path: '/vulnerabilities/management/detail/:id', element: <ManagedVulnerabilitiesDetail /> },
+      { path: '/vulnerabilities/management/form/:id', element: <ManagedVulnerabilitiesForm /> },
 
       // Monitoring
       { path: '/monitoring/threats-overview', element: <DarkWeb /> },
