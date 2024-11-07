@@ -1,11 +1,20 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Breadcrumbs,
+  Grid,
+  IconButton,
+  Link,
+  Snackbar,
+  Typography,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import ManagedVulnerabilityForm from 'src/components/vulnerabilities/management/managedVulnerabilityForm';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchVulnerabilityById } from 'src/store/vulnerabilities/ManagementVulnSlice';
 import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
@@ -15,7 +24,6 @@ const ManagedVulnerabilitiesForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [editManagedVuln, setEditManagedVuln] = useState<null | any>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -79,11 +87,28 @@ const ManagedVulnerabilitiesForm = () => {
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (
-              <SnackBarInfo
-                color={snackbarSeverity}
-                title="Operation Status"
-                message={snackbarMessage}
-              />
+              <Snackbar
+                open={snackbarOpen}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                autoHideDuration={3000}
+                onClose={() =>
+                  navigate(`/vulnerabilities/management/detail/${selectedVulnerability?.id}`)
+                }
+              >
+                <Alert
+                  onClose={() =>
+                    navigate(`/vulnerabilities/management/detail/${selectedVulnerability?.id}`)
+                  }
+                  severity={snackbarSeverity}
+                  variant="filled"
+                  sx={{ width: '100%' }}
+                >
+                  <AlertTitle>
+                    {t('vulnerabilities.management.managed_vulnerability_updated')}
+                  </AlertTitle>{' '}
+                  {snackbarMessage}
+                </Alert>
+              </Snackbar>
             )}
           </Grid>
         </Grid>
