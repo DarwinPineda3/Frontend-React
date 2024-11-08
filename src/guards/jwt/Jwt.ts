@@ -34,13 +34,19 @@ const isValidToken = (accessToken: string) => {
 };
 
 // Function to set or clear the session
-const setSession = (accessToken: string | null) => {
+const setSession = (accessToken: string | null, refreshToken: string | null) => {
   if (accessToken) {
     window.localStorage.setItem('accessToken', accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   } else {
     window.localStorage.removeItem('accessToken');
     delete axios.defaults.headers.common.Authorization;
+  }
+
+  if (refreshToken) {
+    window.localStorage.setItem('refreshToken', refreshToken);
+  } else {
+    window.localStorage.removeItem('refreshToken');
   }
 };
 
@@ -61,7 +67,7 @@ const sign = (payload: any, secretKey: string, options: any) => {
 
   // Log what is being signed
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  
+
 
   // Create the HMAC SHA-256 signature using crypto-js
   const signature = CryptoJS.HmacSHA256(signingInput, secretKey).toString(CryptoJS.enc.Base64)
@@ -70,8 +76,8 @@ const sign = (payload: any, secretKey: string, options: any) => {
     .replace(/\//g, '_'); // Base64Url encoding
 
   const jwtToken = `${encodedHeader}.${encodedPayload}.${signature}`;
-  
-  
+
+
   return jwtToken;
 };
 
@@ -81,7 +87,7 @@ const verify = (token: string, secretKey: string) => {
 
   // Log inputs used for verification
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  
+
 
   // Recreate the signature for comparison using crypto-js
   const verifiedSignature = CryptoJS.HmacSHA256(signingInput, secretKey).toString(CryptoJS.enc.Base64)
@@ -89,8 +95,8 @@ const verify = (token: string, secretKey: string) => {
     .replace(/\+/g, '-') // Base64Url encoding
     .replace(/\//g, '_'); // Base64Url encoding
 
-  
-  
+
+
 
   if (verifiedSignature !== signature) {
     throw new Error('Invalid signature');
@@ -109,3 +115,4 @@ const verify = (token: string, secretKey: string) => {
 };
 
 export { isValidToken, setSession, sign, verify };
+

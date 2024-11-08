@@ -19,12 +19,13 @@ import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 //monitoring reducers
 import TechInventoryReducer from './sections/cti/techInventorySlice';
-import MalwareAnalysesReducer from "./sections/malware-analysis/MalwareAnalysisSlice";
-import AppScansReducer from "./sections/mobile-app/AppScanSlice";
-import MobileAppsReducer from "./sections/mobile-app/MobileAppSlice";
-import ResultAppsReducer from "./sections/mobile-app/ResultAppSlice";
+import MalwareAnalysesReducer from './sections/malware-analysis/MalwareAnalysisSlice';
+import AppScansReducer from './sections/mobile-app/AppScanSlice';
+import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
+import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 //vulnerabilities
+import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
 
@@ -44,8 +45,8 @@ const dashboardReducer = combineReducers({
   alertDistribution: AlertDistribution,
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
-  orgBreaches: OrgBreachesSlice
-})
+  orgBreaches: OrgBreachesSlice,
+});
 
 export const store = configureStore({
   reducer: {
@@ -62,7 +63,8 @@ export const store = configureStore({
     summaryVulnReducer: SummaryVulnReducer,
     newsLettersReducer: NewsLettersReducer,
     ehReportsReducer: EHReportsReducer,
-    resultAppsReducer: ResultAppsReducer
+    managementVulnReducer: ManagementVulnReducer,
+    resultAppsReducer: ResultAppsReducer,
   },
 });
 
@@ -80,13 +82,12 @@ const rootReducer = combineReducers({
   summaryVulnReducer: SummaryVulnReducer,
   newsLettersReducer: NewsLettersReducer,
   ehReportsReducer: EHReportsReducer,
-  resultAppsReducer: ResultAppsReducer
+  managementVulnReducer: ManagementVulnReducer,
+  resultAppsReducer: ResultAppsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const { } = store;
+export const {} = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;
-
-

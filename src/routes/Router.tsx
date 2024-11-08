@@ -18,7 +18,7 @@ import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 // import SIEMMonitoring from 'src/views/monitoring/SIEM';
-import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
+import MobileApp from 'src/views/monitoring/mobile-app/MobileApp';
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
 import DemoBrand from 'src/views/monitoring/SOC/brand/demo';
@@ -43,6 +43,8 @@ import Solutions from 'src/views/support/Solutions';
 import TicketFormComp from 'src/views/support/TicketForm';
 import Tickets from 'src/views/support/Tickets';
 import CloudVulnerabilities from 'src/views/vulnerabilities/Cloud';
+import ManagedVulnerabilitiesDetail from 'src/views/vulnerabilities/ManagedVulnerabilitiesDetail';
+import ManagedVulnerabilitiesForm from 'src/views/vulnerabilities/ManagedVulnerabilitiesForm';
 import ManagementVulnerabilities from 'src/views/vulnerabilities/Management';
 import NetworkVulnerabilities from 'src/views/vulnerabilities/Network';
 import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
@@ -60,7 +62,6 @@ const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')))
 const Error = Loadable(lazy(() => import('../views/general/Error')));
 const Maintenance = Loadable(lazy(() => import('../views/general/Maintenance')));
 
-
 const Router = [
   {
     path: '/',
@@ -73,7 +74,6 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
-
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
@@ -114,6 +114,8 @@ const Router = [
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
       { path: '/vulnerabilities/redteam', element: <EHReport /> },
       { path: '/vulnerabilities/redteam/:ehReportId', element: <EHReportDetail /> },
+      { path: '/vulnerabilities/management/detail/:id', element: <ManagedVulnerabilitiesDetail /> },
+      { path: '/vulnerabilities/management/form/:id', element: <ManagedVulnerabilitiesForm /> },
 
       // Monitoring
       { path: '/monitoring/threats-overview', element: <DarkWeb /> },
@@ -186,7 +188,6 @@ const Router = [
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
-
 
       { path: '/maintenance', element: <Maintenance /> },
 

@@ -33,7 +33,7 @@ const handlers: any = {
   },
   LOGIN: (state: InitialStateType, action: any) => {
     const { user } = action.payload;
-    
+
     return {
       ...state,
       isAuthenticated: true,
@@ -72,29 +72,52 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
   useEffect(() => {
     const initialize = async () => {
-      
+
       try {
         const accessToken = window.localStorage.getItem('accessToken');
-        
-        if(accessToken){
-          console.log("valid token: ",isValidToken(accessToken))
+        const refreshToken = window.localStorage.getItem('refreshToken');
+
+        if (accessToken) {
+          console.log("valid token: ", isValidToken(accessToken))
         }
 
         if (accessToken && isValidToken(accessToken)) {
-          setSession(accessToken);
+          setSession(accessToken, refreshToken);
+
+          // TODO: remove
           const response = await axios.get('/api/account/my-account');
           const { user } = response.data;
 
-          
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
+              // user: null,
+              // TODO: replace
               user,
             },
           });
         } else {
-          
+          // try {
+          //   await handleRefreshToken();
+          //   dispatch({
+          //     type: 'INITIALIZE',
+          //     payload: {
+          //       isAuthenticated: true,
+          //       user: null,
+          //     },
+          //   });
+          // }
+          // catch (err) {
+          //   dispatch({
+          //     type: 'INITIALIZE',
+          //     payload: {
+          //       isAuthenticated: false,
+          //       user: null,
+          //     },
+          //   });
+          // }
+          // TODO: replace
           dispatch({
             type: 'INITIALIZE',
             payload: {
@@ -118,20 +141,47 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
     initialize();
   }, []);
 
+  // const signin = async (username: string, password: string) => {
+    // const response = await axios.post('http://zaq12345.localhost:4500/api/token/', {
+    //   username,
+    //   password,
+    // });
+    // const { access, refresh, user } = response.data;
+    // setSession(access, refresh);
+
+    // TODO: replace
   const signin = async (email: string, password: string) => {
     const response = await axios.post('/api/account/login', {
       email,
       password,
     });
     const { accessToken, user } = response.data;
-    setSession(accessToken);
+    setSession(accessToken, null);
+
     dispatch({
       type: 'LOGIN',
       payload: {
         user,
       },
     });
-    
+
+  };
+
+  const handleRefreshToken = async () => {
+    const refreshToken = window.localStorage.getItem('refreshToken');
+    console.log("Token was refreshed");
+    const response = await axios.post('http://zaq12345.localhost:4500/api/token/refresh/', {
+      refresh: refreshToken,
+    });
+    const { access } = response.data;
+    if (access) {
+      setSession(access, refreshToken);
+    }
+    else {
+
+      setSession(null, null);
+      throw new Error("Refresh token expired")
+    }
   };
 
   const signup = async (email: string, password: string, firstName: string, lastName: string) => {
@@ -144,6 +194,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
     const { accessToken, user } = response.data;
 
     window.localStorage.setItem('accessToken', accessToken);
+
     dispatch({
       type: 'REGISTER',
       payload: {
@@ -153,7 +204,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   };
 
   const logout = async () => {
-    setSession(null);
+    setSession(null, null);
     dispatch({ type: 'LOGOUT' });
   };
 
@@ -173,3 +224,4 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 }
 
 export { AuthContext, AuthProvider };
+
