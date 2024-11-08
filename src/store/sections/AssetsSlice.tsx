@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AppDispatch } from "../Store";
-import axios from 'src/utils/axios';
 import { AssetType } from "src/types/assets/asset";
+import axios from 'src/utils/axios';
+import { AppDispatch } from "../Store";
 
-const API_URL = '/api/data/assets';
+// Update to match the backend API endpoint
+const API_URL = 'http://zaq12345.localhost:4500/api/assets/';
 
 interface StateType {
   assets: AssetType[];
@@ -24,9 +25,9 @@ export const AssetsSlice = createSlice({
   initialState,
   reducers: {
     getAssets: (state, action) => {
-      state.assets = Array.isArray(action.payload.assets) ? action.payload.assets : [];
+      state.assets = Array.isArray(action.payload.results) ? action.payload.results : [];
       state.page = action.payload.currentPage;
-      state.totalPages = action.payload.totalPages; 
+      state.totalPages = action.payload.totalPages;
     },
     addAsset: (state, action) => {
       state.assets.push(action.payload);
@@ -54,9 +55,10 @@ export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError 
 // Async thunk for fetching assets with pagination (READ)
 export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}?page=${page}`);
-    const { assets, currentPage, totalPages } = response.data;
-    dispatch(getAssets({ assets, currentPage, totalPages })); // Dispatch to update state
+    const response = await axios.get(`${API_URL}`);
+    const { results, count } = response.data; // Assuming DRF pagination
+    const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
+    dispatch(getAssets({ results, currentPage: page, totalPages })); // Dispatch to update state
   } catch (err: any) {
     console.error('Error fetching assets:', err);
     dispatch(setError('Failed to fetch assets'));
@@ -67,7 +69,7 @@ export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
 export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(API_URL, newAsset);
-    dispatch(addAsset(response.data.asset)); // Assuming the server returns the created asset
+    dispatch(addAsset(response.data)); // Assuming server returns the created asset
   } catch (err: any) {
     console.error('Error creating asset:', err);
     dispatch(setError('Failed to create asset'));
@@ -77,8 +79,8 @@ export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch
 // Async thunk for updating an asset (UPDATE)
 export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.put(`${API_URL}/${updatedAsset.id}`, updatedAsset);
-    dispatch(updateAsset(response.data.asset)); // Assuming the server returns the updated asset
+    const response = await axios.put(`${API_URL}${updatedAsset.id}/`, updatedAsset);
+    dispatch(updateAsset(response.data)); // Assuming server returns the updated asset
   } catch (err: any) {
     console.error('Error updating asset:', err);
     dispatch(setError('Failed to update asset'));
@@ -88,7 +90,7 @@ export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispat
 // Async thunk for deleting an asset (DELETE)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${API_URL}/${assetId}`);
+    await axios.delete(`${API_URL}/${assetId}/`);
     dispatch(deleteAsset(assetId));
   } catch (err: any) {
     console.error('Error deleting asset:', err);
