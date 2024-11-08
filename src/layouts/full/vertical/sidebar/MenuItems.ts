@@ -9,6 +9,7 @@ import {
   IconClockBolt,
   IconCloud,
   IconExternalLink,
+  IconGauge,
   IconGitMerge,
   IconLink,
   IconListDetails,
@@ -26,8 +27,7 @@ import {
   IconSpy,
   IconSquaresFilled,
   IconTicket,
-  IconUserBolt,
-  IconGauge
+  IconUserBolt
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 

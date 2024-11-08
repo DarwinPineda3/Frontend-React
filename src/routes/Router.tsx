@@ -71,7 +71,7 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
-      
+
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
@@ -185,7 +185,7 @@ const Router = [
 
 
       { path: '/maintenance', element: <Maintenance /> },
-      
+
       // Ai soliution
       { path: '/aisolution', element: <AiSolution /> },
     ],
