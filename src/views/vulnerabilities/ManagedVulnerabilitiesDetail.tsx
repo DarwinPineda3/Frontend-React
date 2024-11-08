@@ -1,0 +1,63 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
+import ManagedVulnDetail from 'src/components/vulnerabilities/management/managedVulnerability';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchVulnerabilityById } from 'src/store/vulnerabilities/ManagementVulnSlice';
+import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
+
+const ManagedVulnerabilitiesDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const selectedVulnerability: managementVulnerabilityType = useSelector(
+    (state: any) => state.managementVulnReducer.selectedVulnerability,
+  );
+  const error = useSelector((state: any) => state.managementVulnReducer.error);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchVulnerabilityById(Number(id)));
+    }
+  }, [id, dispatch]);
+
+  return (
+    <PageContainer title="Akila">
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBackIcon />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link component={RouterLink} color="inherit" to="/vulnerabilities/management">
+              {t('vulnerabilities.management.vulnerabilities')}
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/vulnerabilities/management">
+              {t('vulnerabilities.management.management')}
+            </Link>
+            <Typography color="textPrimary">{selectedVulnerability?.name}</Typography>
+          </Breadcrumbs>
+        </Box>
+      </Box>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          {selectedVulnerability ? (
+            <Box>
+              <ManagedVulnDetail vulnerability={selectedVulnerability!} />
+            </Box>
+          ) : (
+            <Typography variant="subtitle2" align="center">
+              {t('monitoring.no_data_available')}
+            </Typography>
+          )}
+        </Grid>
+      </Grid>
+    </PageContainer>
+  );
+};
+
+export default ManagedVulnerabilitiesDetail;
