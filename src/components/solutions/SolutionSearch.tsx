@@ -16,6 +16,7 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
     const { t } = useTranslation();
     const [solutions, setSolutions] = useState<Solution[]>([]);
     const [filteredSolutions, setFilteredSolutions] = useState<Solution[]>([]);
+    const [searchTerm, setSearchTermLocal] = useState<string>('');
 
     useEffect(() => {
         const fetchSolutions = async () => {
@@ -30,16 +31,16 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const searchTerm = e.target.value;
-        setSearchTerm(searchTerm);
+        setSearchTerm(searchTerm); 
 
         const filtered = solutions.filter(solution =>
             solution.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredSolutions(filtered);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTermLocal(e.target.value); 
     };
 
     return (
@@ -49,8 +50,9 @@ const SolutionSearch: React.FC<SolutionSearchProps> = ({ setSearchTerm }) => {
                     <Box display="flex" alignItems="center" width="100%">
                         <TextField
                             variant="outlined"
-                            placeholder={t("support.search_solutions")}
+                            placeholder={t("support.search_solutions") || ""}
                             onChange={handleChange}
+                            value={searchTerm} 
                             required
                             fullWidth
                             sx={{

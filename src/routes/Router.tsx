@@ -9,14 +9,15 @@ import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import AuditLogView from 'src/views/audit/AuditView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
-import AiSolution from 'src/views/home/aisolution';
+import AiSolution from 'src/views/general/aisolution';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring';
 import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Parameters';
-import MalwareAnalysis from "src/views/monitoring/malware/MalwareAnalysis";
+import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
+// import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import MobileApp from "src/views/monitoring/mobile-app/MobileApp";
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
@@ -30,6 +31,7 @@ import TechInventory from 'src/views/monitoring/SOC/cti/TechnologiesInventory';
 import ThreatIntelligence from 'src/views/monitoring/SOC/cti/threat-intelligence';
 import UrlsSoc from 'src/views/monitoring/SOC/cti/urls';
 import SocNews from 'src/views/monitoring/SOC/Newsletter';
+import SocNewsDetails from 'src/views/monitoring/SOC/NewsletterDetails';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
 import CloudObservability from 'src/views/observability/Cloud';
@@ -48,6 +50,7 @@ import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
+import ThresholdSettings from '../views/observability/ThresholdSettings';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -68,27 +71,42 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
-      { path: '/aisolution', element: <AiSolution /> },
+
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
       { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities /> },
       { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId', element: <NetworkVulnerabilities /> },
-      { path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId', element: <NetworkVulnerabilities /> },
+      {
+        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId',
+        element: <NetworkVulnerabilities />,
+      },
+      {
+        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId',
+        element: <NetworkVulnerabilities />,
+      },
 
       { path: '/vulnerabilities/web', element: <WebVulnerabilities /> },
       { path: '/vulnerabilities/web/applications', element: <WebApplications /> },
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications /> },
-      { path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId', element: <WebApplications /> },
+      {
+        path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId',
+        element: <WebApplications />,
+      },
 
       { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications /> },
       { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications /> },
-      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId', element: <WordpressAplications /> },
+      {
+        path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId',
+        element: <WordpressAplications />,
+      },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities /> },
       { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities /> },
-      { path: '/vulnerabilities/cloud/vulnerabilities/:cloudId', element: <CloudVulnerabilities /> },
+      {
+        path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
+        element: <CloudVulnerabilities />,
+      },
 
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
@@ -100,10 +118,16 @@ const Router = [
       { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard /> },
       { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis /> },
-      { path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId', element: <MalwareAnalysis /> },
+      {
+        path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId',
+        element: <MalwareAnalysis />,
+      },
       { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan /> },
       { path: '/monitoring/cyber-guard/mobile-apps/:appScanId', element: <MobileApp /> },
-      { path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:mobileAppId', element: <MobileApp /> },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:resultAppId',
+        element: <MobileApp />,
+      },
 
       { path: '/monitoring/soc', element: <SOCMonitoring /> },
       { path: '/monitoring/soc/service-statistics', element: <ServiceStatus /> },
@@ -120,7 +144,7 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand /> },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet /> },
       { path: '/monitoring/soc/newsletters', element: <SocNews /> },
-      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNews /> },
+      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNewsDetails /> },
       { path: '/monitoring/soc/takedown', element: <TicketFormComp /> },
 
       //{ path: '/monitoring/siem', element: <SIEMMonitoring /> },
@@ -137,6 +161,7 @@ const Router = [
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
+      { path: '/observability/threshold-settings', element: <ThresholdSettings /> },
 
       // Support
       { path: '/support/tickets', element: <Tickets /> },
@@ -160,6 +185,9 @@ const Router = [
 
 
       { path: '/maintenance', element: <Maintenance /> },
+
+      // Ai soliution
+      { path: '/aisolution', element: <AiSolution /> },
     ],
   },
   {
@@ -172,6 +200,5 @@ const Router = [
   },
   { path: '*', element: <Navigate to="/404" /> },
 ];
-
 
 export default Router;
