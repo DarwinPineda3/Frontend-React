@@ -26,8 +26,8 @@ const EHReport = () => {
 
   }, [ehReportId, location]);
 
-  const handleEHReportClick = (id: number) => {
-    // navigate(`/monitoring/cyber-guard/mobile-apps/${id}`); //ruta hacia el siguiente listado
+  const handleEHReportClick = (id: string) => {
+    navigate(`/vulnerabilities/redteam/${id}`); //ruta hacia el siguiente listado
   };
   return (
     <PageContainer title="Akila">

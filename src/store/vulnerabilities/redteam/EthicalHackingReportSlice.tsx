@@ -3,10 +3,12 @@ import { EHReportType } from "src/types/vulnerabilities/redteam/ethicalHackingRe
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
-const API_URL = '/api/data/ehReports';
+const API_URL = '/api/data/eh-reports';
+const DETAIL_API_URL = '/api/data/eh-reports/detail';
 
 interface StateType {
   ehReports: EHReportType[];
+  ehReport: EHReportType | null;
   page: number;
   totalPages: number;
   error: string | null;
@@ -14,6 +16,7 @@ interface StateType {
 
 const initialState: StateType = {
   ehReports: [],
+  ehReport: null,
   page: 1,
   totalPages: 1,
   error: null,
@@ -27,6 +30,9 @@ export const EHReportsSlice = createSlice({
       state.ehReports = Array.isArray(action.payload.ehReports) ? action.payload.ehReports : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
+    },
+    getEHReport: (state, action) => {
+      state.ehReport = action.payload.data;
     },
     addEHReport: (state, action) => {
       state.ehReports.push(action.payload);
@@ -49,14 +55,14 @@ export const EHReportsSlice = createSlice({
   }
 });
 
-export const { getEHReports, addEHReport, updateEHReport, deleteEHReport, setPage, setError } = EHReportsSlice.actions;
+export const { getEHReports, addEHReport, updateEHReport, deleteEHReport, getEHReport, setPage, setError } = EHReportsSlice.actions;
 
 // Async thunk for fetching ehReports with pagination (READ)
 export const fetchEHReports = (page = 1) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${API_URL}?page=${page}`);
     const { ehReports, currentPage, totalPages } = response.data;
-    
+
     // Envía la acción con el nombre correcto de los datos recibidos
     dispatch(getEHReports({ ehReports, currentPage, totalPages }));
   } catch (err: any) {
@@ -95,6 +101,21 @@ export const removeEHReport = (id: string) => async (dispatch: AppDispatch) => {
   } catch (err: any) {
     console.error('Error deleting ehReport:', err);
     dispatch(setError('Failed to delete ehReport'));
+  }
+};
+
+export const fetchEHReportById = (ehReportId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${DETAIL_API_URL}/${ehReportId}`);
+
+    if (response.status === 200) {
+      dispatch(getEHReport({ data: response.data.ehReport }));
+    } else {
+      dispatch(setError('fetch EHReport not found'));
+    }
+  } catch (err: any) {
+    console.error('Error fetching EHReport detail:', err);
+    dispatch(setError('Failed to fetch EHReport detail'));
   }
 };
 

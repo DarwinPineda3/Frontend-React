@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchEHReports, setPage } from "src/store/vulnerabilities/redteam/EthicalHackingReportSlice";
 
 interface EHReportTableListProps {
-  onEHReportClick: (ehReportId: number) => void;
+  onEHReportClick: (ehReportId: string) => void;
 }
 
 const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => {

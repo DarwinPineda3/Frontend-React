@@ -50,7 +50,8 @@ import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
-import EHReport from 'src/views/vulnerabilities/redteam/EthicalHackingReport';
+import EHReport from 'src/views/vulnerabilities/redteam/EHReport';
+import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -111,6 +112,7 @@ const Router = [
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
       { path: '/vulnerabilities/redteam', element: <EHReport /> },
+      { path: '/vulnerabilities/redteam/:ehReportId', element: <EHReportDetail /> },
 
       // Monitoring
       { path: '/monitoring/threats-overview', element: <DarkWeb /> },

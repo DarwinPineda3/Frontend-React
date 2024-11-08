@@ -5,6 +5,34 @@ export interface EHReportType {
   end_date_report?: string;
   objectives?: string;
   created_date?: Date;
+  ehsummaries: EHSummary;
+}
+
+export interface EHVulnerabilityType {
+  idReport: string;
+  vulnerability?: string;
+  description?: string;
+  affected_components?: string;
+  solution?: string;
+  identifier?: string;
+  host?: string;
+  port_protocol?: string;
+  cvss_score?: number;
+  risk?: string;
+  impact?: string;
+  probability_occurrence?: string;
+  exploitable?: boolean;
+  created_date?: Date;
+}
+
+export interface EHEvidence {
+  idReport: string;
+  file?: string;
+  file_path?: string;
+  created_date?: string;
+}
+
+export interface EHSummary {
   // charts
   risk_exposure_level?: number;
   matriz_low_low?: number;
@@ -24,20 +52,4 @@ export interface EHReportType {
   third_conclusion?: string;
   fourth_conclusion?: string;
   fifth_conclusion?: string;
-}
-
-export interface EHVulnerabilityType {
-  vulnerability?: string;
-  description?: string;
-  affected_components?: string;
-  solution?: string;
-  identifier?: string;
-  host?: string;
-  port_protocol?: string;
-  cvss_score?: number;
-  risk?: string;
-  impact?: string;
-  probability_occurrence?: string;
-  exploitable?: boolean;
-  created_date?: Date;
 }
