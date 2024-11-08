@@ -9,7 +9,7 @@ import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import AuditLogView from 'src/views/audit/AuditView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
-import AiSolution from 'src/views/home/aisolution';
+import AiSolution from 'src/views/general/aisolution';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring';
@@ -50,6 +50,7 @@ import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
+import ThresholdSettings from '../views/observability/ThresholdSettings';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -70,7 +71,7 @@ const Router = [
       // Home
       { path: '/home/dashboard', element: <Dashboard /> },
       { path: '/home/assets', element: <Assets /> },
-      { path: '/aisolution', element: <AiSolution /> },
+      
 
       // Vulnerabilities
       { path: '/vulnerabilities/network', element: <NetworkVulnerabilities /> },
@@ -160,6 +161,7 @@ const Router = [
       { path: '/observability/observed-assets/assets', element: <ObservedAssets /> },
       { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets /> },
       { path: '/observability/installation-guide', element: <InstallationGuide /> },
+      { path: '/observability/threshold-settings', element: <ThresholdSettings /> },
 
       // Support
       { path: '/support/tickets', element: <Tickets /> },
@@ -183,6 +185,9 @@ const Router = [
 
 
       { path: '/maintenance', element: <Maintenance /> },
+      
+      // Ai soliution
+      { path: '/aisolution', element: <AiSolution /> },
     ],
   },
   {

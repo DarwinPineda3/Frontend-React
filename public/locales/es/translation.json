@@ -20,6 +20,7 @@
         "observed_assets": "Activos Observados",
         "dark_web_monitoring": "Resumen Amenazas",
         "installation_guide": "Guía Instalación",
+        "threshold_settings":"Configuración de umbral",
         "support": "Soporte",
         "tickets": "Tickets",
         "solutions": "Soluciones",
@@ -716,5 +717,119 @@
         "potential_risk": "Riesgo Potencial",
         "no_risk": "Sin Riesgo",
         "not_enough_info": "Información Insuficiente"
-    }
+    },
+
+"installation_guide": {
+        "title": "Guía de Instalación",
+        "welcome_message": "¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones paso a pasopara instalar el agente en diferentes sistemas operativos.Ya sea que esté implementando en Windows o Linux, encontrará todos lospasos necesarios para garantizar un proceso de instalación fluido.",
+        "windows": {
+            "title": "Windows",
+            "individual_installation": {
+                "title": "Instalación Individual",
+                "steps": {
+                    "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
+                    "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
+                    "step2": "Paso 2: Copie el siguiente comando:",
+                    "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
+                    "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+                }
+    },
+            "bulk_installation": {
+                "title": "Instalación Masiva",
+                "steps": {
+                    "intro": "Para crear un script para instalación masiva, siga estos pasos:",
+                    "step1": "Paso 1: Cree un nuevo archivo de script de PowerShell con una extensión .ps1.",
+                    "step2": "Paso 2: Copie el siguiente script en el archivo de script.",
+                    "step3": "Paso 3:Guarde el archivo de script."
+                }
+    },
+            "active_directory": {
+                "title": "Instrucciones para la Directiva de Grupo de Active Directory",
+                "intro": "Para aplicar políticas de grupo en Active Directory, siga estos pasos:",
+                "steps": {
+                    "step1": "Paso 1: Abra la Consola de Administración de Directivas de Grupo (GPMC, por sus siglas en inglés).",
+                    "step2": "Paso 2: Navegue hasta la Unidad Organizativa (OU) o dominio deseado donde desee aplicar la Directiva de Grupo.",
+                    "step3": "Paso 3: Cree un nuevo Objeto de Directiva de Grupo (GPO) o edite uno existente.",
+                    "step4": "Paso 4: Navegue a Configuración del Equipo > Directivas > Configuración de Windows > Scripts (Inicio/Apagado).",
+                    "step5": "Paso 5: Agregue un nuevo script de inicio y especifique la ruta de su script de PowerShell (por ejemplo, instalar_agente.ps1).",
+                    "step6": "Paso 6: Asegúrese de que la directiva de ejecución permita que el script se ejecute. Es posible que necesite establecer la directiva de ejecución en RemoteSigned o Bypass.",
+                    "step7": "Paso 7: Una vez que la Directiva de Grupo se aplique a las computadoras deseadas, el script se ejecutará durante el inicio."
+                }
+    },
+            "notes": "Notas: El agente de Windows es compatible con las versiones de Windows Server 2008 R2 y posteriores."
+        },
+        "linux": {
+            "title": "Linux",
+            "individual_installation": {
+                "title": "Instalación Individual",
+                "steps": {
+                    "intro": "Para ejecutar el comando en Linux, siga estos pasos:",
+                    "step1": "Paso 1: Abra una terminal en su sistema Linux.",
+                    "step2": "Paso 2: Elija su distribución de Linux:",
+                    "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+                    "step4": "Paso 4: Copie el siguiente comando:",
+                    "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+                    "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+                }
+            },
+            "error_notes": {
+                "title": "Notas de error",
+                "intro": "Si hay problemas, intente con los siguientes comandos:"
+            }
+        }
+    },
+
+"scan": {
+        "type": "Tipo de escaneo",
+        "name": "Nombre",
+        "execution_frequency": "Frecuencia de ejecución",
+        "execution_time": "Hora de ejecución",
+        "daily": "Cada día",
+        "weekly": "Cada semana",
+        "monthly": "Cada mes",
+        "network_vulnerability": "Escaneos vulnerabilidad Red",
+        "web_vulnerability": "Escaneos vulnerabilidad Web",
+        "wordpress_vulnerability": "Escaneos vulnerabilidad WordPress",
+        "network_observability": "Escaneos observabilidad Red",
+        "create_task_link": "Debes crear un/a",
+        "task": "tarea"
+    },
+
+   
+ "threshold": {
+          "threshold_settings": "Configuración de Umbral"
+        },
+        "thresholdForm": {
+          "subtitle": "Ajusta los límites de uso de recursos para establecer tus umbrales.",
+          "cpu_threshold": "Umbral de CPU (%)",
+          "ram_threshold": "Umbral de RAM (%)",
+          "storage_threshold": "Umbral de Almacenamiento (%)",
+          "user_email": "Dirección de Correo Electrónico",
+          "save_changes": "Guardar Cambios"
+    },
+
+ "breadcrumb": {
+    "observability": "Observabilidad",
+    "threshold_settings": "Configuración de Umbral",
+    "threshold_details": "Detalles del Umbral"
+    },
+
+    "solutionDetail": {
+        "solution": "Instalación Única",
+        "description": "Para ejecutar el comando en Windows, sigue estos pasos:",
+        "step1": "Paso 1:",
+        "step1Text": "Abre PowerShell con privilegios administrativos.",
+        "step2": "Paso 2:",
+        "step2Text": "Copia el siguiente comando:",
+        "commandText": "Invoke-WebRequest -Uri \"https://git.lorius.cloud/aordonez/installers_balam/-/raw/main/Balam_Agent_setup.exe\" -OutFile \"$env:temp\\Balam_Agent_setup.exe\"; Start-Process -FilePath \"$env:temp\\Balam_Agent_setup.exe\" -ArgumentList \"/VERYSILENT URL=\"https://amunoz1.balam-dev.octapus.io/\" API_KEY=\"twHJnYRQ.4cqNxLPdaJrE9dD30Ax1H1dIuxMixU7b\"\" -Wait",
+        "step3": "Paso 3:",
+        "step3Text": "Pega el comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
+        "additionalInfo": "El comando descargará y ejecutará el agente Balam con la URL y la clave API proporcionada.",
+        "pageTitle": "Detalle de la Solución",
+        "snackbarMessage": "Texto copiado al portapapeles: ",
+        "alertText": "Si no encuentras lo que buscas, puedes",
+        "createTicketLinkText": "crear un ticket",
+        "copyToClipboardError": "Error al copiar al portapapeles. Intenta nuevamente."
+  }
+
 }
