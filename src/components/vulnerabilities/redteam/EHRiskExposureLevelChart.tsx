@@ -6,11 +6,11 @@ const EHRiskExposureLevelChart = ({ riskExposureLevel }) => {
   const theme = useTheme();
   const { high, medium, low, critical, unknown, none, info } = theme.palette.level;
 
-  let label = 'Bajo'; // Por defecto es 'Bajo'
+  let label = 'Bajo'; //translate
   if (riskExposureLevel >= 4 && riskExposureLevel <= 6.9) {
-    label = 'Medio';
+    label = 'Medio'; //translate
   } else if (riskExposureLevel >= 7) {
-    label = 'Alto';
+    label = 'Alto'; //translate
   }
 
   const options = {
@@ -51,7 +51,7 @@ const EHRiskExposureLevelChart = ({ riskExposureLevel }) => {
       function ({ value }) {
         if (value <= 39) return low; // Bajo
         if (value <= 69) return medium; // Medio
-        return hihg; // Alto
+        return high; // Alto
       },
     ],
     labels: [label],
