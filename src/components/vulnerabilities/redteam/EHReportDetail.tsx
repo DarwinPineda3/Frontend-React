@@ -43,7 +43,7 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             <DashboardCard
               title="Baseline Information" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
                   <Stack
                     direction="row"
@@ -82,7 +82,7 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             <DashboardCard
               title="Report Summary" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
                   <Stack
                     direction="row"
@@ -110,10 +110,10 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
           </Grid>
 
           <Grid item xs={12} xl={6}>
-            <DashboardCard
+            <DashboardCard 
               title="Risk Exposure Level" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <EHRiskExposureLevelChart riskExposureLevel={ehReport.ehsummaries.risk_exposure_level} />
               </Box>
             </DashboardCard>
@@ -123,7 +123,7 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             <DashboardCard
               title="Evaluation result" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
                   <Stack
                     direction="row"
@@ -154,7 +154,7 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             <DashboardCard
               title="Matrix of Unique Vulnerabilities" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 {/* <HeatmapChart></HeatmapChart> */}
                 <EHMatrixVulnerabilities matrixRequest={riskMatrizData} />
               </Box>
@@ -165,7 +165,7 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             <DashboardCard
               title="Conclusions" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
                   <Stack
                     direction="row"
