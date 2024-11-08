@@ -5,13 +5,23 @@ import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import { EHReportType } from 'src/types/vulnerabilities/redteam/ethicalHackingReport';
+import EHMatrixVulnerabilities from './EHMatrixVulnerabilities';
 import EHRiskExposureLevelChart from './EHRiskExposureLevelChart';
 
 const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
   const { t } = useTranslation();
 
-  console.log(ehReport);
-
+  let riskMatrizData = [
+    ehReport.ehsummaries.matriz_low_low,
+    ehReport.ehsummaries.matriz_low_medium,
+    ehReport.ehsummaries.matriz_low_high,
+    ehReport.ehsummaries.matriz_medium_low,
+    ehReport.ehsummaries.matriz_medium_medium,
+    ehReport.ehsummaries.matriz_medium_high,
+    ehReport.ehsummaries.matriz_high_low,
+    ehReport.ehsummaries.matriz_high_medium,
+    ehReport.ehsummaries.matriz_high_high
+  ]
 
   return (
     <Grid container spacing={1}>
@@ -104,7 +114,6 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
               title="Risk Exposure Level" //translate
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1}>
-                {/* componente */}
                 <EHRiskExposureLevelChart riskExposureLevel={ehReport.ehsummaries.risk_exposure_level} />
               </Box>
             </DashboardCard>
@@ -141,6 +150,16 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             </DashboardCard>
           </Grid>
 
+          <Grid item xs={12} xl={6}>
+            <DashboardCard
+              title="Matrix of Unique Vulnerabilities" //translate
+            >
+              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+                {/* <HeatmapChart></HeatmapChart> */}
+                <EHMatrixVulnerabilities matrixRequest={riskMatrizData} />
+              </Box>
+            </DashboardCard>
+          </Grid>
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
