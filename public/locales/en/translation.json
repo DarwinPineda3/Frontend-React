@@ -20,6 +20,7 @@
     "observed_assets": "Observed Assets",
     "dark_web_monitoring": "Threats Overview",
     "installation_guide": "Installation Guide",
+    "threshold_settings": "Threshold settings",
     "support": "Support",
     "tickets": "Tickets",
     "solutions": "Solutions",
@@ -732,7 +733,8 @@
     "create": "Create",
     "file": "File",
     "files": "Files",
-    "message_select_files": "Drag 'n' drop some files here, or click to select files"
+    "message_select_files": "Drag 'n' drop some files here, or click to select files",
+    "risk": "Risk"
   },
   "mobile_apps": {
     "mobile_apps": "Mobile Apps",
@@ -781,5 +783,112 @@
     "potential_risk": "Potential Risk",
     "no_risk": "No Risk",
     "not_enough_info": "Not Enough Information"
+  },
+  "installation_guide": {
+    "title": "Installation Guide",
+    "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows or Linux, you will find all the necessary steps to ensure a smooth installation process.",
+    "windows": {
+      "title": "Windows",
+      "individual_installation": {
+        "title": "Individual Installation",
+        "steps": {
+          "intro": "To run the command on Windows, follow these steps:",
+          "step1": "Step 1: Open PowerShell with administrative privileges.",
+          "step2": "Step 2: Copy the following command:",
+          "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
+          "note": "The command will download and run the Akila Agent with the provided URL and API key."
+        }
+      },
+      "bulk_installation": {
+        "title": "Bulk Installation",
+        "steps": {
+          "intro": "To create a script for bulk installation, follow these steps:",
+          "step1": "Step 1: Create a new PowerShell script file with a .ps1 extension, e.g., install_agent.ps1.",
+          "step2": "Step 2: Copy the following script into the newly created PowerShell script file:",
+          "step3": "Step 3: Save the script file."
+        }
+      },
+      "active_directory": {
+        "title": "Instructions for Active Directory Group Policy",
+        "intro": "To apply group policies in Active Directory, follow these steps:",
+        "steps": {
+          "step1": "Step 1: Open the Group Policy Management Console (GPMC).",
+          "step2": "Step 2: Navigate to the desired Organizational Unit (OU) or domain where you want to apply the Group Policy.",
+          "step3": "Step 3: Create a new Group Policy Object (GPO) or edit an existing one.",
+          "step4": "Step 4: Navigate to Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).",
+          "step5": "Step 5: Add a new startup script and specify the path to your PowerShell script (e.g., instalar_agente.ps1).",
+          "step6": "Step 6: Ensure that the execution policy allows the script to run. You may need to set the execution policy to RemoteSigned or Bypass.",
+          "step7": "Step 7: Once the Group Policy is applied to the desired computers, the script will run during startup."
+        }
+      },
+      "notes": "Notes: The Windows agent is compatible with Windows Server 2008 R2 and later."
+    },
+    "linux": {
+      "title": "Linux",
+      "individual_installation": {
+        "title": "Individual Installation",
+        "steps": {
+          "intro": "To run the command on Linux, follow these steps:",
+          "step1": "Step 1: Open a terminal on your Linux system.",
+          "step2": "Step 2: Choose your Linux distribution:",
+          "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
+          "step4": "Step 4: Copy the following command:",
+          "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
+          "note": "The command will download and run the Akila Agent with the provided URL and API key."
+        }
+      },
+      "error_notes": {
+        "title": "Error notes",
+        "intro": "Next commands:"
+      }
+    }
+  },
+  "scan": {
+    "type": "Scan Type",
+    "name": "Name",
+    "execution_frequency": "Execution Frequency",
+    "execution_time": "Execution Time",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "network_vulnerability": "Network Vulnerability Scans",
+    "web_vulnerability": "Web Vulnerability Scans",
+    "wordpress_vulnerability": "WordPress Vulnerability Scans",
+    "network_observability": "Network Observability Scans",
+    "create_task_link": "You must create a",
+    "task": "task"
+  },
+  "threshold": {
+    "threshold_settings": "Threshold Settings"
+  },
+  "thresholdForm": {
+    "subtitle": "Adjust resource usage limits to set your thresholds.",
+    "cpu_threshold": "CPU Threshold (%)",
+    "ram_threshold": "RAM Threshold (%)",
+    "storage_threshold": "Storage Threshold (%)",
+    "user_email": "Email Address",
+    "save_changes": "Save Changes"
+  },
+  "breadcrumb": {
+    "observability": "Observability",
+    "threshold_settings": "Threshold Settings",
+    "threshold_details": "Threshold Details"
+  },
+  "solutionDetail": {
+    "solution": "Single Installation",
+    "description": "To execute the command on Windows, follow these steps:",
+    "step1": "Step 1:",
+    "step1Text": "Open PowerShell with administrative privileges.",
+    "step2": "Step 2:",
+    "step2Text": "Copy the following command:",
+    "commandText": "Invoke-WebRequest -Uri \"https://git.lorius.cloud/aordonez/installers_balam/-/raw/main/Balam_Agent_setup.exe\" -OutFile \"$env:temp\\Balam_Agent_setup.exe\"; Start-Process -FilePath \"$env:temp\\Balam_Agent_setup.exe\" -ArgumentList \"/VERYSILENT URL=\"https://amunoz1.balam-dev.octapus.io/\" API_KEY=\"twHJnYRQ.4cqNxLPdaJrE9dD30Ax1H1dIuxMixU7b\"\" -Wait",
+    "step3": "Step 3:",
+    "step3Text": "Paste the command into the PowerShell window and press Enter to execute it.",
+    "additionalInfo": "The command will download and execute the Balam Agent with the provided URL and API key.",
+    "pageTitle": "Solution Detail",
+    "snackbarMessage": "Text copied to clipboard: ",
+    "alertText": "If you can't find what you're looking for, you can",
+    "createTicketLinkText": "create a ticket",
+    "copyToClipboardError": "Error copying to clipboard. Please try again."
   }
 }

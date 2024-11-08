@@ -9,6 +9,7 @@ import {
   IconClockBolt,
   IconCloud,
   IconExternalLink,
+  IconGauge,
   IconGitMerge,
   IconLink,
   IconListDetails,
@@ -137,6 +138,12 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.installation_guide', // Translation key for title
     href: '/observability/installation-guide',
     icon: IconBook,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.threshold_settings', // Translation key for title
+    href: '/observability/threshold-settings',
+    icon: IconGauge,
   },
   {
     navlabel: true,
