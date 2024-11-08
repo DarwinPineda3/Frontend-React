@@ -4,7 +4,7 @@ import mock from '../../mock'; // Ensure correct path to mock
 
 export interface EHSummary {
   // charts
-  risk_exposure_level?: number;
+  risk_exposure_level?:number;
   matriz_low_low?: number;
   matriz_low_medium?: number;
   matriz_low_high?: number;
@@ -43,7 +43,7 @@ const ehReports: EHReportType[] = [
     end_date_report: "02 diciembre 2024",
     objectives: "1",
     created_date: new Date(),ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -70,7 +70,7 @@ const ehReports: EHReportType[] = [
     objectives: "2",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -97,7 +97,7 @@ const ehReports: EHReportType[] = [
     objectives: "3",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -124,7 +124,7 @@ const ehReports: EHReportType[] = [
     objectives: "1",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -151,7 +151,7 @@ const ehReports: EHReportType[] = [
     objectives: "2",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -178,7 +178,7 @@ const ehReports: EHReportType[] = [
     objectives: "3",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -205,7 +205,7 @@ const ehReports: EHReportType[] = [
     objectives: "1",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -232,7 +232,7 @@ const ehReports: EHReportType[] = [
     objectives: "2",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -259,7 +259,7 @@ const ehReports: EHReportType[] = [
     objectives: "3",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
@@ -286,7 +286,7 @@ const ehReports: EHReportType[] = [
     objectives: "1",
     created_date: new Date(),
     ehsummaries: {
-      risk_exposure_level: 50,
+      risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,
       matriz_low_high: 3,
