@@ -11,17 +11,19 @@ import EHRiskExposureLevelChart from './EHRiskExposureLevelChart';
 const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
   const { t } = useTranslation();
 
-  let riskMatrizData = [
-    ehReport.ehsummaries.matriz_low_low,
-    ehReport.ehsummaries.matriz_low_medium,
-    ehReport.ehsummaries.matriz_low_high,
-    ehReport.ehsummaries.matriz_medium_low,
-    ehReport.ehsummaries.matriz_medium_medium,
-    ehReport.ehsummaries.matriz_medium_high,
-    ehReport.ehsummaries.matriz_high_low,
-    ehReport.ehsummaries.matriz_high_medium,
-    ehReport.ehsummaries.matriz_high_high
-  ]
+  let riskMatrizData = ehReport?.ehsummaries
+  ? [
+      ehReport.ehsummaries.matriz_low_low!,
+      ehReport.ehsummaries.matriz_low_medium,
+      ehReport.ehsummaries.matriz_low_high,
+      ehReport.ehsummaries.matriz_medium_low,
+      ehReport.ehsummaries.matriz_medium_medium,
+      ehReport.ehsummaries.matriz_medium_high,
+      ehReport.ehsummaries.matriz_high_low,
+      ehReport.ehsummaries.matriz_high_medium,
+      ehReport.ehsummaries.matriz_high_high
+    ]
+  : [];
 
   return (
     <Grid container spacing={1}>
@@ -110,11 +112,11 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
           </Grid>
 
           <Grid item xs={12} xl={6}>
-            <DashboardCard 
+            <DashboardCard
               title="Risk Exposure Level" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
-                <EHRiskExposureLevelChart riskExposureLevel={ehReport.ehsummaries.risk_exposure_level} />
+              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+                <EHRiskExposureLevelChart riskExposureLevel={ehReport.ehsummaries?.risk_exposure_level!} />
               </Box>
             </DashboardCard>
           </Grid>

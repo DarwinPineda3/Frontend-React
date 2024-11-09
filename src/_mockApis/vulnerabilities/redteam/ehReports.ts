@@ -42,7 +42,8 @@ const ehReports: EHReportType[] = [
     start_date_report: "01 diciembre 2024",
     end_date_report: "02 diciembre 2024",
     objectives: "1",
-    created_date: new Date(),ehsummaries: {
+    created_date: new Date(),
+    ehsummaries: {
       risk_exposure_level: 5,
       matriz_low_low: 8,
       matriz_low_medium: 4,

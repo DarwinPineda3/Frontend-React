@@ -5,7 +5,7 @@ export interface EHReportType {
   end_date_report?: string;
   objectives?: string;
   created_date?: Date;
-  ehsummaries: EHSummary;
+  ehsummaries?: EHSummary;
 }
 
 export interface EHVulnerabilityType {
