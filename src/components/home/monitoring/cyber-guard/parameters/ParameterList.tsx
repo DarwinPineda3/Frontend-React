@@ -34,6 +34,7 @@ const ParameterList = () => {
   const parameters = useSelector((state: any) => state.parametersReducer.parameters);
   const currentPage = useSelector((state: any) => state.parametersReducer.page);
   const totalPages = useSelector((state: any) => state.parametersReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.parametersReducer.pageSize);
   const [editParameter, setEditParameter] = useState<null | any>(null); // State to hold the parameter being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
@@ -67,7 +68,7 @@ const ParameterList = () => {
   };
 
   React.useEffect(() => {
-    dispatch(fetchParameters(currentPage));
+    dispatch(fetchParameters(currentPage, pageSize));
   }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
