@@ -3,12 +3,13 @@ import { AppDispatch } from "../../Store";
 import axios from 'src/utils/axios';
 import { ParameterCyberGuardType } from "src/types/cyber-guard/parameters/parameter";
 
-const API_URL = '/api/data/monitoring/cyber-guard/parameters';
+const API_URL = 'http://zaq12345.localhost:4500/api/assets/';
 
 interface StateType {
     parameters: ParameterCyberGuardType[];
     page: number;
     totalPages: number;
+    pageSize: number;
     error: string | null;
 }
 
@@ -16,6 +17,7 @@ const initialState: StateType = {
     parameters: [],
     page: 1,
     totalPages: 1,
+    pageSize: 25,
     error: null,
 };
 
@@ -52,10 +54,11 @@ export const ParametersSlice = createSlice({
 export const { getParameters, addParameter, updateParameter, deleteParameter, setPage, setError } = ParametersSlice.actions;
 
 // Async thunk for fetching parameters with pagination (READ)
-export const fetchParameters = (page = 1) => async (dispatch: AppDispatch) => {
+export const fetchParameters = (page = 1, pageSize= 25) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}?page=${page}`);
+    const response = await axios.get(`${API_URL}?page=${page}&page_size=${pageSize}`);
     const { parameters, currentPage, totalPages } = response.data;
+    
     dispatch(getParameters({ parameters, currentPage, totalPages }));
   } catch (err: any) {
     console.error('Error fetching parameters:', err);
