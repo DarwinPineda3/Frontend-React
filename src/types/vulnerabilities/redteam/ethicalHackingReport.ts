@@ -6,9 +6,12 @@ export interface EHReportType {
   objectives?: string;
   created_date?: Date;
   ehsummaries?: EHSummary;
+  vulnerabilities?: EHVulnerabilityType[];
+  evidences?: EHEvidence[];
 }
 
 export interface EHVulnerabilityType {
+  id:string;
   idReport: string;
   vulnerability?: string;
   description?: string;
@@ -26,7 +29,6 @@ export interface EHVulnerabilityType {
 }
 
 export interface EHEvidence {
-  idReport: string;
   file?: string;
   file_path?: string;
   created_date?: string;
