@@ -34,7 +34,6 @@ const ParameterList = () => {
   const parameters = useSelector((state: any) => state.parametersReducer.parameters);
   const currentPage = useSelector((state: any) => state.parametersReducer.page);
   const totalPages = useSelector((state: any) => state.parametersReducer.totalPages);
-  const pageSize = useSelector((state: any) => state.parametersReducer.pageSize);
   const [editParameter, setEditParameter] = useState<null | any>(null); // State to hold the parameter being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
@@ -57,18 +56,15 @@ const ParameterList = () => {
 
   const handleConfirmDelete = () => {
     if (parameterToDelete) {
-      dispatch(removeParameter(parameterToDelete.id));
+      dispatch(removeParameter(parameterToDelete?.id!));
       setParameterToDelete(null);
       setOpenModal(false);
-      handleFormSubmit(
-        `${t('monitoring.parameter_deleted_successfully')}`,
-        'success',
-      );
+      handleFormSubmit(`${t('monitoring.parameter_deleted_successfully')}`, 'success');
     }
   };
 
   React.useEffect(() => {
-    dispatch(fetchParameters(currentPage, pageSize));
+    dispatch(fetchParameters(currentPage));
   }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -141,39 +137,49 @@ const ParameterList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {parameters.map((parameter: any, index: number) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {parameter.parameter}
+              {parameters.length > 0 ? (
+                parameters.map((parameter: any, index: number) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {parameter.parameter}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                        {t(`monitoring.${parameter.parameter_type.toLowerCase()}`).toUpperCase()}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => handleEditClick(parameter)}
+                      >
+                        {t('monitoring.edit_parameter')}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        sx={{ ml: 2 }}
+                        onClick={() => handleDeleteClick(parameter)}
+                      >
+                        {t('monitoring.delete_parameter')}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4}>
+                    <Typography color="textSecondary" variant="subtitle2" align="center">
+                      {t('monitoring.no_data_available')}
                     </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {t(`monitoring.${parameter.parameter_type.toLowerCase()}`).toUpperCase()}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      onClick={() => handleEditClick(parameter)}
-                    >
-                      {t('monitoring.edit_parameter')}
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      size="small"
-                      sx={{ ml: 2 }}
-                      onClick={() => handleDeleteClick(parameter)}
-                    >
-                      {t('monitoring.delete_parameter')}
-                    </Button>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>
