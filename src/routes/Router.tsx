@@ -53,6 +53,7 @@ import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import Register from 'src/views/authentication/auth/Register';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -196,6 +197,7 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <Login /> },
+      { path: '/auth/register', element: <Register /> },
       { path: '/404', element: <Error /> },
     ],
   },

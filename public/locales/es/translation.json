@@ -889,5 +889,17 @@
     "alertText": "Si no encuentras lo que buscas, puedes",
     "createTicketLinkText": "crear un ticket",
     "copyToClipboardError": "Error al copiar al portapapeles. Intenta nuevamente."
+  },
+  "registerPage": {
+    "title": "Bienvenido a Akila",
+    "subtext": "Tu Panel de Administración",
+    "subtitle": "¿Ya tienes una cuenta?",
+    "signInLink": "Iniciar sesión"
+  },
+  "authRegister": {
+    "signUpWith": "Regístrate con",
+    "orSignUpWith": "o regístrate con",
+    "emailLabel": "Dirección de Correo Electrónico",
+    "signUpButton": "Registrarse"
   }
 }
