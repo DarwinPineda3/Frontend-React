@@ -20,7 +20,7 @@ import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
-  deleteParameter,
+  removeParameter,
   fetchParameters,
   setPage,
 } from 'src/store/sections/cyber-guard/ParametersSlice';
@@ -57,7 +57,7 @@ const ParameterList = () => {
 
   const handleConfirmDelete = () => {
     if (parameterToDelete) {
-      dispatch(deleteParameter(parameterToDelete.id));
+      dispatch(removeParameter(parameterToDelete.id));
       setParameterToDelete(null);
       setOpenModal(false);
       handleFormSubmit(

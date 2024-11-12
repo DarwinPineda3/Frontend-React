@@ -10,7 +10,7 @@ import {
     Autocomplete
 } from '@mui/material';
 import { useDispatch } from 'src/store/Store';
-import { createParameter, updateParameter } from 'src/store/sections/cyber-guard/ParametersSlice';
+import { createParameter, editParameter } from 'src/store/sections/cyber-guard/ParametersSlice';
 import { ParameterCyberGuardType, ParameterTypeChoice } from 'src/types/cyber-guard/parameters/parameter';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -64,7 +64,7 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
       };
 
       if (parameter) {
-        dispatch(updateParameter(newParameter));
+        dispatch(editParameter(newParameter));
         onSubmit(`${t('monitoring.parameter_updated_successfully')}`, 'success');
       } else {
         dispatch(createParameter(newParameter));
