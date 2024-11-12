@@ -83,33 +83,48 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken, refreshToken);
+
+          // TODO: remove
+          const response = await axios.get('/api/account/my-account');
+          const { user } = response.data;
+
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user: null,
+              // user: null,
+              // TODO: replace
+              user,
             },
           });
         } else {
-          try {
-            await handleRefreshToken();
-            dispatch({
-              type: 'INITIALIZE',
-              payload: {
-                isAuthenticated: true,
-                user: null,
-              },
-            });
-          }
-          catch (err) {
-            dispatch({
-              type: 'INITIALIZE',
-              payload: {
-                isAuthenticated: false,
-                user: null,
-              },
-            });
-          }
+          // try {
+          //   await handleRefreshToken();
+          //   dispatch({
+          //     type: 'INITIALIZE',
+          //     payload: {
+          //       isAuthenticated: true,
+          //       user: null,
+          //     },
+          //   });
+          // }
+          // catch (err) {
+          //   dispatch({
+          //     type: 'INITIALIZE',
+          //     payload: {
+          //       isAuthenticated: false,
+          //       user: null,
+          //     },
+          //   });
+          // }
+          // TODO: replace
+          dispatch({
+            type: 'INITIALIZE',
+            payload: {
+              isAuthenticated: false,
+              user: null,
+            },
+          });
         }
       } catch (err) {
         console.error(err);
@@ -126,13 +141,23 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
     initialize();
   }, []);
 
-  const signin = async (username: string, password: string) => {
-    const response = await axios.post('http://zaq12345.localhost:4500/api/token/', {
-      username,
+  // const signin = async (username: string, password: string) => {
+    // const response = await axios.post('http://zaq12345.localhost:4500/api/token/', {
+    //   username,
+    //   password,
+    // });
+    // const { access, refresh, user } = response.data;
+    // setSession(access, refresh);
+
+    // TODO: replace
+  const signin = async (email: string, password: string) => {
+    const response = await axios.post('/api/account/login', {
+      email,
       password,
     });
-    const { access, refresh, user } = response.data;
-    setSession(access, refresh);
+    const { accessToken, user } = response.data;
+    setSession(accessToken, null);
+
     dispatch({
       type: 'LOGIN',
       payload: {

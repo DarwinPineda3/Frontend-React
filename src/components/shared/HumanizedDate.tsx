@@ -1,6 +1,6 @@
+import { formatDistanceToNow, isValid, parseISO } from 'date-fns';
+import { enUS, es } from 'date-fns/locale';
 import React from 'react';
-import { formatDistanceToNow, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { useTranslation } from 'react-i18next';
 
 interface HumanizedDateProps {
@@ -11,13 +11,25 @@ const HumanizedDate: React.FC<HumanizedDateProps> = ({ dateString }) => {
   const { i18n } = useTranslation();
 
   const date = parseISO(dateString);
-  
-  const humanizedDate = formatDistanceToNow(date, { 
-    addSuffix: true, 
-    locale: i18n.language === 'es' ? es : undefined
-  });
 
-  return <span>{humanizedDate}</span>;
+  if (!isValid(date)) {
+    console.error(`Invalid date string: ${dateString}`);
+    return 'Invalid date';
+  }
+
+  const selectedLocale = i18n.language === 'es' ? es : enUS;
+
+  try {
+    const humanizedDate = formatDistanceToNow(date, {
+      addSuffix: true,
+      locale: selectedLocale,
+    });
+
+    return humanizedDate;
+  } catch (error) {
+    console.error('Error formatting the humanized date:', error);
+    return 'Error formatting date';
+  }
 };
 
 export default HumanizedDate;
