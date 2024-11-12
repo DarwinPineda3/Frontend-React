@@ -26,7 +26,7 @@ export const ParametersSlice = createSlice({
   initialState,
   reducers: {
     getParameters: (state, action) => {
-      state.parameters = Array.isArray(action.payload.parameters) ? action.payload.parameters : [];
+      state.parameters = Array.isArray(action.payload.results) ? action.payload.results : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages; 
     },
@@ -54,12 +54,13 @@ export const ParametersSlice = createSlice({
 export const { getParameters, addParameter, updateParameter, deleteParameter, setPage, setError } = ParametersSlice.actions;
 
 // Async thunk for fetching parameters with pagination (READ)
-export const fetchParameters = (page = 1, pageSize= 25) => async (dispatch: AppDispatch) => {
+export const fetchParameters = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}?page=${page}&page_size=${pageSize}`);
-    const { parameters, currentPage, totalPages } = response.data;
-    
-    dispatch(getParameters({ parameters, currentPage, totalPages }));
+    const response = await axios.get(`${API_URL}`);
+    const { results, count } = response.data; // Assuming DRF pagination
+    console.log(response);
+    const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
+    dispatch(getParameters({ results, currentPage: page, totalPages })); // Dispatch to update state
   } catch (err: any) {
     console.error('Error fetching parameters:', err);
     dispatch(setError('Failed to fetch parameters'));
@@ -70,7 +71,7 @@ export const fetchParameters = (page = 1, pageSize= 25) => async (dispatch: AppD
 export const createParameter = (newParameter: ParameterCyberGuardType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(API_URL, newParameter);
-    dispatch(addParameter(response.data.parameter)); // Assuming the server returns the created parameter
+    dispatch(addParameter(response.data));
   } catch (err: any) {
     console.error('Error creating parameter:', err);
     dispatch(setError('Failed to create parameter'));
@@ -80,8 +81,8 @@ export const createParameter = (newParameter: ParameterCyberGuardType) => async 
 // Async thunk for updating an parameter (UPDATE)
 export const editParameter = (updatedParameter: ParameterCyberGuardType) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.put(`${API_URL}/${updatedParameter.id}`, updatedParameter);
-    dispatch(updateParameter(response.data.parameter)); // Assuming the server returns the updated parameter
+    const response = await axios.put(`${API_URL}${updatedParameter.id}/`, updatedParameter);
+    dispatch(updateParameter(response.data)); // Assuming the server returns the updated parameter
   } catch (err: any) {
     console.error('Error updating parameter:', err);
     dispatch(setError('Failed to update parameter'));
@@ -91,7 +92,7 @@ export const editParameter = (updatedParameter: ParameterCyberGuardType) => asyn
 // Async thunk for deleting an parameter (DELETE)
 export const removeParameter = (parameterId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${API_URL}/${parameterId}`);
+    await axios.delete(`${API_URL}${parameterId}/`);
     dispatch(deleteParameter(parameterId));
   } catch (err: any) {
     console.error('Error deleting parameter:', err);
