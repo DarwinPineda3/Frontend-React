@@ -15,6 +15,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { EHVulnerabilityType } from 'src/types/vulnerabilities/redteam/ethicalHackingReport';
+import VulnerabilityModal from './EhVulnerabilityModal';
+
 
 interface EHReportTableListProps {
   vulnerabilities: EHVulnerabilityType[];
@@ -23,10 +25,7 @@ interface EHReportTableListProps {
 const paginated = 10;
 
 const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabilities }) => {
-
-
   const scoreOrder = { "Critical": 1, "High": 2, "Medium": 3, "Low": 4 };
-
   const vulnerabilitiesSorted = [...vulnerabilities].sort((a, b) => scoreOrder[a.risk] - scoreOrder[b.risk]);
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +35,20 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
     setCurrentPage(page);
   };
 
-  // Obtener elementos de la página actual
+  // Estado para la modal
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedVulnerability, setSelectedVulnerability] = useState<EHVulnerabilityType | null>(null);
+
+  const handleOpenModal = (vulnerability: EHVulnerabilityType) => {
+    setSelectedVulnerability(vulnerability);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedVulnerability(null);
+    setOpenModal(false);
+  };
+
   const vuls = vulnerabilitiesSorted.slice(
     (currentPage - 1) * paginated,
     currentPage * paginated
@@ -45,11 +57,8 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
   const theme = useTheme();
   const { high, medium, low, critical } = theme.palette.level;
 
-
   return (
-    <DashboardCard
-      title="Vulnerabilities" // Translate
-    >
+    <DashboardCard title={t("redteam.vulnerabilities")}>
       <Box>
         <TableContainer>
           <Table aria-label="vulnerabilities table" sx={{ whiteSpace: 'nowrap' }}>
@@ -94,7 +103,7 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
                       fontWeight={600}
                       color="primary"
                       component="a"
-                      // onClick={() => onEHReportClick(vuln.id)} // modal
+                      onClick={() => handleOpenModal(vuln)}
                       style={{ cursor: 'pointer' }}
                     >
                       {vuln.vulnerability}
@@ -119,7 +128,6 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
                           color: '#fff',
                         }}
                       />
-
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -128,7 +136,6 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
                   <TableCell>
                     <Typography fontWeight={400}>{vuln.host}</Typography>
                   </TableCell>
-
                 </TableRow>
               ))}
             </TableBody>
@@ -143,6 +150,12 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
           />
         </Box>
       </Box>
+
+      <VulnerabilityModal
+        open={openModal}
+        vulnerabilityData={selectedVulnerability}
+        handleClose={handleCloseModal}
+      />
     </DashboardCard>
   );
 };

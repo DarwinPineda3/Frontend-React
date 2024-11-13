@@ -817,7 +817,15 @@
     "vulnerability": "Vulnerability",
     "risk": "Risk",
     "port": "Port",
-    "host": "Host"
+    "host": "Host",
+    "description": "Description",
+    "affected_components": "Affected Components",
+    "solution": "Solution",
+    "cvss_score": "CVSS Score",
+    "risk_level": "Risk Level",
+    "impact": "Impact",
+    "probability_of_occurrence": "Probability of Occurrence",
+    "exploitable": "Exploitable"
   },
   "installation_guide": {
     "title": "Installation Guide",
