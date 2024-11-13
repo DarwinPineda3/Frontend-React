@@ -1,6 +1,7 @@
 import { useTheme } from '@mui/material';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
 
 interface RiskBarChartProps {
   contLow: number;
@@ -14,6 +15,7 @@ interface RiskBarChartProps {
 
 const RiskConsolidateChart: React.FC<RiskBarChartProps> = ({ contLow, contMedium, contHigh, contCritical, contInfo }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { high, medium, low, critical, info } = theme.palette.level;
   const chartOptions = {
     chart: {
@@ -29,7 +31,12 @@ const RiskConsolidateChart: React.FC<RiskBarChartProps> = ({ contLow, contMedium
       enabled: false,
     },
     xaxis: {
-      categories: ['Low', 'Medium', 'High', 'Critical', 'Info'], //translate
+      categories: [t("redteam.low"),
+      t("redteam.medium"),
+      t("redteam.high"),
+      t("redteam.critical"),
+      t("redteam.info")],
+
     },
     colors: [low, medium, high, critical, info],
   };
@@ -45,7 +52,7 @@ const RiskConsolidateChart: React.FC<RiskBarChartProps> = ({ contLow, contMedium
       options={chartOptions}
       series={chartSeries}
       type="bar"
-      height={350}
+      height={300}
     />
   );
 };

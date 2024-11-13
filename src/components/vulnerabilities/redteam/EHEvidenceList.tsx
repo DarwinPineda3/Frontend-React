@@ -67,7 +67,7 @@ const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
 
   return (
     <DashboardCard
-      title="Vulnerabilities" // Translate
+      title={t("redteam.vulnerabilities")}
     >
       <Box>
         <TableContainer>
@@ -76,17 +76,17 @@ const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Id //Translate
+                  {t("redteam.id")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    File //Translate
+                  {t("redteam.file")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Actions //Translate
+                  {t("redteam.actions")}
                   </Typography>
                 </TableCell>
               </TableRow>

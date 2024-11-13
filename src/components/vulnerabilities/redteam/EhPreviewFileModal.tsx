@@ -45,7 +45,7 @@ const PreviewFileModal: React.FC<PreviewFileModalProps> = ({
       >
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h6">
-            {t('monitoring.preview_file')}
+            {t("redteam.preview_file")}
           </Typography>
           <IconButton onClick={handleClose}>
             <CloseIcon />
@@ -78,7 +78,7 @@ const PreviewFileModal: React.FC<PreviewFileModalProps> = ({
           ) : fileType === 'image' ? (
             <img src={filePath || ''} alt="Preview" style={{ maxWidth: '100%', maxHeight: '500px' }} />
           ) : (
-            <Typography>{t('File format not supported for preview.')}</Typography>
+            <Typography>{t('redteam.file_format_not_supported_for_preview')}</Typography>
           )}
         </Box>
       </Box>

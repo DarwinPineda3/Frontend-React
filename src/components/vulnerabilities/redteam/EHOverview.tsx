@@ -71,15 +71,15 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
           <Grid item xs={12} xl={12}>
             <Breadcrumb title={ehReport.name}> {/* // translate */}
               <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-                <Chip label={`Objetives: ${ehReport.objectives}`} color="secondary" variant="outlined" />
-                <Chip label={`Start date: ${ehReport.start_date_report}`} color="info" variant="outlined" />
-                <Chip label={`End date: ${ehReport.end_date_report}`} color="primary" variant="outlined" />
+                <Chip label={`${t("redteam.objectives")}: ${ehReport.objectives}`} color="secondary" variant="outlined" />
+                <Chip label={`${t("redteam.start_date")}: ${ehReport.start_date_report}`} color="info" variant="outlined" />
+                <Chip label={`${t("redteam.end_date")}: ${ehReport.end_date_report}`} color="primary" variant="outlined" />
               </Box>
             </Breadcrumb>
           </Grid>
           <Grid item xs={12} xl={6}>
             <DashboardCard
-              title="Baseline Information" //translate
+              title={t("redteam.baseline_information")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
@@ -94,20 +94,20 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Start date  {/* // translate */}
+                    {t("redteam.start_date")}
                   </Typography>
                   <Typography variant="body2">{ehReport.start_date_report}</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    End date  {/* // translate */}
+                    {t("redteam.end_date")}
                   </Typography>
                   <Typography variant="body2">{ehReport.end_date_report}</Typography>
                 </Box>
 
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Objetives  {/* // translate */}
+                    {t("redteam.objectives")}
                   </Typography>
                   <Typography variant="body2">{ehReport.objectives}</Typography>
                 </Box>
@@ -118,7 +118,7 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
-              title="Report Summary" //translate
+              title={t("redteam.report_summary")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
@@ -133,13 +133,13 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Ethical hacking tab  {/* // translate */}
+                    {t("redteam.ethical_hacking_tab")}
                   </Typography>
                   <Typography variant="body2">Sección del informe que contiene los resultados técnicos y el resumen ejecutivo.</Typography>  {/* // translate */}
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Evidence tab  {/* // translate */}
+                    {t("redteam.evidence_tab")}
                   </Typography>
                   <Typography variant="body2">Contenedor de todos los anexos informativos y de soporte sobre las pruebas realizadas.</Typography>  {/* // translate */}
                 </Box>
@@ -151,7 +151,7 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
-              title="Risk Exposure Level" //translate
+              title={t("redteam.risk_exposure_level")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '250px' }}>
                 <EHRiskExposureLevelChart riskExposureLevel={ehReport.ehsummaries?.risk_exposure_level!} />
@@ -161,7 +161,7 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
-              title="Evaluation result" //translate
+              title={t("redteam.evaluation_result")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '250px' }}>
                 <Box>
@@ -176,13 +176,13 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Comments  {/* // translate */}
+                    {t("redteam.comments")}
                   </Typography>
                   <Typography variant="body2">{ehReport.ehsummaries.comments}</Typography>  {/* // translate */}
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Description of the tests  {/* // translate */}
+                    {t("redteam.description_of_the_tests")}
                   </Typography>
                   <Typography variant="body2">{ehReport.ehsummaries.description_tests}</Typography>  {/* // translate */}
                 </Box>
@@ -192,7 +192,7 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
-              title="Risk Consolidation" //translate
+              title={t("redteam.risk_consolidation")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '350px', maxHeight: '350px' }}>
                 <RiskConsolidateChart
@@ -206,7 +206,7 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
-              title="Matrix of Unique Vulnerabilities" //translate
+              title={t("redteam.matrix_of_unique_vulnerabilities")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '350px' }}>
                 {/* <HeatmapChart></HeatmapChart> */}
@@ -217,7 +217,7 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={12}>
             <DashboardCard
-              title="Conclusions" //translate
+              title={t("redteam.conclusions")}
             >
               <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
                 <Box>
@@ -232,33 +232,33 @@ const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Conclusion #1  {/* // translate */}
+                    {t("redteam.conclusion")} #1 
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries?.first_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.first_conclusion}</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Conclusion #2  {/* // translate */}
+                    {t("redteam.conclusion")} #2
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries?.second_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.second_conclusion}</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Conclusion #3  {/* // translate */}
+                    {t("redteam.conclusion")} #3 
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries?.third_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.third_conclusion}</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Conclusion #4  {/* // translate */}
+                    {t("redteam.conclusion")} #4 
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries?.fourth_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.fourth_conclusion}</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Conclusion #5  {/* // translate */}
+                    {t("redteam.conclusion")} #5
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries?.fifth_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.fifth_conclusion}</Typography>
                 </Box>
               </Box>
             </DashboardCard>

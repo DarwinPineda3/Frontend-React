@@ -22,7 +22,6 @@ interface EHReportTableListProps {
 
 const paginated = 10;
 
-// const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = (vulnerabilities) => {
 const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabilities }) => {
 
 
@@ -58,27 +57,27 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Id //Translate
+                    {t("redteam.id")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Vulnerability //Translate
+                    {t("redteam.vulnerability")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Risk //Translate
+                    {t("redteam.risk")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Port //Translate
+                    {t("redteam.port")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Host //Translate
+                    {t("redteam.host")}
                   </Typography>
                 </TableCell>
               </TableRow>

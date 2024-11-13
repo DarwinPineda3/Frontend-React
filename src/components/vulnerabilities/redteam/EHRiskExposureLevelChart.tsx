@@ -1,16 +1,17 @@
 import { useTheme } from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
 
 const EHRiskExposureLevelChart = ({ riskExposureLevel }) => {
-
+  const { t } = useTranslation();
   const theme = useTheme();
-  const { high, medium, low, critical, unknown, none, info } = theme.palette.level;
+  const { high, medium, low } = theme.palette.level;
 
-  let label = 'Bajo'; //translate
+  let label = t("redteam.low"); //translate
   if (riskExposureLevel >= 4 && riskExposureLevel <= 6.9) {
-    label = 'Medio'; //translate
+    label = t("redteam.medium"); //translate
   } else if (riskExposureLevel >= 7) {
-    label = 'Alto'; //translate
+    label = t("redteam.high"); //translate
   }
 
   const options = {
@@ -25,7 +26,7 @@ const EHRiskExposureLevelChart = ({ riskExposureLevel }) => {
         track: {
           background: '#e7e7e7',
           strokeWidth: '97%',
-          margin: 5,
+          margin: 2,
         },
         dataLabels: {
           name: {
@@ -33,7 +34,6 @@ const EHRiskExposureLevelChart = ({ riskExposureLevel }) => {
             fontSize: '16px',
             color: '#000',
             offsetY: -10,
-            text: 'Risk Exposure Level',
           },
           value: {
             fontSize: '24px',
@@ -49,9 +49,9 @@ const EHRiskExposureLevelChart = ({ riskExposureLevel }) => {
     },
     colors: [
       function ({ value }) {
-        if (value <= 39) return low; // Bajo
-        if (value <= 69) return medium; // Medio
-        return high; // Alto
+        if (value <= 39) return low;
+        if (value <= 69) return medium;
+        return high;
       },
     ],
     labels: [label],

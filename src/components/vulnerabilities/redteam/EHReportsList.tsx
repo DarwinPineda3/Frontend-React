@@ -24,7 +24,6 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
   const ehReports = useSelector((state: any) => state.ehReportsReducer.ehReports);
   const currentPage = useSelector((state: any) => state.ehReportsReducer.page);
   const totalPages = useSelector((state: any) => state.ehReportsReducer.totalPages);
-  const [snackbarName, setSnackbarName] = useState('');
   const { t } = useTranslation();
 
   React.useEffect(() => {
