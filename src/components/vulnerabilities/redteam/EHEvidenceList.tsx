@@ -101,8 +101,8 @@ const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
                     <Typography>{evidence.file}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography fontWeight={400} onClick={() => handleOpenModal(evidence?.file_path)} style={{ cursor: 'pointer' }}>
-                        {getFileIcon(evidence?.file_path)} 
+                    <Typography onClick={() => handleOpenModal(evidence?.file_path || '')} style={{ cursor: 'pointer' }}>
+                      {getFileIcon(evidence?.file_path || '')}
                     </Typography>
                   </TableCell>
                 </TableRow>

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import EHEvidencesList from 'src/components/vulnerabilities/redteam/EHEvidenceList';
-import EHReportDetail from 'src/components/vulnerabilities/redteam/EHReportDetail';
+import EHOverview from 'src/components/vulnerabilities/redteam/EHOverview';
 import EHVulnerabilitiesList from 'src/components/vulnerabilities/redteam/EHVulnerabilitiesList';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchEHReportById } from "src/store/vulnerabilities/redteam/EthicalHackingReportSlice";
@@ -27,7 +27,7 @@ const EHReportDetails = () => {
       icon: <GlobeIcon />,
       label: `Overview`, // translate
       disabled: false,
-      content: <EHReportDetail ehReport={ehReport} />,
+      content: <EHOverview ehReport={ehReport} />,
     },
     {
       value: 'vulnerabilities',

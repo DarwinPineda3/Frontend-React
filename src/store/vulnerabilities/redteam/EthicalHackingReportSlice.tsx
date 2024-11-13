@@ -107,8 +107,7 @@ export const removeEHReport = (id: string) => async (dispatch: AppDispatch) => {
 export const fetchEHReportById = (ehReportId: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${DETAIL_API_URL}/${ehReportId}`);
-    console.log(response.data.ehReport);
-    
+
     if (response.status === 200) {
       dispatch(getEHReport({ data: response.data.ehReport }));
     } else {

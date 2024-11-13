@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
-import { EHReportType } from 'src/types/vulnerabilities/redteam/ethicalHackingReport';
+import { EHReportType, EHVulnerabilityType } from 'src/types/vulnerabilities/redteam/ethicalHackingReport';
 import EHMatrixVulnerabilities from './EHMatrixVulnerabilities';
+import RiskConsolidateChart from './EHRiskConsolidateChart';
 import EHRiskExposureLevelChart from './EHRiskExposureLevelChart';
 
-const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
+const EHOverview: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
   const { t } = useTranslation();
 
   let riskMatrizData = ehReport?.ehsummaries
-  ? [
+    ? [
       ehReport.ehsummaries.matriz_low_low!,
       ehReport.ehsummaries.matriz_low_medium,
       ehReport.ehsummaries.matriz_low_high,
@@ -23,7 +24,42 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
       ehReport.ehsummaries.matriz_high_medium,
       ehReport.ehsummaries.matriz_high_high
     ]
-  : [];
+    : [];
+
+
+  function generateCounters(vulnerabilities: EHVulnerabilityType[] = []): number[] {
+    let contLow = 0;
+    let contMedium = 0;
+    let contHigh = 0;
+    let contCritical = 0;
+    let contInfo = 0;
+
+    vulnerabilities.forEach((vulnerability) => {
+      const risk = vulnerability.risk?.toLowerCase();
+      switch (risk) {
+        case "low":
+          contLow++;
+          break;
+        case "medium":
+          contMedium++;
+          break;
+        case "high":
+          contHigh++;
+          break;
+        case "critical":
+          contCritical++;
+          break;
+        case "info":
+          contInfo++;
+          break;
+      }
+    });
+
+    return [contLow, contMedium, contHigh, contCritical, contInfo];
+  }
+  const [contLow, contMedium, contHigh, contCritical, contInfo] = generateCounters(
+    ehReport?.vulnerabilities || []
+  );
 
   return (
     <Grid container spacing={1}>
@@ -111,11 +147,13 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             </DashboardCard>
           </Grid>
 
+
+
           <Grid item xs={12} xl={6}>
             <DashboardCard
               title="Risk Exposure Level" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '250px' }}>
                 <EHRiskExposureLevelChart riskExposureLevel={ehReport.ehsummaries?.risk_exposure_level!} />
               </Box>
             </DashboardCard>
@@ -125,7 +163,7 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
             <DashboardCard
               title="Evaluation result" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '250px' }}>
                 <Box>
                   <Stack
                     direction="row"
@@ -154,16 +192,30 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
 
           <Grid item xs={12} xl={6}>
             <DashboardCard
+              title="Risk Consolidation" //translate
+            >
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '350px', maxHeight: '350px' }}>
+                <RiskConsolidateChart
+                  contLow={contLow} contMedium={contMedium}
+                  contHigh={contHigh} contCritical={contCritical}
+                  contInfo={contInfo}
+                />
+              </Box>
+            </DashboardCard>
+          </Grid>
+
+          <Grid item xs={12} xl={6}>
+            <DashboardCard
               title="Matrix of Unique Vulnerabilities" //translate
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '350px' }}>
                 {/* <HeatmapChart></HeatmapChart> */}
                 <EHMatrixVulnerabilities matrixRequest={riskMatrizData} />
               </Box>
             </DashboardCard>
           </Grid>
 
-          <Grid item xs={12} xl={6}>
+          <Grid item xs={12} xl={12}>
             <DashboardCard
               title="Conclusions" //translate
             >
@@ -182,31 +234,31 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
                   <Typography variant="subtitle2" fontWeight={600}>
                     Conclusion #1  {/* // translate */}
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries.first_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.first_conclusion}</Typography>  {/* // translate */}
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     Conclusion #2  {/* // translate */}
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries.second_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.second_conclusion}</Typography>  {/* // translate */}
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     Conclusion #3  {/* // translate */}
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries.third_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.third_conclusion}</Typography>  {/* // translate */}
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     Conclusion #4  {/* // translate */}
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries.fourth_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.fourth_conclusion}</Typography>  {/* // translate */}
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     Conclusion #5  {/* // translate */}
                   </Typography>
-                  <Typography variant="body2">{ehReport.ehsummaries.fifth_conclusion}</Typography>  {/* // translate */}
+                  <Typography variant="body2">{ehReport.ehsummaries?.fifth_conclusion}</Typography>  {/* // translate */}
                 </Box>
               </Box>
             </DashboardCard>
@@ -218,4 +270,4 @@ const EHReportDetail: React.FC<{ ehReport: EHReportType }> = ({ ehReport }) => {
   );
 };
 
-export default EHReportDetail;
+export default EHOverview;
