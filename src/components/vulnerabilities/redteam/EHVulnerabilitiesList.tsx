@@ -20,20 +20,15 @@ interface EHReportTableListProps {
   vulnerabilities: EHVulnerabilityType[];
 }
 
-const paginated = 5;
+const paginated = 10;
 
-const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = (vulnerabilities) => {
+// const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = (vulnerabilities) => {
+const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabilities }) => {
+
 
   const scoreOrder = { "Critical": 1, "High": 2, "Medium": 3, "Low": 4 };
 
-  // const vulnerabilitiesSorted = [...vulnerabilities].sort((a, b) => scoreOrder[a.risk] - scoreOrder[b.risk]);
-  const vulnerabilitiesArray = Array.isArray(vulnerabilities) 
-  ? vulnerabilities 
-  : Object.values(vulnerabilities);
-
-const vulnerabilitiesSorted = [...vulnerabilitiesArray].sort(
-  (a, b) => scoreOrder[a.risk] - scoreOrder[b.risk]
-);
+  const vulnerabilitiesSorted = [...vulnerabilities].sort((a, b) => scoreOrder[a.risk] - scoreOrder[b.risk]);
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(vulnerabilities.length / paginated);

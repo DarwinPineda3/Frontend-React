@@ -206,52 +206,52 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
       {
         file: "report_2.pdf",
-        file_path: "/evidences/reports/report_2.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-04",
       },
       {
         file: "vulnerability_screenshot.png",
-        file_path: "/evidences/screenshots/vulnerability_screenshot.png",
+        file_path: "https://www.vpnmentor.com/wp-content/uploads/2024/06/4-autoresized86X.png",
         created_date: "2024-11-05",
       },
       {
         file: "report_summary.pdf",
-        file_path: "/evidences/reports/report_summary.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-06",
       },
       {
         file: "network_map.jpg",
-        file_path: "/evidences/images/network_map.jpg",
+        file_path: "https://ars.els-cdn.com/content/image/1-s2.0-S2667345223000238-gr3.jpg",
         created_date: "2024-11-07",
       },
       {
         file: "error_details.pdf",
-        file_path: "/evidences/reports/error_details.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-08",
       },
       {
         file: "evidence_capture.png",
-        file_path: "/evidences/screenshots/evidence_capture.png",
+        file_path: "https://www.vpnmentor.com/wp-content/uploads/2024/06/6-autoresized86X.png",
         created_date: "2024-11-09",
       },
       {
         file: "final_report.pdf",
-        file_path: "/evidences/reports/final_report.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-10",
       },
     ]
@@ -373,17 +373,17 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "final_report.pdf",
-        file_path: "/evidences/reports/final_report.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-10",
       },
     ]
@@ -504,27 +504,27 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
       {
         file: "report_2.pdf",
-        file_path: "/evidences/reports/report_2.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-04",
       },
       {
         file: "vulnerability_screenshot.png",
-        file_path: "/evidences/screenshots/vulnerability_screenshot.png",
+        file_path: "https://www.vpnmentor.com/wp-content/uploads/2024/06/4-autoresized86X.png",
         created_date: "2024-11-05",
       },
     ]
@@ -662,12 +662,12 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "evidence_capture.png",
-        file_path: "/evidences/screenshots/evidence_capture.png",
+        file_path: "https://www.vpnmentor.com/wp-content/uploads/2024/06/6-autoresized86X.png",
         created_date: "2024-11-09",
       },
       {
         file: "final_report.pdf",
-        file_path: "/evidences/reports/final_report.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-10",
       },
     ]
@@ -805,27 +805,27 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
       {
         file: "report_2.pdf",
-        file_path: "/evidences/reports/report_2.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-04",
       },
       {
         file: "final_report.pdf",
-        file_path: "/evidences/reports/final_report.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-10",
       },
     ]
@@ -896,7 +896,7 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
     ]
@@ -950,18 +950,18 @@ const ehReports: EHReportType[] = [
 
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
 
       {
         file: "network_map.jpg",
-        file_path: "/evidences/images/network_map.jpg",
+        file_path: "https://ars.els-cdn.com/content/image/1-s2.0-S2667345223000238-gr3.jpg",
         created_date: "2024-11-07",
       },
     ]
@@ -1101,37 +1101,37 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
       {
         file: "network_map.jpg",
-        file_path: "/evidences/images/network_map.jpg",
+        file_path: "https://ars.els-cdn.com/content/image/1-s2.0-S2667345223000238-gr3.jpg",
         created_date: "2024-11-07",
       },
       {
         file: "error_details.pdf",
-        file_path: "/evidences/reports/error_details.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-08",
       },
       {
         file: "evidence_capture.png",
-        file_path: "/evidences/screenshots/evidence_capture.png",
+        file_path: "https://www.vpnmentor.com/wp-content/uploads/2024/06/6-autoresized86X.png",
         created_date: "2024-11-09",
       },
       {
         file: "final_report.pdf",
-        file_path: "/evidences/reports/final_report.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-10",
       },
     ]
@@ -1186,32 +1186,32 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
       {
         file: "report_2.pdf",
-        file_path: "/evidences/reports/report_2.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-04",
       },
       {
         file: "evidence_capture.png",
-        file_path: "/evidences/screenshots/evidence_capture.png",
+        file_path: "https://www.vpnmentor.com/wp-content/uploads/2024/06/6-autoresized86X.png",
         created_date: "2024-11-09",
       },
       {
         file: "final_report.pdf",
-        file_path: "/evidences/reports/final_report.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-10",
       },
     ]
@@ -1333,17 +1333,17 @@ const ehReports: EHReportType[] = [
     evidences: [
       {
         file: "report_1.pdf",
-        file_path: "/evidences/reports/report_1.pdf",
+        file_path: "https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
         created_date: "2024-11-01",
       },
       {
         file: "screenshot_01.png",
-        file_path: "/evidences/screenshots/screenshot_01.png",
+        file_path: "https://innovationatwork.ieee.org/wp-content/uploads/2022/06/bigstock-Certified-Ethical-Hacker-Ceh-416158993_1024X684.png",
         created_date: "2024-11-02",
       },
       {
         file: "diagram_1.jpg",
-        file_path: "/evidences/images/diagram_1.jpg",
+        file_path: "https://focus.namirial.com/en/wp-content/uploads/sites/4/2022/10/ethical-hacker-1024x683.jpg",
         created_date: "2024-11-03",
       },
     ]

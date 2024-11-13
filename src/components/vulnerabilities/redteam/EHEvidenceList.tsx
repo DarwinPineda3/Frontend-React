@@ -16,18 +16,21 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { EHEvidence } from 'src/types/vulnerabilities/redteam/ethicalHackingReport';
+import PreviewFileModal from './EhPreviewFileModal';
 
 interface EHReportTableListProps {
   evidences: any;
 }
 
-const paginated = 5;
+const paginated = 10;
 
 const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
 
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(evidences.length / paginated);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -51,6 +54,15 @@ const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
       default:
         return <InsertDriveFileIcon color="action" />;
     }
+  };
+  const handleOpenModal = (filePath: string) => {
+    setSelectedFile(filePath);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedFile(null);
+    setOpenModal(false);
   };
 
   return (
@@ -86,12 +98,12 @@ const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
                     <Typography fontWeight={400}>{index + 1}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography>
-                      {evidence.file}
-                    </Typography>
+                    <Typography>{evidence.file}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography fontWeight={400}>{getFileIcon(evidence.file_path)}</Typography>
+                    <Typography fontWeight={400} onClick={() => handleOpenModal(evidence?.file_path)} style={{ cursor: 'pointer' }}>
+                        {getFileIcon(evidence?.file_path)} 
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}
@@ -107,6 +119,11 @@ const EHEvidencesList: React.FC<EHReportTableListProps> = ({ evidences }) => {
           />
         </Box>
       </Box>
+      <PreviewFileModal
+        open={openModal}
+        filePath={selectedFile}
+        handleClose={handleCloseModal}
+      />
     </DashboardCard>
   );
 };

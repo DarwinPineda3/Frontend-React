@@ -6,7 +6,7 @@ export interface EHReportType {
   objectives?: string;
   created_date?: Date;
   ehsummaries?: EHSummary;
-  vulnerabilities?: EHVulnerabilityType[];
+  vulnerabilities: EHVulnerabilityType[];
   evidences?: EHEvidence[];
 }
 
