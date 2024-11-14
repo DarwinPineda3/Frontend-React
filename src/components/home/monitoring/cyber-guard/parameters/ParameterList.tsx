@@ -20,7 +20,7 @@ import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
-  deleteParameter,
+  removeParameter,
   fetchParameters,
   setPage,
 } from 'src/store/sections/cyber-guard/ParametersSlice';
@@ -56,13 +56,10 @@ const ParameterList = () => {
 
   const handleConfirmDelete = () => {
     if (parameterToDelete) {
-      dispatch(deleteParameter(parameterToDelete.id));
+      dispatch(removeParameter(parameterToDelete?.id!));
       setParameterToDelete(null);
       setOpenModal(false);
-      handleFormSubmit(
-        `${t('monitoring.parameter_deleted_successfully')}`,
-        'success',
-      );
+      handleFormSubmit(`${t('monitoring.parameter_deleted_successfully')}`, 'success');
     }
   };
 
@@ -140,39 +137,49 @@ const ParameterList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {parameters.map((parameter: any, index: number) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {parameter.parameter}
+              {parameters.length > 0 ? (
+                parameters.map((parameter: any, index: number) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {parameter.parameter}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                        {t(`monitoring.${parameter.parameter_type.toLowerCase()}`).toUpperCase()}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => handleEditClick(parameter)}
+                      >
+                        {t('monitoring.edit_parameter')}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        sx={{ ml: 2 }}
+                        onClick={() => handleDeleteClick(parameter)}
+                      >
+                        {t('monitoring.delete_parameter')}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4}>
+                    <Typography color="textSecondary" variant="subtitle2" align="center">
+                      {t('monitoring.no_data_available')}
                     </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {t(`monitoring.${parameter.parameter_type.toLowerCase()}`).toUpperCase()}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      onClick={() => handleEditClick(parameter)}
-                    >
-                      {t('monitoring.edit_parameter')}
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      size="small"
-                      sx={{ ml: 2 }}
-                      onClick={() => handleDeleteClick(parameter)}
-                    >
-                      {t('monitoring.delete_parameter')}
-                    </Button>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>

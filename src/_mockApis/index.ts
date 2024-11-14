@@ -11,4 +11,5 @@ import './monitoring/mobile-app/appScan'
 import './vulnerabilities/Summary';
 import './vulnerabilities/Management';
 import './monitoring/soc/Newsletter';
+import './vulnerabilities/redteam/ehReports'
 mock.onAny().passThrough();
