@@ -52,6 +52,8 @@ import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
+import EHReport from 'src/views/vulnerabilities/redteam/EHReport';
+import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
 import Register from 'src/views/authentication/auth/Register';
 
@@ -111,6 +113,8 @@ const Router = [
 
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities /> },
       { path: '/vulnerabilities/management', element: <ManagementVulnerabilities /> },
+      { path: '/vulnerabilities/redteam', element: <EHReport /> },
+      { path: '/vulnerabilities/redteam/:ehReportId', element: <EHReportDetail /> },
       { path: '/vulnerabilities/management/detail/:id', element: <ManagedVulnerabilitiesDetail /> },
       { path: '/vulnerabilities/management/form/:id', element: <ManagedVulnerabilitiesForm /> },
 
