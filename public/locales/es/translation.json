@@ -944,5 +944,12 @@
     "orSignUpWith": "o regístrate con",
     "emailLabel": "Dirección de Correo Electrónico",
     "signUpButton": "Registrarse"
+  },
+  "authTwoSteps": {
+    "title": "Escribe tu código de seguridad de 6 dígitos",
+    "verifyButton": "Verificar mi cuenta",
+    "didntGetCode": "¿No recibiste el código?",
+    "resend": "Reenviar"
   }
+
 }

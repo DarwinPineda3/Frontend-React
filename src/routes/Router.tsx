@@ -201,7 +201,7 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <Login /> },
-      { path: '/auth/register', element: <Register /> },
+      { path: '/auth/signup', element: <Register /> },
       { path: '/404', element: <Error /> },
     ],
   },

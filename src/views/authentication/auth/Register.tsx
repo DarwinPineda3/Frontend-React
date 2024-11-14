@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Box, Typography, Stack } from '@mui/material';
@@ -12,12 +10,12 @@ import Logo from 'src/layouts/full/shared/logo/Logo';
 import AuthRegister from '../authForms/AuthRegister';
 
 const Register = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   return (
     <PageContainer
-      title={t('registerPage.title') ?? 'Default Title'} 
-      description={t('registerPage.subtext') ?? 'Default Description'}
+      title={String(t('registerPage.title'))} 
+      description={String(t('registerPage.subtext'))} 
     >
       <Grid container spacing={0} justifyContent="center" sx={{ overflowX: 'hidden' }}>
         <Grid
@@ -78,16 +76,16 @@ const Register = () => {
         >
           <Box p={4}>
             <AuthRegister
-              title={t('registerPage.title') ?? 'Default Title'} 
+              title={String(t('registerPage.title'))} 
               subtext={
                 <Typography variant="subtitle1" color="textSecondary" mb={1}>
-                  {t('registerPage.subtext') ?? 'Your Admin Dashboard'} 
+                  {String(t('registerPage.subtext'))}  
                 </Typography>
               }
               subtitle={
                 <Stack direction="row" spacing={1} mt={3}>
                   <Typography color="textSecondary" variant="h6" fontWeight="400">
-                    {t('registerPage.subtitle') ?? 'Already have an Account?'} 
+                    {String(t('registerPage.subtitle'))} 
                   </Typography>
                   <Typography
                     component={Link}
@@ -98,7 +96,7 @@ const Register = () => {
                       color: 'primary.main',
                     }}
                   >
-                    {t('registerPage.signInLink') ?? 'Sign In'} 
+                    {String(t('registerPage.signInLink'))}
                   </Typography>
                 </Stack>
               }

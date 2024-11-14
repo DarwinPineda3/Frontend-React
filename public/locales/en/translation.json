@@ -945,6 +945,12 @@
     "orSignUpWith": "or sign up with",
     "emailLabel": "Email Address",
     "signUpButton": "Sign Up"
+  },
+  "authTwoSteps": {
+    "title": "Type your 6 digits security code",
+    "verifyButton": "Verify My Account",
+    "didntGetCode": "Didn't get the code?",
+    "resend": "Resend"
   }
   
 }
