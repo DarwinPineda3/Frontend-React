@@ -27,6 +27,7 @@ import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 //vulnerabilities
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
+import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
 
 import {
   TypedUseSelectorHook,
@@ -61,6 +62,7 @@ export const store = configureStore({
     appScansReducer: AppScansReducer,
     summaryVulnReducer: SummaryVulnReducer,
     newsLettersReducer: NewsLettersReducer,
+    ehReportsReducer: EHReportsReducer,
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
   },
@@ -79,6 +81,7 @@ const rootReducer = combineReducers({
   appScansReducer: AppScansReducer,
   summaryVulnReducer: SummaryVulnReducer,
   newsLettersReducer: NewsLettersReducer,
+  ehReportsReducer: EHReportsReducer,
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
 });

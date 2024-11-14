@@ -27,7 +27,8 @@ import {
   IconSpy,
   IconSquaresFilled,
   IconTicket,
-  IconUserBolt
+  IconUserBolt,
+  IconUserShield
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -110,6 +111,12 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.management', // Translation key for title
     href: '/vulnerabilities/management',
     icon: IconUserBolt,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.redteam', // Translation key for title
+    href: '/vulnerabilities/redteam',
+    icon: IconUserShield,
   },
   {
     navlabel: true,
