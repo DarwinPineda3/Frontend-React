@@ -7,9 +7,7 @@ import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
 const API_URL = '/api/data/monitoring/cyber-guard/monitoring';
-const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/monitoring';
-const API_URL_MONITORING =
-  'http://akilalocal.localhost:4500/api/monitoring/cyber-guard/monitoring/';
+const API_URL_MONITORING = 'http://akilalocal.localhost:4500/api/monitoring/cyber-guard/monitoring';
 
 interface StateType {
   brandMonitoringData: BrandMonitoringDataType[];
@@ -85,7 +83,7 @@ export const fetchBrandMonitoringData =
 
 export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${DETAIL_API_URL}/${id}`);
+    const response = await axios.get(`${API_URL_MONITORING}/${id}`);
 
     if (response.status === 200) {
       dispatch(getBrandMonitoringDetail({ data: response.data }));
