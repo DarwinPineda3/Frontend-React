@@ -932,5 +932,14 @@
     "alertText": "Si no encuentras lo que buscas, puedes",
     "createTicketLinkText": "crear un ticket",
     "copyToClipboardError": "Error al copiar al portapapeles. Intenta nuevamente."
+  },
+  "forgotPassword": {
+    "title": "¿Olvidaste tu contraseña?",
+    "description": "Por favor ingresa la dirección de correo electrónico asociada con tu cuenta y te enviaremos un enlace para restablecer tu contraseña."
+  },
+  "authForgotPassword": {
+    "emailLabel": "Dirección de Correo Electrónico",
+    "forgotPasswordButton": "Has olvidado tu contraseña",
+    "backToLoginButton": "Volver al Inicio de Sesión"
   }
 }

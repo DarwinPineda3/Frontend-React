@@ -933,5 +933,14 @@
     "alertText": "If you can't find what you're looking for, you can",
     "createTicketLinkText": "create a ticket",
     "copyToClipboardError": "Error copying to clipboard. Please try again."
+  },
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "description": "Please enter the email address associated with your account and we will email you a link to reset your password."
+  },
+  "authForgotPassword": {
+    "emailLabel": "Email Address",
+    "forgotPasswordButton": "Forgot Password",
+    "backToLoginButton": "Back to Login"
   }
 }

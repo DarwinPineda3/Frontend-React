@@ -55,6 +55,7 @@ import Loadable from '../layouts/full/shared/loadable/Loadable';
 import EHReport from 'src/views/vulnerabilities/redteam/EHReport';
 import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -201,6 +202,7 @@ const Router = [
     children: [
       { path: '/auth/login', element: <Login /> },
       { path: '/404', element: <Error /> },
+      { path: '/auth/forgot-password', element: <ForgotPassword /> },
     ],
   },
   { path: '*', element: <Navigate to="/404" /> },
