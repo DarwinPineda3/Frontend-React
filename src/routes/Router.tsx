@@ -18,6 +18,8 @@ import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 // import SIEMMonitoring from 'src/views/monitoring/SIEM';
+import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
+import Register from 'src/views/authentication/auth/Register';
 import MobileApp from 'src/views/monitoring/mobile-app/MobileApp';
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
@@ -47,13 +49,13 @@ import ManagedVulnerabilitiesDetail from 'src/views/vulnerabilities/ManagedVulne
 import ManagedVulnerabilitiesForm from 'src/views/vulnerabilities/ManagedVulnerabilitiesForm';
 import ManagementVulnerabilities from 'src/views/vulnerabilities/Management';
 import NetworkVulnerabilities from 'src/views/vulnerabilities/Network';
+import EHReport from 'src/views/vulnerabilities/redteam/EHReport';
+import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
-import EHReport from 'src/views/vulnerabilities/redteam/EHReport';
-import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
@@ -200,7 +202,9 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/login', element: <Login /> },
+      { path: '/auth/signup', element: <Register /> },
       { path: '/404', element: <Error /> },
+      { path: '/auth/forgot-password', element: <ForgotPassword /> },
     ],
   },
   { path: '*', element: <Navigate to="/404" /> },

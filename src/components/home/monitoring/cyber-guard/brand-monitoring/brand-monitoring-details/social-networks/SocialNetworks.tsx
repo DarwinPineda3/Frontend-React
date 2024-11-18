@@ -1,20 +1,19 @@
 //basic component
 
 import { Grid, Typography } from '@mui/material';
-import SocialNetworksIndicators from '../social-networks/SocialNetworksIndicators';
+import { useTranslation } from 'react-i18next';
+import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
 import OrgBreachesChart from '../../charts/OrgBreachesChart';
-import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import SocialNetworksAccordion from './SocialNetworksAccordion';
 import SentimentAnalysisChart from '../../charts/sentimentAnalysisChart';
-import { useTranslation } from 'react-i18next';
+import SocialNetworksIndicators from '../social-networks/SocialNetworksIndicators';
+import SocialNetworksAccordion from './SocialNetworksAccordion';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
 }
 
 const SocialNetworks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) => {
-  
   const { t } = useTranslation();
   const socialNetworksData = brandMonitoringDetail?.consolidated_data?.social_networks_data || [];
 
@@ -55,7 +54,8 @@ const SocialNetworks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail })
       <Grid item xs={12} lg={4}>
         <SentimentAnalysisChart
           social_networks_sentiment_analysis_chart={
-            brandMonitoringDetail.consolidated_data?.graphics_charts_social_networks_sentiment_analysis
+            brandMonitoringDetail.consolidated_data
+              ?.graphics_charts_social_networks_sentiment_analysis
           }
         />
       </Grid>

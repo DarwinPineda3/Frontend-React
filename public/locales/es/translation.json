@@ -932,5 +932,32 @@
     "alertText": "Si no encuentras lo que buscas, puedes",
     "createTicketLinkText": "crear un ticket",
     "copyToClipboardError": "Error al copiar al portapapeles. Intenta nuevamente."
+  },
+  "forgotPassword": {
+    "title": "¿Olvidaste tu contraseña?",
+    "description": "Por favor ingresa la dirección de correo electrónico asociada con tu cuenta y te enviaremos un enlace para restablecer tu contraseña."
+  },
+  "authForgotPassword": {
+    "emailLabel": "Dirección de Correo Electrónico",
+    "forgotPasswordButton": "Has olvidado tu contraseña",
+    "backToLoginButton": "Volver al Inicio de Sesión"
+  },
+  "registerPage": {
+    "title": "Bienvenido a Akila",
+    "subtext": "Tu Panel de Administración",
+    "subtitle": "¿Ya tienes una cuenta?",
+    "signInLink": "Iniciar sesión"
+  },
+  "authRegister": {
+    "signUpWith": "Regístrate con",
+    "orSignUpWith": "o regístrate con",
+    "emailLabel": "Dirección de Correo Electrónico",
+    "signUpButton": "Registrarse"
+  },
+  "authTwoSteps": {
+    "title": "Escribe tu código de seguridad de 6 dígitos",
+    "verifyButton": "Verificar mi cuenta",
+    "didntGetCode": "¿No recibiste el código?",
+    "resend": "Reenviar"
   }
 }
