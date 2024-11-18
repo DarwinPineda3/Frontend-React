@@ -942,5 +942,23 @@
     "emailLabel": "Email Address",
     "forgotPasswordButton": "Forgot Password",
     "backToLoginButton": "Back to Login"
+  },
+  "registerPage": {
+    "title": "Welcome to Akila",
+    "subtext": "Your Admin Dashboard",
+    "subtitle": "Already have an Account?",
+    "signInLink": "Sign In"
+  },
+  "authRegister": {
+    "signUpWith": "Sign up with",
+    "orSignUpWith": "or sign up with",
+    "emailLabel": "Email Address",
+    "signUpButton": "Sign Up"
+  },
+  "authTwoSteps": {
+    "title": "Type your 6 digits security code",
+    "verifyButton": "Verify My Account",
+    "didntGetCode": "Didn't get the code?",
+    "resend": "Resend"
   }
 }
