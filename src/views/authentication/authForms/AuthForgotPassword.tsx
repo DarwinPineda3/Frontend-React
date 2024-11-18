@@ -1,26 +1,30 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
 import { Button, Stack } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
+import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
 
-const AuthForgotPassword = () => (
-  <>
-    <Stack mt={4} spacing={2}>
-      <CustomFormLabel htmlFor="reset-email">Email Adddress</CustomFormLabel>
-      <CustomTextField id="reset-email" variant="outlined" fullWidth />
+const AuthForgotPassword = () => {
+  const { t } = useTranslation();
 
-      <Button color="primary" variant="contained" size="large" fullWidth component={Link} to="/">
-        Forgot Password
-      </Button>
-      <Button color="primary" size="large" fullWidth component={Link} to="/auth/login">
-        Back to Login
-      </Button>
-    </Stack>
-  </>
-);
+  return (
+    <>
+      <Stack mt={4} spacing={2}>
+        <CustomFormLabel htmlFor="reset-email">{t('authForgotPassword.emailLabel')}</CustomFormLabel>
+        <CustomTextField id="reset-email" variant="outlined" fullWidth />
+
+        <Button color="primary" variant="contained" size="large" fullWidth component={Link} to="/">
+          {t('authForgotPassword.forgotPasswordButton')}
+        </Button>
+        <Button color="primary" variant="outlined" size="large" fullWidth component={Link} to="/auth/login">
+          {t('authForgotPassword.backToLoginButton')}
+        </Button>
+      </Stack>
+    </>
+  );
+};
 
 export default AuthForgotPassword;

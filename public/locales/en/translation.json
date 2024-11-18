@@ -934,6 +934,15 @@
     "createTicketLinkText": "create a ticket",
     "copyToClipboardError": "Error copying to clipboard. Please try again."
   },
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "description": "Please enter the email address associated with your account and we will email you a link to reset your password."
+  },
+  "authForgotPassword": {
+    "emailLabel": "Email Address",
+    "forgotPasswordButton": "Forgot Password",
+    "backToLoginButton": "Back to Login"
+  },
   "registerPage": {
     "title": "Welcome to Akila",
     "subtext": "Your Admin Dashboard",
@@ -952,5 +961,4 @@
     "didntGetCode": "Didn't get the code?",
     "resend": "Resend"
   }
-  
 }
