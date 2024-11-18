@@ -46,7 +46,7 @@ const Tickets: React.FC = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TicketList tickets={tickets} onDelete={handleDeleteTicket} />
+          <TicketList/>
         </Grid>
       </Grid>
     </PageContainer>
