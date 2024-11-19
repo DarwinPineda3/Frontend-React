@@ -1,8 +1,5 @@
 import { createContext, useEffect, useReducer } from 'react';
 
-// utils
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import axios from 'src/utils/axios';
 import { isValidToken, setSession } from './Jwt';
 
@@ -83,48 +80,33 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken, refreshToken);
-
-          // TODO: remove
-          //const response = await axios.get('/api/account/my-account');
-          //const { user } = response.data;
-
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
               user: null,
-              // TODO: replace
-              //user,
             },
           });
         } else {
-          // try {
-          //   await handleRefreshToken();
-          //   dispatch({
-          //     type: 'INITIALIZE',
-          //     payload: {
-          //       isAuthenticated: true,
-          //       user: null,
-          //     },
-          //   });
-          // }
-          // catch (err) {
-          //   dispatch({
-          //     type: 'INITIALIZE',
-          //     payload: {
-          //       isAuthenticated: false,
-          //       user: null,
-          //     },
-          //   });
-          // }
-          // TODO: replace
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: false,
-              user: null,
-            },
-          });
+          try {
+            await handleRefreshToken();
+            dispatch({
+              type: 'INITIALIZE',
+              payload: {
+                isAuthenticated: true,
+                user: null,
+              },
+            });
+          }
+          catch (err) {
+            dispatch({
+              type: 'INITIALIZE',
+              payload: {
+                isAuthenticated: false,
+                user: null,
+              },
+            });
+          }
         }
       } catch (err) {
         console.error(err);
@@ -142,20 +124,12 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   }, []);
 
   const signin = async (username: string, password: string) => {
-    const response = await axios.post('http://backoffice.localhost:4500/api/token/', {
+    const response = await axios.post(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/`, {
       username,
       password,
     });
     const { access, refresh, user } = response.data;
     setSession(access, refresh);
-
-    // const signin = async (email: string, password: string) => {
-    //   const response = await axios.post('/api/account/login', {
-    //     email,
-    //     password,
-    //   });
-    //   const { accessToken, user } = response.data;
-    //   setSession(accessToken, null);
 
     dispatch({
       type: 'LOGIN',
@@ -169,7 +143,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   const handleRefreshToken = async () => {
     const refreshToken = window.localStorage.getItem('refreshToken');
     console.log("Token was refreshed");
-    const response = await axios.post('http://backoffice.localhost:4500/api/token/refresh/', {
+    const response = await axios.post(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`, {
       refresh: refreshToken,
     });
     const { access } = response.data;
@@ -177,7 +151,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
       setSession(access, refreshToken);
     }
     else {
-
       setSession(null, null);
       throw new Error("Refresh token expired")
     }
