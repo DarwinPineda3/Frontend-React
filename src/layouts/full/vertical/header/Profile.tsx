@@ -1,23 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
-  Box,
-  Menu,
   Avatar,
-  Typography,
+  Box,
   Divider,
-  Button,
   IconButton,
-  Stack
+  Menu,
+  Stack,
+  Typography
 } from '@mui/material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as dropdownData from './data';
 
 import { IconMail } from '@tabler/icons-react';
 
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
-import unlimitedImg from 'src/assets/images/backgrounds/unlimited-bg.png';
 import LogoutButton from 'src/components/user/LogoutButton';
 
 const Profile = () => {
@@ -76,10 +74,10 @@ const Profile = () => {
           <Avatar src={ProfileImg} alt={ProfileImg} sx={{ width: 95, height: 95 }} />
           <Box>
             <Typography variant="subtitle2" color="textPrimary" fontWeight={600}>
-            Albert Molano
+              Albert Molano
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
-            Tenant
+              Tenant
             </Typography>
             <Typography
               variant="subtitle2"
@@ -147,7 +145,7 @@ const Profile = () => {
           </Box>
         ))}
         <Box mt={2}>
-          <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
+          {/* <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
             <Box display="flex" justifyContent="space-between">
               <Box>
                 <Typography variant="h5" mb={2}>
@@ -160,7 +158,7 @@ const Profile = () => {
               </Box>
               <img src={unlimitedImg} alt="unlimited" className="signup-bg"></img>
             </Box>
-          </Box>
+          </Box> */}
           <LogoutButton />
         </Box>
       </Menu>
