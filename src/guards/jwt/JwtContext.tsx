@@ -85,16 +85,16 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
           setSession(accessToken, refreshToken);
 
           // TODO: remove
-          const response = await axios.get('/api/account/my-account');
-          const { user } = response.data;
+          //const response = await axios.get('/api/account/my-account');
+          //const { user } = response.data;
 
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              // user: null,
+              user: null,
               // TODO: replace
-              user,
+              //user,
             },
           });
         } else {
@@ -141,22 +141,21 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
     initialize();
   }, []);
 
-  // const signin = async (username: string, password: string) => {
-    // const response = await axios.post('http://zaq12345.localhost:4500/api/token/', {
-    //   username,
-    //   password,
-    // });
-    // const { access, refresh, user } = response.data;
-    // setSession(access, refresh);
-
-    // TODO: replace
-  const signin = async (email: string, password: string) => {
-    const response = await axios.post('/api/account/login', {
-      email,
+  const signin = async (username: string, password: string) => {
+    const response = await axios.post('http://backoffice.localhost:4500/api/token/', {
+      username,
       password,
     });
-    const { accessToken, user } = response.data;
-    setSession(accessToken, null);
+    const { access, refresh, user } = response.data;
+    setSession(access, refresh);
+
+    // const signin = async (email: string, password: string) => {
+    //   const response = await axios.post('/api/account/login', {
+    //     email,
+    //     password,
+    //   });
+    //   const { accessToken, user } = response.data;
+    //   setSession(accessToken, null);
 
     dispatch({
       type: 'LOGIN',
@@ -170,7 +169,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   const handleRefreshToken = async () => {
     const refreshToken = window.localStorage.getItem('refreshToken');
     console.log("Token was refreshed");
-    const response = await axios.post('http://zaq12345.localhost:4500/api/token/refresh/', {
+    const response = await axios.post('http://backoffice.localhost:4500/api/token/refresh/', {
       refresh: refreshToken,
     });
     const { access } = response.data;
