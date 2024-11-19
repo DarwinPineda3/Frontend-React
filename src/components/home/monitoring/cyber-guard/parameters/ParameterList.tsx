@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import {
+  Alert,
   Box,
   Button,
   Dialog,
@@ -20,8 +21,8 @@ import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
-  removeParameter,
   fetchParameters,
+  removeParameter,
   setPage,
 } from 'src/store/sections/cyber-guard/ParametersSlice';
 import { ParameterCyberGuardType } from 'src/types/cyber-guard/parameters/parameter';
@@ -114,6 +115,9 @@ const ParameterList = () => {
       action={addButton}
     >
       <Box>
+        <Alert severity="info" sx={{ mb: 2 }}>
+          {t('monitoring.monitoring_times')}
+        </Alert>
         <TableContainer>
           <Table aria-label="parameter table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>

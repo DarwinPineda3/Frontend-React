@@ -651,7 +651,8 @@
     "description_not_available": "Description not available",
     "risk_analysis": "Risk Analysis",
     "domain_up": "Domain Up",
-    "potential_risk": "Potential Risk"
+    "potential_risk": "Potential Risk",
+    "monitoring_times": "The monitoring for these parameters will be at 2 AM every day."
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",

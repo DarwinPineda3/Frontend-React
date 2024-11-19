@@ -650,7 +650,8 @@
     "description_not_available": "Descripción no disponible",
     "risk_analysis": "Análisis de Riesgo",
     "domain_up": "Dominio Activo",
-    "potential_risk": "Riesgo Potencial"
+    "potential_risk": "Riesgo Potencial",
+    "monitoring_times": "El monitoreo de estos parámetros será a las 2 am todos los días."
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",
