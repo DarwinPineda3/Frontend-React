@@ -960,5 +960,17 @@
     "verifyButton": "Verify My Account",
     "didntGetCode": "Didn't get the code?",
     "resend": "Resend"
+  },
+  "resetPassword": {
+    "title": "Reset Your Password",
+    "instruction": "Please enter your new password below. Ensure that both passwords match.",
+    "passwordLabel": "New Password",
+    "confirmText": "Confirm your new password",
+    "confirmPasswordLabel": "Confirm Password",
+    "errorRequired": "Both fields are required.",
+    "errorMismatch": "Passwords do not match.",
+    "errorGeneral": "An error occurred while resetting your password.",
+    "buttonResetting": "Resetting...",
+    "buttonSubmit": "Submit"
   }
 }

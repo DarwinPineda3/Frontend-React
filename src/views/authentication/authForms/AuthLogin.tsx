@@ -130,7 +130,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               variant="contained"
               size="large"
               fullWidth
-              type="button"
+              type="submit"
               onClick={async () => {
 
                 await formik.submitForm();
