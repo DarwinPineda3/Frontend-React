@@ -14,7 +14,6 @@ const Tickets: React.FC = () => {
   const { t } = useTranslation();
   const [tickets, setTickets] = useState<TicketType[]>([]);
 
-  // Estado para manejar SnackBarInfo
   const [snackBarInfo, setSnackBarInfo] = useState<{
     color: 'error' | 'warning' | 'info' | 'success';
     title: string;
@@ -22,7 +21,6 @@ const Tickets: React.FC = () => {
   } | null>(null);
 
   useEffect(() => {
-    // Verificar si hay información en el estado al redirigir
     if (location.state?.message) {
       setSnackBarInfo({
         color: location.state.severity || 'success',
