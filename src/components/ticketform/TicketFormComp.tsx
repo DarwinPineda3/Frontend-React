@@ -1,13 +1,16 @@
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import React, { useState } from 'react';
+import { useFormik } from 'formik';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useDispatch } from 'src/store/Store';
+import { createTicket } from 'src/store/support/FreshTicketsSlice';
+import * as Yup from 'yup';
 import CustomFormLabel from '../../components/forms/theme-elements/CustomFormLabel';
 import CustomTextField from '../../components/forms/theme-elements/CustomTextField';
 import '../../styles/TicketForm.css';
-import { TicketType } from '../../types/apps/ticket';
 
 const StyledFileInput = styled('input')({
   display: 'block',
@@ -25,133 +28,100 @@ const StyledFileInput = styled('input')({
 
 const TicketFormComp: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ticket, setTicket] = useState<TicketType>({
-    Id: Date.now(),
-    ticketTitle: '',
-    ticketDescription: '',
-    Status: '',
-    Label: '',
-    thumb: '',
-    AgentName: '',
-    Date: new Date(),
-    deleted: false,
-    category: 'none',
-    subcategory: '',
-    urgency: '',
-    pending: false,
-    attachment: '',
+
+  const formik = useFormik({
+    initialValues: {
+      subject: '',
+      description: '',
+      attach_file: null,
+    },
+    validationSchema: Yup.object({
+      subject: Yup.string().required('Subject is required'),
+      description: Yup.string().required('Description is required'),
+    }),
+    onSubmit: async (values) => {
+      const newTicket = {
+        subject: values.subject,
+        description: values.description,
+        attach_file: values.attach_file,
+      };
+
+      try {
+        await dispatch(createTicket(newTicket));
+        alert('Ticket created successfully!');
+        navigate('/support/tickets'); // Redirige después de crear el ticket
+      } catch (error) {
+        console.error('Error creating ticket:', error);
+        alert('There was an error creating the ticket');
+      }
+    },
   });
-
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setTicket((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      const fileUrl = URL.createObjectURL(selectedFile);
-      setTicket((prev) => ({ ...prev, attachment: fileUrl }));
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors: { [key: string]: string } = {};
-
-    if (!ticket.ticketTitle) newErrors.ticketTitle = t("support.title_required");
-    if (!ticket.ticketDescription) newErrors.ticketDescription = t("support.description_required");
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    const existingTickets = JSON.parse(localStorage.getItem('tickets') || '[]');
-    localStorage.setItem('tickets', JSON.stringify([...existingTickets, ticket]));
-
-    navigate('/support/tickets');
-
-    setTicket({
-      Id: Date.now(),
-      ticketTitle: '',
-      ticketDescription: '',
-      Status: '',
-      Label: '',
-      thumb: '',
-      AgentName: '',
-      Date: new Date(),
-      deleted: false,
-      category: 'none',
-      subcategory: '',
-      urgency: '',
-      pending: false,
-      attachment: '',
-    });
-
-    setErrors({});
-  };
 
   return (
     <DashboardCard
-      title={t("support.create_ticket") as string}
-      subtitle={t("support.create_ticket_subtitle") as string}
+      title={t('support.create_ticket')}
+      subtitle={t('support.create_ticket_subtitle')}
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <TableContainer>
           <Table sx={{ border: 'none' }}>
             <TableBody>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="ticketTitle">{t("support.subject")}</CustomFormLabel>
+                  <CustomFormLabel htmlFor="subject">{t('support.subject')}</CustomFormLabel>
                   <CustomTextField
-                    id="ticketTitle"
-                    name="ticketTitle"
-                    placeholder={t("support.enter_ticket_subject")}
-                    value={ticket.ticketTitle}
-                    onChange={handleChange}
+                    id="subject"
+                    name="subject"
+                    placeholder={t('support.enter_ticket_subject')}
+                    value={formik.values.subject}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     fullWidth
-                    sx={{ mt: 0.1 }}
                   />
-                  {errors.ticketTitle && <span className="error">{errors.ticketTitle}</span>}
+                  {formik.touched.subject && formik.errors.subject && (
+                    <span className="error">{formik.errors.subject}</span>
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
-                  <CustomFormLabel htmlFor="ticketDescription">{t("support.description")}</CustomFormLabel>
+                  <CustomFormLabel htmlFor="description">{t('support.description')}</CustomFormLabel>
                   <CustomTextField
-                    id="ticketDescription"
-                    name="ticketDescription"
-                    value={ticket.ticketDescription}
-                    onChange={handleChange}
+                    id="description"
+                    name="description"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     multiline
                     rows={4}
                     fullWidth
-                    sx={{ mt: 0.1 }}
                   />
-                  {errors.ticketDescription && <span className="error">{errors.ticketDescription}</span>}
+                  {formik.touched.description && formik.errors.description && (
+                    <span className="error">{formik.errors.description}</span>
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="file">{t("support.attach_file")}</CustomFormLabel>
+                  <CustomFormLabel htmlFor="attach_file">{t('support.attach_file')}</CustomFormLabel>
                   <StyledFileInput
                     type="file"
-                    id="file"
-                    name="file"
-                    onChange={handleFileChange}
-                    style={{ width: '100%', backgroundColor: 'white' }}
+                    id="attach_file"
+                    name="attach_file"
+                    onChange={(e) => formik.setFieldValue('attach_file', e.target.files?.[0])}
                   />
+                  {formik.touched.attach_file && formik.errors.attach_file && (
+                    <span className="error">{formik.errors.attach_file}</span>
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell sx={{ border: 'none', padding: '0.1rem', paddingTop: 3 }}>
                   <Box display="flex" justifyContent="flex-start">
                     <Button type="submit" variant="contained" color="primary">
-                      {t("support.create_ticket")}
+                      {t('support.create_ticket')}
                     </Button>
                   </Box>
                 </TableCell>

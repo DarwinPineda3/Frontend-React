@@ -14,9 +14,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchTickets, setPage } from 'src/store/support/FreshTicketsSlice';
 // import DashboardCard from 'src/shared/DashboardCard';
-import DashboardCard from '../shared/DashboardCard';
 import AddIcon from '@mui/icons-material/Add';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import DashboardCard from '../shared/DashboardCard';
 
 const TicketList = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const TicketList = () => {
   const tickets = useSelector((state: any) => state.ticketReducer.tickets);
   const currentPage = useSelector((state: any) => state.ticketReducer.page);
   const totalPages = useSelector((state: any) => state.ticketReducer.totalPages);
-  
+
 
   useEffect(() => {
     dispatch(fetchTickets(currentPage));
@@ -39,11 +39,11 @@ const TicketList = () => {
 
   return (
     <DashboardCard title="Tickets" subtitle="List of available tickets"
-    action={
-      <IconButton color="primary" onClick={() => navigate('/support/ticketform')}>
-        <AddIcon />
-      </IconButton>
-    }>
+      action={
+        <IconButton color="primary" onClick={() => navigate('/support/ticketform')}>
+          <AddIcon />
+        </IconButton>
+      }>
       <Box>
         <TableContainer>
           <Table aria-label="tickets table" sx={{ whiteSpace: 'nowrap' }}>
