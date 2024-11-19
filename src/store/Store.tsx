@@ -28,6 +28,7 @@ import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
+import TicketReducer from "./support/FreshTicketsSlice";
 
 import {
   TypedUseSelectorHook,
@@ -65,6 +66,7 @@ export const store = configureStore({
     ehReportsReducer: EHReportsReducer,
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
+    ticketReducer: TicketReducer,
   },
 });
 
@@ -84,6 +86,7 @@ const rootReducer = combineReducers({
   ehReportsReducer: EHReportsReducer,
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
+  ticketReducer: TicketReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

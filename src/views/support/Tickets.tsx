@@ -2,20 +2,36 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import TicketList from '../../components/ticketform/TicketList';
 import { TicketType } from '../../types/apps/ticket';
 
 const Tickets: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
   const [tickets, setTickets] = useState<TicketType[]>([]);
 
+  const [snackBarInfo, setSnackBarInfo] = useState<{
+    color: 'error' | 'warning' | 'info' | 'success';
+    title: string;
+    message: string;
+  } | null>(null);
+
   useEffect(() => {
+    if (location.state?.message) {
+      setSnackBarInfo({
+        color: location.state.severity || 'success',
+        title: location.state.title || 'Información',
+        message: location.state.message,
+      });
+    }
+
     const storedTickets = JSON.parse(localStorage.getItem('tickets') || '[]');
     setTickets(storedTickets);
-  }, []);
+  }, [location.state]);
 
   const handleDeleteTicket = (id: number) => {
     const updatedTickets = tickets.filter(ticket => ticket.Id !== id);
@@ -31,11 +47,7 @@ const Tickets: React.FC = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link
-              component={RouterLink}
-              color="inherit"
-              to="/support/tickets"
-            >
+            <Link component={RouterLink} color="inherit" to="/support/tickets">
               {t("menu.support")}
             </Link>
             <Link component={RouterLink} color="inherit" to="/support/tickets">
@@ -46,9 +58,18 @@ const Tickets: React.FC = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TicketList tickets={tickets} onDelete={handleDeleteTicket} />
+          <TicketList />
         </Grid>
       </Grid>
+
+      {/* SnackBarInfo */}
+      {snackBarInfo && (
+        <SnackBarInfo
+          color={snackBarInfo.color}
+          title={snackBarInfo.title}
+          message={snackBarInfo.message}
+        />
+      )}
     </PageContainer>
   );
 };
