@@ -959,5 +959,17 @@
     "verifyButton": "Verificar mi cuenta",
     "didntGetCode": "¿No recibiste el código?",
     "resend": "Reenviar"
+  },
+  "resetPassword": {
+    "title": "Restablecer tu contraseña",
+    "instruction": "Por favor, ingresa tu nueva contraseña abajo. Asegúrate de que ambas contraseñas coincidan.",
+    "passwordLabel": "Nueva Contraseña",
+    "confirmText": "Confirma tu nueva contraseña",
+    "confirmPasswordLabel": "Confirmar Contraseña",
+    "errorRequired": "Ambos campos son requeridos.",
+    "errorMismatch": "Las contraseñas no coinciden.",
+    "errorGeneral": "Ocurrió un error al restablecer tu contraseña.",
+    "buttonResetting": "Restableciendo...",
+    "buttonSubmit": "Enviar"
   }
 }
