@@ -1,7 +1,5 @@
-import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
-  Button,
   IconButton,
   Pagination,
   Table,
@@ -12,90 +10,101 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
-import { TicketType } from '../../types/apps/ticket';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchTickets, setPage } from 'src/store/support/FreshTicketsSlice';
+// import DashboardCard from 'src/shared/DashboardCard';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../shared/DashboardCard';
 
-interface TicketListProps {
-  tickets: TicketType[];
-  onDelete: (id: number) => void;
-}
-
-const TicketList: React.FC<TicketListProps> = ({ tickets, onDelete }) => {
+const TicketList = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ticketsPerPage] = useState(5);
+  const tickets = useSelector((state: any) => state.ticketReducer.tickets);
+  const currentPage = useSelector((state: any) => state.ticketReducer.page);
+  const totalPages = useSelector((state: any) => state.ticketReducer.totalPages);
 
-  const totalPages = Math.ceil(tickets.length / ticketsPerPage);
 
-  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  useEffect(() => {
+    dispatch(fetchTickets(currentPage));
+  }, [dispatch, currentPage]);
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    if (page !== currentPage) {
+      dispatch(setPage(page));
+    }
   };
 
-  const paginatedTickets = tickets.slice((currentPage - 1) * ticketsPerPage, currentPage * ticketsPerPage);
 
   return (
-    <DashboardCard
-      title={t("support.tickets_management") as string}
-      subtitle={t("support.tickets_subtitle") as string}
+    <DashboardCard title="Tickets" subtitle="List of available tickets"
       action={
         <IconButton color="primary" onClick={() => navigate('/support/ticketform')}>
           <AddIcon />
         </IconButton>
-      }
-    >
+      }>
       <Box>
         <TableContainer>
-          <Table>
+          <Table aria-label="tickets table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>ID</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    Ticket ID
+                  </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>Asunto</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    Subject
+                  </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>Categoría</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>Acciones</Typography>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    Description
+                  </Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {paginatedTickets.map((ticket) => (
-                <TableRow key={ticket.Id}>
-                  <TableCell>
-                    <Link to={`/support/ticket/${ticket.Id}`} style={{ textDecoration: 'none', color: '#1976d2', fontWeight: 'bold' }}>
-                      <Typography variant="body1" sx={{ '&:hover': { textDecoration: 'underline' } }}>
-                        {ticket.Id}
+              {tickets.length > 0 ? (
+                tickets.map((ticket: any, index: number) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {ticket.id}
                       </Typography>
-                    </Link>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{ticket.ticketTitle}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{ticket.category}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="outlined" color="secondary" onClick={() => onDelete(ticket.Id)}>Eliminar</Button>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                        {ticket.subject}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                        {ticket.description_text}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <Typography color="textSecondary" variant="subtitle2" align="center">
+                      No tickets available
+                    </Typography>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>
-        <Box my={3} display="flex" justifyContent={'center'}>
+        <Box my={3} display="flex" justifyContent="center">
           <Pagination
             count={totalPages}
+            color="primary"
             page={currentPage}
             onChange={handlePageChange}
-            color="primary"
           />
         </Box>
       </Box>

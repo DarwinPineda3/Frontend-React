@@ -1,165 +1,151 @@
+import React, { useState } from 'react';
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import React, { useState } from 'react';
+import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import { useDispatch } from 'src/store/Store';
+import { createTicket } from 'src/store/support/FreshTicketsSlice';
+import * as Yup from 'yup';
 import CustomFormLabel from '../../components/forms/theme-elements/CustomFormLabel';
 import CustomTextField from '../../components/forms/theme-elements/CustomTextField';
 import '../../styles/TicketForm.css';
-import { TicketType } from '../../types/apps/ticket';
-
-const StyledFileInput = styled('input')({
-  display: 'block',
-  padding: '0.5rem',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  backgroundColor: '#f9f9f9',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s, border-color 0.3s',
-  '&:hover': {
-    backgroundColor: '#eaeaea',
-    borderColor: '#007BFF',
-  },
-});
+import Loader from '../shared/Loader/Loader';
+import Thumbnail from '../home/monitoring/malware-analyses/MalwareAnalysisThumbnail';
 
 const TicketFormComp: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ticket, setTicket] = useState<TicketType>({
-    Id: Date.now(),
-    ticketTitle: '',
-    ticketDescription: '',
-    Status: '',
-    Label: '',
-    thumb: '',
-    AgentName: '',
-    Date: new Date(),
-    deleted: false,
-    category: 'none',
-    subcategory: '',
-    urgency: '',
-    pending: false,
-    attachment: '',
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      subject: '',
+      description: '',
+      attach_file: null,
+    },
+    validationSchema: Yup.object({
+      subject: Yup.string().required('Subject is required'),
+      description: Yup.string().required('Description is required'),
+    }),
+    onSubmit: async (values) => {
+      setIsLoading(true);
+      const newTicket = {
+        subject: values.subject,
+        description: values.description,
+        attach_file: values.attach_file,
+      };
+
+      try {
+        await dispatch(createTicket(newTicket));
+        navigate('/support/tickets', {
+          state: {
+            message: 'Ticket created successfully!',
+            severity: 'success',
+          },
+        });
+      } catch (error) {
+        console.error('Error creating ticket:', error);
+        setSnackbarMessage('There was an error creating the ticket.');
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
+      } finally {
+        setIsLoading(false);
+      }
+    },
   });
-
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setTicket((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      const fileUrl = URL.createObjectURL(selectedFile);
-      setTicket((prev) => ({ ...prev, attachment: fileUrl }));
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors: { [key: string]: string } = {};
-
-    if (!ticket.ticketTitle) newErrors.ticketTitle = t("support.title_required");
-    if (!ticket.ticketDescription) newErrors.ticketDescription = t("support.description_required");
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    const existingTickets = JSON.parse(localStorage.getItem('tickets') || '[]');
-    localStorage.setItem('tickets', JSON.stringify([...existingTickets, ticket]));
-
-    navigate('/support/tickets');
-
-    setTicket({
-      Id: Date.now(),
-      ticketTitle: '',
-      ticketDescription: '',
-      Status: '',
-      Label: '',
-      thumb: '',
-      AgentName: '',
-      Date: new Date(),
-      deleted: false,
-      category: 'none',
-      subcategory: '',
-      urgency: '',
-      pending: false,
-      attachment: '',
-    });
-
-    setErrors({});
-  };
 
   return (
     <DashboardCard
-      title={t("support.create_ticket") as string}
-      subtitle={t("support.create_ticket_subtitle") as string}
+      title={t('support.create_ticket')}
+      subtitle={t('support.create_ticket_subtitle')}
     >
-      <form onSubmit={handleSubmit}>
-        <TableContainer>
-          <Table sx={{ border: 'none' }}>
-            <TableBody>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="ticketTitle">{t("support.subject")}</CustomFormLabel>
-                  <CustomTextField
-                    id="ticketTitle"
-                    name="ticketTitle"
-                    placeholder={t("support.enter_ticket_subject")}
-                    value={ticket.ticketTitle}
-                    onChange={handleChange}
-                    fullWidth
-                    sx={{ mt: 0.1 }}
-                  />
-                  {errors.ticketTitle && <span className="error">{errors.ticketTitle}</span>}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
-                  <CustomFormLabel htmlFor="ticketDescription">{t("support.description")}</CustomFormLabel>
-                  <CustomTextField
-                    id="ticketDescription"
-                    name="ticketDescription"
-                    value={ticket.ticketDescription}
-                    onChange={handleChange}
-                    multiline
-                    rows={4}
-                    fullWidth
-                    sx={{ mt: 0.1 }}
-                  />
-                  {errors.ticketDescription && <span className="error">{errors.ticketDescription}</span>}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
-                  <CustomFormLabel htmlFor="file">{t("support.attach_file")}</CustomFormLabel>
-                  <StyledFileInput
-                    type="file"
-                    id="file"
-                    name="file"
-                    onChange={handleFileChange}
-                    style={{ width: '100%', backgroundColor: 'white' }}
-                  />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell sx={{ border: 'none', padding: '0.1rem', paddingTop: 3 }}>
-                  <Box display="flex" justifyContent="flex-start">
-                    <Button type="submit" variant="contained" color="primary">
-                      {t("support.create_ticket")}
-                    </Button>
-                  </Box>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </form>
+      <Box>
+        {isLoading && <Loader />}
+        {!isLoading && (
+          <form onSubmit={formik.handleSubmit}>
+            <TableContainer>
+              <Table sx={{ border: 'none' }}>
+                <TableBody>
+                  <TableRow>
+                    <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
+                      <CustomFormLabel htmlFor="subject">{t('support.subject')}</CustomFormLabel>
+                      <CustomTextField
+                        id="subject"
+                        name="subject"
+                        placeholder={t('support.enter_ticket_subject')}
+                        value={formik.values.subject}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        fullWidth
+                      />
+                      {formik.touched.subject && formik.errors.subject && (
+                        <span className="error">{formik.errors.subject}</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell sx={{ border: 'none', padding: '0.5rem' }}>
+                      <CustomFormLabel htmlFor="description">{t('support.description')}</CustomFormLabel>
+                      <CustomTextField
+                        id="description"
+                        name="description"
+                        value={formik.values.description}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        multiline
+                        rows={4}
+                        fullWidth
+                      />
+                      {formik.touched.description && formik.errors.description && (
+                        <span className="error">{formik.errors.description}</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
+                      <CustomFormLabel htmlFor="attach_file">{t('support.attach_file')}</CustomFormLabel>
+                      <Thumbnail
+                        onDrop={(acceptedFiles) => {
+                          formik.setFieldValue('attach_file', acceptedFiles[0]);
+                        }}
+                      />
+                      {formik.touched.attach_file && formik.errors.attach_file && (
+                        <span className="error">{formik.errors.attach_file}</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell sx={{ border: 'none', padding: '0.1rem', paddingTop: 3 }}>
+                      <Box display="flex" justifyContent="flex-start">
+                        <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
+                          {t('support.create_ticket')}
+                        </Button>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </form>
+        )}
+
+        {/* Snackbar */}
+        {snackbarOpen && (
+          <SnackBarInfo
+            color={snackbarSeverity}
+            title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
+            message={snackbarMessage}
+          />
+        )}
+      </Box>
     </DashboardCard>
   );
 };

@@ -651,7 +651,8 @@
     "description_not_available": "Description not available",
     "risk_analysis": "Risk Analysis",
     "domain_up": "Domain Up",
-    "potential_risk": "Potential Risk"
+    "potential_risk": "Potential Risk",
+    "monitoring_times": "The parameters monitoring is executed every day at 2AM."
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -960,5 +961,17 @@
     "verifyButton": "Verify My Account",
     "didntGetCode": "Didn't get the code?",
     "resend": "Resend"
+  },
+  "resetPassword": {
+    "title": "Reset Your Password",
+    "instruction": "Please enter your new password below. Ensure that both passwords match.",
+    "passwordLabel": "New Password",
+    "confirmText": "Confirm your new password",
+    "confirmPasswordLabel": "Confirm Password",
+    "errorRequired": "Both fields are required.",
+    "errorMismatch": "Passwords do not match.",
+    "errorGeneral": "An error occurred while resetting your password.",
+    "buttonResetting": "Resetting...",
+    "buttonSubmit": "Submit"
   }
 }
