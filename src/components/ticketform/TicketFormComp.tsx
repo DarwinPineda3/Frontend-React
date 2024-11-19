@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -13,20 +13,7 @@ import CustomFormLabel from '../../components/forms/theme-elements/CustomFormLab
 import CustomTextField from '../../components/forms/theme-elements/CustomTextField';
 import '../../styles/TicketForm.css';
 import Loader from '../shared/Loader/Loader';
-
-const StyledFileInput = styled('input')({
-  display: 'block',
-  padding: '0.5rem',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  backgroundColor: '#f9f9f9',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s, border-color 0.3s',
-  '&:hover': {
-    backgroundColor: '#eaeaea',
-    borderColor: '#007BFF',
-  },
-});
+import Thumbnail from '../home/monitoring/malware-analyses/MalwareAnalysisThumbnail';
 
 const TicketFormComp: React.FC = () => {
   const { t } = useTranslation();
@@ -72,7 +59,6 @@ const TicketFormComp: React.FC = () => {
       } finally {
         setIsLoading(false);
       }
-      
     },
   });
 
@@ -126,11 +112,10 @@ const TicketFormComp: React.FC = () => {
                   <TableRow>
                     <TableCell sx={{ border: 'none', padding: '0.1rem' }}>
                       <CustomFormLabel htmlFor="attach_file">{t('support.attach_file')}</CustomFormLabel>
-                      <StyledFileInput
-                        type="file"
-                        id="attach_file"
-                        name="attach_file"
-                        onChange={(e) => formik.setFieldValue('attach_file', e.target.files?.[0])}
+                      <Thumbnail
+                        onDrop={(acceptedFiles) => {
+                          formik.setFieldValue('attach_file', acceptedFiles[0]);
+                        }}
                       />
                       {formik.touched.attach_file && formik.errors.attach_file && (
                         <span className="error">{formik.errors.attach_file}</span>
