@@ -3,7 +3,7 @@ import { Data, NewsletterType } from 'src/types/newsletters/newsletter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
-const API_URL = '/api/data/newsletter';
+const API_URL = `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/newsletters/`;
 const DETAIL_API_URL = '/api/data/newsletter/detail';
 
 interface StateType {
@@ -50,16 +50,17 @@ export const { getNewsletters, getNewsletterDetail, setPage, setError } = Newsle
 // Async thunk for fetching technologies with pagination (READ)
 export const fetchNewsletters =
   (page = 1) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}?page=${page}`);
-      const { newsletters, currentPage, totalPages } = response.data;
-      dispatch(getNewsletters({ newsletters, currentPage, totalPages })); // Dispatch to update state
-    } catch (err: any) {
-      console.error('Error fetching newsletters', err);
-      dispatch(setError('Failed to fetch newsletters'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${API_URL}`);
+        const newsletters = response.data;
+        const totalPages = Math.ceil(newsletters.length / 10);
+        dispatch(getNewsletters({ newsletters, currentPage: page, totalPages })); // Dispatch to update state
+      } catch (err: any) {
+        console.error('Error fetching newsletters', err);
+        dispatch(setError('Failed to fetch newsletters'));
+      }
+    };
 
 export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch) => {
   try {
