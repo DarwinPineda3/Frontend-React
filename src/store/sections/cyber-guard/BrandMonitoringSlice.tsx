@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getTenant } from 'src/guards/jwt/Jwt';
 import {
   BrandMonitoringDataType,
   Data,
 } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
+const tenant = getTenant()
 
-const API_URL = '/api/data/monitoring/cyber-guard/monitoring';
-const API_URL_MONITORING = '/api/monitoring/cyber-guard/monitoring';
+const API_URL = `http://${tenant}.localhost:4500/api`;
+const API_URL_MONITORING = `http://${tenant}.localhost:4500/api/monitoring/cyber-guard/monitoring`;
 
 interface StateType {
   brandMonitoringData: BrandMonitoringDataType[];
@@ -100,6 +102,8 @@ export const fetchBrandMonitoringResume = () => async (dispatch: AppDispatch) =>
   try {
     const response = await axios.get(`${API_URL}/threat-overview`);
     if (response.status === 200) {
+
+      console.log('response', response.data);
       dispatch(getBrandMonitoringResume({ data: response.data }));
     } else {
       dispatch(setError('fetch brand monitoring detail not found'));

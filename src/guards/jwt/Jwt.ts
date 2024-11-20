@@ -63,6 +63,19 @@ const getUserGroups = (): string[] => {
   return [decoded.groups];
 };
 
+const getTenant = (): string | null => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  if (!accessToken) {
+    return null;
+  }
+  const decoded: any = decodeToken(accessToken);
+  if (decoded && decoded.schema_name) {
+    // groups will be a string of comma separated values
+    return decoded.schema_name;
+  }
+  return null;
+};
+
 // Function to sign a JWT (used for the mock API)
 const sign = (payload: any, secretKey: string, options: any) => {
   const header = {
@@ -127,5 +140,5 @@ const verify = (token: string, secretKey: string) => {
   return payload;
 };
 
-export { getUserGroups, isValidToken, setSession, sign, verify };
+export { getTenant, getUserGroups, isValidToken, setSession, sign, verify };
 
