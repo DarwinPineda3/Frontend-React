@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
 import { getUserGroups } from 'src/guards/jwt/Jwt';
 import Router from 'src/routes/Router';
@@ -28,7 +28,8 @@ const GroupGuard = ({ children }: any) => {
 
   const findRoute = (routes: any[], path: string) => {
     for (const route of routes) {
-      if (route.path === path) {
+      // Check if the path matches the current route or if it matches a dynamic route pattern
+      if (matchPath(route.path, path)) {
         return route;
       }
       if (route.children) {

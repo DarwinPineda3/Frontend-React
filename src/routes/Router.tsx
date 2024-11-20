@@ -162,9 +162,9 @@ const Router = [
       { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring />, roles: ['Admin'] },
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand />, roles: ['Admin'] },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet />, roles: ['Admin'] },
-      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Admin'] },
-      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNewsDetails />, roles: ['Admin'] },
-      { path: '/monitoring/soc/takedown', element: <TicketFormComp />, roles: ['Admin'] },
+      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Admin', 'CyberGuard'], },
+      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNewsDetails />, roles: ['Admin', 'CyberGuard'], },
+      { path: '/monitoring/soc/takedown', element: <TicketFormComp />, roles: ['Admin', 'CyberGuard'], },
 
       // { path: '/monitoring/siem', element: <SIEMMonitoring /> },
       { path: '/monitoring/siem', element: <Navigate to="/maintenance" />, roles: ['Admin'] },

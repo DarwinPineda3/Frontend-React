@@ -220,6 +220,20 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: 'menu.news', // Translation key for title
+    href: '/monitoring/soc/newsletters',
+    permissions: ['Admin', 'CyberGuard'],
+    icon: IconNews,
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.takedown', // Translation key for title
+    href: '/monitoring/soc/takedown',
+    permissions: ['Admin', 'CyberGuard'],
+    icon: IconTicket,
+  },
+  {
+    id: uniqueId(),
     title: 'menu.soc', // Translation key for title
     icon: IconBasket,
     permissions: ['Admin'],
@@ -330,20 +344,6 @@ const Menuitems: MenuitemsType[] = [
           }
         ]
       },
-      {
-        id: uniqueId(),
-        title: 'menu.news', // Translation key for title
-        href: '/monitoring/soc/newsletters',
-        permissions: ['Admin'],
-        icon: IconNews,
-      },
-      {
-        id: uniqueId(),
-        title: 'menu.takedown', // Translation key for title
-        href: '/monitoring/soc/takedown',
-        permissions: ['Admin'],
-        icon: IconTicket,
-      },
     ]
   },
   {
@@ -400,3 +400,4 @@ const Menuitems: MenuitemsType[] = [
 
 export default Menuitems;
 export type { MenuitemsType };
+
