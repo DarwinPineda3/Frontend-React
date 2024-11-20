@@ -17,6 +17,7 @@ const AuthForgotPassword = () => {
 
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -25,6 +26,8 @@ const AuthForgotPassword = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    setLoading(true);
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError(t('authForgotPassword.invalidEmail'));
@@ -42,6 +45,7 @@ const AuthForgotPassword = () => {
         setSnackbarMessage(response.data.detail);
         setSnackbarSeverity('info');
         setTimeout(() => {
+          setLoading(false);
           setSnackbarOpen(true);
         }, 0);
         setSnackbarOpen(false);
@@ -67,7 +71,14 @@ const AuthForgotPassword = () => {
             helperText={error}
           />
 
-          <Button type="submit" color="primary" variant="contained" size="large" fullWidth>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            size="large"
+            fullWidth
+            disabled={loading}
+          >
             {t('authForgotPassword.forgotPasswordButton')}
           </Button>
         </form>

@@ -973,6 +973,7 @@
     "errorMismatch": "Passwords do not match.",
     "errorGeneral": "An error occurred while resetting your password.",
     "buttonResetting": "Resetting...",
-    "buttonSubmit": "Submit"
+    "buttonSubmit": "Submit",
+    "errorPasswordFormat": "Password must be at least 8 characters long, include a number, and a mix of uppercase and lowercase letters."
   }
 }

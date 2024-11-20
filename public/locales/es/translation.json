@@ -972,6 +972,7 @@
     "errorMismatch": "Las contraseñas no coinciden.",
     "errorGeneral": "Ocurrió un error al restablecer tu contraseña.",
     "buttonResetting": "Restableciendo...",
-    "buttonSubmit": "Enviar"
+    "buttonSubmit": "Enviar",
+    "errorPasswordFormat": "La contraseña debe tener al menos 8 caracteres, incluir un número y una combinación de mayúsculas y minúsculas."
   }
 }

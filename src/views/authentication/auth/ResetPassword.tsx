@@ -1,23 +1,31 @@
 import { Alert, Box, Button, Grid, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import img1 from 'src/assets/images/backgrounds/login-bg.svg';
 import PageContainer from 'src/components/container/PageContainer';
 import Logo from 'src/layouts/full/shared/logo/Logo';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  console.log('Token desde la URL:', token);
-
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success'); // Snackbar
+
+  const API_RESET_PASSWORD = '/api/reset-password';
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'password') {
@@ -28,6 +36,10 @@ const ResetPassword = () => {
   };
 
   const validateForm = () => {
+    if (!passwordRegex.test(password)) {
+      setError(t('resetPassword.errorPasswordFormat'));
+      return false;
+    }
     if (!password || !confirmPassword) {
       setError(t('resetPassword.errorRequired'));
       return false;
@@ -36,6 +48,7 @@ const ResetPassword = () => {
       setError(t('resetPassword.errorMismatch'));
       return false;
     }
+
     return true;
   };
 
@@ -49,12 +62,22 @@ const ResetPassword = () => {
 
     try {
       // password change request
-      console.log('Enviando solicitud con el token:', token);
-
-      setTimeout(() => {
-        setLoading(false);
-        navigate('/auth/login');
-      }, 2000);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BACKEND_BASE_URL}${API_RESET_PASSWORD}`,
+        { new_password: password, token },
+      );
+      if (response.status === 200) {
+        setSnackbarMessage(response.data.detail);
+        setSnackbarSeverity('success');
+        setTimeout(() => {
+          setSnackbarOpen(true);
+          setLoading(false);
+        }, 0);
+        setSnackbarOpen(false);
+        setTimeout(() => {
+          navigate('/auth/login');
+        }, 3000);
+      }
     } catch (error) {
       setLoading(false);
       setError(t('resetPassword.errorGeneral'));
@@ -171,6 +194,13 @@ const ResetPassword = () => {
               </Box>
             </form>
           </Box>
+          {snackbarOpen && (
+            <SnackBarInfo
+              color={snackbarSeverity}
+              title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
+              message={snackbarMessage}
+            />
+          )}
         </Grid>
       </Grid>
     </PageContainer>
