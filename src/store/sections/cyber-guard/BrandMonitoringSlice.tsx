@@ -7,7 +7,7 @@ import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
 const API_URL = '/api/data/monitoring/cyber-guard/monitoring';
-const API_URL_MONITORING = 'http://akilalocal.localhost:4500/api/monitoring/cyber-guard/monitoring';
+const API_URL_MONITORING = '/api/monitoring/cyber-guard/monitoring';
 
 interface StateType {
   brandMonitoringData: BrandMonitoringDataType[];

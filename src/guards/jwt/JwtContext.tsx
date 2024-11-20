@@ -20,7 +20,6 @@ const initialState: InitialStateType = {
 const handlers: any = {
   INITIALIZE: (state: InitialStateType, action: any) => {
     const { isAuthenticated, user } = action.payload;
-
     return {
       ...state,
       isAuthenticated,
@@ -29,7 +28,7 @@ const handlers: any = {
     };
   },
   LOGIN: (state: InitialStateType, action: any) => {
-    const { user } = action.payload;
+    const { user, groups } = action.payload;
 
     return {
       ...state,
@@ -130,7 +129,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
     });
     const { access, refresh, user } = response.data;
     setSession(access, refresh);
-
     dispatch({
       type: 'LOGIN',
       payload: {
