@@ -68,7 +68,17 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
   useEffect(() => {
     const initialize = async () => {
-
+      // no need to check if in an auth route or 404
+      if (window.location.pathname.includes('/auth') || window.location.pathname.includes('/404')) {
+        dispatch({
+          type: 'INITIALIZE',
+          payload: {
+            isAuthenticated: false,
+            user: null,
+          },
+        });
+        return;
+      }
       try {
         const accessToken = window.localStorage.getItem('accessToken');
         const refreshToken = window.localStorage.getItem('refreshToken');
