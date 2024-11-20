@@ -12,9 +12,6 @@ function App() {
   const theme = ThemeSettings();
   const customizer = useSelector((state: AppState) => state.customizer);
 
-  // TODO: remove example log
-  console.log(import.meta.env.VITE_API_BACKEND_BASE_URL)
-
   return (
     <ThemeProvider theme={theme}>
       <RTL direction={customizer.activeDir}>
