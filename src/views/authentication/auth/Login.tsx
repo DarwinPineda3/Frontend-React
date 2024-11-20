@@ -1,9 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
-import { Grid, Box, Typography } from '@mui/material';
-import PageContainer from 'src/components/container/PageContainer';
+import { Box, Grid, Typography } from '@mui/material';
 import img1 from 'src/assets/images/backgrounds/login-bg.png';
+import PageContainer from 'src/components/container/PageContainer';
 import Logo from 'src/layouts/full/shared/logo/Logo';
 import AuthLogin from '../authForms/AuthLogin';
 
@@ -71,7 +70,7 @@ const Login = () => (
             title="Welcome to Akila"
             subtext={
               <Typography variant="subtitle1" color="textSecondary" mb={1}>
-                Your Admin Dashboard
+                Your Cybersecurity Platform
               </Typography>
             }
           />
