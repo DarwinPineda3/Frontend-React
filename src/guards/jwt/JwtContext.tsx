@@ -72,11 +72,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
         const refreshToken = window.localStorage.getItem('refreshToken');
-
-        if (accessToken) {
-          console.log("valid token: ", isValidToken(accessToken))
-        }
-
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken, refreshToken);
           dispatch({

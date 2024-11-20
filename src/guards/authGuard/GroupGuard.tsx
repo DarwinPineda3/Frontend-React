@@ -44,7 +44,7 @@ const GroupGuard = ({ children }: any) => {
 
   const currentRoute = location.pathname;
   const route = findRoute(Router, currentRoute);
-  console.log('route', currentRoute);
+  //console.log('route', currentRoute);
   const hasPermission = route && checkPermission(route.roles);
 
   // Special redirect for CyberGuard role on root path
@@ -68,7 +68,7 @@ const GroupGuard = ({ children }: any) => {
     );
   }
 
-  console.log('hasPermission', hasPermission);
+  //console.log('hasPermission', hasPermission);
   return hasPermission ? children : null;
 };
 
