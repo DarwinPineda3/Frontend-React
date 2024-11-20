@@ -975,13 +975,17 @@
     "buttonSubmit": "Submit"
   },
   "auth": {
-  "email_label": "Email Address",
-  "password_label": "Password",
-  "remember_device": "Remember this Device",
-  "forgot_password_link": "Forgot Password?",
-  "sign_in_button": "Sign In",
-  "error_authentication": "Authentication error",
-  "error_connection": "Unable to connect to the server. Please try again later.",
-  "error_unexpected": "An unexpected error occurred. Please try again."
+    "email_invalid": "Email is invalid",
+    "email_required": "Email is required",
+    "password_min_length": "Password must be at least 6 characters",
+    "password_required": "Password is required",
+    "error_authentication": "Authentication error",
+    "error_connection": "Could not connect to the server. Try again later.",
+    "error_unexpected": "An unexpected error occurred. Please try again.",
+    "email_label": "Email Address",
+    "password_label": "Password",
+    "remember_device": "Remember this device",
+    "forgot_password_link": "Forgot Password?",
+    "sign_in_button": "Sign In"
 }
 }
