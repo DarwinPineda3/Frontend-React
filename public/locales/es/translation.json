@@ -941,7 +941,8 @@
   "authForgotPassword": {
     "emailLabel": "Dirección de Correo Electrónico",
     "forgotPasswordButton": "Has olvidado tu contraseña",
-    "backToLoginButton": "Volver al Inicio de Sesión"
+    "backToLoginButton": "Volver al Inicio de Sesión",
+    "invalidEmail": "Email inválido"
   },
   "registerPage": {
     "title": "Bienvenido a Akila",
