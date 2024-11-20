@@ -972,5 +972,15 @@
     "errorGeneral": "Ocurrió un error al restablecer tu contraseña.",
     "buttonResetting": "Restableciendo...",
     "buttonSubmit": "Enviar"
-  }
+  },
+  "auth": {
+  "email_label": "Dirección de correo electrónico",
+  "password_label": "Contraseña",
+  "remember_device": "Recordar este dispositivo",
+  "forgot_password_link": "¿Olvidaste tu contraseña?",
+  "sign_in_button": "Iniciar sesión",
+  "error_authentication": "Error de autenticación",
+  "error_connection": "No se pudo conectar con el servidor. Intenta más tarde.",
+  "error_unexpected": "Ocurrió un error inesperado. Por favor, intenta nuevamente."
+}
 }

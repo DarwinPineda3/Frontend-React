@@ -973,5 +973,15 @@
     "errorGeneral": "An error occurred while resetting your password.",
     "buttonResetting": "Resetting...",
     "buttonSubmit": "Submit"
-  }
+  },
+  "auth": {
+  "email_label": "Email Address",
+  "password_label": "Password",
+  "remember_device": "Remember this Device",
+  "forgot_password_link": "Forgot Password?",
+  "sign_in_button": "Sign In",
+  "error_authentication": "Authentication error",
+  "error_connection": "Unable to connect to the server. Please try again later.",
+  "error_unexpected": "An unexpected error occurred. Please try again."
+}
 }
