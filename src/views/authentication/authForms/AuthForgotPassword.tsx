@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { Button, Stack } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 import { useState } from 'react';
@@ -13,7 +13,6 @@ import CustomTextField from '../../../components/forms/theme-elements/CustomText
 const API_FORGOT_PASSWORD = '/api/forgot-password';
 
 const AuthForgotPassword = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const [email, setEmail] = useState<string>('');
@@ -22,7 +21,7 @@ const AuthForgotPassword = () => {
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
-  >('success'); // Snackbar severity
+  >('success'); // Snackbar
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -33,15 +32,19 @@ const AuthForgotPassword = () => {
     }
 
     try {
-      setError(null); // Limpia errores previos
+      setError(null);
       const response = await axios.post(
         `${import.meta.env.VITE_API_BACKEND_BASE_URL}${API_FORGOT_PASSWORD}`,
         { email },
       );
       if (response.status === 200) {
+        setEmail('');
         setSnackbarMessage(response.data.detail);
-        setSnackbarSeverity('success');
-        setSnackbarOpen(true);
+        setSnackbarSeverity('info');
+        setTimeout(() => {
+          setSnackbarOpen(true);
+        }, 0);
+        setSnackbarOpen(false);
       }
     } catch (err: any) {
       console.error('Error en Forgot Password:', err);
@@ -82,7 +85,7 @@ const AuthForgotPassword = () => {
         {snackbarOpen && (
           <SnackBarInfo
             color={snackbarSeverity}
-            title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
+            title={snackbarSeverity === 'info' ? 'Info' : 'Error'}
             message={snackbarMessage}
           />
         )}
