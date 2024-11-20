@@ -108,7 +108,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               <FormGroup>
                 <FormControlLabel
                   control={<CustomCheckbox defaultChecked />}
-                  label="Remeber this Device"
+                  label="Remeber this device"
                 />
               </FormGroup>
               <Typography
