@@ -1,18 +1,18 @@
+import { Alert, Box, Button, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Grid, Box, Typography, TextField, Button, Alert } from '@mui/material';
-import {  useNavigate, useParams } from 'react-router-dom'; 
-import { useTranslation } from 'react-i18next'; 
-import PageContainer from 'src/components/container/PageContainer';
+import { useTranslation } from 'react-i18next';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import img1 from 'src/assets/images/backgrounds/login-bg.svg';
+import PageContainer from 'src/components/container/PageContainer';
 import Logo from 'src/layouts/full/shared/logo/Logo';
 
 const ResetPassword = () => {
-  
-  const { token } = useParams(); 
-  console.log('Token desde la URL:', token); 
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
+  console.log('Token desde la URL:', token);
 
   const navigate = useNavigate();
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -29,11 +29,11 @@ const ResetPassword = () => {
 
   const validateForm = () => {
     if (!password || !confirmPassword) {
-      setError(t('resetPassword.errorRequired')); 
+      setError(t('resetPassword.errorRequired'));
       return false;
     }
     if (password !== confirmPassword) {
-      setError(t('resetPassword.errorMismatch')); 
+      setError(t('resetPassword.errorMismatch'));
       return false;
     }
     return true;
@@ -57,7 +57,7 @@ const ResetPassword = () => {
       }, 2000);
     } catch (error) {
       setLoading(false);
-      setError(t('resetPassword.errorGeneral')); 
+      setError(t('resetPassword.errorGeneral'));
     }
   };
 
@@ -122,18 +122,18 @@ const ResetPassword = () => {
         >
           <Box p={4}>
             <Typography variant="h4" fontWeight="700">
-              {t('resetPassword.title')} 
+              {t('resetPassword.title')}
             </Typography>
 
             <Typography variant="subtitle1" color="textSecondary" mt={2} mb={0.5}>
-              {t('resetPassword.instruction')} 
+              {t('resetPassword.instruction')}
             </Typography>
 
             {error && <Alert severity="error">{error}</Alert>}
 
             <form onSubmit={handleSubmit}>
               <TextField
-                label={t('resetPassword.passwordLabel')} 
+                label={t('resetPassword.passwordLabel')}
                 type="password"
                 name="password"
                 fullWidth
@@ -142,13 +142,13 @@ const ResetPassword = () => {
                 sx={{ mt: 0.5 }}
                 required
               />
-              
-              <Typography variant="subtitle1" color="textSecondary" sx={{ mt: 3, mb: 0.5 }} >
-                {t('resetPassword.confirmText')} 
+
+              <Typography variant="subtitle1" color="textSecondary" sx={{ mt: 3, mb: 0.5 }}>
+                {t('resetPassword.confirmText')}
               </Typography>
 
               <TextField
-                label={t('resetPassword.confirmPasswordLabel')} 
+                label={t('resetPassword.confirmPasswordLabel')}
                 type="password"
                 name="confirmPassword"
                 fullWidth
@@ -157,7 +157,7 @@ const ResetPassword = () => {
                 sx={{ mt: 0.5 }}
                 required
               />
-              
+
               <Box mt={3}>
                 <Button
                   type="submit"
@@ -166,7 +166,7 @@ const ResetPassword = () => {
                   fullWidth
                   disabled={loading}
                 >
-                  {loading ? t('resetPassword.buttonResetting') : t('resetPassword.buttonSubmit')} 
+                  {loading ? t('resetPassword.buttonResetting') : t('resetPassword.buttonSubmit')}
                 </Button>
               </Box>
             </form>
