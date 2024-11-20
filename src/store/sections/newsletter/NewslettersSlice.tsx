@@ -3,7 +3,7 @@ import { Data, NewsletterType } from 'src/types/newsletters/newsletter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
-const API_URL = `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/newsletters/`;
+const API_URL = `${import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE}/api/newsletters/`;
 const DETAIL_API_URL = '/api/data/newsletter/detail';
 
 interface StateType {
