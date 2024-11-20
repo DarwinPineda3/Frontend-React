@@ -44,7 +44,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
         await signin(values.email, values.password);
-        navigate("/home/dashboard");
+        navigate("/");
 
         if (mounted.current) {
           setStatus({ success: true });
