@@ -20,7 +20,6 @@ const initialState: InitialStateType = {
 const handlers: any = {
   INITIALIZE: (state: InitialStateType, action: any) => {
     const { isAuthenticated, user } = action.payload;
-
     return {
       ...state,
       isAuthenticated,
@@ -29,7 +28,7 @@ const handlers: any = {
     };
   },
   LOGIN: (state: InitialStateType, action: any) => {
-    const { user } = action.payload;
+    const { user, groups } = action.payload;
 
     return {
       ...state,
@@ -73,11 +72,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
         const refreshToken = window.localStorage.getItem('refreshToken');
-
-        if (accessToken) {
-          console.log("valid token: ", isValidToken(accessToken))
-        }
-
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken, refreshToken);
           dispatch({
@@ -130,7 +124,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
     });
     const { access, refresh, user } = response.data;
     setSession(access, refresh);
-
     dispatch({
       type: 'LOGIN',
       payload: {

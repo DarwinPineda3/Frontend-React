@@ -4,7 +4,11 @@ import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const ThreatTypesBarChart: React.FC = () => {
+interface ThreatTypesBarChartProps {
+  data: number[];
+}
+
+const ThreatTypesBarChart: React.FC<ThreatTypesBarChartProps> = ({ data }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -81,7 +85,7 @@ const ThreatTypesBarChart: React.FC = () => {
   const series = [
     {
       name: t('monitoring.threat_types'),
-      data: [10, 8, 22, 15],
+      data: data,
     },
   ];
 

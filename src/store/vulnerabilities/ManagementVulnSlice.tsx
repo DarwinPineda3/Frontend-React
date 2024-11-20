@@ -61,16 +61,16 @@ export const { getManagedVuln, getVulnerabilityById, updateVulnerability, setPag
 // Async thunk for fetching vulnerabilities with pagination (READ)
 export const fetchManagedVuln =
   (page = 1) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}?page=${page}`);
-      const { managedVuln, currentPage, totalPages } = response.data;
-      dispatch(getManagedVuln({ managedVuln, currentPage, totalPages }));
-    } catch (err: any) {
-      console.error('Error fetching managed vulnerabilities:', err);
-      dispatch(setError('Failed to fetch managed vulnerabilities'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${API_URL}?page=${page}`);
+        const { managedVuln, currentPage, totalPages } = response.data;
+        dispatch(getManagedVuln({ managedVuln, currentPage, totalPages }));
+      } catch (err: any) {
+        console.error('Error fetching managed vulnerabilities:', err);
+        dispatch(setError('Failed to fetch managed vulnerabilities'));
+      }
+    };
 
 export const fetchVulnerabilityById = (id: number) => async (dispatch: AppDispatch) => {
   try {
@@ -102,16 +102,16 @@ export const closeVulnerability =
       closure_reason?: string | null;
     },
   ) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.put(`${CLOSE_API_URL}/${id}`, updatedFields);
-      console.log(response);
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.put(`${CLOSE_API_URL}/${id}`, updatedFields);
+        //console.log(response);
 
-      dispatch(updateVulnerability(response.data.vulnerability));
-    } catch (err: any) {
-      console.error('Error updating vulnerability:', err.response || err.message || err);
-      dispatch(setError('Failed to update vulnerability'));
-    }
-  };
+        dispatch(updateVulnerability(response.data.vulnerability));
+      } catch (err: any) {
+        console.error('Error updating vulnerability:', err.response || err.message || err);
+        dispatch(setError('Failed to update vulnerability'));
+      }
+    };
 
 export default ManagedVulnSlice.reducer;

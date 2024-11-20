@@ -24,39 +24,34 @@ const DarkWeb = () => {
   const brandMonitoringData: any = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringData);
 
   const navigate = useNavigate();
-
-  // Fetch brand monitoring data
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchBrandMonitoringResume());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(fetchBrandMonitoringData());
   }, [dispatch]);
 
   const cardsValues = [
-    brandMonitoringResume?.data?.['security_leaks_total'] ?? 0, // Total Compromises
-    brandMonitoringResume?.data?.['domains'] ?? 0, // Domains
-    brandMonitoringResume?.data?.['emails'] ?? 0, // Emails
-    brandMonitoringResume?.data?.['ip'] ?? 0, // IPs
-    brandMonitoringResume?.data?.['usernames'] ?? 0, // Usernames
-    brandMonitoringResume?.data?.['phones'] ?? 0, // Phones
-    brandMonitoringResume?.data?.['social_network_total'] ?? 0, // Malware Count
-    brandMonitoringResume?.data?.['vins'] ?? 0, // Compromised VIPs Count
-    brandMonitoringResume?.data?.['dark_web_total'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['security_leaks_total'] ?? 0, // Total Compromises
+    brandMonitoringResume?.['domains'] ?? 0, // Domains
+    brandMonitoringResume?.['emails'] ?? 0, // Emails
+    brandMonitoringResume?.['ip'] ?? 0, // IPs
+    brandMonitoringResume?.['usernames'] ?? 0, // Usernames
+    brandMonitoringResume?.['phones'] ?? 0, // Phones
+    brandMonitoringResume?.['social_network_total'] ?? 0, // Malware Count
+    brandMonitoringResume?.['vins'] ?? 0, // Compromised VIPs Count
+    brandMonitoringResume?.['dark_web_total'] ?? 0, // Fake Applications Count
   ];
 
 
   const polygonValues = [
-    brandMonitoringResume?.data?.['ip'] ?? 0,
-    brandMonitoringResume?.data?.['emails'] ?? 0,
-    brandMonitoringResume?.data?.['phones'] ?? 0,
-    brandMonitoringResume?.data?.['domains'] ?? 0,
-    brandMonitoringResume?.data?.['usernames'] ?? 0,
+    brandMonitoringResume?.['ip'] ?? 0,
+    brandMonitoringResume?.['emails'] ?? 0,
+    brandMonitoringResume?.['phones'] ?? 0,
+    brandMonitoringResume?.['domains'] ?? 0,
+    brandMonitoringResume?.['usernames'] ?? 0,
   ];
 
   const polygonLabels = [
@@ -66,6 +61,27 @@ const DarkWeb = () => {
     t('observability.domain'),
     t('observability.username'),
   ]
+
+  const topDetectedThreatTypesData = [
+    brandMonitoringResume?.['malware'] ?? 0,
+    brandMonitoringResume?.['fake_applications'] ?? 0,
+    brandMonitoringResume?.['phishing'] ?? 0,
+    brandMonitoringResume?.['social_network_total'] ?? 0,
+  ]
+
+  const elemetsByTypeData = [
+    brandMonitoringResume?.['malware'] ?? 0,
+    brandMonitoringResume?.['fake_applications'] ?? 0,
+    brandMonitoringResume?.['data_leaks'] ?? 0,
+    brandMonitoringResume?.['social_network_total'] ?? 0,
+  ]
+
+  const breachesByStatusData = [
+    brandMonitoringResume?.['open'] ?? 0,
+    brandMonitoringResume?.['closed'] ?? 0,
+    brandMonitoringResume?.['in_migration'] ?? 0,
+  ]
+
   const series = {
     name: 'Breaches',
     data: polygonValues,
@@ -165,7 +181,7 @@ const DarkWeb = () => {
         </Grid>
         <Grid item xs={12} lg={3}>
           <Box style={{ display: 'flex', height: '100%' }}>
-            <BreachStatusChart />
+            <BreachStatusChart data={breachesByStatusData} />
           </Box>
         </Grid>
         <Grid item xs={12} lg={3}>
@@ -175,12 +191,12 @@ const DarkWeb = () => {
         </Grid>
         <Grid item xs={12} lg={3}>
           <Box style={{ display: 'flex', height: '100%' }}>
-            <CompromisedTypesChart />
+            <CompromisedTypesChart data={elemetsByTypeData} />
           </Box>
         </Grid>
         <Grid item xs={12} lg={6}>
           <Box style={{ display: 'flex', height: '100%' }}>
-            <ThreatTypesBarChart />
+            <ThreatTypesBarChart data={topDetectedThreatTypesData} />
           </Box>
         </Grid>
         <Grid item xs={12} lg={6}>

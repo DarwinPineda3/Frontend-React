@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getTenant } from 'src/guards/jwt/Jwt';
 import { ParameterCyberGuardType } from 'src/types/cyber-guard/parameters/parameter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
-const API_URL = 'http://akilalocal.localhost:4500/api/parameters/';
+
+const tenant = getTenant()
+const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
+const API_URL = `${base_api_url}/api/parameters`;
 
 interface StateType {
   parameters: ParameterCyberGuardType[];
@@ -55,17 +59,17 @@ export const { getParameters, addParameter, updateParameter, deleteParameter, se
 // Async thunk for fetching parameters with pagination (READ)
 export const fetchParameters =
   (page = 1) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}`);
-      const { results, count } = response.data; // Assuming DRF pagination
-      const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
-      dispatch(getParameters({ results, currentPage: page, totalPages })); // Dispatch to update state
-    } catch (err: any) {
-      console.error('Error fetching parameters:', err);
-      dispatch(setError('Failed to fetch parameters'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${API_URL}`);
+        const { results, count } = response.data; // Assuming DRF pagination
+        const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
+        dispatch(getParameters({ results, currentPage: page, totalPages })); // Dispatch to update state
+      } catch (err: any) {
+        console.error('Error fetching parameters:', err);
+        dispatch(setError('Failed to fetch parameters'));
+      }
+    };
 
 // Async thunk for creating a new parameter (CREATE)
 export const createParameter =
