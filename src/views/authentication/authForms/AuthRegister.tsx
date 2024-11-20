@@ -1,22 +1,21 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
-import { Box, Typography, Button, Divider, Stack } from '@mui/material';
+import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; 
 
-import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
-import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
 import { registerType } from 'src/types/auth/auth';
+import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
+import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
 import AuthSocialButtons from './AuthSocialButtons';
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
-  
+
   const translatedTitle = title || t('authRegister.title', { defaultValue: 'Default Title' });
   const translatedSubtitle = subtitle || t('authRegister.subtitle', { defaultValue: 'Welcome to Akila' });
-  const translatedSubtext = subtext || t('authRegister.subtext', { defaultValue: 'Your Admin Dashboard' });
+  const translatedSubtext = subtext || t('authRegister.subtext', { defaultValue: 'Your Cybersecurity Platform' });
 
   return (
     <>
@@ -28,7 +27,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 
       {translatedSubtext}
 
-      <AuthSocialButtons title={t('authRegister.signUpWith', { defaultValue: 'Sign up with' }) as string } />
+      <AuthSocialButtons title={t('authRegister.signUpWith', { defaultValue: 'Sign up with' }) as string} />
 
       <Box mt={3}>
         <Divider>
