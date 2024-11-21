@@ -25,10 +25,11 @@ import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 //vulnerabilities
+import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
-import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
-import TicketReducer from "./support/FreshTicketsSlice";
+import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
+import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
 
 import {
   TypedUseSelectorHook,
@@ -67,6 +68,7 @@ export const store = configureStore({
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
+    networkScanReducer: NetworkScanReducer,
   },
 });
 
@@ -87,6 +89,7 @@ const rootReducer = combineReducers({
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
+  networkScanReducer: NetworkScanReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
