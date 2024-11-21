@@ -10,7 +10,8 @@ import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
 import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
 
-const API_FORGOT_PASSWORD = '/api/forgot-password';
+const API_URL_FORGOT_PASSWORD = '/api/forgot-password';
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const AuthForgotPassword = () => {
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ const AuthForgotPassword = () => {
 
     setLoading(true);
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || !EMAIL_REGEX.test(email)) {
       setError(t('authForgotPassword.invalidEmail'));
       return;
     }
@@ -37,7 +38,7 @@ const AuthForgotPassword = () => {
     try {
       setError(null);
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BACKEND_BASE_URL}${API_FORGOT_PASSWORD}`,
+        `${import.meta.env.VITE_API_BACKEND_BASE_URL}${API_URL_FORGOT_PASSWORD}`,
         { email },
       );
       if (response.status === 200) {

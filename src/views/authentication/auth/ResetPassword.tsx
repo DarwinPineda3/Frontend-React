@@ -24,8 +24,8 @@ const ResetPassword = () => {
     'success' | 'info' | 'warning' | 'error'
   >('success'); // Snackbar
 
-  const API_RESET_PASSWORD = '/api/reset-password';
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+  const API_URL_RESET_PASSWORD = '/api/reset-password';
+  const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'password') {
@@ -36,7 +36,7 @@ const ResetPassword = () => {
   };
 
   const validateForm = () => {
-    if (!passwordRegex.test(password)) {
+    if (!PASSWORD_REGEX.test(password)) {
       setError(t('resetPassword.errorPasswordFormat'));
       return false;
     }
@@ -63,7 +63,7 @@ const ResetPassword = () => {
     try {
       // password change request
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BACKEND_BASE_URL}${API_RESET_PASSWORD}`,
+        `${import.meta.env.VITE_API_BACKEND_BASE_URL}${API_URL_RESET_PASSWORD}`,
         { new_password: password, token },
       );
       if (response.status === 200) {
