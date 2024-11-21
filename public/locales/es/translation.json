@@ -941,7 +941,8 @@
   "authForgotPassword": {
     "emailLabel": "Dirección de Correo Electrónico",
     "forgotPasswordButton": "Has olvidado tu contraseña",
-    "backToLoginButton": "Volver al Inicio de Sesión"
+    "backToLoginButton": "Volver al Inicio de Sesión",
+    "invalidEmail": "Email inválido"
   },
   "registerPage": {
     "title": "Bienvenido a Akila",
@@ -971,7 +972,8 @@
     "errorMismatch": "Las contraseñas no coinciden.",
     "errorGeneral": "Ocurrió un error al restablecer tu contraseña.",
     "buttonResetting": "Restableciendo...",
-    "buttonSubmit": "Enviar"
+    "buttonSubmit": "Enviar",
+    "errorPasswordFormat": "La contraseña debe tener al menos 8 caracteres, incluir un número y una combinación de mayúsculas y minúsculas."
   },
   "auth": {
     "email_invalid": "El correo electrónico no es válido",
@@ -986,5 +988,5 @@
     "remember_device": "Recordar este dispositivo",
     "forgot_password_link": "¿Olvidaste tu contraseña?",
     "sign_in_button": "Iniciar sesión"
-}
+  }
 }

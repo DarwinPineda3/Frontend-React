@@ -942,7 +942,8 @@
   "authForgotPassword": {
     "emailLabel": "Email Address",
     "forgotPasswordButton": "Forgot Password",
-    "backToLoginButton": "Back to Login"
+    "backToLoginButton": "Back to Login",
+    "invalidEmail": "Invalid email address"
   },
   "registerPage": {
     "title": "Welcome to Akila",
@@ -972,7 +973,8 @@
     "errorMismatch": "Passwords do not match.",
     "errorGeneral": "An error occurred while resetting your password.",
     "buttonResetting": "Resetting...",
-    "buttonSubmit": "Submit"
+    "buttonSubmit": "Submit",
+    "errorPasswordFormat": "Password must be at least 8 characters long, include a number, and a mix of uppercase and lowercase letters."
   },
   "auth": {
     "email_invalid": "Email is invalid",
@@ -987,5 +989,5 @@
     "remember_device": "Remember this device",
     "forgot_password_link": "Forgot Password?",
     "sign_in_button": "Sign In"
-}
+  }
 }

@@ -217,7 +217,7 @@ const Router = [
       { path: '/auth/signup', element: <Register /> },
       { path: '/404', element: <Error /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
-      { path: '/auth/reset-password/:token', element: <ResetPassword /> },
+      { path: '/auth/reset-password', element: <ResetPassword /> },
     ],
   },
   { path: '*', element: <Navigate to="/404" /> },
