@@ -63,7 +63,7 @@ const BrandMonitoringCyberGuard = () => {
       {selectedBrandMonitoring ? (
         <Grid container spacing={0} mt={1}>
           <Grid item xs={12} xl={12}>
-            <BrandMonitoringDetail id={selectedBrandMonitoring!} key={selectedBrandMonitoring} />
+            <BrandMonitoringDetail id={selectedBrandMonitoring!} />
           </Grid>
         </Grid>
       ) : (
