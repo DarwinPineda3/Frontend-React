@@ -984,6 +984,7 @@
     "error_authentication": "Authentication error",
     "error_connection": "Could not connect to the server. Try again later.",
     "error_unexpected": "An unexpected error occurred. Please try again.",
+    "error_account_inactive": "The combination of credentials does not have an active account",
     "email_label": "Email Address",
     "password_label": "Password",
     "remember_device": "Remember this device",
