@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { Box, Divider, Badge, Typography } from '@mui/material';
-import Tab from '@mui/material/Tab';
+import ExclamationIcon from '@mui/icons-material/ErrorOutline';
+import ListIcon from '@mui/icons-material/List';
+import PersonIcon from '@mui/icons-material/Person';
+import GlobeIcon from '@mui/icons-material/Public';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import GlobeIcon from '@mui/icons-material/Public';
-import ListIcon from '@mui/icons-material/List';
-import PersonIcon from '@mui/icons-material/Person';
-import ExclamationIcon from '@mui/icons-material/ErrorOutline';
-import DashboardCard from '../../../../shared/DashboardCard';
-import SecurityLeaks from './brand-monitoring-details/security-leaks/SecurityLeaks';
-import { fetchBrandMonitoringById } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
-import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import SocialNetworks from './brand-monitoring-details/social-networks/SocialNetworks';
-import Internet from './brand-monitoring-details/internet/Internet';
-import DarkWeb from './brand-monitoring-details/dark-web/DarkWeb';
+import { Badge, Box, Divider } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchBrandMonitoringById } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import DashboardCard from '../../../../shared/DashboardCard';
+import DarkWeb from './brand-monitoring-details/dark-web/DarkWeb';
+import Internet from './brand-monitoring-details/internet/Internet';
+import SecurityLeaks from './brand-monitoring-details/security-leaks/SecurityLeaks';
+import SocialNetworks from './brand-monitoring-details/social-networks/SocialNetworks';
 
 interface BrandMonitoringDetailProps {
   id: string;
@@ -25,8 +26,10 @@ interface BrandMonitoringDetailProps {
 const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const brandMonitoringDetail: Data = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringDetail);
-
+  const brandMonitoringDetail: Data = useSelector(
+    (state: any) => state.brandMonitoringReducer.brandMonitoringDetail,
+  );
+  const [isLoading, setIsLoading] = useState(true);
   const COMMON_TAB = [
     {
       value: 'internet',
@@ -55,11 +58,17 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       label: `${t('monitoring.dark_web')}`,
       disabled: false,
       badge: '',
-      content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail}/>,
+      content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail} />,
     },
   ];
   React.useEffect(() => {
-    dispatch(fetchBrandMonitoringById(id));
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchBrandMonitoringById(id));
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, [dispatch, id]);
 
   const [value, setValue] = React.useState('internet');
@@ -68,11 +77,24 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
     setValue(newValue);
   };
 
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+        <Loader />
+      </Box>
+    );
+  }
+
   return (
     <DashboardCard title={brandMonitoringDetail?.query}>
       <TabContext value={value}>
         <Box sx={{ p: 0 }}>
-          <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
+          <TabList
+            onChange={handleChange}
+            aria-label="Tabs Cyber Guard"
+            variant="scrollable"
+            scrollButtons="auto"
+          >
             {COMMON_TAB.map((tab) => (
               <Tab
                 key={tab.value}
