@@ -7,6 +7,7 @@ import img1 from 'src/assets/images/backgrounds/login-bg.svg';
 import PageContainer from 'src/components/container/PageContainer';
 import Logo from 'src/layouts/full/shared/logo/Logo';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import { PASSWORD_REGEX } from 'src/utils/regexValidation';
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -25,7 +26,6 @@ const ResetPassword = () => {
   >('success'); // Snackbar
 
   const API_URL_RESET_PASSWORD = '/api/reset-password';
-  const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.name === 'password') {

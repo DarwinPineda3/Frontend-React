@@ -7,11 +7,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import { EMAIL_REGEX } from 'src/utils/regexValidation';
 import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
 import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
 
 const API_URL_FORGOT_PASSWORD = '/api/forgot-password';
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const AuthForgotPassword = () => {
   const { t } = useTranslation();
