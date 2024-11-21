@@ -168,7 +168,7 @@ const AccountTab = () => {
                     }}
                     htmlFor="text-name"
                   >
-                    Your Name
+                    First Name
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-name"
@@ -178,7 +178,22 @@ const AccountTab = () => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {/* 2 */}
+                  <CustomFormLabel
+                    sx={{
+                      mt: 0,
+                    }}
+                    htmlFor="text-name"
+                  >
+                    Last Name
+                  </CustomFormLabel>
+                  <CustomTextField
+                    id="text-name"
+                    value="Mathew Anderson"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                {/* <Grid item xs={12} sm={6}>
                   <CustomFormLabel
                     sx={{
                       mt: 0,
@@ -193,9 +208,8 @@ const AccountTab = () => {
                     variant="outlined"
                     fullWidth
                   />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {/* 3 */}
+                </Grid> */}
+                {/* <Grid item xs={12} sm={6}>
                   <CustomFormLabel
                     sx={{
                       mt: 0,
@@ -217,9 +231,9 @@ const AccountTab = () => {
                       </MenuItem>
                     ))}
                   </CustomSelect>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {/* 4 */}
+                </Grid> */}
+                {/* <Grid item xs={12} sm={6}>
+                  
                   <CustomFormLabel
                     sx={{
                       mt: 0,
@@ -241,7 +255,7 @@ const AccountTab = () => {
                       </MenuItem>
                     ))}
                   </CustomSelect>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} sm={6}>
                   {/* 5 */}
                   <CustomFormLabel
@@ -259,8 +273,7 @@ const AccountTab = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  {/* 6 */}
+                {/* <Grid item xs={12} sm={6}>
                   <CustomFormLabel
                     sx={{
                       mt: 0,
@@ -277,7 +290,6 @@ const AccountTab = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* 7 */}
                   <CustomFormLabel
                     sx={{
                       mt: 0,
@@ -292,7 +304,7 @@ const AccountTab = () => {
                     variant="outlined"
                     fullWidth
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </form>
           </CardContent>
