@@ -1,6 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import {
-  Alert,
   Box,
   Button,
   Dialog,
@@ -18,6 +17,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
+import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
@@ -44,6 +44,7 @@ const ParameterList = () => {
   >('success'); // Snackbar severity
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [parameterToDelete, setParameterToDelete] = useState<ParameterCyberGuardType | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteClick = (parameter: ParameterCyberGuardType) => {
     setParameterToDelete(parameter);
@@ -65,7 +66,12 @@ const ParameterList = () => {
   };
 
   React.useEffect(() => {
-    dispatch(fetchParameters(currentPage));
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchParameters(currentPage));
+      setIsLoading(false);
+    };
+    fetchData();
   }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -115,110 +121,118 @@ const ParameterList = () => {
       action={addButton}
     >
       <Box>
-        <Alert severity="info" sx={{ mb: 2 }}>
-          {t('monitoring.monitoring_times')}
-        </Alert>
-        <TableContainer>
-          <Table aria-label="parameter table" sx={{ whiteSpace: 'nowrap' }}>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('monitoring.parameter')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('monitoring.parameter_type')}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('monitoring.actions')}
-                  </Typography>
-                  {/* Add New Parameter Button */}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {parameters.length > 0 ? (
-                parameters.map((parameter: any, index: number) => (
-                  <TableRow key={index}>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
+            <TableContainer>
+              <Table aria-label="parameter table" sx={{ whiteSpace: 'nowrap' }}>
+                <TableHead>
+                  <TableRow>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {parameter.parameter}
+                        {t('monitoring.parameter')}
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                        {t(`monitoring.${parameter.parameter_type.toLowerCase()}`).toUpperCase()}
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('monitoring.parameter_type')}
                       </Typography>
                     </TableCell>
                     <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        onClick={() => handleEditClick(parameter)}
-                      >
-                        {t('monitoring.edit_parameter')}
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="error"
-                        size="small"
-                        sx={{ ml: 2 }}
-                        onClick={() => handleDeleteClick(parameter)}
-                      >
-                        {t('monitoring.delete_parameter')}
-                      </Button>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('monitoring.actions')}
+                      </Typography>
+                      {/* Add New Parameter Button */}
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={4}>
-                    <Typography color="textSecondary" variant="subtitle2" align="center">
-                      {t('monitoring.no_data_available')}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box my={3} display="flex" justifyContent={'center'}>
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
-        {/* Edit/Create Parameter Dialog/Modal */}
-        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-          <DialogContent sx={{ padding: '50px' }}>
-            <CreateUpdateParameter
-              parameter={editParameter ?? undefined}
-              onSubmit={handleFormSubmit}
-            />{' '}
-            {/* Pass the onSubmit callback */}
-          </DialogContent>
-        </Dialog>
+                </TableHead>
+                <TableBody>
+                  {parameters.length > 0 ? (
+                    parameters.map((parameter: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            {parameter.parameter}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                            {t(
+                              `monitoring.${parameter.parameter_type.toLowerCase()}`,
+                            ).toUpperCase()}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            onClick={() => handleEditClick(parameter)}
+                          >
+                            {t('monitoring.edit_parameter')}
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="error"
+                            size="small"
+                            sx={{ ml: 2 }}
+                            onClick={() => handleDeleteClick(parameter)}
+                          >
+                            {t('monitoring.delete_parameter')}
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={4}>
+                        <Typography color="textSecondary" variant="subtitle2" align="center">
+                          {t('monitoring.no_data_available')}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
-        {/* Snackbar */}
-        {snackbarOpen && (
-          <SnackBarInfo
-            color={snackbarSeverity}
-            title="Operation Status"
-            message={snackbarMessage}
-          />
+            <Box my={3} display="flex" justifyContent={'center'}>
+              <Pagination
+                count={totalPages}
+                color="primary"
+                page={currentPage}
+                onChange={handlePageChange}
+              />
+            </Box>
+            {/* Edit/Create Parameter Dialog/Modal */}
+            <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+              <DialogContent sx={{ padding: '50px' }}>
+                <CreateUpdateParameter
+                  parameter={editParameter ?? undefined}
+                  onSubmit={handleFormSubmit}
+                />{' '}
+                {/* Pass the onSubmit callback */}
+              </DialogContent>
+            </Dialog>
+
+            {/* Snackbar */}
+            {snackbarOpen && (
+              <SnackBarInfo
+                color={snackbarSeverity}
+                title="Operation Status"
+                message={snackbarMessage}
+              />
+            )}
+            <ConfirmDeleteModal
+              open={openModal}
+              handleClose={handleClose}
+              handleConfirm={handleConfirmDelete}
+            />
+          </>
         )}
-        <ConfirmDeleteModal
-          open={openModal}
-          handleClose={handleClose}
-          handleConfirm={handleConfirmDelete}
-        />
       </Box>
     </DashboardCard>
   );
