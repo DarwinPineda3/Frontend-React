@@ -974,5 +974,19 @@
     "buttonResetting": "Restableciendo...",
     "buttonSubmit": "Enviar",
     "errorPasswordFormat": "La contraseña debe tener al menos 8 caracteres, incluir un número y una combinación de mayúsculas y minúsculas."
+  },
+  "auth": {
+    "email_invalid": "El correo electrónico no es válido",
+    "email_required": "El correo electrónico es requerido",
+    "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+    "password_required": "La contraseña es requerida",
+    "error_authentication": "Error de autenticación",
+    "error_connection": "No pudimos conectar con el servidor. Inténtalo más tarde.",
+    "error_unexpected": "Ocurrió un error inesperado. Por favor, intenta nuevamente.",
+    "email_label": "Dirección de correo electrónico",
+    "password_label": "Contraseña",
+    "remember_device": "Recordar este dispositivo",
+    "forgot_password_link": "¿Olvidaste tu contraseña?",
+    "sign_in_button": "Iniciar sesión"
   }
 }
