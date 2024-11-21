@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getTenant } from 'src/guards/jwt/Jwt';
 import { Data, NewsletterType } from 'src/types/newsletters/newsletter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
-const API_URL = `${import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE}/api/newsletters/`;
-const DETAIL_API_URL = '/api/data/newsletter/detail';
+const tenant = getTenant()
+const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
+const API_URL = `${base_api_url}/api/newsletters/`;
 
 interface StateType {
   newsletters: NewsletterType[];
@@ -64,7 +66,7 @@ export const fetchNewsletters =
 
 export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${DETAIL_API_URL}/${id}`);
+    const response = await axios.get(`${API_URL}/${id}`);
 
     if (response.status === 200) {
       dispatch(getNewsletterDetail({ data: response.data.newsletter }));
