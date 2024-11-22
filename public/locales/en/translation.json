@@ -1013,6 +1013,9 @@
     "current_password_required": "Current password is required.",
     "password_minimum": "Password must be at least 8 characters.",
     "passwords_must_match": "Passwords must match.",
-    "confirm_password_required": "Confirm password is required."
+    "confirm_password_required": "Confirm password is required.",
+    "password_updated_successfully": "Password updated successfully.",
+    "password_update_failed": "Failed to update password.",
+    "password_change_failed": "Failed to change password."
   }
 }

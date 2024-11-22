@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AppDispatch } from 'src/store/Store';
 import axios from 'src/utils/axios';
 import { getTenant } from 'src/guards/jwt/Jwt';
+import { t } from 'i18next';
 
 const tenant = getTenant();
 const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
@@ -47,12 +48,12 @@ export const changePassword = (passwordData: { currentPass: string; newPass: str
     });
 
     if (response.status === 200) {
-      dispatch(setSuccessMessage('Password updated successfully.'));
+        dispatch(setSuccessMessage(t('account_settings.password_updated_successfully')));
     } else {
-        dispatch(setError(response.data.message || 'Failed to update password.'));
+        dispatch(setError(response.data.message || t('account_settings.password_update_failed')));
     }
   } catch (err: any) {
-    dispatch(setError(err.response?.data?.message || 'Failed to change password.'));
+    dispatch(setError(err.response?.data?.message || t('account_settings.password_change_failed')));
   }
 };
 
