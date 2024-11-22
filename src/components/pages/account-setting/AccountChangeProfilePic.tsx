@@ -22,7 +22,7 @@ const ChangeProfilePic = () => {
                 alt={user1}
                 sx={{ width: 120, height: 120, margin: '0 auto' }}
               />
-              <Stack direction="row" justifyContent="center" spacing={2} my={3}>
+              {/* <Stack direction="row" justifyContent="center" spacing={2} my={3}> */}
                 {/* <Button variant="contained" color="primary" component="label">
                   {t('account_settings.upload')}
                   <input hidden accept="image/*" multiple type="file" />
@@ -30,7 +30,7 @@ const ChangeProfilePic = () => {
                 {/* <Button variant="outlined" color="error">
                   {t('account_settings.reset')}
                 </Button> */}
-              </Stack>
+              {/* </Stack> */}
               {/* <Typography variant="subtitle1" color="textSecondary" mb={4}>
                 {t('account_settings.allowed_file_types')}
               </Typography> */}

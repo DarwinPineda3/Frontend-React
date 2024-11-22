@@ -23,7 +23,7 @@ const AccountTab = () => {
   return (
     <Grid container spacing={3}>
       {/* Change Profile */}
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} lg={12}>
         <ChangeProfilePic />
       </Grid>
       {/*  Change Password */}
@@ -31,7 +31,7 @@ const AccountTab = () => {
         <ChangePass />
       </Grid>
       {/* Edit Details */}
-      <Grid item xs={12}>
+      <Grid item xs={12} lg={6}>
         <EditDetails />
       </Grid>
     </Grid>
