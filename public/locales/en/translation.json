@@ -989,5 +989,10 @@
     "remember_device": "Remember this device",
     "forgot_password_link": "Forgot Password?",
     "sign_in_button": "Sign In"
+  },
+  "profile": {
+    "name_unavailable": "Name not available",
+    "group_unavailable": "Group not available",
+    "email_unavailable": "Email not available"
   }
 }
