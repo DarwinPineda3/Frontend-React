@@ -38,10 +38,8 @@ export const { setSuccessMessage, setError, resetMessages } = ChangePasswordUser
 
 export const changePassword = (oldPassword: string, newPassword: string, confirmPassword: string) => async (dispatch: AppDispatch) => {
   try {
-    // Reset previous messages before making a new request
     dispatch(resetMessages());
 
-    // Make the request to the API
     const response = await axios.post(API_URL, { old_password: oldPassword, password: newPassword, password_confirm: confirmPassword });
 
     if (response.status === 200) {
