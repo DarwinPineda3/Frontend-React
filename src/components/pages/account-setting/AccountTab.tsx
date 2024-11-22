@@ -1,16 +1,18 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import { Avatar, Box, Button, CardContent, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { CardContent, Grid, Typography, MenuItem, Box, Avatar, Button, Stack } from '@mui/material';
 
 // components
-import BlankCard from '../../shared/BlankCard';
-import CustomTextField from '../../forms/theme-elements/CustomTextField';
 import CustomFormLabel from '../../forms/theme-elements/CustomFormLabel';
-import CustomSelect from '../../forms/theme-elements/CustomSelect';
+import CustomTextField from '../../forms/theme-elements/CustomTextField';
+import BlankCard from '../../shared/BlankCard';
 
 // images
 import user1 from 'src/assets/images/profile/user-1.jpg';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchUser } from 'src/store/apps/userProfile/UserProfileSlice';
+
 
 interface locationType {
   value: string;
@@ -18,58 +20,70 @@ interface locationType {
 }
 
 // locations
-const locations: locationType[] = [
-  {
-    value: 'us',
-    label: 'United States',
-  },
-  {
-    value: 'uk',
-    label: 'United Kingdom',
-  },
-  {
-    value: 'india',
-    label: 'India',
-  },
-  {
-    value: 'russia',
-    label: 'Russia',
-  },
-];
+// const locations: locationType[] = [
+//   {
+//     value: 'us',
+//     label: 'United States',
+//   },
+//   {
+//     value: 'uk',
+//     label: 'United Kingdom',
+//   },
+//   {
+//     value: 'india',
+//     label: 'India',
+//   },
+//   {
+//     value: 'russia',
+//     label: 'Russia',
+//   },
+// ];
 
 // currency
-const currencies: locationType[] = [
-  {
-    value: 'us',
-    label: 'US Dollar ($)',
-  },
-  {
-    value: 'uk',
-    label: 'United Kingdom (Pound)',
-  },
-  {
-    value: 'india',
-    label: 'India (INR)',
-  },
-  {
-    value: 'russia',
-    label: 'Russia (Ruble)',
-  },
-];
+// const currencies: locationType[] = [
+//   {
+//     value: 'us',
+//     label: 'US Dollar ($)',
+//   },
+//   {
+//     value: 'uk',
+//     label: 'United Kingdom (Pound)',
+//   },
+//   {
+//     value: 'india',
+//     label: 'India (INR)',
+//   },
+//   {
+//     value: 'russia',
+//     label: 'Russia (Ruble)',
+//   },
+// ];
 
 const AccountTab = () => {
-  const [location, setLocation] = React.useState('india');
 
-  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(event.target.value);
-  };
+  const dispatch = useDispatch();
+  const userProfile = useSelector((state: any) => state.userprofileReducer.userProfile);
+
+  // const [location, setLocation] = React.useState('india');
+
+  // const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setLocation(event.target.value);
+  // };
 
   //   currency
-  const [currency, setCurrency] = React.useState('india');
+  // const [currency, setCurrency] = React.useState('india');
 
-  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrency(event.target.value);
-  };
+  // const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setCurrency(event.target.value);
+  // };
+
+  React.useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  if (!userProfile || !userProfile.data) {
+    return <Typography>Loading...</Typography>;  // Mensaje de carga temporal
+  }
 
   return (
     <Grid container spacing={3}>
@@ -172,7 +186,7 @@ const AccountTab = () => {
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-name"
-                    value="Mathew Anderson"
+                    value={userProfile.data.first_name || ''}
                     variant="outlined"
                     fullWidth
                   />
@@ -188,7 +202,7 @@ const AccountTab = () => {
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-name"
-                    value="Mathew Anderson"
+                    value={userProfile.data.last_name || ''}
                     variant="outlined"
                     fullWidth
                   />
@@ -268,7 +282,7 @@ const AccountTab = () => {
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-email"
-                    value="info@modernize.com"
+                    value={userProfile.data.email || ''}
                     variant="outlined"
                     fullWidth
                   />
