@@ -941,7 +941,8 @@
   "authForgotPassword": {
     "emailLabel": "Dirección de Correo Electrónico",
     "forgotPasswordButton": "Has olvidado tu contraseña",
-    "backToLoginButton": "Volver al Inicio de Sesión"
+    "backToLoginButton": "Volver al Inicio de Sesión",
+    "invalidEmail": "Email inválido"
   },
   "registerPage": {
     "title": "Bienvenido a Akila",
@@ -971,24 +972,40 @@
     "errorMismatch": "Las contraseñas no coinciden.",
     "errorGeneral": "Ocurrió un error al restablecer tu contraseña.",
     "buttonResetting": "Restableciendo...",
-    "buttonSubmit": "Enviar"
+    "buttonSubmit": "Enviar",
+    "errorPasswordFormat": "La contraseña debe tener al menos 8 caracteres, incluir un número y una combinación de mayúsculas y minúsculas."
+  },
+  "auth": {
+    "email_invalid": "El correo electrónico no es válido",
+    "email_required": "El correo electrónico es requerido",
+    "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+    "password_required": "La contraseña es requerida",
+    "error_authentication": "Error de autenticación",
+    "error_connection": "No pudimos conectar con el servidor. Inténtalo más tarde.",
+    "error_unexpected": "Ocurrió un error inesperado. Por favor, intenta nuevamente.",
+    "error_account_inactive": "La combinación de credenciales no tiene una cuenta activa",
+    "email_label": "Dirección de correo electrónico",
+    "password_label": "Contraseña",
+    "remember_device": "Recordar este dispositivo",
+    "forgot_password_link": "¿Olvidaste tu contraseña?",
+    "sign_in_button": "Iniciar sesión"
   },
   "account_settings": {
-    "change_profile": "Cambiar Perfil",
+    "change_profile": "Actualizar perfil",
     "change_profile_picture": "Cambia tu foto de perfil desde aquí",
     "upload": "Subir",
     "reset": "Restablecer",
     "allowed_file_types": "Permitido JPG, GIF o PNG. Tamaño máximo de 800K",
-    "change_password": "Cambiar Contraseña",
+    "change_password": "Cambiar contraseña",
     "password_instructions": "Para cambiar tu contraseña, confírmala aquí",
-    "current_password": "Contraseña Actual",
+    "current_password": "Contraseña actual",
     "new_password": "Nueva Contraseña",
-    "confirm_password": "Confirmar Contraseña",
-    "personal_details": "Detalles Personales",
+    "confirm_password": "Confirmar contraseña",
+    "personal_details": "Detalles personales",
     "edit_details_instructions": "Para cambiar tus detalles personales, edita y guarda desde aquí",
     "first_name": "Nombre",
     "last_name": "Apellido",
-    "email": "Correo Electrónico",
+    "email": "Correo electrónico",
     "save": "Guardar",
     "cancel": "Cancelar"
   }

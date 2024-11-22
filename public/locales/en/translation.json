@@ -942,7 +942,8 @@
   "authForgotPassword": {
     "emailLabel": "Email Address",
     "forgotPasswordButton": "Forgot Password",
-    "backToLoginButton": "Back to Login"
+    "backToLoginButton": "Back to Login",
+    "invalidEmail": "Invalid email address"
   },
   "registerPage": {
     "title": "Welcome to Akila",
@@ -972,23 +973,39 @@
     "errorMismatch": "Passwords do not match.",
     "errorGeneral": "An error occurred while resetting your password.",
     "buttonResetting": "Resetting...",
-    "buttonSubmit": "Submit"
+    "buttonSubmit": "Submit",
+    "errorPasswordFormat": "Password must be at least 8 characters long, include a number, and a mix of uppercase and lowercase letters."
+  },
+  "auth": {
+    "email_invalid": "Email is invalid",
+    "email_required": "Email is required",
+    "password_min_length": "Password must be at least 6 characters",
+    "password_required": "Password is required",
+    "error_authentication": "Authentication error",
+    "error_connection": "Could not connect to the server. Try again later.",
+    "error_unexpected": "An unexpected error occurred. Please try again.",
+    "error_account_inactive": "The combination of credentials does not have an active account",
+    "email_label": "Email Address",
+    "password_label": "Password",
+    "remember_device": "Remember this device",
+    "forgot_password_link": "Forgot Password?",
+    "sign_in_button": "Sign In"
   },
   "account_settings": {
-    "change_profile": "Change Profile",
+    "change_profile": "Change profile",
     "change_profile_picture": "Change your profile picture from here",
     "upload": "Upload",
     "reset": "Reset",
     "allowed_file_types": "Allowed JPG, GIF or PNG. Max size of 800K",
-    "change_password": "Change Password",
+    "change_password": "Change password",
     "password_instructions": "To change your password please confirm here",
-    "current_password": "Current Password",
-    "new_password": "New Password",
-    "confirm_password": "Confirm Password",
-    "personal_details": "Personal Details",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "confirm_password": "Confirm password",
+    "personal_details": "Personal details",
     "edit_details_instructions": "To change your personal detail, edit and save from here",
-    "first_name": "First Name",
-    "last_name": "Last Name",
+    "first_name": "First name",
+    "last_name": "Last name",
     "email": "Email",
     "save": "Save",
     "cancel": "Cancel"

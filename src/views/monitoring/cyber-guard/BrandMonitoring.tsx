@@ -9,6 +9,7 @@ import BrandMonitoringList from 'src/components/home/monitoring/cyber-guard/bran
 import BrandMonitoringChart from 'src/components/home/monitoring/cyber-guard/brand-monitoring/charts/BrandMonitoringChart';
 import { useSelector } from 'src/store/Store';
 
+//TODO: separate into different views
 const BrandMonitoringCyberGuard = () => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
