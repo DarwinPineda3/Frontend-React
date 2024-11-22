@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+
 import { Avatar, Box, Button, CardContent, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 
@@ -10,79 +9,29 @@ import BlankCard from '../../shared/BlankCard';
 
 // images
 import user1 from 'src/assets/images/profile/user-1.jpg';
+import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchUser } from 'src/store/apps/userProfile/UserProfileSlice';
 
-
-interface locationType {
-  value: string;
-  label: string;
-}
-
-// locations
-// const locations: locationType[] = [
-//   {
-//     value: 'us',
-//     label: 'United States',
-//   },
-//   {
-//     value: 'uk',
-//     label: 'United Kingdom',
-//   },
-//   {
-//     value: 'india',
-//     label: 'India',
-//   },
-//   {
-//     value: 'russia',
-//     label: 'Russia',
-//   },
-// ];
-
-// currency
-// const currencies: locationType[] = [
-//   {
-//     value: 'us',
-//     label: 'US Dollar ($)',
-//   },
-//   {
-//     value: 'uk',
-//     label: 'United Kingdom (Pound)',
-//   },
-//   {
-//     value: 'india',
-//     label: 'India (INR)',
-//   },
-//   {
-//     value: 'russia',
-//     label: 'Russia (Ruble)',
-//   },
-// ];
 
 const AccountTab = () => {
 
   const dispatch = useDispatch();
   const userProfile = useSelector((state: any) => state.userprofileReducer.userProfile);
 
-  // const [location, setLocation] = React.useState('india');
-
-  // const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setLocation(event.target.value);
-  // };
-
-  //   currency
-  // const [currency, setCurrency] = React.useState('india');
-
-  // const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCurrency(event.target.value);
-  // };
-
   React.useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
   if (!userProfile || !userProfile.data) {
-    return <Typography>Loading...</Typography>;  // Mensaje de carga temporal
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <Loader />
+    </Box>
   }
 
   return (
@@ -186,7 +135,7 @@ const AccountTab = () => {
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-name"
-                    value={userProfile.data.first_name || ''}
+                    value={userProfile?.first_name || ''}
                     variant="outlined"
                     fullWidth
                   />
@@ -196,13 +145,13 @@ const AccountTab = () => {
                     sx={{
                       mt: 0,
                     }}
-                    htmlFor="text-name"
+                    htmlFor="text-lastname"
                   >
                     Last Name
                   </CustomFormLabel>
                   <CustomTextField
-                    id="text-name"
-                    value={userProfile.data.last_name || ''}
+                    id="text-lastname"
+                    value={userProfile?.last_name || ''}
                     variant="outlined"
                     fullWidth
                   />
@@ -282,7 +231,7 @@ const AccountTab = () => {
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-email"
-                    value={userProfile.data.email || ''}
+                    value={userProfile?.email || ''}
                     variant="outlined"
                     fullWidth
                   />
@@ -323,14 +272,14 @@ const AccountTab = () => {
             </form>
           </CardContent>
         </BlankCard>
-        <Stack direction="row" spacing={2} sx={{ justifyContent: 'end' }} mt={3}>
+        {/* <Stack direction="row" spacing={2} sx={{ justifyContent: 'end' }} mt={3}>
           <Button size="large" variant="contained" color="primary">
             Save
           </Button>
           <Button size="large" variant="text" color="error">
             Cancel
           </Button>
-        </Stack>
+        </Stack> */}
       </Grid>
     </Grid>
   );

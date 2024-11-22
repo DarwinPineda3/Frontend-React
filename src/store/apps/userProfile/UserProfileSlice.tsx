@@ -7,8 +7,6 @@ import axios from 'src/utils/axios';
 const tenant = getTenant()
 const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
 const API_URL = `${base_api_url}/api/user-profile`;
-console.log(tenant);
-
 
 interface StateType {
   userProfile: any;
@@ -45,19 +43,20 @@ export const {
   setPage,
   setError, /*getFollowers, onToggleFollow, getPhotos*/ } = UserProfileSlice.actions;
 
-  export const fetchUser = () => async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${API_URL}`);
-  
-      if (response.status === 200) {
-        dispatch(getProfileUser(response.data));
-      } else {
-        dispatch(setError('Fetch profile not found'));
-      }
-    } catch (err: any) {
-      console.error('Error fetching user profile:', err);
-      dispatch(setError('Failed to fetch user profile'));
+export const fetchUser = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}`);
+
+    if (response.status === 200) {
+      dispatch(getProfileUser(response.data));
+    } else {
+      dispatch(setError('Fetch profile not found'));
     }
-  };
+  } catch (err: any) {
+    console.error('Error fetching user profile:', err);
+    dispatch(setError('Failed to fetch user profile'));
+  }
+};
+
 
 export default UserProfileSlice.reducer;
