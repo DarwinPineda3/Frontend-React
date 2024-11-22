@@ -8,6 +8,7 @@ import CustomTextField from '../../forms/theme-elements/CustomTextField';
 import BlankCard from '../../shared/BlankCard';
 
 // images
+import { useTranslation } from 'react-i18next';
 import user1 from 'src/assets/images/profile/user-1.jpg';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
@@ -15,7 +16,7 @@ import { fetchUser } from 'src/store/apps/userProfile/UserProfileSlice';
 
 
 const AccountTab = () => {
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userProfile = useSelector((state: any) => state.userprofileReducer.userProfile);
 
@@ -41,9 +42,9 @@ const AccountTab = () => {
         <BlankCard>
           <CardContent>
             <Typography variant="h5" mb={1}>
-              Change Profile
+              {t('account_settings.change_profile')}
             </Typography>
-            <Typography color="textSecondary" mb={3}>Change your profile picture from here</Typography>
+            <Typography color="textSecondary" mb={3}>{t('account_settings.change_profile_picture')}</Typography>
             <Box textAlign="center" display="flex" justifyContent="center">
               <Box>
                 <Avatar
@@ -53,15 +54,15 @@ const AccountTab = () => {
                 />
                 <Stack direction="row" justifyContent="center" spacing={2} my={3}>
                   <Button variant="contained" color="primary" component="label">
-                    Upload
+                    {t('account_settings.upload')}
                     <input hidden accept="image/*" multiple type="file" />
                   </Button>
                   <Button variant="outlined" color="error">
-                    Reset
+                    {t('account_settings.reset')}
                   </Button>
                 </Stack>
                 <Typography variant="subtitle1" color="textSecondary" mb={4}>
-                  Allowed JPG, GIF or PNG. Max size of 800K
+                  {t('account_settings.allowed_file_types')}
                 </Typography>
               </Box>
             </Box>
@@ -73,9 +74,9 @@ const AccountTab = () => {
         <BlankCard>
           <CardContent>
             <Typography variant="h5" mb={1}>
-              Change Password
+              {t('account_settings.change_password')}
             </Typography>
-            <Typography color="textSecondary" mb={3}>To change your password please confirm here</Typography>
+            <Typography color="textSecondary" mb={3}>{t('account_settings.password_instructions')}</Typography>
             <form>
               <CustomFormLabel
                 sx={{
@@ -83,7 +84,7 @@ const AccountTab = () => {
                 }}
                 htmlFor="text-cpwd"
               >
-                Current Password
+                {t('account_settings.current_password')}
               </CustomFormLabel>
               <CustomTextField
                 id="text-cpwd"
@@ -93,7 +94,7 @@ const AccountTab = () => {
                 type="password"
               />
               {/* 2 */}
-              <CustomFormLabel htmlFor="text-npwd">New Password</CustomFormLabel>
+              <CustomFormLabel htmlFor="text-npwd">{t('account_settings.new_password')}</CustomFormLabel>
               <CustomTextField
                 id="text-npwd"
                 value="MathewAnderson"
@@ -102,7 +103,7 @@ const AccountTab = () => {
                 type="password"
               />
               {/* 3 */}
-              <CustomFormLabel htmlFor="text-conpwd">Confirm Password</CustomFormLabel>
+              <CustomFormLabel htmlFor="text-conpwd">{t('account_settings.confirm_password')}</CustomFormLabel>
               <CustomTextField
                 id="text-conpwd"
                 value="MathewAnderson"
@@ -119,9 +120,9 @@ const AccountTab = () => {
         <BlankCard>
           <CardContent>
             <Typography variant="h5" mb={1}>
-              Personal Details
+              {t('account_settings.personal_details')}
             </Typography>
-            <Typography color="textSecondary" mb={3}>To change your personal detail , edit and save from here</Typography>
+            <Typography color="textSecondary" mb={3}>{t('account_settings.edit_details_instructions')}</Typography>
             <form>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
@@ -131,7 +132,7 @@ const AccountTab = () => {
                     }}
                     htmlFor="text-name"
                   >
-                    First Name
+                    {t('account_settings.first_name')}
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-name"
@@ -147,7 +148,7 @@ const AccountTab = () => {
                     }}
                     htmlFor="text-lastname"
                   >
-                    Last Name
+                    {t('account_settings.last_name')}
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-lastname"
@@ -227,13 +228,14 @@ const AccountTab = () => {
                     }}
                     htmlFor="text-email"
                   >
-                    Email
+                    {t('account_settings.email')}
                   </CustomFormLabel>
                   <CustomTextField
                     id="text-email"
                     value={userProfile?.email || ''}
                     variant="outlined"
                     fullWidth
+                    disable
                   />
                 </Grid>
                 {/* <Grid item xs={12} sm={6}>
@@ -272,14 +274,14 @@ const AccountTab = () => {
             </form>
           </CardContent>
         </BlankCard>
-        {/* <Stack direction="row" spacing={2} sx={{ justifyContent: 'end' }} mt={3}>
+        <Stack direction="row" spacing={2} sx={{ justifyContent: 'end' }} mt={3}>
           <Button size="large" variant="contained" color="primary">
-            Save
+            {t('account_settings.save')}
           </Button>
           <Button size="large" variant="text" color="error">
-            Cancel
+            {t('account_settings.cancel')}
           </Button>
-        </Stack> */}
+        </Stack>
       </Grid>
     </Grid>
   );

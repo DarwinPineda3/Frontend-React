@@ -973,5 +973,24 @@
     "errorGeneral": "An error occurred while resetting your password.",
     "buttonResetting": "Resetting...",
     "buttonSubmit": "Submit"
+  },
+  "account_settings": {
+    "change_profile": "Change Profile",
+    "change_profile_picture": "Change your profile picture from here",
+    "upload": "Upload",
+    "reset": "Reset",
+    "allowed_file_types": "Allowed JPG, GIF or PNG. Max size of 800K",
+    "change_password": "Change Password",
+    "password_instructions": "To change your password please confirm here",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "personal_details": "Personal Details",
+    "edit_details_instructions": "To change your personal detail, edit and save from here",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

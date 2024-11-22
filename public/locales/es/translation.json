@@ -972,5 +972,24 @@
     "errorGeneral": "Ocurrió un error al restablecer tu contraseña.",
     "buttonResetting": "Restableciendo...",
     "buttonSubmit": "Enviar"
+  },
+  "account_settings": {
+    "change_profile": "Cambiar Perfil",
+    "change_profile_picture": "Cambia tu foto de perfil desde aquí",
+    "upload": "Subir",
+    "reset": "Restablecer",
+    "allowed_file_types": "Permitido JPG, GIF o PNG. Tamaño máximo de 800K",
+    "change_password": "Cambiar Contraseña",
+    "password_instructions": "Para cambiar tu contraseña, confírmala aquí",
+    "current_password": "Contraseña Actual",
+    "new_password": "Nueva Contraseña",
+    "confirm_password": "Confirmar Contraseña",
+    "personal_details": "Detalles Personales",
+    "edit_details_instructions": "Para cambiar tus detalles personales, edita y guarda desde aquí",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "email": "Correo Electrónico",
+    "save": "Guardar",
+    "cancel": "Cancelar"
   }
 }

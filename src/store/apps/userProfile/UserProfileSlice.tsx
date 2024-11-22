@@ -13,6 +13,7 @@ interface StateType {
   page: number;
   totalPages: number;
   error: string | null;
+  loading: boolean;
 }
 
 const initialState: StateType = {
@@ -20,6 +21,7 @@ const initialState: StateType = {
   page: 1,
   totalPages: 1,
   error: null,
+  loading: false,
 };
 
 export const UserProfileSlice = createSlice({
@@ -35,13 +37,21 @@ export const UserProfileSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    updateUser: (state, action) => {
+      state.userProfile = { ...state.userProfile, ...action.payload };
+    }
   },
 });
 
 export const {
   getProfileUser,
   setPage,
-  setError, /*getFollowers, onToggleFollow, getPhotos*/ } = UserProfileSlice.actions;
+  setError,
+  setLoading,
+  updateUser /*getFollowers, onToggleFollow, getPhotos*/ } = UserProfileSlice.actions;
 
 export const fetchUser = () => async (dispatch: AppDispatch) => {
   try {
@@ -55,6 +65,31 @@ export const fetchUser = () => async (dispatch: AppDispatch) => {
   } catch (err: any) {
     console.error('Error fetching user profile:', err);
     dispatch(setError('Failed to fetch user profile'));
+  }
+};
+
+export const updateUserProfile = (
+  first_name: string,
+  last_name: string
+) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(setLoading(true));
+    // TODO: no esta actualizando el usuario que inició sesión
+    const response = await axios.patch(
+      `${API_URL}/1/`,
+      { first_name, last_name }
+    );
+
+    if (response.status === 200) {
+      dispatch(updateUser(response.data));
+    } else {
+      dispatch(setError('Failed to update profile'));
+    }
+  } catch (err: any) {
+    console.error('Error updating user profile:', err);
+    dispatch(setError('Failed to update user profile'));
+  } finally {
+    dispatch(setLoading(false));
   }
 };
 
