@@ -29,6 +29,8 @@ import TicketReducer from "./support/FreshTicketsSlice";
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
+import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
+
 
 import {
   TypedUseSelectorHook,
@@ -67,6 +69,7 @@ export const store = configureStore({
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
+    ChangePasswordUser: ChangePasswordUserReducer,
   },
 });
 
@@ -87,6 +90,7 @@ const rootReducer = combineReducers({
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
+  ChangePasswordUser: ChangePasswordUserReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

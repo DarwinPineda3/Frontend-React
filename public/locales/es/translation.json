@@ -1007,6 +1007,11 @@
     "last_name": "Apellido",
     "email": "Correo electrónico",
     "save": "Guardar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "new_password_required": "Se requiere la nueva contraseña.",
+    "current_password_required": "Se requiere la contraseña actual.",
+    "password_minimum": "La contraseña debe tener al menos 8 caracteres.",
+    "passwords_must_match": "Las contraseñas deben coincidir.",
+    "confirm_password_required": "Se requiere confirmar la contraseña."
   }
 }

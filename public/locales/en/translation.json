@@ -1008,6 +1008,11 @@
     "last_name": "Last name",
     "email": "Email",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "new_password_required": "New password is required.",
+    "current_password_required": "Current password is required.",
+    "password_minimum": "Password must be at least 8 characters.",
+    "passwords_must_match": "Passwords must match.",
+    "confirm_password_required": "Confirm password is required."
   }
 }

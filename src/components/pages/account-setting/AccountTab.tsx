@@ -11,8 +11,8 @@ import BlankCard from '../../shared/BlankCard';
 import { useTranslation } from 'react-i18next';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
-import ChangeProfilePic from './AccountChangProfilePic';
-import ChangePass from './AcoountChangePass';
+import ChangeProfilePic from './AccountChangeProfilePic';
+import ChangePass from './AccountChangePass';
 import EditDetails from './AccountEditDetails';
 
 
