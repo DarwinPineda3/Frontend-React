@@ -983,6 +983,7 @@
     "error_authentication": "Error de autenticación",
     "error_connection": "No pudimos conectar con el servidor. Inténtalo más tarde.",
     "error_unexpected": "Ocurrió un error inesperado. Por favor, intenta nuevamente.",
+    "error_account_inactive": "La combinación de credenciales no tiene una cuenta activa",
     "email_label": "Dirección de correo electrónico",
     "password_label": "Contraseña",
     "remember_device": "Recordar este dispositivo",

@@ -22,9 +22,9 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const mounted = useMounted();
-  const { signin } = useAuth(); 
+  const { signin } = useAuth();
   const navigate = useNavigate();
 
   const LoginSchema = Yup.object().shape({
@@ -54,14 +54,15 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         if (mounted.current) {
           setStatus({ success: false });
 
-          // error de autenticación
-          if (err.response) {
-            setErrors({ submit: err.response.data.message || String(t('auth.error_authentication')) });
-          }
-          // error de conexión o el servidor está caído
+          // Error de autenticación con código 401
+          if (err.response && err.response.status === 401) {
+            const errorMessage = err.response.data?.detail || String(t('auth.error_authentication'));
+            setErrors({ submit: errorMessage });
+          } 
+          // Error de conexión o el servidor está caído
           else if (err.request) {
             setErrors({ submit: String(t('auth.error_connection')) });
-          }
+          } 
           // Cualquier otro error inesperado
           else {
             setErrors({ submit: String(t('auth.error_unexpected')) });
