@@ -7,6 +7,7 @@ import { AppDispatch } from '../../Store';
 const tenant = getTenant()
 const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
 const API_URL = `${base_api_url}/api/newsletters/`;
+const DOWNLOAD_URL = `${API_URL}download?gid=`;
 
 interface StateType {
   newsletters: NewsletterType[];
@@ -76,6 +77,29 @@ export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch)
   } catch (err: any) {
     console.error('Error fetching newsletter detail:', err);
     dispatch(setError('Failed to fetch newsletter detail'));
+  }
+};
+
+export const downloadNewsletter = (gid: string, namedoc: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${DOWNLOAD_URL}${gid}`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+
+    link.setAttribute('download', `${namedoc}`);
+    document.body.appendChild(link);
+    link.click();
+
+    // Limpiando memoria
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  } catch (err: any) {
+    console.error('Error downloading newsletter:', err);
+    dispatch(setError('Failed to download newsletter'));
   }
 };
 
