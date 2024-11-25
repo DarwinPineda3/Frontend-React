@@ -53,7 +53,7 @@ export const fetchNetworkScans =
       dispatch(
         getNetworkScans({
           data: list_task,
-          page: currentPage,
+          currentPage,
           totalPages,
         }),
       );
