@@ -15,22 +15,9 @@ import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { useTranslation } from 'react-i18next';
-
-const burntScansData = [
-  {
-    id: '1',
-    url: 'https://prueba-tu-pala.ofertasdepadel.com/',
-    date: '8 de octubre de 2024 a las 07:47',
-    scanType: 'Normal',
-  },
-  {
-    id: '2',
-    url: 'https://prueba-tu-pala.ofertasdepadel.com/',
-    date: '1 de octubre de 2024 a las 10:05',
-    scanType: 'Normal',
-  },
-  // Additional data entries here
-];
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchWPScans, setPage } from 'src/store/vulnerabilities/web/WPScanSlice';
+import Loader from 'src/components/shared/Loader/Loader';
 
 interface ScanListTableProps {
   onScanClick: (scanId: string) => void;
@@ -38,27 +25,48 @@ interface ScanListTableProps {
 
 const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 1;
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const wpscans = useSelector((state: any) => state.wpscanReducer.wpscans);
+  const currentPage = useSelector((state: any) => state.wpscanReducer.page);
+  const totalPages = useSelector((state: any) => state.wpscanReducer.totalPages);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchWPScans(currentPage));
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+    if (page !== currentPage) {
+      dispatch(setPage(page));
+    }
   };
 
-  const handleDownload = (scanId: string) => {
-    console.log(`Downloading scan ${scanId}`);
-  };
+  // const handleDownload = (newsId: string, nameDownload: string) => {
+  //   dispatch(downloadNewsletter(newsId, nameDownload));
+  // };
 
-  const handleDelete = (scanId: string) => {
-    console.log(`Deleting scan ${scanId}`);
-  };
+  // const handleDelete = (scanId: string) => {
+  //   console.log(`Deleting scan ${scanId}`);
+  // };
 
   return (
-    <Box>
       <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.list_of_scans')!}>
         <Box>
-          <TableContainer>
-            <Table aria-label="scan list table">
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
+            {wpscans.length > 0 ? (
+                <TableContainer>
+                  <Table aria-label="scan list table">
               <TableHead>
                 <TableRow>
                   <TableCell>
@@ -84,7 +92,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {burntScansData.map((scan) => (
+                {wpscans.map((scan) => (
                   <TableRow key={scan.id}>
                     <TableCell>
                       <Typography
@@ -117,6 +125,11 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
               </TableBody>
             </Table>
           </TableContainer>
+              ) : (
+                <h1>no data</h1> //mejorar el estilo
+              )
+            }
+            
           <Box my={3} display="flex" justifyContent={'center'}>
             <Pagination
               count={totalPages}
@@ -125,9 +138,10 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
               onChange={handlePageChange}
             />
           </Box>
+          </>
+        )}
         </Box>
       </DashboardCard>
-    </Box>
   );
 };
 
