@@ -49,7 +49,7 @@ const GroupGuard = ({ children }: any) => {
 
   // Special redirect for CyberGuard role on root path
   useEffect(() => {
-    if (isInitialized && isAuthenticated && userRoles.includes('CyberGuard') && currentRoute === '/') {
+    if (isInitialized && isAuthenticated && userRoles.includes('CyberGuard') && !userRoles.includes('Scan360') && currentRoute === '/') {
       navigate('/monitoring/threats-overview', { replace: true });
     }
   }, [isInitialized, isAuthenticated, userRoles, currentRoute, navigate]);
