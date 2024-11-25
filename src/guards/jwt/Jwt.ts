@@ -76,6 +76,30 @@ const getTenant = (): string | null => {
   return null;
 };
 
+// Function to get user information from the token
+const getUserInfo = (): { user_id: string; first_name: string; last_name: string; email: string; groups: string } | null => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  if (!accessToken) {
+    return null;
+  }
+
+  const decoded: any = decodeToken(accessToken);
+
+  if (decoded) {
+    // Mapear correctamente email y user_id
+    return {
+      user_id: decoded.user_id || 'ID no disponible',  
+      first_name: decoded.first_name || 'Nombre no disponible',
+      last_name: decoded.last_name || 'Apellido no disponible',
+      email: decoded.email || 'Email no disponible',  
+      groups: decoded.groups || 'Grupo no disponible', 
+    };
+  }
+
+  return null;
+};
+
+
 // Function to sign a JWT (used for the mock API)
 const sign = (payload: any, secretKey: string, options: any) => {
   const header = {
@@ -140,5 +164,5 @@ const verify = (token: string, secretKey: string) => {
   return payload;
 };
 
-export { getTenant, getUserGroups, isValidToken, setSession, sign, verify };
+export { getTenant, getUserGroups, isValidToken, setSession, sign, verify, getUserInfo };
 

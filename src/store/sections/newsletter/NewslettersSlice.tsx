@@ -7,10 +7,12 @@ import { AppDispatch } from '../../Store';
 const tenant = getTenant()
 const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
 const API_URL = `${base_api_url}/api/newsletters/`;
+const DOWNLOAD_URL = `${API_URL}download?gid=`;
 
 interface StateType {
   newsletters: NewsletterType[];
   newsletterDetails: Data | null;
+  fileContent: string | null;
   page: number;
   totalPages: number;
   error: string | null;
@@ -19,6 +21,7 @@ interface StateType {
 const initialState: StateType = {
   newsletters: [],
   newsletterDetails: null,
+  fileContent: null,
   page: 1,
   totalPages: 1,
   error: null,
@@ -38,6 +41,9 @@ export const NewsletterSlice = createSlice({
     getNewsletterDetail: (state, action) => {
       state.newsletterDetails = action.payload.data;
     },
+    setFileContent: (state, action) => {
+      state.fileContent = action.payload.content;
+    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -47,9 +53,8 @@ export const NewsletterSlice = createSlice({
   },
 });
 
-export const { getNewsletters, getNewsletterDetail, setPage, setError } = NewsletterSlice.actions;
+export const { getNewsletters, getNewsletterDetail, setFileContent, setPage, setError } = NewsletterSlice.actions;
 
-// Async thunk for fetching technologies with pagination (READ)
 export const fetchNewsletters =
   (page = 1) =>
     async (dispatch: AppDispatch) => {
@@ -66,16 +71,54 @@ export const fetchNewsletters =
 
 export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
-
+    const response = await axios.get(`${API_URL}${id}`);    
+    
     if (response.status === 200) {
-      dispatch(getNewsletterDetail({ data: response.data.newsletter }));
+      dispatch(getNewsletterDetail({ data: response.data }));
     } else {
       dispatch(setError('fetch newsletter detail not found'));
     }
   } catch (err: any) {
     console.error('Error fetching newsletter detail:', err);
     dispatch(setError('Failed to fetch newsletter detail'));
+  }
+};
+
+export const downloadNewsletter = (gid: string, namedoc: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${DOWNLOAD_URL}${gid}`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+
+    link.setAttribute('download', `${namedoc}`);
+    document.body.appendChild(link);
+    link.click();
+
+    // Limpiando memoria
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  } catch (err: any) {
+    console.error('Error downloading newsletter:', err);
+    dispatch(setError('Failed to download newsletter'));
+  }
+};
+
+export const fetchFileContent = (gid: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}${gid}/get_file_content/`);
+    
+    if (response.status === 200) {
+      dispatch(setFileContent({ content: response.data.content }));
+    } else {
+      dispatch(setError('Failed to fetch file content'));
+    }
+  } catch (err: any) {
+    console.error('Error fetching file content:', err);
+    dispatch(setError('Failed to fetch file content'));
   }
 };
 

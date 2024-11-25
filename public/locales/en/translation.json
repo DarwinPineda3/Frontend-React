@@ -1017,5 +1017,10 @@
     "password_updated_successfully": "Password updated successfully.",
     "password_update_failed": "Failed to update password.",
     "password_change_failed": "Failed to change password."
+  },
+  "profile": {
+    "name_unavailable": "Name not available",
+    "group_unavailable": "Group not available",
+    "email_unavailable": "Email not available"
   }
 }
