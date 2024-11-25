@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getTenant } from 'src/guards/jwt/Jwt';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import {
   BrandMonitoringDataType,
   Data,
 } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
-const tenant = getTenant()
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api`;
-const API_URL_MONITORING = `${base_api_url}/api/monitoring/cyber-guard/monitoring`;
+
+function getMonitoringApiUrl() {
+  return `${getBaseApiUrl()}/monitoring/cyber-guard/monitoring`;
+}
 
 interface StateType {
   brandMonitoringData: BrandMonitoringDataType[];
@@ -66,7 +66,7 @@ export const fetchBrandMonitoringData =
   (page = 1) =>
     async (dispatch: AppDispatch) => {
       try {
-        const response = await axios.get(`${API_URL_MONITORING}?page=${page}`);
+        const response = await axios.get(`${getMonitoringApiUrl()}?page=${page}`);
 
         const { latest_data, summary_data, page: currentPage, totalPages } = response.data;
 
@@ -85,7 +85,7 @@ export const fetchBrandMonitoringData =
 
 export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL_MONITORING}/${id}`);
+    const response = await axios.get(`${getMonitoringApiUrl()}/${id}`);
 
     if (response.status === 200) {
       dispatch(getBrandMonitoringDetail({ data: response.data }));
@@ -100,7 +100,7 @@ export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDisp
 
 export const fetchBrandMonitoringResume = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}/threat-overview`);
+    const response = await axios.get(`${getBaseApiUrl()}/threat-overview`);
     if (response.status === 200) {
 
       //console.log('response', response.data);

@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getTenant } from 'src/guards/jwt/Jwt';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { AppDispatch } from 'src/store/Store';
 import axios from 'src/utils/axios';
 
-// const API_URL = '/api/data/postData';
-const tenant = getTenant()
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api/user-profile`;
+function getApiUrl() {
+  return `${getBaseApiUrl()}/user-profile`;
+}
 
 interface StateType {
   userProfile: any;
@@ -46,7 +45,7 @@ export const {
 
 export const fetchUser = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}`);
+    const response = await axios.get(`${getApiUrl()}`);
 
     if (response.status === 200) {
       dispatch(getProfileUser(response.data));

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTenant } from "src/guards/jwt/Jwt";
+import { getBaseApiUrl } from "src/guards/jwt/Jwt";
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../Store";
 
 // const API_URL = '/api/data/tickets';
-const tenant = getTenant()
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api/tickets/`;
+function getApiUrl() {
+  return `${getBaseApiUrl()}/tickets/`;
+}
 interface StateType {
   tickets: any[];
   page: number;
@@ -47,7 +47,7 @@ export const { getTickets, addTicket, setPage, setError } = TicketSlice.actions;
 // Async thunk for fetching assets with pagination (READ)
 export const fetchTickets = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}`);
+    const response = await axios.get(`${getApiUrl()}`);
 
     const data = response.data;
     const totalPages = Math.ceil(data.length / 10);
@@ -71,7 +71,7 @@ export const createTicket = (newTicket: any) => async (dispatch: AppDispatch) =>
       formData.append('attach_file', newTicket.attach_file);
     }
 
-    const response = await axios.post(API_URL, formData);
+    const response = await axios.post(getApiUrl(), formData);
 
     dispatch(addTicket(response.data));
   } catch (err: any) {

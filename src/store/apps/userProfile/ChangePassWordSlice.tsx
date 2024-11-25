@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { t } from 'i18next';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { AppDispatch } from 'src/store/Store';
 import axios from 'src/utils/axios';
-import { getTenant } from 'src/guards/jwt/Jwt';
-import { t } from 'i18next';
 
-const tenant = getTenant();
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api/change-password/`;
+function getApiUrl() {
+  return `${getBaseApiUrl()}/change-password/`;
+}
 
 interface StateType {
   error: string | null;
@@ -41,16 +41,16 @@ export const changePassword = (passwordData: { currentPass: string; newPass: str
   try {
     dispatch(resetMessages());
 
-    const response = await axios.post(API_URL, { 
-      old_password: passwordData.currentPass, 
-      password: passwordData.newPass, 
-      password_confirm: passwordData.confirmPass 
+    const response = await axios.post(getApiUrl(), {
+      old_password: passwordData.currentPass,
+      password: passwordData.newPass,
+      password_confirm: passwordData.confirmPass
     });
 
     if (response.status === 200) {
-        dispatch(setSuccessMessage(t('account_settings.password_updated_successfully')));
+      dispatch(setSuccessMessage(t('account_settings.password_updated_successfully')));
     } else {
-        dispatch(setError(response.data.message || t('account_settings.password_update_failed')));
+      dispatch(setError(response.data.message || t('account_settings.password_update_failed')));
     }
   } catch (err: any) {
     dispatch(setError(err.response?.data?.message || t('account_settings.password_change_failed')));
