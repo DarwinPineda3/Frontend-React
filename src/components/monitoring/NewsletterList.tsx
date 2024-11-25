@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchNewsletters, setPage } from 'src/store/sections/newsletter/NewslettersSlice';
+import { downloadNewsletter, fetchNewsletters, setPage } from 'src/store/sections/newsletter/NewslettersSlice';
 import DashboardCard from '../shared/DashboardCard';
 import HumanizedDate from '../shared/HumanizedDate';
 import Loader from '../shared/Loader/Loader';
@@ -46,8 +46,8 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
     }
   };
 
-  const handleDownload = (newsId: number) => {
-    console.log(`Downloading newsletter ${newsId}`);
+  const handleDownload = (newsId: string, nameDownload: string) => {
+    dispatch(downloadNewsletter(newsId, nameDownload));
   };
 
   return (
@@ -111,7 +111,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <IconButton color="primary" onClick={() => handleDownload(newsletter.id)}>
+                        <IconButton color="primary" onClick={() => handleDownload(newsletter.id, newsletter.name)}>
                           <DownloadIcon />
                         </IconButton>
                       </TableCell>
