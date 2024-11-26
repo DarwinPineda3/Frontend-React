@@ -199,7 +199,7 @@ const Router = [
       { path: '/audit/logs', element: <AuditLogView />, roles: ['Admin'] },
 
       // User Profile
-      { path: '/user-profile', element: <AccountSettings />, roles: ['Admin'] },
+      { path: '/user-profile', element: <AccountSettings /> },
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },

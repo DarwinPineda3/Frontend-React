@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTenant } from "src/guards/jwt/Jwt";
+import { getBaseApiUrl } from "src/guards/jwt/Jwt";
 import { AssetType } from "src/types/assets/asset";
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../Store";
 
 // Update to match the backend API endpoint
-const tenant = getTenant()
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api/assets/`;
+function getApiUrl() {
+  return `${getBaseApiUrl()}/assets/`;
+}
 
 interface StateType {
   assets: AssetType[];
@@ -58,7 +58,7 @@ export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError 
 // Async thunk for fetching assets with pagination (READ)
 export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}`);
+    const response = await axios.get(`${getApiUrl()}`);
     const { results, count } = response.data; // Assuming DRF pagination
     const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
     dispatch(getAssets({ results, currentPage: page, totalPages })); // Dispatch to update state
@@ -71,7 +71,7 @@ export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
 // Async thunk for creating a new asset (CREATE)
 export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post(API_URL, newAsset);
+    const response = await axios.post(getApiUrl(), newAsset);
     dispatch(addAsset(response.data)); // Assuming server returns the created asset
   } catch (err: any) {
     console.error('Error creating asset:', err);
@@ -82,7 +82,7 @@ export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch
 // Async thunk for updating an asset (UPDATE)
 export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.put(`${API_URL}${updatedAsset.id}/`, updatedAsset);
+    const response = await axios.put(`${getApiUrl()}${updatedAsset.id}/`, updatedAsset);
     dispatch(updateAsset(response.data)); // Assuming server returns the updated asset
   } catch (err: any) {
     console.error('Error updating asset:', err);
@@ -93,7 +93,7 @@ export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispat
 // Async thunk for deleting an asset (DELETE)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${API_URL}/${assetId}/`);
+    await axios.delete(`${getApiUrl()}/${assetId}/`);
     dispatch(deleteAsset(assetId));
   } catch (err: any) {
     console.error('Error deleting asset:', err);

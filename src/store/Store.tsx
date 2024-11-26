@@ -25,6 +25,7 @@ import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 //vulnerabilities
+import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
@@ -53,7 +54,7 @@ const dashboardReducer = combineReducers({
 export const store = configureStore({
   reducer: {
     customizer: CustomizerReducer,
-    userpostsReducer: UserProfileReducer,
+    userprofileReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
     dashboard: dashboardReducer,
     techInventoryReducer: TechInventoryReducer,
@@ -69,12 +70,13 @@ export const store = configureStore({
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
     networkScanReducer: NetworkScanReducer,
+    ChangePasswordUser: ChangePasswordUserReducer,
   },
 });
 
 const rootReducer = combineReducers({
   customizer: CustomizerReducer,
-  userpostsReducer: UserProfileReducer,
+  userprofileReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
   dashboard: dashboardReducer,
   techInventoryReducer: TechInventoryReducer,
@@ -90,6 +92,7 @@ const rootReducer = combineReducers({
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
   networkScanReducer: NetworkScanReducer,
+  ChangePasswordUser: ChangePasswordUserReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

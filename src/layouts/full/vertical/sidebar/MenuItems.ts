@@ -185,6 +185,7 @@ const Menuitems: MenuitemsType[] = [
   },
 
   {
+    id: uniqueId(),
     title: 'menu.cyber_guard', // Translation key for title
     href: '/monitoring/cyber-guard',
     icon: IconShieldBolt,

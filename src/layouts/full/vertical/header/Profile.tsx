@@ -1,5 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';  
+import { getUserInfo } from 'src/guards/jwt/Jwt';  
 import {
   Avatar,
   Box,
@@ -9,20 +12,44 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as dropdownData from './data';
-
 import { IconMail } from '@tabler/icons-react';
-
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
 import LogoutButton from 'src/components/user/LogoutButton';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [anchorEl2, setAnchorEl2] = useState(null);
+
+  const [userData, setUserData] = useState({
+    name: t('profile.name_unavailable'),  
+    group: t('profile.group_unavailable'),  
+    email: t('profile.email_unavailable'),  
+  });
+
+  useEffect(() => {
+    const userInfo = getUserInfo(); 
+
+    if (userInfo) {
+      setUserData({
+        name: `${userInfo.first_name} ${userInfo.last_name}` || t('profile.name_unavailable'),  
+        group: userInfo.groups || t('profile.group_unavailable'),
+        email: userInfo.email || t('profile.email_unavailable'),  
+      });
+    } else {
+      setUserData({
+        name: t('profile.name_unavailable'),
+        group: t('profile.group_unavailable'),
+        email: t('profile.email_unavailable'),  
+      });
+    }
+  }, [t]);
+
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
+
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
@@ -51,6 +78,7 @@ const Profile = () => {
           }}
         />
       </IconButton>
+
       {/* ------------------------------------------- */}
       {/* Message Dropdown */}
       {/* ------------------------------------------- */}
@@ -74,10 +102,10 @@ const Profile = () => {
           <Avatar src={ProfileImg} alt={ProfileImg} sx={{ width: 95, height: 95 }} />
           <Box>
             <Typography variant="subtitle2" color="textPrimary" fontWeight={600}>
-              Albert Molano
+              {userData.name}  
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
-              Tenant
+              {userData.group}  
             </Typography>
             <Typography
               variant="subtitle2"
@@ -87,7 +115,7 @@ const Profile = () => {
               gap={1}
             >
               <IconMail width={15} height={15} />
-              info@modernize.com
+              {userData.email} 
             </Typography>
           </Box>
         </Stack>
@@ -167,3 +195,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+

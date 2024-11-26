@@ -1,111 +1,64 @@
-import axios from 'src/utils/axios';
 import { createSlice } from '@reduxjs/toolkit';
-import { map } from 'lodash';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { AppDispatch } from 'src/store/Store';
+import axios from 'src/utils/axios';
 
-const API_URL = '/api/data/postData';
-
-interface StateType {
-  posts: any[];
-  followers: any[];
-  gallery: any[];
+function getApiUrl() {
+  return `${getBaseApiUrl()}/user-profile`;
 }
 
-const initialState = {
-  posts: [],
-  followers: [],
-  gallery: [],
+interface StateType {
+  userProfile: any;
+  page: number;
+  totalPages: number;
+  error: string | null;
+}
+
+const initialState: StateType = {
+  userProfile: null,
+  page: 1,
+  totalPages: 1,
+  error: null
 };
 
 export const UserProfileSlice = createSlice({
   name: 'UserPost',
   initialState,
   reducers: {
-    getPosts: (state, action) => {
-      state.posts = action.payload;
+    getProfileUser: (state, action) => {
+      state.userProfile = action.payload;
     },
-    getFollowers: (state, action) => {
-      state.followers = action.payload;
+    setPage: (state, action) => {
+      state.page = action.payload;
     },
-    getPhotos: (state, action) => {
-      state.gallery = action.payload;
-    },
-    onToggleFollow(state: StateType, action) {
-      const followerId = action.payload;
-
-      const handleToggle = map(state.followers, (follower) => {
-        if (follower.id === followerId) {
-          return {
-            ...follower,
-            isFollowed: !follower.isFollowed,
-          };
-        }
-
-        return follower;
-      });
-
-      state.followers = handleToggle;
-    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    }
   },
 });
 
-export const { getPosts, getFollowers, onToggleFollow, getPhotos } = UserProfileSlice.actions;
+export const {
+  getProfileUser,
+  setPage,
+  setError
+} = UserProfileSlice.actions;
 
-export const fetchPosts = () => async (dispatch: AppDispatch) => {
+export const fetchUser = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}`);
-    dispatch(getPosts(response.data));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-export const likePosts = (postId: number) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post('/api/data/posts/like', { postId });
-    dispatch(getPosts(response.data.posts));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
-export const addComment = (postId: number, comment: any[]) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post('/api/data/posts/comments/add', { postId, comment });
-    dispatch(getPosts(response.data.posts));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
+    const response = await axios.get(`${getApiUrl()}`);
 
-export const addReply =
-  (postId: number, commentId: any[], reply: any[]) => async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.post('/api/data/posts/replies/add', {
-        postId,
-        commentId,
-        reply,
-      });
-      dispatch(getPosts(response.data.posts));
-    } catch (err: any) {
-      throw new Error(err);
+    if (response.status === 200) {
+      dispatch(getProfileUser(response.data));
+    } else {
+      dispatch(setError('Fetch profile not found'));
     }
-  };
-
-export const fetchFollwores = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`/api/data/users`);
-    dispatch(getFollowers(response.data));
   } catch (err: any) {
-    throw new Error(err);
+    console.error('Error fetching user profile:', err);
+    dispatch(setError('Failed to fetch user profile'));
   }
 };
 
-export const fetchPhotos = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`/api/data/gallery`);
-    dispatch(getPhotos(response.data));
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
+
+
 
 export default UserProfileSlice.reducer;
