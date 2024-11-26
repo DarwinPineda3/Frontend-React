@@ -383,6 +383,23 @@
       "transferred_risk": "Transferred Risk",
       "removed": "Removed",
       "confirm": "Confirm"
+    },
+    "network_vulnerabilities": {
+      "network": "Network",
+      "add_scan": "Add Scan",
+      "create_network_scan": "Create network scan",
+      "create_network_scan_subtitle": "In this form you can create a network scan",
+      "name": "Name",
+      "comment": "Comment",
+      "scan_target": "Scan Target",
+      "scan_config": "Scan Config",
+      "create_scan": "Create Scan",
+      "you_can_create_an_asset": "You can create an asset(Target)",
+      "here": "here",
+      "network_scan_create_successfully": "Network scan create successfully",
+      "network_scan_create_failed": "Failed to create the network scan",
+      "required_field": "Required Field",
+      "network_scan_created": "Network scan created"
     }
   },
   "observability": {
