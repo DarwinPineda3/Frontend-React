@@ -76,7 +76,7 @@ const Menuitems: MenuitemsType[] = [
   {
     id: uniqueId(),
     title: 'menu.network', // Translation key for title
-    href: '/vulnerabilities/network',
+    href: '/vulnerabilities/network/scans',
     icon: IconNetwork,
     permissions: ['Admin', 'Scan360'],
   },
