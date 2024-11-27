@@ -73,7 +73,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
     const score = parseFloat(riskLevel);
 
     if (isNaN(score)) {
-      return { color: none, label: t('monitoring.invalid') };
+      return { color: none, label: t('monitoring.unknown') };
     }
 
     if (score >= 9.0) {
