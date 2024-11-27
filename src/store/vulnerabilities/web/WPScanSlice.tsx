@@ -12,6 +12,7 @@ interface StateType {
   page: number;
   totalPages: number;
   error: string | null;
+  isLoading: boolean;
 }
 
 const initialState: StateType = {
@@ -20,6 +21,7 @@ const initialState: StateType = {
   page: 1,
   totalPages: 1,
   error: null,
+  isLoading: false,
 };
 
 export const WPScanSlice = createSlice({
@@ -30,9 +32,11 @@ export const WPScanSlice = createSlice({
       state.wpscans = Array.isArray(action.payload.wpscans) ? action.payload.wpscans : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
+      state.isLoading = false;
     },
     getWPScan: (state, action) => {
-      state.wpscan = action.payload.data;
+      state.wpscan = action.payload.wpscan;
+      state.isLoading = false;
     },
     addWPScan: (state, action) => {
       state.wpscans.push(action.payload);
@@ -42,11 +46,15 @@ export const WPScanSlice = createSlice({
     },
     setError: (state, action) => {
       state.error = action.payload;
+      state.isLoading = false;
+    },
+    setLoading: (state) => {
+      state.isLoading = true;
     }
   }
 });
 
-export const { getWPScans, getWPScan, addWPScan, setPage, setError } = WPScanSlice.actions;
+export const { getWPScans, getWPScan, addWPScan, setPage, setError, setLoading } = WPScanSlice.actions;
 
 export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
   try {
@@ -62,11 +70,14 @@ export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
 
 
 export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatch) => {
+  dispatch(setLoading());
   try {
     const response = await axios.get(`${API_URL}${wpscanId}`);
+    console.log(response.data);
+    
 
     if (response.status === 200) {
-      dispatch(getWPScan({ data: response.data.wpscan }));
+      dispatch(getWPScan({ data: response.data }));
     } else {
       dispatch(setError('fetch WPScan not found'));
     }
