@@ -60,7 +60,7 @@ const getUserGroups = (): string[] => {
     // groups will be a string of comma separated values
     return decoded.groups.split(', ');
   }
-  return [decoded.groups];
+  return [decoded?.groups];
 };
 
 const getTenant = (): string | null => {
