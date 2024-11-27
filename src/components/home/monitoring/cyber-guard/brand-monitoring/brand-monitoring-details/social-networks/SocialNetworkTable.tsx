@@ -90,7 +90,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
   };
 
   const renderDate = (dateString: string, socialNetwork: string, defaultDate: string) => {
-    if (!dateString) return socialNetwork;
+    if (!dateString) return defaultDate;
     const dateStr = dateString;
     const date = new Date(dateStr);
     const isoString = date.toISOString();
