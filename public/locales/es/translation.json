@@ -994,5 +994,8 @@
     "name_unavailable": "Nombre no disponible",
     "group_unavailable": "Grupo no disponible",
     "email_unavailable": "Email no disponible"
+  },
+  "wpscan": {
+    "no_data_available": "No hay datos disponibles"
   }
 }

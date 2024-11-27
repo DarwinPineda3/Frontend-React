@@ -8,6 +8,7 @@ const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace(
 const API_URL = `${base_api_url}/api/wpscans/`;
 interface StateType {
   wpscans: any[];
+  wpscan: any | null;
   page: number;
   totalPages: number;
   error: string | null;
@@ -15,6 +16,7 @@ interface StateType {
 
 const initialState: StateType = {
   wpscans: [],
+  wpscan: null,
   page: 1,
   totalPages: 1,
   error: null,
@@ -29,6 +31,9 @@ export const WPScanSlice = createSlice({
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
+    getWPScan: (state, action) => {
+      state.wpscan = action.payload.data;
+    },
     addWPScan: (state, action) => {
       state.wpscans.push(action.payload);
     },
@@ -41,7 +46,7 @@ export const WPScanSlice = createSlice({
   }
 });
 
-export const { getWPScans, addWPScan, setPage, setError } = WPScanSlice.actions;
+export const { getWPScans, getWPScan, addWPScan, setPage, setError } = WPScanSlice.actions;
 
 export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
   try {
@@ -52,6 +57,22 @@ export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
   } catch (err: any) {
     console.error('Error fetching wpscans:', err);
     dispatch(setError('Failed to fetch wpscans'));
+  }
+};
+
+
+export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}${wpscanId}`);
+
+    if (response.status === 200) {
+      dispatch(getWPScan({ data: response.data.wpscan }));
+    } else {
+      dispatch(setError('fetch WPScan not found'));
+    }
+  } catch (err: any) {
+    console.error('Error fetching WPScan detail:', err);
+    dispatch(setError('Failed to fetch WPScan detail'));
   }
 };
 

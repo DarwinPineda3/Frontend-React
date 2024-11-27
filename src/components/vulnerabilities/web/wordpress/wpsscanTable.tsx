@@ -10,6 +10,7 @@ import {
   TableContainer,
   Box,
   Pagination,
+  Grid,
 } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -92,7 +93,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {wpscans.map((scan) => (
+                {wpscans.map((scan: any) => (
                   <TableRow key={scan.id}>
                     <TableCell>
                       <Typography
@@ -103,14 +104,14 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                         onClick={() => onScanClick(scan.id)}
                         style={{ cursor: 'pointer' }}
                       >
-                        {scan.url}
+                        {scan.target_url}
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan.date}</Typography>
+                      <Typography variant="body2">{scan.scan_start}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan.scanType}</Typography>
+                      <Typography variant="body2">{scan.scan_type}</Typography>
                     </TableCell>
                     <TableCell>
                       <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
@@ -126,7 +127,11 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
             </Table>
           </TableContainer>
               ) : (
-                <h1>no data</h1> //mejorar el estilo
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">{t('wpscan.no_data_available')}</Typography>
+                  </Grid>
+                </Grid>
               )
             }
             
