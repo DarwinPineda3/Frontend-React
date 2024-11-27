@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Box} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
@@ -10,6 +10,7 @@ import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { EMAIL_REGEX } from 'src/utils/regexValidation';
 import CustomFormLabel from '../../../components/forms/theme-elements/CustomFormLabel';
 import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
+import Loader from 'src/components/shared/Loader/Loader'
 
 const API_URL_FORGOT_PASSWORD = '/api/forgot-password';
 
@@ -32,6 +33,7 @@ const AuthForgotPassword = () => {
 
     if (!email || !EMAIL_REGEX.test(email)) {
       setError(t('authForgotPassword.invalidEmail'));
+      setLoading(false);
       return;
     }
 
@@ -54,6 +56,7 @@ const AuthForgotPassword = () => {
     } catch (err: any) {
       console.error('Error en Forgot Password:', err);
       setError(err.response?.data?.message || t('authForgotPassword.errorSubmitting'));
+      setLoading(false);
     }
   };
   return (
@@ -79,10 +82,16 @@ const AuthForgotPassword = () => {
             size="large"
             fullWidth
             disabled={loading}
+            sx={{ mt: 2 }}
           >
             {t('authForgotPassword.forgotPasswordButton')}
           </Button>
         </form>
+        {loading && (
+          <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+            <Loader /> 
+          </Box>
+        )}
         <Button
           color="primary"
           variant="outlined"
@@ -97,7 +106,7 @@ const AuthForgotPassword = () => {
         {snackbarOpen && (
           <SnackBarInfo
             color={snackbarSeverity}
-            title={snackbarSeverity === 'info' ? 'Info' : 'Error'}
+            title={snackbarSeverity === 'info' ? 'Password Reset Email Sent' : 'Error'}
             message={snackbarMessage}
           />
         )}
