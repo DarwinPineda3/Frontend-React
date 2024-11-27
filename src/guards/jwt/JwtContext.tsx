@@ -68,8 +68,8 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
   useEffect(() => {
     const initialize = async () => {
-      // no need to check if in an auth route or 404
-      if (window.location.pathname.includes('/auth') || window.location.pathname.includes('/404')) {
+      const authRoutes = ['/auth', '/404'];
+      if (authRoutes.some(route => window.location.pathname.includes(route))) {
         dispatch({
           type: 'INITIALIZE',
           payload: {
@@ -79,9 +79,11 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
         });
         return;
       }
+
       try {
         const accessToken = window.localStorage.getItem('accessToken');
         const refreshToken = window.localStorage.getItem('refreshToken');
+
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken, refreshToken);
           dispatch({
@@ -91,41 +93,27 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
               user: null,
             },
           });
+        } else if (refreshToken) {
+          // Attempt to refresh the token
+          await handleRefreshToken();
+          dispatch({
+            type: 'INITIALIZE',
+            payload: {
+              isAuthenticated: true,
+              user: null,
+            },
+          });
         } else {
-          try {
-            await handleRefreshToken();
-            dispatch({
-              type: 'INITIALIZE',
-              payload: {
-                isAuthenticated: true,
-                user: null,
-              },
-            });
-          }
-          catch (err) {
-            dispatch({
-              type: 'INITIALIZE',
-              payload: {
-                isAuthenticated: false,
-                user: null,
-              },
-            });
-          }
+          handleUnauthenticated();
         }
       } catch (err) {
-        console.error(err);
-        dispatch({
-          type: 'INITIALIZE',
-          payload: {
-            isAuthenticated: false,
-            user: null,
-          },
-        });
+        console.error("Authentication initialization failed:", err);
+        handleUnauthenticated();
       }
     };
 
     initialize();
-  }, []);
+  }, [dispatch]);
 
   const signin = async (username: string, password: string) => {
     const response = await axios.post(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/`, {
@@ -143,19 +131,43 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
 
   };
 
+  const handleUnauthenticated = () => {
+    setSession(null, null);
+    dispatch({
+      type: 'INITIALIZE',
+      payload: {
+        isAuthenticated: false,
+        user: null,
+      },
+    });
+  };
   const handleRefreshToken = async () => {
     const refreshToken = window.localStorage.getItem('refreshToken');
-    console.log("Token was refreshed");
-    const response = await axios.post(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`, {
-      refresh: refreshToken,
-    });
-    const { access } = response.data;
-    if (access) {
-      setSession(access, refreshToken);
-    }
-    else {
+
+    if (!refreshToken) {
+      console.warn("No refresh token found");
       setSession(null, null);
-      throw new Error("Refresh token expired")
+      throw new Error("No refresh token available");
+    }
+
+    try {
+      console.log("Refreshing token...");
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`,
+        { refresh: refreshToken }
+      );
+      const { access, refresh } = response.data;
+
+      if (access && refresh) {
+        setSession(access, refresh);
+      } else {
+        setSession(null, null);
+        throw new Error("Invalid refresh token response");
+      }
+    } catch (error) {
+      console.error("Failed to refresh token:", error);
+      setSession(null, null);
+      throw new Error("Refresh token expired or network error");
     }
   };
 
