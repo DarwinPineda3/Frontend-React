@@ -30,6 +30,8 @@ import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
 import TicketReducer from "./support/FreshTicketsSlice";
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
+import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
+
 
 import {
   TypedUseSelectorHook,
@@ -53,7 +55,7 @@ const dashboardReducer = combineReducers({
 export const store = configureStore({
   reducer: {
     customizer: CustomizerReducer,
-    userpostsReducer: UserProfileReducer,
+    userprofileReducer: UserProfileReducer,
     assetsReducer: AssetsReducer,
     dashboard: dashboardReducer,
     techInventoryReducer: TechInventoryReducer,
@@ -68,13 +70,14 @@ export const store = configureStore({
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
-    wpscanReducer : WPScanReducer
+    wpscanReducer : WPScanReducer,
+    ChangePasswordUser: ChangePasswordUserReducer,
   },
 });
 
 const rootReducer = combineReducers({
   customizer: CustomizerReducer,
-  userpostsReducer: UserProfileReducer,
+  userprofileReducer: UserProfileReducer,
   assetsReducer: AssetsReducer,
   dashboard: dashboardReducer,
   techInventoryReducer: TechInventoryReducer,
@@ -89,11 +92,12 @@ const rootReducer = combineReducers({
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
-  wpscanReducer : WPScanReducer
+  wpscanReducer : WPScanReducer,
+  ChangePasswordUser: ChangePasswordUserReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const {} = store;
+export const { } = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;

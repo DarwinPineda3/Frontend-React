@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getTenant } from 'src/guards/jwt/Jwt';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { Data, NewsletterType } from 'src/types/newsletters/newsletter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
-const tenant = getTenant()
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api/newsletters/`;
-const DOWNLOAD_URL = `${API_URL}download?gid=`;
+function getApiUrl() {
+  return `${getBaseApiUrl()}/newsletters/`;
+}
+
+//const DOWNLOAD_URL = `${API_URL}download?gid=`;
+function getDownloadUrl() {
+  return `${getBaseApiUrl()}/newsletters/download?gid=`;
+}
 
 interface StateType {
   newsletters: NewsletterType[];
@@ -59,7 +63,7 @@ export const fetchNewsletters =
   (page = 1) =>
     async (dispatch: AppDispatch) => {
       try {
-        const response = await axios.get(`${API_URL}`);
+        const response = await axios.get(`${getApiUrl()}`);
         const newsletters = response.data;
         const totalPages = Math.ceil(newsletters.length / 10);
         dispatch(getNewsletters({ newsletters, currentPage: page, totalPages })); // Dispatch to update state
@@ -71,8 +75,8 @@ export const fetchNewsletters =
 
 export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}${id}`);    
-    
+    const response = await axios.get(`${getApiUrl()}${id}`);
+
     if (response.status === 200) {
       dispatch(getNewsletterDetail({ data: response.data }));
     } else {
@@ -86,7 +90,7 @@ export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch)
 
 export const downloadNewsletter = (gid: string, namedoc: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${DOWNLOAD_URL}${gid}`, {
+    const response = await axios.get(`${getDownloadUrl()}${gid}`, {
       responseType: 'blob',
     });
 
@@ -109,8 +113,8 @@ export const downloadNewsletter = (gid: string, namedoc: string) => async (dispa
 
 export const fetchFileContent = (gid: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}${gid}/get_file_content/`);
-    
+    const response = await axios.get(`${getApiUrl()}${gid}/get_file_content/`);
+
     if (response.status === 200) {
       dispatch(setFileContent({ content: response.data.content }));
     } else {

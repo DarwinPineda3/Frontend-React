@@ -69,6 +69,26 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
     }
   };
 
+  const renderRiskChip = (riskLevel: string) => {
+    const score = parseFloat(riskLevel);
+
+    if (isNaN(score)) {
+      return { color: none, label: t('monitoring.invalid') };
+    }
+
+    if (score >= 9.0) {
+      return { color: critical, label: t('monitoring.critical') };
+    } else if (score >= 7.0) {
+      return { color: high, label: t('monitoring.high') };
+    } else if (score >= 4.0) {
+      return { color: medium, label: t('monitoring.medium') };
+    } else if (score > 0.0) {
+      return { color: low, label: t('monitoring.low') };
+    } else {
+      return { color: none, label: t('risk_analysis.no_risk') };
+    }
+  };
+
   return (
     <>
       <TableContainer>
@@ -128,16 +148,10 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                 <TableCell>{renderSentimentChip(social.data?.sentiment_analysis || '0')}</TableCell>
                 <TableCell>
                   <Chip
-                    label={social.data?.risk_analysis}
-                    color="secondary"
-                    style={{
-                      backgroundColor:
-                        social.data?.risk_analysis?.toLowerCase() == "Potential risk".toLowerCase()
-                          ? critical
-                          : social.data?.risk_analysis?.toLowerCase() == "No risk".toLowerCase()
-                            ? low
-                            : info,
-                      color: 'white'
+                    label={renderRiskChip(social.data?.risk_analysis!).label}
+                    sx={{
+                      backgroundColor: renderRiskChip(social.data?.risk_analysis!).color,
+                      color: 'white',
                     }}
                   />
                 </TableCell>
