@@ -28,7 +28,7 @@ export const ParametersSlice = createSlice({
   reducers: {
     getParameters: (state, action) => {
       state.parameters = Array.isArray(action.payload.results) ? action.payload.results : [];
-      state.page = action.payload.currentPage;
+      state.page = action.payload.page;
       state.totalPages = action.payload.totalPages;
     },
     addParameter: (state, action) => {
@@ -58,17 +58,16 @@ export const { getParameters, addParameter, updateParameter, deleteParameter, se
 // Async thunk for fetching parameters with pagination (READ)
 export const fetchParameters =
   (page = 1) =>
-    async (dispatch: AppDispatch) => {
-      try {
-        const response = await axios.get(`${getApiUrl()}`);
-        const { results, count } = response.data; // Assuming DRF pagination
-        const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
-        dispatch(getParameters({ results, currentPage: page, totalPages })); // Dispatch to update state
-      } catch (err: any) {
-        console.error('Error fetching parameters:', err);
-        dispatch(setError('Failed to fetch parameters'));
-      }
-    };
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getApiUrl()}?page=${page}`);
+      const { results, page: currentPage, totalPages } = response.data;
+      dispatch(getParameters({ results, page: currentPage, totalPages }));
+    } catch (err: any) {
+      console.error('Error fetching parameters:', err);
+      dispatch(setError('Failed to fetch parameters'));
+    }
+  };
 
 // Async thunk for creating a new parameter (CREATE)
 export const createParameter =
