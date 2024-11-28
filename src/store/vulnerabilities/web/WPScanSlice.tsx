@@ -35,7 +35,7 @@ export const WPScanSlice = createSlice({
       state.isLoading = false;
     },
     getWPScan: (state, action) => {
-      state.wpscan = action.payload.wpscan;
+      state.wpscan = action.payload.data;
       state.isLoading = false;
     },
     addWPScan: (state, action) => {
@@ -73,8 +73,6 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
   dispatch(setLoading());
   try {
     const response = await axios.get(`${API_URL}${wpscanId}`);
-    console.log(response.data);
-    
 
     if (response.status === 200) {
       dispatch(getWPScan({ data: response.data }));
