@@ -43,28 +43,28 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     validationSchema: LoginSchema,
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
-        await signin(values.email, values.password);
+        const response = await signin(values.email, values.password);
         navigate("/");
 
         if (mounted.current) {
           setStatus({ success: true });
-          setSubmitting(false);  
+          setSubmitting(false);
         }
       } catch (err: any) {
+        const errorDetail = err?.detail;
+
         if (mounted.current) {
           setStatus({ success: false });
 
-          // Error de autenticación con código 401
-          if (err.response && err.response.status === 401) {
-            const errorMessage = err.response.data?.detail || String(t('auth.error_authentication'));
-            setErrors({ submit: errorMessage });
-          } 
-          // Error de conexión o el servidor está caído
-          else if (err.request) {
+          if (errorDetail === 'La combinación de credenciales no tiene una cuenta activa') {
+            setErrors({ submit: String(t('auth.error_account_inactive')) });
+          } else if (errorDetail === 'Credenciales inválidas') {
+            setErrors({ submit: String(t('auth.invalid_credentials')) });
+          } else if (err?.request) {
+            // Error de conexión, servidor caído o no accesible
             setErrors({ submit: String(t('auth.error_connection')) });
-          } 
-          // Cualquier otro error inesperado
-          else {
+          } else {
+            // Si es otro tipo de error
             setErrors({ submit: String(t('auth.error_unexpected')) });
           }
 
@@ -80,7 +80,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     <>
       {title ? (
         <Typography fontWeight="700" variant="h3" mb={1}>
-          {String(t(title))} 
+          {String(t(title))}
         </Typography>
       ) : null}
 
@@ -90,7 +90,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
 
       {errors.submit && (
         <Box mt={2}>
-          <Alert severity="error">{String(errors.submit)}</Alert> 
+          <Alert severity="error">{String(errors.submit)}</Alert>
         </Box>
       )}
 
@@ -99,7 +99,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         <Form>
           <Stack>
             <Box>
-              <CustomFormLabel htmlFor="email">{String(t('auth.email_label'))}</CustomFormLabel> 
+              <CustomFormLabel htmlFor="email">{String(t('auth.email_label'))}</CustomFormLabel>
               <CustomTextField
                 id="email"
                 variant="outlined"
@@ -110,7 +110,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               />
             </Box>
             <Box>
-              <CustomFormLabel htmlFor="password">{String(t('auth.password_label'))}</CustomFormLabel> 
+              <CustomFormLabel htmlFor="password">{String(t('auth.password_label'))}</CustomFormLabel>
               <CustomTextField
                 id="password"
                 type="password"
@@ -125,7 +125,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               <FormGroup>
                 <FormControlLabel
                   control={<CustomCheckbox defaultChecked />}
-                  label={String(t('auth.remember_device'))} 
+                  label={String(t('auth.remember_device'))}
                 />
               </FormGroup>
               <Typography
@@ -137,7 +137,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
                   color: 'primary.main',
                 }}
               >
-                {String(t('auth.forgot_password_link'))} 
+                {String(t('auth.forgot_password_link'))}
               </Typography>
             </Stack>
           </Stack>
@@ -149,11 +149,11 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               fullWidth
               type="submit"
               onClick={async () => {
-                await formik.submitForm(); 
+                await formik.submitForm();
               }}
               disabled={isSubmitting}
             >
-              {String(t('auth.sign_in_button'))} 
+              {String(t('auth.sign_in_button'))}
             </Button>
           </Box>
         </Form>

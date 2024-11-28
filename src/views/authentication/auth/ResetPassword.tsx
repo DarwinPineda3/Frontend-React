@@ -8,6 +8,7 @@ import PageContainer from 'src/components/container/PageContainer';
 import Logo from 'src/layouts/full/shared/logo/Logo';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { PASSWORD_REGEX } from 'src/utils/regexValidation';
+import Loader from 'src/components/shared/Loader/Loader';
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -193,11 +194,16 @@ const ResetPassword = () => {
                 </Button>
               </Box>
             </form>
+            {loading && (
+              <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
+                <Loader />
+              </Box>
+            )}
           </Box>
           {snackbarOpen && (
             <SnackBarInfo
               color={snackbarSeverity}
-              title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
+              title={snackbarSeverity === 'success' ? 'password reset successfully' : 'Error'}
               message={snackbarMessage}
             />
           )}

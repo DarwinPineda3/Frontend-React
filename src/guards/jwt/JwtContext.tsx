@@ -141,35 +141,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
       },
     });
   };
-  const handleRefreshToken = async () => {
-    const refreshToken = window.localStorage.getItem('refreshToken');
-
-    if (!refreshToken) {
-      console.warn("No refresh token found");
-      setSession(null, null);
-      throw new Error("No refresh token available");
-    }
-
-    try {
-      console.log("Refreshing token...");
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`,
-        { refresh: refreshToken }
-      );
-      const { access, refresh } = response.data;
-
-      if (access && refresh) {
-        setSession(access, refresh);
-      } else {
-        setSession(null, null);
-        throw new Error("Invalid refresh token response");
-      }
-    } catch (error) {
-      console.error("Failed to refresh token:", error);
-      setSession(null, null);
-      throw new Error("Refresh token expired or network error");
-    }
-  };
 
   const signup = async (email: string, password: string, firstName: string, lastName: string) => {
     const response = await axios.post('/api/account/register', {
@@ -210,5 +181,52 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   );
 }
 
-export { AuthContext, AuthProvider };
+const handleRefreshToken = async () => {
+  const refreshToken = window.localStorage.getItem('refreshToken');
+
+  if (!refreshToken) {
+    console.warn("No refresh token found");
+    setSession(null, null);
+    throw new Error("No refresh token available");
+  }
+
+  try {
+    console.log("Refreshing token...");
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`,
+      { refresh: refreshToken }
+    );
+    const { access, refresh } = response.data;
+
+    if (access && refresh) {
+      setSession(access, refresh);
+      return { access, refresh };
+    } else {
+      setSession(null, null);
+      throw new Error("Invalid refresh token response");
+    }
+  } catch (error) {
+    console.error("Failed to refresh token:", error);
+    setSession(null, null);
+    throw new Error("Refresh token expired or network error");
+  }
+};
+
+const getValidAccessToken = async () => {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  if (accessToken && isValidToken(accessToken)) {
+    return accessToken;
+  }
+
+  else if (refreshToken) {
+    const { access } = await handleRefreshToken();
+    return access;
+  }
+
+  throw new Error('No valid tokens available');
+};
+
+export { AuthContext, AuthProvider, getValidAccessToken };
 
