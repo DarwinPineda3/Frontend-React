@@ -18,8 +18,8 @@ import Loader from 'src/components/shared/Loader/Loader';
 import { fetchWPScanById } from 'src/store/vulnerabilities/web/WPScanSlice';
 import WPSMainTheme from './wpscanMainTheme';
 import WPSOverview from './wpscanOverview';
-import WPSFindings from './wpscansFindings';
-import WPSPlugins from './wpscansPlugings';
+import WPSFindings from './wpscanFindings';
+import WPSPlugins from './wpscanPlugings';
 import WpScanTopBar from './wpscanTopBar';
 
 
