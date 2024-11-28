@@ -76,7 +76,10 @@ const ParameterList = () => {
     fetchData();
   }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
     const newPage = page + 1;
     if (newPage !== currentPage) {
       dispatch(setPage(newPage));
@@ -210,9 +213,9 @@ const ParameterList = () => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               component="div"
-              count={totalPages * pageSize} // Aseguramos que count sea el total de elementos.
+              count={totalPages * pageSize}
               rowsPerPage={pageSize}
-              page={currentPage - 1} // Ajuste de 1 a 0 basado en el índice de página
+              page={currentPage - 1}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handlePageSizeChange}
             />
