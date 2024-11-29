@@ -16,16 +16,14 @@ import GlobeIcon from '@mui/icons-material/Public';
 import { useParams } from 'react-router';
 import Loader from 'src/components/shared/Loader/Loader';
 import { fetchWPScanById } from 'src/store/vulnerabilities/web/WPScanSlice';
+import WPSFindings from './wpscanFindings';
 import WPSMainTheme from './wpscanMainTheme';
 import WPSOverview from './wpscanOverview';
-import WPSFindings from './wpscanFindings';
 import WPSPlugins from './wpscanPlugings';
 import WpScanTopBar from './wpscanTopBar';
 
 
-const WpScanDetail: React.FC<{ scanId_prop: string; onAlertClick: (alertId: string) => void }> = ({
-  scanId_prop
-}) => {
+const WpScanDetail: React.FC = () => {
   const { scanId } = useParams<{ scanId?: string }>();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -38,7 +36,7 @@ const WpScanDetail: React.FC<{ scanId_prop: string; onAlertClick: (alertId: stri
 
   React.useEffect(() => {
     const fetchData = async () => {
-      if (scanId && !wpscan) {
+      if (scanId) {
         try {
           await dispatch(fetchWPScanById(scanId));
         } catch (error) {
@@ -48,27 +46,10 @@ const WpScanDetail: React.FC<{ scanId_prop: string; onAlertClick: (alertId: stri
     };
 
     fetchData();
-  }, [scanId, wpscan, dispatch]);
+  }, [scanId, dispatch]);
+  console.log(scanId);
 
-  console.log(wpscan)
-  let dataCards: any[] = [];
-  if (wpscan) {
-    dataCards = [
-      { severity: 'critical', value: wpscan?.vulnerabilities?.length || 0 },
-      { severity: 'high', value: wpscan?.plugins_list?.length || 0 },
-      { severity: 'medium', value: wpscan?.users?.length || 0 },
-      { severity: 'low', value: wpscan?.interesting_findings?.length || 0 },
-    ];
-  }
-
-
-  if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <Loader />
-      </Box>
-    );
-  }
+  // console.log(wpscan)
 
   const overviewdata = {
     start_time: wpscan?.start_time,
@@ -115,6 +96,14 @@ const WpScanDetail: React.FC<{ scanId_prop: string; onAlertClick: (alertId: stri
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <Loader />
+      </Box>
+    );
+  }
 
   return (
     <Grid container spacing={1}>

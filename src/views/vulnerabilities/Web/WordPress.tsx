@@ -73,7 +73,7 @@ const WordpressAplications = () => {
       {selectedScan && !selectedVulnerability ? (
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <WpScanDetail scanId_prop={selectedScan!} onAlertClick={handleVulnClick} />
+            <WpScanDetail />
           </Grid>
         </Grid>
       ) : selectedVulnerability ? (
