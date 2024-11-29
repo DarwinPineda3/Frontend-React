@@ -1006,7 +1006,9 @@
     "password_label": "Password",
     "remember_device": "Remember this device",
     "forgot_password_link": "Forgot Password?",
-    "sign_in_button": "Sign In"
+    "sign_in_button": "Sign In",
+    "invalid_credentials": "Invalid Credentials"
+
   },
   "account_settings": {
     "change_profile": "Change profile",

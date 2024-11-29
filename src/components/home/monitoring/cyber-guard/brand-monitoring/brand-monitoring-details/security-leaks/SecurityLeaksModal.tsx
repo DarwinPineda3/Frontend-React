@@ -1,5 +1,5 @@
+import { Box, Divider, List, ListItem, ListItemText, Modal, Typography } from '@mui/material';
 import React from 'react';
-import { Modal, Box, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 interface SecurityLeakDetailModalProps {
@@ -24,7 +24,13 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
     } else if (value !== null && value !== undefined) {
       const valueStr = String(value);
       if (valueStr.trim() !== '' && valueStr !== '0') {
-        acc[key] = valueStr;
+        if (key === 'generated' && typeof valueStr === 'string') {
+          const timestamp = parseFloat(valueStr);
+          const date = new Date(timestamp * 1000);
+          acc[key] = date.toLocaleString();
+        } else {
+          acc[key] = valueStr;
+        }
       }
     }
     return acc;
@@ -90,14 +96,12 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
                           )}
                         </div>
                       ))
+                    ) : isUrl(value) ? (
+                      <a href={value} target="_blank" rel="noopener noreferrer">
+                        {value}
+                      </a>
                     ) : (
-                      isUrl(value) ? (
-                        <a href={value} target="_blank" rel="noopener noreferrer">
-                          {value}
-                        </a>
-                      ) : (
-                        value
-                      )
+                      value
                     )}
                   </Typography>
                 }
