@@ -86,26 +86,16 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
 };
 
 
-// export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
-//   try {
-//     const formData = new FormData();
+export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(API_URL, newWPScan);
 
-//     formData.append('subject', newWPScan.subject);
-//     formData.append('description', newWPScan.description);
-//     // formData.append('csrfmiddlewaretoken', csrfToken);
-
-//     if (newWPScan.attach_file) {
-//       formData.append('attach_file', newWPScan.attach_file);
-//     }
-
-//     const response = await axios.post(API_URL, formData);
-
-//     dispatch(addWPScan(response.data));
-//   } catch (err: any) {
-//     console.error('Error creating ticket:', err);
-//     dispatch(setError('Failed to create ticket'));
-//   }
-// };
+    dispatch(addWPScan(response.data));
+  } catch (err: any) {
+    console.error('Error creating WPScan:', err);
+    dispatch(setError('Failed to create WPScan'));
+  }
+};
 
 
 export default WPScanSlice.reducer;

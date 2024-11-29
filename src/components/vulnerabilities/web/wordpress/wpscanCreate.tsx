@@ -11,43 +11,59 @@ import {
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'src/store/Store';
-import { createParameter } from 'src/store/sections/cyber-guard/ParametersSlice';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import { fetchAssets } from 'src/store/sections/AssetsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { createWPScan } from 'src/store/vulnerabilities/web/WPScanSlice';
 import * as Yup from 'yup';
 
+interface WPScan {
+  hosts: string;
+  config: string;
+}
 
+interface CreateWPScanProps {
+  onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
+}
 
-const CreateWPScan: React.FC = ({ onSubmit }) => {
+const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  // Formik setup with Yup validation schema
+  const assets = useSelector((state: any) => state.assetsReducer.assets);
+  const currentPage = useSelector((state: any) => state.assetsReducer.page);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      console.log("holaaaaa");
+
+      await dispatch(fetchAssets(currentPage));
+    };
+    fetchData();
+  }, [dispatch, currentPage]);
+
+
   const formik = useFormik({
     initialValues: {
       hosts: '',
-      config: ''
+      config: '',
     },
     validationSchema: Yup.object({
-      hosts: Yup.string().required(`${t('monitoring.parameter_required')}`),
+      hosts: Yup.string().required(t('monitoring.parameter_required')),
       config: Yup.string()
-        .oneOf([
-          'scan_normal',
-          'scan_deep',
-          null,
-        ])
-        .required(`${t('monitoring.parameter_type_required')}`),
+        .oneOf(['scan_normal', 'scan_deep'], t('monitoring.invalid_config'))
+        .required(t('monitoring.parameter_type_required')),
     }),
-    onSubmit: async (values) => {
-      const newWPScan: any = {
-        id: undefined,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      const newWPScan: WPScan = {
         hosts: values.hosts,
-        config: values.config
+        config: values.config,
       };
 
       try {
-        await dispatch(createParameter(newWPScan));
-        onSubmit(`creado exitosamente`, 'success');
-
+        await dispatch(createWPScan(newWPScan)); // Cambia esta línea
+        onSubmit('Asset created successfully', 'success');
+        resetForm();
       } catch (error: any) {
         const errorMessage =
           error instanceof Error
@@ -57,39 +73,56 @@ const CreateWPScan: React.FC = ({ onSubmit }) => {
               : error?.error
                 ? error.error[0]
                 : `${error}`;
+        handleSubmitSuccess(errorMessage, 'error');
 
-        onSubmit(errorMessage, 'error');
+      } finally {
+        setSubmitting(false);
       }
     },
   });
 
+  const handleSubmitSuccess = (message: string, status: 'success' | 'error') => {
+    <SnackBarInfo
+      color={status}
+      title={status === 'success' ? 'Success' : 'Error'}
+      message={message}
+    />
+    // console.log(status, message);
+  };
+
   const menuItems = [
-    { value: 'scan_normal', label: `Scan normal` },
-    { value: 'scan_deep', label: `Scan deep` },
-
+    { value: 'scan_normal', label: t('monitoring.scan_normal') },
+    { value: 'scan_deep', label: t('monitoring.scan_deep') },
   ];
-
-  const selectedOption =
-    menuItems.find((item) => item.value === formik.values.config) || null;
 
   return (
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          Crear escaneo
+          {t('monitoring.create_scan')}
         </Typography>
 
-        <TextField
-          fullWidth
-          margin="normal"
-          label={t('monitoring.parameter_name')}
-          name="hosts"
-          value={formik.values.hosts}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.hosts && Boolean(formik.errors.hosts)}
-          helperText={formik.touched.hosts && formik.errors.hosts}
-        />
+        <FormControl fullWidth margin="normal" error={formik.touched.hosts && Boolean(formik.errors.hosts)}>
+          <Autocomplete
+            options={assets}  
+            getOptionLabel={(option) => option.name}
+            value={assets.find((asset: any) => asset.id === formik.values.hosts) || null}
+            onChange={(event, newValue) => {
+              formik.setFieldValue('hosts', newValue ? newValue.id : '');
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t('monitoring.parameter_name')}
+                variant="outlined"
+                error={formik.touched.hosts && Boolean(formik.errors.hosts)}
+              />
+            )}
+          />
+          <FormHelperText>
+            {formik.touched.hosts && formik.errors.hosts}
+          </FormHelperText>
+        </FormControl>
 
         <FormControl
           fullWidth
@@ -99,7 +132,10 @@ const CreateWPScan: React.FC = ({ onSubmit }) => {
           <Autocomplete
             options={menuItems}
             getOptionLabel={(option) => option.label}
-            value={selectedOption}
+            value={
+              menuItems.find((item) => item.value === formik.values.config) ||
+              null
+            }
             onChange={(event, newValue) => {
               formik.setFieldValue('config', newValue ? newValue.value : '');
             }}
@@ -111,11 +147,6 @@ const CreateWPScan: React.FC = ({ onSubmit }) => {
                 error={formik.touched.config && Boolean(formik.errors.config)}
               />
             )}
-            renderOption={(props, option) => (
-              <li {...props} key={option.value}>
-                {option.label}
-              </li>
-            )}
           />
           <FormHelperText>
             {formik.touched.config && formik.errors.config}
@@ -123,8 +154,14 @@ const CreateWPScan: React.FC = ({ onSubmit }) => {
         </FormControl>
 
         <Box mt={2}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Create scan
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={formik.isSubmitting}
+          >
+            {t('monitoring.create_scan_button')}
           </Button>
         </Box>
       </Box>
