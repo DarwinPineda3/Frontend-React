@@ -1,9 +1,10 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Box } from '@mui/material';
-import { Dashboard } from '@mui/icons-material';
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
 const AntivirusTable = () => {
+  const { t } = useTranslation();
+
   const antivirusData = [
     {
       name: 'Sophos Intercept X',
@@ -11,7 +12,7 @@ const AntivirusTable = () => {
       productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
       reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
       status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Sophos_logo.png',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
     },
     {
       name: 'Sophos Intercept X',
@@ -19,7 +20,7 @@ const AntivirusTable = () => {
       productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
       reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
       status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Sophos_logo.png',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
     },
     {
       name: 'Sophos Intercept X',
@@ -27,42 +28,42 @@ const AntivirusTable = () => {
       productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
       reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
       status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Sophos_logo.png',
+      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
     },
   ];
 
   return (
-    <DashboardCard title='Antivirus Info'>
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Logo</TableCell>
-            <TableCell>Antivirus Instalados</TableCell>
-            <TableCell>Guía de Instancia</TableCell>
-            <TableCell>Ruta al Archivo Ejecutable del Producto Firmado</TableCell>
-            <TableCell>Ruta al Archivo Ejecutable de Informes Firmado</TableCell>
-            <TableCell>Estado del Producto</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {antivirusData.map((antivirus, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                <Box display="flex" alignItems="center" justifyContent="center">
-                  <img src={antivirus.logoUrl} alt={`${antivirus.name} Logo`} width={50} height={50} />
-                </Box>
-              </TableCell>
-              <TableCell>{antivirus.name}</TableCell>
-              <TableCell>{antivirus.guide}</TableCell>
-              <TableCell>{antivirus.productPath}</TableCell>
-              <TableCell>{antivirus.reportPath}</TableCell>
-              <TableCell>{antivirus.status}</TableCell>
+    <DashboardCard title={t('observability.antivirus_info')!}>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>{t('observability.logo')}</TableCell>
+              <TableCell>{t('observability.installed_antivirus')}</TableCell>
+              <TableCell>{t('observability.instance_guide')}</TableCell>
+              <TableCell>{t('observability.product_executable_path')}</TableCell>
+              <TableCell>{t('observability.report_executable_path')}</TableCell>
+              <TableCell>{t('observability.product_status')}</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {antivirusData.map((antivirus, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <Box display="flex" alignItems="center" justifyContent="center">
+                    <img src={antivirus.logoUrl} alt={`${antivirus.name} Logo`} width={50} height={50} />
+                  </Box>
+                </TableCell>
+                <TableCell>{antivirus.name}</TableCell>
+                <TableCell>{antivirus.guide}</TableCell>
+                <TableCell>{antivirus.productPath}</TableCell>
+                <TableCell>{antivirus.reportPath}</TableCell>
+                <TableCell>{antivirus.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </DashboardCard>
   );
 };

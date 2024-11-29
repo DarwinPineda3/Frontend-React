@@ -19,6 +19,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Props } from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
 
 const burntScansData = [
   {
@@ -126,6 +127,8 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
   const primarylight = theme.palette.primary.light;
   const greylight = theme.palette.grey[100];
 
+  const { t } = useTranslation();
+
 
   const optionsRamChart: Props = {
     chart: {
@@ -209,7 +212,7 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
 
   return (
     <Box>
-      <DashboardCard title="Scans" subtitle="List of all scans">
+      <DashboardCard title={t('observability.scans')!} subtitle={t('observability.list_of_all_scans')!}>
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -217,37 +220,37 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                 <TableRow>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Asset
+                      {t('observability.asset')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      CPU
+                      {t('observability.cpu')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      RAM
+                      {t('observability.ram')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Storage
+                      {t('observability.storage')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Firewall
+                      {t('observability.firewall')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Last Update
+                      {t('observability.last_update')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Actions
+                      {t('observability.actions')}
                     </Typography>
                   </TableCell>
                 </TableRow>

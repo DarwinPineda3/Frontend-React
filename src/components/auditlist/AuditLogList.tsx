@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
 import {
-  Typography,
+  Box,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  IconButton,
-  Dialog,
-  DialogContent,
+  Typography,
 } from '@mui/material';
+import React, { useState } from 'react';
 
-import DashboardCard from '../shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
+import DashboardCard from '../shared/DashboardCard';
 
 interface LogEntry {
   date: string;
@@ -27,6 +25,7 @@ interface LogEntry {
 }
 
 const AuditLogList: React.FC = () => {
+  const { t } = useTranslation();
   const [logs, setLogs] = useState<LogEntry[]>([
     {
       date: '9 de julio de 2024 a las 13:26',
@@ -47,11 +46,10 @@ const AuditLogList: React.FC = () => {
   ]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [logsPerPage] = useState(10);
+  const [logsPerPage] = useState(25);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
-  const [openDialog, setOpenDialog] = useState(false);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -67,24 +65,14 @@ const AuditLogList: React.FC = () => {
     setSnackbarOpen(false);
   };
 
-  const handleAddLog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
   const indexOfLastLog = currentPage * logsPerPage;
   const indexOfFirstLog = indexOfLastLog - logsPerPage;
   const currentLogs = logs.slice(indexOfFirstLog, indexOfLastLog);
 
   return (
     <DashboardCard
-      title="List of Audit Logs"
-      subtitle="Audit log details and actions"
-      
-      
+      title={t("audit.list_of_audit_logs") as string}
+      subtitle={t("audit.audit_log_details_and_actions") as string}
     >
       <Box>
         <TableContainer>
@@ -93,32 +81,32 @@ const AuditLogList: React.FC = () => {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Fecha de ejecución
+                    {t("audit.execution_date")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Ruta
+                    {t("audit.route")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    IP
+                    {t("audit.ip")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Tipo acción
+                    {t("audit.action_type")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Usuarios
+                    {t("audit.user")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Módulo
+                    {t("audit.module")}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -158,11 +146,10 @@ const AuditLogList: React.FC = () => {
           />
         </Box>
 
-        {/* Snackbar */}
         {snackbarOpen && (
           <SnackBarInfo
             color={snackbarSeverity}
-            title="Operación"
+            title={t("audit.operation")}
             message={snackbarMessage}
           />
         )}

@@ -34,7 +34,7 @@ const isValidToken = (accessToken: string) => {
 };
 
 // Function to set or clear the session
-const setSession = (accessToken: string | null) => {
+const setSession = (accessToken: string | null, refreshToken: string | null) => {
   if (accessToken) {
     window.localStorage.setItem('accessToken', accessToken);
     axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -42,7 +42,68 @@ const setSession = (accessToken: string | null) => {
     window.localStorage.removeItem('accessToken');
     delete axios.defaults.headers.common.Authorization;
   }
+
+  if (refreshToken) {
+    window.localStorage.setItem('refreshToken', refreshToken);
+  } else {
+    window.localStorage.removeItem('refreshToken');
+  }
 };
+
+const getUserGroups = (): string[] => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  if (!accessToken) {
+    return [];
+  }
+  const decoded: any = decodeToken(accessToken);
+  if (decoded && decoded.groups) {
+    // groups will be a string of comma separated values
+    return decoded.groups.split(', ');
+  }
+  return [decoded?.groups];
+};
+
+const getTenant = (): string | null => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  if (!accessToken) {
+    return null;
+  }
+  const decoded: any = decodeToken(accessToken);
+  if (decoded && decoded.schema_name) {
+    // groups will be a string of comma separated values
+    return decoded.schema_name;
+  }
+  return null;
+};
+
+const getBaseApiUrl = (): string => {
+  const tenant = getTenant();
+  return `${import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant)}/api`;
+}
+
+// Function to get user information from the token
+const getUserInfo = (): { user_id: string; first_name: string; last_name: string; email: string; groups: string } | null => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  if (!accessToken) {
+    return null;
+  }
+
+  const decoded: any = decodeToken(accessToken);
+
+  if (decoded) {
+    // Mapear correctamente email y user_id
+    return {
+      user_id: decoded.user_id || 'ID no disponible',
+      first_name: decoded.first_name || 'Nombre no disponible',
+      last_name: decoded.last_name || 'Apellido no disponible',
+      email: decoded.email || 'Email no disponible',
+      groups: decoded.groups || 'Grupo no disponible',
+    };
+  }
+
+  return null;
+};
+
 
 // Function to sign a JWT (used for the mock API)
 const sign = (payload: any, secretKey: string, options: any) => {
@@ -61,7 +122,7 @@ const sign = (payload: any, secretKey: string, options: any) => {
 
   // Log what is being signed
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  
+
 
   // Create the HMAC SHA-256 signature using crypto-js
   const signature = CryptoJS.HmacSHA256(signingInput, secretKey).toString(CryptoJS.enc.Base64)
@@ -70,8 +131,8 @@ const sign = (payload: any, secretKey: string, options: any) => {
     .replace(/\//g, '_'); // Base64Url encoding
 
   const jwtToken = `${encodedHeader}.${encodedPayload}.${signature}`;
-  
-  
+
+
   return jwtToken;
 };
 
@@ -81,7 +142,7 @@ const verify = (token: string, secretKey: string) => {
 
   // Log inputs used for verification
   const signingInput = `${encodedHeader}.${encodedPayload}`;
-  
+
 
   // Recreate the signature for comparison using crypto-js
   const verifiedSignature = CryptoJS.HmacSHA256(signingInput, secretKey).toString(CryptoJS.enc.Base64)
@@ -89,8 +150,8 @@ const verify = (token: string, secretKey: string) => {
     .replace(/\+/g, '-') // Base64Url encoding
     .replace(/\//g, '_'); // Base64Url encoding
 
-  
-  
+
+
 
   if (verifiedSignature !== signature) {
     throw new Error('Invalid signature');
@@ -108,4 +169,5 @@ const verify = (token: string, secretKey: string) => {
   return payload;
 };
 
-export { isValidToken, setSession, sign, verify };
+export { getBaseApiUrl, getTenant, getUserGroups, getUserInfo, isValidToken, setSession, sign, verify };
+

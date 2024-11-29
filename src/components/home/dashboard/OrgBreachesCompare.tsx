@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from '../../shared/DashboardCard';
-import Loader from '../../shared/Loader/Loader'; // Loader component
-
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
+import Loader from '../../shared/Loader/Loader';
+import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchOrgBreachesData } from 'src/store/sections/dashboard/OrgBreachesSlice';
 import { AppState } from 'src/store/Store';
-import { ApexOptions } from 'apexcharts';  // Correct type
+import { ApexOptions } from 'apexcharts';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const OrgBreachesCompare = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { loading, series, labels, error } = useSelector(
     (state: AppState) => state.dashboard.orgBreaches
@@ -32,32 +33,32 @@ const OrgBreachesCompare = () => {
       },
     },
     colors: [primary],
-    labels: labels, // Dynamic labels from state
+    labels: labels,
     tooltip: {
       theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
     },
   };
 
+  console.log(series);
   if (loading) {
     return (
-      <DashboardCard title="Organization Breaches">
-        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+      <DashboardCard title={t("dashboard.organization_breaches") || ''}>
+        <Box display="flex" justifyContent="center" >
           <Loader />
         </Box>
       </DashboardCard>
-
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
   }
 
   return (
-    <DashboardCard title="Organization Breaches">
+    <DashboardCard title={t("dashboard.organization_breaches") || ''}>
       <Chart
         options={optionsradarchart}
-        series={series} // Dynamic series from state
+        series={series}
         type="radar"
         height="300px"
       />

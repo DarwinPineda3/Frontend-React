@@ -2,89 +2,104 @@
 // @ts-ignore
 import React from 'react';
 import {
-  Box,
-  Typography,
-  FormGroup,
-  FormControlLabel,
-  Button,
-  Stack,
-  Divider,
   Alert,
+  Box,
+  Button,
+  FormControlLabel,
+  FormGroup,
+  Stack,
+  Typography
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-
-import { loginType } from 'src/types/auth/auth';
+import { Form, FormikProvider, useFormik } from 'formik';
 import CustomCheckbox from 'src/components/forms/theme-elements/CustomCheckbox';
-import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import CustomFormLabel from 'src/components/forms/theme-elements/CustomFormLabel';
-import { Form, useFormik, FormikProvider } from 'formik';
-import * as Yup from 'yup';
+import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import useAuth from 'src/guards/authGuard/UseAuth';
 import useMounted from 'src/guards/authGuard/UseMounted';
+import { loginType } from 'src/types/auth/auth';
+import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
+  const { t } = useTranslation();
   const mounted = useMounted();
   const { signin } = useAuth();
-  
   const navigate = useNavigate();
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email is invalid').required('Email is required'),
+    email: Yup.string().email(String(t('auth.email_invalid'))).required(String(t('auth.email_required'))),
     password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
+      .min(6, String(t('auth.password_min_length')))
+      .required(String(t('auth.password_required'))),
   });
 
   const formik = useFormik({
     initialValues: {
-      email: 'demo@demo.com',
-      password: 'demo123',
+      email: '',
+      password: '',
       submit: null,
     },
-
     validationSchema: LoginSchema,
-
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       try {
-        await signin(values.email, values.password);
-        navigate("/home/dashboard");
+        const response = await signin(values.email, values.password);
+        navigate("/");
+
         if (mounted.current) {
           setStatus({ success: true });
-          setSubmitting(true);
+          setSubmitting(false);
         }
       } catch (err: any) {
+        const errorDetail = err?.detail;
+
         if (mounted.current) {
           setStatus({ success: false });
-          setErrors({ submit: err.message });
+
+          if (errorDetail === 'La combinación de credenciales no tiene una cuenta activa') {
+            setErrors({ submit: String(t('auth.error_account_inactive')) });
+          } else if (errorDetail === 'Credenciales inválidas') {
+            setErrors({ submit: String(t('auth.invalid_credentials')) });
+          } else if (err?.request) {
+            // Error de conexión, servidor caído o no accesible
+            setErrors({ submit: String(t('auth.error_connection')) });
+          } else {
+            // Si es otro tipo de error
+            setErrors({ submit: String(t('auth.error_unexpected')) });
+          }
+
           setSubmitting(false);
         }
       }
     },
   });
+
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
   return (
     <>
       {title ? (
         <Typography fontWeight="700" variant="h3" mb={1}>
-          {title}
+          {String(t(title))}
         </Typography>
       ) : null}
 
       {subtext}
       <Box mt={3}>
       </Box>
+
       {errors.submit && (
         <Box mt={2}>
-          <Alert severity="error">{errors.submit}</Alert>
+          <Alert severity="error">{String(errors.submit)}</Alert>
         </Box>
       )}
+
       <FormikProvider value={formik}>
-        {/*@ts-expect-error*/}
+        {/* @ts-expect-error */}
         <Form>
           <Stack>
             <Box>
-              <CustomFormLabel htmlFor="email">Email Address</CustomFormLabel>
+              <CustomFormLabel htmlFor="email">{String(t('auth.email_label'))}</CustomFormLabel>
               <CustomTextField
                 id="email"
                 variant="outlined"
@@ -95,7 +110,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               />
             </Box>
             <Box>
-              <CustomFormLabel htmlFor="password">Password</CustomFormLabel>
+              <CustomFormLabel htmlFor="password">{String(t('auth.password_label'))}</CustomFormLabel>
               <CustomTextField
                 id="password"
                 type="password"
@@ -110,19 +125,19 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               <FormGroup>
                 <FormControlLabel
                   control={<CustomCheckbox defaultChecked />}
-                  label="Remeber this Device"
+                  label={String(t('auth.remember_device'))}
                 />
               </FormGroup>
               <Typography
                 component={Link}
-                to="/auth/reset-password"
+                to="/auth/forgot-password"
                 fontWeight="500"
                 sx={{
                   textDecoration: 'none',
                   color: 'primary.main',
                 }}
               >
-                Forgot Password ?
+                {String(t('auth.forgot_password_link'))}
               </Typography>
             </Stack>
           </Stack>
@@ -132,18 +147,18 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               variant="contained"
               size="large"
               fullWidth
-              type="button"
-              onClick={async()=>{
-                
+              type="submit"
+              onClick={async () => {
                 await formik.submitForm();
               }}
               disabled={isSubmitting}
             >
-              Sign In
+              {String(t('auth.sign_in_button'))}
             </Button>
           </Box>
         </Form>
       </FormikProvider>
+
       {subtitle}
     </>
   );

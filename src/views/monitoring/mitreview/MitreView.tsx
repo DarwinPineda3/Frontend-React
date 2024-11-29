@@ -1,0 +1,28 @@
+const MitreView = () => {
+  return (
+    <div
+      style={{
+        height: 'calc(100svh - 70px)',
+        width: 'calc(100% + 40px)',
+        marginLeft: '-20px',
+      }}
+    >
+      <iframe
+        id="full-screen-me"
+        src="https://akila-dev-proxy.octapus.io/s/admin-soc/app/security/rules_coverage_overview"
+        style={{
+          overflow: 'hidden',
+          height: '100%',
+          width: '100%',
+          border: 'none',
+          display: 'block',
+          position: 'relative',
+        }}
+        allow="fullscreen"
+        seamless={true}
+      />
+    </div>
+  );
+};
+
+export default MitreView;

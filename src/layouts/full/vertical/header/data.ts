@@ -3,18 +3,16 @@ import img2 from 'src/assets/images/profile/user-2.jpg';
 import img3 from 'src/assets/images/profile/user-3.jpg';
 import img4 from 'src/assets/images/profile/user-4.jpg';
 
-import icon1 from 'src/assets/images/svgs/icon-account.svg'
-import icon2 from 'src/assets/images/svgs/icon-inbox.svg'
-import icon3 from 'src/assets/images/svgs/icon-tasks.svg'
+import icon1 from 'src/assets/images/svgs/icon-account.svg';
 
-import ddIcon1 from 'src/assets/images/svgs/icon-dd-chat.svg'
-import ddIcon2 from 'src/assets/images/svgs/icon-dd-cart.svg'
-import ddIcon3 from 'src/assets/images/svgs/icon-dd-invoice.svg'
-import ddIcon4 from 'src/assets/images/svgs/icon-dd-date.svg'
-import ddIcon5 from 'src/assets/images/svgs/icon-dd-mobile.svg'
-import ddIcon6 from 'src/assets/images/svgs/icon-dd-lifebuoy.svg'
-import ddIcon7 from 'src/assets/images/svgs/icon-dd-message-box.svg'
-import ddIcon8 from 'src/assets/images/svgs/icon-dd-application.svg'
+import ddIcon8 from 'src/assets/images/svgs/icon-dd-application.svg';
+import ddIcon2 from 'src/assets/images/svgs/icon-dd-cart.svg';
+import ddIcon1 from 'src/assets/images/svgs/icon-dd-chat.svg';
+import ddIcon4 from 'src/assets/images/svgs/icon-dd-date.svg';
+import ddIcon3 from 'src/assets/images/svgs/icon-dd-invoice.svg';
+import ddIcon6 from 'src/assets/images/svgs/icon-dd-lifebuoy.svg';
+import ddIcon7 from 'src/assets/images/svgs/icon-dd-message-box.svg';
+import ddIcon5 from 'src/assets/images/svgs/icon-dd-mobile.svg';
 
 // Notifications dropdown
 
@@ -124,24 +122,24 @@ const profile: ProfileType[] = [
     subtitle: 'Account Settings',
     icon: icon1,
   },
-  {
-    href: '/apps/email',
-    title: 'My Inbox',
-    subtitle: 'Messages & Emails',
-    icon: icon2,
-  },
+  // {
+  //   href: '/apps/email',
+  //   title: 'My Inbox',
+  //   subtitle: 'Messages & Emails',
+  //   icon: icon2,
+  // },
 ];
 
 // apps dropdown
 
 interface appsLinkType {
   href: string;
-  title : string;
+  title: string;
   subtext: string;
   avatar: string;
 }
 
-const appsLink:appsLinkType[] = [
+const appsLink: appsLinkType[] = [
   {
     href: '/apps/chats',
     title: 'Chat Application',
@@ -198,7 +196,7 @@ interface LinkType {
   title: string;
 }
 
-const pageLinks:LinkType[] = [
+const pageLinks: LinkType[] = [
   {
     href: '/pricing',
     title: 'Pricing Page'
@@ -233,4 +231,5 @@ const pageLinks:LinkType[] = [
   },
 ]
 
-export { notifications, profile, pageLinks, appsLink };
+export { appsLink, notifications, pageLinks, profile };
+

@@ -1,15 +1,16 @@
-import React from 'react';
+import { Refresh } from '@mui/icons-material';
 import {
   Box,
   Button,
+  Container,
   TextField,
   Typography,
-  Container,
 } from '@mui/material';
+import { useFormik } from 'formik';
+import React from 'react';
 import { useDispatch } from 'src/store/Store';
 import { createAsset, editAsset } from 'src/store/sections/AssetsSlice';
 import { AssetType } from 'src/types/assets/asset';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 interface Props {
@@ -25,8 +26,10 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
     initialValues: {
       name: asset?.name || '',
       ip: asset?.ip || '',
-      dominio: asset?.dominio || '',
+      dominio: asset?.domain || '',
       url: asset?.url || '',
+      hostname: asset?.hostname || '',
+      uuid: asset?.uuid || ''
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
@@ -38,11 +41,13 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         .required('IP address is required'),
       dominio: Yup.string().required('Domain is required'),
       url: Yup.string().url('Invalid URL format').required('URL is required'),
+      hostname: Yup.string().required('Hostname is required'),
     }),
     onSubmit: (values) => {
       const newAsset: AssetType = {
         ...values,
         id: asset?.id || undefined, // Only include `id` if updating
+        domain: values.dominio,
       };
 
       if (asset) {
@@ -59,7 +64,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {asset ? 'Update Asset' : 'Create Asset'}
+          {asset ? 'Edit Asset' : 'Create Asset'}
         </Typography>
 
         <TextField
@@ -110,9 +115,45 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           helperText={formik.touched.url && formik.errors.url}
         />
 
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Hostname"
+          name="hostname"
+          value={formik.values.hostname}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.hostname && Boolean(formik.errors.hostname)}
+          helperText={formik.touched.hostname && formik.errors.hostname}
+        />
+
+        <Box display="flex" alignItems="center">
+          <TextField
+            fullWidth
+            margin="normal"
+            label="UUID"
+            name="uuid"
+            value={formik.values.uuid}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.uuid && Boolean(formik.errors.uuid)}
+            helperText={formik.touched.uuid && formik.errors.uuid}
+          />
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => {
+              const newUuid = crypto.randomUUID();
+              formik.setFieldValue('uuid', newUuid);
+            }}
+            style={{ marginLeft: '8px', height: '56px' }} // Adjust height to match TextField
+          >
+            <Refresh />
+          </Button>
+        </Box>
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {asset ? 'Update Asset' : 'Create Asset'}
+            {asset ? 'Edit' : 'Create'}
           </Button>
         </Box>
       </Box>

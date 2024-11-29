@@ -1,15 +1,19 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Computer, Security, WifiTethering, Lan } from '@mui/icons-material'; // Importing Material UI Icons
+import { useTranslation } from 'react-i18next';
 
-// Data for the top cards with font icons
-const topCardsData = [
-  { title: 'Vulnerabilidades', value: '2', icon: <Security fontSize="large" color="error"/>, bgcolor: 'error' },
-  { title: 'Hosts', value: '2', icon: <Computer fontSize="large" color='warning'/>, bgcolor: 'warning' },
-  { title: 'Escaneo SO', value: '1', icon: <WifiTethering fontSize="large" color='success' />, bgcolor: 'success' },
-  { title: 'Puertos Escaneados', value: '30', icon: <Lan fontSize="large" color= 'info'/>, bgcolor: 'info' },
-];
+
 
 const ReportTopCards = () => {
+
+  const { t } = useTranslation();
+
+  const topCardsData = [
+    { title: t("vulnerabilities.vulnerabilities"), value: '2', icon: <Security fontSize="large" color="error" />, bgcolor: 'error' },
+    { title: t("vulnerabilities.hosts"), value: '2', icon: <Computer fontSize="large" color='warning' />, bgcolor: 'warning' },
+    { title: t("vulnerabilities.os_scan"), value: '1', icon: <WifiTethering fontSize="large" color='success' />, bgcolor: 'success' },
+    { title: t("vulnerabilities.scanned_ports"), value: '30', icon: <Lan fontSize="large" color='info' />, bgcolor: 'info' },
+  ];
   return (
     <Grid container spacing={3}>
       {topCardsData.map((card, i) => (
@@ -24,12 +28,9 @@ const ReportTopCards = () => {
             border={`1px solid ${card.bgcolor}.main`}
             borderRadius="8px"
           >
-            {/* Font Icon */}
-            <Box display="flex" alignItems="center" >
+            <Box display="flex" alignItems="center">
               {card.icon}
             </Box>
-
-            {/* Title and Value in a row */}
             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
               <Typography color={card.bgcolor + '.main'} variant="subtitle2" fontWeight={600}>
                 {card.title}

@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 import {
-  Typography,
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableContainer,
-  Box,
-  Pagination,
-  Button,
-  IconButton,
-  Dialog,
-  DialogContent,
+  Typography,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DashboardCard from '../shared/DashboardCard';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAssets, setPage } from 'src/store/sections/AssetsSlice';
+import DashboardCard from '../shared/DashboardCard';
 import CreateUpdateAsset from './AssetEdition';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
 const AssetList = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const assets = useSelector((state: any) => state.assetsReducer.assets);
   const currentPage = useSelector((state: any) => state.assetsReducer.page);
   const totalPages = useSelector((state: any) => state.assetsReducer.totalPages);
-  const [editAsset, setEditAsset] = useState<null | any>(null); // State to hold the asset being edited or created
-  const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
-  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
-  const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success'); // Snackbar severity
+  const [editAsset, setEditAsset] = useState<null | any>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
 
   React.useEffect(() => {
     dispatch(fetchAssets(currentPage));
@@ -43,65 +45,70 @@ const AssetList = () => {
   };
 
   const handleEditClick = (asset: any = null) => {
-    setEditAsset(asset); // Set the selected asset for editing, or null for new asset creation
-    setOpenDialog(true); // Open the dialog/modal
+    setEditAsset(asset);
+    setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
-    setEditAsset(null); // Reset the edit state when closing
+    setEditAsset(null);
   };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
-  // Callback when the asset is created or updated
   const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warning' | 'error') => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false); // Ensure snackbar is reset
+    setSnackbarOpen(false);
     setTimeout(() => {
-      setSnackbarOpen(true); // Show the snackbar after resetting it
+      setSnackbarOpen(true);
     }, 0);
-    handleCloseDialog(); // Close the dialog after submission
+    handleCloseDialog();
   };
-  
-  const addButton =<IconButton color="primary" onClick={() => handleEditClick(undefined)}><AddIcon /></IconButton>
+
+  const addButton = (
+    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+      <AddIcon />
+    </IconButton>
+  );
 
   return (
-    <DashboardCard title="Asset List" subtitle="List of Available Assets" action={addButton}>
-      <Box>    
+    <DashboardCard
+      title={t("dashboard.asset_list") as string}
+      subtitle={t("dashboard.list_of_available_assets") as string}
+      action={addButton}
+    >
+      <Box>
         <TableContainer>
           <Table aria-label="asset table" sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Name
+                    {t("dashboard.name")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    IP Address
+                    {t("dashboard.ip_address")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Domain
+                    {t("dashboard.domain")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    URL
+                    {t("dashboard.url")}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Actions
+                    {t("dashboard.actions")}
                   </Typography>
-                  {/* Add New Asset Button */}
-
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -120,7 +127,7 @@ const AssetList = () => {
                   </TableCell>
                   <TableCell>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {asset.dominio}
+                      {asset.domain}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -133,7 +140,7 @@ const AssetList = () => {
                       size="small"
                       onClick={() => handleEditClick(asset)}
                     >
-                      Edit
+                      {t("dashboard.edit")}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -149,24 +156,21 @@ const AssetList = () => {
             onChange={handlePageChange}
           />
         </Box>
-        {/* Edit/Create Asset Dialog/Modal */}
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth >
-        <DialogContent sx={{ padding: '50px' }}>
-          <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} /> {/* Pass the onSubmit callback */}
-        </DialogContent>
-      </Dialog>
 
-      {/* Snackbar */}
-      {snackbarOpen && (
-        <SnackBarInfo
-          color={snackbarSeverity}
-          title="Operation Status"
-          message={snackbarMessage}
-        />
-      )}
+        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+          <DialogContent sx={{ padding: '50px' }}>
+            <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
+          </DialogContent>
+        </Dialog>
+
+        {snackbarOpen && (
+          <SnackBarInfo
+            color={snackbarSeverity}
+            title={t("dashboard.operation_status")}
+            message={snackbarMessage}
+          />
+        )}
       </Box>
-
-      
     </DashboardCard>
   );
 };

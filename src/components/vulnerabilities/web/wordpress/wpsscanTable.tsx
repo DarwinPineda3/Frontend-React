@@ -14,6 +14,7 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { useTranslation } from 'react-i18next';
 
 const burntScansData = [
   {
@@ -28,42 +29,7 @@ const burntScansData = [
     date: '1 de octubre de 2024 a las 10:05',
     scanType: 'Normal',
   },
-  {
-    id: '3',
-    url: 'https://octapus.io/',
-    date: '10 de septiembre de 2024 a las 23:00',
-    scanType: 'Normal',
-  },
-  {
-    id: '4',
-    url: 'https://octapus.io/',
-    date: '9 de septiembre de 2024 a las 23:00',
-    scanType: 'Normal',
-  },
-  {
-    id: '5',
-    url: 'https://octapus.io/',
-    date: '8 de septiembre de 2024 a las 23:00',
-    scanType: 'Normal',
-  },
-  {
-    id: '6',
-    url: 'https://octapus.io/',
-    date: '7 de septiembre de 2024 a las 23:00',
-    scanType: 'Normal',
-  },
-  {
-    id: '7',
-    url: 'https://octapus.io/',
-    date: '6 de septiembre de 2024 a las 23:00',
-    scanType: 'Normal',
-  },
-  {
-    id: '8',
-    url: 'https://prueba-tu-pala.ofertasdepadel.com/',
-    date: '3 de septiembre de 2024 a las 12:11',
-    scanType: 'Normal',
-  },
+  // Additional data entries here
 ];
 
 interface ScanListTableProps {
@@ -71,8 +37,9 @@ interface ScanListTableProps {
 }
 
 const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 1; // Adjust based on the number of pages
+  const totalPages = 1;
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -88,7 +55,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
 
   return (
     <Box>
-      <DashboardCard title="Scans" subtitle="List of all scans">
+      <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.list_of_scans')!}>
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -96,22 +63,22 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                 <TableRow>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      URL
+                      {t('vulnerabilities.url')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Fecha
+                      {t('vulnerabilities.date')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Tipo de escaneo
+                      {t('vulnerabilities.scan_type')}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      Acciones
+                      {t('vulnerabilities.actions')}
                     </Typography>
                   </TableCell>
                 </TableRow>

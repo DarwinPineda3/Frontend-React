@@ -9,13 +9,18 @@ import {
   TableContainer,
   Box,
   Button,
+  Breadcrumbs,
+  IconButton,
+  Link,
 } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { TicketType } from '../../types/apps/ticket';
 import DashboardCard from '../shared/DashboardCard';
 
 const TicketDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   if (!id) {
     return <Typography variant="h6" color="error">ID no encontrado</Typography>;
@@ -27,12 +32,22 @@ const TicketDetail: React.FC = () => {
     return <Typography variant="h6" color="error">Ticket no encontrado</Typography>;
   }
 
-  console.log('Attachment:', ticket.attachment); // Para verificar si el attachment está disponible
-
   return (
-    <Box sx={{ padding: '16px', maxWidth: '800px', margin: 'auto' }}>
+    <Box sx={{ maxWidth: '2200px', margin: 'auto' }}>
+      <Box display="flex" alignItems="center" mb={3} mt={2}>
+        <IconButton onClick={() => navigate(-1)} color="primary">
+          <ArrowBackIcon />
+        </IconButton>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link component={RouterLink} to="/support/tickets" color="inherit">
+            Tickets
+          </Link>
+          <Link color="inherit">Detalles del Ticket</Link>
+        </Breadcrumbs>
+      </Box>
+
       <DashboardCard title={`Detalles del Ticket: ${ticket.ticketTitle}`}>
-        <>
+        <Box>
           <TableContainer>
             <Table>
               <TableHead>
@@ -96,7 +111,7 @@ const TicketDetail: React.FC = () => {
               Regresar
             </Button>
           </Box>
-        </>
+        </Box>
       </DashboardCard>
     </Box>
   );
