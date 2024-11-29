@@ -5,19 +5,18 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import NewsletterDetail from 'src/components/monitoring/NewsletterDetail';
-import { fetchFileContent, fetchNewsLetterById } from 'src/store/sections/newsletter/NewslettersSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
 import Loader from 'src/components/shared/Loader/Loader';
+import { fetchNewsLetterById } from 'src/store/sections/newsletter/NewslettersSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const NewsletterDetails = () => {
   const { newsletterId } = useParams<{ newsletterId?: string }>();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const newsletterDetails = useSelector((state: any) => state.newsLettersReducer.newsletterDetails);
-  // const fileContent = useSelector((state) => state.newsLettersReducer.fileContent);
   const navigate = useNavigate();
 
-  
+
   React.useEffect(() => {
     const fetchData = async () => {
       if (newsletterId) {
@@ -31,21 +30,6 @@ const NewsletterDetails = () => {
 
     fetchData();
   }, [dispatch, newsletterId]);
-
-
-    // React.useEffect(() => {
-    //   const fetchData = async () => {
-    //     if (newsletterDetails  && newsletterDetails.id) {
-    //       try {
-    //         await dispatch(fetchFileContent(newsletterDetails.id));
-    //       } catch (error) {
-    //         console.error('Error fetching newsletter:', error);
-    //       }
-    //     }
-    //   };
-  
-    //   fetchData();
-    // }, [dispatch, newsletterDetails]);
 
   return (
     <PageContainer title="Akila">
