@@ -988,7 +988,8 @@
     "password_label": "Contraseña",
     "remember_device": "Recordar este dispositivo",
     "forgot_password_link": "¿Olvidaste tu contraseña?",
-    "sign_in_button": "Iniciar sesión"
+    "sign_in_button": "Iniciar sesión",
+    "invalid_credentials": "Credenciales no válidas"
   },
   "account_settings": {
     "change_profile": "Actualizar perfil",

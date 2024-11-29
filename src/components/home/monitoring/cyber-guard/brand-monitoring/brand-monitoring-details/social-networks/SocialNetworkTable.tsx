@@ -73,7 +73,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
     const score = parseFloat(riskLevel);
 
     if (isNaN(score)) {
-      return { color: none, label: t('monitoring.invalid') };
+      return { color: none, label: t('monitoring.unknown') };
     }
 
     if (score >= 9.0) {
@@ -86,6 +86,23 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
       return { color: low, label: t('monitoring.low') };
     } else {
       return { color: none, label: t('risk_analysis.no_risk') };
+    }
+  };
+
+  const renderDate = (dateString: string, socialNetwork: string, defaultDate: string) => {
+    if (!dateString) return defaultDate;
+    const dateStr = dateString;
+    const date = new Date(dateStr);
+    const isoString = date.toISOString();
+    switch (socialNetwork) {
+      case 'twitter':
+        return <HumanizedDate dateString={isoString} />;
+      case 'instagram':
+        return <HumanizedDate dateString={isoString} />;
+      case 'linkedin':
+        return <HumanizedDate dateString={isoString} />;
+      default:
+        return <Typography variant="subtitle2">{defaultDate}</Typography>;
     }
   };
 
@@ -156,7 +173,11 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                   />
                 </TableCell>
                 <TableCell>
-                  <HumanizedDate dateString={social.date} />
+                  {renderDate(
+                    social.data.posted_date || social.date,
+                    social.data.engine,
+                    social.date,
+                  )}
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">{social.source}</Typography>
