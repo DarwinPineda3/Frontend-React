@@ -1,51 +1,76 @@
-import { Box, Chip, Grid, Slide, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from "@mui/material";
-import { TransitionProps } from '@mui/material/transitions';
+import {
+  Box,
+  Chip,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { IconEye } from '@tabler/icons-react';
 import { ApexOptions } from 'apexcharts';
-import React from 'react';
+import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import Loader from 'src/components/shared/Loader/Loader';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchNetworkScanReportDetail } from 'src/store/vulnerabilities/network/NetworkScansSlice';
+import { NetworkScanReportDetail } from 'src/types/vulnerabilities/network/networkScansType';
 import ReportTopCards from './reportTopCards';
 
 interface ReportDetailProps {
   reportID: string;
+  scanID: string;
   onClickVulnerability: (vulnerabilityId: string) => void;
 }
 
-const mockData = {
-  hosts: [
-    { ip: '104.21.37.171', id: 'e36c9607-b0c4-43c6-b356-8eb588901f03', startDate: '29 de agosto de 2024 a las 10:40', endDate: '29 de agosto de 2024 a las 20:14' },
-    { ip: '172.67.210.197', id: 'f344035e-5793-4d2b-a25d-7d9cd495bec9', startDate: '29 de agosto de 2024 a las 10:40', endDate: '29 de agosto de 2024 a las 20:14' },
-  ],
-  escaneos: [
-    { host: '104.21.37.171', os: 'Linux Kernel', source: 'Operating System (OS) Detection (ICMP)' },
-    { host: '172.67.210.197', os: 'Linux Kernel', source: 'Operating System (OS) Detection (ICMP)' },
-  ],
-  puertos: [
-    { port: 'general/tcp', host: '104.21.37.171', type: 'Low', severity: 2.6 },
-    { port: 'general/tcp', host: '172.67.210.197', type: 'Low', severity: 2.6 },
-    { port: '2052/tcp', host: '104.21.37.171', type: 'Info', severity: 0.0 },
-  ],
-  vulnerabilities: [
-    { id: '1', name: 'TCP Timestamps Information Disclosure', host: '172.67.210.197', port: 'general/tcp', type: 'Low', severity: 2.6, date: '29 de agosto de 2024 a las 13:27' },
-    { id: '2', name: 'TCP Timestamps Information Disclosure', host: '104.21.37.171', port: 'general/tcp', type: 'Low', severity: 2.6, date: '29 de agosto de 2024 a las 13:27' },
-    { id: '3', name: 'WordPress Plugins Detection (HTTP)', host: '172.67.210.197', port: '443/tcp', type: 'Informational', severity: 0.0, date: '29 de agosto de 2024 a las 13:30' },
-    { id: '4', name: 'WordPress Plugins Detection (HTTP)', host: '104.21.37.171', port: '443/tcp', type: 'Informational', severity: 0.0, date: '29 de agosto de 2024 a las 13:30' },
-  ],
-};
+const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVulnerability }) => {
+  const networkScanReportDetail: NetworkScanReportDetail = useSelector(
+    (state: any) => state.networkScanReducer.networkScanReportDetail,
+  );
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageScans, setPageScans] = useState(0);
+  const [rowsPerPageScans, setRowsPerPageScans] = useState(25);
 
-// chart color
+  const [pageHosts, setPageHosts] = useState(0);
+  const [rowsPerPageHosts, setRowsPerPageHosts] = useState(25);
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>,
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerability }) => {
+  const [pagePorts, setPagePorts] = useState(0);
+  const [rowsPerPagePorts, setRowsPerPagePorts] = useState(25);
+
+  const [pageVulnerabilities, setPageVulnerabilities] = useState(0);
+  const [rowsPerPageVulnerabilities, setRowsPerPageVulnerabilities] = useState(25);
+  let counters = {
+    vulnerabilities_counter: 0,
+    hosts_counter: 0,
+    os_scan_counter: 0,
+    scanned_ports_counter: 0,
+  };
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchNetworkScanReportDetail(scanID, reportID));
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [scanID, reportID, dispatch]);
+
+  if (!isLoading && networkScanReportDetail && networkScanReportDetail.report) {
+    counters = {
+      vulnerabilities_counter: networkScanReportDetail.report.statistics.count_vulnerabilities,
+      hosts_counter: parseInt(networkScanReportDetail.report.report.hosts.count),
+      os_scan_counter: networkScanReportDetail.report.report.os.count,
+      scanned_ports_counter: networkScanReportDetail.report.report.ports.length,
+    };
+  }
 
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -59,11 +84,15 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
   const medium = theme.palette.level.medium;
   const high = theme.palette.level.high;
   const none = theme.palette.level.none;
-
-
-
+  const criticalColor = theme.palette.level.critical;
+  const highColor = theme.palette.level.high;
+  const mediumColor = theme.palette.level.medium;
+  const lowColor = theme.palette.level.low;
+  const noneColor = theme.palette.level.none;
   const { t } = useTranslation();
 
+  const labels = networkScanReportDetail?.report_detail_chart_data?.labels || [];
+  const values = networkScanReportDetail?.report_detail_chart_data?.values || [];
   const optionspiechart: ApexOptions = {
     chart: {
       id: 'pie-chart',
@@ -74,12 +103,12 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
       },
     },
     dataLabels: {
-      enabled: true,  // Enable data labels to show values by default
+      enabled: true, // Enable data labels to show values by default
       formatter: function (val: any, opts: any) {
-        return `${val.toFixed(1)}%`;  // Format the values to show percentages
+        return `${val.toFixed(1)}%`; // Format the values to show percentages
       },
       dropShadow: {
-        enabled: false,  // You can enable drop shadows if you like
+        enabled: false, // You can enable drop shadows if you like
       },
       style: {
         fontSize: '14px',
@@ -114,206 +143,394 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, onClickVulnerabil
     tooltip: {
       fillSeriesColor: false,
     },
-    labels: ['Critical', 'High', 'Medium', 'Low'],  // Dynamically use labels from state
+    labels: labels, // Dynamically use labels from state
   };
-  const seriesdoughnutchart = [45, 15, 27, 18];
-
+  const seriesdoughnutchart = values;
 
   const handleClickOpen = (vulnerabilityId: string) => {
     onClickVulnerability(vulnerabilityId);
   };
+
+  const getChipColorSeverity = (severity: number) => {
+    if (severity > 9.0) {
+      return { color: criticalColor };
+    } else if (severity > 7.0) {
+      return { color: highColor };
+    } else if (severity > 4.0) {
+      return { color: mediumColor };
+    } else if (severity > 0) {
+      return { color: lowColor };
+    } else {
+      return { color: noneColor };
+    }
+  };
+
+  const handleChangePageHosts = (event: unknown, newPage: number) => {
+    setPageHosts(newPage);
+  };
+
+  const handleChangeRowsPerPageHosts = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPageHosts(parseInt(event.target.value, 10));
+    setPageHosts(0);
+  };
+
+  const handleChangePagePorts = (event: unknown, newPage: number) => {
+    setPagePorts(newPage);
+  };
+
+  const handleChangeRowsPerPagePorts = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPagePorts(parseInt(event.target.value, 10));
+    setPagePorts(0);
+  };
+
+  const handleChangePageScans = (event: unknown, newPage: number) => {
+    setPagePorts(newPage);
+  };
+
+  const handleChangeRowsPerPageScans = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPagePorts(parseInt(event.target.value, 10));
+    setPagePorts(0);
+  };
+
+  const handleChangePageVulns = (event: unknown, newPage: number) => {
+    setPageVulnerabilities(newPage);
+  };
+
+  const handleChangeRowsPerPageVulns = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPageVulnerabilities(parseInt(event.target.value, 10));
+    setPageVulnerabilities(0);
+  };
+
+  const displayHostList = networkScanReportDetail?.report?.report?.host_list?.slice(
+    pageHosts * rowsPerPageHosts,
+    pageHosts * rowsPerPageHosts + rowsPerPageHosts,
+  );
+
+  const flattenedHostList = networkScanReportDetail.list_os.flatMap((result) =>
+    result.result.host.details
+      .filter((detail) => detail.name === 'OS' && !detail.value.includes('cpe'))
+      .map((detail) => ({
+        value: detail.value,
+        sourceDescription: detail.source.description,
+      })),
+  );
+
+  const displayScansList = flattenedHostList.slice(
+    pageScans * rowsPerPageScans,
+    pageScans * rowsPerPageScans + rowsPerPageScans,
+  );
+
+  const displayPorts = networkScanReportDetail?.report?.report?.ports?.slice(
+    pagePorts * rowsPerPagePorts,
+    pagePorts * rowsPerPagePorts + rowsPerPagePorts,
+  );
+
+  const displayVulns = networkScanReportDetail.report.report.results.slice(
+    pageVulnerabilities * rowsPerPageVulnerabilities,
+    pageVulnerabilities * rowsPerPageVulnerabilities + rowsPerPageVulnerabilities,
+  );
+
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <ReportTopCards />
-        </Grid>
-        <Grid item xs={12} xl={6}>
-          <DashboardCard title={t("vulnerabilities.scan_results")!}>
-            <Chart
-              options={optionspiechart}
-              series={seriesdoughnutchart}
-              type="donut"
-              height="300px"
-            />
-          </DashboardCard>
-        </Grid>
+      {isLoading ? (
+        <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+          <Loader />
+        </Box>
+      ) : (
+        <>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <ReportTopCards counters={counters} />
+            </Grid>
+            <Grid item xs={12} xl={6}>
+              <DashboardCard title={t('vulnerabilities.scan_results')!}>
+                <Chart
+                  options={optionspiechart}
+                  series={seriesdoughnutchart}
+                  type="donut"
+                  height="300px"
+                />
+              </DashboardCard>
+            </Grid>
 
-        <Grid item xs={12} xl={6}>
-          <DashboardCard title={t("vulnerabilities.technical_summary_details")!}>
-            <Box p={2}>
-              <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_name")!}</Typography>
-              <Typography variant="body2" mb={2}>Escaneo Octapus</Typography>
+            <Grid item xs={12} xl={6}>
+              <DashboardCard title={t('vulnerabilities.technical_summary_details')!}>
+                <Box p={2}>
+                  <Typography variant="body2" fontWeight={600}>
+                    {t('vulnerabilities.scan_name')!}
+                  </Typography>
+                  <Typography variant="body2" mb={2}>
+                    {networkScanReportDetail.report.task.name}
+                  </Typography>
 
-              <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_id")!}</Typography>
-              <Typography variant="body2" mb={2}>063268c2-6662-43ba-a3f9-3690f612da4f</Typography>
+                  <Typography variant="body2" fontWeight={600}>
+                    {t('vulnerabilities.scan_id')!}
+                  </Typography>
+                  <Typography variant="body2" mb={2}>
+                    {networkScanReportDetail.report.task.id}
+                  </Typography>
 
-              <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_start")!}</Typography>
-              <Typography variant="body2" mb={2}>29 de agosto de 2024 a las 10:40</Typography>
+                  <Typography variant="body2" fontWeight={600}>
+                    {t('vulnerabilities.scan_start')!}
+                  </Typography>
+                  <Typography variant="body2" mb={2}>
+                    <HumanizedDate dateString={networkScanReportDetail.report.report.scan_start} />
+                  </Typography>
 
-              <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.scan_end")!}</Typography>
-              <Typography variant="body2" mb={2}>29 de agosto de 2024 a las 20:14</Typography>
+                  <Typography variant="body2" fontWeight={600}>
+                    {t('vulnerabilities.scan_end')!}
+                  </Typography>
+                  <Typography variant="body2" mb={2}>
+                    {networkScanReportDetail.report.report.scan_end === null ? (
+                      'NA'
+                    ) : (
+                      <HumanizedDate dateString={networkScanReportDetail.report.report.scan_end} />
+                    )}
+                  </Typography>
 
-              <Typography variant="body2" fontWeight={600}>{t("vulnerabilities.comment")!}</Typography>
-              <Typography variant="body2">NA</Typography>
-            </Box>
-          </DashboardCard>
-        </Grid>
+                  <Typography variant="body2" fontWeight={600}>
+                    {t('vulnerabilities.comment')!}
+                  </Typography>
+                  <Typography variant="body2">
+                    {networkScanReportDetail.report.comment === null
+                      ? 'NA'
+                      : networkScanReportDetail.report.comment}
+                  </Typography>
+                </Box>
+              </DashboardCard>
+            </Grid>
 
-        {/* Hosts Section */}
-        <Grid item xs={12} xl={6}>
-          <DashboardCard title={t("vulnerabilities.hosts")!}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>{t("vulnerabilities.ip")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.id")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.start_date")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.end_date")!}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {mockData.hosts.map((host) => (
-                    <TableRow key={host.id}>
-                      <TableCell>{host.ip}</TableCell>
-                      <TableCell>{host.id}</TableCell>
-                      <TableCell>{host.startDate}</TableCell>
-                      <TableCell>{host.endDate}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </DashboardCard>
-        </Grid>
+            {/* Hosts Section */}
+            <Grid item xs={12} xl={6}>
+              <DashboardCard title={t('vulnerabilities.hosts')!}>
+                <>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>{t('vulnerabilities.ip')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.id')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.start_date')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.end_date')!}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {displayHostList.map((host, key) => (
+                          <TableRow key={key}>
+                            <TableCell>{host.ip}</TableCell>
+                            <TableCell>{host.asset.asset_id}</TableCell>
+                            <TableCell>
+                              {host.start === null ? (
+                                'NA'
+                              ) : (
+                                <HumanizedDate dateString={host.start} />
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {host.end === null ? 'NA' : <HumanizedDate dateString={host.end} />}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={displayHostList.length}
+                    rowsPerPage={rowsPerPageHosts}
+                    page={pageHosts}
+                    onPageChange={handleChangePageHosts}
+                    onRowsPerPageChange={handleChangeRowsPerPageHosts}
+                  />
+                </>
+              </DashboardCard>
+            </Grid>
 
-        {/* Escaneos Section */}
-        <Grid item xs={12} xl={6}>
-          <DashboardCard title={t("vulnerabilities.scans")!}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>{t("vulnerabilities.host_name")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.os_name")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.source_description")!}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {mockData.escaneos.map((escaneo) => (
-                    <TableRow key={escaneo.host}>
-                      <TableCell>{escaneo.host}</TableCell>
-                      <TableCell>{escaneo.os}</TableCell>
-                      <TableCell>{escaneo.source}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </DashboardCard>
-        </Grid>
+            {/* Escaneos Section */}
+            <Grid item xs={12} xl={6}>
+              <DashboardCard title={t('vulnerabilities.scans')!}>
+                <>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>{t('vulnerabilities.host_name')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.source_description')!}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableBody>
+                          {displayScansList.map((detail, index) => (
+                            <TableRow key={index}>
+                              <TableCell className="text-break centered" style={{ width: '250px' }}>
+                                {detail.value}
+                              </TableCell>
+                              <TableCell className="centered">{detail.sourceDescription}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={displayScansList.length}
+                    rowsPerPage={rowsPerPageScans}
+                    page={pageScans}
+                    onPageChange={handleChangePageScans}
+                    onRowsPerPageChange={handleChangeRowsPerPageScans}
+                  />
+                </>
+              </DashboardCard>
+            </Grid>
 
-        {/* Puertos Section */}
-        <Grid item xs={12}>
-          <DashboardCard title={t("vulnerabilities.ports")!}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>{t("vulnerabilities.port")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.host")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.type")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.severity")!}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {mockData.puertos.map((puerto) => (
-                    <TableRow key={puerto.port}>
-                      <TableCell>{puerto.port}</TableCell>
-                      <TableCell>{puerto.host}</TableCell>
-                      <TableCell>
-                        <Chip
-                          label={puerto.type}
-                          sx={
-                            puerto.type === 'Info'
-                              ? { backgroundColor: none, color: 'white' }
-                              : puerto.type === 'Low'
-                                ? { backgroundColor: low, color: 'white' }
-                                : puerto.type === 'Medium'
-                                  ? { backgroundColor: medium, color: 'white' }
-                                  : puerto.type === 'High'
+            {/* Puertos Section */}
+            <Grid item xs={12}>
+              <DashboardCard title={t('vulnerabilities.ports')!}>
+                <>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>{t('vulnerabilities.port')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.host')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.type')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.severity')!}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {displayPorts.map((portInfo, portIndex) => (
+                          <TableRow key={portIndex}>
+                            <TableCell>{portInfo?.port?.port}</TableCell>
+                            <TableCell>{portInfo?.port?.host}</TableCell>
+                            <TableCell>
+                              <Chip
+                                label={portInfo?.port?.threat}
+                                sx={
+                                  portInfo?.port?.threat === 'Info'
+                                    ? { backgroundColor: none, color: 'white' }
+                                    : portInfo?.port?.threat === 'Low'
+                                    ? { backgroundColor: low, color: 'white' }
+                                    : portInfo?.port?.threat === 'Medium'
+                                    ? { backgroundColor: medium, color: 'white' }
+                                    : portInfo?.port?.threat === 'High'
                                     ? { backgroundColor: high, color: 'white' }
                                     : { backgroundColor: none, color: 'white' }
-                          }
-                        />
-                      </TableCell>
-                      <TableCell>{puerto.severity}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </DashboardCard>
-        </Grid>
+                                }
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={portInfo.port.severity}
+                                sx={{
+                                  backgroundColor: getChipColorSeverity(portInfo.port.severity)
+                                    .color,
+                                  color: 'white',
+                                }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={displayScansList.length}
+                    rowsPerPage={rowsPerPagePorts}
+                    page={pagePorts}
+                    onPageChange={handleChangePagePorts}
+                    onRowsPerPageChange={handleChangeRowsPerPagePorts}
+                  />
+                </>
+              </DashboardCard>
+            </Grid>
 
-        {/* Vulnerabilities Section */}
-        <Grid item xs={12}>
-          <DashboardCard title={t("vulnerabilities.vulnerabilities")!}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>{t("vulnerabilities.name")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.host")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.port")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.type")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.severity")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.report_date")!}</TableCell>
-                    <TableCell>{t("vulnerabilities.details")!}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {mockData.vulnerabilities.map((vulnerability) => (
-                    <TableRow key={vulnerability.name + vulnerability.host}>
-                      <TableCell>{vulnerability.name}</TableCell>
-                      <TableCell>{vulnerability.host}</TableCell>
-                      <TableCell>{vulnerability.port}</TableCell>
-                      <TableCell>
-                        <Chip
-                          label={vulnerability.type}
-                          sx={
-                            vulnerability.type === 'Info'
-                              ? { backgroundColor: none, color: 'white' }
-                              : vulnerability.type === 'Low'
-                                ? { backgroundColor: low, color: 'white' }
-                                : vulnerability.type === 'Medium'
-                                  ? { backgroundColor: medium, color: 'white' }
-                                  : vulnerability.type === 'High'
+            {/* Vulnerabilities Section */}
+            <Grid item xs={12}>
+              <DashboardCard title={t('vulnerabilities.vulnerabilities')!}>
+                <>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>{t('vulnerabilities.name')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.host')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.port')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.type')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.severity')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.report_date')!}</TableCell>
+                          <TableCell>{t('vulnerabilities.details')!}</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {displayVulns.map((vulnerability, key) => (
+                          <TableRow key={key}>
+                            <TableCell>{vulnerability.result.name}</TableCell>
+                            <TableCell>{vulnerability.result.host.host}</TableCell>
+                            <TableCell>{vulnerability.result.port}</TableCell>
+                            <TableCell>
+                              <Chip
+                                label={vulnerability.result.threat}
+                                sx={
+                                  vulnerability.result.threat === 'INFO'
+                                    ? { backgroundColor: none, color: 'white' }
+                                    : vulnerability.result.threat === 'LOW'
+                                    ? { backgroundColor: low, color: 'white' }
+                                    : vulnerability.result.threat === 'MEDIUM'
+                                    ? { backgroundColor: medium, color: 'white' }
+                                    : vulnerability.result.threat === 'HIGH'
                                     ? { backgroundColor: high, color: 'white' }
                                     : { backgroundColor: none, color: 'white' }
-                          }
-                        />
-                      </TableCell>
-                      <TableCell>{vulnerability.severity}</TableCell>
-                      <TableCell>{vulnerability.date}</TableCell>
-                      <TableCell>
-                        <Chip
-                          label={t("vulnerabilities.view")!}
-                          color="primary"
-                          icon={<IconEye />}
-                          onClick={() => handleClickOpen(vulnerability.id)}
-                          style={{ cursor: 'pointer' }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </DashboardCard>
-        </Grid>
-      </Grid>
+                                }
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={vulnerability.result.severity}
+                                sx={{
+                                  backgroundColor: getChipColorSeverity(
+                                    vulnerability.result.severity,
+                                  ).color,
+                                  color: 'white',
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <HumanizedDate dateString={vulnerability.result.report_date} />{' '}
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={t('vulnerabilities.view')!}
+                                color="primary"
+                                icon={<IconEye />}
+                                onClick={() => handleClickOpen(vulnerability.result.id)}
+                                style={{ cursor: 'pointer' }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={displayVulns.length}
+                    rowsPerPage={rowsPerPageVulnerabilities}
+                    page={pageVulnerabilities}
+                    onPageChange={handleChangePageVulns}
+                    onRowsPerPageChange={handleChangeRowsPerPageVulns}
+                  />
+                </>
+              </DashboardCard>
+            </Grid>
+          </Grid>
+        </>
+      )}
     </>
   );
 };
