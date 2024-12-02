@@ -194,7 +194,7 @@ interface Detail {
   extra: string | null;
 }
 
-interface Result {
+export interface Result {
   id: string;
   name: string;
   modification_time: string;
@@ -238,10 +238,6 @@ interface TaskN {
   };
   id_elastic: string;
   hosts: string;
-}
-
-interface PortDetails {
-  ports: Port[];
 }
 
 interface Port {
@@ -319,7 +315,7 @@ interface ReportS {
   scan_start: string;
   timezone: string;
   timezone_abbrev: string;
-  ports: PortDetails[];
+  ports: Port[];
   result_count: ResultCount;
   severity: ResultCount;
   scan_end: string;
@@ -351,7 +347,7 @@ interface Report {
   elastic_id: string;
 }
 
-export interface ReportDetail {
+export interface NetworkScanReportDetail {
   task_id: string;
   report: Report;
   report_detail_chart_data: GraphicsChartsData;
