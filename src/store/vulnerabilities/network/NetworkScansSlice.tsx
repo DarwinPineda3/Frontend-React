@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getTenant } from 'src/guards/jwt/Jwt';
 import { AppDispatch } from 'src/store/Store';
-import { NetworkScanType, ResponseData } from 'src/types/vulnerabilities/network/networkScansType';
+import {
+  NetworkScanReport,
+  NetworkScanType,
+  ResponseData,
+  Scan,
+} from 'src/types/vulnerabilities/network/networkScansType';
 import axios from 'src/utils/axios';
 
 // Update to match the backend API endpoint
@@ -18,7 +23,10 @@ interface NetworkScanCreateType {
 interface StateType {
   networkScans: NetworkScanType[];
   networkScanCreate: ResponseData;
+  networkScanReports: NetworkScanReport[];
+  networkScanDetail: Scan;
   page: number;
+  pageSize: number;
   totalPages: number;
   error: string | null;
 }
@@ -31,9 +39,50 @@ const initialState: StateType = {
     scan_configs: [],
     error: null,
   },
+  networkScanReports: [],
   page: 1,
+  pageSize: 25,
   totalPages: 1,
   error: null,
+  networkScanDetail: {
+    id: '',
+    name: '',
+    comment: '',
+    creation_time: '',
+    modification_time: '',
+    permission: '',
+    usage_type: '',
+    config: {
+      id: '',
+      name: '',
+    },
+    target: {
+      id: '',
+      name: '',
+      hosts: '',
+      asset_id: 0,
+    },
+    hosts_ordering: null,
+    scanner: {
+      id: '',
+      name: '',
+      type: '',
+    },
+    status: '',
+    progress: '',
+    report_count: {
+      total: '',
+      finished: '',
+    },
+    schedule: {
+      id: null,
+      name: null,
+    },
+    schedule_periods: '',
+    observers: null,
+    is_active: false,
+    id_elastic: '',
+  },
 };
 
 export const NetworkScanSlice = createSlice({
@@ -48,11 +97,22 @@ export const NetworkScanSlice = createSlice({
     getNetworkScanCreate: (state, action) => {
       state.networkScanCreate = action.payload;
     },
+    getNetworkScanDetail: (state, action) => {
+      state.networkScanDetail = action.payload;
+    },
+    getNetworkScanReports: (state, action) => {
+      state.networkScanReports = Array.isArray(action.payload.data) ? action.payload.data : [];
+      state.page = action.payload.currentPage;
+      state.totalPages = action.payload.totalPages;
+    },
     addNetworkScan: (state, action) => {
       state.networkScans.push(action.payload);
     },
     setPage: (state, action) => {
       state.page = action.payload;
+    },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
     },
     setError: (state, action) => {
       state.error = action.payload;
@@ -60,15 +120,23 @@ export const NetworkScanSlice = createSlice({
   },
 });
 
-export const { getNetworkScans, addNetworkScan, getNetworkScanCreate, setPage, setError } =
-  NetworkScanSlice.actions;
+export const {
+  getNetworkScans,
+  addNetworkScan,
+  getNetworkScanReports,
+  getNetworkScanCreate,
+  getNetworkScanDetail,
+  setPage,
+  setPageSize,
+  setError,
+} = NetworkScanSlice.actions;
 
 // Async thunk for fetching NetworkScans with pagination (READ)
 export const fetchNetworkScans =
-  (page = 1) =>
+  (page = 1, pageSize = 25) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`${API_URL}?page=${page}`);
+      const response = await axios.get(`${API_URL}?page=${page}&page_size=${pageSize}`);
       const { list_task, page: currentPage, totalPages } = response.data;
       dispatch(
         getNetworkScans({
@@ -82,6 +150,38 @@ export const fetchNetworkScans =
       dispatch(setError('Failed to fetch Network Scans'));
     }
   };
+
+export const fetchNetworkScansReports =
+  (page = 1, pageSize = 25, scanId: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/${scanId}/reports/?page=${page}&page_size=${pageSize}`,
+      );
+      const { results, page: currentPage, totalPages } = response.data;
+      dispatch(
+        getNetworkScanReports({
+          data: results,
+          currentPage,
+          totalPages,
+        }),
+      );
+    } catch (err: any) {
+      console.error('Error fetching Network Scan Reports:', err);
+      dispatch(setError('Failed to fetch Network Scans Reports'));
+    }
+  };
+
+export const fetchNetworkScanDetail = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${API_URL}/${scanId}`);
+    const { detail } = response.data;
+    dispatch(getNetworkScanDetail({ detail }));
+  } catch (err: any) {
+    console.error('Error fetching Network Scan Detail:', err);
+    dispatch(setError('Failed to fetch Network Scan Detail'));
+  }
+};
 
 export const fetchNetworkScanCreate = () => async (dispatch: AppDispatch) => {
   try {
