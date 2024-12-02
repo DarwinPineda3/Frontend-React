@@ -102,7 +102,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
       case 'linkedin':
         return <HumanizedDate dateString={isoString} />;
       default:
-        return <Typography variant="subtitle2">{defaultDate}</Typography>;
+        return <HumanizedDate dateString={defaultDate} />;
     }
   };
 
