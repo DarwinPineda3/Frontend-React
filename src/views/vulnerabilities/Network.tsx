@@ -86,13 +86,14 @@ const NetworkVulnerabilities = () => {
       {selectedVulnerability ? (
         <Grid container spacing={0}>
           <Grid item xs={12} xl={12}>
-            <VulnerabilityDetailView />
+            <VulnerabilityDetailView scanID={selectedScan!} reportID={selectedReport!} />
           </Grid>
         </Grid>
       ) : selectedScan && selectedReport ? (
         <Grid container spacing={0}>
           <Grid item xs={12} xl={12}>
             <ReportDetail
+              scanID={selectedScan}
               reportID={selectedReport}
               onClickVulnerability={handleVulnerabilityClick}
             />
