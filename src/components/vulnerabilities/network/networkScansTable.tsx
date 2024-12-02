@@ -30,13 +30,12 @@ import {
 } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
 // Collapsible row
-const Row: React.FC<{ row: any; onScanClick: (scanId: string) => void }> = ({
+const Row: React.FC<{ row: any; onScanClick: (scanId: string) => void; navigate: any }> = ({
   row,
   onScanClick,
+  navigate,
 }) => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-
   const handleActionClick = (action: string, scanId: number) => {
     switch (action) {
       case 'run':
@@ -56,16 +55,29 @@ const Row: React.FC<{ row: any; onScanClick: (scanId: string) => void }> = ({
     }
   };
 
+  const handleScanClick = (scanId: string) => {
+    navigate(`/vulnerabilities/network/scans/detail/${scanId}`);
+  };
+
   return (
     <>
       <TableRow>
         <TableCell>
-          <Typography variant="subtitle2">{row.name}</Typography>
-          {row.comment && (
-            <Typography variant="caption" color="textSecondary">
-              ({row.comment})
-            </Typography>
-          )}
+          <Typography
+            variant="subtitle2"
+            fontWeight={600}
+            color="primary"
+            component="a"
+            onClick={() => handleScanClick(row.id_elastic)}
+            style={{ cursor: 'pointer' }}
+          >
+            {row.name}
+            {row.comment && (
+              <Typography variant="caption" color="textSecondary">
+                ({row.comment})
+              </Typography>
+            )}
+          </Typography>
         </TableCell>
         <TableCell>
           {row.status === 'Running' ? (
@@ -225,7 +237,7 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
                 </TableHead>
                 <TableBody>
                   {networkScans.map((row: NetworkScanType) => (
-                    <Row key={row.id} row={row} onScanClick={onScanClick} />
+                    <Row key={row.id} row={row} onScanClick={onScanClick} navigate={navigate} />
                   ))}
                 </TableBody>
               </Table>
