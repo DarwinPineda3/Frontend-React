@@ -49,8 +49,6 @@ const WpScanDetail: React.FC = () => {
   }, [scanId, dispatch]);
   console.log(scanId);
 
-  // console.log(wpscan)
-
   const overviewdata = {
     start_time: wpscan?.start_time,
     start_memory: wpscan?.start_memory,
@@ -64,28 +62,28 @@ const WpScanDetail: React.FC = () => {
     {
       value: 'overview',
       icon: <GlobeIcon />,
-      label: `Overview`, // translate
+      label: t('wpscan.overview'),
       disabled: false,
       content: <WPSOverview overviewdata={overviewdata} />,
     },
     {
       value: 'maintheme',
       icon: <InsertDriveFileIcon />,
-      label: `Main Theme`, // translate
+      label: t('wpscan.main_theme'),
       disabled: false,
       content: <WPSMainTheme main_theme={wpscan?.main_theme} />,
     },
     {
       value: 'findings',
       icon: <ListIcon />,
-      label: `Findings`, // translate
+      label: t('wpscan.findings'),
       disabled: false,
       content: <WPSFindings findings={wpscan?.interesting_findings} />,
     },
     {
       value: 'plugins',
       icon: <ListIcon />,
-      label: `Plugins`, // translate
+      label: t('wpscan.plugins'),
       disabled: false,
       content: <WPSPlugins plugins_list={wpscan?.plugins_list} />,
     },

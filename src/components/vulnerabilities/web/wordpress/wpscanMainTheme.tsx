@@ -11,14 +11,14 @@ const WPSMainTheme: React.FC<{ main_theme: any }> = (main_theme) => {
 
   return (
 
-    <DashboardCard title={t('vulnerabilities.scan_details')!}>
+    <DashboardCard title={t('wpscan.scan_details')!}>
       <Box display="flex" flexDirection="column" gap={2} mt={3}>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.name')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.name')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.slug}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.location')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.location')}:</Typography>
           <Typography variant="body2">
             <a href={main_theme?.main_theme.location} target="_blank" rel="noopener noreferrer">
               {main_theme?.main_theme.location}
@@ -26,23 +26,23 @@ const WPSMainTheme: React.FC<{ main_theme: any }> = (main_theme) => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.last_version')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.last_version')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.latest_version}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.last_update')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.last_update')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.last_updated}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.description')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.description')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.description}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.author')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.author')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.author}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.author_uri')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.author_uri')}:</Typography>
           <Typography variant="body2">
             <a href={main_theme?.main_theme.author_uri} target="_blank" rel="noopener noreferrer">
               {main_theme?.main_theme.author_uri}
@@ -50,11 +50,11 @@ const WPSMainTheme: React.FC<{ main_theme: any }> = (main_theme) => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.license')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.license')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.license}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.license_uri')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.license_uri')}:</Typography>
           <Typography variant="body2">
             <a href={main_theme?.main_theme.license_uri} target="_blank" rel="noopener noreferrer">
               {main_theme?.main_theme.license_uri}
@@ -62,11 +62,11 @@ const WPSMainTheme: React.FC<{ main_theme: any }> = (main_theme) => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.detected_by')}:</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}:</Typography>
           <Typography variant="body2">{main_theme?.main_theme.found_by}</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={600}>Confidence</Typography>
+          <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography>
           <Typography variant="body2">{main_theme?.main_theme.confidence}%</Typography>
         </Box>
       </Box>

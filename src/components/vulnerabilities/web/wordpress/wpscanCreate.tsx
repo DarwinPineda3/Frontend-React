@@ -35,8 +35,6 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      console.log("holaaaaa");
-
       await dispatch(fetchAssets(currentPage));
     };
     fetchData();
@@ -49,10 +47,10 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
       config: '',
     },
     validationSchema: Yup.object({
-      hosts: Yup.string().required(t('monitoring.parameter_required')),
+      hosts: Yup.string().required(t('wpscan.host_is_required') || ''),
       config: Yup.string()
-        .oneOf(['scan_normal', 'scan_deep'], t('monitoring.invalid_config'))
-        .required(t('monitoring.parameter_type_required')),
+        .oneOf(['scan_normal', 'scan_deep'], t('wpscan.invalid_config') || '')
+        .required(t('wpscan.scan_config_required') || ''),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const newWPScan: WPScan = {
@@ -61,8 +59,8 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
       };
 
       try {
-        await dispatch(createWPScan(newWPScan)); // Cambia esta línea
-        onSubmit('Asset created successfully', 'success');
+        await dispatch(createWPScan(newWPScan));
+        onSubmit(t('wpscan.scan_created_successfully'), 'success');
         resetForm();
       } catch (error: any) {
         const errorMessage =
@@ -87,24 +85,23 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
       title={status === 'success' ? 'Success' : 'Error'}
       message={message}
     />
-    // console.log(status, message);
   };
 
   const menuItems = [
-    { value: 'scan_normal', label: t('monitoring.scan_normal') },
-    { value: 'scan_deep', label: t('monitoring.scan_deep') },
+    { value: 'scan_normal', label: t('wpscan.scan_normal') },
+    { value: 'scan_deep', label: t('wpscan.scan_deep') },
   ];
 
   return (
     <Container maxWidth="sm">
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
-          {t('monitoring.create_scan')}
+          {t('wpscan.create_scan')}
         </Typography>
 
         <FormControl fullWidth margin="normal" error={formik.touched.hosts && Boolean(formik.errors.hosts)}>
           <Autocomplete
-            options={assets}  
+            options={assets}
             getOptionLabel={(option) => option.name}
             value={assets.find((asset: any) => asset.id === formik.values.hosts) || null}
             onChange={(event, newValue) => {
@@ -113,7 +110,7 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={t('monitoring.parameter_name')}
+                label={t('wpscan.host_name')}
                 variant="outlined"
                 error={formik.touched.hosts && Boolean(formik.errors.hosts)}
               />
@@ -142,7 +139,7 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label={t('monitoring.config')}
+                label={t('wpscan.config')}
                 variant="outlined"
                 error={formik.touched.config && Boolean(formik.errors.config)}
               />
@@ -161,7 +158,7 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
             fullWidth
             disabled={formik.isSubmitting}
           >
-            {t('monitoring.create_scan_button')}
+            {t('wpscan.create_scan')}
           </Button>
         </Box>
       </Box>

@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 
 const WPSPlugins: React.FC<{ plugins_list: any[] }> = ({ plugins_list }) => {
   const { t } = useTranslation();
-  console.log(plugins_list);
 
 
   return (
@@ -24,22 +23,22 @@ const WPSPlugins: React.FC<{ plugins_list: any[] }> = ({ plugins_list }) => {
             <TableRow>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}> {/* colocar modal para ver más detalles */}
-                  {t('vulnerabilities.plugin_name')}
+                  {t('wpscan.plugin_name')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  {t('vulnerabilities.version')}
+                  {t('wpscan.version')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  {t('vulnerabilities.latest_version')}
+                  {t('wpscan.latest_version')}
                 </Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  {t('vulnerabilities.last_update')}
+                  {t('wpscan.last_update')}
                 </Typography>
               </TableCell>
             </TableRow>

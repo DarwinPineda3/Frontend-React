@@ -87,7 +87,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   };
 
   return (
-    <DashboardCard title='WordPress scans' subtitle='List all WordPress scans'
+    <DashboardCard title={t('wpscan.wordpress_scans') || ''} subtitle={t('wpscan.list_all_wordpress_scans') || ''}
       action={
         <IconButton color="primary" onClick={handleOpenModal}>
           <AddIcon />
@@ -107,17 +107,17 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                     <TableRow>
                       <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                          {t('vulnerabilities.url')}
+                          {t('wpscan.url')}
                         </Typography>
                       </TableCell>
                       <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                          {t('vulnerabilities.date')}
+                          {t('wpscan.date')}
                         </Typography>
                       </TableCell>
                       <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                          {t('vulnerabilities.scan_type')}
+                          {t('wpscan.scan_type')}
                         </Typography>
                       </TableCell>
                       {/* <TableCell>
@@ -192,7 +192,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
       {snackbarOpen && (
         <SnackBarInfo
           color={snackbarSeverity}
-          title='Respuesta'
+          title={t("wpscan.operation_status")}
           message={snackbarMessage}
         />
       )}

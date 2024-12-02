@@ -18,8 +18,6 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
   const { t } = useTranslation();
 
-  console.log(findings);
-
 
   return (
     <DashboardCard>
@@ -27,13 +25,13 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.url')}</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.description')}</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.type')}</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.detected_by')}</Typography></TableCell>
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.confidence')}</Typography></TableCell>
-              {/* <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.references')}</Typography></TableCell> */}
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.interesting_entries')}</Typography></TableCell>
+              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.url')}</Typography></TableCell>
+              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.description')}</Typography></TableCell>
+              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.type')}</Typography></TableCell>
+              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}</Typography></TableCell>
+              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
+              {/* <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.references')}</Typography></TableCell> */}
+              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.interesting_entries')}</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
