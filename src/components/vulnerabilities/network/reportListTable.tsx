@@ -1,81 +1,91 @@
-import React, { useState } from 'react';
 import {
+  Box,
+  Grid,
+  IconButton,
+  InputAdornment,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
-  Box,
   TextField,
-  InputAdornment,
-  IconButton,
   Tooltip,
-  Grid,
-  Chip,
+  Typography,
 } from '@mui/material';
-import { IconSearch, IconDownload, IconTrash } from '@tabler/icons-react';
-import DashboardCard from 'src/components/shared/DashboardCard';
-import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
+import { IconDownload, IconSearch, IconTrash } from '@tabler/icons-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import Loader from 'src/components/shared/Loader/Loader';
+import { useDispatch, useSelector } from 'src/store/Store';
+import {
+  fetchNetworkScansReports,
+  setPage,
+  setPageSize,
+} from 'src/store/vulnerabilities/network/NetworkScansSlice';
+import { NetworkScanReport } from 'src/types/vulnerabilities/network/networkScansType';
 
 interface ScanAlertTableProps {
+  scanId: string;
   onAlertClick: (alertId: string) => void;
 }
 
-
-const ReportListTable: React.FC<ScanAlertTableProps> = ({ onAlertClick }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
+const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [searchTerm, setSearchTerm] = useState('');
+  const networkScanReports = useSelector(
+    (state: any) => state.networkScanReducer.networkScanReports,
+  );
+  const currentPage = useSelector((state: any) => state.networkScanReducer.page);
+  const totalPages = useSelector((state: any) => state.networkScanReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.networkScanReducer.pageSize);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Mock Data
-  const alertData = [
-    {
-      id: 'OXWhSJiB_ou-DSKspxOR',
-      reportDate: '1 de octubre de 2024 a las 09:08',
-      severity: 5.0,
-      status: 'Done',
-    },
-    {
-      id: 'NnEluZEB_ou-DSKsxzcL',
-      reportDate: '3 de septiembre de 2024 a las 12:27',
-      severity: 5.0,
-      status: 'Done',
-    },
-    {
-      id: 'oXGuvpEB_ou-DSKsGVYh',
-      reportDate: '4 de septiembre de 2024 a las 13:57',
-      severity: 5.0,
-      status: 'Done',
-    },
-  ];
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchNetworkScansReports(currentPage, pageSize, scanId));
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage, pageSize, scanId]);
 
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
+    }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
+  };
   // Fulltext Search Filter
-  const filteredAlerts = alertData.filter(
-    (alert) =>
+  const filteredAlerts = networkScanReports.filter(
+    (alert: NetworkScanReport) =>
       alert.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      alert.reportDate.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      alert.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       alert.severity.toString().includes(searchTerm.toLowerCase()) ||
-      alert.status.toLowerCase().includes(searchTerm.toLowerCase())
+      alert.scan_run_status.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
     <Grid container>
-      <Breadcrumb title={t("vulnerabilities.test_scan_data")}>
-        <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-          <Chip label={`${t("vulnerabilities.settings")}: Full and fast`} color="primary" variant="outlined" />
-          <Chip label={`${t("vulnerabilities.type")}: 2`} color="secondary" variant="outlined" />
-          <Chip label={`${t("vulnerabilities.objective")}: 107.173.154.73`} color="info" variant="outlined" />
-        </Box>
-      </Breadcrumb>
-
       <DashboardCard>
         <Box>
           {/* Search Bar */}
           <Box mb={3} my={3}>
             <TextField
-              placeholder={t("vulnerabilities.search_alerts")!}
+              placeholder={t('vulnerabilities.search_alerts')!}
               variant="outlined"
               fullWidth
               value={searchTerm}
@@ -90,55 +100,74 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ onAlertClick }) => {
             />
           </Box>
 
-          {/* Alerts Table */}
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>{t("vulnerabilities.id")}</TableCell>
-                <TableCell>{t("vulnerabilities.report_date")}</TableCell>
-                <TableCell>{t("vulnerabilities.severity")}</TableCell>
-                <TableCell>{t("vulnerabilities.status")}</TableCell>
-                <TableCell>{t("vulnerabilities.actions")}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredAlerts.map((alert) => (
-                <TableRow key={alert.id}>
-                  <TableCell>
-                    <Typography
-                      color="primary"
-                      fontWeight={500}
-                      onClick={() => onAlertClick(alert.id)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      {alert.id}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{alert.reportDate}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{alert.severity}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{alert.status}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Tooltip title={t("vulnerabilities.download_report")}>
-                      <IconButton color="primary">
-                        <IconDownload />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title={t("vulnerabilities.delete_report")}>
-                      <IconButton color="error">
-                        <IconTrash />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          {isLoading ? (
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          ) : (
+            <>
+              {/* Alerts Table */}
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{t('vulnerabilities.id')}</TableCell>
+                      <TableCell>{t('vulnerabilities.report_date')}</TableCell>
+                      <TableCell>{t('vulnerabilities.severity')}</TableCell>
+                      <TableCell>{t('vulnerabilities.status')}</TableCell>
+                      <TableCell>{t('vulnerabilities.actions')}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {filteredAlerts.map((alert: NetworkScanReport) => (
+                      <TableRow key={alert.id}>
+                        <TableCell>
+                          <Typography
+                            color="primary"
+                            fontWeight={500}
+                            onClick={() => onAlertClick(alert.id)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            {alert.id}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <HumanizedDate dateString={alert.name} />
+                        </TableCell>
+                        <TableCell>
+                          <Typography>{alert.severity}</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography>{alert.scan_run_status}</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Tooltip title={t('vulnerabilities.download_report')}>
+                            <IconButton color="primary">
+                              <IconDownload />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title={t('vulnerabilities.delete_report')}>
+                            <IconButton color="error">
+                              <IconTrash />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                component="div"
+                count={totalPages * pageSize}
+                rowsPerPage={pageSize}
+                page={currentPage - 1}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handlePageSizeChange}
+              />
+            </>
+          )}
         </Box>
       </DashboardCard>
     </Grid>
