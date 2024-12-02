@@ -55,9 +55,9 @@ export interface Target {
 export interface ScanConfig {
   id: string;
   name: string;
-  comment: string;
-  creation_time: string; // ISO timestamp
-  modification_time: string; // ISO timestamp
+  comment?: string;
+  creation_time?: string; // ISO timestamp
+  modification_time?: string; // ISO timestamp
 }
 
 export interface ResponseData {
@@ -72,4 +72,56 @@ export interface NetworkScanCreate {
   comment: string;
   hosts: string;
   scan_config_id: string;
+}
+
+export interface NetworkScanReport {
+  id: string;
+  name: string;
+  severity: string;
+  scan_run_status: string;
+}
+
+export interface ScanTarget {
+  id: string;
+  name: string;
+  hosts: string;
+  asset_id: number;
+}
+
+export interface Scanner {
+  id: string;
+  name: string;
+  type: string;
+}
+
+export interface ReportCount {
+  total: string;
+  finished: string;
+}
+
+export interface Schedule {
+  id: string | null;
+  name: string | null;
+}
+
+export interface Scan {
+  id: string;
+  name: string;
+  comment: string;
+  creation_time: string;
+  modification_time: string;
+  permission: string;
+  usage_type: string;
+  config: ScanConfig;
+  target: ScanTarget;
+  hosts_ordering: string | null;
+  scanner: Scanner;
+  status: string;
+  progress: string;
+  report_count: ReportCount;
+  schedule: Schedule;
+  schedule_periods: string;
+  observers: string | null;
+  is_active: boolean;
+  id_elastic: string;
 }
