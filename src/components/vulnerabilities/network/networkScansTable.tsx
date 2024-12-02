@@ -7,13 +7,12 @@ import {
   Box,
   Chip,
   IconButton,
-  Pagination,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -22,11 +21,16 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
+import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchNetworkScans, setPage } from 'src/store/vulnerabilities/network/NetworkScansSlice';
+import {
+  fetchNetworkScans,
+  setPage,
+  setPageSize,
+} from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
 // Collapsible row
-const Row: React.FC<{ row: any; onScanClick: (scanId: number) => void }> = ({
+const Row: React.FC<{ row: any; onScanClick: (scanId: string) => void }> = ({
   row,
   onScanClick,
 }) => {
@@ -55,13 +59,8 @@ const Row: React.FC<{ row: any; onScanClick: (scanId: number) => void }> = ({
   return (
     <>
       <TableRow>
-        {/* <TableCell>
-          <IconButton size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell> */}
         <TableCell>
-          <Typography variant="body2">{row.name}</Typography>
+          <Typography variant="subtitle2">{row.name}</Typography>
           {row.comment && (
             <Typography variant="caption" color="textSecondary">
               ({row.comment})
@@ -127,30 +126,12 @@ const Row: React.FC<{ row: any; onScanClick: (scanId: number) => void }> = ({
           </IconButton>
         </TableCell>
       </TableRow>
-      {/* <TableRow>
-        <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={2}>
-              <Typography variant="h6">{t('vulnerabilities.detailed_information')}:</Typography>
-              <Typography variant="body2">
-                <strong>{t('vulnerabilities.type')}:</strong> {row.type}
-              </Typography>
-              <Typography variant="body2">
-                <strong>{t('vulnerabilities.scan_configuration')}:</strong> {row.scanConfig}
-              </Typography>
-              <Typography variant="body2">
-                <strong>{t('vulnerabilities.target_hosts')}:</strong> {row.targetHosts}
-              </Typography>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow> */}
     </>
   );
 };
 
 interface NetworkScanTableProps {
-  onScanClick: (scanId: number) => void;
+  onScanClick: (scanId: string) => void;
 }
 
 const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
@@ -160,15 +141,32 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
   const networkScans = useSelector((state: any) => state.networkScanReducer.networkScans);
   const currentPage = useSelector((state: any) => state.networkScanReducer.page);
   const totalPages = useSelector((state: any) => state.networkScanReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.networkScanReducer.pageSize);
+  const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
-    dispatch(fetchNetworkScans(currentPage));
-  }, [dispatch, currentPage]);
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchNetworkScans(currentPage, pageSize));
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleEditClick = () => {
@@ -187,53 +185,62 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
       action={addButton}
     >
       <Box>
-        <TableContainer component={Paper}>
-          <Table aria-label="collapsible table">
-            <TableHead>
-              <TableRow>
-                {/* <TableCell /> */}
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('vulnerabilities.name')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('vulnerabilities.status')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('vulnerabilities.reports')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('vulnerabilities.last_report')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('vulnerabilities.actions')}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {networkScans.map((row: NetworkScanType) => (
-                <Row key={row.id} row={row} onScanClick={onScanClick} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box my={3} display="flex" justifyContent={'center'}>
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
+            <TableContainer>
+              <Table aria-label="collapsible table" sx={{ whiteSpace: 'nowrap' }}>
+                <TableHead>
+                  <TableRow>
+                    {/* <TableCell /> */}
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.name')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.status')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.reports')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.last_report')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.actions')}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {networkScans.map((row: NetworkScanType) => (
+                    <Row key={row.id} row={row} onScanClick={onScanClick} />
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
+          </>
+        )}
       </Box>
     </DashboardCard>
   );
