@@ -6,26 +6,11 @@ import { Data } from 'src/types/newsletters/newsletter';
 import Loader from '../shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchFileContent } from 'src/store/sections/newsletter/NewslettersSlice';
+import HumanizedDate from '../shared/HumanizedDate';
 
-const NewsletterDetail: React.FC<{ newsletterDetails: Data }> = ({ newsletterDetails }) => {
+const NewsletterDetail: React.FC<{ newsletterDetails: Data}> = ({ newsletterDetails }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const fileContent = useSelector((state) => state.newsLettersReducer.fileContent);
-
-    React.useEffect(() => {
-      const fetchData = async () => {
-        if (newsletterDetails.id) {
-          try {
-            await dispatch(fetchFileContent(newsletterDetails.id));
-          } catch (error) {
-            console.error('Error fetching newsletter:', error);
-          }
-        }
-      };
-  
-      fetchData();
-    }, [dispatch, newsletterDetails.id]);
-    
  
   return (
     <DashboardCard
@@ -34,9 +19,9 @@ const NewsletterDetail: React.FC<{ newsletterDetails: Data }> = ({ newsletterDet
   >
     <Box>
       <Grid item xs={12} xl={12}>
-        {fileContent ? (
+        {newsletterDetails.content ? (
           <iframe
-            src={fileContent}
+            src={newsletterDetails.content}
             style={{
               overflow: 'hidden',
               height: 'calc(100vh - 20px)',
@@ -76,7 +61,7 @@ const NewsletterDetail: React.FC<{ newsletterDetails: Data }> = ({ newsletterDet
           <Typography variant="subtitle2" fontWeight={600}>
             {t('newsletter.last_modification')}
           </Typography>
-          <Typography variant="body2">{newsletterDetails.modifiedTime}</Typography>
+          <Typography variant="body2"><HumanizedDate dateString={newsletterDetails.modifiedTime} /></Typography>
         </Box>
       </Box>
     </Box>

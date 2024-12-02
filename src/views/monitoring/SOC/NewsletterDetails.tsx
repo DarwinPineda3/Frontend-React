@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import NewsletterDetail from 'src/components/monitoring/NewsletterDetail';
+import Loader from 'src/components/shared/Loader/Loader';
 import { fetchNewsLetterById } from 'src/store/sections/newsletter/NewslettersSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
-import Loader from 'src/components/shared/Loader/Loader';
 
 const NewsletterDetails = () => {
   const { newsletterId } = useParams<{ newsletterId?: string }>();
@@ -16,7 +16,7 @@ const NewsletterDetails = () => {
   const newsletterDetails = useSelector((state: any) => state.newsLettersReducer.newsletterDetails);
   const navigate = useNavigate();
 
-  
+
   React.useEffect(() => {
     const fetchData = async () => {
       if (newsletterId) {
