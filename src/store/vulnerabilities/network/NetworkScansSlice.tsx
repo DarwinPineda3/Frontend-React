@@ -211,7 +211,7 @@ export const NetworkScanSlice = createSlice({
       state.networkScanCreate = action.payload;
     },
     getNetworkScanDetail: (state, action) => {
-      state.networkScanDetail = action.payload;
+      state.networkScanDetail = action.payload.detail;
     },
     getNetworkScanReports: (state, action) => {
       state.networkScanReports = Array.isArray(action.payload.data) ? action.payload.data : [];
