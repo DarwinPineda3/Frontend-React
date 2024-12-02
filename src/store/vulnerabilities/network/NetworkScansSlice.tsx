@@ -3,6 +3,7 @@ import { getTenant } from 'src/guards/jwt/Jwt';
 import { AppDispatch } from 'src/store/Store';
 import {
   NetworkScanReport,
+  NetworkScanReportDetail,
   NetworkScanType,
   ResponseData,
   Scan,
@@ -25,6 +26,7 @@ interface StateType {
   networkScanCreate: ResponseData;
   networkScanReports: NetworkScanReport[];
   networkScanDetail: Scan;
+  networkScanReportDetail: NetworkScanReportDetail;
   page: number;
   pageSize: number;
   totalPages: number;
@@ -83,6 +85,117 @@ const initialState: StateType = {
     is_active: false,
     id_elastic: '',
   },
+  networkScanReportDetail: {
+    task_id: '',
+    report: {
+      id: '',
+      name: '',
+      comment: null,
+      creation_time: '',
+      modification_time: '',
+      task: {
+        id: '',
+        name: '',
+      },
+      report: {
+        scan_run_status: '',
+        hosts: {
+          count: '',
+        },
+        closed_cves: '',
+        vulns: {
+          count: '',
+        },
+        os: {
+          count: 0,
+        },
+        apps: {
+          count: 0,
+        },
+        ssl_certs: '',
+        task: {
+          id: '',
+          name: '',
+          comment: null,
+          target: {
+            id: '',
+            name: '',
+            comment: null,
+          },
+          id_elastic: '',
+          hosts: '',
+        },
+        timestamp: '',
+        scan_start: '',
+        timezone: '',
+        timezone_abbrev: '',
+        ports: [],
+        result_count: {
+          full: '',
+          filtered: '',
+          hole: {
+            full: '',
+            filtered: '',
+          },
+          info: {
+            full: '',
+            filtered: '',
+          },
+          warning: {
+            full: '',
+            filtered: '',
+          },
+          false_positive: {
+            full: '',
+            filtered: '',
+          },
+        },
+        severity: {
+          full: '',
+          filtered: '',
+          hole: {
+            full: '',
+            filtered: '',
+          },
+          info: {
+            full: '',
+            filtered: '',
+          },
+          warning: {
+            full: '',
+            filtered: '',
+          },
+          false_positive: {
+            full: '',
+            filtered: '',
+          },
+        },
+        scan_end: '',
+        errors: {
+          count: '',
+        },
+        host_list: [],
+        results: [],
+        vulnerabilities: [],
+        scan_end_format: '',
+      },
+      statistics: {
+        critical: 0,
+        high: 0,
+        medium: 0,
+        low: 0,
+        count_vulnerabilities: 0,
+      },
+      is_last_report: false,
+      elastic_id: '',
+    },
+    report_detail_chart_data: {
+      labels: [],
+      values: [],
+    },
+    list_os: [],
+    id_elastic: '',
+  },
 };
 
 export const NetworkScanSlice = createSlice({
@@ -105,6 +218,9 @@ export const NetworkScanSlice = createSlice({
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
+    getNetworkScanReportDetail: (state, action) => {
+      state.networkScanReportDetail = action.payload;
+    },
     addNetworkScan: (state, action) => {
       state.networkScans.push(action.payload);
     },
@@ -126,6 +242,7 @@ export const {
   getNetworkScanReports,
   getNetworkScanCreate,
   getNetworkScanDetail,
+  getNetworkScanReportDetail,
   setPage,
   setPageSize,
   setError,
@@ -182,6 +299,18 @@ export const fetchNetworkScanDetail = (scanId: string) => async (dispatch: AppDi
     dispatch(setError('Failed to fetch Network Scan Detail'));
   }
 };
+
+export const fetchNetworkScanReportDetail =
+  (scanId: string, reportId: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${API_URL}/${scanId}/reports/${reportId}`);
+      const data = response.data;
+      dispatch(getNetworkScanReportDetail(data));
+    } catch (err: any) {
+      console.error('Error fetching Network Scan Detail:', err);
+      dispatch(setError('Failed to fetch Network Scan Detail'));
+    }
+  };
 
 export const fetchNetworkScanCreate = () => async (dispatch: AppDispatch) => {
   try {
