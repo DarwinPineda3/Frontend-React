@@ -52,6 +52,7 @@ import ManagedVulnerabilitiesForm from 'src/views/vulnerabilities/ManagedVulnera
 import ManagementVulnerabilities from 'src/views/vulnerabilities/Management';
 import NetworkVulnerabilities from 'src/views/vulnerabilities/Network';
 import NetworkCreateScan from 'src/views/vulnerabilities/network/NetworkCreateScan';
+import NetworkVulnerabilitiesDetail from 'src/views/vulnerabilities/NetworkDetail';
 import EHReport from 'src/views/vulnerabilities/redteam/EHReport';
 import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
@@ -91,6 +92,7 @@ const Router = [
       { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities />, roles: ['Admin', 'Scan360'] },
       { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities />, roles: ['Admin', 'Scan360'] },
       { path: '/vulnerabilities/network/scans/create', element: <NetworkCreateScan />, roles: ['Admin', 'Scan360'] },
+      { path: '/vulnerabilities/network/scans/detail/:scanId', element: <NetworkVulnerabilitiesDetail />, roles: ['Admin', 'Scan360'] },
       {
         path: '/vulnerabilities/network/scans/:scanId/reports/:alertId',
         element: <NetworkVulnerabilities />,
