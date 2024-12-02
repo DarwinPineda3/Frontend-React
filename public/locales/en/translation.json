@@ -216,6 +216,7 @@
     "vulnerability_name": "{{name}}",
     "translate_button": "Translate to Spanish",
     "manage_vulnerability_button": "Manage Vulnerability",
+    "product": "Product",
     "product_detection_result": "Product Detection Result",
     "summary": "Summary",
     "detection_quality": "Detection Quality",
@@ -1008,7 +1009,6 @@
     "forgot_password_link": "Forgot Password?",
     "sign_in_button": "Sign In",
     "invalid_credentials": "Invalid Credentials"
-
   },
   "account_settings": {
     "change_profile": "Change profile",

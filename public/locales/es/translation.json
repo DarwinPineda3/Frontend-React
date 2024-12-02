@@ -216,6 +216,7 @@
     "vulnerability_name": "{{name}}",
     "translate_button": "Traducir al Español",
     "manage_vulnerability_button": "Gestionar Vulnerabilidad",
+    "product": "Producto",
     "product_detection_result": "Resultado de la detección del producto",
     "summary": "Resumen",
     "detection_quality": "Calidad de detección",
