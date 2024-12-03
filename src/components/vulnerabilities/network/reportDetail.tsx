@@ -315,22 +315,30 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {displayHostList.map((host, key) => (
-                          <TableRow key={key}>
-                            <TableCell>{host.ip}</TableCell>
-                            <TableCell>{host.asset.asset_id}</TableCell>
-                            <TableCell>
-                              {host.start === null ? (
-                                'NA'
-                              ) : (
-                                <HumanizedDate dateString={host.start} />
-                              )}
-                            </TableCell>
-                            <TableCell>
-                              {host.end === null ? 'NA' : <HumanizedDate dateString={host.end} />}
+                        {displayHostList.length > 0 ? (
+                          displayHostList.map((host, key) => (
+                            <TableRow key={key}>
+                              <TableCell>{host.ip}</TableCell>
+                              <TableCell>{host.asset.asset_id}</TableCell>
+                              <TableCell>
+                                {host.start === null ? (
+                                  'NA'
+                                ) : (
+                                  <HumanizedDate dateString={host.start} />
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                {host.end === null ? 'NA' : <HumanizedDate dateString={host.end} />}
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={4} style={{ textAlign: 'center' }}>
+                              {t('vulnerabilities.no_data_available')!}
                             </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -355,21 +363,36 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell>{t('vulnerabilities.host_name')!}</TableCell>
-                          <TableCell>{t('vulnerabilities.source_description')!}</TableCell>
+                          <TableCell sx={{ textAlign: 'center', width: '250px' }}>
+                            {t('vulnerabilities.host_name')!}
+                          </TableCell>
+                          <TableCell sx={{ textAlign: 'center' }}>
+                            {t('vulnerabilities.source_description')!}
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableBody>
-                          {displayScansList.map((detail, index) => (
+                        {displayScansList.length > 0 ? (
+                          displayScansList.map((detail, index) => (
                             <TableRow key={index}>
-                              <TableCell className="text-break centered" style={{ width: '250px' }}>
+                              <TableCell
+                                className="text-break centered"
+                                sx={{ textAlign: 'center', width: '250px' }}
+                              >
                                 {detail.value}
                               </TableCell>
-                              <TableCell className="centered">{detail.sourceDescription}</TableCell>
+                              <TableCell className="centered" sx={{ textAlign: 'center' }}>
+                                {detail.sourceDescription}
+                              </TableCell>
                             </TableRow>
-                          ))}
-                        </TableBody>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={2} style={{ textAlign: 'center' }}>
+                              {t('vulnerabilities.no_data_available')!}
+                            </TableCell>
+                          </TableRow>
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -401,38 +424,46 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {displayPorts.map((portInfo, portIndex) => (
-                          <TableRow key={portIndex}>
-                            <TableCell>{portInfo?.port?.port}</TableCell>
-                            <TableCell>{portInfo?.port?.host}</TableCell>
-                            <TableCell>
-                              <Chip
-                                label={portInfo?.port?.threat}
-                                sx={
-                                  portInfo?.port?.threat === 'Info'
-                                    ? { backgroundColor: none, color: 'white' }
-                                    : portInfo?.port?.threat === 'Low'
-                                    ? { backgroundColor: low, color: 'white' }
-                                    : portInfo?.port?.threat === 'Medium'
-                                    ? { backgroundColor: medium, color: 'white' }
-                                    : portInfo?.port?.threat === 'High'
-                                    ? { backgroundColor: high, color: 'white' }
-                                    : { backgroundColor: none, color: 'white' }
-                                }
-                              />
-                            </TableCell>
-                            <TableCell>
-                              <Chip
-                                label={portInfo.port.severity}
-                                sx={{
-                                  backgroundColor: getChipColorSeverity(portInfo.port.severity)
-                                    .color,
-                                  color: 'white',
-                                }}
-                              />
+                        {displayPorts.length > 0 ? (
+                          displayPorts.map((portInfo, portIndex) => (
+                            <TableRow key={portIndex}>
+                              <TableCell>{portInfo?.port?.port}</TableCell>
+                              <TableCell>{portInfo?.port?.host}</TableCell>
+                              <TableCell>
+                                <Chip
+                                  label={portInfo?.port?.threat}
+                                  sx={
+                                    portInfo?.port?.threat === 'Info'
+                                      ? { backgroundColor: none, color: 'white' }
+                                      : portInfo?.port?.threat === 'Low'
+                                      ? { backgroundColor: low, color: 'white' }
+                                      : portInfo?.port?.threat === 'Medium'
+                                      ? { backgroundColor: medium, color: 'white' }
+                                      : portInfo?.port?.threat === 'High'
+                                      ? { backgroundColor: high, color: 'white' }
+                                      : { backgroundColor: none, color: 'white' }
+                                  }
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <Chip
+                                  label={portInfo.port.severity}
+                                  sx={{
+                                    backgroundColor: getChipColorSeverity(portInfo.port.severity)
+                                      .color,
+                                    color: 'white',
+                                  }}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={4} style={{ textAlign: 'center' }}>
+                              {t('vulnerabilities.no_data_available')!}
                             </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>
@@ -467,52 +498,60 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {displayVulns.map((vulnerability, key) => (
-                          <TableRow key={key}>
-                            <TableCell>{vulnerability.result.name}</TableCell>
-                            <TableCell>{vulnerability.result.host.host}</TableCell>
-                            <TableCell>{vulnerability.result.port}</TableCell>
-                            <TableCell>
-                              <Chip
-                                label={vulnerability.result.threat}
-                                sx={
-                                  vulnerability.result.threat === 'INFO'
-                                    ? { backgroundColor: none, color: 'white' }
-                                    : vulnerability.result.threat === 'LOW'
-                                    ? { backgroundColor: low, color: 'white' }
-                                    : vulnerability.result.threat === 'MEDIUM'
-                                    ? { backgroundColor: medium, color: 'white' }
-                                    : vulnerability.result.threat === 'HIGH'
-                                    ? { backgroundColor: high, color: 'white' }
-                                    : { backgroundColor: none, color: 'white' }
-                                }
-                              />
-                            </TableCell>
-                            <TableCell>
-                              <Chip
-                                label={vulnerability.result.severity}
-                                sx={{
-                                  backgroundColor: getChipColorSeverity(
-                                    vulnerability.result.severity,
-                                  ).color,
-                                  color: 'white',
-                                }}
-                              />
-                            </TableCell>
-                            <TableCell>
-                              <HumanizedDate dateString={vulnerability.result.report_date} />{' '}
-                            </TableCell>
-                            <TableCell>
-                              <Chip
-                                label={t('vulnerabilities.view')!}
-                                color="primary"
-                                icon={<IconEye />}
-                                onClick={() => handleClickOpen(vulnerability.result.id)}
-                                style={{ cursor: 'pointer' }}
-                              />
+                        {displayVulns.length > 0 ? (
+                          displayVulns.map((vulnerability, key) => (
+                            <TableRow key={key}>
+                              <TableCell>{vulnerability.result.name}</TableCell>
+                              <TableCell>{vulnerability.result.host.host}</TableCell>
+                              <TableCell>{vulnerability.result.port}</TableCell>
+                              <TableCell>
+                                <Chip
+                                  label={vulnerability.result.threat}
+                                  sx={
+                                    vulnerability.result.threat === 'INFO'
+                                      ? { backgroundColor: none, color: 'white' }
+                                      : vulnerability.result.threat === 'LOW'
+                                      ? { backgroundColor: low, color: 'white' }
+                                      : vulnerability.result.threat === 'MEDIUM'
+                                      ? { backgroundColor: medium, color: 'white' }
+                                      : vulnerability.result.threat === 'HIGH'
+                                      ? { backgroundColor: high, color: 'white' }
+                                      : { backgroundColor: none, color: 'white' }
+                                  }
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <Chip
+                                  label={vulnerability.result.severity}
+                                  sx={{
+                                    backgroundColor: getChipColorSeverity(
+                                      vulnerability.result.severity,
+                                    ).color,
+                                    color: 'white',
+                                  }}
+                                />
+                              </TableCell>
+                              <TableCell>
+                                <HumanizedDate dateString={vulnerability.result.report_date} />{' '}
+                              </TableCell>
+                              <TableCell>
+                                <Chip
+                                  label={t('vulnerabilities.view')!}
+                                  color="primary"
+                                  icon={<IconEye />}
+                                  onClick={() => handleClickOpen(vulnerability.result.id)}
+                                  style={{ cursor: 'pointer' }}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={4} style={{ textAlign: 'center' }}>
+                              {t('vulnerabilities.no_data_available')!}
                             </TableCell>
                           </TableRow>
-                        ))}
+                        )}
                       </TableBody>
                     </Table>
                   </TableContainer>
