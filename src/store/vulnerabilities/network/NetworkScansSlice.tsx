@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getTenant } from 'src/guards/jwt/Jwt';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { AppDispatch } from 'src/store/Store';
 import {
   NetworkScanReport,
@@ -9,12 +9,13 @@ import {
   Scan,
 } from 'src/types/vulnerabilities/network/networkScansType';
 import axios from 'src/utils/axios';
+function getApiUrl() {
+  return `${getBaseApiUrl()}/vulnerabilities/network/scans`;
+}
 
-// Update to match the backend API endpoint
-const tenant = getTenant();
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace('{}', tenant);
-const API_URL = `${base_api_url}/api/vulnerabilities/network/scans`;
-const CREATE_SCAN_URL = `${base_api_url}/api/vulnerabilities/network/scans/create`;
+function getApiUrlCreate() {
+  return `${getBaseApiUrl()}/vulnerabilities/network/scans/create`;
+}
 interface NetworkScanCreateType {
   comment: string;
   hosts: string;
@@ -224,6 +225,16 @@ export const NetworkScanSlice = createSlice({
     addNetworkScan: (state, action) => {
       state.networkScans.push(action.payload);
     },
+    deleteNetworkScan: (state, action) => {
+      state.networkScans = state.networkScans.filter(
+        (networkScan) => networkScan.id_elastic !== action.payload,
+      );
+    },
+    deleteNetworkReport: (state, action) => {
+      state.networkScanReports = state.networkScanReports.filter(
+        (networkScan) => networkScan.id !== action.payload,
+      );
+    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -243,6 +254,8 @@ export const {
   getNetworkScanCreate,
   getNetworkScanDetail,
   getNetworkScanReportDetail,
+  deleteNetworkScan,
+  deleteNetworkReport,
   setPage,
   setPageSize,
   setError,
@@ -253,7 +266,7 @@ export const fetchNetworkScans =
   (page = 1, pageSize = 25) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`${API_URL}?page=${page}&page_size=${pageSize}`);
+      const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
       const { list_task, page: currentPage, totalPages } = response.data;
       dispatch(
         getNetworkScans({
@@ -273,7 +286,7 @@ export const fetchNetworkScansReports =
   async (dispatch: AppDispatch) => {
     try {
       const response = await axios.get(
-        `${API_URL}/${scanId}/reports/?page=${page}&page_size=${pageSize}`,
+        `${getApiUrl()}/reports/${scanId}/?page=${page}&page_size=${pageSize}`,
       );
       const { results, page: currentPage, totalPages } = response.data;
       dispatch(
@@ -291,7 +304,7 @@ export const fetchNetworkScansReports =
 
 export const fetchNetworkScanDetail = (scanId: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}/${scanId}`);
+    const response = await axios.get(`${getApiUrl()}/${scanId}`);
     const { detail } = response.data;
     dispatch(getNetworkScanDetail({ detail }));
   } catch (err: any) {
@@ -303,7 +316,7 @@ export const fetchNetworkScanDetail = (scanId: string) => async (dispatch: AppDi
 export const fetchNetworkScanReportDetail =
   (scanId: string, reportId: string) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`${API_URL}/${scanId}/reports/${reportId}`);
+      const response = await axios.get(`${getApiUrl()}/reports/${scanId}/reports/${reportId}`);
       const data = response.data;
       dispatch(getNetworkScanReportDetail(data));
     } catch (err: any) {
@@ -314,7 +327,7 @@ export const fetchNetworkScanReportDetail =
 
 export const fetchNetworkScanCreate = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${CREATE_SCAN_URL}`);
+    const response = await axios.get(`${getApiUrlCreate()}`);
     const { assets, targets, scan_configs, error } = response.data;
     dispatch(getNetworkScanCreate({ assets, targets, scan_configs, error }));
   } catch (err: any) {
@@ -326,11 +339,58 @@ export const fetchNetworkScanCreate = () => async (dispatch: AppDispatch) => {
 export const createNetworkScan =
   (networkScan: NetworkScanCreateType) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.post(`${CREATE_SCAN_URL}/`, networkScan);
+      const response = await axios.post(`${getApiUrlCreate()}/`, networkScan);
       dispatch(addNetworkScan(response.data));
     } catch (err: any) {
       console.error('Error creating Network Scans:', err);
       dispatch(setError('Failed to create Network Scans'));
+    }
+  };
+
+export const removeNetworkScan = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${getApiUrl()}/${scanId}/`);
+    dispatch(deleteNetworkScan(scanId));
+  } catch (err: any) {
+    console.error('Error deleting  Network Scan:', err);
+    dispatch(setError('Failed to delete  Network Scan'));
+  }
+};
+
+export const removeNetworkScanReport = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${getApiUrl()}/reports/${scanId}/`);
+    dispatch(deleteNetworkReport(scanId));
+  } catch (err: any) {
+    console.error('Error deleting  Network Scan:', err);
+    dispatch(setError('Failed to delete  Network Scan'));
+  }
+};
+
+export const downloadNetworkScanReport =
+  (name_prefix: string, report_tool: string, idElastic: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post(
+        `${getApiUrl()}/reports/generate-report/`,
+        {
+          name_prefix,
+          report_tool,
+          idElastic,
+        },
+        { responseType: 'blob' },
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', response.headers['content-disposition'].split('filename=')[1]);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err: any) {
+      console.error('Error downloading the report:', err);
+      dispatch(setError('Failed to download Network Scan report'));
     }
   };
 
