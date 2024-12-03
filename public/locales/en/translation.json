@@ -105,7 +105,13 @@
     "actions": "Actions",
     "edit": "Edit",
     "operation_status": "Operation Status",
-    "create": "Create"
+    "create": "Create",
+    "delete": "Delete",
+    "delete_asset_confirmation": "Delete Asset",
+    "are_you_sure_to_delete_asset": "Are you sure you want to delete this asset?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "asset_deleted_successfully": "Asset deleted successfully."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Your scheduled scans that are running automatically",
