@@ -19,22 +19,27 @@ import {
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
   fetchNetworkScans,
+  removeNetworkScan,
   setPage,
   setPageSize,
 } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
+
 // Collapsible row
-const Row: React.FC<{ row: any; onScanClick: (scanId: string) => void; navigate: any }> = ({
-  row,
-  onScanClick,
-  navigate,
-}) => {
+const Row: React.FC<{
+  row: any;
+  onScanClick: (scanId: string) => void;
+  onDeleteScan: (scanId: string) => void;
+  navigate: any;
+}> = ({ row, onScanClick, onDeleteScan, navigate }) => {
   const { t } = useTranslation();
   const handleActionClick = (action: string, scanId: number) => {
     switch (action) {
@@ -48,7 +53,7 @@ const Row: React.FC<{ row: any; onScanClick: (scanId: string) => void; navigate:
         // dispatch(resumeScan(scanId));
         break;
       case 'delete':
-        // dispatch(deleteScan(scanId));
+        onDeleteScan(`${scanId}`);
         break;
       default:
         break;
@@ -154,7 +159,50 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
   const currentPage = useSelector((state: any) => state.networkScanReducer.page);
   const totalPages = useSelector((state: any) => state.networkScanReducer.totalPages);
   const pageSize = useSelector((state: any) => state.networkScanReducer.pageSize);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success'); // Snackbar severity
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [networkScantoDelete, setNetworkScantoDelete] = useState<NetworkScanType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
+
+  const handleDeleteClick = (networkScan: NetworkScanType) => {
+    setNetworkScantoDelete(networkScan);
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+    setNetworkScantoDelete(null);
+  };
+  const handleConfirmDelete = () => {
+    if (networkScantoDelete) {
+      dispatch(removeNetworkScan(networkScantoDelete?.id_elastic!));
+      setNetworkScantoDelete(null);
+      setOpenModal(false);
+      handleFormSubmit(`${t('vulnerabilities.network_scan_deleted_successfully')}`, 'success');
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(false); // Ensure snackbar is reset
+    setTimeout(() => {
+      setSnackbarOpen(true); // Show the snackbar after resetting it
+    }, 0);
+    handleCloseDialog(); // Close the dialog after submission
+  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -237,7 +285,13 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
                 </TableHead>
                 <TableBody>
                   {networkScans.map((row: NetworkScanType) => (
-                    <Row key={row.id} row={row} onScanClick={onScanClick} navigate={navigate} />
+                    <Row
+                      key={row.id}
+                      row={row}
+                      onDeleteScan={() => handleDeleteClick(row)}
+                      onScanClick={onScanClick}
+                      navigate={navigate}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -250,6 +304,19 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
               page={currentPage - 1}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handlePageSizeChange}
+            />
+
+            {snackbarOpen && (
+              <SnackBarInfo
+                color={snackbarSeverity}
+                title="Operation Status"
+                message={snackbarMessage}
+              />
+            )}
+            <ConfirmDeleteModal
+              open={openModal}
+              handleClose={handleClose}
+              handleConfirm={handleConfirmDelete}
             />
           </>
         )}
