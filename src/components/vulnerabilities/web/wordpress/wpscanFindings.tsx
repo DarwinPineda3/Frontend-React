@@ -31,7 +31,7 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
               <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}</Typography></TableCell>
               <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
               {/* <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.references')}</Typography></TableCell> */}
-              <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.interesting_entries')}</Typography></TableCell>
+              {/* <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.interesting_entries')}</Typography></TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>

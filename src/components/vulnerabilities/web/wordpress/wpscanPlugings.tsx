@@ -10,13 +10,15 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 
 const WPSPlugins: React.FC<{ plugins_list: any[] }> = ({ plugins_list }) => {
   const { t } = useTranslation();
 
 
   return (
-    <Box>
+    <DashboardCard>
       <TableContainer>
         <Table aria-label="plugin version table">
           <TableHead>
@@ -60,14 +62,14 @@ const WPSPlugins: React.FC<{ plugins_list: any[] }> = ({ plugins_list }) => {
                   <Typography variant="body2">{plugin?.latest_version}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">{plugin?.last_updated}</Typography>
+                  <Typography variant="body2"><HumanizedDate dateString={plugin?.last_updated} /></Typography>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </DashboardCard>
   );
 };
 
