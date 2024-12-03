@@ -59,6 +59,7 @@ import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -112,6 +113,7 @@ const Router = [
 
       { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications />, roles: ['Admin', 'Scan360'] },
       { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications />, roles: ['Admin', 'Scan360'] },
+      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities', element: <WpVulDetail />, roles: ['Admin', 'Scan360'] },
       {
         path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId',
         element: <WordpressAplications />,

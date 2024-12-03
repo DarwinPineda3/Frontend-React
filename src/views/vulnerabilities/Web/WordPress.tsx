@@ -33,9 +33,9 @@ const WordpressAplications = () => {
   }, [scanId, vulnId, location]);
 
   // Handle navigating to an alert detail
-  const handleVulnClick = (vulnOd: string) => {
-    navigate(`/vulnerabilities/web/wordpress/${selectedScan}/vulnerabilities/${vulnOd}`);
-  };
+  // const handleVulnClick = (vulnOd: string) => {
+  //   navigate(`/vulnerabilities/web/wordpress/${selectedScan}/vulnerabilities/${vulnOd}`);
+  // };
 
   // Handle navigating to a scan detail
   const handleScanClick = (scanId: string) => {
@@ -80,7 +80,7 @@ const WordpressAplications = () => {
         // If an alert is selected, show alert detail
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <WpVulDetail scanId={selectedScan!} vulnId={selectedVulnerability!} />
+            {/* <WpVulDetail scanId={selectedScan!} vulnId={selectedVulnerability!} /> */}
           </Grid>
         </Grid>
       ) : (

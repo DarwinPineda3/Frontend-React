@@ -1,4 +1,3 @@
-import TranslateIcon from '@mui/icons-material/Translate';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Box,
@@ -15,10 +14,12 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
 const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
@@ -30,6 +31,12 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
   };
 
   const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  const handleViewDetails = (alert: any) => {
+    if (alert){
+      navigate(`/vulnerabilities/web/wordpress/${alert.id}/vulnerabilities`, { state: { alert } });
+    }
+  };
 
   return (
     <DashboardCard title={t('wpscan.interesting_findings_tittle')!}>
@@ -62,14 +69,14 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
                     <TableCell><Typography variant="body2">{alert.confidence}%</Typography></TableCell>
                     {/* <TableCell><Typography variant="body2">{alert.references}</Typography></TableCell> */} {/** view references in modal detail   */}
                     <TableCell>
-                      {alert.entries && (
+                      {alert && (
                         <Box display="flex" gap={1}>
                           <IconButton color="primary">
-                            <VisibilityIcon />
+                            <VisibilityIcon onClick={() => handleViewDetails(alert)} />
                           </IconButton>
-                          <IconButton color="primary">
+                          {/* <IconButton color="primary">
                             <TranslateIcon />
-                          </IconButton>
+                          </IconButton> */}
                         </Box>
                       )}
                     </TableCell>
