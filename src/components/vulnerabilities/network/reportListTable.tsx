@@ -175,46 +175,58 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {filteredAlerts.map((alert: NetworkScanReport) => (
-                      <TableRow key={alert.id}>
-                        <TableCell>
-                          <Typography
-                            color="primary"
-                            fontWeight={500}
-                            onClick={() => onAlertClick(alert.id)}
-                            style={{ cursor: 'pointer' }}
-                          >
-                            {alert.id}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <HumanizedDate dateString={alert.name} />
-                        </TableCell>
-                        <TableCell>
-                          <Typography>{alert.severity}</Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography>{alert.scan_run_status}</Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Tooltip title={t('vulnerabilities.download_report')}>
-                            <IconButton
+                    {filteredAlerts.length > 0 ? (
+                      filteredAlerts.map((alert: NetworkScanReport) => (
+                        <TableRow key={alert.id}>
+                          <TableCell>
+                            <Typography
                               color="primary"
-                              onClick={() =>
-                                handleDownloadClick('vulnerabilities-network', 'openvas', alert.id)
-                              }
+                              fontWeight={500}
+                              onClick={() => onAlertClick(alert.id)}
+                              style={{ cursor: 'pointer' }}
                             >
-                              <IconDownload />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip title={t('vulnerabilities.delete_report')}>
-                            <IconButton color="error" onClick={() => handleDeleteClick(alert)}>
-                              <IconTrash />
-                            </IconButton>
-                          </Tooltip>
+                              {alert.id}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <HumanizedDate dateString={alert.name} />
+                          </TableCell>
+                          <TableCell>
+                            <Typography>{alert.severity}</Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography>{alert.scan_run_status}</Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Tooltip title={t('vulnerabilities.download_report')}>
+                              <IconButton
+                                color="primary"
+                                onClick={() =>
+                                  handleDownloadClick(
+                                    'vulnerabilities-network',
+                                    'openvas',
+                                    alert.id,
+                                  )
+                                }
+                              >
+                                <IconDownload />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title={t('vulnerabilities.delete_report')}>
+                              <IconButton color="error" onClick={() => handleDeleteClick(alert)}>
+                                <IconTrash />
+                              </IconButton>
+                            </Tooltip>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={5} align="center">
+                          {t('vulnerabilities.no_data_available')}
                         </TableCell>
                       </TableRow>
-                    ))}
+                    )}
                   </TableBody>
                 </Table>
               </TableContainer>
