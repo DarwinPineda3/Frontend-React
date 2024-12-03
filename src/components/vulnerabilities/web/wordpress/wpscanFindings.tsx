@@ -35,7 +35,7 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {findings.map((alert, index) => (
+            {findings?.map((alert, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>

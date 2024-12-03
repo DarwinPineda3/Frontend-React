@@ -1,26 +1,25 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab';
 import {
-  Badge,
   Box,
-  Divider,
-  Grid,
-  Tab
+  Grid
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import ListIcon from '@mui/icons-material/List';
-import GlobeIcon from '@mui/icons-material/Public';
+// import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+// import ListIcon from '@mui/icons-material/List';
+// import GlobeIcon from '@mui/icons-material/Public';
 import { useParams } from 'react-router';
 import Loader from 'src/components/shared/Loader/Loader';
 import { fetchWPScanById } from 'src/store/vulnerabilities/web/WPScanSlice';
 import WPSFindings from './wpscanFindings';
 import WPSMainTheme from './wpscanMainTheme';
-import WPSOverview from './wpscanOverview';
+// import WPSOverview from './wpscanOverview';
 import WPSPlugins from './wpscanPlugings';
 import WpScanTopBar from './wpscanTopBar';
+// import WpScanTopCards from './wpScantopCards';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import WpScanTopCards from './wpScantopCards';
 
 
 const WpScanDetail: React.FC = () => {
@@ -47,51 +46,16 @@ const WpScanDetail: React.FC = () => {
     fetchData();
   }, [scanId, dispatch]);
 
-  const overviewdata = {
-    start_time: wpscan?.start_time,
-    start_memory: wpscan?.start_memory,
-    target_url: wpscan?.target_url,
-    target_ip: wpscan?.target_ip,
-    effective_url: wpscan?.effective_url,
-    version: wpscan?.version
-  }
+  const usersCount = wpscan?.users ? Object.keys(wpscan.users).length : 0;
 
-  const COMMON_TAB = [
-    {
-      value: 'overview',
-      icon: <GlobeIcon />,
-      label: t('wpscan.overview'),
-      disabled: false,
-      content: <WPSOverview overviewdata={overviewdata} />,
-    },
-    {
-      value: 'maintheme',
-      icon: <InsertDriveFileIcon />,
-      label: t('wpscan.main_theme'),
-      disabled: false,
-      content: <WPSMainTheme main_theme={wpscan?.main_theme} />,
-    },
-    {
-      value: 'findings',
-      icon: <ListIcon />,
-      label: t('wpscan.findings'),
-      disabled: false,
-      content: <WPSFindings findings={wpscan?.interesting_findings} />,
-    },
-    {
-      value: 'plugins',
-      icon: <ListIcon />,
-      label: t('wpscan.plugins'),
-      disabled: false,
-      content: <WPSPlugins plugins_list={wpscan?.plugins_list} />,
-    },
+  const wpscanData: { severity: 'critical' | 'high' | 'medium' | 'low'; value: string }[] = [
+    { severity: 'critical', value: wpscan?.count_vulnerabulities || 0 },
+    { severity: 'high', value: wpscan?.count_outdated_plugins || 0 },
+    { severity: 'medium', value: usersCount.toString() },
+    { severity: 'low', value: wpscan?.interesting_findings.length || 0 },
   ];
 
-  const [value, setValue] = React.useState('overview');
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
 
   if (isLoading) {
     return (
@@ -102,42 +66,26 @@ const WpScanDetail: React.FC = () => {
   }
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} lg={12}>
-        <TabContext value={value}>
-          <Box sx={{ p: 0 }}>
-            <WpScanTopBar status={wpscan?.version?.status} version={wpscan?.version?.number} site_url={wpscan?.target_url} effective_url={wpscan?.effective_url} />
-            <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
-              {COMMON_TAB.map((tab) => (
-                <Tab
-                  key={tab.value}
-                  icon={tab.icon}
-                  label={
-                    <>
-                      {tab.label}
-                      {tab.badge && (
-                        <Badge color="primary" variant="dot" sx={{ ml: 1 }}>
-                          {tab.badge}
-                        </Badge>
-                      )}
-                    </>
-                  }
-                  value={tab.value}
-                  disabled={tab.disabled}
-                  sx={{ mb: 1 }}
-                />
-              ))}
-            </TabList>
-          </Box>
-          <Divider />
-          <Box mt={2} sx={{ p: 0 }}>
-            {COMMON_TAB.map((panel) => (
-              <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
-                {panel.content}
-              </TabPanel>
-            ))}
-          </Box>
-        </TabContext>
+    <Grid container spacing={3}>
+      {/* Scan Metadata Section */}
+      <Grid item xs={12} xl={12}>
+        <WpScanTopCards data={wpscanData} />
+      </Grid>
+      <Grid item xs={12} xl={6}>
+        <DashboardCard>
+          <WPSPlugins plugins_list={wpscan?.plugins_list} />
+        </DashboardCard>
+      </Grid>
+
+      <Grid item xs={12} xl={6}>
+        <WpScanTopBar status={wpscan?.version?.status} version={wpscan?.version?.number} site_url={wpscan?.target_url} effective_url={wpscan?.effective_url} />
+        <DashboardCard title={t('vulnerabilities.scan_details')!}>
+          <WPSMainTheme main_theme={wpscan?.main_theme} />
+        </DashboardCard>
+      </Grid>
+      {/* Alerts Table Section */}
+      <Grid item xs={12} xl={12}>
+        <WPSFindings findings={wpscan?.interesting_findings} />
       </Grid>
     </Grid>
   );
