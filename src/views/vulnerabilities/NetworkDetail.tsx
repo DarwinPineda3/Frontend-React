@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchNetworkScanDetail } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { Scan } from 'src/types/vulnerabilities/network/networkScansType';
@@ -178,35 +179,43 @@ const NetworkVulnerabilitiesDetail = () => {
 
       {/* Pestañas */}
       <Box mt={3}>
-        <TabContext value={value}>
-          <Box sx={{ p: 0 }}>
-            <TabList
-              onChange={handleChange}
-              aria-label="Tabs Cyber Guard"
-              variant="scrollable"
-              scrollButtons="auto"
-            >
-              {COMMON_TAB.map((tab) => (
-                <Tab
-                  key={tab.value}
-                  icon={tab.icon}
-                  label={<>{tab.label}</>}
-                  value={tab.value}
-                  disabled={tab.disabled}
-                  sx={{ mb: 1 }}
-                />
-              ))}
-            </TabList>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
           </Box>
-          <Divider />
-          <Box mt={2} sx={{ p: 0 }}>
-            {COMMON_TAB.map((panel) => (
-              <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
-                {panel.content}
-              </TabPanel>
-            ))}
-          </Box>
-        </TabContext>
+        ) : (
+          <>
+            <TabContext value={value}>
+              <Box sx={{ p: 0 }}>
+                <TabList
+                  onChange={handleChange}
+                  aria-label="Tabs Cyber Guard"
+                  variant="scrollable"
+                  scrollButtons="auto"
+                >
+                  {COMMON_TAB.map((tab) => (
+                    <Tab
+                      key={tab.value}
+                      icon={tab.icon}
+                      label={<>{tab.label}</>}
+                      value={tab.value}
+                      disabled={tab.disabled}
+                      sx={{ mb: 1 }}
+                    />
+                  ))}
+                </TabList>
+              </Box>
+              <Divider />
+              <Box mt={2} sx={{ p: 0 }}>
+                {COMMON_TAB.map((panel) => (
+                  <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
+                    {panel.content}
+                  </TabPanel>
+                ))}
+              </Box>
+            </TabContext>
+          </>
+        )}
       </Box>
     </PageContainer>
   );
