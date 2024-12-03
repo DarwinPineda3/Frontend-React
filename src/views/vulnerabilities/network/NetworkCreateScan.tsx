@@ -57,7 +57,7 @@ const NetworkCreateScan = () => {
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
             <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
-              {t('vulnerabilities.network_vulnerabilities.vulnerabilities')}
+              {t('vulnerabilities.vulnerabilities')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
               {t('vulnerabilities.network_vulnerabilities.network')}
