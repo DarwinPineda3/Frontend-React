@@ -31,7 +31,6 @@ const WpScanDetail: React.FC = () => {
   const isLoading = useSelector((state: any) => state.wpscanReducer.isLoading);
   const error = useSelector((state: any) => state.wpscanReducer.error);
 
-  console.log(scanId);
 
 
   React.useEffect(() => {
@@ -47,7 +46,6 @@ const WpScanDetail: React.FC = () => {
 
     fetchData();
   }, [scanId, dispatch]);
-  console.log(scanId);
 
   const overviewdata = {
     start_time: wpscan?.start_time,

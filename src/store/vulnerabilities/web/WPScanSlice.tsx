@@ -41,6 +41,9 @@ export const WPScanSlice = createSlice({
     addWPScan: (state, action) => {
       state.wpscans.push(action.payload);
     },
+    removeWPScan: (state, action) => {
+      state.wpscans = state.wpscans.filter(scan => scan.id !== action.payload);
+    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -54,7 +57,7 @@ export const WPScanSlice = createSlice({
   }
 });
 
-export const { getWPScans, getWPScan, addWPScan, setPage, setError, setLoading } = WPScanSlice.actions;
+export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError, setLoading } = WPScanSlice.actions;
 
 export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
   try {
@@ -97,5 +100,42 @@ export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) =>
   }
 };
 
+
+export const downloadWPScanReport = (id: string) => async () => {
+  try {
+    const response = await axios.get(`${API_URL}download?id=${id}`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    const fileName = `Vulnerabilities-web-wordpress_${id}_${new Date().toISOString().split('T')[0]}.json`;
+    link.setAttribute('download', fileName); 
+    document.body.appendChild(link);
+    link.click();
+
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  } catch (err: any) {
+    console.error('Error downloading report:', err);
+  }
+};
+
+export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) => {
+  dispatch(setLoading());
+  try {
+    const response = await axios.delete(`${API_URL}${wpscanId}`);
+
+    if (response.status === 200) {
+      dispatch(removeWPScan(wpscanId));
+    } else {
+      dispatch(setError('Failed to delete WPScan'));
+    }
+  } catch (err: any) {
+    console.error('Error deleting WPScan:', err);
+    dispatch(setError('Failed to delete WPScan'));
+  }
+};
 
 export default WPScanSlice.reducer;

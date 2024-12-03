@@ -22,8 +22,12 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchWPScans, setPage } from 'src/store/vulnerabilities/web/WPScanSlice';
+import { fetchWPScans, setPage, downloadWPScanReport, deleteWPScan } from 'src/store/vulnerabilities/web/WPScanSlice';
 import CreateWPScan from './wpscanCreate';
+
+import DownloadIcon from '@mui/icons-material/Download';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 interface ScanListTableProps {
   onScanClick: (scanId: string) => void;
@@ -66,14 +70,13 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     setOpenDialog(false);
   };
 
-  const handleDownload = (newsId: string) => {
-    // dispatch(downloadNewsletter(newsId, nameDownload));
-    console.log("descargar archivo");
+  const handleDownload = (id: string) => {
+    dispatch(downloadWPScanReport(id));
 
   };
 
   const handleDelete = (scanId: string) => {
-    console.log(`Deleting scan ${scanId}`);
+    dispatch(deleteWPScan(scanId));
   };
 
   const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warning' | 'error') => {
@@ -120,11 +123,11 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                           {t('wpscan.scan_type')}
                         </Typography>
                       </TableCell>
-                      {/* <TableCell>
+                      <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
                           {t('vulnerabilities.actions')}
                         </Typography>
-                      </TableCell> */}
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -148,14 +151,14 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                         <TableCell>
                           {scan.scan_type === 'scan_normal' ? 'Scan normal' : scan.scan_type === 'scan_deep' ? 'Scan deep' : 'Unknown scan type'}
                         </TableCell>
-                        {/* <TableCell>
+                        <TableCell>
                           <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
                             <DownloadIcon />
                           </IconButton>
                           <IconButton color="error" onClick={() => handleDelete(scan.id)}>
                             <DeleteIcon />
                           </IconButton>
-                        </TableCell> */}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
