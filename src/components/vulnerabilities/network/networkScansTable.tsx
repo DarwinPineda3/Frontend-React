@@ -27,6 +27,9 @@ import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
   fetchNetworkScans,
+  fetchResumeNetworkScan,
+  fetchRunNetworkScan,
+  fetchStopNetworkScan,
   removeNetworkScan,
   setPage,
   setPageSize,
@@ -37,23 +40,26 @@ import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansT
 const Row: React.FC<{
   row: any;
   onScanClick: (scanId: string) => void;
-  onDeleteScan: (scanId: string) => void;
+  onDeleteScan: (networkScan: NetworkScanType) => void;
+  onRunScan: (scanId: string) => void;
+  onStopScan: (scanId: string) => void;
+  onResumeScan: (scanId: string) => void;
   navigate: any;
-}> = ({ row, onScanClick, onDeleteScan, navigate }) => {
+}> = ({ row, onScanClick, onDeleteScan, onRunScan, onStopScan, onResumeScan, navigate }) => {
   const { t } = useTranslation();
   const handleActionClick = (action: string, scanId: number) => {
     switch (action) {
       case 'run':
-        // dispatch(startScan(scanId));
+        onRunScan(`${scanId}`);
         break;
       case 'stop':
-        // dispatch(stopScan(scanId));
+        onStopScan(`${scanId}`);
         break;
       case 'resume':
-        // dispatch(resumeScan(scanId));
+        onResumeScan(`${scanId}`);
         break;
       case 'delete':
-        onDeleteScan(`${scanId}`);
+        onDeleteScan(row);
         break;
       default:
         break;
@@ -113,7 +119,9 @@ const Row: React.FC<{
         </TableCell>
         <TableCell>
           <Typography variant="body2">
-            {row.status !== 'New' ? <HumanizedDate dateString={row.last_report} /> : ''}
+            {row.status !== 'New' && row.last_report ? (
+              <HumanizedDate dateString={row.last_report} />
+            ) : null}
           </Typography>
         </TableCell>
         <TableCell>
@@ -138,7 +146,7 @@ const Row: React.FC<{
             </>
           ) : null}
 
-          <IconButton color="error" onClick={() => handleActionClick('delete', row.id_elastic)}>
+          <IconButton color="error" onClick={() => handleActionClick('delete', row)}>
             <DeleteIcon />
           </IconButton>
         </TableCell>
@@ -232,6 +240,46 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
   const handleEditClick = () => {
     navigate('/vulnerabilities/network/scans/create');
   };
+
+  const handleRunScanClick = async (scanId: string) => {
+    try {
+      setIsLoading(true);
+      await dispatch(fetchRunNetworkScan(scanId));
+      handleFormSubmit(t('vulnerabilities.scan_started_successfully'), 'success');
+    } catch (error) {
+      handleFormSubmit(t('vulnerabilities.scan_failed'), 'error');
+    } finally {
+      setIsLoading(false);
+      dispatch(fetchNetworkScans(currentPage, pageSize));
+    }
+  };
+
+  const handleStopScanClick = async (scanId: string) => {
+    try {
+      setIsLoading(true);
+      await dispatch(fetchStopNetworkScan(scanId));
+      handleFormSubmit(t('vulnerabilities.scan_stopped_successfully'), 'success');
+    } catch (error) {
+      handleFormSubmit(t('vulnerabilities.scan_failed'), 'error');
+    } finally {
+      setIsLoading(false);
+      dispatch(fetchNetworkScans(currentPage, pageSize));
+    }
+  };
+
+  const handleResumeScanClick = async (scanId: string) => {
+    try {
+      setIsLoading(true);
+      await dispatch(fetchResumeNetworkScan(scanId));
+      handleFormSubmit(t('vulnerabilities.scan_resumed_successfully'), 'success');
+    } catch (error) {
+      handleFormSubmit(t('vulnerabilities.scan_failed'), 'error');
+    } finally {
+      setIsLoading(false);
+      dispatch(fetchNetworkScans(currentPage, pageSize));
+    }
+  };
+
   const addButton = (
     <IconButton color="primary" onClick={() => handleEditClick()}>
       <AddIcon />
@@ -284,15 +332,26 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {networkScans.map((row: NetworkScanType) => (
-                    <Row
-                      key={row.id}
-                      row={row}
-                      onDeleteScan={() => handleDeleteClick(row)}
-                      onScanClick={onScanClick}
-                      navigate={navigate}
-                    />
-                  ))}
+                  {networkScans.length > 0 ? (
+                    networkScans.map((row: NetworkScanType) => (
+                      <Row
+                        key={row.id}
+                        row={row}
+                        onDeleteScan={handleDeleteClick}
+                        onScanClick={onScanClick}
+                        onRunScan={handleRunScanClick}
+                        onStopScan={handleStopScanClick}
+                        onResumeScan={handleResumeScanClick}
+                        navigate={navigate}
+                      />
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} align="center">
+                        {t('vulnerabilities.no_data_available')}
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
