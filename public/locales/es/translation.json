@@ -105,7 +105,13 @@
     "actions": "Acciones",
     "edit": "Editar",
     "operation_status": "Estado de la Operación",
-    "create": "Crear"
+    "create": "Crear",
+    "delete": "Eliminar",
+    "delete_asset_confirmation": "Eliminar activo",
+    "are_you_sure_to_delete_asset": "¿Estás seguro de que deseas eliminar este activo?",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "asset_deleted_successfully": "Activo eliminado con éxito."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Tus escaneos programados que se ejecutan automáticamente",
