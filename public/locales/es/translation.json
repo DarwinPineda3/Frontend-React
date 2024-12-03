@@ -331,6 +331,11 @@
     "creation_time": "Tiempo de creación",
     "not_available": "No disponible",
     "network_scan_deleted_successfully": "El escaneo de red se ha eliminado correctamente",
+    "scan_started_successfully": "El escaneo de red se ha iniciado exitosamente",
+    "scan_stopped_successfully": "El escaneo de red se ha detenido exitosamente",
+    "scan_resumed_successfully": "El escaneo de red se ha reanudado con éxito",
+    "scan_failed": "Se produjo un error al ejecutar esta acción.",
+    "no_data_available": "No hay datos disponibles",
     "management": {
       "vulnerabilities": "Vulnerabilidades",
       "management": "Gestión",

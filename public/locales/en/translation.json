@@ -331,6 +331,11 @@
     "creation_time": "Creation Time",
     "not_available": "Not available",
     "network_scan_deleted_successfully": "Network scan has been successfully deleted",
+    "scan_started_successfully": "Network scan has been successfully started",
+    "scan_stopped_successfully": "Network scan has been successfully stopped",
+    "scan_resumed_successfully": "Network scanning has resumed successfully",
+    "scan_failed": "There was an error executing this action",
+    "no_data_available": "No data available",
     "management": {
       "vulnerabilities": "Vulnerabilities",
       "management": "Management",
