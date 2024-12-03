@@ -145,7 +145,7 @@ const HostResourceTable = () => {
                 </TableCell>
                 <TableCell>
                   <Chip
-                    label={t(host.firewallStatus === 'Active' ? 'active' : 'inactive').toUpperCase()}
+                    label={t(host.firewallStatus === 'Active' ? 'active' : 'inactive').capitalize()}
                     color={host.firewallStatus === 'Active' ? 'success' : 'error'}
                     icon={<span role="img" aria-label="firewall">🔥</span>}
                   />
