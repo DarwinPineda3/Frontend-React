@@ -1,8 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
+  Button,
   Dialog,
+  DialogActions,
   DialogContent,
+  DialogTitle,
   Grid,
   IconButton,
   Pagination,
@@ -22,11 +25,11 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchWPScans, setPage, downloadWPScanReport, deleteWPScan } from 'src/store/vulnerabilities/web/WPScanSlice';
+import { deleteWPScan, downloadWPScanReport, fetchWPScans, setPage } from 'src/store/vulnerabilities/web/WPScanSlice';
 import CreateWPScan from './wpscanCreate';
 
-import DownloadIcon from '@mui/icons-material/Download';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
 
 
 interface ScanListTableProps {
@@ -46,6 +49,8 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [wpScanToDelete, setWPScanToDelete] = useState<null | string>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -75,8 +80,26 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
 
   };
 
-  const handleDelete = (scanId: string) => {
-    dispatch(deleteWPScan(scanId));
+  const handleDelete = (id: string) => {
+    setWPScanToDelete(id);
+    setDeleteDialogOpen(true);
+    // dispatch(deleteWPScan(scanId));
+  };
+
+  const confirmDelete = () => {
+    if (wpScanToDelete !== null) {
+      dispatch(deleteWPScan(wpScanToDelete));
+      setSnackbarMessage(t("wpscan.wpscan_deleted_successfully") || '');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+    }
+    setDeleteDialogOpen(false);
+    setWPScanToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setWPScanToDelete(null);
   };
 
   const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warning' | 'error') => {
@@ -125,7 +148,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       </TableCell>
                       <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                          {t('vulnerabilities.actions')}
+                          {t('wpscan.actions')}
                         </Typography>
                       </TableCell>
                     </TableRow>
@@ -190,6 +213,21 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
         <DialogContent>
           <CreateWPScan onSubmit={handleFormSubmit} />
         </DialogContent>
+      </Dialog>
+
+      <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
+        <DialogTitle>{t("wpscan.delete_scan")}</DialogTitle>
+        <DialogContent>
+          <Typography>{t("wpscan.are_you_sure_you_want_to_delete_this_scan")}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancelDelete} color="info">
+            {t("wpscan.cancel")}
+          </Button>
+          <Button onClick={confirmDelete} color="primary" variant="contained">
+            {t("wpscan.confirm")}
+          </Button>
+        </DialogActions>
       </Dialog>
 
       {snackbarOpen && (

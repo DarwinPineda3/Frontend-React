@@ -991,7 +991,6 @@
     "forgot_password_link": "Forgot Password?",
     "sign_in_button": "Sign In",
     "invalid_credentials": "Invalid Credentials"
-
   },
   "account_settings": {
     "change_profile": "Change profile",
@@ -1073,6 +1072,12 @@
     "list_all_wordpress_scans": "List all WordPress scans",
     "scan_type": "Scan type",
     "operation_status": "Operation Status",
-    "date": "Date"
+    "date": "Date",
+    "wpscan_deleted_successfully": "Scan deleted successfully",
+    "actions": "Actions",
+    "delete_scan": "Delete scan",
+    "are_you_sure_you_want_to_delete_this_scan": "Are you sure you want to delete this scan?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }

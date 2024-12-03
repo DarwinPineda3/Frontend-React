@@ -1071,7 +1071,12 @@
     "list_all_wordpress_scans": "Listar todos los escaneos de WordPress",
     "scan_type": "Tipo de escaneo",
     "operation_status": "Estado de la Operación",
-    "date": "Fecha"
-    
+    "date": "Fecha",
+    "wpscan_deleted_successfully": "Escaneo eliminado exitosamente",
+    "actions": "Acciones",
+    "delete_scan": "Eliminar escaneo",
+    "are_you_sure_you_want_to_delete_this_scan": "¿Estás seguro de que deseas eliminar este escaneo?",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   }
 }
