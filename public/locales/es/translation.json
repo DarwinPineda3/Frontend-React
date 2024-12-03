@@ -330,6 +330,7 @@
     "qod": "Qod",
     "creation_time": "Tiempo de creación",
     "not_available": "No disponible",
+    "network_scan_deleted_successfully": "El escaneo de red se ha eliminado correctamente",
     "management": {
       "vulnerabilities": "Vulnerabilidades",
       "management": "Gestión",
