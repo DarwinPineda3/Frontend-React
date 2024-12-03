@@ -1078,6 +1078,7 @@
     "delete_scan": "Delete scan",
     "are_you_sure_you_want_to_delete_this_scan": "Are you sure you want to delete this scan?",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "no_vulnerabilities":"No vulnerabilities"
   }
 }
