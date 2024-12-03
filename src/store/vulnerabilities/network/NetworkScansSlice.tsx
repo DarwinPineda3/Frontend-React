@@ -394,4 +394,36 @@ export const downloadNetworkScanReport =
     }
   };
 
+export const fetchRunNetworkScan = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(`${getApiUrl()}/${scanId}/run-task/`);
+    return response.data;
+  } catch (err: any) {
+    console.error('Error Run Network Scan:', err);
+    dispatch(setError('Failed to Run Network Scan'));
+    throw err;
+  }
+};
+
+export const fetchStopNetworkScan = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(`${getApiUrl()}/${scanId}/stop-task/`);
+    return response.data;
+  } catch (err: any) {
+    console.error('Error Stop Network Scan:', err);
+    dispatch(setError('Failed to Stop Network Scan'));
+    throw err;
+  }
+};
+
+export const fetchResumeNetworkScan = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(`${getApiUrl()}/${scanId}/resume-task/`);
+    return response.data;
+  } catch (err: any) {
+    console.error('Error Resume Network Scan:', err);
+    dispatch(setError('Failed to Resume Network Scan'));
+    throw err;
+  }
+};
 export default NetworkScanSlice.reducer;
