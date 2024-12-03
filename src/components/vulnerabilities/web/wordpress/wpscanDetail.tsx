@@ -72,16 +72,13 @@ const WpScanDetail: React.FC = () => {
         <WpScanTopCards data={wpscanData} />
       </Grid>
       <Grid item xs={12} xl={6}>
-        <DashboardCard>
           <WPSPlugins plugins_list={wpscan?.plugins_list} />
-        </DashboardCard>
       </Grid>
 
       <Grid item xs={12} xl={6}>
         <WpScanTopBar status={wpscan?.version?.status} version={wpscan?.version?.number} site_url={wpscan?.target_url} effective_url={wpscan?.effective_url} />
-        <DashboardCard title={t('vulnerabilities.scan_details')!}>
+        
           <WPSMainTheme main_theme={wpscan?.main_theme} />
-        </DashboardCard>
       </Grid>
       {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
