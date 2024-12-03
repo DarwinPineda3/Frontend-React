@@ -17,12 +17,16 @@ import {
 import { IconDownload, IconSearch, IconTrash } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
+  downloadNetworkScanReport,
   fetchNetworkScansReports,
+  removeNetworkScanReport,
   setPage,
   setPageSize,
 } from 'src/store/vulnerabilities/network/NetworkScansSlice';
@@ -44,6 +48,15 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
   const totalPages = useSelector((state: any) => state.networkScanReducer.totalPages);
   const pageSize = useSelector((state: any) => state.networkScanReducer.pageSize);
   const [isLoading, setIsLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success'); // Snackbar severity
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [networkScanReporttoDelete, setNetworkScanReporttoDelete] =
+    useState<NetworkScanReport | null>(null);
+  const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -53,6 +66,49 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
     };
     fetchData();
   }, [dispatch, currentPage, pageSize, scanId]);
+
+  const handleDeleteClick = (networkScan: NetworkScanReport) => {
+    setNetworkScanReporttoDelete(networkScan);
+    setOpenModal(true);
+  };
+
+  const handleDownloadClick = (name_prefix: string, report_tool: string, idElastic: string) => {
+    try {
+      dispatch(downloadNetworkScanReport(name_prefix, report_tool, idElastic));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+    setNetworkScanReporttoDelete(null);
+  };
+  const handleConfirmDelete = () => {
+    if (networkScanReporttoDelete) {
+      dispatch(removeNetworkScanReport(networkScanReporttoDelete?.id!));
+      setNetworkScanReporttoDelete(null);
+      setOpenModal(false);
+      handleFormSubmit(`${t('vulnerabilities.network_scan_deleted_successfully')}`, 'success');
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(false); // Ensure snackbar is reset
+    setTimeout(() => {
+      setSnackbarOpen(true); // Show the snackbar after resetting it
+    }, 0);
+    handleCloseDialog(); // Close the dialog after submission
+  };
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -142,12 +198,17 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
                         </TableCell>
                         <TableCell>
                           <Tooltip title={t('vulnerabilities.download_report')}>
-                            <IconButton color="primary">
+                            <IconButton
+                              color="primary"
+                              onClick={() =>
+                                handleDownloadClick('vulnerabilities-network', 'openvas', alert.id)
+                              }
+                            >
                               <IconDownload />
                             </IconButton>
                           </Tooltip>
                           <Tooltip title={t('vulnerabilities.delete_report')}>
-                            <IconButton color="error">
+                            <IconButton color="error" onClick={() => handleDeleteClick(alert)}>
                               <IconTrash />
                             </IconButton>
                           </Tooltip>
@@ -165,6 +226,18 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
                 page={currentPage - 1}
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handlePageSizeChange}
+              />
+              {snackbarOpen && (
+                <SnackBarInfo
+                  color={snackbarSeverity}
+                  title="Operation Status"
+                  message={snackbarMessage}
+                />
+              )}
+              <ConfirmDeleteModal
+                open={openModal}
+                handleClose={handleClose}
+                handleConfirm={handleConfirmDelete}
               />
             </>
           )}
