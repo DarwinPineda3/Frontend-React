@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useEffect } from 'react';
+import Chart from 'react-apexcharts';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader'; // Loader component
 
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
-import { fetchAlertDistributionData } from 'src/store/sections/dashboard/AlertDistributionSlice';
-import { AppState } from 'src/store/Store';
-import { ApexOptions } from 'apexcharts';  // Correct type
+import { ApexOptions } from 'apexcharts'; // Correct type
 import { useTranslation } from 'react-i18next';
+import { fetchAlertDistributionData } from 'src/store/sections/dashboard/AlertDistributionSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store'; // Correct imports
 
 const AlertDistribution = () => {
   const dispatch = useDispatch();
-  
+
   const { t } = useTranslation();
-  
+
   const { loading, labels, series, error } = useSelector(
     (state: AppState) => state.dashboard.alertDistribution
   );
@@ -25,10 +24,10 @@ const AlertDistribution = () => {
   }, [dispatch]);
 
   const theme = useTheme();
-  const primary = theme.palette.primary.main;
-  const primarylight = theme.palette.primary.light;
-  const secondary = theme.palette.secondary.main;
-  const secondarylight = theme.palette.secondary.light;
+  const primary = theme.palette.level.critical;
+  const primarylight = theme.palette.level.high;
+  const secondary = theme.palette.level.medium;
+  const secondarylight = theme.palette.level.low;
   const warning = theme.palette.warning.main;
 
   const optionspiechart: ApexOptions = {
@@ -59,15 +58,15 @@ const AlertDistribution = () => {
     tooltip: {
       fillSeriesColor: false,
     },
-    labels: labels, 
+    labels: labels,
   };
 
   if (loading) {
     return (
       <DashboardCard>
-      <Box display="flex" justifyContent="center" mt={4} mb={4}>
-        <Loader />
-      </Box>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
       </DashboardCard>
 
     );
@@ -78,7 +77,7 @@ const AlertDistribution = () => {
   }
 
   return (
-    <DashboardCard title={t("dashboard.montly_distribution")??"montly_distribution"}>
+    <DashboardCard title={t("dashboard.montly_distribution") ?? "montly_distribution"}>
       <Chart options={optionspiechart} series={series} type="pie" height="300px" />
     </DashboardCard>
   );

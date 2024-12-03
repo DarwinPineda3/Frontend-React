@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
 import {
+  Box,
+  Chip,
+  LinearProgress,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
-  LinearProgress,
-  Chip,
-  TableContainer,
-  Box,
 } from '@mui/material';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { fetchHostData } from 'src/store/sections/dashboard/HostResourceSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchHostData } from 'src/store/sections/dashboard/HostResourceSlice';
-import { AppState } from 'src/store/Store';
-import { useTranslation } from 'react-i18next';
 
 const HostResourceTable = () => {
   const { t } = useTranslation();
@@ -146,7 +145,7 @@ const HostResourceTable = () => {
                 </TableCell>
                 <TableCell>
                   <Chip
-                    label={t(host.firewallStatus === 'Active' ? 'active' : 'inactive')}
+                    label={t(host.firewallStatus === 'Active' ? 'active' : 'inactive').toUpperCase()}
                     color={host.firewallStatus === 'Active' ? 'success' : 'error'}
                     icon={<span role="img" aria-label="firewall">🔥</span>}
                   />
