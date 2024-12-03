@@ -1,8 +1,9 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MaintenanceImg from 'src/assets/images/backgrounds/maintenance.svg';
 
-const Maintenance = () => (
+const Maintenance = () => {
+  let primaryColor = useTheme().palette.primary.main;
   <Box
     display="flex"
     flexDirection="column"
@@ -21,7 +22,12 @@ const Maintenance = () => (
         Go Back to Home
       </Button>
     </Container>
+    <Container maxWidth="md" sx={{ paddingTop: '10px' }}>
+      <Link to="/logout" style={{ color: primaryColor }}>
+        Logout
+      </Link>
+    </Container>
   </Box>
-);
+};
 
 export default Maintenance;
