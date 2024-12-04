@@ -5,12 +5,12 @@ import {
   Chip,
   IconButton,
   MenuItem,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -22,9 +22,10 @@ import { useTranslation } from 'react-i18next';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchSummaryVuln, setPage } from 'src/store/vulnerabilities/SummaryVulnSlice';
+import { fetchSummaryVuln, setPage, setPageSize } from 'src/store/vulnerabilities/SummaryVulnSlice';
 import CustomSelect from '../forms/theme-elements/CustomSelect';
 import DashboardCard from '../shared/DashboardCard';
+import Loader from '../shared/Loader/Loader';
 
 const SummaryVulnerabilitiesList = () => {
   const { t } = useTranslation();
@@ -32,11 +33,13 @@ const SummaryVulnerabilitiesList = () => {
   const summaryVuln = useSelector((state: any) => state.summaryVulnReducer.summaryVuln);
   const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
   const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.summaryVulnReducer.pageSize);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
   >('success'); // Snackbar severity
+  const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
   const criticalColor = theme.palette.level.critical;
   const highColor = theme.palette.level.high;
@@ -74,13 +77,28 @@ const SummaryVulnerabilitiesList = () => {
   };
 
   React.useEffect(() => {
-    dispatch(fetchSummaryVuln(currentPage));
-  }, [dispatch, currentPage]);
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchSummaryVuln(currentPage, pageSize));
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
   const [month, setMonth] = React.useState('1');
   const currentYear = new Date().getFullYear();
@@ -91,8 +109,8 @@ const SummaryVulnerabilitiesList = () => {
 
   return (
     <DashboardCard
-      title={t('summary.vulnerabilities_summary')}
-      subtitle={t('summary.vulnerabilities_summary_list')}
+      title={t('summary.vulnerabilities_summary')!}
+      subtitle={t('summary.vulnerabilities_summary_list')!}
       action={
         <CustomSelect
           labelId="month-dd"
@@ -111,149 +129,169 @@ const SummaryVulnerabilitiesList = () => {
         <Button variant="outlined" color="primary">
           {t('summary.managed_selected_vuulnerabilities')}
         </Button>
-        <TableContainer>
-          <Table aria-label="technology table" sx={{ whiteSpace: 'nowrap' }}>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.select')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.type')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.hosts')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.severity')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.name')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.date')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.tool')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.view_report')}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t('summary.ai_solution')}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {summaryVuln.map((vulnerability: any, index: number) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      name="allSelect"
-                      // onChange = {handleChange}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      <Chip
-                        label={getChipColor(_.lowerCase(vulnerability.type)).label}
-                        sx={{
-                          backgroundColor: getChipColor(_.lowerCase(vulnerability.type)).color,
-                          color: 'white',
-                        }}
-                      />
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {vulnerability.hosts}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      <Chip
-                        label={vulnerability.severity}
-                        sx={{
-                          backgroundColor: getChipColorSeverity(vulnerability.severity).color,
-                          color: 'white',
-                        }}
-                      />
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {vulnerability.name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      <HumanizedDate dateString={vulnerability.report_date} />
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                      {vulnerability.tool}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      href={vulnerability.report_url}
-                      target="_blank"
-                    >
-                      <IconEye />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      href={vulnerability.report_url}
-                      target="_blank"
-                    >
-                      <AutoAwesomeIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box my={3} display="flex" justifyContent={'center'}>
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
-        {snackbarOpen && (
-          <SnackBarInfo
-            color={snackbarSeverity}
-            title="Operation Status"
-            message={snackbarMessage}
-          />
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
+            <TableContainer>
+              <Table aria-label="technology table" sx={{ whiteSpace: 'nowrap' }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.select')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.type')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.hosts')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.severity')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.name')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.date')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.tool')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.view_report')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('summary.ai_solution')}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {summaryVuln.length > 0 ? (
+                    summaryVuln.map((vulnerability: any, index: number) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          <input
+                            type="checkbox"
+                            className="form-check-input"
+                            name="allSelect"
+                            // onChange = {handleChange}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            <Chip
+                              label={getChipColor(_.lowerCase(vulnerability.type)).label}
+                              sx={{
+                                backgroundColor: getChipColor(_.lowerCase(vulnerability.type))
+                                  .color,
+                                color: 'white',
+                              }}
+                            />
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            {vulnerability.hosts}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            <Chip
+                              label={vulnerability.severity}
+                              sx={{
+                                backgroundColor: getChipColorSeverity(vulnerability.severity).color,
+                                color: 'white',
+                              }}
+                            />
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            {vulnerability.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            <HumanizedDate dateString={vulnerability.report_date} />
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                            {vulnerability.tool}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            size="small"
+                            color="primary"
+                            href={vulnerability.report_url}
+                            target="_blank"
+                          >
+                            <IconEye />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            size="small"
+                            color="primary"
+                            href={vulnerability.report_url}
+                            target="_blank"
+                          >
+                            <AutoAwesomeIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={4}>
+                        <Typography color="textSecondary" variant="subtitle2" align="center">
+                          {t('vulnerabilities.no_data_available')}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
+            {snackbarOpen && (
+              <SnackBarInfo
+                color={snackbarSeverity}
+                title="Operation Status"
+                message={snackbarMessage}
+              />
+            )}
+          </>
         )}
       </Box>
     </DashboardCard>
