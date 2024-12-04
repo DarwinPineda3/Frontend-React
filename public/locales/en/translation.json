@@ -649,6 +649,7 @@
     "modified_date": "Modified Date",
     "pwn_count": "Pwn Count",
     "logo_path": "Logo Path",
+    "screenshot_url": "Screenshot URL",
     "data_classes": "Data Classes",
     "is_verified": "Is Verified",
     "is_fabricated": "Is Fabricated",
