@@ -49,7 +49,6 @@ const NewsletterDetail: React.FC<{ newsletterId: any }> = ({ newsletterId }) => 
             <Grid item xs={12} xl={12}>
               <Box display="flex" flexDirection="column" gap={2} mt={1}>
                 <iframe
-                  // src={newsletterDetails.content}
                   src={url}
                   style={{
                     overflow: 'hidden',
@@ -78,7 +77,7 @@ const NewsletterDetail: React.FC<{ newsletterId: any }> = ({ newsletterId }) => 
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t('newsletter.size')}
                   </Typography>
-                  <Typography variant="body2">{newsletterDetails?.size}</Typography>
+                  <Typography variant="body2">{Math.round(newsletterDetails?.size / 1024)} KB</Typography>
                 </Box>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
