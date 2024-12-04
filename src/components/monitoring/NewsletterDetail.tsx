@@ -30,6 +30,8 @@ const NewsletterDetail: React.FC<{ newsletterId: any }> = ({ newsletterId }) => 
     fetchData();
   }, [dispatch, newsletterId]);
 
+  const url= `https://drive.google.com/file/d/${newsletterDetails?.id}/preview`
+
   return (
     <>
       {isLoading ? (
@@ -48,7 +50,7 @@ const NewsletterDetail: React.FC<{ newsletterId: any }> = ({ newsletterId }) => 
               <Box display="flex" flexDirection="column" gap={2} mt={1}>
                 <iframe
                   // src={newsletterDetails.content}
-                  src={`https://drive.google.com/file/d/${newsletterDetails?.id}/preview`}
+                  src={url}
                   style={{
                     overflow: 'hidden',
                     height: 'calc(100vh - 20px)',
