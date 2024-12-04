@@ -5,12 +5,10 @@ import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import NewsletterDetail from 'src/components/monitoring/NewsletterDetail';
 import Loader from 'src/components/shared/Loader/Loader';
-import { useDispatch } from 'src/store/Store';
 
 const NewsletterDetails = () => {
   const { newsletterId } = useParams<{ newsletterId?: string }>();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (

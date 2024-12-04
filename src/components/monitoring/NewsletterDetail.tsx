@@ -44,7 +44,7 @@ const NewsletterDetail: React.FC<{ newsletterId: any }> = ({ newsletterId }) => 
       ) : (
         <DashboardCard
           title={newsletterDetails?.name}
-          subtitle={t('newsletter.newsletter_details')}>
+          subtitle={t('newsletter.newsletter_details') || ''}>
           <Box>
             <Grid item xs={12} xl={12}>
               <Box display="flex" flexDirection="column" gap={2} mt={1}>
