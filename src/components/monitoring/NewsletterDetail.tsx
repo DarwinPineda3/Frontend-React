@@ -30,7 +30,7 @@ const NewsletterDetail: React.FC<{ newsletterId: any }> = ({ newsletterId }) => 
     fetchData();
   }, [dispatch, newsletterId]);
 
-  const url= `https://drive.google.com/file/d/${newsletterDetails?.id}/preview`
+  const url= `https://drive.google.com/file/d/${newsletterId}/preview`
 
   return (
     <>
