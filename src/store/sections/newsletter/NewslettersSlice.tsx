@@ -75,7 +75,7 @@ export const fetchNewsletters =
 
 export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${id}`);
+    const response = await axios.get(`${getApiUrl()}${id}/`);
 
     if (response.status === 200) {
       dispatch(getNewsletterDetail({ data: response.data }));
