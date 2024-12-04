@@ -20,32 +20,32 @@ const cardConfig: Record<string, {
   critical: {
     icon: iconRed,
     title: 'critical',
-    bgcolor: 'primary',
+    bgcolor: 'level.critical',
     txtcolor: 'background.default',
   },
   high: {
     icon: iconOrange,
     title: 'high',
-    bgcolor: 'secondary',
+    bgcolor: 'level.high',
     txtcolor: 'background.default',
   },
   medium: {
     icon: iconTan,
     title: 'medium',
-    bgcolor: 'error',
-    txtcolor: 'error.main',
+    bgcolor: 'level.medium',
+    txtcolor: 'background.default',
   },
   low: {
     icon: iconYellow,
     title: 'low',
-    bgcolor: 'warning',
-    txtcolor: 'warning.main',
+    bgcolor: 'level.low',
+    txtcolor: 'background.default',
   },
   total: {
     icon: iconBlue,
     title: 'total_assets',
-    bgcolor: 'info',
-    txtcolor: 'info.main',
+    bgcolor: 'level.none',
+    txtcolor: 'background.default',
   },
 };
 
@@ -76,7 +76,7 @@ const TopCards = () => {
         const config = cardConfig[card.severity];
         return (
           <Grid item xs={6} sm={4} lg={2.4} key={i}>
-            <Box bgcolor={config.bgcolor + '.light'} textAlign="center">
+            <Box bgcolor={config.bgcolor} textAlign="center">
               <CardContent>
                 <img src={config.icon} width="50" />
                 <Typography color={config.txtcolor} mt={1} variant="subtitle1" fontWeight={600}>
