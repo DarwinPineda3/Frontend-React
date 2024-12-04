@@ -10,6 +10,7 @@ import './_mockApis';
 import App from './App';
 import i18n from './i18n';
 import { store } from './store/Store';
+import './utils/extensions';
 import Spinner from './views/spinner/Spinner';
 
 

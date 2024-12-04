@@ -618,6 +618,7 @@
     "modified_date": "Fecha de modificación",
     "pwn_count": "Cantidad de pwn",
     "logo_path": "Ruta del logo",
+    "screenshot_url": "URL de la captura de pantalla",
     "data_classes": "Clases de datos",
     "is_verified": "Está verificado",
     "is_fabricated": "Es fabricado",
