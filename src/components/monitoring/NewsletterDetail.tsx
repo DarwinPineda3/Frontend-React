@@ -14,14 +14,16 @@ const NewsletterDetail: React.FC<{ newsletterDetails: Data}> = ({ newsletterDeta
  
   return (
     <DashboardCard
-    title={newsletterDetails.name}
+    title={newsletterDetails?.name}
     subtitle={t('newsletter.newsletter_details')}
   >
     <Box>
       <Grid item xs={12} xl={12}>
-        {newsletterDetails.content ? (
+        {/* {newsletterDetails.content ? ( */}
+        {newsletterDetails ? (
           <iframe
-            src={newsletterDetails.content}
+            // src={newsletterDetails.content}
+            src={`https://drive.google.com/file/d/${newsletterDetails.id}/preview`}
             style={{
               overflow: 'hidden',
               height: 'calc(100vh - 20px)',
