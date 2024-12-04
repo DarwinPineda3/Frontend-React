@@ -70,17 +70,10 @@ const WordpressAplications = () => {
       </Box>
 
       {/* If a scan is selected and no alert is selected, show scan details */}
-      {selectedScan && !selectedVulnerability ? (
+      {selectedScan ? (
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <WpScanDetail />
-          </Grid>
-        </Grid>
-      ) : selectedVulnerability ? (
-        // If an alert is selected, show alert detail
-        <Grid container spacing={0}>
-          <Grid item xs={12}>
-            {/* <WpVulDetail scanId={selectedScan!} vulnId={selectedVulnerability!} /> */}
           </Grid>
         </Grid>
       ) : (

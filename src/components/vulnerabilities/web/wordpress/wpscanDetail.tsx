@@ -72,7 +72,7 @@ const WpScanDetail: React.FC = () => {
         <WpScanTopCards data={wpscanData} />
       </Grid>
       <Grid item xs={12} xl={6}>
-          <WPSPlugins plugins_list={wpscan?.plugins_list} />
+          <WPSPlugins plugins_list={wpscan?.plugins_list} scanId={scanId}/>
       </Grid>
 
       <Grid item xs={12} xl={6}>
@@ -82,7 +82,7 @@ const WpScanDetail: React.FC = () => {
       </Grid>
       {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
-        <WPSFindings findings={wpscan?.interesting_findings} />
+        <WPSFindings findings={wpscan?.interesting_findings} scanId={scanId} />
       </Grid>
     </Grid>
   );

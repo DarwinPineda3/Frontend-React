@@ -14,12 +14,11 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
+const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings, scanId }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
@@ -32,11 +31,11 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
 
   const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
-  const handleViewDetails = (alert: any) => {
-    if (alert){
-      navigate(`/vulnerabilities/web/wordpress/${alert.id}/vulnerabilities`, { state: { alert } });
-    }
-  };
+  // const handleViewDetails = (alert: any, scanId: any) => {
+  //   if (alert) {
+  //     navigate(`/vulnerabilities/web/wordpress/${scanId}/vulnerabilities`, { state: { alert } });
+  //   }
+  // };
 
   return (
     <DashboardCard title={t('wpscan.interesting_findings_tittle')!}>
@@ -72,7 +71,8 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings }) => {
                       {alert && (
                         <Box display="flex" gap={1}>
                           <IconButton color="primary">
-                            <VisibilityIcon onClick={() => handleViewDetails(alert)} />
+                            {/* <VisibilityIcon onClick={() => handleViewDetails(alert, scanId)} /> */}
+                            <VisibilityIcon />
                           </IconButton>
                           {/* <IconButton color="primary">
                             <TranslateIcon />
