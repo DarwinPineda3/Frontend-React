@@ -337,6 +337,7 @@
     "creation_time": "Tiempo de creación",
     "not_available": "No disponible",
     "network_scan_deleted_successfully": "El escaneo de red se ha eliminado correctamente",
+    "network_scan_report_deleted_successfully": "El reporte de escaneo de red se ha eliminado correctamente",
     "scan_started_successfully": "El escaneo de red se ha iniciado exitosamente",
     "scan_stopped_successfully": "El escaneo de red se ha detenido exitosamente",
     "scan_resumed_successfully": "El escaneo de red se ha reanudado con éxito",
