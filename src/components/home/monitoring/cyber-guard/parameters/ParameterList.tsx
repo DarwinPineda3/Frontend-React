@@ -5,12 +5,12 @@ import {
   Dialog,
   DialogContent,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -24,6 +24,7 @@ import {
   fetchParameters,
   removeParameter,
   setPage,
+  setPageSize,
 } from 'src/store/sections/cyber-guard/ParametersSlice';
 import { ParameterCyberGuardType } from 'src/types/cyber-guard/parameters/parameter';
 import DashboardCard from '../../../../shared/DashboardCard';
@@ -35,6 +36,7 @@ const ParameterList = () => {
   const parameters = useSelector((state: any) => state.parametersReducer.parameters);
   const currentPage = useSelector((state: any) => state.parametersReducer.page);
   const totalPages = useSelector((state: any) => state.parametersReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.parametersReducer.pageSize);
   const [editParameter, setEditParameter] = useState<null | any>(null); // State to hold the parameter being edited or created
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
@@ -68,16 +70,26 @@ const ParameterList = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchParameters(currentPage));
+      await dispatch(fetchParameters(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleEditClick = (parameter: any = null) => {
@@ -198,15 +210,16 @@ const ParameterList = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
 
-            <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box>
             {/* Edit/Create Parameter Dialog/Modal */}
             <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
               <DialogContent sx={{ padding: '50px' }}>

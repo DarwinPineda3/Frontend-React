@@ -93,7 +93,7 @@ export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispat
 // Async thunk for deleting an asset (DELETE)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}/${assetId}/`);
+    await axios.delete(`${getApiUrl()}${assetId}`);
     dispatch(deleteAsset(assetId));
   } catch (err: any) {
     console.error('Error deleting asset:', err);

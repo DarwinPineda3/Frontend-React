@@ -65,6 +65,11 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 const Login = Loadable(lazy(() => import('../views/authentication/auth/Login')));
 const Error = Loadable(lazy(() => import('../views/general/Error')));
 const Maintenance = Loadable(lazy(() => import('../views/general/Maintenance')));
+const Logout = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  return <Navigate to="/auth/login" />;
+};
 
 const Router = [
   {
@@ -215,6 +220,7 @@ const Router = [
     children: [
       { path: '/auth/login', element: <Login /> },
       { path: '/auth/signup', element: <Register /> },
+      { path: '/logout', element: <Logout /> },
       { path: '/404', element: <Error /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/reset-password', element: <ResetPassword /> },
@@ -222,5 +228,7 @@ const Router = [
   },
   { path: '*', element: <Navigate to="/404" /> },
 ];
+
+
 
 export default Router;

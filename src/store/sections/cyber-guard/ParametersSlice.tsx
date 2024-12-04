@@ -12,6 +12,7 @@ interface StateType {
   parameters: ParameterCyberGuardType[];
   page: number;
   totalPages: number;
+  pageSize: number;
   error: string | null;
 }
 
@@ -19,6 +20,7 @@ const initialState: StateType = {
   parameters: [],
   page: 1,
   totalPages: 1,
+  pageSize: 25,
   error: null,
 };
 
@@ -49,18 +51,28 @@ export const ParametersSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
-export const { getParameters, addParameter, updateParameter, deleteParameter, setPage, setError } =
-  ParametersSlice.actions;
+export const {
+  getParameters,
+  addParameter,
+  updateParameter,
+  deleteParameter,
+  setPage,
+  setPageSize,
+  setError,
+} = ParametersSlice.actions;
 
 // Async thunk for fetching parameters with pagination (READ)
 export const fetchParameters =
-  (page = 1) =>
+  (page = 1, pageSize = 25) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`${getApiUrl()}?page=${page}`);
+      const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
       const { results, page: currentPage, totalPages } = response.data;
       dispatch(getParameters({ results, page: currentPage, totalPages }));
     } catch (err: any) {
