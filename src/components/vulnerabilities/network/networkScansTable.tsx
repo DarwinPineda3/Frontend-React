@@ -186,12 +186,19 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
     setOpenModal(false);
     setNetworkScantoDelete(null);
   };
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (networkScantoDelete) {
-      dispatch(removeNetworkScan(networkScantoDelete?.id_elastic!));
-      setNetworkScantoDelete(null);
-      setOpenModal(false);
-      handleFormSubmit(`${t('vulnerabilities.network_scan_deleted_successfully')}`, 'success');
+      try {
+        await dispatch(removeNetworkScan(networkScantoDelete?.id_elastic!));
+        setNetworkScantoDelete(null);
+        setOpenModal(false);
+        handleFormSubmit(`${t('vulnerabilities.network_scan_deleted_successfully')}`, 'success');
+      } catch (error) {
+        console.error('Error deleting network scan:', error);
+        setNetworkScantoDelete(null);
+        setOpenModal(false);
+        handleFormSubmit(`${t('vulnerabilities.scan_failed')}`, 'error');
+      }
     }
   };
 
