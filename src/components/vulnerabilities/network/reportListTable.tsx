@@ -77,6 +77,7 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
       dispatch(downloadNetworkScanReport(name_prefix, report_tool, idElastic));
     } catch (error) {
       console.log(error);
+      handleFormSubmit(`${t('vulnerabilities.scan_failed')}`, 'error');
     }
   };
 
@@ -84,12 +85,22 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
     setOpenModal(false);
     setNetworkScanReporttoDelete(null);
   };
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (networkScanReporttoDelete) {
-      dispatch(removeNetworkScanReport(networkScanReporttoDelete?.id!));
-      setNetworkScanReporttoDelete(null);
-      setOpenModal(false);
-      handleFormSubmit(`${t('vulnerabilities.network_scan_deleted_successfully')}`, 'success');
+      try {
+        await dispatch(removeNetworkScanReport(networkScanReporttoDelete?.id!));
+        setNetworkScanReporttoDelete(null);
+        setOpenModal(false);
+        handleFormSubmit(
+          `${t('vulnerabilities.network_scan_report_deleted_successfully')}`,
+          'success',
+        );
+      } catch (error) {
+        console.error('Error deleting network scan report:', error);
+        setNetworkScanReporttoDelete(null);
+        setOpenModal(false);
+        handleFormSubmit(`${t('vulnerabilities.scan_failed')}`, 'error');
+      }
     }
   };
 
