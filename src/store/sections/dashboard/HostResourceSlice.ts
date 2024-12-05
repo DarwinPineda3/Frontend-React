@@ -1,10 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios'; // Correct import
 
+function getApiUrl() {
+  return `${getBaseApiUrl()}/dashbboard/cards/`;
+}
 // Async thunk to fetch host data
 export const fetchHostData = createAsyncThunk('hosts/fetchData', async () => {
-  const response = await axios.get('/api/hosts'); // Mock API endpoint
-  return response.data;
+  const response = await axios.get(`${getApiUrl()}`);
+  const results = response.data;
+  //@ts-ignore
+  const parsedData = results.assets.map((asset, index) => ({
+    id: index + 1,
+    hostName: asset.Hostname,
+    cpuUsage: asset.CpuInfo.CpuUsage,
+    ramUsage: asset.RamInfo.RamUsagePercentage,
+    storageUsage: asset.Storage.TotalUsagePercentage,
+    firewallStatus: asset.Firewall === "Running" ? "Active" : "Inactive",
+    lastUpdate: asset.Timestamp,
+  }));
+  return parsedData;
 });
 
 interface HostData {

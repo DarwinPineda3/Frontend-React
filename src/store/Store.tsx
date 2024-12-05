@@ -10,6 +10,7 @@ import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import RevenueUpdatesReducer from './sections/dashboard/RevenueUpdatesSlice';
+import SentimentsSumaryReducer from './sections/dashboard/SentimentHistorySlice';
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
 import TopVulneravilitesReducer from './sections/dashboard/TopVulnerabilitiesSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
@@ -25,11 +26,11 @@ import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 //vulnerabilities
+import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import TicketReducer from "./support/FreshTicketsSlice";
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
-import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 
 
 import {
@@ -49,6 +50,7 @@ const dashboardReducer = combineReducers({
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
+  sentimentsSumaryReducer: SentimentsSumaryReducer
 });
 
 export const store = configureStore({

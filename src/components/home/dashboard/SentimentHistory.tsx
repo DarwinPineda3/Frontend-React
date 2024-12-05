@@ -1,124 +1,138 @@
-import React from 'react';
-import Chart from 'react-apexcharts';
 import { useTheme } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import { ApexOptions } from 'apexcharts';
-import { AppState, useSelector } from 'src/store/Store';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchSentimentsData } from 'src/store/sections/dashboard/SentimentHistorySlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const SentimentRibbonChart: React.FC = () => {
-    const theme = useTheme();
-    const { t } = useTranslation();
+  const theme = useTheme();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-    
-    const customizer = useSelector((state: AppState) => state.customizer);
+  const { loading, data, error } = useSelector((state: AppState) => state.dashboard.sentimentsSumaryReducer);
 
-    // Mock data for sentiment levels over time to simulate a ribbon effect
-    const series = [
-        {
-            name: t('sentiments.no_expressed_feeling'),
-            data: [10, 15, 12, 20, 15, 10, 12, 8]
-        },
-        {
-            name: t('sentiments.very_dissatisfied'),
-            data: [5, 6, 4, 7, 5, 6, 4, 5]
-        },
-        {
-            name: t('sentiments.dissatisfied'),
-            data: [20, 18, 22, 25, 20, 18, 15, 20]
-        },
-        {
-            name: t('sentiments.neutral'),
-            data: [30, 32, 28, 35, 33, 31, 34, 30]
-        },
-        {
-            name: t('sentiments.satisfied'),
-            data: [18, 20, 22, 19, 18, 21, 22, 23]
-        },
-        {
-            name: t('sentiments.very_satisfied'),
-            data: [12, 10, 8, 13, 15, 12, 13, 14]
-        },
-    ];
+  const [series, setSeries] = useState<any[]>([]);  // State for chart series data
+  const [categories, setCategories] = useState<string[]>([]);  // State for x-axis categories
 
-    const options = {
-        chart: {
-            type: 'area',
-            stacked: true,
-            fontFamily: "'Plus Jakarta Sans', sans-serif",
-            toolbar: {
-                show: false,
-            },
-        },
-        xaxis: {
-            type: 'datetime',
-            categories: [
-                '2023-01-01', '2023-02-01', '2023-03-01', '2023-04-01',
-                '2023-05-01', '2023-06-01', '2023-07-01', '2023-08-01'
-            ],
-            labels: {
-                format: 'MMM yyyy',
-                style: {
-                    colors: theme.palette.text.primary,  // Set x-axis label color based on theme
-                },
-            },
-        },
-        yaxis: {
-            title: {
-                text: t('sentiments.count'),
-                style: {
-                    color: theme.palette.text.primary,  // Set y-axis title color based on theme
-                },
-            },
-            labels: {
-                style: {
-                    colors: theme.palette.text.primary,  // Set y-axis label color based on theme
-                },
-            },
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 0,
-        },
-        fill: {
-            type: 'solid',
-            opacity: 0.8,
-        },
-        colors: [
-            theme.palette.grey[400],
-            theme.palette.secondary.main,
-            theme.palette.error.main,
-            theme.palette.warning.main,
-            theme.palette.info.main,
-    
-            theme.palette.success.main,
-        ],
-        legend: {
-            show: true,
-            position: 'top',
-            horizontalAlign: 'center',
-            labels: {
-                colors: theme.palette.text.primary,  // Set legend text color based on theme
-            },
-        },
-        tooltip: {
-            shared: true,
-            intersect: false,
+  useEffect(() => {
+    dispatch(fetchSentimentsData());
+  }, [dispatch]);
 
-            theme: customizer.activeMode, 
-            y: {
-                formatter: function (val: number) {
-                    return `${val}`;
-                },
-            },
-        },
-    };
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      const sentimentData = {
+        "no_expressed_feeling": [],
+        "very_satisfied": [],
+        "very_dissatisfied": [],
+        "satisfied": [],
+        "dissatisfied": [],
+        "neutral": [],
+      };
+      const dates: string[] = [];
 
-    return (
-        <DashboardCard title={t('sentiments.sentiment_history')!}>
-            <Chart options={options} series={series} type="area" height={350} />
-        </DashboardCard>
-    );
+      // Populate sentimentData with the response
+      data.forEach((item: any) => {
+        dates.push(item.date);
+        Object.keys(sentimentData).forEach((sentiment) => {
+          //@ts-ignore
+          sentimentData[sentiment].push(item.sentiments[sentiment] || 0);  // Default to 0 if sentiment is missing
+        });
+      });
+
+      setCategories(dates);
+      setSeries([
+        { name: t('sentiments.no_expressed_feeling'), data: sentimentData["no_expressed_feeling"] },
+        { name: t('sentiments.very_satisfied'), data: sentimentData["very_satisfied"] },
+        { name: t('sentiments.very_dissatisfied'), data: sentimentData["very_dissatisfied"] },
+        { name: t('sentiments.satisfied'), data: sentimentData["satisfied"] },
+        { name: t('sentiments.dissatisfied'), data: sentimentData["dissatisfied"] },
+        { name: t('sentiments.neutral'), data: sentimentData["neutral"] },
+      ]);
+    }
+  }, [data, t]);
+
+  const customizer = useSelector((state: AppState) => state.customizer);
+
+  const options = {
+    chart: {
+      type: 'area',
+      stacked: true,
+      fontFamily: "'Plus Jakarta Sans', sans-serif",
+      toolbar: {
+        show: false,
+      },
+    },
+    xaxis: {
+      type: 'category',
+      categories: categories,
+      labels: {
+        format: 'MMM dd', // Or customize the format based on the date
+        style: {
+          colors: theme.palette.text.primary,
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: t('sentiments.count'),
+        style: {
+          color: theme.palette.text.primary,
+        },
+      },
+      labels: {
+        style: {
+          colors: theme.palette.text.primary,
+        },
+      },
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 0,
+    },
+    fill: {
+      type: 'solid',
+      opacity: 0.8,
+    },
+    colors: [
+      theme.palette.grey[400],
+      theme.palette.secondary.main,
+      theme.palette.error.main,
+      theme.palette.warning.main,
+      theme.palette.info.main,
+      theme.palette.success.main,
+    ],
+    legend: {
+      show: true,
+      position: 'top',
+      horizontalAlign: 'center',
+      labels: {
+        colors: theme.palette.text.primary,
+      },
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+      theme: customizer.activeMode,
+      y: {
+        formatter: function (val: number) {
+          return `${val}`;
+        },
+      },
+    },
+  };
+
+  if (loading) return <Loader />;  // Custom loader component
+  if (error) return <></>;  // Custom error component
+
+  return (
+    <DashboardCard title={t('sentiments.sentiment_history')!}>
+      <Chart options={options} series={series} type="area" height={350} />
+    </DashboardCard>
+  );
 };
 
 export default SentimentRibbonChart;
