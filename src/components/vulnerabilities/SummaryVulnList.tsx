@@ -1,10 +1,12 @@
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import {
+  Alert,
   Box,
   Button,
   Chip,
   IconButton,
   MenuItem,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -20,9 +22,10 @@ import _ from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
+import { createVulnerabilities } from 'src/store/vulnerabilities/ManagementVulnSlice';
 import { fetchSummaryVuln, setPage, setPageSize } from 'src/store/vulnerabilities/SummaryVulnSlice';
+import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
 import CustomSelect from '../forms/theme-elements/CustomSelect';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
@@ -34,6 +37,10 @@ const SummaryVulnerabilitiesList = () => {
   const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
   const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
   const pageSize = useSelector((state: any) => state.summaryVulnReducer.pageSize);
+  const [selectedVulnerabilities, setSelectedVulnerabilities] = useState<
+    managementVulnerabilityType[]
+  >([]);
+  const [allSelected, setAllSelected] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -107,6 +114,68 @@ const SummaryVulnerabilitiesList = () => {
     setMonth(event.target.value);
   };
 
+  const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+    setAllSelected(isChecked);
+
+    if (isChecked) {
+      setSelectedVulnerabilities(summaryVuln);
+    } else {
+      setSelectedVulnerabilities([]);
+    }
+  };
+
+  const handleSelectionChange = (vulnerability: managementVulnerabilityType) => {
+    setSelectedVulnerabilities((prev) => {
+      const exists = prev.find((v) => v.id === vulnerability.id);
+      if (exists) {
+        return prev.filter((v) => v.id !== vulnerability.id);
+      }
+      return [...prev, vulnerability];
+    });
+  };
+
+  const handleCreateVulnerabilities = async () => {
+    if (selectedVulnerabilities.length === 0) {
+      setSnackbarMessage(t('vulnerabilities.management.select_vulnerabilities')!);
+      setSnackbarSeverity('warning');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    setSnackbarOpen(false);
+
+    try {
+      const response = await dispatch(createVulnerabilities(selectedVulnerabilities));
+      const { managed = [], saved_correctly = [] } = response || {};
+      let message = '';
+      let severity: 'success' | 'warning' | 'error' = 'success';
+
+      if (managed?.length) {
+        message += `${t('vulnerabilities.management.already_managed')}: ${managed.join(', ')}. `;
+        severity = 'warning';
+      }
+      if (saved_correctly?.length) {
+        message += `${t('vulnerabilities.management.managed_successfully')}: ${saved_correctly.join(
+          ', ',
+        )}. `;
+        severity = 'success';
+      }
+
+      if (!message) {
+        message = t('vulnerabilities.management.managed_failed')!;
+        severity = 'error';
+      }
+
+      setSnackbarMessage(message);
+      setSnackbarSeverity(severity);
+      setSnackbarOpen(true);
+    } catch (error: any) {
+      setSnackbarMessage(t('vulnerabilities.management.managed_failed')!);
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    }
+  };
   return (
     <DashboardCard
       title={t('summary.vulnerabilities_summary')!}
@@ -126,7 +195,7 @@ const SummaryVulnerabilitiesList = () => {
       }
     >
       <Box>
-        <Button variant="outlined" color="primary">
+        <Button variant="outlined" color="primary" onClick={handleCreateVulnerabilities}>
           {t('summary.managed_selected_vuulnerabilities')}
         </Button>
         {isLoading ? (
@@ -140,12 +209,10 @@ const SummaryVulnerabilitiesList = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      <Typography variant="subtitle2" fontWeight={600}>
-                        {t('summary.select')}
-                      </Typography>
+                      <input type="checkbox" checked={allSelected} onChange={handleSelectAll} />
                     </TableCell>
                     <TableCell>
-                      <Typography variant="subtitle2" fontWeight={600}>
+                      <Typography variant="subtitle2" sx={{ textAlign: 'center' }} fontWeight={600}>
                         {t('summary.type')}
                       </Typography>
                     </TableCell>
@@ -155,7 +222,7 @@ const SummaryVulnerabilitiesList = () => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="subtitle2" fontWeight={600}>
+                      <Typography variant="subtitle2" sx={{ textAlign: 'center' }} fontWeight={600}>
                         {t('summary.severity')}
                       </Typography>
                     </TableCell>
@@ -193,12 +260,11 @@ const SummaryVulnerabilitiesList = () => {
                         <TableCell>
                           <input
                             type="checkbox"
-                            className="form-check-input"
-                            name="allSelect"
-                            // onChange = {handleChange}
+                            checked={selectedVulnerabilities.some((v) => v.id === vulnerability.id)}
+                            onChange={() => handleSelectionChange(vulnerability)}
                           />
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: 'center' }}>
                           <Typography variant="subtitle2" fontWeight={600}>
                             <Chip
                               label={getChipColor(_.lowerCase(vulnerability.type)).label}
@@ -216,7 +282,11 @@ const SummaryVulnerabilitiesList = () => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{ textAlign: 'center' }}
+                            fontWeight={600}
+                          >
                             <Chip
                               label={vulnerability.severity}
                               sx={{
@@ -284,13 +354,20 @@ const SummaryVulnerabilitiesList = () => {
               onPageChange={handlePageChange}
               onRowsPerPageChange={handlePageSizeChange}
             />
-            {snackbarOpen && (
-              <SnackBarInfo
-                color={snackbarSeverity}
-                title="Operation Status"
-                message={snackbarMessage}
-              />
-            )}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {snackbarOpen && (
+                <Snackbar
+                  open={snackbarOpen}
+                  autoHideDuration={6000}
+                  onClose={() => setSnackbarOpen(false)}
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                >
+                  <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity}>
+                    {snackbarMessage}
+                  </Alert>
+                </Snackbar>
+              )}
+            </Box>
           </>
         )}
       </Box>
