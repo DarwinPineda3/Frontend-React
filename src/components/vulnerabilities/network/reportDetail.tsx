@@ -23,6 +23,7 @@ import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchNetworkScanReportDetail } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { NetworkScanReportDetail } from 'src/types/vulnerabilities/network/networkScansType';
+import { getSeverityColor } from 'src/utils/severityUtils';
 import ReportTopCards from './reportTopCards';
 
 interface ReportDetailProps {
@@ -84,11 +85,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
   const medium = theme.palette.level.medium;
   const high = theme.palette.level.high;
   const none = theme.palette.level.none;
-  const criticalColor = theme.palette.level.critical;
-  const highColor = theme.palette.level.high;
-  const mediumColor = theme.palette.level.medium;
-  const lowColor = theme.palette.level.low;
-  const noneColor = theme.palette.level.none;
   const { t } = useTranslation();
 
   const labels = networkScanReportDetail?.report_detail_chart_data?.labels || [];
@@ -149,20 +145,6 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
 
   const handleClickOpen = (vulnerabilityId: string) => {
     onClickVulnerability(vulnerabilityId);
-  };
-
-  const getChipColorSeverity = (severity: number) => {
-    if (severity > 9.0) {
-      return { color: criticalColor };
-    } else if (severity > 7.0) {
-      return { color: highColor };
-    } else if (severity > 4.0) {
-      return { color: mediumColor };
-    } else if (severity > 0) {
-      return { color: lowColor };
-    } else {
-      return { color: noneColor };
-    }
   };
 
   const handleChangePageHosts = (event: unknown, newPage: number) => {
@@ -449,7 +431,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                                 <Chip
                                   label={portInfo.port.severity}
                                   sx={{
-                                    backgroundColor: getChipColorSeverity(portInfo.port.severity)
+                                    backgroundColor: getSeverityColor(portInfo.port.severity, theme)
                                       .color,
                                     color: 'white',
                                   }}
@@ -524,8 +506,9 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                                 <Chip
                                   label={vulnerability.result.severity}
                                   sx={{
-                                    backgroundColor: getChipColorSeverity(
+                                    backgroundColor: getSeverityColor(
                                       vulnerability.result.severity,
+                                      theme,
                                     ).color,
                                     color: 'white',
                                   }}
