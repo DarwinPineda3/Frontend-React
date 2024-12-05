@@ -16,7 +16,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
@@ -177,6 +177,12 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
 
+  useEffect(() => {
+    if (snackbarMessage && snackbarSeverity) {
+      setSnackbarOpen(true); // Show the snackbar after the message and severity have been updated
+    }
+  }, [snackbarMessage, snackbarSeverity]);
+
   const handleDeleteClick = (networkScan: NetworkScanType) => {
     setNetworkScantoDelete(networkScan);
     setOpenModal(true);
@@ -212,10 +218,7 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
   ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false); // Ensure snackbar is reset
-    setTimeout(() => {
-      setSnackbarOpen(true); // Show the snackbar after resetting it
-    }, 0);
+    setSnackbarOpen(false); // Reset snackbar visibility
     handleCloseDialog(); // Close the dialog after submission
   };
 

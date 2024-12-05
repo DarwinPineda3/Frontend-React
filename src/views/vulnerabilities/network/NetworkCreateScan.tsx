@@ -35,7 +35,10 @@ const NetworkCreateScan = () => {
 
   useEffect(() => {
     dispatch(fetchNetworkScanCreate());
-  }, [dispatch]);
+    if (snackbarMessage && snackbarSeverity) {
+      setSnackbarOpen(true);
+    }
+  }, [dispatch, snackbarMessage, snackbarSeverity]);
 
   const handleFormSubmit = (
     message: string,
@@ -44,9 +47,6 @@ const NetworkCreateScan = () => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(false);
-    setTimeout(() => {
-      setSnackbarOpen(true);
-    }, 0);
   };
   return (
     <PageContainer title="Akila">
