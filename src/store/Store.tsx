@@ -10,6 +10,7 @@ import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import RevenueUpdatesReducer from './sections/dashboard/RevenueUpdatesSlice';
+import SentimentsSumaryReducer from './sections/dashboard/SentimentHistorySlice';
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
 import TopVulneravilitesReducer from './sections/dashboard/TopVulnerabilitiesSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
@@ -49,6 +50,7 @@ const dashboardReducer = combineReducers({
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
+  sentimentsSumaryReducer: SentimentsSumaryReducer
 });
 
 export const store = configureStore({

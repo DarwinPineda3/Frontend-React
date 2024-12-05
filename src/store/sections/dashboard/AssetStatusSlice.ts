@@ -1,10 +1,27 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios'; // Correct import
 
+function getApiUrl() {
+  return `${getBaseApiUrl()}/dashbboard/cards/`;
+}
 // Async thunk to fetch asset status data
 export const fetchAssetStatusData = createAsyncThunk('assetStatus/fetchData', async () => {
-  const response = await axios.get('/api/asset-status'); // Mock API endpoint
-  return response.data;
+  const response = await axios.get(`${getApiUrl()}`);
+  const incomingData = response.data;
+  const parsedData = {
+    connectedAssets: {
+      title: 'Connected Assets',
+      subtitle: '',
+      amount: incomingData.assets_counts.assets_online_count,
+    },
+    disconnectedAssets: {
+      title: 'Disconnected Assets',
+      subtitle: '',
+      amount: incomingData.assets_counts.assets_offline_count,
+    },
+  };
+  return parsedData;
 });
 
 interface AssetStat {
