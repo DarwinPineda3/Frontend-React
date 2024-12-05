@@ -413,7 +413,7 @@
       "scan_target": "Objetivo del escaneo",
       "scan_config": "Configuración del escaneo",
       "create_scan": "Crear escaneo",
-      "you_can_create_an_asset": "Puedes crear un activo(Objetivo)",
+      "you_can_create_an_asset": "Puedes crear un activo (Objetivo)",
       "here": "aquí",
       "network_scan_create_successfully": "Escaneo de red creado exitosamente",
       "network_scan_create_failed": "Error al crear el escaneo de red",

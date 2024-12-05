@@ -413,7 +413,7 @@
       "scan_target": "Scan Target",
       "scan_config": "Scan Config",
       "create_scan": "Create Scan",
-      "you_can_create_an_asset": "You can create an asset(Target)",
+      "you_can_create_an_asset": "You can create an asset (Target)",
       "here": "here",
       "network_scan_create_successfully": "Network scan create successfully",
       "network_scan_create_failed": "Failed to create the network scan",
