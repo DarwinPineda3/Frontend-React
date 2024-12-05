@@ -27,11 +27,11 @@ import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 //vulnerabilities
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
-import TicketReducer from "./support/FreshTicketsSlice";
+import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
-import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
-
+import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
+import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
 
 import {
   TypedUseSelectorHook,
@@ -71,6 +71,7 @@ export const store = configureStore({
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
+    networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
   },
 });
@@ -92,11 +93,12 @@ const rootReducer = combineReducers({
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
+  networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const { } = store;
+export const {} = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;
