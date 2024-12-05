@@ -325,7 +325,7 @@
     "target": "Target",
     "scanner": "Scanner",
     "overview": "Overview",
-    "Order_for_target_hosts": "Order for target hosts",
+    "order_for_target_hosts": "Order for target hosts",
     "breadcrumb_reportes": "Scan Reports",
     "breadcrumb_vulnerabilidad": "Vulnerability",
     "wordpress_scans": "WordPress Scans",

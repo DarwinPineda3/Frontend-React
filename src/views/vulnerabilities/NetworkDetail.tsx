@@ -106,7 +106,7 @@ const NetworkVulnerabilitiesDetail = () => {
             </Box>
             <Box display={'flex'} mt={2}>
               <Typography color="textPrimary">
-                {t('vulnerabilities.Order_for_target_hosts')}{' '}
+                {t('vulnerabilities.order_for_target_hosts')}{' '}
               </Typography>
               <Typography color="textPrimary">: {scanner?.hosts_ordering || 'NA'}</Typography>
             </Box>
