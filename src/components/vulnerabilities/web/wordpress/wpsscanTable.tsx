@@ -153,8 +153,8 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {wpscans.map((scan: any) => (
-                      <TableRow key={scan.id}>
+                    {wpscans.map((scan: any, index: any) => (
+                      <TableRow key={scan.id || index}>
                         <TableCell>
                           <Typography
                             variant="subtitle2"
