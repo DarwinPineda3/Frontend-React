@@ -1127,6 +1127,7 @@
     "confirmed_by": "Confirmed by",
     "results": "Results",
     "no_interesting_entries": "No interesting entries.",
-    "close": "Close"
+    "close": "Close",
+    "Scan_in_progress":"Scan in progress"
   }
 }

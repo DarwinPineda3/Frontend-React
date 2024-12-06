@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { fetchAssets } from 'src/store/sections/AssetsSlice';
@@ -32,6 +32,7 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
 
   const assets = useSelector((state: any) => state.assetsReducer.assets);
   const currentPage = useSelector((state: any) => state.assetsReducer.page);
+  const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +60,9 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
       };
 
       try {
+        setIsLoading(true);
         await dispatch(createWPScan(newWPScan));
+        setIsLoading(false);
         onSubmit(t('wpscan.scan_created_successfully'), 'success');
         resetForm();
       } catch (error: any) {
@@ -94,6 +97,7 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
 
   return (
     <Container maxWidth="sm">
+
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
           {t('wpscan.create_scan')}
@@ -162,6 +166,14 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
           </Button>
         </Box>
       </Box>
+      {isLoading && (
+        <SnackBarInfo
+          color='info'
+          title={t("wpscan.operation_status")}
+          message={t("wpscan.Scan_in_progress")}
+        />
+      )}
+
     </Container>
   );
 };

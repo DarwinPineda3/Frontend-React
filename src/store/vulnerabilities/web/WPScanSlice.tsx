@@ -95,7 +95,7 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
 
 export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post(API_URL, newWPScan);
+    const response = await axios.post(`${getApiUrl()}`, newWPScan);
 
     dispatch(addWPScan(response.data));
   } catch (err: any) {
@@ -107,7 +107,7 @@ export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) =>
 
 export const downloadWPScanReport = (id: string) => async () => {
   try {
-    const response = await axios.get(`${getApiUrl()}download?id=${id}`, {
+    const response = await axios.get(`${getApiUrl()}download/?id=${id}`, {
       responseType: 'blob',
     });
 
