@@ -111,6 +111,11 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
             onChange={(event, newValue) => {
               formik.setFieldValue('hosts', newValue ? newValue.id : '');
             }}
+            renderOption={(props, option) => (
+              <li {...props} key={option.id}>
+                {option.name}
+              </li>
+            )}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -134,12 +139,16 @@ const CreateWPScan: React.FC<CreateWPScanProps> = ({ onSubmit }) => {
             options={menuItems}
             getOptionLabel={(option) => option.label}
             value={
-              menuItems.find((item) => item.value === formik.values.config) ||
-              null
+              menuItems.find((item) => item.value === formik.values.config) || null
             }
             onChange={(event, newValue) => {
               formik.setFieldValue('config', newValue ? newValue.value : '');
             }}
+            renderOption={(props, option) => (
+              <li {...props} key={option.value}>
+                {option.label}
+              </li>
+            )}
             renderInput={(params) => (
               <TextField
                 {...params}
