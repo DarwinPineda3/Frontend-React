@@ -9,6 +9,8 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 const WPSMainTheme: React.FC<{ main_theme: any }> = (main_theme) => {
   const { t } = useTranslation();
 
+  const formatValue = (value: string | null | undefined) => value ?? 'N/A';
+
   return (
 
     <DashboardCard title={t('wpscan.scan_details')!}>
@@ -27,11 +29,11 @@ const WPSMainTheme: React.FC<{ main_theme: any }> = (main_theme) => {
         </Box>
         <Box>
           <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.last_version')}:</Typography>
-          <Typography variant="body2">{main_theme?.main_theme?.latest_version}</Typography>
+          <Typography variant="body2">{formatValue(main_theme?.main_theme?.latest_version)}</Typography>
         </Box>
         <Box>
           <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.last_update')}:</Typography>
-          <Typography variant="body2">{main_theme?.main_theme?.last_updated}</Typography>
+          <Typography variant="body2">{formatValue(main_theme?.main_theme?.last_updated)}</Typography>
         </Box>
         <Box>
           <Typography variant="subtitle2" fontWeight={600}>{t('wpscan.description')}:</Typography>

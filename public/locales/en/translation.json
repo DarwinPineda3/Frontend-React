@@ -1081,7 +1081,9 @@
     "confirm": "Confirm",
     "no_vulnerabilities":"No vulnerabilities",
     "scan_details": "Scan details",
-    "plugins_list": "Plugins list",
-    "interesting_findings_tittle": "Interesting findings"
+    "plugins_list": "Plugins",
+    "interesting_findings_tittle": "Interesting findings",
+    "backups": "Backups",
+    "users_tittle":"Users"
   }
 }

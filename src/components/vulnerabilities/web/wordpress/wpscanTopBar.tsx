@@ -10,14 +10,17 @@ const WpScanTopBar: React.FC<{status:string, version:string, site_url:string, ef
   const { t } = useTranslation();
 
   return (
-    <Breadcrumb title={site_url}>
-      <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
+    <Box mb={-2}>
+      <Breadcrumb title={site_url}>
+      <Box display="flex" flexWrap="wrap" gap={2} mt={3} >
         <Chip label={`${t('vulnerabilities.status')}: ${status}`} color="info" variant="filled" />
         <Chip label={`${t('vulnerabilities.version')}: ${version}`} color="secondary" variant="outlined" />
         {/* <Chip label={`${t('vulnerabilities.site_url')}: ${site_url}`} color="info" variant="outlined" /> */}
         <Chip label={`${t('vulnerabilities.effective_url')}: ${effective_url}`} color="warning" variant="outlined" />
       </Box>
     </Breadcrumb>
+    </Box>
+    
 
   );
 };

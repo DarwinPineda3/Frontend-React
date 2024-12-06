@@ -16,26 +16,22 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings, scanId }) => {
+const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings = [], scanId }) => {
   const { t } = useTranslation();
   // const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 10;
 
-  const totalPages = Math.ceil(findings?.length / rowsPerPage);
+  // const totalPages = Math.ceil(findings?.length / rowsPerPage);
+  // const totalPages = Math.max(1, Math.ceil(findings?.length / rowsPerPage));
+  const totalPages = Math.ceil((findings?.length || 0) / rowsPerPage);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
 
   const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-
-  // const handleViewDetails = (alert: any, scanId: any) => {
-  //   if (alert) {
-  //     navigate(`/vulnerabilities/web/wordpress/${scanId}/vulnerabilities`, { state: { alert } });
-  //   }
-  // };
 
   return (
     <DashboardCard title={t('wpscan.interesting_findings_tittle')!}>
@@ -50,8 +46,7 @@ const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings, sca
                   <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.type')}</Typography></TableCell>
                   <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}</Typography></TableCell>
                   <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
-                  {/* <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.references')}</Typography></TableCell> */}
-                  {/* <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.interesting_entries')}</Typography></TableCell> */}
+                  
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -66,7 +61,6 @@ const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings, sca
                     <TableCell><Typography variant="body2">{alert.type}</Typography></TableCell>
                     <TableCell><Typography variant="body2">{alert.found_by}</Typography></TableCell>
                     <TableCell><Typography variant="body2">{alert.confidence}%</Typography></TableCell>
-                    {/* <TableCell><Typography variant="body2">{alert.references}</Typography></TableCell> */} {/** view references in modal detail   */}
                     <TableCell>
                       {alert && (
                         <Box display="flex" gap={1}>

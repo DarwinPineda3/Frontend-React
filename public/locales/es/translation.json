@@ -1079,7 +1079,9 @@
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "scan_details": "Detalles del escaneo",
-    "plugins_list": "Lista de plugins",
-    "interesting_findings_tittle": "Hallazgos interesantes"
+    "plugins_list": "Plugins",
+    "interesting_findings_tittle": "Hallazgos interesantes",
+    "backups": "Copias de seguridad",
+    "users_tittle": "Usuarios"
   }
 }
