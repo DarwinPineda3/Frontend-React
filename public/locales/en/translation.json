@@ -1128,6 +1128,7 @@
     "results": "Results",
     "no_interesting_entries": "No interesting entries.",
     "close": "Close",
-    "Scan_in_progress":"Scan in progress"
+    "scan_in_progress":"Scan in progress",
+    "error_msg": "The scan could not be created. Please check the asset configuration."
   }
 }

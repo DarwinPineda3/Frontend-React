@@ -19,7 +19,6 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
@@ -210,7 +209,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
 
       <Dialog open={openDialog} onClose={handleCloseModal} maxWidth="sm" fullWidth aria-labelledby="create-wpscan-dialog-title">
         <DialogContent>
-          <CreateWPScan onSubmit={handleFormSubmit} />
+        <CreateWPScan onSubmit={handleFormSubmit} />
         </DialogContent>
       </Dialog>
 
@@ -231,10 +230,12 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
 
       {snackbarOpen && (
         <SnackBarInfo
-          color={snackbarSeverity}
-          title={t("wpscan.operation_status")}
-          message={snackbarMessage}
-        />
+        open={snackbarOpen}
+        color={snackbarSeverity}
+        title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
+        message={snackbarMessage}
+        onClose={() => setSnackbarOpen(false)}
+      />
       )}
     </DashboardCard>
   );

@@ -93,14 +93,32 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
 };
 
 
-export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post(`${getApiUrl()}`, newWPScan);
+// export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
+//   try {
+//     const response = await axios.post(`${getApiUrl()}`, newWPScan);
 
+//     dispatch(addWPScan(response.data));
+//   } catch (err: any) {
+//     console.error('Error creating WPScan:', err);
+//     dispatch(setError('Failed to create WPScan'));
+//   }
+// };
+
+export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
+  let response = null
+  try {
+    response = await axios.post(`${getApiUrl()}`, newWPScan);
+    console.log(response.status);
+    
     dispatch(addWPScan(response.data));
-  } catch (err: any) {
-    console.error('Error creating WPScan:', err);
-    dispatch(setError('Failed to create WPScan'));
+    return response.data;
+  } catch (error: any) {
+    const errorMessage =
+      error.response?.data?.error || "Failed to create WPScan.";
+      response = {error: "Failed to create WPScan."}
+      console.error(errorMessage);
+      // throw new Error(errorMessage);
+      return response
   }
 };
 
