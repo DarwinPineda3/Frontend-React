@@ -66,7 +66,7 @@ const WPSUsers: React.FC<{ users: any }> = ({ users}) => {
                                 {source}
                               </Typography>
                               <Typography variant="body2">
-                                {t('wpscan.confidence')}: {details.confidence}%
+                                {t('wpscan.confidence')}: {details?.confidence}%
                               </Typography>
                             </li>
                           ))}

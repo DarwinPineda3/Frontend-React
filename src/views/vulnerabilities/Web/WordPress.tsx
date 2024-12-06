@@ -6,18 +6,15 @@ import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-r
 import PageContainer from 'src/components/container/PageContainer';
 import WpScanDetail from 'src/components/vulnerabilities/web/wordpress/wpscanDetail';
 import WPScanListTable from 'src/components/vulnerabilities/web/wordpress/wpsscanTable';
-import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 
 const WordpressAplications = () => {
-  // Get params from the URL
   const { scanId, vulnerabilityId: vulnId } = useParams<{ scanId?: string, vulnerabilityId?: string }>();
   const navigate = useNavigate();
-  const location = useLocation();  // Tracks the current URL location
+  const location = useLocation();
 
   const [selectedScan, setSelectedScan] = useState<string | null>(null);
   const [selectedVulnerability, setSelectedVulnerability] = useState<string | null>(null);
 
-  // Synchronize state with URL parameters
   useEffect(() => {
     if (scanId) {
       setSelectedScan(scanId);
@@ -32,12 +29,6 @@ const WordpressAplications = () => {
     }
   }, [scanId, vulnId, location]);
 
-  // Handle navigating to an alert detail
-  // const handleVulnClick = (vulnOd: string) => {
-  //   navigate(`/vulnerabilities/web/wordpress/${selectedScan}/vulnerabilities/${vulnOd}`);
-  // };
-
-  // Handle navigating to a scan detail
   const handleScanClick = (scanId: string) => {
     navigate(`/vulnerabilities/web/wordpress/${scanId}`);
   };
@@ -69,7 +60,6 @@ const WordpressAplications = () => {
         </Box>
       </Box>
 
-      {/* If a scan is selected and no alert is selected, show scan details */}
       {selectedScan ? (
         <Grid container spacing={0}>
           <Grid item xs={12}>
@@ -77,7 +67,6 @@ const WordpressAplications = () => {
           </Grid>
         </Grid>
       ) : (
-        // Default view: show scan list
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <WPScanListTable onScanClick={handleScanClick} />

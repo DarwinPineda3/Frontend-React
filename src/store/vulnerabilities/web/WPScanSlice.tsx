@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTenant } from "src/guards/jwt/Jwt";
+import { getBaseApiUrl } from "src/guards/jwt/Jwt";
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
-const tenant = getTenant()
-const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-const API_URL = `${base_api_url}/api/wpscans/`;
+// const tenant = getTenant()
+// const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
+// const API_URL = `${base_api_url}/api/wpscans/`;
+
+function getApiUrl() {
+  return `${getBaseApiUrl()}/wpscans/`;
+}
 interface StateType {
   wpscans: any[];
   wpscan: any | null;
@@ -61,7 +65,7 @@ export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError
 
 export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}`);
+    const response = await axios.get(`${getApiUrl()}`);
 
     const totalPages = Math.ceil(response.data.length / 10);
     dispatch(getWPScans({ wpscans: response.data, currentPage: page, totalPages }));
@@ -75,7 +79,7 @@ export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
 export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatch) => {
   dispatch(setLoading());
   try {
-    const response = await axios.get(`${API_URL}${wpscanId}/`);
+    const response = await axios.get(`${getApiUrl()}${wpscanId}/`);
 
     if (response.status === 200) {
       dispatch(getWPScan({ data: response.data }));
@@ -103,7 +107,7 @@ export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) =>
 
 export const downloadWPScanReport = (id: string) => async () => {
   try {
-    const response = await axios.get(`${API_URL}download?id=${id}`, {
+    const response = await axios.get(`${getApiUrl()}download?id=${id}`, {
       responseType: 'blob',
     });
 
@@ -111,7 +115,7 @@ export const downloadWPScanReport = (id: string) => async () => {
     const link = document.createElement('a');
     link.href = url;
     const fileName = `Vulnerabilities-web-wordpress_${id}_${new Date().toISOString().split('T')[0]}.json`;
-    link.setAttribute('download', fileName); 
+    link.setAttribute('download', fileName);
     document.body.appendChild(link);
     link.click();
 
@@ -125,7 +129,7 @@ export const downloadWPScanReport = (id: string) => async () => {
 export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) => {
   dispatch(setLoading());
   try {
-    const response = await axios.delete(`${API_URL}${wpscanId}`);
+    const response = await axios.delete(`${getApiUrl()}${wpscanId}`);
 
     if (response.status === 200) {
       dispatch(removeWPScan(wpscanId));

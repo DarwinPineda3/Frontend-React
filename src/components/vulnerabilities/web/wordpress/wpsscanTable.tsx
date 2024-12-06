@@ -39,7 +39,6 @@ interface ScanListTableProps {
 const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 

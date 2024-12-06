@@ -63,7 +63,6 @@ const WpScanDetail: React.FC = () => {
       label: t('wpscan.findings'),
       disabled: false,
       content: <WPSFindings findings={wpscan?.interesting_findings} />,
-      // shouldDisplay: wpscan?.interesting_findings && wpscan?.interesting_findings?.length > 0,
     },
     {
       value: 'backups',
@@ -71,9 +70,7 @@ const WpScanDetail: React.FC = () => {
       label: t('wpscan.backups'),
       disabled: false,
       content:
-        <WPSBackups backups={wpscan?.config_backups_list} />, //desbloquear antes de subir a la rama
-        // <WPSBackups backups={config_backups_list} />,
-      // shouldDisplay: wpscan?.config_backups_list && wpscan?.config_backups_list?.length > 0,
+        <WPSBackups backups={wpscan?.config_backups_list} />,
     },
     {
       value: 'users',
@@ -82,8 +79,6 @@ const WpScanDetail: React.FC = () => {
       disabled: false,
       content:
         <WPSUsers users={wpscan?.users} />,
-        // <WPSUsers users={users} />,
-        // shouldDisplay: Object.keys(wpscan?.users).length > 0,
     },
 
   ];

@@ -1123,6 +1123,8 @@
     "username": "Nombre de usuario",
     "id": "Id",
     "confirmed_by": "Confirmado por",
-    "results": "Resultados"
+    "results": "Resultados",
+    "no_interesting_entries": "No hay entradas interesantes.",
+    "close": "Cerrar"
   }
 }

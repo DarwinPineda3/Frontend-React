@@ -1125,6 +1125,8 @@
     "username": "Username",
     "id": "Id",
     "confirmed_by": "Confirmed by",
-    "results": "Results"
+    "results": "Results",
+    "no_interesting_entries": "No interesting entries.",
+    "close": "Close"
   }
 }
