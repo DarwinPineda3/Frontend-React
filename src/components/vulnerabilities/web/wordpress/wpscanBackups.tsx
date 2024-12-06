@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const WPSBackups: React.FC<{ backups: any[], scanId: any }> = ({ backups, scanId }) => {
+const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
   const { t } = useTranslation();
 
   const [currentPage, setCurrentPage] = useState(1);

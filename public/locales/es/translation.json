@@ -1082,6 +1082,10 @@
     "plugins_list": "Plugins",
     "interesting_findings_tittle": "Hallazgos interesantes",
     "backups": "Copias de seguridad",
-    "users_tittle": "Usuarios"
+    "users_tittle": "Usuarios",
+    "username": "Nombre de usuario",
+    "id": "Id",
+    "confirmed_by": "Confirmado por",
+    "results": "Resultados"
   }
 }

@@ -61,7 +61,7 @@ export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError
 
 export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(`${API_URL}`);
 
     const totalPages = Math.ceil(response.data.length / 10);
     dispatch(getWPScans({ wpscans: response.data, currentPage: page, totalPages }));

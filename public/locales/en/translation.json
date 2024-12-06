@@ -1079,11 +1079,15 @@
     "are_you_sure_you_want_to_delete_this_scan": "Are you sure you want to delete this scan?",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "no_vulnerabilities":"No vulnerabilities",
+    "no_vulnerabilities": "No vulnerabilities",
     "scan_details": "Scan details",
     "plugins_list": "Plugins",
     "interesting_findings_tittle": "Interesting findings",
     "backups": "Backups",
-    "users_tittle":"Users"
+    "users_tittle": "Users",
+    "username": "Username",
+    "id": "Id",
+    "confirmed_by": "Confirmed by",
+    "results": "Results"
   }
 }

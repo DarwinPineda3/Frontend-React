@@ -209,7 +209,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
       </Box>
 
 
-      <Dialog open={openDialog} onClose={handleCloseModal} maxWidth="sm" fullWidth>
+      <Dialog open={openDialog} onClose={handleCloseModal} maxWidth="sm" fullWidth aria-labelledby="create-wpscan-dialog-title">
         <DialogContent>
           <CreateWPScan onSubmit={handleFormSubmit} />
         </DialogContent>

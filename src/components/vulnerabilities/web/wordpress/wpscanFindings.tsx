@@ -16,7 +16,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings = [], scanId }) => {
+const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = []}) => {
   const { t } = useTranslation();
   // const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings = []
   // const totalPages = Math.max(1, Math.ceil(findings?.length / rowsPerPage));
   const totalPages = Math.ceil((findings?.length || 0) / rowsPerPage);
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (event: any, value: any) => {
     setCurrentPage(value);
   };
 
@@ -46,6 +46,7 @@ const WPSFindings: React.FC<{ findings: any[], scanId: any }> = ({ findings = []
                   <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.type')}</Typography></TableCell>
                   <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}</Typography></TableCell>
                   <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.actions')}</Typography></TableCell>
                   
                 </TableRow>
               </TableHead>
