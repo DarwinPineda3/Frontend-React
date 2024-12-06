@@ -10,6 +10,7 @@ import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
 import RevenueUpdatesReducer from './sections/dashboard/RevenueUpdatesSlice';
+import SentimentsSumaryReducer from './sections/dashboard/SentimentHistorySlice';
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
 import TopVulneravilitesReducer from './sections/dashboard/TopVulnerabilitiesSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
@@ -31,7 +32,7 @@ import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlic
 import TicketReducer from "./support/FreshTicketsSlice";
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
-
+import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 
 import {
   TypedUseSelectorHook,
@@ -50,6 +51,7 @@ const dashboardReducer = combineReducers({
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
+  sentimentsSumaryReducer: SentimentsSumaryReducer
 });
 
 export const store = configureStore({
@@ -71,6 +73,7 @@ export const store = configureStore({
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
     wpscanReducer : WPScanReducer,
+    networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
   },
 });
@@ -93,11 +96,12 @@ const rootReducer = combineReducers({
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
   wpscanReducer : WPScanReducer,
+  networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const { } = store;
+export const {} = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;

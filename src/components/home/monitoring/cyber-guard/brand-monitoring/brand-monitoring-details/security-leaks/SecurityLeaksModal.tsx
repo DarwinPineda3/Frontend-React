@@ -16,20 +16,22 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
   const { t } = useTranslation();
 
   const filteredData = Object.entries(data).reduce((acc, [key, value]) => {
-    if (key === 'data_classes') return acc;
+    const transformedKey = key === 'logo_path' ? 'screenshot_url' : key;
+
+    if (transformedKey === 'data_classes') return acc;
     if (Array.isArray(value)) {
       if (value.length > 0) {
-        acc[key] = value;
+        acc[transformedKey] = value;
       }
     } else if (value !== null && value !== undefined) {
       const valueStr = String(value);
       if (valueStr.trim() !== '' && valueStr !== '0') {
-        if (key === 'generated' && typeof valueStr === 'string') {
+        if (transformedKey === 'generated' && typeof valueStr === 'string') {
           const timestamp = parseFloat(valueStr);
           const date = new Date(timestamp * 1000);
-          acc[key] = date.toLocaleString();
+          acc[transformedKey] = date.toLocaleString();
         } else {
-          acc[key] = valueStr;
+          acc[transformedKey] = valueStr;
         }
       }
     }
