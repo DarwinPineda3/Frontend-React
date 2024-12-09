@@ -1,9 +1,10 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import Loader from 'src/components/shared/Loader/Loader';
 import ManagedVulnDetail from 'src/components/vulnerabilities/management/managedVulnerability';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchVulnerabilityById } from 'src/store/vulnerabilities/ManagementVulnSlice';
@@ -14,6 +15,7 @@ const ManagedVulnerabilitiesDetail = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const selectedVulnerability: managementVulnerabilityType = useSelector(
     (state: any) => state.managementVulnReducer.selectedVulnerability,
@@ -21,7 +23,12 @@ const ManagedVulnerabilitiesDetail = () => {
   const error = useSelector((state: any) => state.managementVulnReducer.error);
   useEffect(() => {
     if (id) {
-      dispatch(fetchVulnerabilityById(Number(id)));
+      const fetchData = async () => {
+        setIsLoading(true);
+        await dispatch(fetchVulnerabilityById(Number(id)));
+        setIsLoading(false);
+      };
+      fetchData();
     }
   }, [id, dispatch]);
 
@@ -47,7 +54,15 @@ const ManagedVulnerabilitiesDetail = () => {
         <Grid item xs={12}>
           {selectedVulnerability ? (
             <Box>
-              <ManagedVulnDetail vulnerability={selectedVulnerability!} />
+              {isLoading ? (
+                <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+                  <Loader />
+                </Box>
+              ) : (
+                <>
+                  <ManagedVulnDetail vulnerability={selectedVulnerability!} />
+                </>
+              )}
             </Box>
           ) : (
             <Typography variant="subtitle2" align="center">
