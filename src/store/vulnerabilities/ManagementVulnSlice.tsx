@@ -84,7 +84,7 @@ export const fetchManagedVuln =
 
 export const fetchVulnerabilityById = (id: number) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${id}`);
+    const response = await axios.get(`${getApiUrl()}${id}/`);
     dispatch(getVulnerabilityById(response.data));
   } catch (err: any) {
     console.error(`Error fetching vulnerability with ID ${id}:`, err);
@@ -120,7 +120,7 @@ export const createVulnerabilities =
 export const editVulnerability =
   (vulnerability: managementVulnerabilityType) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.put(`${UPDATE_API_URL}/${vulnerability?.id!}`, vulnerability);
+      const response = await axios.put(`${getApiUrl()}${vulnerability?.id!}`, vulnerability);
       dispatch(updateVulnerability(response.data.vulnerability));
     } catch (err: any) {
       console.error('Error updating vulnerability:', err.response || err.message || err);
@@ -139,7 +139,7 @@ export const closeVulnerability =
   ) =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.put(`${CLOSE_API_URL}/${id}`, updatedFields);
+      const response = await axios.patch(`${getApiUrl()}${id}/update-status/`, updatedFields);
       dispatch(updateVulnerability(response.data.vulnerability));
     } catch (err: any) {
       console.error('Error updating vulnerability:', err.response || err.message || err);
