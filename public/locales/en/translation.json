@@ -406,7 +406,9 @@
       "accept_risk": "Accept Risk",
       "transferred_risk": "Transferred Risk",
       "removed": "Removed",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "managed_vulnerability_closed_successfully": "The vulnerability in management was closed correctly",
+      "error_closing": "There was an error closing the vulnerability management process"
     },
     "network_vulnerabilities": {
       "network": "Network",
