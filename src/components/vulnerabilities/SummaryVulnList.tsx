@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import { createVulnerabilities } from 'src/store/vulnerabilities/ManagementVulnSlice';
 import { fetchSummaryVuln, setPage, setPageSize } from 'src/store/vulnerabilities/SummaryVulnSlice';
 import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
+import { getChipColor, getSeverityColor } from 'src/utils/severityUtils';
 import CustomSelect from '../forms/theme-elements/CustomSelect';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
@@ -48,40 +49,6 @@ const SummaryVulnerabilitiesList = () => {
   >('success'); // Snackbar severity
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
-  const criticalColor = theme.palette.level.critical;
-  const highColor = theme.palette.level.high;
-  const mediumColor = theme.palette.level.medium;
-  const lowColor = theme.palette.level.low;
-  const noneColor = theme.palette.level.none;
-
-  const getChipColor = (riskLevel: string) => {
-    switch (riskLevel) {
-      case 'critical':
-        return { color: criticalColor, label: t('monitoring.critical') };
-      case 'high':
-        return { color: highColor, label: t('monitoring.high') };
-      case 'medium':
-        return { color: mediumColor, label: t('monitoring.medium') };
-      case 'low':
-        return { color: lowColor, label: t('monitoring.low') };
-      default:
-        return { color: noneColor, label: 'N/A' };
-    }
-  };
-
-  const getChipColorSeverity = (severity: number) => {
-    if (severity > 9.0) {
-      return { color: criticalColor };
-    } else if (severity > 7.0) {
-      return { color: highColor };
-    } else if (severity > 4.0) {
-      return { color: mediumColor };
-    } else if (severity > 0) {
-      return { color: lowColor };
-    } else {
-      return { color: noneColor };
-    }
-  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -267,10 +234,13 @@ const SummaryVulnerabilitiesList = () => {
                         <TableCell sx={{ textAlign: 'center' }}>
                           <Typography variant="subtitle2" fontWeight={600}>
                             <Chip
-                              label={getChipColor(_.lowerCase(vulnerability.type)).label}
+                              label={getChipColor(_.lowerCase(vulnerability.type), theme, t).label}
                               sx={{
-                                backgroundColor: getChipColor(_.lowerCase(vulnerability.type))
-                                  .color,
+                                backgroundColor: getChipColor(
+                                  _.lowerCase(vulnerability.type),
+                                  theme,
+                                  t,
+                                ).color,
                                 color: 'white',
                               }}
                             />
@@ -290,7 +260,8 @@ const SummaryVulnerabilitiesList = () => {
                             <Chip
                               label={vulnerability.severity}
                               sx={{
-                                backgroundColor: getChipColorSeverity(vulnerability.severity).color,
+                                backgroundColor: getSeverityColor(vulnerability.severity, theme)
+                                  .color,
                                 color: 'white',
                               }}
                             />
