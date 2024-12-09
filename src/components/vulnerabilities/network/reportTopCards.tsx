@@ -1,18 +1,44 @@
+import { Computer, Lan, Security, WifiTethering } from '@mui/icons-material'; // Importing Material UI Icons
 import { Box, Grid, Typography } from '@mui/material';
-import { Computer, Security, WifiTethering, Lan } from '@mui/icons-material'; // Importing Material UI Icons
 import { useTranslation } from 'react-i18next';
 
+interface ReportDetailChartsProps {
+  counters: {
+    vulnerabilities_counter: number;
+    hosts_counter: number;
+    os_scan_counter: number;
+    scanned_ports_counter: number;
+  };
+}
 
-
-const ReportTopCards = () => {
-
+const ReportTopCards: React.FC<ReportDetailChartsProps> = ({ counters }) => {
   const { t } = useTranslation();
 
   const topCardsData = [
-    { title: t("vulnerabilities.vulnerabilities"), value: '2', icon: <Security fontSize="large" color="error" />, bgcolor: 'error' },
-    { title: t("vulnerabilities.hosts"), value: '2', icon: <Computer fontSize="large" color='warning' />, bgcolor: 'warning' },
-    { title: t("vulnerabilities.os_scan"), value: '1', icon: <WifiTethering fontSize="large" color='success' />, bgcolor: 'success' },
-    { title: t("vulnerabilities.scanned_ports"), value: '30', icon: <Lan fontSize="large" color='info' />, bgcolor: 'info' },
+    {
+      title: t('vulnerabilities.vulnerabilities'),
+      value: counters.vulnerabilities_counter || 0,
+      icon: <Security fontSize="large" color="error" />,
+      bgcolor: 'error',
+    },
+    {
+      title: t('vulnerabilities.hosts'),
+      value: counters.hosts_counter || 0,
+      icon: <Computer fontSize="large" color="warning" />,
+      bgcolor: 'warning',
+    },
+    {
+      title: t('vulnerabilities.os_scan'),
+      value: counters.os_scan_counter || 0,
+      icon: <WifiTethering fontSize="large" color="success" />,
+      bgcolor: 'success',
+    },
+    {
+      title: t('vulnerabilities.scanned_ports'),
+      value: counters.scanned_ports_counter || 0,
+      icon: <Lan fontSize="large" color="info" />,
+      bgcolor: 'info',
+    },
   ];
   return (
     <Grid container spacing={3}>
