@@ -32,6 +32,7 @@ import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
+import CloudScanReducer from './vulnerabilities/cloud/CloudSlice'
 
 import {
   TypedUseSelectorHook,
@@ -73,6 +74,7 @@ export const store = configureStore({
     ticketReducer: TicketReducer,
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
+    cloudScanReducer: CloudScanReducer
   },
 });
 
@@ -95,6 +97,7 @@ const rootReducer = combineReducers({
   ticketReducer: TicketReducer,
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
+  cloudScanReducer: CloudScanReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
