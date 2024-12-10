@@ -3,7 +3,9 @@ import {
   Box,
   Button,
   Dialog,
+  DialogActions,
   DialogContent,
+  DialogTitle,
   IconButton,
   Pagination,
   Table,
@@ -18,10 +20,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchAssets, setPage } from 'src/store/sections/AssetsSlice';
+import { fetchAssets, removeAsset, setPage } from 'src/store/sections/AssetsSlice';
 import DashboardCard from '../shared/DashboardCard';
 import CreateUpdateAsset from './AssetEdition';
-
 const AssetList = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ const AssetList = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [assetToDelete, setAssetToDelete] = useState<null | number>(null);
 
   React.useEffect(() => {
     dispatch(fetchAssets(currentPage));
@@ -68,6 +71,26 @@ const AssetList = () => {
     handleCloseDialog();
   };
 
+  const handleDeleteClick = (assetId: number) => {
+    setAssetToDelete(assetId);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (assetToDelete !== null) {
+      dispatch(removeAsset(assetToDelete));
+      setSnackbarMessage(t("dashboard.asset_deleted_successfully"));
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+    }
+    setDeleteDialogOpen(false);
+    setAssetToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setAssetToDelete(null);
+  };
   const addButton = (
     <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
       <AddIcon />
@@ -134,14 +157,24 @@ const AssetList = () => {
                     <Typography variant="subtitle2">{asset.url}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      onClick={() => handleEditClick(asset)}
-                    >
-                      {t("dashboard.edit")}
-                    </Button>
+                    <Box display="flex" gap={1}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => handleEditClick(asset)}
+                      >
+                        {t("dashboard.edit")}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        onClick={() => handleDeleteClick(asset.id)}
+                      >
+                        {t("dashboard.delete")}
+                      </Button>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
@@ -161,6 +194,22 @@ const AssetList = () => {
           <DialogContent sx={{ padding: '50px' }}>
             <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
           </DialogContent>
+        </Dialog>
+
+        {/* Delete Confirmation Dialog */}
+        <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
+          <DialogTitle>{t("dashboard.delete_asset_confirmation")}</DialogTitle>
+          <DialogContent>
+            <Typography>{t("dashboard.are_you_sure_to_delete_asset")}</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={cancelDelete} color="info">
+              {t("dashboard.cancel")}
+            </Button>
+            <Button onClick={confirmDelete} color="primary" variant="contained">
+              {t("dashboard.confirm")}
+            </Button>
+          </DialogActions>
         </Dialog>
 
         {snackbarOpen && (

@@ -105,7 +105,13 @@
     "actions": "Actions",
     "edit": "Edit",
     "operation_status": "Operation Status",
-    "create": "Create"
+    "create": "Create",
+    "delete": "Delete",
+    "delete_asset_confirmation": "Delete Asset",
+    "are_you_sure_to_delete_asset": "Are you sure you want to delete this asset?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "asset_deleted_successfully": "Asset deleted successfully."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Your scheduled scans that are running automatically",
@@ -216,6 +222,7 @@
     "vulnerability_name": "{{name}}",
     "translate_button": "Translate to Spanish",
     "manage_vulnerability_button": "Manage Vulnerability",
+    "product": "Product",
     "product_detection_result": "Product Detection Result",
     "summary": "Summary",
     "detection_quality": "Detection Quality",
@@ -314,6 +321,11 @@
     "breadcrumb_vulnerabilidades": "Vulnerabilities",
     "breadcrumb_red": "Network",
     "breadcrumb_escaneos": "Network Vulnerability Scans",
+    "detail": "Detail",
+    "target": "Target",
+    "scanner": "Scanner",
+    "overview": "Overview",
+    "order_for_target_hosts": "Order for target hosts",
     "breadcrumb_reportes": "Scan Reports",
     "breadcrumb_vulnerabilidad": "Vulnerability",
     "wordpress_scans": "WordPress Scans",
@@ -324,6 +336,13 @@
     "qod": "Qod",
     "creation_time": "Creation Time",
     "not_available": "Not available",
+    "network_scan_deleted_successfully": "Network scan has been successfully deleted",
+    "network_scan_report_deleted_successfully": "Network scan report has been successfully deleted",
+    "scan_started_successfully": "Network scan has been successfully started",
+    "scan_stopped_successfully": "Network scan has been successfully stopped",
+    "scan_resumed_successfully": "Network scanning has resumed successfully",
+    "scan_failed": "There was an error executing this action",
+    "no_data_available": "No data available",
     "management": {
       "vulnerabilities": "Vulnerabilities",
       "management": "Management",
@@ -383,6 +402,23 @@
       "transferred_risk": "Transferred Risk",
       "removed": "Removed",
       "confirm": "Confirm"
+    },
+    "network_vulnerabilities": {
+      "network": "Network",
+      "add_scan": "Add Scan",
+      "create_network_scan": "Create network scan",
+      "create_network_scan_subtitle": "In this form you can create a network scan",
+      "name": "Name",
+      "comment": "Comment",
+      "scan_target": "Scan Target",
+      "scan_config": "Scan Config",
+      "create_scan": "Create Scan",
+      "you_can_create_an_asset": "You can create an asset (Target)",
+      "here": "here",
+      "network_scan_create_successfully": "Network scan create successfully",
+      "network_scan_create_failed": "Failed to create the network scan",
+      "required_field": "Required Field",
+      "network_scan_created": "Network scan created"
     }
   },
   "observability": {
@@ -613,6 +649,7 @@
     "modified_date": "Modified Date",
     "pwn_count": "Pwn Count",
     "logo_path": "Logo Path",
+    "screenshot_url": "Screenshot URL",
     "data_classes": "Data Classes",
     "is_verified": "Is Verified",
     "is_fabricated": "Is Fabricated",
@@ -991,7 +1028,6 @@
     "forgot_password_link": "Forgot Password?",
     "sign_in_button": "Sign In",
     "invalid_credentials": "Invalid Credentials"
-
   },
   "account_settings": {
     "change_profile": "Change profile",

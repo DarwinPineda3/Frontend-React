@@ -1,12 +1,12 @@
 import {
   Alert,
   Box,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import {
   fetchBrandMonitoringData,
   setPage,
+  setPageSize,
 } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import DashboardCard from '../../../../shared/DashboardCard';
 
@@ -34,6 +35,7 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
   );
   const currentPage = useSelector((state: any) => state.brandMonitoringReducer.page);
   const totalPages = useSelector((state: any) => state.brandMonitoringReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.brandMonitoringReducer.pageSize);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -44,16 +46,26 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchBrandMonitoringData(currentPage));
+      await dispatch(fetchBrandMonitoringData(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleSnackbarClose = () => {
@@ -148,14 +160,15 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
 
             {/* Snackbar */}
             {snackbarOpen && (

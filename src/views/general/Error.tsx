@@ -1,9 +1,10 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ErrorImg from 'src/assets/images/backgrounds/errorimg.svg';
 
-const Error = () => (
-  <Box
+const Error = () => {
+  let primaryColor = useTheme().palette.primary.main;
+  return <Box
     display="flex"
     flexDirection="column"
     height="100vh"
@@ -28,7 +29,12 @@ const Error = () => (
         Go Back to Home
       </Button>
     </Container>
+    <Container maxWidth="md" sx={{ paddingTop: '10px' }}>
+      <Link to="/logout" style={{ color: primaryColor }}>
+        Logout
+      </Link>
+    </Container>
   </Box>
-);
+};
 
 export default Error;

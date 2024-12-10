@@ -102,7 +102,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                       </TableCell>
                       <TableCell>
                         <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                          {Math.round(newsletter.size / 1024)} Mb
+                          {Math.round(newsletter.size / 1024)} KB
                         </Typography>
                       </TableCell>
                       <TableCell>
