@@ -1,20 +1,16 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import CustomTextField from 'src/components/forms/theme-elements/CustomTextField';
 import BreachElementTypeChart from 'src/components/observability/dark-web/breachByElementTypeChart';
-import BreachStatusChart from 'src/components/observability/dark-web/breachStatus';
 import SecurityIncidentsPolygon from 'src/components/observability/dark-web/SecurityIncidentsPolygon';
 import ThreatTypesBarChart from 'src/components/observability/dark-web/threatTypesBarChart';
 import TopCardsDarkWeb from 'src/components/observability/dark-web/topCardsDarkWeb';
 import VIPsHeatmapChart from 'src/components/observability/dark-web/vipHeatMap';
 import CompromisedTypesChart from 'src/components/observability/dark-web/vipsRadarChart';
+import Loader from 'src/components/shared/Loader/Loader';
 import { fetchBrandMonitoringData, fetchBrandMonitoringResume } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
@@ -34,7 +30,7 @@ const DarkWeb = () => {
   }, [dispatch]);
 
   const cardsValues = [
-    brandMonitoringResume?.['security_leaks_total'] ?? 0, // Total Compromises
+    brandMonitoringResume?.['total'] ?? 0, // Total Compromises
     brandMonitoringResume?.['domains'] ?? 0, // Domains
     brandMonitoringResume?.['emails'] ?? 0, // Emails
     brandMonitoringResume?.['ip'] ?? 0, // IPs
@@ -63,8 +59,8 @@ const DarkWeb = () => {
   ]
 
   const topDetectedThreatTypesData = [
-    brandMonitoringResume?.['malware'] ?? 0,
-    brandMonitoringResume?.['fake_applications'] ?? 0,
+    brandMonitoringResume?.['security_leaks_total'] ?? 0,
+    brandMonitoringResume?.['dark_web_total'] ?? 0,
     brandMonitoringResume?.['phishing'] ?? 0,
     brandMonitoringResume?.['social_network_total'] ?? 0,
   ]
@@ -95,7 +91,11 @@ const DarkWeb = () => {
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
 
-
+  if (Object.keys(brandMonitoringResume).length === 0) {
+    return <Box display="flex" justifyContent="center" mt={4} mb={4}>
+      <Loader />
+    </Box>
+  }
 
   return (
 
@@ -114,7 +114,7 @@ const DarkWeb = () => {
             </Link>
           </Breadcrumbs>
           <Box flexGrow={1} />
-          <Box display="flex" alignItems="center" mt={2}>
+          {/*          <Box display="flex" alignItems="center" mt={2}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 renderInput={(props) => (
@@ -164,14 +164,16 @@ const DarkWeb = () => {
                 }}
               />
             </LocalizationProvider>
+            
           </Box>
+          */}
         </Box>
       </Box>
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12}>
           <TopCardsDarkWeb values={cardsValues} />
         </Grid>
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={4}>
           <Box style={{ display: 'flex', height: '100%' }}>
             <SecurityIncidentsPolygon
               series={[series]}
@@ -179,17 +181,19 @@ const DarkWeb = () => {
             />
           </Box>
         </Grid>
+        {/*
         <Grid item xs={12} lg={3}>
           <Box style={{ display: 'flex', height: '100%' }}>
             <BreachStatusChart data={breachesByStatusData} />
           </Box>
         </Grid>
-        <Grid item xs={12} lg={3}>
+        */}
+        <Grid item xs={12} lg={4}>
           <Box style={{ display: 'flex', height: '100%' }}>
             <BreachElementTypeChart series={polygonValues} />
           </Box>
         </Grid>
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={4}>
           <Box style={{ display: 'flex', height: '100%' }}>
             <CompromisedTypesChart data={elemetsByTypeData} />
           </Box>
