@@ -1,4 +1,5 @@
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import {
   Alert,
   Box,
@@ -243,7 +244,12 @@ const SummaryVulnerabilitiesList = () => {
       }
     >
       <Box>
-        <Button variant="outlined" color="primary" onClick={handleCreateVulnerabilities}>
+        <Button
+          variant="outlined"
+          color="primary"
+          startIcon={<ManageAccountsIcon />}
+          onClick={handleCreateVulnerabilities}
+        >
           {t('summary.managed_selected_vuulnerabilities')}
         </Button>
         {isLoading ? (

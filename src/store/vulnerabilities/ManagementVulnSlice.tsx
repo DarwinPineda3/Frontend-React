@@ -177,7 +177,7 @@ export const closeVulnerability =
     }
   };
 
-export const downloadEvidence = (id: number) => async (dispatch: AppDispatch) => {
+export const downloadEvidence = (id: number | string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${getApiUrl()}${id}/download-evidence/`, {
       responseType: 'blob',
