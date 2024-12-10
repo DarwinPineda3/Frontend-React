@@ -83,6 +83,36 @@ export const fetchManagedVuln =
     }
   };
 
+export const fetchVulnerabilitiesByDateRange =
+  (startDate: string, endDate: string, page = 1, pageSize = 25) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getApiUrl()}by-range/`, {
+        params: {
+          startDate,
+          endDate,
+          page,
+          page_size: pageSize,
+        },
+      });
+
+      const { results, page: currentPage, totalPages } = response.data || {};
+
+      if (Array.isArray(results)) {
+        dispatch(
+          getManagedVuln({
+            results,
+            currentPage,
+            totalPages,
+          }),
+        );
+      }
+    } catch (err: any) {
+      console.error('Error fetching vulnerabilities by date range:', err);
+      dispatch(setError('Failed to fetch vulnerabilities by date range'));
+    }
+  };
+
 export const fetchVulnerabilityById = (id: number) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${getApiUrl()}${id}/`);
@@ -170,7 +200,7 @@ export const downloadEvidence = (id: number) => async (dispatch: AppDispatch) =>
 export const downloadVulnerabilitiesReport =
   (startDate: string, endDate: string) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`${getApiUrl()}/download-report/`, {
+      const response = await axios.get(`${getApiUrl()}download-report/`, {
         params: {
           startDate,
           endDate,
@@ -183,7 +213,10 @@ export const downloadVulnerabilitiesReport =
       const link = document.createElement('a');
       link.href = url;
 
-      const fileName = response.headers['content-disposition'].split('filename=')[1];
+      const contentDisposition = response.headers['content-disposition'];
+      const fileName = contentDisposition
+        ? contentDisposition.split('filename=')[1].replace(/['"]/g, '')
+        : 'ManagedVulnerabilities.xlsx';
 
       link.setAttribute('download', fileName);
 
