@@ -18,16 +18,17 @@ const ManagedVulnerabilitiesDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const selectedVulnerability: managementVulnerabilityType = useSelector(
-    (state: any) => state.managementVulnReducer.selectedVulnerability,
+    (state: any) => state.managementVulnReducer.selectedVulnerability?.vulnerability,
   );
   const error = useSelector((state: any) => state.managementVulnReducer.error);
+  const fetchData = async () => {
+    setIsLoading(true);
+    await dispatch(fetchVulnerabilityById(Number(id)));
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     if (id) {
-      const fetchData = async () => {
-        setIsLoading(true);
-        await dispatch(fetchVulnerabilityById(Number(id)));
-        setIsLoading(false);
-      };
       fetchData();
     }
   }, [id, dispatch]);
