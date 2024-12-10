@@ -160,7 +160,7 @@ export const editVulnerability = (vulnerability: FormData) => async (dispatch: A
 
 export const closeVulnerability =
   (
-    id: number,
+    id: number | string,
     updatedFields: {
       closure_date?: string | null;
       status?: string;

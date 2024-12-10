@@ -369,7 +369,7 @@ const SummaryVulnerabilitiesList = () => {
                             {vulnerability.tool}
                           </Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: 'center' }}>
                           <IconButton
                             size="small"
                             color="primary"
@@ -379,7 +379,7 @@ const SummaryVulnerabilitiesList = () => {
                             <IconEye />
                           </IconButton>
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ textAlign: 'center' }}>
                           <IconButton
                             size="small"
                             color="primary"
