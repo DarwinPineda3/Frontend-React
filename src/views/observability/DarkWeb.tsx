@@ -65,11 +65,11 @@ const DarkWeb = () => {
     brandMonitoringResume?.['social_network_total'] ?? 0,
   ]
 
-  const elemetsByTypeData = [
-    brandMonitoringResume?.['malware'] ?? 0,
-    brandMonitoringResume?.['fake_applications'] ?? 0,
-    brandMonitoringResume?.['data_leaks'] ?? 0,
-    brandMonitoringResume?.['social_network_total'] ?? 0,
+  const elementsBySocialNetwork = [
+    brandMonitoringResume?.['facebook'] ?? 0,
+    brandMonitoringResume?.['instagram'] ?? 0,
+    brandMonitoringResume?.['linkedin'] ?? 0,
+    brandMonitoringResume?.['twitter'] ?? 0,
   ]
 
   const breachesByStatusData = [
@@ -195,7 +195,7 @@ const DarkWeb = () => {
         </Grid>
         <Grid item xs={12} lg={4}>
           <Box style={{ display: 'flex', height: '100%' }}>
-            <CompromisedTypesChart data={elemetsByTypeData} />
+            <CompromisedTypesChart data={elementsBySocialNetwork} />
           </Box>
         </Grid>
         <Grid item xs={12} lg={6}>
