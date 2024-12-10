@@ -718,7 +718,7 @@
     "vulnerabilities": "Vulnerabilities",
     "summary": "Summary",
     "vulnerabilities_summary": "Vulnerabilities Summary",
-    "vulnerabilities_summary_list": "Vulnerabilities Summary List",
+    "vulnerabilities_summary_list": "List of vulnerabilities available to be managed",
     "managed_selected_vuulnerabilities": "Managed selected vulnerabilities",
     "select": "Select",
     "type": "Type",

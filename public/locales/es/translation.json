@@ -717,7 +717,7 @@
     "summary": "Resumen",
     "vulnerabilities_summary": "Resumen de Vulnerabilidades",
     "vulnerabilities_summary_list": "Lista de vulnerabilidades",
-    "managed_selected_vuulnerabilities": "Gestionar vulnerabilidades seleccionadas",
+    "managed_selected_vuulnerabilities": "Lista de vulnerabilidades disponibles para ser gestionadas",
     "select": "Seleccionar",
     "type": "Tipo",
     "hosts": "Hosts",
