@@ -12,7 +12,7 @@ function getErrorMessage(error: unknown): string {
   //@ts-ignore  
   if (axios.isAxiosError(error)) {
     //@ts-ignore
-    return error.response?.data?.message || 'An error occurred';
+    return 'An error occurred';
   }
   if (error instanceof Error) {
     return error.message;
@@ -52,7 +52,9 @@ export const fetchWebApplicationAlertData = createAsyncThunk(
   async ({ scanId, alertId }: { scanId: string; alertId: string }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${getApiUrl()}${scanId}/alerts/${alertId}`);
-      return response.data;
+      const response_data = response.data.alert;
+      response_data["references"] = response_data["reference"].replace(/<p>/g, '').replace(/<\/p>/g, '\n').split("\n");
+      return response_data;
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -63,6 +65,7 @@ interface WebApplicationsState {
   loading: boolean;
   data: any | null;
   detail: any | null;
+  alert: any | null;
   error: string | null;
 }
 
@@ -70,6 +73,7 @@ const initialState: WebApplicationsState = {
   loading: false,
   data: null,
   detail: null,
+  alert: null,
   error: null,
 };
 
@@ -102,7 +106,20 @@ const webApplicationsSlice = createSlice({
       .addCase(fetchWebApplicationData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addCase(fetchWebApplicationAlertData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchWebApplicationAlertData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.alert = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchWebApplicationAlertData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      ;
   },
 });
 

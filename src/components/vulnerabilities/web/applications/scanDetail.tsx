@@ -2,6 +2,7 @@ import { Box, Chip, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import { fetchWebApplicationData } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
@@ -17,8 +18,12 @@ const ScanListDetail: React.FC<{ scanId: string, onAlertClick: (alertId: number)
     }
   }, [dispatch, scanId]);
 
-  if (loading) {
-    return <DashboardCard title={t('vulnerabilities.scan_details')} subtitle={t('vulnerabilities.scan_details')}><Box>Loading...</Box></DashboardCard>;
+  if (loading || detail === null) {
+    return <DashboardCard title={t('vulnerabilities.scan_details')} subtitle={t('vulnerabilities.scan_details')}>
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+    </DashboardCard>;
   }
 
   return (

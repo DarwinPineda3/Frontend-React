@@ -91,7 +91,7 @@ const WebApplications = () => {
         // If an alert is selected, show alert detail
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <AlertDetail alertId={selectedAlert} />
+            <AlertDetail alertId={selectedAlert} scanId={selectedScan!} />
           </Grid>
         </Grid>
       ) : (
