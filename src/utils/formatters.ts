@@ -1,4 +1,8 @@
-export const formatCurrency = (value: string | number): string => {
+export const formatCurrency = (value: string | number | null | undefined): string => {
+  if (value == null) {
+    return '$ 0,00';
+  }
+
   value = value.toString().replace(/\D/g, '') || '0';
 
   const numericValue = parseFloat(value);
