@@ -4,7 +4,6 @@ import { vulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityType';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../Store';
 
-const API_URL = '/api/data/summary';
 function getApiUrl() {
   return `${getBaseApiUrl()}/vulnerabilities/summary/`;
 }
@@ -58,6 +57,36 @@ export const fetchSummaryVuln =
     } catch (err: any) {
       console.error('Error fetching summary vulnerabilities:', err);
       dispatch(setError('Failed to fetch summary vulnerabilities'));
+    }
+  };
+
+export const fetchSummaryVulnerabilitiesByDateRange =
+  (startDate: string, endDate: string, page = 1, pageSize = 25) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getApiUrl()}by-range/`, {
+        params: {
+          startDate,
+          endDate,
+          page,
+          page_size: pageSize,
+        },
+      });
+
+      const { results, page: currentPage, totalPages } = response.data || {};
+
+      if (Array.isArray(results)) {
+        dispatch(
+          getSummaryVuln({
+            results,
+            currentPage,
+            totalPages,
+          }),
+        );
+      }
+    } catch (err: any) {
+      console.error('Error fetching vulnerabilities by date range:', err);
+      dispatch(setError('Failed to fetch vulnerabilities by date range'));
     }
   };
 
