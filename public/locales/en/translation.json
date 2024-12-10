@@ -411,7 +411,10 @@
       "error_closing": "There was an error closing the vulnerability management process",
       "invalid_files": "The selected files are not valid. Please check the allowed file types",
       "file_too_large": "The file {{name}} exceeds the {{size}} MB limit.",
-      "file": "File"
+      "file": "File",
+      "date_error_end_before_start": "The end date cannot be earlier than the start date",
+      "date_range_selection_error": "Please select both date ranges.",
+      "search": "Search"
     },
     "network_vulnerabilities": {
       "network": "Network",

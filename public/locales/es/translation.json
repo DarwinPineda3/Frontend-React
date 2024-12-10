@@ -410,7 +410,10 @@
       "managed_vulnerability_closed_successfully": "La vulnerabilidad en gestión se cerró correctamente",
       "error_closing": "Hubo un error al cerrar el proceso de gestión de la vulnerabilidad",
       "invalid_files": "Los archivos seleccionados no son válidos. Verifique los tipos de archivo permitidos",
-      "file": "Archivo"
+      "file": "Archivo",
+      "date_error_end_before_start": "La fecha de fin no puede ser anterior a la fecha de inicio",
+      "date_range_selection_error": "Por favor selecciona ambos rangos de fecha",
+      "search": "Buscar"
     },
     "network_vulnerabilities": {
       "network": "Red",
