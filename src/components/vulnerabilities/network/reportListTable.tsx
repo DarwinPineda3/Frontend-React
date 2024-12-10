@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import { IconDownload, IconSearch, IconTrash } from '@tabler/icons-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ConfirmDeleteModal from 'src/components/modal/ConfirmDeleteModal';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -108,17 +108,20 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
     setOpenDialog(false);
   };
 
+  useEffect(() => {
+    if (snackbarMessage && snackbarSeverity) {
+      setSnackbarOpen(true);
+    }
+  }, [snackbarMessage, snackbarSeverity]);
+
   const handleFormSubmit = (
     message: string,
     severity: 'success' | 'info' | 'warning' | 'error',
   ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false); // Ensure snackbar is reset
-    setTimeout(() => {
-      setSnackbarOpen(true); // Show the snackbar after resetting it
-    }, 0);
-    handleCloseDialog(); // Close the dialog after submission
+    setSnackbarOpen(false);
+    handleCloseDialog();
   };
 
   const handlePageChange = (
