@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
-import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
+import {
+  managementVulnerabilityType,
+  VulnerabilityResponse,
+} from 'src/types/vulnerabilities/vulnerabilityManagementType';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../Store';
 
-const UPDATE_API_URL = '/api/data/vulnerabilities/form/management';
-const CLOSE_API_URL = '/api/data/vulnerabilities/close/management';
 function getApiUrl() {
   return `${getBaseApiUrl()}/vulnerabilities/management/`;
 }
 interface StateType {
   managedVuln: managementVulnerabilityType[];
-  selectedVulnerability: managementVulnerabilityType | null;
+  selectedVulnerability: VulnerabilityResponse | null;
   page: number;
   pageSize: number;
   totalPages: number;
@@ -37,7 +38,7 @@ export const ManagedVulnSlice = createSlice({
       state.totalPages = action.payload.totalPages;
     },
     getVulnerabilityById: (state, action) => {
-      state.selectedVulnerability = action.payload.vulnerability;
+      state.selectedVulnerability = action.payload;
     },
     updateVulnerability: (state, action) => {
       const index = state.managedVuln.findIndex(
@@ -117,16 +118,15 @@ export const createVulnerabilities =
     }
   };
 
-export const editVulnerability =
-  (vulnerability: managementVulnerabilityType) => async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.put(`${getApiUrl()}${vulnerability?.id!}`, vulnerability);
-      dispatch(updateVulnerability(response.data.vulnerability));
-    } catch (err: any) {
-      console.error('Error updating vulnerability:', err.response || err.message || err);
-      dispatch(setError('Failed to update vulnerability'));
-    }
-  };
+export const editVulnerability = (vulnerability: FormData) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.put(`${getApiUrl()}${vulnerability.get('id')}/`, vulnerability);
+    dispatch(updateVulnerability(response.data.vulnerability));
+  } catch (err: any) {
+    console.error('Error updating vulnerability:', err.response || err.message || err);
+    dispatch(setError('Failed to update vulnerability'));
+  }
+};
 
 export const closeVulnerability =
   (
@@ -144,6 +144,57 @@ export const closeVulnerability =
     } catch (err: any) {
       console.error('Error updating vulnerability:', err.response || err.message || err);
       dispatch(setError('Failed to update vulnerability'));
+    }
+  };
+
+export const downloadEvidence = (id: number) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}${id}/download-evidence/`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', response.headers['content-disposition'].split('filename=')[1]);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (err: any) {
+    console.error('Error downloading the evidence:', err);
+    dispatch(setError('Failed to download evidence'));
+    throw err;
+  }
+};
+
+export const downloadVulnerabilitiesReport =
+  (startDate: string, endDate: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getApiUrl()}/download-report/`, {
+        params: {
+          startDate,
+          endDate,
+        },
+        responseType: 'blob',
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      const link = document.createElement('a');
+      link.href = url;
+
+      const fileName = response.headers['content-disposition'].split('filename=')[1];
+
+      link.setAttribute('download', fileName);
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+    } catch (err: any) {
+      console.error('Error downloading the vulnerability report:', err);
+      dispatch(setError('Error when trying to download the vulnerability report.'));
+      throw err;
     }
   };
 
