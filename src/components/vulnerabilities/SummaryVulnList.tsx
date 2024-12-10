@@ -5,7 +5,6 @@ import {
   Button,
   Chip,
   IconButton,
-  MenuItem,
   Snackbar,
   Table,
   TableBody,
@@ -14,7 +13,9 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TextField,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconEye } from '@tabler/icons-react';
@@ -24,10 +25,13 @@ import { useTranslation } from 'react-i18next';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { createVulnerabilities } from 'src/store/vulnerabilities/ManagementVulnSlice';
-import { fetchSummaryVuln, setPage, setPageSize } from 'src/store/vulnerabilities/SummaryVulnSlice';
+import {
+  fetchSummaryVulnerabilitiesByDateRange,
+  setPage,
+  setPageSize,
+} from 'src/store/vulnerabilities/SummaryVulnSlice';
 import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
 import { getChipColor, getSeverityColor } from 'src/utils/severityUtils';
-import CustomSelect from '../forms/theme-elements/CustomSelect';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
@@ -49,15 +53,46 @@ const SummaryVulnerabilitiesList = () => {
   >('success'); // Snackbar severity
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [startDate, setStartDate] = useState(() => {
+    const now = new Date();
+    now.setDate(1);
+    return now.toISOString().split('T')[0];
+  });
+
+  const [endDate, setEndDate] = useState(() => {
+    const now = new Date();
+    now.setMonth(now.getMonth() + 1, 1);
+    return now.toISOString().split('T')[0];
+  });
+
+  const startISO = startDate ? new Date(`${startDate}T00:00:00.000Z`).toISOString() : '';
+  const endISO = endDate ? new Date(`${endDate}T00:00:00.000Z`).toISOString() : '';
 
   React.useEffect(() => {
+    const newEndDate = new Date(startDate);
+    newEndDate.setMonth(newEndDate.getMonth() + 1);
+    const newEndDateString = newEndDate.toISOString().split('T')[0];
+
+    if (newEndDateString >= startDate) {
+      setEndDate(newEndDateString);
+    }
+  }, [startDate]);
+
+  React.useEffect(() => {
+    if (snackbarMessage && snackbarSeverity) {
+      setSnackbarOpen(true);
+    }
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchSummaryVuln(currentPage, pageSize));
+      await dispatch(
+        fetchSummaryVulnerabilitiesByDateRange(startISO, endISO, currentPage, pageSize),
+      );
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage, pageSize]);
+  }, [dispatch, currentPage, pageSize, snackbarMessage, snackbarSeverity]);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -74,11 +109,43 @@ const SummaryVulnerabilitiesList = () => {
     dispatch(setPageSize(newPageSize));
     dispatch(setPage(1));
   };
-  const [month, setMonth] = React.useState('1');
-  const currentYear = new Date().getFullYear();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMonth(event.target.value);
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(false);
+  };
+
+  const handleFetchByDateRange = async () => {
+    if (!startDate || !endDate) {
+      return handleFormSubmit(
+        `${t('vulnerabilities.management.date_range_selection_error')}`,
+        'error',
+      );
+    }
+
+    if (new Date(endDate) < new Date(startDate)) {
+      return handleFormSubmit(
+        `${t('vulnerabilities.management.date_error_end_before_start')}`,
+        'error',
+      );
+    }
+
+    setIsLoading(true);
+    try {
+      await dispatch(
+        fetchSummaryVulnerabilitiesByDateRange(startISO, endISO, currentPage, pageSize),
+      );
+    } catch (error) {
+      console.log(error);
+
+      handleFormSubmit(`${t('vulnerabilities.scan_failed')}`, 'error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,17 +215,31 @@ const SummaryVulnerabilitiesList = () => {
       title={t('summary.vulnerabilities_summary')!}
       subtitle={t('summary.vulnerabilities_summary_list')!}
       action={
-        <CustomSelect
-          labelId="month-dd"
-          id="month-dd"
-          size="small"
-          value={month}
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>{`${t('dashboard.march')} ${currentYear}`}</MenuItem>
-          <MenuItem value={2}>{`${t('dashboard.april')} ${currentYear}`}</MenuItem>
-          <MenuItem value={3}>{`${t('dashboard.may')} ${currentYear}`}</MenuItem>
-        </CustomSelect>
+        <Box display="flex" flexDirection={isSmallScreen ? 'column' : 'row'} gap={2}>
+          <TextField
+            label={t('vulnerabilities.start_date')!}
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            sx={{ minWidth: '150px' }}
+          />
+          <TextField
+            label={t('vulnerabilities.end_date')!}
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            sx={{ minWidth: '150px' }}
+          />
+          <Button
+            variant="contained"
+            disabled={!startDate || !endDate || new Date(endDate) < new Date(startDate)}
+            onClick={handleFetchByDateRange}
+          >
+            {t('vulnerabilities.management.search')!}
+          </Button>
+        </Box>
       }
     >
       <Box>
