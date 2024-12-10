@@ -408,7 +408,9 @@
       "removed": "Eliminado",
       "confirm": "Confirmar",
       "managed_vulnerability_closed_successfully": "La vulnerabilidad en gestión se cerró correctamente",
-      "error_closing": "Hubo un error al cerrar el proceso de gestión de la vulnerabilidad"
+      "error_closing": "Hubo un error al cerrar el proceso de gestión de la vulnerabilidad",
+      "invalid_files": "Los archivos seleccionados no son válidos. Verifique los tipos de archivo permitidos",
+      "file": "Archivo"
     },
     "network_vulnerabilities": {
       "network": "Red",

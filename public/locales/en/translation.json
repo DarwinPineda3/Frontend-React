@@ -408,7 +408,10 @@
       "removed": "Removed",
       "confirm": "Confirm",
       "managed_vulnerability_closed_successfully": "The vulnerability in management was closed correctly",
-      "error_closing": "There was an error closing the vulnerability management process"
+      "error_closing": "There was an error closing the vulnerability management process",
+      "invalid_files": "The selected files are not valid. Please check the allowed file types",
+      "file_too_large": "The file {{name}} exceeds the {{size}} MB limit.",
+      "file": "File"
     },
     "network_vulnerabilities": {
       "network": "Network",
