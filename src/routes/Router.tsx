@@ -47,6 +47,7 @@ import Solutions from 'src/views/support/Solutions';
 import TicketFormComp from 'src/views/support/TicketForm';
 import Tickets from 'src/views/support/Tickets';
 import CloudVulnerabilities from 'src/views/vulnerabilities/Cloud';
+import CloudVulnerabilitiesDetails from 'src/views/vulnerabilities/CloudDetail';
 import ManagedVulnerabilitiesDetail from 'src/views/vulnerabilities/ManagedVulnerabilitiesDetail';
 import ManagedVulnerabilitiesForm from 'src/views/vulnerabilities/ManagedVulnerabilitiesForm';
 import ManagementVulnerabilities from 'src/views/vulnerabilities/Management';
@@ -122,10 +123,9 @@ const Router = [
       },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/cloud/vulnerabilities', element: <CloudVulnerabilities />, roles: ['Admin', 'Scan360'] },
       {
         path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
-        element: <CloudVulnerabilities />,
+        element: <CloudVulnerabilitiesDetails />,
         roles: ['Admin', 'Scan360']
       },
 

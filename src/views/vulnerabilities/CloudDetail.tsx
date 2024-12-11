@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import CloudScanTable from 'src/components/vulnerabilities/cloud/cloudScansTable';
+import CloudScanDetailView from 'src/components/vulnerabilities/cloud/cloudScanDetailView';
 
 
-const CloudVulnerabilities = () => {
+const CloudVulnerabilitiesDetails = () => {
   // Get params from the URL
   const { cloudId } = useParams<{ cloudId?: string }>();
   const navigate = useNavigate();
@@ -24,11 +24,6 @@ const CloudVulnerabilities = () => {
       setSelectedCloud(null);
     }
   }, [cloudId, location]);
-
-  // Handle navigating to an alert detail
-  const handleCloudClick = (cloudId: string) => {
-    navigate(`/vulnerabilities/cloud/vulnerabilities/${cloudId}`);
-  };
 
   return (
     <PageContainer title="Akila">
@@ -48,14 +43,15 @@ const CloudVulnerabilities = () => {
           </Breadcrumbs>
         </Box>
       </Box>
-      <Grid container spacing={3}>
+      <Grid container spacing={0}>
         <Grid item xs={12}>
-          <CloudScanTable onScanClick={handleCloudClick} />
+          <CloudScanDetailView />
         </Grid>
       </Grid>
+
     </PageContainer>
   );
 };
 
 
-export default CloudVulnerabilities;
+export default CloudVulnerabilitiesDetails;

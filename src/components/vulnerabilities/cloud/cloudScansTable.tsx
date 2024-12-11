@@ -14,26 +14,9 @@ import {
 } from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'src/store/Store';
-import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
-// Mock Data from JSON
-const scanData = [
-  {
-    id: 1,
-    provider: 'gcp',
-    cloudId: '104892762537578212777',
-    date: '27 de agosto de 2024 a las 19:00',
-  },
-  {
-    id: 2,
-    provider: 'aws',
-    cloudId: 'AKIAU6GDVX2P643LZAIG',
-    date: '27 de agosto de 2024 a las 18:58',
-  },
-  // Add more data if needed
-];
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
