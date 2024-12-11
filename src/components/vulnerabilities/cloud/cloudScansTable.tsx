@@ -91,7 +91,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                                         variant="body2"
                                         color="primary"
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => onScanClick(scan.cloud_id)}
+                                        onClick={() => onScanClick(scan.id)}
                                     >
                                         {scan.cloud_id}
                                     </Typography>

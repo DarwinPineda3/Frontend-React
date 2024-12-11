@@ -1,29 +1,40 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import CloudScanDetailView from 'src/components/vulnerabilities/cloud/cloudScanDetailView';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchCloudScanById } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
 
 const CloudVulnerabilitiesDetails = () => {
-  // Get params from the URL
   const { cloudId } = useParams<{ cloudId?: string }>();
   const navigate = useNavigate();
-  const location = useLocation();  // Tracks the current URL location
-
-  const [selectedCloud, setSelectedCloud] = useState<string | null>(null);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const cloudscan = useSelector((state: any) => state.cloudScanReducer.cloudScanDetails);
 
   const { t } = useTranslation();
-  // Synchronize state with URL parameters
-  useEffect(() => {
-    if (cloudId) {
-      setSelectedCloud(cloudId);
-    } else {
-      setSelectedCloud(null);
-    }
-  }, [cloudId, location]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      if (cloudId) {
+        try {
+          await dispatch(fetchCloudScanById(cloudId));
+        } catch (error) {
+          console.error('Error fetching wpscans:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [cloudId, dispatch]);
+  
+  console.log(cloudscan);
+  
 
   return (
     <PageContainer title="Akila">
