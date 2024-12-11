@@ -23,10 +23,7 @@ const CompromisedTypesChart: React.FC<CompromisedTypesChartProps> = ({ data }) =
       },
     },
     labels: [
-      t('monitoring.malware'),
-      t('monitoring.fake_apps'),
-      t('monitoring.data_leaks'),
-      t('monitoring.social_media')
+      'Facebook', 'Instagram', 'LinkedIn', 'Twitter',
     ],
     colors: [
       theme.palette.error.main,       // Red for Malware
@@ -55,7 +52,7 @@ const CompromisedTypesChart: React.FC<CompromisedTypesChartProps> = ({ data }) =
   };
 
   return (
-    <DashboardCard title={t('monitoring.compromised_elements_by_type')!}>
+    <DashboardCard title={t('monitoring.social_network_distribution')!}>
       <Chart options={options} series={data} type="donut" height='300px' />
     </DashboardCard>
   );
