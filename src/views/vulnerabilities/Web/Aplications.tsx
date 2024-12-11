@@ -14,19 +14,19 @@ const WebApplications = () => {
   const navigate = useNavigate();
   const location = useLocation();  // Tracks the current URL location
 
-  const [selectedScan, setSelectedScan] = useState<number | null>(null);
-  const [selectedAlert, setSelectedAlert] = useState<number | null>(null);
+  const [selectedScan, setSelectedScan] = useState<string | null>(null);
+  const [selectedAlert, setSelectedAlert] = useState<string | null>(null);
 
   // Synchronize state with URL parameters
   useEffect(() => {
     if (scanId) {
-      setSelectedScan(Number(scanId));
+      setSelectedScan(scanId);
     } else {
       setSelectedScan(null);
     }
 
     if (alertId) {
-      setSelectedAlert(Number(alertId));
+      setSelectedAlert(alertId);
     } else {
       setSelectedAlert(null);
     }
@@ -91,7 +91,7 @@ const WebApplications = () => {
         // If an alert is selected, show alert detail
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <AlertDetail alertId={selectedAlert} />
+            <AlertDetail alertId={selectedAlert} scanId={selectedScan!} />
           </Grid>
         </Grid>
       ) : (
