@@ -1,11 +1,13 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import CloudScanDetailView from 'src/components/vulnerabilities/cloud/cloudScanDetailView';
+import CloudScanFindings from 'src/components/vulnerabilities/cloud/cloudScanFindings';
+import CloudScanSummaryService from 'src/components/vulnerabilities/cloud/cloudScanServiceSummary';
+import CloudScanTopBar from 'src/components/vulnerabilities/cloud/cloudScanTopBar';
+import CloudScanTopCards from 'src/components/vulnerabilities/cloud/cloudScanTopCards';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScanById } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
@@ -32,9 +34,9 @@ const CloudVulnerabilitiesDetails = () => {
 
     fetchData();
   }, [cloudId, dispatch]);
-  
+
   console.log(cloudscan);
-  
+
 
   return (
     <PageContainer title="Akila">
@@ -56,7 +58,26 @@ const CloudVulnerabilitiesDetails = () => {
       </Box>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <CloudScanDetailView />
+          <Grid container spacing={3}>
+            <Grid item xs={12} xl={12}>
+              <CloudScanTopBar />
+            </Grid>
+
+            {/* Top Cards */}
+            <Grid item xs={12} xl={12}>
+              <CloudScanTopCards />
+            </Grid>
+
+            {/* Service Summary */}
+            <Grid item xs={12} xl={12}>
+              <CloudScanSummaryService />
+            </Grid>
+
+            {/* Reports Table */}
+            <Grid item xs={12} xl={12}>
+              <CloudScanFindings />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
 
