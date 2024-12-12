@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import Loader from 'src/components/shared/Loader/Loader';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -59,6 +60,12 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   return (
     <DashboardCard title={t("vulnerabilities.scans")!} subtitle={t("vulnerabilities.list_of_all_scans")!}>
         <>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
             <TableContainer>
                 <Table aria-label="scan list table">
                     <TableHead>
@@ -112,6 +119,8 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                 onChange={handlePageChange}
               />
             </Box>
+            </>
+              )}
         </>
     </DashboardCard>
   );

@@ -68,7 +68,7 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
         <Box mb={3} display="flex" gap={2}>
           <TextField
             select
-            label={t("vulnerabilities.severity")}
+            placeholder={t("vulnerabilities.severity") || ''}
             value={selectedRiskLevel || ''}
             onChange={(e) => setSelectedRiskLevel(e.target.value || null)}
             fullWidth
@@ -76,11 +76,11 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
               native: true,
             }}
           >
-            <option value="">{t("vulnerabilities.all_severities")}</option>
-            <option value="Critical">Critical</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+            <option value="">{t("vulnerabilities.cloud_scans.all_severities")}</option>
+            <option value="Critical">{t("vulnerabilities.cloud_scans.critical")}</option>
+            <option value="High">{t("vulnerabilities.cloud_scans.high")}</option>
+            <option value="Medium">{t("vulnerabilities.cloud_scans.medium")}</option>
+            <option value="Low">{t("vulnerabilities.cloud_scans.low")}</option>
           </TextField>
         </Box>
         {filteredFindings?.length > 0 ? (

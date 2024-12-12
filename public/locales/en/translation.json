@@ -419,6 +419,13 @@
       "network_scan_create_failed": "Failed to create the network scan",
       "required_field": "Required Field",
       "network_scan_created": "Network scan created"
+    },
+    "cloud_scans": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical",
+      "all_severities": "All"
     }
   },
   "observability": {

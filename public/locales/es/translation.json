@@ -419,6 +419,13 @@
       "network_scan_create_failed": "Error al crear el escaneo de red",
       "required_field": "Campo requerido",
       "network_scan_created": "Escaneo de red creado"
+    },
+    "cloud_scans": {
+      "critical": "Crítico",
+      "high": "Alto",
+      "medium": "Medio",
+      "low": "Bajo",
+      "all_severities": "Todos"
     }
   },
   "observability": {
