@@ -19,6 +19,7 @@ import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 // brand monitoring reducers
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 //monitoring reducers
+import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNetworkSlice.tsx';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import MalwareAnalysesReducer from './sections/malware-analysis/MalwareAnalysisSlice';
 import AppScansReducer from './sections/mobile-app/AppScanSlice';
@@ -75,6 +76,7 @@ export const store = configureStore({
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
     WebApplicationsReducer: WebApplicationsReducer,
+    NetworkObservabilityReducer: NetworkObservabilityReducer
   },
 });
 
@@ -98,6 +100,7 @@ const rootReducer = combineReducers({
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
   WebApplicationsReducer: WebApplicationsReducer,
+  NetworkObservabilityReducer: NetworkObservabilityReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

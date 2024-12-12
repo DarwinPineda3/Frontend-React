@@ -554,7 +554,9 @@
     "fake_app_count": "Cantidad de Aplicaciones Falsas",
     "social_media_total": "Total de Redes Sociales",
     "dark_web_total": "Total de Dark Web",
-    "network_scans": "Escaneos de observabilidad de red"
+    "network_scans": "Escaneos de observabilidad de red",
+    "host_table": "Tabla de Hosts",
+    "host": "Host"
   },
   "monitoring": {
     "top_threat_types": "Principales tipos de amenazas detectadas",
