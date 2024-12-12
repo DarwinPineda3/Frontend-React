@@ -1,9 +1,10 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import Loader from 'src/components/shared/Loader/Loader';
 import CloudScanFindings from 'src/components/vulnerabilities/cloud/cloudScanFindings';
 import CloudScanSummaryService from 'src/components/vulnerabilities/cloud/cloudScanServiceSummary';
 import CloudScanTopBar from 'src/components/vulnerabilities/cloud/cloudScanTopBar';
@@ -18,6 +19,7 @@ const CloudVulnerabilitiesDetails = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const cloudscan = useSelector((state: any) => state.cloudScanReducer.cloudScanDetails);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -25,7 +27,9 @@ const CloudVulnerabilitiesDetails = () => {
     const fetchData = async () => {
       if (cloudId) {
         try {
+          setIsLoading(true);
           await dispatch(fetchCloudScanById(cloudId));
+          setIsLoading(false);
         } catch (error) {
           console.error('Error fetching cloudscans:', error);
         }
@@ -67,6 +71,11 @@ const CloudVulnerabilitiesDetails = () => {
       </Box>
       <Grid container spacing={0}>
         <Grid item xs={12}>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
           <Grid container spacing={3}>
             <Grid item xs={12} xl={12}>
               <CloudScanTopBar overview={overview} />
@@ -87,6 +96,7 @@ const CloudVulnerabilitiesDetails = () => {
               <CloudScanFindings findings={cloudscan?.findings}/>
             </Grid>
           </Grid>
+          )}
         </Grid>
       </Grid>
 
