@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const CloudScanFindings = () => {
+const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<string | null>(null);
 
+  console.log(findings?.length);
+  
   const ReportData = [
     {
       status: "FAIL",
@@ -48,8 +50,6 @@ const CloudScanFindings = () => {
     }
   ];
 
-
-
   const filteredReports = ReportData.filter((report) => {
     const matchesSearch = report.checkTitle.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRiskLevel = selectedRiskLevel
@@ -64,7 +64,7 @@ const CloudScanFindings = () => {
       <>
         <Box mb={3} my={3}>
           <TextField
-            placeholder={t("vulnerabilities.search_reports")}
+            placeholder={t("vulnerabilities.search_reports") || ''}
             variant="outlined"
             fullWidth
             value={searchTerm}
@@ -95,22 +95,22 @@ const CloudScanFindings = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredReports.map((row, index) => (
+              {findings?.map((row: any, index: any) => (
                 <TableRow key={index}>
                   <TableCell>{row.status}</TableCell>
                   <TableCell style={{ color: row.severity === "Critical" ? "red" : "orange" }}>
                     {row.severity}
                   </TableCell>
-                  <TableCell>{row.serviceName}</TableCell>
-                  <TableCell>{row.region}</TableCell>
-                  <TableCell>{row.checkTitle}</TableCell>
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell>{row.checkDescription}</TableCell>
-                  <TableCell>{row.extendedStatus}</TableCell>
-                  <TableCell>{row.recommendation}</TableCell>
+                  <TableCell>{row.resources[0].group.name}</TableCell>
+                  <TableCell>{row.cloud.region}</TableCell>
+                  <TableCell>{row.finding_info.title}</TableCell>
+                  <TableCell>{row.resources[0].name}</TableCell>
+                  <TableCell>{row.finding_info.desc}</TableCell>
+                  <TableCell>{row.finding_info.uid}</TableCell>
+                  <TableCell>{row.remediation.desc}</TableCell>
                   <TableCell>
-                    <a href={row.recommendationUrl} target="_blank" rel="noopener noreferrer">
-                      {row.recommendationUrl}
+                    <a href={row.remediation.references[0]} target="_blank" rel="noopener noreferrer">
+                      {row.remediation.references[0]}
                     </a>
                   </TableCell>
                 </TableRow>

@@ -84,7 +84,7 @@ const CloudVulnerabilitiesDetails = () => {
 
             {/* Reports Table */}
             <Grid item xs={12} xl={12}>
-              <CloudScanFindings />
+              <CloudScanFindings findings={cloudscan?.findings}/>
             </Grid>
           </Grid>
         </Grid>
