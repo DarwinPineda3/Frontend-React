@@ -1,13 +1,12 @@
 import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { useDispatch } from "src/store/Store";
 import { ResultAppType } from 'src/types/monitoring/mobile-apps/mobileApp';
-import Error from "src/views/general/Error";
 import AlphaSuspicionLevel from '../malware-analyses/MalwareAnalysisAlphaSuspicionLevel';
 import MobileAppAccordion from './MobileAppAccordion';
-import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 // import AlphaSuspicionLevel from '../malware-analyses/MalwareAnalysisAlphaSuspicionLevel';
 // import MobileAppAccordion from './MobileAppAccordion';
 
@@ -15,7 +14,6 @@ import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 const MobileAppDetail: React.FC<{ resultAppDetail: ResultAppType }> = ({ resultAppDetail }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  console.log(resultAppDetail);
 
   return (
 

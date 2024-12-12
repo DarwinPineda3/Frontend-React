@@ -14,10 +14,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import Loader from 'src/components/shared/Loader/Loader';
 import ManagedVulnerabilityForm from 'src/components/vulnerabilities/management/managedVulnerabilityForm';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchVulnerabilityById } from 'src/store/vulnerabilities/ManagementVulnSlice';
-import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
+import { VulnerabilityResponse } from 'src/types/vulnerabilities/vulnerabilityManagementType';
 
 const ManagedVulnerabilitiesForm = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,16 +30,25 @@ const ManagedVulnerabilitiesForm = () => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
   >('success');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const selectedVulnerability: managementVulnerabilityType = useSelector(
+  const selectedVulnerability: VulnerabilityResponse = useSelector(
     (state: any) => state.managementVulnReducer.selectedVulnerability,
   );
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchVulnerabilityById(Number(id)));
+    if (snackbarMessage && snackbarSeverity) {
+      setSnackbarOpen(true);
     }
-  }, [id, dispatch]);
+    if (id) {
+      const fetchData = async () => {
+        setIsLoading(true);
+        await dispatch(fetchVulnerabilityById(Number(id)));
+        setIsLoading(false);
+      };
+      fetchData();
+    }
+  }, [id, dispatch, snackbarMessage, snackbarSeverity]);
 
   const handleFormSubmit = (
     message: string,
@@ -47,9 +57,6 @@ const ManagedVulnerabilitiesForm = () => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(false);
-    setTimeout(() => {
-      setSnackbarOpen(true);
-    }, 0);
   };
   return (
     <PageContainer title="Akila">
@@ -68,9 +75,9 @@ const ManagedVulnerabilitiesForm = () => {
             <Link
               component={RouterLink}
               color="inherit"
-              to={`/vulnerabilities/management/detail/${selectedVulnerability?.id}`}
+              to={`/vulnerabilities/management/detail/${selectedVulnerability?.vulnerability?.id!}`}
             >
-              {selectedVulnerability?.name}
+              {selectedVulnerability?.vulnerability?.name}
             </Link>
             <Typography color="textPrimary">
               {t('vulnerabilities.management.management_form')}
@@ -80,10 +87,18 @@ const ManagedVulnerabilitiesForm = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ManagedVulnerabilityForm
-            onSubmit={handleFormSubmit}
-            vulnerability={selectedVulnerability}
-          />
+          {isLoading ? (
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          ) : (
+            <>
+              <ManagedVulnerabilityForm
+                onSubmit={handleFormSubmit}
+                vulnerability={selectedVulnerability!}
+              />
+            </>
+          )}
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (
@@ -92,12 +107,18 @@ const ManagedVulnerabilitiesForm = () => {
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 autoHideDuration={3000}
                 onClose={() =>
-                  navigate(`/vulnerabilities/management/detail/${selectedVulnerability?.id}`)
+                  navigate(
+                    `/vulnerabilities/management/detail/${selectedVulnerability?.vulnerability
+                      ?.id!}`,
+                  )
                 }
               >
                 <Alert
                   onClose={() =>
-                    navigate(`/vulnerabilities/management/detail/${selectedVulnerability?.id}`)
+                    navigate(
+                      `/vulnerabilities/management/detail/${selectedVulnerability?.vulnerability
+                        ?.id!}`,
+                    )
                   }
                   severity={snackbarSeverity}
                   variant="filled"
