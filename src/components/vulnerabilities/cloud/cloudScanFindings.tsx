@@ -1,4 +1,5 @@
-import { Box, InputAdornment, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import { Box, Chip, Grid, InputAdornment, Link, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, useTheme } from "@mui/material";
 import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,54 +10,29 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<string | null>(null);
 
-  console.log(findings?.length);
-  
-  const ReportData = [
-    {
-      status: "FAIL",
-      severity: "Critical",
-      serviceName: "networking",
-      region: "global",
-      checkTitle: "Ensure That RDP Access Is Restricted From the Internet",
-      id: "default-allow-rdp",
-      checkDescription: "GCP `Firewall Rules` are specific to a `VPC Network`. Each rule either `allows` or `denies` traffic when its conditions are met.",
-      extendedStatus: "Firewall default-allow-rdp does expose port 3389 (RDP) to the internet.",
-      recommendation: "Ensure that Google Cloud Virtual Private Cloud (VPC) firewall rules do not allow unrestricted access (i.e. 0.0.0.0/0) on TCP port 3389.",
-      recommendationUrl: "https://docs.bridgecrew.io/docs/bc_gcp_networking_2#terraform"
-    },
-    {
-      status: "FAIL",
-      severity: "Critical",
-      serviceName: "azul",
-      region: "global",
-      checkTitle: "azul",
-      id: "default-allow-rdp",
-      checkDescription: "GCP `Firewall Rules` are specific azul millonarios to a `VPC Network`. Each rule either `allows` or `denies` traffic when its conditions are met.",
-      extendedStatus: "Firewall default-allow-rdp does expose port 3389 (RDP) to the internet.",
-      recommendation: "Ensure that Google Cloud Virtual Private Cloud (VPC) firewall rules do not allow unrestricted access (i.e. 0.0.0.0/0) on TCP port 3389.",
-      recommendationUrl: "https://docs.bridgecrew.io/docs/bc_gcp_networking_2#terraform"
-    },
-    {
-      status: "FAIL",
-      severity: "Critical",
-      serviceName: "networking",
-      region: "global",
-      checkTitle: "Ensure That RDP Access Is Restricted From the Internet",
-      id: "default-allow-rdp",
-      checkDescription: "GCP `Firewall Rules` are specific to a `VPC Network`. Each rule either `allows` or `denies` traffic when its conditions are met.",
-      extendedStatus: "Firewall default-allow-rdp does expose port 3389 (RDP) to the internet.",
-      recommendation: "Ensure that Google Cloud Virtual Private Cloud (VPC) firewall rules do not allow unrestricted access (i.e. 0.0.0.0/0) on TCP port 3389.",
-      recommendationUrl: "https://docs.bridgecrew.io/docs/bc_gcp_networking_2#terraform"
-    }
-  ];
+  // console.log(findings);
 
-  const filteredReports = ReportData.filter((report) => {
-    const matchesSearch = report.checkTitle.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRiskLevel = selectedRiskLevel
-      ? report.severity.toLowerCase() === selectedRiskLevel.toLowerCase()
-      : true;
-    return matchesSearch && matchesRiskLevel;
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 50;
+
+  const totalPages = Math.ceil(findings?.length / rowsPerPage);
+
+  const handlePageChange = (event: any, value: any) => {
+    setCurrentPage(value);
+  };
+
+  const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  const theme = useTheme();
+  const { critical, high, medium, low } = theme.palette.level;
+
+  // const filteredReports = findingsArray.filter((report) => {
+  //   const matchesSearch = report.checkTitle.toLowerCase().includes(searchTerm.toLowerCase());
+  //   const matchesRiskLevel = selectedRiskLevel
+  //     ? report.severity.toLowerCase() === selectedRiskLevel.toLowerCase()
+  //     : true;
+  //   return matchesSearch && matchesRiskLevel;
+  // });
 
   return (
 
@@ -78,46 +54,86 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
             }}
           />
         </Box>
-        <TableContainer>
-          <Table aria-label="compliance table">
-            <TableHead>
-              <TableRow>
-                <TableCell>{t("vulnerabilities.state")}</TableCell>
-                <TableCell>{t("vulnerabilities.severity")}</TableCell>
-                <TableCell>{t("vulnerabilities.service_name")}</TableCell>
-                <TableCell>{t("vulnerabilities.region")}</TableCell>
-                <TableCell>{t("vulnerabilities.check_title")}</TableCell>
-                <TableCell>{t("vulnerabilities.id")}</TableCell>
-                <TableCell>{t("vulnerabilities.check_description")}</TableCell>
-                <TableCell>{t("vulnerabilities.extended_status")}</TableCell>
-                <TableCell>{t("vulnerabilities.recommendation")}</TableCell>
-                <TableCell>{t("vulnerabilities.recommendation_url")}</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {findings?.map((row: any, index: any) => (
-                <TableRow key={index}>
-                  <TableCell>{row.status}</TableCell>
-                  <TableCell style={{ color: row.severity === "Critical" ? "red" : "orange" }}>
-                    {row.severity}
-                  </TableCell>
-                  <TableCell>{row.resources[0].group.name}</TableCell>
-                  <TableCell>{row.cloud.region}</TableCell>
-                  <TableCell>{row.finding_info.title}</TableCell>
-                  <TableCell>{row.resources[0].name}</TableCell>
-                  <TableCell>{row.finding_info.desc}</TableCell>
-                  <TableCell>{row.finding_info.uid}</TableCell>
-                  <TableCell>{row.remediation.desc}</TableCell>
-                  <TableCell>
-                    <a href={row.remediation.references[0]} target="_blank" rel="noopener noreferrer">
-                      {row.remediation.references[0]}
-                    </a>
-                  </TableCell>
+        {findings?.length > 0 ? (
+          <TableContainer>
+            <Table aria-label="compliance table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>{t("vulnerabilities.state")}</TableCell>
+                  <TableCell>{t("vulnerabilities.severity")}</TableCell>
+                  <TableCell>{t("vulnerabilities.service_name")}</TableCell>
+                  <TableCell>{t("vulnerabilities.region")}</TableCell>
+                  <TableCell>{t("vulnerabilities.check_title")}</TableCell>
+                  <TableCell>{t("vulnerabilities.id")}</TableCell>
+                  <TableCell>{t("vulnerabilities.check_description")}</TableCell>
+                  <TableCell>{t("vulnerabilities.extended_status")}</TableCell>
+                  <TableCell>{t("vulnerabilities.recommendation")}</TableCell>
+                  <TableCell>{t("vulnerabilities.recommendation_url")}</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {currentData?.map((row: any, index: any) => (
+                  <TableRow key={index}>
+                    <TableCell>{row.status}</TableCell>
+                    <TableCell style={{ color: row.severity === "Critical" ? critical : row.severity === "Medium" ? high : low }}>
+                      <Chip
+                        label={
+                          row.severity
+                        }
+                        color="secondary"
+                        size="small"
+                        style={{
+                          backgroundColor:
+                            row.severity === "Critical" ? critical : row.severity === "High" ? high : row.severity === "Medium" ? medium : low,
+                          color: 'white',
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell>{row.resources[0].group.name}</TableCell>
+                    <TableCell>{row.cloud.region}</TableCell>
+                    <TableCell>{row.finding_info.title}</TableCell>
+                    <TableCell>{row.resources[0].name}</TableCell>
+                    <TableCell>{row.finding_info.desc}</TableCell>
+                    <TableCell>{row.finding_info.uid}</TableCell>
+                    <TableCell>{row.remediation.desc}</TableCell>
+                    <TableCell>
+                      {/* <a href={row.remediation.references[0]} target="_blank" rel="noopener noreferrer">
+                      {row.remediation.references[0]}
+                    </a> */}
+
+                      {row.remediation.references?.map((ref: any, index: any) =>
+                        ref.startsWith('https://') ? (
+                          <Link key={index} href={ref} target="_blank" rel="noopener">
+                            <InsertLinkIcon />
+                          </Link>
+                        ) : null
+                      )}
+
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="h6">{t('vulnerabilities.no_data_available')}</Typography>
+            </Grid>
+          </Grid>
+        )
+        }
+        <Box my={3} display="flex" justifyContent="center">
+          {totalPages > 0 && (
+            <Pagination
+              count={totalPages}
+              color="primary"
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          )}
+        </Box>
+
       </>
     </DashboardCard>
   );
