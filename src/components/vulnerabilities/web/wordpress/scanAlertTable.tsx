@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
 import {
+  Box,
+  Button,
+  Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Typography,
-  Box,
   TextField,
-  InputAdornment,
-  Grid,
-  Chip,
-  IconButton,
   Tooltip,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
+  Typography,
 } from '@mui/material';
-import { IconSearch, IconEye, IconEdit, IconTrash, IconAlertCircle, IconAlertTriangle, IconAlertOctagon, IconCheck } from '@tabler/icons-react';
+import { IconAlertCircle, IconEdit, IconEye, IconSearch, IconTrash } from '@tabler/icons-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Alert {
@@ -43,7 +43,6 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
   const [selectedAlerts, setSelectedAlerts] = useState<string[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  // Count alerts by risk level
   const counts = {
     critical: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('critical')).length,
     high: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('high')).length,
@@ -51,12 +50,10 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     low: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('low')).length,
   };
 
-  // Handle filtering by risk level
   const handleRiskFilter = (riskLevel: string) => {
     setSelectedRiskLevel(selectedRiskLevel === riskLevel ? null : riskLevel);
   };
 
-  // Filter alerts based on search term and selected risk level
   const filteredAlerts = alerts.filter((alert) => {
     const matchesSearch = alert.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRiskLevel = selectedRiskLevel
@@ -65,14 +62,12 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     return matchesSearch && matchesRiskLevel;
   });
 
-  // Toggle individual alert selection
   const toggleSelectAlert = (alertId: string) => {
     setSelectedAlerts((prev) =>
       prev.includes(alertId) ? prev.filter((id) => id !== alertId) : [...prev, alertId]
     );
   };
 
-  // Handle delete confirmation
   const handleDelete = () => setOpenDeleteDialog(true);
   const handleConfirmDelete = () => {
     setOpenDeleteDialog(false);
@@ -82,7 +77,6 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
 
   return (
     <Box>
-      {/* Top Cards for filtering by risk level */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
@@ -113,11 +107,8 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
             </Stack>
           </Box>
         </Grid>
-        {/* Additional cards for high, medium, and low risk levels */}
-        {/* Other components follow a similar pattern */}
       </Grid>
 
-      {/* Search Bar */}
       <Box mb={3} my={3}>
         <TextField
           placeholder={t('vulnerabilities.search_alerts')!}
@@ -135,7 +126,6 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         />
       </Box>
 
-      {/* Alerts Table */}
       <Table>
         <TableHead>
           <TableRow>
@@ -189,7 +179,6 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </TableBody>
       </Table>
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle>{t('vulnerabilities.confirm_delete')}</DialogTitle>
         <DialogContent>{t('vulnerabilities.delete_confirmation')}</DialogContent>

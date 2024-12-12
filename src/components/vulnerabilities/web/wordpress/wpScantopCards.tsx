@@ -5,6 +5,8 @@ import iconOrange from '../../../../assets/images/svgs/icon-alert-orange.svg';
 import iconRed from '../../../../assets/images/svgs/icon-alert-red.svg';
 import iconYellow from '../../../../assets/images/svgs/icon-alert-yellow.svg';
 
+type Severity = 'critical' | 'high' | 'medium' | 'low';
+
 const cardConfig: Record<Severity, {
   icon: any;
   title: string;
@@ -37,19 +39,19 @@ const cardConfig: Record<Severity, {
   },
 };
 
-const burntTopCardsData = [
-  { severity: 'critical', value: '96' },
-  { severity: 'high', value: '350' },
-  { severity: 'medium', value: '356' },
-  { severity: 'low', value: '696' },
-] as const;
+interface WpScanTopCardsProps {
+  data: {
+    severity: Severity;
+    value: string;
+  }[];
+}
 
-const WpScanTopCards = () => {
+const WpScanTopCards = ({ data }: WpScanTopCardsProps) => {
   const { t } = useTranslation();
 
   return (
     <Grid container spacing={3}>
-      {burntTopCardsData.map((card, i) => {
+      {data.map((card, i) => {
         const config = cardConfig[card.severity];
         return (
           <Grid item xs={6} sm={6} lg={3} key={i}>
@@ -83,5 +85,3 @@ const WpScanTopCards = () => {
 };
 
 export default WpScanTopCards;
-
-type Severity = 'critical' | 'high' | 'medium' | 'low';
