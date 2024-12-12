@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
-import Chart from 'react-apexcharts';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { ApexOptions } from 'apexcharts';
+import { useEffect } from 'react';
+import Chart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
+import { fetchOrgBreachesData } from 'src/store/sections/dashboard/OrgBreachesSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchOrgBreachesData } from 'src/store/sections/dashboard/OrgBreachesSlice';
-import { AppState } from 'src/store/Store';
-import { ApexOptions } from 'apexcharts';
-import { Box } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
 const OrgBreachesCompare = () => {
   const { t } = useTranslation();
@@ -39,7 +38,6 @@ const OrgBreachesCompare = () => {
     },
   };
 
-  console.log(series);
   if (loading) {
     return (
       <DashboardCard title={t("dashboard.organization_breaches") || ''}>

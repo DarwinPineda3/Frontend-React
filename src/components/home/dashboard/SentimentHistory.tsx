@@ -23,7 +23,6 @@ const SentimentRibbonChart: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       const sentimentData = {
         "no_expressed_feeling": [],
         "very_satisfied": [],

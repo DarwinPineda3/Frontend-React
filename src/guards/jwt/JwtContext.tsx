@@ -191,7 +191,6 @@ const handleRefreshToken = async () => {
   }
 
   try {
-    console.log("Refreshing token...");
     const response = await axios.post(
       `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`,
       { refresh: refreshToken }
