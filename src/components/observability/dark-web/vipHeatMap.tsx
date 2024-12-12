@@ -39,7 +39,6 @@ const VIPsHeatmapChart: React.FC<VIPsHeatmapChartProps> = ({ varList }) => {
       try {
         const response = await axios.get(`${getBaseApiUrl()}/monitoring/cyber-guard/monitoring/${val.id}`);
         const name = response.data.brandMonitoring.query;
-        console.log('response', response.data);
         // Data retrieval
         const dataLeaks = response.data.brandMonitoring.consolidated_data.security_leaks_counters.security_leaks_total;
         const darkWeb = response.data.brandMonitoring.consolidated_data.dark_web_counters.dark_web_total;

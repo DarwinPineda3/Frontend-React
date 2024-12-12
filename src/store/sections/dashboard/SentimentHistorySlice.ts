@@ -10,7 +10,6 @@ export const fetchSentimentsData = createAsyncThunk('sentimentsSummary/fetchData
   try {
     const response = await axios.get(`${getApiUrl()}`);
     const results = response.data;
-    console.log(results);
     return results;
   } catch (error) {
     throw error;

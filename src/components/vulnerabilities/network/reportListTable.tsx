@@ -76,7 +76,7 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
     try {
       dispatch(downloadNetworkScanReport(name_prefix, report_tool, idElastic));
     } catch (error) {
-      console.log(error);
+      console.error(error);
       handleFormSubmit(`${t('vulnerabilities.scan_failed')}`, 'error');
     }
   };

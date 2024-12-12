@@ -1,18 +1,18 @@
-import React from 'react';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import WarningIcon from '@mui/icons-material/Warning';
 import {
+  Box,
+  IconButton,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  Typography,
-  TableContainer,
-  Box,
-  IconButton
+  Typography
 } from '@mui/material';
-import WarningIcon from '@mui/icons-material/Warning';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const PluginVersionTable: React.FC = () => {
@@ -88,7 +88,7 @@ const PluginVersionTable: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   {plugin.vulnerabilities ? (
-                    <IconButton color="error" onClick={() => console.log(t('vulnerabilities.show_vulnerabilities'))}>
+                    <IconButton color="error">
                       <VisibilityIcon />
                     </IconButton>
                   ) : (

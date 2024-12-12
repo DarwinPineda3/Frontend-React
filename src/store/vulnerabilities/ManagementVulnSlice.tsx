@@ -72,46 +72,46 @@ export const {
 // Async thunk for fetching vulnerabilities with pagination (READ)
 export const fetchManagedVuln =
   (page = 1, pageSize = 25) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
-      const { results, page: currentPage, totalPages } = response.data;
-      dispatch(getManagedVuln({ results, currentPage, totalPages }));
-    } catch (err: any) {
-      console.error('Error fetching managed vulnerabilities:', err);
-      dispatch(setError('Failed to fetch managed vulnerabilities'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
+        const { results, page: currentPage, totalPages } = response.data;
+        dispatch(getManagedVuln({ results, currentPage, totalPages }));
+      } catch (err: any) {
+        console.error('Error fetching managed vulnerabilities:', err);
+        dispatch(setError('Failed to fetch managed vulnerabilities'));
+      }
+    };
 
 export const fetchVulnerabilitiesByDateRange =
   (startDate: string, endDate: string, page = 1, pageSize = 25) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${getApiUrl()}by-range/`, {
-        params: {
-          startDate,
-          endDate,
-          page,
-          page_size: pageSize,
-        },
-      });
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${getApiUrl()}by-range/`, {
+          params: {
+            startDate,
+            endDate,
+            page,
+            page_size: pageSize,
+          },
+        });
 
-      const { results, page: currentPage, totalPages } = response.data || {};
+        const { results, page: currentPage, totalPages } = response.data || {};
 
-      if (Array.isArray(results)) {
-        dispatch(
-          getManagedVuln({
-            results,
-            currentPage,
-            totalPages,
-          }),
-        );
+        if (Array.isArray(results)) {
+          dispatch(
+            getManagedVuln({
+              results,
+              currentPage,
+              totalPages,
+            }),
+          );
+        }
+      } catch (err: any) {
+        console.error('Error fetching vulnerabilities by date range:', err);
+        dispatch(setError('Failed to fetch vulnerabilities by date range'));
       }
-    } catch (err: any) {
-      console.error('Error fetching vulnerabilities by date range:', err);
-      dispatch(setError('Failed to fetch vulnerabilities by date range'));
-    }
-  };
+    };
 
 export const fetchVulnerabilityById = (id: number) => async (dispatch: AppDispatch) => {
   try {
@@ -167,15 +167,15 @@ export const closeVulnerability =
       closure_reason?: string | null;
     },
   ) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.patch(`${getApiUrl()}${id}/update-status/`, updatedFields);
-      dispatch(updateVulnerability(response.data.vulnerability));
-    } catch (err: any) {
-      console.error('Error updating vulnerability:', err.response || err.message || err);
-      dispatch(setError('Failed to update vulnerability'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.patch(`${getApiUrl()}${id}/update-status/`, updatedFields);
+        dispatch(updateVulnerability(response.data.vulnerability));
+      } catch (err: any) {
+        console.error('Error updating vulnerability:', err.response || err.message || err);
+        dispatch(setError('Failed to update vulnerability'));
+      }
+    };
 
 export const downloadEvidence = (id: number | string) => async (dispatch: AppDispatch) => {
   try {
@@ -219,7 +219,6 @@ export const downloadVulnerabilitiesReport =
       const fileName = contentDisposition
         ? contentDisposition.split('filename=')[1].replace(/['"]/g, '')
         : 'ManagedVulnerabilities.xlsx';
-      console.log(fileName);
 
       link.setAttribute('download', fileName);
 

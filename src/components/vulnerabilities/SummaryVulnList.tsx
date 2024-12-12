@@ -141,8 +141,7 @@ const SummaryVulnerabilitiesList = () => {
         fetchSummaryVulnerabilitiesByDateRange(startISO, endISO, currentPage, pageSize),
       );
     } catch (error) {
-      console.log(error);
-
+      console.error(error);
       handleFormSubmit(`${t('vulnerabilities.scan_failed')}`, 'error');
     } finally {
       setIsLoading(false);
