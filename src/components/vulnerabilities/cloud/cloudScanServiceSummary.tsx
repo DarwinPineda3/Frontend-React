@@ -1,57 +1,23 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const CloudScanSummaryService = () => {
+const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
   const { t } = useTranslation();
 
-  const sumaryData = [
-    {
-      service: "networking",
-      status: "FAIL (2)",
-      critical: 2,
-      high: 0,
-      medium: 0,
-      low: 0,
-      silenced: 0
-    },
-    {
-      service: "compute",
-      status: "FAIL (43)",
-      critical: 0,
-      high: 1,
-      medium: 41,
-      low: 1,
-      silenced: 0
-    },
-    {
-      service: "Google Container Registry (GCR)",
-      status: "FAIL (1)",
-      critical: 0,
-      high: 0,
-      medium: 1,
-      low: 0,
-      silenced: 0
-    },
-    {
-      service: "iam",
-      status: "FAIL (8)",
-      critical: 0,
-      high: 3,
-      medium: 3,
-      low: 2,
-      silenced: 0
-    },
-    {
-      service: "logging",
-      status: "FAIL (10)",
-      critical: 0,
-      high: 0,
-      medium: 10,
-      low: 0,
-      silenced: 0
-    }
-  ];
+  let servicesArray: any[] = []
+  if (services) {
+    servicesArray = Object.entries(services).map(([key, value]) => ({
+      name: key,
+      ...value,
+    }));
+
+  }
+
+  console.log(servicesArray);
+  const theme = useTheme();
+  const { critical, high, medium, low, unknown } = theme.palette.level;
+
 
   return (
     <DashboardCard title={t("vulnerabilities.service_summary")!}>
@@ -83,15 +49,40 @@ const CloudScanSummaryService = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sumaryData.map((row, index) => (
+            {servicesArray.map((row, index) => (
               <TableRow key={index}>
-                <TableCell>{row.service}</TableCell>
-                <TableCell style={{ color: 'red' }}>{row.status}</TableCell>
-                <TableCell>{row.critical}</TableCell>
-                <TableCell>{row.high}</TableCell>
-                <TableCell>{row.medium}</TableCell>
-                <TableCell>{row.low}</TableCell>
-                <TableCell>{row.silenced}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell style={{ color: row.passed == row.total ? low : high }}>
+                  <Chip
+                    label={
+                      row.passed == row.total
+                        ? `Pass: ${row.passed}`
+                        : `Failed: ${row.failed}`
+                    }
+                    color="secondary"
+                    size="small"
+                    style={{
+                      backgroundColor:
+                        row.passed == row.total ? low : high,
+                      color: 'white',
+                    }}
+                  />
+                </TableCell>
+                <TableCell style={{ color: row.critical > 0 && critical || '' }}>
+                  {row.critical}
+                </TableCell>
+                <TableCell style={{ color: row.high > 0 && high || '' }}>
+                  {row.high}
+                </TableCell>
+                <TableCell style={{ color: row.medium > 0 && medium || '' }}>
+                  {row.medium}
+                </TableCell>
+                <TableCell style={{ color: row.low > 0 && low || '' }}>
+                  {row.low}
+                </TableCell>
+                <TableCell>
+                  {row.muted}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

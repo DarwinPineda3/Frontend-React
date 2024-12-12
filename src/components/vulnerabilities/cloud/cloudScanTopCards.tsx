@@ -2,17 +2,8 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import { IconAlertCircle, IconAlertOctagon, IconAlertTriangle, IconCheck } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
-const CloudScanTopCards = () => {
+const CloudScanTopCards: React.FC<{ statistics: any }> = ({ statistics }) => {
   const { t } = useTranslation();
-
-  const statistics = {
-    critical: 1,
-    high: 2,
-    medium: 3,
-    low: 4,
-  };
-
-
 
   return (
     <Grid container spacing={2}>
@@ -27,7 +18,7 @@ const CloudScanTopCards = () => {
             <Box>
               <Typography color="background.default">{t("vulnerabilities.critical")}</Typography>
               <Typography fontWeight={500} color="background.default">
-                {statistics.critical} {t("vulnerabilities.alerts")}
+                {statistics?.critical} {t("vulnerabilities.alerts")}
               </Typography>
             </Box>
           </Stack>
@@ -44,7 +35,7 @@ const CloudScanTopCards = () => {
             <Box>
               <Typography color="background.default">{t("vulnerabilities.high")}</Typography>
               <Typography fontWeight={500} color="background.default">
-                {statistics.high} {t("vulnerabilities.alerts")}
+                {statistics?.high} {t("vulnerabilities.alerts")}
               </Typography>
             </Box>
           </Stack>
@@ -61,7 +52,7 @@ const CloudScanTopCards = () => {
             <Box>
               <Typography color="error.main">{t("vulnerabilities.medium")}</Typography>
               <Typography fontWeight={500} color="error.main">
-                {statistics.medium} {t("vulnerabilities.alerts")}
+                {statistics?.medium} {t("vulnerabilities.alerts")}
               </Typography>
             </Box>
           </Stack>
@@ -78,7 +69,7 @@ const CloudScanTopCards = () => {
             <Box>
               <Typography color="warning.main">{t("vulnerabilities.low")}</Typography>
               <Typography fontWeight={500} color="warning.main">
-                {statistics.low} {t("vulnerabilities.alerts")}
+                {statistics?.low} {t("vulnerabilities.alerts")}
               </Typography>
             </Box>
           </Stack>

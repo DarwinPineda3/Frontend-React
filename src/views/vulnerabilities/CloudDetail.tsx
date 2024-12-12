@@ -27,7 +27,7 @@ const CloudVulnerabilitiesDetails = () => {
         try {
           await dispatch(fetchCloudScanById(cloudId));
         } catch (error) {
-          console.error('Error fetching wpscans:', error);
+          console.error('Error fetching cloudscans:', error);
         }
       }
     };
@@ -35,7 +35,16 @@ const CloudVulnerabilitiesDetails = () => {
     fetchData();
   }, [cloudId, dispatch]);
 
-  console.log(cloudscan);
+  // console.log(cloudscan);
+  let overview = {}
+  if (cloudscan) {
+    overview = {
+      timestamp: cloudscan?.timestamp,
+      version: cloudscan?.version,
+      cloud_id: cloudscan?.cloud_id,
+      provider: cloudscan?.provider,
+    }
+  }
 
 
   return (
@@ -60,17 +69,17 @@ const CloudVulnerabilitiesDetails = () => {
         <Grid item xs={12}>
           <Grid container spacing={3}>
             <Grid item xs={12} xl={12}>
-              <CloudScanTopBar />
+              <CloudScanTopBar overview={overview} />
             </Grid>
 
             {/* Top Cards */}
             <Grid item xs={12} xl={12}>
-              <CloudScanTopCards />
+              <CloudScanTopCards statistics={cloudscan?.statistics}/>
             </Grid>
 
             {/* Service Summary */}
             <Grid item xs={12} xl={12}>
-              <CloudScanSummaryService />
+              <CloudScanSummaryService services={cloudscan?.services}/>
             </Grid>
 
             {/* Reports Table */}
