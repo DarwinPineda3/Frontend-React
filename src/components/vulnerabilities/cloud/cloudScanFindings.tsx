@@ -28,7 +28,7 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
 
   const filteredFindings = findings?.filter((row: any) => {
     const matchesSearch =
-      row.finding_info?.title?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      row.finding_info?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       row.resources[0]?.group?.name?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesSeverity = selectedRiskLevel
@@ -48,41 +48,44 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
 
     <DashboardCard title={t("vulnerabilities.report")!}>
       <>
-        <Box mb={3} my={3}>
-          <TextField
-            placeholder={t("vulnerabilities.search_reports") || ''}
-            variant="outlined"
-            fullWidth
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconSearch size={18} />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={6} xl={6}>
+            <TextField
+              placeholder={t("vulnerabilities.search_reports") || ''}
+              variant="outlined"
+              fullWidth
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconSearch size={18} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
 
-        <Box mb={3} display="flex" gap={2}>
-          <TextField
-            select
-            placeholder={t("vulnerabilities.severity") || ''}
-            value={selectedRiskLevel || ''}
-            onChange={(e) => setSelectedRiskLevel(e.target.value || null)}
-            fullWidth
-            SelectProps={{
-              native: true,
-            }}
-          >
-            <option value="">{t("vulnerabilities.cloud_scans.all_severities")}</option>
-            <option value="Critical">{t("vulnerabilities.cloud_scans.critical")}</option>
-            <option value="High">{t("vulnerabilities.cloud_scans.high")}</option>
-            <option value="Medium">{t("vulnerabilities.cloud_scans.medium")}</option>
-            <option value="Low">{t("vulnerabilities.cloud_scans.low")}</option>
-          </TextField>
-        </Box>
+          <Grid item xs={6} xl={6}>
+            <TextField
+              select
+              label={t("vulnerabilities.severity") || ''}
+              value={selectedRiskLevel || ''}
+              onChange={(e) => setSelectedRiskLevel(e.target.value || null)}
+              fullWidth
+              SelectProps={{
+                native: true,
+              }}
+            >
+              <option disabled value=""></option>
+              <option value="">{t("vulnerabilities.cloud_scans.all_severities")}</option>
+              <option value="Critical">{t("vulnerabilities.cloud_scans.critical")}</option>
+              <option value="High">{t("vulnerabilities.cloud_scans.high")}</option>
+              <option value="Medium">{t("vulnerabilities.cloud_scans.medium")}</option>
+              <option value="Low">{t("vulnerabilities.cloud_scans.low")}</option>
+            </TextField>
+          </Grid>
+        </Grid>
         {filteredFindings?.length > 0 ? (
           <TableContainer>
             <Table aria-label="compliance table">
@@ -113,22 +116,22 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
                         size="small"
                         style={{
                           backgroundColor:
-                            row.severity === "Critical" ? 
-                            critical : row.severity === "High" ? 
-                            high : row.severity === "Medium" ? 
-                            medium : low,
+                            row.severity === "Critical" ?
+                              critical : row.severity === "High" ?
+                                high : row.severity === "Medium" ?
+                                  medium : low,
                           color: 'white',
                         }}
                       />
                     </TableCell>
-                    <TableCell>{row.resources[0].group.name}</TableCell>
+                    <TableCell >{row.resources[0].group.name}</TableCell>
                     <TableCell>{row.cloud.region}</TableCell>
-                    <TableCell>{row.finding_info.title}</TableCell>
-                    <TableCell>{row.resources[0].name}</TableCell>
-                    <TableCell>{row.finding_info.desc}</TableCell>
-                    <TableCell>{row.finding_info.uid}</TableCell>
-                    <TableCell>{row.remediation.desc}</TableCell>
-                    <TableCell>
+                    <TableCell sx={{ width: "10%", wordBreak: "break-all" }}>{row.finding_info.title}</TableCell>
+                    <TableCell sx={{ width: "10%", wordBreak: "break-all" }}>{row.resources[0].name}</TableCell>
+                    <TableCell sx={{ width: "10%", wordBreak: "break-all" }}>{row.finding_info.desc}</TableCell>
+                    <TableCell sx={{ width: "10%", wordBreak: "break-all" }}>{row.finding_info.uid}</TableCell>
+                    <TableCell sx={{ width: "20%", wordBreak: "break-all" }}>{row.remediation.desc}</TableCell>
+                    <TableCell sx={{ width: "10%", wordBreak: "break-all" }}>
                       {row.remediation.references?.map((ref: any, index: any) =>
                         ref.startsWith('https://') ? (
                           <Link key={index} href={ref} target="_blank" rel="noopener">

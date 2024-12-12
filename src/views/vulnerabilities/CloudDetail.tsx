@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from "@mui/material";
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -66,36 +66,39 @@ const CloudVulnerabilitiesDetails = () => {
               {t('vulnerabilities.cloud')}
 
             </Link>
+            <Typography color="textPrimary">
+              {cloudscan?.cloud_id}
+            </Typography>
           </Breadcrumbs>
         </Box>
       </Box>
       <Grid container spacing={0}>
         <Grid item xs={12}>
-        {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-            <Loader />
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
-            <Grid item xs={12} xl={12}>
-              <CloudScanTopBar overview={overview} />
-            </Grid>
+          {isLoading ? (
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          ) : (
+            <Grid container spacing={3}>
+              <Grid item xs={12} xl={12}>
+                <CloudScanTopBar overview={overview} />
+              </Grid>
 
-            {/* Top Cards */}
-            <Grid item xs={12} xl={12}>
-              <CloudScanTopCards statistics={cloudscan?.statistics}/>
-            </Grid>
+              {/* Top Cards */}
+              <Grid item xs={12} xl={12}>
+                <CloudScanTopCards statistics={cloudscan?.statistics} />
+              </Grid>
 
-            {/* Service Summary */}
-            <Grid item xs={12} xl={12}>
-              <CloudScanSummaryService services={cloudscan?.services}/>
-            </Grid>
+              {/* Service Summary */}
+              <Grid item xs={12} xl={12}>
+                <CloudScanSummaryService services={cloudscan?.services} />
+              </Grid>
 
-            {/* Reports Table */}
-            <Grid item xs={12} xl={12}>
-              <CloudScanFindings findings={cloudscan?.findings}/>
+              {/* Reports Table */}
+              <Grid item xs={12} xl={12}>
+                <CloudScanFindings findings={cloudscan?.findings} />
+              </Grid>
             </Grid>
-          </Grid>
           )}
         </Grid>
       </Grid>
