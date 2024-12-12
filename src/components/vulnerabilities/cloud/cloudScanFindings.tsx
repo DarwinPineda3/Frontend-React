@@ -15,24 +15,34 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 50;
 
-  const totalPages = Math.ceil(findings?.length / rowsPerPage);
+  // const totalPages = Math.ceil(findings?.length / rowsPerPage);
 
   const handlePageChange = (event: any, value: any) => {
     setCurrentPage(value);
   };
 
-  const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  // const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   const theme = useTheme();
   const { critical, high, medium, low } = theme.palette.level;
 
-  // const filteredReports = findingsArray.filter((report) => {
-  //   const matchesSearch = report.checkTitle.toLowerCase().includes(searchTerm.toLowerCase());
-  //   const matchesRiskLevel = selectedRiskLevel
-  //     ? report.severity.toLowerCase() === selectedRiskLevel.toLowerCase()
-  //     : true;
-  //   return matchesSearch && matchesRiskLevel;
-  // });
+  const filteredFindings = findings?.filter((row: any) => {
+    const matchesSearch =
+      row.finding_info?.title?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      row.resources[0]?.group?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesSeverity = selectedRiskLevel
+      ? row.severity.toLowerCase() === selectedRiskLevel.toLowerCase()
+      : true;
+
+    return matchesSearch && matchesSeverity;
+  });
+
+  const totalPages = Math.ceil(filteredFindings?.length / rowsPerPage);
+  const currentData = filteredFindings?.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   return (
 
@@ -54,7 +64,26 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
             }}
           />
         </Box>
-        {findings?.length > 0 ? (
+
+        <Box mb={3} display="flex" gap={2}>
+          <TextField
+            select
+            label={t("vulnerabilities.severity")}
+            value={selectedRiskLevel || ''}
+            onChange={(e) => setSelectedRiskLevel(e.target.value || null)}
+            fullWidth
+            SelectProps={{
+              native: true,
+            }}
+          >
+            <option value="">{t("vulnerabilities.all_severities")}</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </TextField>
+        </Box>
+        {filteredFindings?.length > 0 ? (
           <TableContainer>
             <Table aria-label="compliance table">
               <TableHead>
@@ -84,7 +113,10 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
                         size="small"
                         style={{
                           backgroundColor:
-                            row.severity === "Critical" ? critical : row.severity === "High" ? high : row.severity === "Medium" ? medium : low,
+                            row.severity === "Critical" ? 
+                            critical : row.severity === "High" ? 
+                            high : row.severity === "Medium" ? 
+                            medium : low,
                           color: 'white',
                         }}
                       />
@@ -97,10 +129,6 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
                     <TableCell>{row.finding_info.uid}</TableCell>
                     <TableCell>{row.remediation.desc}</TableCell>
                     <TableCell>
-                      {/* <a href={row.remediation.references[0]} target="_blank" rel="noopener noreferrer">
-                      {row.remediation.references[0]}
-                    </a> */}
-
                       {row.remediation.references?.map((ref: any, index: any) =>
                         ref.startsWith('https://') ? (
                           <Link key={index} href={ref} target="_blank" rel="noopener">
@@ -108,7 +136,6 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
                           </Link>
                         ) : null
                       )}
-
                     </TableCell>
                   </TableRow>
                 ))}
