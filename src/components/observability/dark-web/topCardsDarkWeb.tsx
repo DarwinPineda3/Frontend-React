@@ -1,27 +1,27 @@
+import { AccountCircle, Email, Hvac, Language, People, Phone, Public, Security, VerifiedUser } from '@mui/icons-material';
 import { Box, Grid, Typography } from '@mui/material';
-import { Security, Language, Email, Public, AccountCircle, Phone, Hvac, VerifiedUser, Apps, People} from '@mui/icons-material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Data for the first row of top cards
 const firstRowData = [
-    { title: 'total_compromises', icon: <Security fontSize="large" /> }, 
-    { title: 'domains', icon: <Language fontSize="large" /> },
-    { title: 'emails', icon: <Email fontSize="large" /> },
-    { title: 'ips', icon: <Public fontSize="large" /> },
-    { title: 'usernames', icon: <AccountCircle fontSize="large" /> },
-    { title: 'phones', icon: <Phone fontSize="large" /> },
+  { title: 'total_compromises', icon: <Security fontSize="large" /> },
+  { title: 'domains', icon: <Language fontSize="large" /> },
+  { title: 'emails', icon: <Email fontSize="large" /> },
+  { title: 'ips', icon: <Public fontSize="large" /> },
+  { title: 'usernames', icon: <AccountCircle fontSize="large" /> },
+  { title: 'phones', icon: <Phone fontSize="large" /> },
 ];
 
 // Data for the second row of top cards
 const secondRowData = [
-    { title: 'social_media_total', icon: <People fontSize="large" /> },
-    { title: 'vip_compromised_count', icon: <VerifiedUser fontSize="large" /> },
-    { title: 'dark_web_total', icon: <Hvac fontSize="large" /> },
+  { title: 'social_media_total', icon: <People fontSize="large" /> },
+  { title: 'vip_compromised_count', icon: <VerifiedUser fontSize="large" /> },
+  { title: 'dark_web_total', icon: <Hvac fontSize="large" /> },
 ];
 
 // Function to return color based on value
-const getColorByValue = (value:number) => {
+const getColorByValue = (value: number) => {
   if (value < 1) return 'success';
   return 'error';
 };

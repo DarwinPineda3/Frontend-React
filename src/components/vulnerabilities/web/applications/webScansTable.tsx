@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
+  Box,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
-  IconButton,
-  TableContainer,
-  Box,
-  Pagination,
 } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import { fetchWebApplicationsData } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 
 const burntScansData = [
   {
@@ -53,6 +56,11 @@ interface ScanListTableProps {
 const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
+  const { loading, data, error } = useSelector((state: AppState) => state.WebApplicationsReducer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchWebApplicationsData());
+  }, [dispatch]);
   const totalPages = 1;
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -67,6 +75,18 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     console.log(`Deleting scan ${scanId}`);
   };
 
+  if (loading || data == null) {
+    return (
+      <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
+      </DashboardCard>
+    );
+  }
+  if (error) {
+    return <div>{t('dashboard.error', { error })}</div>;
+  }
   return (
     <Box>
       <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!}>
@@ -108,7 +128,8 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {burntScansData.map((scan, index) => (
+                {/*@ts-ignore*/}
+                {data.map((scan, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Typography
@@ -123,10 +144,10 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan.host}</Typography>
+                      <Typography variant="body2">{scan.hosts}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan.date}</Typography>
+                      <Typography variant="body2">{scan.scan_start}</Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="body2">{scan.type}</Typography>
