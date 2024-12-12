@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNetworkSlice.tsx';
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
@@ -71,6 +72,7 @@ export const store = configureStore({
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
     WebApplicationsReducer: WebApplicationsReducer,
+    NetworkObservabilityReducer: NetworkObservabilityReducer
   },
 });
 
@@ -95,6 +97,7 @@ const rootReducer = combineReducers({
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
   WebApplicationsReducer: WebApplicationsReducer,
+  NetworkObservabilityReducer: NetworkObservabilityReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

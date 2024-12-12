@@ -567,7 +567,9 @@
     "fake_app_count": "Fake Applications Count",
     "social_media_total": "Social Media Count",
     "dark_web_total": "Dark Web Count",
-    "network_scans": "Network Observability Scans"
+    "network_scans": "Network Observability Scans",
+    "host_table": "Host Table",
+    "host": "Host"
   },
   "monitoring": {
     "top_threat_types": "Top Detected Threat Types",
