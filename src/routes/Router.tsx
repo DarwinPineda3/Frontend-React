@@ -18,6 +18,7 @@ import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 // import SIEMMonitoring from 'src/views/monitoring/SIEM';
+import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import GroupGuard from 'src/guards/authGuard/GroupGuard';
 import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
 import Register from 'src/views/authentication/auth/Register';
@@ -58,10 +59,10 @@ import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
+import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -107,6 +108,7 @@ const Router = [
 
       { path: '/vulnerabilities/web', element: <WebVulnerabilities />, roles: ['Admin', 'Scan360'] },
       { path: '/vulnerabilities/web/applications', element: <WebApplications />, roles: ['Admin', 'Scan360'] },
+      { path: '/vulnerabilities/web/applications/create', element: <WebAppCreateScan />, roles: ['Admin', 'Scan360'] },
       { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications />, roles: ['Admin', 'Scan360'] },
       {
         path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId',
