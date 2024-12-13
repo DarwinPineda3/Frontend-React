@@ -15,11 +15,12 @@ import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { useDispatch } from 'src/store/Store';
-import { createCloudScan } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { createCloudScan, setError } from 'src/store/vulnerabilities/cloud/CloudSlice';
 import * as Yup from 'yup';
 
 const CreateProwlerScan: React.FC = () => {
+  const error = useSelector((state: any) => state.cloudScanReducer.error);
   const [provider, setProvider] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -28,6 +29,12 @@ const CreateProwlerScan: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+
+  const handleSnackbarClose = () => {
+    dispatch(setError(null));
+  };
+
 
   const formik = useFormik({
     initialValues: {
@@ -79,13 +86,26 @@ const CreateProwlerScan: React.FC = () => {
       };
 
       try {
+
         await dispatch(createCloudScan(newCloudScan));
-        navigate('/vulnerabilities/cloud', {
-          state: {
-            message: t('vulnerabilities.cloud_scans.scan_created_successfully') || '',
-            severity: 'success',
-          },
-        });
+
+        if (await error) {
+          navigate('/vulnerabilities/cloud', {
+            state: {
+              message: error,
+              severity: 'error',
+            },
+          });
+        } else {
+          navigate('/vulnerabilities/cloud', {
+            state: {
+              message: t('vulnerabilities.cloud_scans.scan_created_successfully') || '',
+              severity: 'success',
+            },
+          });
+        }
+
+
       } catch (error) {
         console.error('Error creating ticket:', error);
         setSnackbarMessage(t('vulnerabilities.cloud_scans.error_creating_scan') || '');
@@ -216,7 +236,7 @@ const CreateProwlerScan: React.FC = () => {
             </Box>
           </Box>
         )}
-        
+
         {snackbarOpen && (
           <SnackBarInfo
             color={snackbarSeverity}

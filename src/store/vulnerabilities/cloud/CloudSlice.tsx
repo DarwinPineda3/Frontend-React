@@ -40,7 +40,7 @@ export const CloudScansSlice = createSlice({
     getCloudScanDetail: (state, action) => {
       state.cloudScanDetails = action.payload.data;
     },
-    addClodScan: (state, action) => {
+    addCloudScan: (state, action) => {
       state.cloudScans.push(action.payload);
     },
     setFileContent: (state, action) => {
@@ -55,7 +55,7 @@ export const CloudScansSlice = createSlice({
   },
 });
 
-export const { getCloudScans, getCloudScanDetail, addClodScan, setFileContent, setPage, setError } = CloudScansSlice.actions;
+export const { getCloudScans, getCloudScanDetail, addCloudScan, setFileContent, setPage, setError } = CloudScansSlice.actions;
 
 export const fetchCloudScans =
   (page = 1) =>
@@ -100,13 +100,12 @@ export const createCloudScan = (newCloudScan: any) => async (dispatch: AppDispat
     if (newCloudScan.gcp_credentials_json_file) {
       formData.append('gcp_credentials_json_file', newCloudScan.gcp_credentials_json_file);
     }
-
     const response = await axios.post(getApiUrl(), formData);
-    
-    dispatch(addClodScan(response.data));
+    dispatch(addCloudScan(response.data));
   } catch (err: any) {
-    console.error('Error creating ticket:', err);
-    dispatch(setError('Failed to create ticket'));
+    dispatch(setError(err.response))
+    console.error('Error creating scan:', err);
+    dispatch(setError('Failed to create scan'));
   }
 };
 
