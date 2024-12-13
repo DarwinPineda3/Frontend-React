@@ -21,7 +21,7 @@ import AppScansReducer from './sections/mobile-app/AppScanSlice';
 import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
-import VulnerabilitySolutionReducer from './sections/vulnerabilities-solutions/VulnerabilitySolutionSlice';
+import VulnerabilitySolutionReducer from './sections/vulnerabilities-solutions/SolutionVulnerabilitySlice';
 import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';

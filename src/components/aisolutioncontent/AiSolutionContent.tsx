@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchVulnerabilitySolution } from 'src/store/sections/vulnerabilities-solutions/VulnerabilitySolutionSlice';
+import { fetchVulnerabilitySolution } from 'src/store/sections/vulnerabilities-solutions/SolutionVulnerabilitySlice';
 import { vulnerabilitySolution } from 'src/types/solutions/vulnerabilitySolution';
 import Loader from '../shared/Loader/Loader';
 
