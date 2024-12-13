@@ -19,6 +19,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import CustomFormLabel from 'src/components/forms/theme-elements/CustomFormLabel';
+import Thumbnail from 'src/components/home/monitoring/malware-analyses/MalwareAnalysisThumbnail';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
@@ -239,12 +241,12 @@ const CreateProwlerScan: React.FC = () => {
 
                     {provider === 'gcp' && (
                       <FormControl fullWidth margin="normal" error={Boolean(formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file)}>
-                        <input
-                          id="gcp_credentials_json_file"
-                          name="gcp_credentials_json_file"
-                          type="file"
-                          onChange={(event) => {
-                            formik.setFieldValue('gcp_credentials_json_file', event.target.files ? event.target.files[0] : null);
+
+
+                        <CustomFormLabel htmlFor="attach_file">{t('support.attach_file')}</CustomFormLabel>
+                        <Thumbnail
+                          onDrop={(acceptedFiles) => {
+                            formik.setFieldValue('gcp_credentials_json_file', acceptedFiles[0]);
                           }}
                         />
                         <FormHelperText>{formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file}</FormHelperText>
