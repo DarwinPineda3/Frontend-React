@@ -451,7 +451,8 @@
       "submit": "Enviar",
       "azure_client_id": "ID de cliente de Azure",
       "azure_tenant_id": "ID de inquilino de Azure",
-      "azure_client_secret": "Secreto de cliente de Azure"
+      "azure_client_secret": "Secreto de cliente de Azure",
+      "new_scan": "Nuevo Escaneo"
     }
   },
   "observability": {

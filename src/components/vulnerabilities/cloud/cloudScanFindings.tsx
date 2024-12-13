@@ -10,18 +10,13 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<string | null>(null);
 
-  // console.log(findings);
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 50;
 
-  // const totalPages = Math.ceil(findings?.length / rowsPerPage);
-
   const handlePageChange = (event: any, value: any) => {
     setCurrentPage(value);
   };
-
-  // const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   const theme = useTheme();
   const { critical, high, medium, low } = theme.palette.level;

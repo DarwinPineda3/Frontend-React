@@ -452,7 +452,8 @@
       "submit": "Submit",
       "azure_client_id": "Azure Client ID",
       "azure_tenant_id": "Azure Tenant ID",
-      "azure_client_secret": "Azure Client Secret"
+      "azure_client_secret": "Azure Client Secret",
+      "new_scan": "Create scan"
     }
   },
   "observability": {
@@ -1164,7 +1165,7 @@
     "results": "Results",
     "no_interesting_entries": "No interesting entries.",
     "close": "Close",
-    "scan_in_progress":"Scan in progress",
+    "scan_in_progress": "Scan in progress",
     "error_msg": "The scan could not be created. Please check the asset configuration."
   }
 }

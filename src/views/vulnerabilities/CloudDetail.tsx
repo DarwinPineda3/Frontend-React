@@ -39,7 +39,6 @@ const CloudVulnerabilitiesDetails = () => {
     fetchData();
   }, [cloudId, dispatch]);
 
-  // console.log(cloudscan);
   let overview = {}
   if (cloudscan) {
     overview = {

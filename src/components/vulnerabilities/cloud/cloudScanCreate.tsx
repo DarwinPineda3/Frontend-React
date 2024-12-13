@@ -1,22 +1,29 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Box,
+  Breadcrumbs,
   Button,
   FormControl,
   FormHelperText,
+  Grid,
+  IconButton,
   InputLabel,
+  Link,
   MenuItem,
   Select,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { createCloudScan, setError } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import { createCloudScan } from 'src/store/vulnerabilities/cloud/CloudSlice';
 import * as Yup from 'yup';
 
 const CreateProwlerScan: React.FC = () => {
@@ -29,12 +36,6 @@ const CreateProwlerScan: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-
-
-  const handleSnackbarClose = () => {
-    dispatch(setError(null));
-  };
-
 
   const formik = useFormik({
     initialValues: {
@@ -124,128 +125,153 @@ const CreateProwlerScan: React.FC = () => {
   };
 
   return (
-    <DashboardCard
-      title="Create Cloud Scan">
+    <PageContainer title="Akila">
       <>
-        {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-            <Loader />
+        <Box mb={2}>
+          <Box display="flex" alignItems="center" mt={2}>
+            <IconButton onClick={() => navigate(-1)} color="primary">
+              <ArrowBackIcon />
+            </IconButton>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
+                {t('vulnerabilities.vulnerabilities')}
+              </Link>
+              <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
+                {t('vulnerabilities.cloud')}
+
+              </Link>
+              <Typography color="textPrimary">
+                {t('vulnerabilities.cloud_scans.new_scan')}
+              </Typography>
+            </Breadcrumbs>
           </Box>
-        ) : (
-          <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-
-
-            <FormControl fullWidth margin="normal" error={Boolean(formik.touched.provider && formik.errors.provider)}>
-              <InputLabel id="provider-label">{t('vulnerabilities.cloud_scans.provider') || ''}</InputLabel>
-              <Select
-                labelId="provider-label"
-                id="provider"
-                value={formik.values.provider}
-                onChange={handleProviderChange}
-              >
-                <MenuItem value="aws">AWS</MenuItem>
-                <MenuItem value="azure">Azure</MenuItem>
-                <MenuItem value="gcp">GCP</MenuItem>
-              </Select>
-              <FormHelperText>{formik.touched.provider && formik.errors.provider}</FormHelperText>
-            </FormControl>
-
-            {provider === 'aws' && (
+        </Box>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <DashboardCard
+              title="Create Cloud Scan">
               <>
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="aws_id"
-                  name="aws_id"
-                  label="AWS ID"
-                  value={formik.values.aws_id}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.touched.aws_id && formik.errors.aws_id)}
-                  helperText={formik.touched.aws_id && formik.errors.aws_id}
-                />
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="aws_secret"
-                  name="aws_secret"
-                  label="AWS Secret"
-                  value={formik.values.aws_secret}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.touched.aws_secret && formik.errors.aws_secret)}
-                  helperText={formik.touched.aws_secret && formik.errors.aws_secret}
-                />
+                {isLoading ? (
+                  <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+                    <Loader />
+                  </Box>
+                ) : (
+                  <Box component="form" onSubmit={formik.handleSubmit} noValidate>
+                    <FormControl fullWidth margin="normal" error={Boolean(formik.touched.provider && formik.errors.provider)}>
+                      <InputLabel id="provider-label">{t('vulnerabilities.cloud_scans.provider') || ''}</InputLabel>
+                      <Select
+                        labelId="provider-label"
+                        id="provider"
+                        value={formik.values.provider}
+                        onChange={handleProviderChange}
+                      >
+                        <MenuItem value="aws">AWS</MenuItem>
+                        <MenuItem value="azure">Azure</MenuItem>
+                        <MenuItem value="gcp">GCP</MenuItem>
+                      </Select>
+                      <FormHelperText>{formik.touched.provider && formik.errors.provider}</FormHelperText>
+                    </FormControl>
+
+                    {provider === 'aws' && (
+                      <>
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          id="aws_id"
+                          name="aws_id"
+                          label="AWS ID"
+                          value={formik.values.aws_id}
+                          onChange={formik.handleChange}
+                          error={Boolean(formik.touched.aws_id && formik.errors.aws_id)}
+                          helperText={formik.touched.aws_id && formik.errors.aws_id}
+                        />
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          id="aws_secret"
+                          name="aws_secret"
+                          label="AWS Secret"
+                          value={formik.values.aws_secret}
+                          onChange={formik.handleChange}
+                          error={Boolean(formik.touched.aws_secret && formik.errors.aws_secret)}
+                          helperText={formik.touched.aws_secret && formik.errors.aws_secret}
+                        />
+                      </>
+                    )}
+
+                    {provider === 'azure' && (
+                      <>
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          id="azure_client_id"
+                          name="azure_client_id"
+                          label={t('vulnerabilities.cloud_scans.azure_client_id') || ''}
+                          value={formik.values.azure_client_id}
+                          onChange={formik.handleChange}
+                          error={Boolean(formik.touched.azure_client_id && formik.errors.azure_client_id)}
+                          helperText={formik.touched.azure_client_id && formik.errors.azure_client_id}
+                        />
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          id="azure_tenant_id"
+                          name="azure_tenant_id"
+                          label={t('vulnerabilities.cloud_scans.azure_tenant_id') || ''}
+                          value={formik.values.azure_tenant_id}
+                          onChange={formik.handleChange}
+                          error={Boolean(formik.touched.azure_tenant_id && formik.errors.azure_tenant_id)}
+                          helperText={formik.touched.azure_tenant_id && formik.errors.azure_tenant_id}
+                        />
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          id="azure_client_secret"
+                          name="azure_client_secret"
+                          label={t('vulnerabilities.cloud_scans.azure_client_secret') || ''}
+                          value={formik.values.azure_client_secret}
+                          onChange={formik.handleChange}
+                          error={Boolean(formik.touched.azure_client_secret && formik.errors.azure_client_secret)}
+                          helperText={formik.touched.azure_client_secret && formik.errors.azure_client_secret}
+                        />
+                      </>
+                    )}
+
+                    {provider === 'gcp' && (
+                      <FormControl fullWidth margin="normal" error={Boolean(formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file)}>
+                        <input
+                          id="gcp_credentials_json_file"
+                          name="gcp_credentials_json_file"
+                          type="file"
+                          onChange={(event) => {
+                            formik.setFieldValue('gcp_credentials_json_file', event.target.files ? event.target.files[0] : null);
+                          }}
+                        />
+                        <FormHelperText>{formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file}</FormHelperText>
+                      </FormControl>
+                    )}
+
+                    <Box mt={2}>
+                      <Button type="submit" variant="contained" color="primary" fullWidth>
+                        {t('vulnerabilities.cloud_scans.submit') || ''}
+                      </Button>
+                    </Box>
+                  </Box>
+                )}
+
+                {snackbarOpen && (
+                  <SnackBarInfo
+                    color={snackbarSeverity}
+                    title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
+                    message={snackbarMessage}
+                  />
+                )}
               </>
-            )}
-
-            {provider === 'azure' && (
-              <>
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="azure_client_id"
-                  name="azure_client_id"
-                  label={t('vulnerabilities.cloud_scans.azure_client_id') || ''}
-                  value={formik.values.azure_client_id}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.touched.azure_client_id && formik.errors.azure_client_id)}
-                  helperText={formik.touched.azure_client_id && formik.errors.azure_client_id}
-                />
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="azure_tenant_id"
-                  name="azure_tenant_id"
-                  label={t('vulnerabilities.cloud_scans.azure_tenant_id') || ''}
-                  value={formik.values.azure_tenant_id}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.touched.azure_tenant_id && formik.errors.azure_tenant_id)}
-                  helperText={formik.touched.azure_tenant_id && formik.errors.azure_tenant_id}
-                />
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="azure_client_secret"
-                  name="azure_client_secret"
-                  label={t('vulnerabilities.cloud_scans.azure_client_secret') || ''}
-                  value={formik.values.azure_client_secret}
-                  onChange={formik.handleChange}
-                  error={Boolean(formik.touched.azure_client_secret && formik.errors.azure_client_secret)}
-                  helperText={formik.touched.azure_client_secret && formik.errors.azure_client_secret}
-                />
-              </>
-            )}
-
-            {provider === 'gcp' && (
-              <FormControl fullWidth margin="normal" error={Boolean(formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file)}>
-                <input
-                  id="gcp_credentials_json_file"
-                  name="gcp_credentials_json_file"
-                  type="file"
-                  onChange={(event) => {
-                    formik.setFieldValue('gcp_credentials_json_file', event.target.files ? event.target.files[0] : null);
-                  }}
-                />
-                <FormHelperText>{formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file}</FormHelperText>
-              </FormControl>
-            )}
-
-            <Box mt={2}>
-              <Button type="submit" variant="contained" color="primary" fullWidth>
-                {t('vulnerabilities.cloud_scans.submit') || ''}
-              </Button>
-            </Box>
-          </Box>
-        )}
-
-        {snackbarOpen && (
-          <SnackBarInfo
-            color={snackbarSeverity}
-            title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
-            message={snackbarMessage}
-          />
-        )}
+            </DashboardCard>
+          </Grid>
+        </Grid>
       </>
-    </DashboardCard>
+    </PageContainer>
   );
 };
 
