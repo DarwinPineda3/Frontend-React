@@ -31,8 +31,10 @@ import {
   setPage,
   setPageSize,
 } from 'src/store/vulnerabilities/SummaryVulnSlice';
+import { vulnerabilitySolution } from 'src/types/solutions/vulnerabilitySolution';
 import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
 import { getChipColor, getSeverityColor } from 'src/utils/severityUtils';
+import AiSolutionModal from '../aisolutioncontent/AiSolutionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
@@ -55,7 +57,10 @@ const SummaryVulnerabilitiesList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const [showModal, setShowModal] = useState(false);
+  const [selectedVulnerability, setSelectedVulnerability] = useState<vulnerabilitySolution | null>(
+    null,
+  );
   const [startDate, setStartDate] = useState(() => {
     const now = new Date();
     now.setDate(1);
@@ -210,6 +215,24 @@ const SummaryVulnerabilitiesList = () => {
       setSnackbarOpen(true);
     }
   };
+
+  const handleOpenModal = (vulnerability: managementVulnerabilityType) => {
+    const filteredVulnerability: vulnerabilitySolution = {
+      report_id: vulnerability.report_id,
+      tool: vulnerability.tool,
+      vulnerability_name: vulnerability.name,
+      vulnerability_id: vulnerability.id!,
+    };
+
+    setSelectedVulnerability(filteredVulnerability);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedVulnerability(null);
+  };
+
   return (
     <DashboardCard
       title={t('summary.vulnerabilities_summary')!}
@@ -382,8 +405,7 @@ const SummaryVulnerabilitiesList = () => {
                           <IconButton
                             size="small"
                             color="primary"
-                            href={vulnerability.report_url}
-                            target="_blank"
+                            onClick={() => handleOpenModal(vulnerability)}
                           >
                             <AutoAwesomeIcon />
                           </IconButton>
@@ -425,6 +447,11 @@ const SummaryVulnerabilitiesList = () => {
                 </Snackbar>
               )}
             </Box>
+            <AiSolutionModal
+              showModal={showModal}
+              onClose={handleCloseModal}
+              vulnerabilityProps={selectedVulnerability!}
+            />
           </>
         )}
       </Box>
