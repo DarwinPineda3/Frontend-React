@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
+import { WebAppScanCreate } from 'src/types/vulnerabilities/web/webAppsType';
 import axios from 'src/utils/axios';
 
 function getApiUrl() {
@@ -27,6 +28,18 @@ export const fetchWebApplicationsData = createAsyncThunk(
     try {
       const response = await axios.get(getApiUrl());
       return response.data.scans;
+    } catch (error) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  }
+);
+
+export const createWebApplicationScan = createAsyncThunk(
+  'webApplications/create',
+  async (data: WebAppScanCreate, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(getApiUrl(), data);
+      return response.data.scan;
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -116,6 +129,17 @@ const webApplicationsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchWebApplicationAlertData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(createWebApplicationScan.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createWebApplicationScan.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(createWebApplicationScan.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
