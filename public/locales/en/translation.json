@@ -241,6 +241,7 @@
     "solution_title": "Solution",
     "ai_solution_title": "AI Generated Solution",
     "generate_ai_solution": "Generate AI Solution",
+    "close_modal": "Close",
     "urls_title": "URLs",
     "method": "{{method}} Method",
     "references_title": "References",
@@ -1141,7 +1142,7 @@
     "results": "Results",
     "no_interesting_entries": "No interesting entries.",
     "close": "Close",
-    "scan_in_progress":"Scan in progress",
+    "scan_in_progress": "Scan in progress",
     "error_msg": "The scan could not be created. Please check the asset configuration."
   }
 }
