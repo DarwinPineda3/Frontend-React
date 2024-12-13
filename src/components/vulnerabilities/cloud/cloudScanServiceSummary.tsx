@@ -64,7 +64,7 @@ const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
                 {currentData.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell>{row.name}</TableCell>
-                    <TableCell style={{ color: row.passed == row.total ? low : high }}>
+                    <TableCell>
                       <Chip
                         label={
                           row.passed == row.total
@@ -75,7 +75,7 @@ const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
                         size="small"
                         style={{
                           backgroundColor:
-                            row.passed == row.total ? low : high,
+                            row.passed == row.total ? low : critical,
                           color: 'white',
                         }}
                       />
