@@ -42,7 +42,6 @@ export const fetchResultAppById = (mobileAppId: string) => async (dispatch: AppD
 
     if (response.status === 200) {
       dispatch(getResultApp(response.data.resultApp));
-      // console.log(response.data.resultApp);
       return Promise.resolve();
     } else {
       dispatch(setError('fetch result app not found'));

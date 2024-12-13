@@ -1,237 +1,156 @@
-import TranslateIcon from '@mui/icons-material/Translate';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
+  Badge,
   Box,
-  Chip,
+  Divider,
   Grid,
-  IconButton,
-  LinearProgress,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
+  Tab
 } from '@mui/material';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
-import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
-import PluginVersionTable from './pluginVersionTable';
-import WpScanTopCards from './wpScantopCards';
+import { useDispatch, useSelector } from 'src/store/Store';
 
-const WpScanDetail: React.FC<{ scanId: string; onAlertClick: (alertId: string) => void }> = ({
-  scanId,
-  onAlertClick,
-}) => {
+import ListIcon from '@mui/icons-material/List';
+import PersonIcon from '@mui/icons-material/Person';
+import GlobeIcon from '@mui/icons-material/Public';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchWPScanById } from 'src/store/vulnerabilities/web/WPScanSlice';
+import WPSBackups from './wpscanBackups';
+import WPSFindings from './wpscanFindings';
+import WPSMainTheme from './wpscanMainTheme';
+import WPSPlugins from './wpscanPlugings';
+import WpScanTopBar from './wpscanTopBar';
+import WpScanTopCards from './wpScantopCards';
+import WPSUsers from './wpscanUsers';
+
+
+const WpScanDetail: React.FC = () => {
+  const { scanId } = useParams<{ scanId?: string }>();
+  const dispatch = useDispatch();
+  const wpscan = useSelector((state: any) => state.wpscanReducer.wpscan);
+  const isLoading = useSelector((state: any) => state.wpscanReducer.isLoading);
   const { t } = useTranslation();
 
-  const mockAlerts = [
-    {
-      id: '1',
-      url: 'https://prueba-tu-pala.ofertasdepadel.com/',
-      description: t('vulnerabilities.headers'),
-      type: t('vulnerabilities.type_headers'),
-      foundBy: t('vulnerabilities.detected_by_headers_detection'),
-      confidence: '100%',
-      references: 'NA',
-      entries: true,
-    },
-    {
-      id: '2',
-      url: 'https://prueba-tu-pala.ofertasdepadel.com/robots.txt',
-      description: t('vulnerabilities.robots_description'),
-      type: t('vulnerabilities.type_robots_txt'),
-      foundBy: t('vulnerabilities.detected_by_robots_detection'),
-      confidence: '100%',
-      references: 'NA',
-      entries: true,
-    },
-    {
-      id: '3',
-      url: 'https://prueba-tu-pala.ofertasdepadel.com/xmlrpc.php',
-      description: t('vulnerabilities.xmlrpc_description'),
-      type: t('vulnerabilities.type_xmlrpc'),
-      foundBy: t('vulnerabilities.detected_by_xmlrpc_detection'),
-      confidence: '100%',
-      references: t('vulnerabilities.xmlrpc_references'),
-      entries: true,
-    },
-    {
-      id: '4',
-      url: 'https://prueba-tu-pala.ofertasdepadel.com/readme.html',
-      description: t('vulnerabilities.readme_description'),
-      type: t('vulnerabilities.type_readme'),
-      foundBy: t('vulnerabilities.detected_by_readme_detection'),
-      confidence: '100%',
-      references: 'NA',
-      entries: true,
-    },
-    {
-      id: '5',
-      url: 'https://prueba-tu-pala.ofertasdepadel.com/wp-cron.php',
-      description: t('vulnerabilities.wp_cron_description'),
-      type: t('vulnerabilities.type_wp_cron'),
-      foundBy: t('vulnerabilities.detected_by_wp_cron_detection'),
-      confidence: '60%',
-      references: t('vulnerabilities.wp_cron_references'),
-      entries: true,
-    },
+  React.useEffect(() => {
+    const fetchData = async () => {
+      if (scanId) {
+        try {
+          await dispatch(fetchWPScanById(scanId));
+        } catch (error) {
+          console.error('Error fetching wpscans:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [scanId, dispatch]);
+
+  const usersCount = wpscan?.users ? Object.keys(wpscan?.users).length : 0;
+
+  const wpscanData: { severity: 'critical' | 'high' | 'medium' | 'low'; value: string }[] = [
+    { severity: 'critical', value: wpscan?.count_vulnerabulities || 0 },
+    { severity: 'high', value: wpscan?.count_outdated_plugins || 0 },
+    { severity: 'medium', value: usersCount.toString() },
+    { severity: 'low', value: wpscan?.interesting_findings.length || 0 },
   ];
 
-  const scanName = t('vulnerabilities.scan_name');
-  const status = t('vulnerabilities.status_outdated');
-  const themeDetails = {
-    name: 'hello-theme-child-master',
-    location: 'https://prueba-tu-pala.ofertasdepadel.com/wp-content/themes/hello-theme-child-master/',
-    lastVersion: 'NA',
-    lastUpdate: 'NA',
-    description: 'NA',
-    author: 'Elementor Team',
-    authorUri: 'https://elementor.com/',
-    license: 'GNU General Public License v3 or later.',
-    licenseUri: 'https://www.gnu.org/licenses/gpl-3.0.html',
-    foundBy: 'Urls In Homepage (Passive Detection)',
-    confidence: '100%',
+  const COMMON_TAB = [
+    {
+      value: 'findings',
+      icon: <ListIcon />,
+      label: t('wpscan.findings'),
+      disabled: false,
+      content: <WPSFindings findings={wpscan?.interesting_findings} />,
+    },
+    {
+      value: 'backups',
+      icon: <GlobeIcon />,
+      label: t('wpscan.backups'),
+      disabled: false,
+      content:
+        <WPSBackups backups={wpscan?.config_backups_list} />,
+    },
+    {
+      value: 'users',
+      icon: <PersonIcon />,
+      label: t('wpscan.users_tittle'),
+      disabled: false,
+      content:
+        <WPSUsers users={wpscan?.users} />,
+    },
+
+  ];
+
+  const [value, setValue] = React.useState('findings');
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
   };
 
   return (
     <Grid container spacing={3}>
-      {/* Scan Metadata Section */}
-      <Grid item xs={12} xl={12}>
-        <WpScanTopCards />
-      </Grid>
-      <Grid item xs={12} xl={6}>
-        <DashboardCard>
-          <PluginVersionTable />
-        </DashboardCard>
-      </Grid>
-
-      <Grid item xs={12} xl={6}>
-        <Breadcrumb title={scanName}>
-          <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-            <Chip label={`${t('vulnerabilities.status')}: ${status}`} color="info" variant="filled" />
-            <Chip label={`${t('vulnerabilities.version')}: 1.0.0`} color="secondary" variant="outlined" />
-            <Chip label={`${t('vulnerabilities.site_url')}: https://example.com`} color="info" variant="outlined" />
-            <Chip label={`${t('vulnerabilities.effective_url')}: https://example.com`} color="warning" variant="outlined" />
+      {isLoading ? (
+        <Grid item xs={12} xl={12}>
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+            <Loader />
           </Box>
-        </Breadcrumb>
-        <DashboardCard title={t('vulnerabilities.scan_details')!}>
-          <Box display="flex" flexDirection="column" gap={2} mt={3}>
-            <Box>
-              <Stack direction="row" spacing={2} mb={1} justifyContent="space-between" alignItems="center">
-                <Box>
-                  <Typography variant="h6">{t('vulnerabilities.trust')}</Typography>
+        </Grid>
+      ) : (
+        <>
+          <Grid item xs={12} xl={12}>
+            <WpScanTopBar status={wpscan?.version?.status} version={wpscan?.version?.number} site_url={wpscan?.target_url} effective_url={wpscan?.effective_url} />
+          </Grid>
+          <Grid item xs={12} xl={12}>
+            <WpScanTopCards data={wpscanData} />
+          </Grid>
+          <Grid item xs={12} xl={6}>
+            <WPSMainTheme main_theme={wpscan?.main_theme} />
+          </Grid>
+          <Grid item xs={12} xl={6}>
+            <WPSPlugins plugins_list={wpscan?.plugins_list} scanId={scanId} />
+          </Grid>
+          <Grid item xs={12} lg={12}>
+            <DashboardCard title={t('wpscan.results')!}>
+              <TabContext value={value}>
+                <Box sx={{ p: 0 }}>
+                  <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
+                    {COMMON_TAB.map((tab) => (
+                      <Tab
+                        key={tab.value}
+                        icon={tab.icon}
+                        label={
+                          <>
+                            {tab.label}
+                            {tab.badge && (
+                              <Badge color="primary" variant="dot" sx={{ ml: 1 }}>
+                                {tab.badge}
+                              </Badge>
+                            )}
+                          </>
+                        }
+                        value={tab.value}
+                        disabled={tab.disabled}
+                        sx={{ mb: 1 }}
+                      />
+                    ))}
+                  </TabList>
                 </Box>
-                <Chip sx={{ backgroundColor: 'primary', color: 'primary', width: 55, height: 24 }} label="12%" />
-              </Stack>
-              <LinearProgress value={12} variant="determinate" color={'primary'} />
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.name')}:</Typography>
-              <Typography variant="body2">{themeDetails.name}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.location')}:</Typography>
-              <Typography variant="body2">
-                <a href={themeDetails.location} target="_blank" rel="noopener noreferrer">
-                  {themeDetails.location}
-                </a>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.last_version')}:</Typography>
-              <Typography variant="body2">{themeDetails.lastVersion}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.last_update')}:</Typography>
-              <Typography variant="body2">{themeDetails.lastUpdate}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.description')}:</Typography>
-              <Typography variant="body2">{themeDetails.description}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.author')}:</Typography>
-              <Typography variant="body2">{themeDetails.author}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.author_uri')}:</Typography>
-              <Typography variant="body2">
-                <a href={themeDetails.authorUri} target="_blank" rel="noopener noreferrer">
-                  {themeDetails.authorUri}
-                </a>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.license')}:</Typography>
-              <Typography variant="body2">{themeDetails.license}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.license_uri')}:</Typography>
-              <Typography variant="body2">
-                <a href={themeDetails.licenseUri} target="_blank" rel="noopener noreferrer">
-                  {themeDetails.licenseUri}
-                </a>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.detected_by')}:</Typography>
-              <Typography variant="body2">{themeDetails.foundBy}</Typography>
-            </Box>
-          </Box>
-        </DashboardCard>
-      </Grid>
-      {/* Alerts Table Section */}
-      <Grid item xs={12} xl={12}>
-        <DashboardCard>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.url')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.description')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.type')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.detected_by')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.confidence')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.references')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('vulnerabilities.interesting_entries')}</Typography></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {mockAlerts.map((alert) => (
-                  <TableRow key={alert.id}>
-                    <TableCell>
-                      <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
-                        {alert.url}
-                      </Typography>
-                    </TableCell>
-                    <TableCell><Typography variant="body2">{alert.description}</Typography></TableCell>
-                    <TableCell><Typography variant="body2">{alert.type}</Typography></TableCell>
-                    <TableCell><Typography variant="body2">{alert.foundBy}</Typography></TableCell>
-                    <TableCell><Typography variant="body2">{alert.confidence}</Typography></TableCell>
-                    <TableCell><Typography variant="body2">{alert.references}</Typography></TableCell>
-                    <TableCell>
-                      {alert.entries && (
-                        <Box display="flex" gap={1}>
-                          <IconButton color="primary" onClick={() => onAlertClick(alert.id)}>
-                            <VisibilityIcon />
-                          </IconButton>
-                          <IconButton color="primary">
-                            <TranslateIcon />
-                          </IconButton>
-                        </Box>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </DashboardCard>
-      </Grid>
+                <Divider />
+                <Box mt={2} sx={{ p: 0 }}>
+                  {COMMON_TAB.map((panel) => (
+                    <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
+                      {panel.content}
+                    </TabPanel>
+                  ))}
+                </Box>
+              </TabContext>
+            </DashboardCard>
+          </Grid>
+        </>
+      )}
+
     </Grid>
   );
 };

@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNetworkSlice.tsx';
+import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
 import AssetsReducer from './sections/AssetsSlice';
-
-//dashboard reducers
+import TechInventoryReducer from './sections/cti/techInventorySlice';
+import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
+import ParametersReducer from './sections/cyber-guard/ParametersSlice';
 import AlertDistribution from './sections/dashboard/AlertDistributionSlice';
 import AssetsStatus from './sections/dashboard/AssetStatusSlice';
 import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
@@ -14,25 +17,18 @@ import SentimentsSumaryReducer from './sections/dashboard/SentimentHistorySlice'
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
 import TopVulneravilitesReducer from './sections/dashboard/TopVulnerabilitiesSlice';
 import WeeklyStatsReducer from './sections/dashboard/WeeklyStatsSlice';
-// cyber guard reducers
-import ParametersReducer from './sections/cyber-guard/ParametersSlice';
-// brand monitoring reducers
-import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
-//monitoring reducers
-import TechInventoryReducer from './sections/cti/techInventorySlice';
 import MalwareAnalysesReducer from './sections/malware-analysis/MalwareAnalysisSlice';
 import AppScansReducer from './sections/mobile-app/AppScanSlice';
 import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
-//vulnerabilities
-import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
-import TicketReducer from './support/FreshTicketsSlice';
+import TicketReducer from "./support/FreshTicketsSlice";
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice'
+import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 
 import {
@@ -73,10 +69,12 @@ export const store = configureStore({
     managementVulnReducer: ManagementVulnReducer,
     resultAppsReducer: ResultAppsReducer,
     ticketReducer: TicketReducer,
+    wpscanReducer: WPScanReducer,
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
     cloudScanReducer: CloudScanReducer,
     WebApplicationsReducer: WebApplicationsReducer,
+    NetworkObservabilityReducer: NetworkObservabilityReducer
   },
 });
 
@@ -97,10 +95,12 @@ const rootReducer = combineReducers({
   managementVulnReducer: ManagementVulnReducer,
   resultAppsReducer: ResultAppsReducer,
   ticketReducer: TicketReducer,
+  wpscanReducer: WPScanReducer,
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
   cloudScanReducer: CloudScanReducer,
   WebApplicationsReducer: WebApplicationsReducer,
+  NetworkObservabilityReducer: NetworkObservabilityReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
