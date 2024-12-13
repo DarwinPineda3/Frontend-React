@@ -18,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
 import Loader from 'src/components/shared/Loader/Loader';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -26,18 +28,13 @@ interface CloudScanTableProps {
 const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
 
 
   const cloudScans = useSelector((state: any) => state.cloudScanReducer.cloudScans);
   const currentPage = useSelector((state: any) => state.cloudScanReducer.page);
   const totalPages = useSelector((state: any) => state.cloudScanReducer.totalPages);
-  // const [snackbarOpen, setSnackbarOpen] = useState(false);
-  // const [snackbarMessage, setSnackbarMessage] = useState('');
-  // const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
-  // const [wpScanToDelete, setWPScanToDelete] = useState<null | string>(null);
-  // const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const {t} = useTranslation();
+  const navigate = useNavigate();
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     if (page !== currentPage) {
@@ -58,7 +55,14 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
 
 
   return (
-    <DashboardCard title={t("vulnerabilities.scans")!} subtitle={t("vulnerabilities.list_of_all_scans")!}>
+    <DashboardCard
+    title={t("vulnerabilities.scans")!} 
+    subtitle={t("vulnerabilities.list_of_all_scans")!}
+    action={
+      <IconButton color="primary" onClick={() => navigate('/vulnerabilities/cloud/create')}>
+      <AddIcon />
+    </IconButton>
+    }>
         <>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">

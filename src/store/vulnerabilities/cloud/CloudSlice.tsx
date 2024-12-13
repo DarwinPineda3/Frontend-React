@@ -8,10 +8,6 @@ function getApiUrl() {
   return `${getBaseApiUrl()}/prowler-vulnerabilities/`;
 }
 
-// function getDownloadUrl() {
-//   return `${getBaseApiUrl()}/newsletters/download?gid=`;
-// }
-
 interface StateType {
   cloudScans: any[];
   cloudScanDetails: Data | null;
@@ -44,6 +40,9 @@ export const CloudScansSlice = createSlice({
     getCloudScanDetail: (state, action) => {
       state.cloudScanDetails = action.payload.data;
     },
+    addClodScan: (state, action) => {
+      state.cloudScans.push(action.payload);
+    },
     setFileContent: (state, action) => {
       state.fileContent = action.payload.content;
     },
@@ -56,7 +55,7 @@ export const CloudScansSlice = createSlice({
   },
 });
 
-export const { getCloudScans, getCloudScanDetail, setFileContent, setPage, setError } = CloudScansSlice.actions;
+export const { getCloudScans, getCloudScanDetail, addClodScan, setFileContent, setPage, setError } = CloudScansSlice.actions;
 
 export const fetchCloudScans =
   (page = 1) =>
@@ -87,5 +86,28 @@ export const fetchCloudScanById = (id: string) => async (dispatch: AppDispatch) 
   }
 };
 
+export const createCloudScan = (newCloudScan: any) => async (dispatch: AppDispatch) => {
+  try {
+    const formData = new FormData();
+
+    formData.append('provider', newCloudScan.provider);
+    formData.append('aws_id', newCloudScan.aws_id);
+    formData.append('aws_secret', newCloudScan.aws_secret);
+    formData.append('azure_client_id', newCloudScan.azure_client_id);
+    formData.append('azure_tenant_id', newCloudScan.azure_tenant_id);
+    formData.append('azure_client_secret', newCloudScan.azure_client_secret);
+    
+    if (newCloudScan.gcp_credentials_json_file) {
+      formData.append('gcp_credentials_json_file', newCloudScan.gcp_credentials_json_file);
+    }
+
+    const response = await axios.post(getApiUrl(), formData);
+    
+    dispatch(addClodScan(response.data));
+  } catch (err: any) {
+    console.error('Error creating ticket:', err);
+    dispatch(setError('Failed to create ticket'));
+  }
+};
 
 export default CloudScansSlice.reducer;

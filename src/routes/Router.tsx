@@ -62,6 +62,7 @@ import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -127,6 +128,11 @@ const Router = [
         path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
         element: <CloudVulnerabilitiesDetails />,
         roles: ['Admin', 'Scan360']
+      },
+      { 
+        path: '/vulnerabilities/cloud/create', 
+        element: <CreateProwlerScan />, 
+        roles: ['Admin', 'Scan360'] 
       },
 
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities />, roles: ['Admin', 'Scan360'] },
