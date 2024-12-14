@@ -1,8 +1,5 @@
-import { Box, CardContent, Grid, Typography } from '@mui/material';
-import iconYellow from '../../../assets/images/svgs/icon-alert-yellow.svg';
-import iconRed from '../../../assets/images/svgs/icon-alert-red.svg';
-import iconOrange from '../../../assets/images/svgs/icon-alert-orange.svg';
 import { Computer, ComputerTwoTone, Person } from '@mui/icons-material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const cardConfig: Record<Severity, {
@@ -11,47 +8,34 @@ const cardConfig: Record<Severity, {
   bgcolor: string;
   txtcolor: string;
 }> = {
-  critical: {
+  up: {
     icon: ComputerTwoTone,
     title: 'observability.hosts_activos',
-    bgcolor: '#ebf3fe', 
+    bgcolor: '#ebf3fe',
     txtcolor: '#60a2ff',
   },
-  high: {
+  down: {
     icon: Computer,
     title: 'observability.hosts_caidos',
     bgcolor: '#FFF4E6',
     txtcolor: '#FFA500',
   },
-  medium: {
+  total: {
     icon: Person,
     title: 'observability.hosts_total',
     bgcolor: '#E6FFE6',
     txtcolor: '#008000',
-  },
-  low: {
-    icon: iconYellow,
-    title: 'observability.hallazgos_interesantes',
-    bgcolor: '#E6E6FF',
-    txtcolor: '#0000FF',
-  },
+  }
 };
-
-const burntTopCardsData = [
-  { severity: 'critical', value: '96' },
-  { severity: 'high', value: '350' },
-  { severity: 'medium', value: '356' }
-] as const;
-
-const NetworkScanCards = () => {
+const NetworkScanCards = ({ cardData }) => {
   const { t } = useTranslation();
 
   return (
     <Grid container spacing={3}>
-      {burntTopCardsData.map((card, i) => {
-        const config = cardConfig[card.severity];
+      {Object.entries(cardData).map((card) => {
+        const config = cardConfig[card[0]];
         return (
-          <Grid item xs={6} sm={6} lg={4} key={i}>
+          <Grid item xs={6} sm={6} lg={4} key={card[0]}>
             <Box
               bgcolor={config.bgcolor}
               display="flex"
@@ -70,7 +54,7 @@ const NetworkScanCards = () => {
                   {t(config.title)}
                 </Typography>
                 <Typography color={config.txtcolor} variant="h5" fontWeight={600}>
-                  {card.value}
+                  {card[1]}
                 </Typography>
               </Box>
             </Box>
@@ -83,4 +67,4 @@ const NetworkScanCards = () => {
 
 export default NetworkScanCards;
 
-type Severity = 'critical' | 'high' | 'medium' | 'low';
+type Severity = 'up' | 'down' | 'total';

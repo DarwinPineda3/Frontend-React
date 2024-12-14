@@ -12,6 +12,26 @@ const ThreatTypesBarChart: React.FC<ThreatTypesBarChartProps> = ({ data }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
+  // Data for categories
+  const categories = [
+    t('monitoring.data_leaks'),
+    t('monitoring.dark_web'),
+    t('monitoring.phishing'),
+    t('monitoring.social_media'),
+  ];
+
+  // Sorting data and categories in descending order based on the data values
+  const sortedDataWithCategories = data
+    .map((value, index) => ({
+      value,
+      category: categories[index],
+    }))
+    .sort((a, b) => b.value - a.value); // Sorting in descending order
+
+  // Extract sorted values and categories
+  const sortedData = sortedDataWithCategories.map(item => item.value);
+  const sortedCategories = sortedDataWithCategories.map(item => item.category);
+
   // Using theme colors for the chart bars
   const colors = [
     theme.palette.error.main,         // Red for Malware
@@ -48,12 +68,7 @@ const ThreatTypesBarChart: React.FC<ThreatTypesBarChartProps> = ({ data }) => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: [
-        t('monitoring.malware'),
-        t('monitoring.fake_apps'),
-        t('monitoring.phishing'),
-        t('monitoring.social_media'),
-      ],
+      categories: sortedCategories, // Use sorted categories
       labels: {
         show: true,
         rotate: -45,
@@ -79,13 +94,13 @@ const ThreatTypesBarChart: React.FC<ThreatTypesBarChartProps> = ({ data }) => {
           return `${val}`;
         },
       },
-    },
+    }
   };
 
   const series = [
     {
       name: t('monitoring.threat_types'),
-      data: data,
+      data: sortedData, // Use sorted data
     },
   ];
 

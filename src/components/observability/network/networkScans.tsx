@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
+  Box,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
-  IconButton,
-  TableContainer,
-  Box,
-  Pagination,
 } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import { fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const burntScansData = [
   {
@@ -75,6 +77,12 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 1; // Adjust based on the number of pages
+  const dispatch = useDispatch();
+  const { networkScansData } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
+
+  useEffect(() => {
+    dispatch(fetchNetworkObservabilityData());
+  }, [dispatch]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -119,31 +127,31 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                 </TableRow>
               </TableHead>
               <TableBody>
-                {burntScansData.map((scan) => (
-                  <TableRow key={scan.id}>
+                {networkScansData.map((scan) => (
+                  <TableRow key={scan["id"]}>
                     <TableCell>
                       <Typography
                         variant="subtitle2"
                         fontWeight={600}
                         color="primary"
                         component="a"
-                        onClick={() => onScanClick(scan.id)}
+                        onClick={() => onScanClick(scan["id"])}
                         style={{ cursor: 'pointer' }}
                       >
-                        {scan.url}
+                        {scan["name"]}
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan.date}</Typography>
+                      <Typography variant="body2">{scan["scan_start"]}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan.scanSetting}</Typography>
+                      <Typography variant="body2">{scan["scan_type"]}</Typography>
                     </TableCell>
                     <TableCell>
-                      <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
+                      <IconButton color="primary" onClick={() => handleDownload(scan["id"])}>
                         <DownloadIcon />
                       </IconButton>
-                      <IconButton color="error" onClick={() => handleDelete(scan.id)}>
+                      <IconButton color="error" onClick={() => handleDelete(scan["id"])}>
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>

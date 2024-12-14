@@ -1,37 +1,41 @@
-import React from 'react';
-import { Grid, Box, Chip } from '@mui/material';
-import ScanAlertTable from './scanAlertTable';
-import DashboardCard from 'src/components/shared/DashboardCard';
-import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
+import { Box, Chip, Grid } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
+import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import { fetchWebApplicationData } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
+import ScanAlertTable from './scanAlertTable';
 
-const ScanListDetail: React.FC<{ scanId: number, onAlertClick: (alertId: number) => void; }> = ({ scanId, onAlertClick }) => {
+const ScanListDetail: React.FC<{ scanId: string, onAlertClick: (alertId: number) => void; }> = ({ scanId, onAlertClick }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { loading, detail, error } = useSelector((state: AppState) => state.WebApplicationsReducer);
+  useEffect(() => {
+    if (scanId) {
+      dispatch(fetchWebApplicationData(scanId));
+    }
+  }, [dispatch, scanId]);
 
-  const mockAlerts = [
-    { id: 1, name: t('vulnerabilities.absence_of_anti_csrf_tokens'), riskLevel: t('vulnerabilities.medium_low'), instances: 5, riskColor: 'secondary' },
-    { id: 2, name: t('vulnerabilities.csp_header_not_set'), riskLevel: t('vulnerabilities.medium_high'), instances: 81, riskColor: 'primary' },
-    { id: 3, name: t('vulnerabilities.missing_anti_clickjacking_header'), riskLevel: t('vulnerabilities.medium_medium'), instances: 65, riskColor: 'primary' },
-    { id: 4, name: t('vulnerabilities.application_error_disclosure'), riskLevel: t('vulnerabilities.low_medium'), instances: 5, riskColor: 'error' },
-    { id: 5, name: t('vulnerabilities.cookie_no_httponly_flag'), riskLevel: t('vulnerabilities.low_medium'), instances: 5, riskColor: 'warning' },
-  ];
-
-  const mockDate = new Date('2024-09-23T10:20:30Z');
-  const mockVersion = '1.0.0';
-  const mockSitesUrl = 'https://example.com';
-  const mockFalsePositive = 1;
-  const scanName = t('vulnerabilities.scan_name_example');
+  if (loading || detail === null) {
+    return <DashboardCard title={t('vulnerabilities.scan_details')} subtitle={t('vulnerabilities.scan_details')}>
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+    </DashboardCard>;
+  }
 
   return (
     <Grid container>
       {/* Scan Metadata Section */}
       <Grid item xs={12} xl={12}>
-        <Breadcrumb title={scanName}>
+        <Breadcrumb title={detail.name ?? detail.id}>
           <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-            <Chip label={`${t('vulnerabilities.date')}: ${mockDate.toLocaleString()}`} color="primary" variant="outlined" />
-            <Chip label={`${t('vulnerabilities.version')}: ${mockVersion}`} color="secondary" variant="outlined"/>
-            <Chip label={`${t('vulnerabilities.site_url')}: ${mockSitesUrl}`} color="info" variant="outlined"/>
-            <Chip label={`${t('vulnerabilities.false_positives')}: ${mockFalsePositive}`} color="warning" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.date')}: ${detail.date}`} color="primary" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.version')}: ${detail.version}`} color="secondary" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.site_url')}: ${detail.hosts_name}`} color="info" variant="outlined" />
+            <Chip label={`${t('vulnerabilities.false_positives')}: ${detail.false_positives_count}`} color="warning" variant="outlined" />
           </Box>
         </Breadcrumb>
       </Grid>
@@ -39,7 +43,7 @@ const ScanListDetail: React.FC<{ scanId: number, onAlertClick: (alertId: number)
       {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
         <DashboardCard>
-          <ScanAlertTable alerts={mockAlerts} onAlertClick={onAlertClick} />
+          <ScanAlertTable alerts={detail.alerts} onAlertClick={onAlertClick} />
         </DashboardCard>
       </Grid>
     </Grid>
