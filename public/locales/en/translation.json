@@ -434,6 +434,28 @@
       "network_scan_create_failed": "Failed to create the network scan",
       "required_field": "Required Field",
       "network_scan_created": "Network scan created"
+    },
+    "cloud_scans": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical",
+      "all_severities": "All",
+      "provider_is_required": "Provider is required",
+      "aws_id_is_required": "AWS ID is required",
+      "aws_secret_is_required": "AWS Secret is required",
+      "azure_client_id_is_required": "Azure Client ID is required",
+      "azure_tenant_id_is_required": "Azure Tenant ID is required",
+      "azure_client_secret_is_required": "Azure Client Secret is required",
+      "gcp_credentials_file_is_required": "GCP Credentials File is required",
+      "scan_created_successfully": "Scan created successfully",
+      "error_creating_scan": "There was an error creating the scan.",
+      "provider": "Provider",
+      "submit": "Submit",
+      "azure_client_id": "Azure Client ID",
+      "azure_tenant_id": "Azure Tenant ID",
+      "azure_client_secret": "Azure Client Secret",
+      "new_scan": "Create scan"
     }
   },
   "observability": {

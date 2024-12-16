@@ -29,7 +29,8 @@ import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
-import WPScanReducer from './vulnerabilities/web/WPScanSlice';
+import CloudScanReducer from './vulnerabilities/cloud/CloudSlice'
+import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 
 import {
@@ -73,6 +74,7 @@ export const store = configureStore({
     wpscanReducer: WPScanReducer,
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
+    cloudScanReducer: CloudScanReducer,
     WebApplicationsReducer: WebApplicationsReducer,
     vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
@@ -100,6 +102,7 @@ const rootReducer = combineReducers({
   wpscanReducer: WPScanReducer,
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
+  cloudScanReducer: CloudScanReducer,
   WebApplicationsReducer: WebApplicationsReducer,
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
