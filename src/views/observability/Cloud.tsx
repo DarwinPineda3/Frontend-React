@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import CloudInventoryTable from 'src/components/observability/cloud/cloudinventoryTable';
 import CloudScanTable from 'src/components/vulnerabilities/cloud/cloudScansTable';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
@@ -67,7 +68,7 @@ const CloudVulnerabilities = () => {
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <CloudScanTable onScanClick={handleInventoryClick} />
+            <CloudInventoryTable onScanClick={handleInventoryClick} />
           </Grid>
         </Grid>
 

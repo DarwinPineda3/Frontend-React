@@ -29,6 +29,7 @@ import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
+import CloudInventoryReducer from './observability/cloud/CloudInventorySlice'
 
 import {
   TypedUseSelectorHook,
@@ -72,7 +73,8 @@ export const store = configureStore({
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
     WebApplicationsReducer: WebApplicationsReducer,
-    NetworkObservabilityReducer: NetworkObservabilityReducer
+    NetworkObservabilityReducer: NetworkObservabilityReducer,
+    cloudInventoryReducer: CloudInventoryReducer
   },
 });
 
@@ -97,7 +99,8 @@ const rootReducer = combineReducers({
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
   WebApplicationsReducer: WebApplicationsReducer,
-  NetworkObservabilityReducer: NetworkObservabilityReducer
+  NetworkObservabilityReducer: NetworkObservabilityReducer,
+  cloudInventoryReducer: CloudInventoryReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
