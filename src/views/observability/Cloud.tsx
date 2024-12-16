@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import CloudInventoryTable from 'src/components/observability/cloud/cloudInventoryTable';
+import CloudScansDetailObs from 'src/components/observability/cloud/cloudScanDetail';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
 
@@ -65,11 +66,20 @@ const CloudInventory = () => {
             </Breadcrumbs>
           </Box>
         </Box>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <CloudInventoryTable onScanClick={handleInventoryClick} />
-          </Grid>
-        </Grid>
+        {
+          selectedCloud ? (
+            <Grid container spacing={0}>
+              <Grid item xs={12}>
+                <CloudScansDetailObs scanId={selectedCloud!} />
+              </Grid>
+            </Grid>
+          ) : (<Grid container spacing={3}>
+            <Grid item xs={12}>
+              <CloudInventoryTable onScanClick={handleInventoryClick} />
+            </Grid>
+          </Grid>)
+        }
+
 
         {snackBarInfo && (
           <SnackBarInfo

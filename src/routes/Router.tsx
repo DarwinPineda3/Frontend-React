@@ -19,6 +19,7 @@ import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 // import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
+import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
 import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import GroupGuard from 'src/guards/authGuard/GroupGuard';
 import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
@@ -65,7 +66,6 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -134,10 +134,10 @@ const Router = [
         element: <CloudVulnerabilitiesDetails />,
         roles: ['Admin', 'Scan360']
       },
-      { 
-        path: '/vulnerabilities/cloud/create', 
-        element: <CreateProwlerScan />, 
-        roles: ['Admin', 'Scan360'] 
+      {
+        path: '/vulnerabilities/cloud/create',
+        element: <CreateProwlerScan />,
+        roles: ['Admin', 'Scan360']
       },
 
       { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities />, roles: ['Admin', 'Scan360'] },
@@ -198,7 +198,7 @@ const Router = [
         element: <CreateCloudInventory />,
         roles: ['Admin', 'Scan360']
       },
-      { path: '/observability/cloud/scans/:scanId', element: <CloudObservability />, roles: ['Admin', 'Scan360'] },
+      { path: '/observability/cloud/scans/:cloudId', element: <CloudObservability />, roles: ['Admin', 'Scan360'] },
       { path: '/observability/cloud/scans', element: <CloudObservability />, roles: ['Admin', 'Scan360'] },
       { path: '/observability/observed-assets', element: <ObservedAssets />, roles: ['Admin', 'Scan360'] },
       { path: '/observability/observed-assets/assets', element: <ObservedAssets />, roles: ['Admin', 'Scan360'] },

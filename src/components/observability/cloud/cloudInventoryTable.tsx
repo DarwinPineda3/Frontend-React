@@ -16,7 +16,10 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router';
-import { default as AwsLogo, default as AzureLogo, default as GcpLogo } from 'src/assets/images/cloudscans/aws.png';
+import AwsLogo from 'src/assets/images/cloudscans/aws.png';
+import AzureLogo from 'src/assets/images/cloudscans/azure.png';
+import GcpLogo from 'src/assets/images/cloudscans/gcp.png';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudInventoryList, setPage } from 'src/store/observability/cloud/CloudInventorySlice';
@@ -126,7 +129,8 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="body2">{scan.timestamp}</Typography>
+                        <HumanizedDate dateString={scan.timestamp} />
+                        <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
                       </TableCell>
                     </TableRow>
                   ))}
