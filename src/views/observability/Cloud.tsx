@@ -4,75 +4,84 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import CloudScansDetailObs from 'src/components/observability/cloud/cloudScanDetail';
-import CloudScansTable from 'src/components/observability/cloud/cloudScans';
-
-const CloudObservability = () => {
-    // Get params from the URL
-    const { scanId } = useParams<{ scanId?: string }>();
-    const navigate = useNavigate();
-    const location = useLocation();  // Tracks the current URL location
-
-    const [selectedScan, setSelectedScan] = useState<string | null>(null);
-
-    const { t } = useTranslation();
-
-    // Synchronize state with URL parameters
-    useEffect(() => {
-        if (scanId) {
-            setSelectedScan(scanId);
-        } else {
-            setSelectedScan(null);
-        }
-    }, [scanId, location]);
+import CloudScanTable from 'src/components/vulnerabilities/cloud/cloudScansTable';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
 
-    // Handle navigating to a scan detail
-    const handleScanClick = (scanId: string) => {
-        navigate(`/observability/cloud/scans/${scanId}`);
-    };
-    return (
-        <PageContainer title="Akila">
-            <Box mb={2}>
-                <Box display="flex" alignItems="center" mt={2}>
-                    <IconButton onClick={() => navigate(-1)} color="primary">
-                        <ArrowBackIcon />
-                    </IconButton>
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link component={RouterLink} color="inherit" to="/observability/cloud">
-                            {t('menu.observability')}
-                        </Link>
-                        <Link component={RouterLink} color="inherit" to="/observability/cloud">
-                            {t('menu.cloud')}
-                        </Link>
-                        {selectedScan && (
-                            <Link component={RouterLink} color="inherit" to={`/observability/cloud/scans/${selectedScan}`}>
-                                {t('observability.cloud_obs_scans')}
-                            </Link>
-                        )}
-                    </Breadcrumbs>
-                </Box>
-            </Box>
+const CloudVulnerabilities = () => {
+  const { cloudId } = useParams<{ cloudId?: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-            {/* If a scan is selected and no alert is selected, show scan details */}
-            {selectedScan ? (
-                <Grid container spacing={0}>
-                    <Grid item xs={12}>
-                        <CloudScansDetailObs scanId={selectedScan!} />
-                    </Grid>
-                </Grid>
-            ) : (
-                // Default view: show scan list
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <CloudScansTable onScanClick={handleScanClick} />
-                    </Grid>
-                </Grid>
-            )}
-        </PageContainer>
-    );
+  const [selectedCloud, setSelectedCloud] = useState<string | null>(null);
+
+  const [snackBarInfo, setSnackBarInfo] = useState<{
+    color: 'error' | 'warning' | 'info' | 'success';
+    title: string;
+    message: string;
+  } | null>(null);
+
+  const { t } = useTranslation();
+  useEffect(() => {
+    if (cloudId) {
+      setSelectedCloud(cloudId);
+    } else {
+      setSelectedCloud(null);
+    }
+  }, [cloudId, location]);
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setSnackBarInfo({
+        color: location.state.severity || 'success',
+        title: location.state.title || 'Info',
+        message: location.state.message,
+      });
+    }
+
+  }, [location.state]);
+
+
+
+  const handleScanClick = (cloudId: string) => {
+    navigate(`/observability/cloud/scans/${cloudId}`);
+  };
+
+  return (
+    <PageContainer title="Akila">
+      <>
+        <Box mb={2}>
+          <Box display="flex" alignItems="center" mt={2}>
+            <IconButton onClick={() => navigate(-1)} color="primary">
+              <ArrowBackIcon />
+            </IconButton>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link component={RouterLink} color="inherit" to="/observability/cloud">
+                {t('menu.observability')}
+              </Link>
+              <Link component={RouterLink} color="inherit" to="/observability/cloud">
+                {t('menu.cloud')}
+              </Link>
+            </Breadcrumbs>
+          </Box>
+        </Box>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <CloudScanTable onScanClick={handleCloudClick} />
+          </Grid>
+        </Grid>
+
+        {snackBarInfo && (
+          <SnackBarInfo
+            color={snackBarInfo.color}
+            title={snackBarInfo.title}
+            message={snackBarInfo.message}
+          />
+        )}
+      </>
+    </PageContainer>
+  );
 };
 
 
-
-export default CloudObservability;
+export default CloudVulnerabilities;
