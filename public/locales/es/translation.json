@@ -1059,5 +1059,19 @@
     "name_unavailable": "Nombre no disponible",
     "group_unavailable": "Grupo no disponible",
     "email_unavailable": "Email no disponible"
+  },
+  "changelog": {
+    "title": "Registro de cambios",
+    "added": "Añadido",
+    "changed": "Cambiado",
+    "deprecated": "Obsoleto",
+    "removed": "Eliminado",
+    "fixed": "Arreglado",
+    "security": "Seguridad",
+    "version": "Versión",
+    "date": "Fecha",
+    "changes": "Cambios",
+    "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
+    "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
   }
 }

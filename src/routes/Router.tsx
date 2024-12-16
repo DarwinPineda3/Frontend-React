@@ -61,6 +61,7 @@ import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import ChangelogView from 'src/views/changelog/ChangelogView';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -215,6 +216,8 @@ const Router = [
 
       // Ai soliution
       { path: '/aisolution', element: <AiSolution />, roles: ['Admin'] },
+
+      
     ],
   },
   {
@@ -227,6 +230,8 @@ const Router = [
       { path: '/404', element: <Error /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/reset-password', element: <ResetPassword /> },
+      //changelog
+      { path: '/changelog', element: <ChangelogView />, roles: ['Admin', 'Scan360'] },
     ],
   },
   { path: '*', element: <Navigate to="/404" /> },
