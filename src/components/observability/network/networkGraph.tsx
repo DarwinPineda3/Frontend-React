@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import React, { useEffect, useRef } from 'react';
 
 interface Node {
   id: string;
@@ -19,7 +19,7 @@ interface Relationship {
 
 interface Neo4jGraph {
   nodes: Node[];
-  relationships: Relationship[];
+  edges: Relationship[];
 }
 
 interface NetworkGraphProps {
@@ -36,14 +36,14 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => {
       ip?: string;
       name?: string;
     }
-    
+
     const nodes: CustomSimulationNodeDatum[] = data.nodes.map((node) => ({
       id: node.id,
       label: node.label,
       ...node.properties,
     }));
 
-    const links = data.relationships.map((link) => ({
+    const links = data.edges.map((link) => ({
       source: link.source,
       target: link.target,
       type: link.type,
@@ -112,18 +112,18 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => {
 
     // Add labels to the nodes
     const label = svg
-    .append('g')
-    .selectAll('text')
-    .data(nodes)
-    .enter()
-    .append('text')
-    .attr('text-anchor', 'middle') // Center the text horizontally
-    .attr('x', 0) // Keep x at 0 for proper centering
-    .attr('y', 0) // Slightly lower the y to position it below the node's center
-    .text((d) => d.ip || d.name || '')
-    .attr('fill', '#000')
-    .attr('font-size', '12px')
-    .style('user-select', 'none');
+      .append('g')
+      .selectAll('text')
+      .data(nodes)
+      .enter()
+      .append('text')
+      .attr('text-anchor', 'middle') // Center the text horizontally
+      .attr('x', 0) // Keep x at 0 for proper centering
+      .attr('y', 0) // Slightly lower the y to position it below the node's center
+      .text((d) => d.ip || d.name || '')
+      .attr('fill', '#000')
+      .attr('font-size', '12px')
+      .style('user-select', 'none');
     // Update positions of the elements on each tick of the simulation
     simulation.on('tick', () => {
       link

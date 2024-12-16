@@ -58,6 +58,7 @@ import EHReportDetail from 'src/views/vulnerabilities/redteam/EHReportDetail';
 import SummaryVulnerabilities from 'src/views/vulnerabilities/Summary';
 import WebVulnerabilities from 'src/views/vulnerabilities/Web';
 import WebApplications from 'src/views/vulnerabilities/Web/Aplications';
+import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
@@ -128,6 +129,11 @@ const Router = [
       {
         path: '/vulnerabilities/web/applications',
         element: <WebApplications />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/web/applications/create',
+        element: <WebAppCreateScan />,
         roles: ['Admin', 'Scan360'],
       },
       {

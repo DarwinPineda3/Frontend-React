@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import {
@@ -14,40 +15,11 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import { fetchWebApplicationsData } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
-
-const burntScansData = [
-  {
-    id: 1,
-    name: 'Octapus Sep',
-    host: 'https://octapus.io',
-    date: '3 de septiembre de 2024 a las 12:28',
-    type: 'passive_scan',
-    progress: 100,
-    progressTime: 'hace 3 semanas',
-  },
-  {
-    id: 2,
-    name: 'Octapus IO 26 agosto',
-    host: 'https://octapus.io',
-    date: '26 de agosto de 2024 a las 17:08',
-    type: 'passive_scan',
-    progress: 100,
-    progressTime: 'hace 4 semanas, 1 día',
-  },
-  {
-    id: 3,
-    name: 'Tu pala',
-    host: 'https://prueba-tu-pala.ofertasdepadel.com/',
-    date: '26 de agosto de 2024 a las 14:54',
-    type: 'passive_scan',
-    progress: 100,
-    progressTime: 'hace 4 semanas, 1 día',
-  },
-];
 
 interface ScanListTableProps {
   onScanClick: (scanId: number) => void;
@@ -56,6 +28,7 @@ interface ScanListTableProps {
 const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   const { loading, data, error } = useSelector((state: AppState) => state.WebApplicationsReducer);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -87,9 +60,19 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   if (error) {
     return <div>{t('dashboard.error', { error })}</div>;
   }
+
+  const addButton = (
+    <IconButton color="primary" onClick={() => {
+      navigate('/vulnerabilities/web/applications/create');
+    }}>
+      <AddIcon />
+    </IconButton>
+  );
+
+
   return (
     <Box>
-      <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!}>
+      <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!} action={addButton}>
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">

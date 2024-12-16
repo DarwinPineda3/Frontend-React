@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNetworkSlice.tsx';
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
@@ -75,6 +76,7 @@ export const store = configureStore({
     WebApplicationsReducer: WebApplicationsReducer,
     vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
+    NetworkObservabilityReducer: NetworkObservabilityReducer,
   },
 });
 
@@ -101,6 +103,7 @@ const rootReducer = combineReducers({
   WebApplicationsReducer: WebApplicationsReducer,
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
+  NetworkObservabilityReducer: NetworkObservabilityReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
