@@ -375,6 +375,7 @@
       "estimated_closure_date": "Estimated Closure Date",
       "closure_date": "Closure Date",
       "add_information": "Add useful information for managing this vulnerability",
+      "add_information_vuln": "Manage this vulnerability",
       "vuln_detail": "Vulnerability Detail",
       "overview": "Overview",
       "close_vuln": "Close vulnerability management",

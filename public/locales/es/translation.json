@@ -375,6 +375,7 @@
       "estimated_closure_date": "Fecha estimada de cierre",
       "closure_date": "Fecha de cierre",
       "add_information": "Agregar información útil para la gestión de esta vulnerabilidad",
+      "add_information_vuln": "Gestiona esta vulnerabilidad",
       "vuln_detail": "Detalle de la vulnerabilidad",
       "overview": "Descripción general",
       "close_vuln": "Cerrar la gestión de la vulnerabilidad",
