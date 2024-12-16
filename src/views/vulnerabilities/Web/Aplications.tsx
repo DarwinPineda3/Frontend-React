@@ -39,7 +39,7 @@ const WebApplications = () => {
 
   // Handle navigating to a scan detail
   const handleScanClick = (scanId: number) => {
-    navigate(`/vulnerabilities/web/applications/${scanId}`);
+    navigate(`/vulnerabilities/web/applications/scans/${scanId}`);
   };
 
   // Handle navigating back to the scan list
@@ -49,7 +49,7 @@ const WebApplications = () => {
 
   // Handle navigating back to the alert list
   const handleBackToAlerts = () => {
-    navigate(`/vulnerabilities/web/applications/${selectedScan}`);
+    navigate(`/vulnerabilities/web/applications/scans/${selectedScan}`);
   };
 
   return (
@@ -67,7 +67,7 @@ const WebApplications = () => {
               {t('menu.applications')}
             </Link>
             {selectedScan && (
-              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/applications/${selectedScan}`}>
+              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/applications/scans/${selectedScan}`}>
                 {t('vulnerabilities.web_application_scans')}
               </Link>
             )}

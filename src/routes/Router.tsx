@@ -139,7 +139,7 @@ const Router = [
         roles: ['Admin', 'Scan360'],
       },
       {
-        path: '/vulnerabilities/web/applications/:scanId',
+        path: '/vulnerabilities/web/applications/scans/:scanId',
         element: <WebApplications />,
         roles: ['Admin', 'Scan360'],
       },
