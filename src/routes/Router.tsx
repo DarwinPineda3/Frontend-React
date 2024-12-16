@@ -115,7 +115,7 @@ const Router = [
         roles: ['Admin', 'Scan360'],
       },
       {
-        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId',
+        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId/:index',
         element: <NetworkVulnerabilities />,
         roles: ['Admin', 'Scan360'],
       },
