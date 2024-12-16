@@ -86,19 +86,19 @@ export const fetchCloudInventoryById = (id: string) => async (dispatch: AppDispa
   }
 };
 
-export const createCloudScan = (newCloudScan: any) => async (dispatch: AppDispatch) => {
+export const createCloudInventory = (newCloudinventory: any) => async (dispatch: AppDispatch) => {
   try {
     const formData = new FormData();
 
-    formData.append('provider', newCloudScan.provider);
-    formData.append('aws_id', newCloudScan.aws_id);
-    formData.append('aws_secret', newCloudScan.aws_secret);
-    formData.append('azure_client_id', newCloudScan.azure_client_id);
-    formData.append('azure_tenant_id', newCloudScan.azure_tenant_id);
-    formData.append('azure_client_secret', newCloudScan.azure_client_secret);
+    formData.append('provider', newCloudinventory.provider);
+    formData.append('aws_id', newCloudinventory.aws_id);
+    formData.append('aws_secret', newCloudinventory.aws_secret);
+    formData.append('azure_client_id', newCloudinventory.azure_client_id);
+    formData.append('azure_tenant_id', newCloudinventory.azure_tenant_id);
+    formData.append('azure_client_secret', newCloudinventory.azure_client_secret);
 
-    if (newCloudScan.gcp_credentials_json_file) {
-      formData.append('gcp_credentials_json_file', newCloudScan.gcp_credentials_json_file);
+    if (newCloudinventory.gcp_credentials_json_file) {
+      formData.append('gcp_credentials_json_file', newCloudinventory.gcp_credentials_json_file);
     }
     const response = await axios.post(getApiUrl(), formData);
     dispatch(addCloudInventory(response.data));
