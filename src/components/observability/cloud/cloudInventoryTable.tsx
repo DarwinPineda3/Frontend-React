@@ -53,7 +53,7 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   }, [dispatch, currentPage]);
 
   const getProviderIcon = (provider: string) => {
-    switch (provider.toLowerCase()) {
+    switch (provider?.toLowerCase()) {
       case 'aws':
         return <img src={AwsLogo} alt="AWS" style={{ width: 24, height: 24 }} />;
       case 'azure':
@@ -72,7 +72,7 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
       title={t("vulnerabilities.scans")!}
       subtitle={t("vulnerabilities.list_of_all_scans")!}
       action={
-        <IconButton color="primary" onClick={() => navigate('/vulnerabilities/cloud/create')}>
+        <IconButton color="primary" onClick={() => navigate('/observability/cloud/create')}>
           <AddIcon />
         </IconButton>
       }>

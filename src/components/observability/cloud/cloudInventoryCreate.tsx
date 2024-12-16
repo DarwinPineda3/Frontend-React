@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
 
 const CreateCloudInventory: React.FC = () => {
-  const error = useSelector((state: any) => state.cloudScanReducer.error);
+  const error = useSelector((state: any) => state.cloudInventoryReducer.error);
   const [provider, setProvider] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -93,14 +93,14 @@ const CreateCloudInventory: React.FC = () => {
         await dispatch(createCloudInventory(newCloudScan));
 
         if (await error) {
-          navigate('/vulnerabilities/cloud', {
+          navigate('/observability/cloud', {
             state: {
               message: error,
               severity: 'error',
             },
           });
         } else {
-          navigate('/vulnerabilities/cloud', {
+          navigate('/observability/cloud', {
             state: {
               message: t('vulnerabilities.cloud_scans.scan_created_successfully') || '',
               severity: 'success',
@@ -110,7 +110,6 @@ const CreateCloudInventory: React.FC = () => {
 
 
       } catch (error) {
-        console.error('Error creating ticket:', error);
         setSnackbarMessage(t('vulnerabilities.cloud_scans.error_creating_scan') || '');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
@@ -135,10 +134,10 @@ const CreateCloudInventory: React.FC = () => {
               <ArrowBackIcon />
             </IconButton>
             <Breadcrumbs aria-label="breadcrumb">
-              <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
+              <Link component={RouterLink} color="inherit" to="/observability/cloud">
                 {t('vulnerabilities.vulnerabilities')}
               </Link>
-              <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
+              <Link component={RouterLink} color="inherit" to="/observability/cloud">
                 {t('vulnerabilities.cloud')}
 
               </Link>
