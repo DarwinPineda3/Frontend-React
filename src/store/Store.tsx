@@ -26,7 +26,8 @@ import TicketReducer from "./support/FreshTicketsSlice";
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
-import EHReportsReducer from "./vulnerabilities/redteam/EthicalHackingReportSlice";
+import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
+import CloudScanReducer from './vulnerabilities/cloud/CloudSlice'
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 
@@ -71,6 +72,7 @@ export const store = configureStore({
     wpscanReducer: WPScanReducer,
     networkScanReducer: NetworkScanReducer,
     ChangePasswordUser: ChangePasswordUserReducer,
+    cloudScanReducer: CloudScanReducer,
     WebApplicationsReducer: WebApplicationsReducer,
     NetworkObservabilityReducer: NetworkObservabilityReducer
   },
@@ -96,6 +98,7 @@ const rootReducer = combineReducers({
   wpscanReducer: WPScanReducer,
   networkScanReducer: NetworkScanReducer,
   ChangePasswordUser: ChangePasswordUserReducer,
+  cloudScanReducer: CloudScanReducer,
   WebApplicationsReducer: WebApplicationsReducer,
   NetworkObservabilityReducer: NetworkObservabilityReducer
 });

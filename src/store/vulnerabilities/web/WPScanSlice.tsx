@@ -108,7 +108,6 @@ export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) =>
   let response = null
   try {
     response = await axios.post(`${getApiUrl()}`, newWPScan);
-    console.log(response.status);
     
     dispatch(addWPScan(response.data));
     return response.data;
