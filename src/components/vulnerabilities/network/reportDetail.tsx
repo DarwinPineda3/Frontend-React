@@ -29,7 +29,7 @@ import ReportTopCards from './reportTopCards';
 interface ReportDetailProps {
   reportID: string;
   scanID: string;
-  onClickVulnerability: (vulnerabilityId: string) => void;
+  onClickVulnerability: (vulnerabilityId: string, index: number) => void;
 }
 
 const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVulnerability }) => {
@@ -143,8 +143,8 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
   };
   const seriesdoughnutchart = values;
 
-  const handleClickOpen = (vulnerabilityId: string) => {
-    onClickVulnerability(vulnerabilityId);
+  const handleClickOpen = (vulnerabilityId: string, index: number) => {
+    onClickVulnerability(vulnerabilityId, index);
   };
 
   const handleChangePageHosts = (event: unknown, newPage: number) => {
@@ -522,7 +522,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
                                   label={t('vulnerabilities.view')!}
                                   color="primary"
                                   icon={<IconEye />}
-                                  onClick={() => handleClickOpen(vulnerability.result.id)}
+                                  onClick={() => handleClickOpen(vulnerability.result.id, key)}
                                   style={{ cursor: 'pointer' }}
                                 />
                               </TableCell>
