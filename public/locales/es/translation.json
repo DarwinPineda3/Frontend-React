@@ -431,6 +431,28 @@
       "network_scan_create_failed": "Error al crear el escaneo de red",
       "required_field": "Campo requerido",
       "network_scan_created": "Escaneo de red creado"
+    },
+    "cloud_scans": {
+      "low": "Bajo",
+      "medium": "Medio",
+      "high": "Alto",
+      "critical": "Crítico",
+      "all_severities": "Todos",
+      "provider_is_required": "El proveedor es obligatorio",
+      "aws_id_is_required": "El ID de AWS es obligatorio",
+      "aws_secret_is_required": "El AWS secret es obligatorio",
+      "azure_client_id_is_required": "El client id de Azure es obligatorio",
+      "azure_tenant_id_is_required": "El tenant id de Azure es obligatorio",
+      "azure_client_secret_is_required": "El client secret de Azure es obligatorio",
+      "gcp_credentials_file_is_required": "El archivo de credenciales de GCP es obligatorio",
+      "scan_created_successfully": "Escaneo creado con éxito",
+      "error_creating_scan": "Hubo un error al crear el Escaneo.",
+      "provider": "Proveedor",
+      "submit": "Enviar",
+      "azure_client_id": "Client id de Azure",
+      "azure_tenant_id": "Tenant id de Azure",
+      "azure_client_secret": "Client secret de Azure",
+      "new_scan": "Nuevo Escaneo"
     }
   },
   "observability": {
