@@ -43,7 +43,7 @@ const CloudVulnerabilities = () => {
 
 
 
-  const handleScanClick = (cloudId: string) => {
+  const handleInventoryClick = (cloudId: string) => {
     navigate(`/observability/cloud/scans/${cloudId}`);
   };
 
@@ -67,7 +67,7 @@ const CloudVulnerabilities = () => {
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <CloudScanTable onScanClick={handleCloudClick} />
+            <CloudScanTable onScanClick={handleInventoryClick} />
           </Grid>
         </Grid>
 
