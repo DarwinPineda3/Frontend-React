@@ -22,6 +22,7 @@ import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
 import VulnerabilitySolutionReducer from './sections/vulnerabilities-solutions/SolutionVulnerabilitySlice';
+import TranslationVulnerabilityReducer from './sections/vulnerabilities-solutions/TranslationVulnerabilitySlice';
 import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
@@ -73,6 +74,7 @@ export const store = configureStore({
     ChangePasswordUser: ChangePasswordUserReducer,
     WebApplicationsReducer: WebApplicationsReducer,
     vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
+    translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   },
 });
 
@@ -98,6 +100,7 @@ const rootReducer = combineReducers({
   ChangePasswordUser: ChangePasswordUserReducer,
   WebApplicationsReducer: WebApplicationsReducer,
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
+  translationVulnerabilityReducer: TranslationVulnerabilityReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
