@@ -1,113 +1,149 @@
-import React, { useState } from 'react';
 import {
+  Box,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  Typography,
-  IconButton,
-  TableContainer,
-  Box,
-  Pagination,
-  Paper,
+  Typography
 } from '@mui/material';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
 
-// Mock Data from JSON
-const scanData = [
-  {
-    id: 1,
-    provider: 'gcp',
-    cloudId: '104892762537578212777',
-    date: '27 de agosto de 2024 a las 19:00',
-  },
-  {
-    id: 2,
-    provider: 'aws',
-    cloudId: 'AKIAU6GDVX2P643LZAIG',
-    date: '27 de agosto de 2024 a las 18:58',
-  },
-  // Add more data if needed
-];
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router';
+import { default as AwsLogo, default as AzureLogo, default as GcpLogo } from 'src/assets/images/cloudscans/aws.png';
+import Loader from 'src/components/shared/Loader/Loader';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
 }
 
 const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10; // Adjust this for how many rows you want per page
-  const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const cloudScans = useSelector((state: any) => state.cloudScanReducer.cloudScans);
+  const currentPage = useSelector((state: any) => state.cloudScanReducer.page);
+  const totalPages = useSelector((state: any) => state.cloudScanReducer.totalPages);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+    if (page !== currentPage) {
+      dispatch(setPage(page));
+    }
   };
 
-  // Logic to paginate rows
-  const paginatedData = scanData.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchCloudScans(currentPage));
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage]);
+
+  const getProviderIcon = (provider: string) => {
+    switch (provider.toLowerCase()) {
+      case 'aws':
+        return <img src={AwsLogo} alt="AWS" style={{ width: 24, height: 24 }} />;
+      case 'azure':
+        return <img src={AzureLogo} alt="Azure" style={{ width: 24, height: 24 }} />;
+      case 'gcp':
+        return <img src={GcpLogo} alt="GCP" style={{ width: 24, height: 24 }} />;
+      default:
+        return null;
+    }
+  };
+
+
 
   return (
-    <DashboardCard title={t("vulnerabilities.scans")!} subtitle={t("vulnerabilities.list_of_all_scans")!}>
-        <>
+    <DashboardCard
+      title={t("vulnerabilities.scans")!}
+      subtitle={t("vulnerabilities.list_of_all_scans")!}
+      action={
+        <IconButton color="primary" onClick={() => navigate('/vulnerabilities/cloud/create')}>
+          <AddIcon />
+        </IconButton>
+      }>
+      <>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
             <TableContainer>
-                <Table aria-label="scan list table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    {t("vulnerabilities.provider")}
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    {t("vulnerabilities.cloud_id")}
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    {t("vulnerabilities.date")}
-                                </Typography>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {paginatedData.map((row) => (
-                            <TableRow key={row.id}>
-                                <TableCell>
-                                    <Typography variant="body2">{row.provider}</Typography>
-                                </TableCell>
-                                <TableCell>
-                                    <Typography
-                                        variant="body2"
-                                        color="primary"
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => onScanClick(row.cloudId)}
-                                    >
-                                        {row.cloudId}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell>
-                                    <Typography variant="body2">{row.date}</Typography>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+              <Table aria-label="scan list table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t("vulnerabilities.provider")}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t("vulnerabilities.cloud_id")}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t("vulnerabilities.date")}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {cloudScans.map((scan: any) => (
+                    <TableRow key={scan.id}>
+                      <TableCell>
+                        <Box display="flex" alignItems="center">
+                          {getProviderIcon(scan.provider)}
+                          <Typography variant="body2" style={{ marginLeft: '8px' }}>
+                            ({scan.provider})
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          variant="body2"
+                          color="primary"
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => onScanClick(scan.id)}
+                        >
+                          {scan.cloud_id}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">{scan.timestamp}</Typography>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent="center">
-                <Pagination
-                    count={Math.ceil(scanData.length / rowsPerPage)}
-                    color="primary"
-                    page={currentPage}
-                    onChange={handlePageChange}
-                />
+            <Box my={3} display="flex" justifyContent={'center'}>
+              <Pagination
+                count={totalPages}
+                color="primary"
+                page={currentPage}
+                onChange={handlePageChange}
+              />
             </Box>
-        </>
+          </>
+        )}
+      </>
     </DashboardCard>
   );
 };

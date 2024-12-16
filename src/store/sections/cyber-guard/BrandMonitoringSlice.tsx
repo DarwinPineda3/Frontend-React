@@ -70,26 +70,26 @@ export const {
 // Async thunk for fetching brand monitoring list with pagination (READ)
 export const fetchBrandMonitoringData =
   (page = 1, pageSize = 25) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(
-        `${getMonitoringApiUrl()}?page=${page}&page_size=${pageSize}`,
-      );
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(
+          `${getMonitoringApiUrl()}?page=${page}&page_size=${pageSize}`,
+        );
 
-      const { latest_data, summary_data, page: currentPage, totalPages } = response.data;
+        const { latest_data, summary_data, page: currentPage, totalPages } = response.data;
 
-      dispatch(
-        getBrandMonitoringList({
-          data: { latest_data, summary_data },
-          page: currentPage,
-          totalPages,
-        }),
-      );
-    } catch (err: any) {
-      console.error('Error fetching brand monitoring data:', err);
-      dispatch(setError('Failed to fetch brand monitoring data'));
-    }
-  };
+        dispatch(
+          getBrandMonitoringList({
+            data: { latest_data, summary_data },
+            page: currentPage,
+            totalPages,
+          }),
+        );
+      } catch (err: any) {
+        console.error('Error fetching brand monitoring data:', err);
+        dispatch(setError('Failed to fetch brand monitoring data'));
+      }
+    };
 
 export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -110,7 +110,6 @@ export const fetchBrandMonitoringResume = () => async (dispatch: AppDispatch) =>
   try {
     const response = await axios.get(`${getBaseApiUrl()}/threat-overview`);
     if (response.status === 200) {
-      //console.log('response', response.data);
       dispatch(getBrandMonitoringResume({ data: response.data }));
     } else {
       dispatch(setError('fetch brand monitoring detail not found'));
