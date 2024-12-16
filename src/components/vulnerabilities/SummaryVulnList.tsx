@@ -23,6 +23,7 @@ import { IconEye } from '@tabler/icons-react';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { createVulnerabilities } from 'src/store/vulnerabilities/ManagementVulnSlice';
@@ -41,6 +42,7 @@ import Loader from '../shared/Loader/Loader';
 const SummaryVulnerabilitiesList = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const summaryVuln = useSelector((state: any) => state.summaryVulnReducer.summaryVuln);
   const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
   const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
@@ -99,6 +101,10 @@ const SummaryVulnerabilitiesList = () => {
     };
     fetchData();
   }, [dispatch, currentPage, pageSize, snackbarMessage, snackbarSeverity]);
+
+  const handleNavigateVuln = (report_url: string) => {
+    navigate(report_url);
+  };
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -395,8 +401,7 @@ const SummaryVulnerabilitiesList = () => {
                           <IconButton
                             size="small"
                             color="primary"
-                            href={vulnerability.report_url}
-                            target="_blank"
+                            onClick={() => handleNavigateVuln(vulnerability.report_url)}
                           >
                             <IconEye />
                           </IconButton>
