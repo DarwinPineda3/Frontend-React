@@ -591,7 +591,28 @@
     "dark_web_total": "Dark Web Count",
     "network_scans": "Network Observability Scans",
     "host_table": "Host Table",
-    "host": "Host"
+    "host": "Host",
+    "cloud_inventory": {
+      "provider_is_required": "Provider is required",
+      "aws_id_is_required": "AWS ID is required",
+      "aws_secret_is_required": "AWS Secret is required",
+      "azure_client_id_is_required": "Azure Client ID is required",
+      "azure_tenant_id_is_required": "Azure Tenant ID is required",
+      "azure_client_secret_is_required": "Azure Client Secret is required",
+      "gcp_credentials_file_is_required": "GCP Credentials File is required",
+      "scan_created_successfully": "Scan created successfully",
+      "error_creating_scan": "There was an error creating the scan.",
+      "provider": "Provider",
+      "submit": "Submit",
+      "azure_client_id": "Azure Client ID",
+      "azure_tenant_id": "Azure Tenant ID",
+      "azure_client_secret": "Azure Client Secret",
+      "new_scan": "Create scan",
+      "observability": "Observability",
+      "cloud": "Cloud",
+      "create_cloud_scan": "Create Cloud Scan"
+
+    }
   },
   "monitoring": {
     "top_threat_types": "Top Detected Threat Types",
