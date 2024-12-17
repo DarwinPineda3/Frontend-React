@@ -36,9 +36,9 @@ const NetworkVulnerabilities = () => {
     navigate(`/vulnerabilities/network/scans/${scanId}`);
   };
 
-  const handleVulnerabilityClick = (vulnerabilityId: string) => {
+  const handleVulnerabilityClick = (vulnerabilityId: string, index: number) => {
     navigate(
-      `/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}/vulnerabilities/${vulnerabilityId}`,
+      `/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}/vulnerabilities/${vulnerabilityId}/${index}`,
     );
   };
 

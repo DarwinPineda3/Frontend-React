@@ -9,7 +9,6 @@ import TicketDetail from 'src/components/ticketform/TicketDetail';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
 import AuditLogView from 'src/views/audit/AuditView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
-import AiSolution from 'src/views/general/aisolution';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring';
@@ -94,38 +93,82 @@ const Router = [
       { path: '/home/assets', element: <Assets />, roles: ['Admin', 'Scan360'] },
 
       // Vulnerabilities
-      { path: '/vulnerabilities/network/scans', element: <NetworkVulnerabilities />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/network/scans/:scanId', element: <NetworkVulnerabilities />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/network/scans/create', element: <NetworkCreateScan />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/network/scans/detail/:scanId', element: <NetworkVulnerabilitiesDetail />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/vulnerabilities/network/scans',
+        element: <NetworkVulnerabilities />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/network/scans/:scanId',
+        element: <NetworkVulnerabilities />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/network/scans/create',
+        element: <NetworkCreateScan />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/network/scans/detail/:scanId',
+        element: <NetworkVulnerabilitiesDetail />,
+        roles: ['Admin', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/network/scans/:scanId/reports/:alertId',
         element: <NetworkVulnerabilities />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
       {
-        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId',
+        path: '/vulnerabilities/network/scans/:scanId/reports/:alertId/vulnerabilities/:vulnerabilityId/:index',
         element: <NetworkVulnerabilities />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
 
-      { path: '/vulnerabilities/web', element: <WebVulnerabilities />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/web/applications', element: <WebApplications />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/web/applications/create', element: <WebAppCreateScan />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/web/applications/:scanId', element: <WebApplications />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/vulnerabilities/web',
+        element: <WebVulnerabilities />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/web/applications',
+        element: <WebApplications />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/web/applications/create',
+        element: <WebAppCreateScan />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/web/applications/:scanId',
+        element: <WebApplications />,
+        roles: ['Admin', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/web/applications/:scanId/alerts/:alertId',
         element: <WebApplications />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
 
-      { path: '/vulnerabilities/web/wordpress', element: <WordpressAplications />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/web/wordpress/:scanId', element: <WordpressAplications />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities', element: <WpVulDetail />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/vulnerabilities/web/wordpress',
+        element: <WordpressAplications />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/web/wordpress/:scanId',
+        element: <WordpressAplications />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities',
+        element: <WpVulDetail />,
+        roles: ['Admin', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/web/wordpress/:scanId/vulnerabilities/:vulnerabilityId',
         element: <WordpressAplications />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
 
       { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities />, roles: ['Admin', 'Scan360'] },
@@ -140,72 +183,183 @@ const Router = [
         roles: ['Admin', 'Scan360']
       },
 
-      { path: '/vulnerabilities/summary', element: <SummaryVulnerabilities />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/management', element: <ManagementVulnerabilities />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/vulnerabilities/summary',
+        element: <SummaryVulnerabilities />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/management',
+        element: <ManagementVulnerabilities />,
+        roles: ['Admin', 'Scan360'],
+      },
       { path: '/vulnerabilities/redteam', element: <EHReport />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/redteam/:ehReportId', element: <EHReportDetail />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/management/detail/:id', element: <ManagedVulnerabilitiesDetail />, roles: ['Admin', 'Scan360'] },
-      { path: '/vulnerabilities/management/form/:id', element: <ManagedVulnerabilitiesForm />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/vulnerabilities/redteam/:ehReportId',
+        element: <EHReportDetail />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/management/detail/:id',
+        element: <ManagedVulnerabilitiesDetail />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/management/form/:id',
+        element: <ManagedVulnerabilitiesForm />,
+        roles: ['Admin', 'Scan360'],
+      },
 
       // Monitoring
-      { path: '/monitoring/threats-overview', element: <DarkWeb />, roles: ['Admin', 'CyberGuard'] },
+      {
+        path: '/monitoring/threats-overview',
+        element: <DarkWeb />,
+        roles: ['Admin', 'CyberGuard'],
+      },
 
-      { path: '/monitoring/cyber-guard/parameters', element: <ParametersMonitoringCyberGuard />, roles: ['Admin', 'CyberGuard'] },
-      { path: '/monitoring/cyber-guard/monitoring', element: <BrandMonitoringCyberGuard />, roles: ['Admin', 'CyberGuard'] },
-      { path: '/monitoring/cyber-guard/monitoring/:id', element: <BrandMonitoringCyberGuard />, roles: ['Admin', 'CyberGuard'] },
-      { path: '/monitoring/cyber-guard/malware-analysis', element: <MalwareAnalysis />, roles: ['Admin', 'CyberGuard'] },
+      {
+        path: '/monitoring/cyber-guard/parameters',
+        element: <ParametersMonitoringCyberGuard />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/monitoring',
+        element: <BrandMonitoringCyberGuard />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/monitoring/:id',
+        element: <BrandMonitoringCyberGuard />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/malware-analysis',
+        element: <MalwareAnalysis />,
+        roles: ['Admin', 'CyberGuard'],
+      },
       {
         path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId',
         element: <MalwareAnalysis />,
-        roles: ['Admin', 'CyberGuard']
+        roles: ['Admin', 'CyberGuard'],
       },
-      { path: '/monitoring/cyber-guard/mobile-apps', element: <AppScan />, roles: ['Admin', 'CyberGuard'] },
-      { path: '/monitoring/cyber-guard/mobile-apps/:appScanId', element: <MobileApp />, roles: ['Admin', 'CyberGuard'] },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps',
+        element: <AppScan />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps/:appScanId',
+        element: <MobileApp />,
+        roles: ['Admin', 'CyberGuard'],
+      },
       {
         path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:resultAppId',
         element: <MobileApp />,
-        roles: ['Admin', 'CyberGuard']
+        roles: ['Admin', 'CyberGuard'],
       },
 
       { path: '/monitoring/soc', element: <SOCMonitoring />, roles: ['Admin'] },
       { path: '/monitoring/soc/service-statistics', element: <ServiceStatus />, roles: ['Admin'] },
-      { path: '/monitoring/soc/source-monitoring', element: <SourceMonitoring />, roles: ['Admin'] },
+      {
+        path: '/monitoring/soc/source-monitoring',
+        element: <SourceMonitoring />,
+        roles: ['Admin'],
+      },
       { path: '/monitoring/soc/cti', element: <CTI />, roles: ['Admin'] },
       { path: '/monitoring/soc/cti/abusech', element: <AbuseCH />, roles: ['Admin'] },
       { path: '/monitoring/soc/cti/files', element: <FilesSoc />, roles: ['Admin'] },
       { path: '/monitoring/soc/cti/urls', element: <UrlsSoc />, roles: ['Admin'] },
-      { path: '/monitoring/soc/cti/threat-intelligence', element: <ThreatIntelligence />, roles: ['Admin'] },
+      {
+        path: '/monitoring/soc/cti/threat-intelligence',
+        element: <ThreatIntelligence />,
+        roles: ['Admin'],
+      },
       { path: '/monitoring/soc/cti/emerging-risks', element: <EmergingRisks />, roles: ['Admin'] },
-      { path: '/monitoring/soc/cti/technologies-inventory', element: <TechInventory />, roles: ['Admin'] },
+      {
+        path: '/monitoring/soc/cti/technologies-inventory',
+        element: <TechInventory />,
+        roles: ['Admin'],
+      },
       { path: '/monitoring/soc/cti/mitre', element: <MitreView />, roles: ['Admin'] },
       { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring />, roles: ['Admin'] },
       { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand />, roles: ['Admin'] },
       { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet />, roles: ['Admin'] },
-      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Admin', 'CyberGuard'], },
-      { path: '/monitoring/soc/newsletters/:newsletterId', element: <SocNewsDetails />, roles: ['Admin', 'CyberGuard'], },
-      { path: '/monitoring/soc/takedown', element: <TicketFormComp />, roles: ['Admin', 'CyberGuard'], },
+      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Admin', 'CyberGuard'] },
+      {
+        path: '/monitoring/soc/newsletters/:newsletterId',
+        element: <SocNewsDetails />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/soc/takedown',
+        element: <TicketFormComp />,
+        roles: ['Admin', 'CyberGuard'],
+      },
 
       // { path: '/monitoring/siem', element: <SIEMMonitoring /> },
       { path: '/monitoring/siem', element: <Navigate to="/maintenance" />, roles: ['Admin'] },
 
       // Observability
-      { path: '/observability/network', element: <NetworkObservability />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/network/scans', element: <NetworkObservability />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/network/scans/:scanId', element: <NetworkObservability />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/cloud', element: <CloudInventory />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/observability/network',
+        element: <NetworkObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/network/scans',
+        element: <NetworkObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/network/scans/:scanId',
+        element: <NetworkObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/cloud',
+        element: <CloudObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
       {
         path: '/observability/cloud/create',
         element: <CreateCloudInventory />,
         roles: ['Admin', 'Scan360']
       },
-      { path: '/observability/cloud/scans/:cloudId', element: <CloudObservability />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/cloud/scans', element: <CloudObservability />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/observed-assets', element: <ObservedAssets />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/observed-assets/assets', element: <ObservedAssets />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/observed-assets/assets/:id', element: <ObservedAssets />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/installation-guide', element: <InstallationGuide />, roles: ['Admin', 'Scan360'] },
-      { path: '/observability/threshold-settings', element: <ThresholdSettings />, roles: ['Admin', 'Scan360'] },
-
+      {
+        path: '/observability/cloud/scans/:scanId',
+        element: <CloudObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/cloud/scans',
+        element: <CloudObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/observed-assets',
+        element: <ObservedAssets />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/observed-assets/assets',
+        element: <ObservedAssets />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/observed-assets/assets/:id',
+        element: <ObservedAssets />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/installation-guide',
+        element: <InstallationGuide />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/threshold-settings',
+        element: <ThresholdSettings />,
+        roles: ['Admin', 'Scan360'],
+      },
 
       // Support
       { path: '/support/tickets', element: <Tickets />, roles: ['Admin'] },
@@ -228,9 +382,6 @@ const Router = [
       { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
 
       { path: '/maintenance', element: <Maintenance />, roles: ['Admin'] },
-
-      // Ai soliution
-      { path: '/aisolution', element: <AiSolution />, roles: ['Admin'] },
     ],
   },
   {
@@ -247,7 +398,5 @@ const Router = [
   },
   { path: '*', element: <Navigate to="/404" /> },
 ];
-
-
 
 export default Router;
