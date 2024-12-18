@@ -11,12 +11,11 @@ import EHReportList from 'src/components/vulnerabilities/redteam/EHReportsList';
 const EHReport = () => {
   const { t } = useTranslation();
   const { ehReportId } = useParams<{ ehReportId?: string }>();
-  const location = useLocation();  // Tracks the current URL location
+  const location = useLocation();
 
   const [selectedEHReport, setSelectedEHReport] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Synchronize state with URL parameters
   useEffect(() => {
     if (ehReportId) {
       setSelectedEHReport(ehReportId);
@@ -27,7 +26,7 @@ const EHReport = () => {
   }, [ehReportId, location]);
 
   const handleEHReportClick = (id: string) => {
-    navigate(`/vulnerabilities/redteam/${id}`); //ruta hacia el siguiente listado
+    navigate(`/vulnerabilities/redteam/${id}`);
   };
   return (
     <PageContainer title="Akila">

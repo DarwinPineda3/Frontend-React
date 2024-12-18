@@ -31,7 +31,7 @@ import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
-import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
+import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 
