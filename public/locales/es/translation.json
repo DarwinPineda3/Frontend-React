@@ -220,7 +220,8 @@
     "scanned_ports": "Puertos Escaneados",
     "severity_cvss": "{{severity}} (CVSS: {{cvss}})",
     "vulnerability_name": "{{name}}",
-    "translate_button": "Traducir al Español",
+    "translate_button_es": "Traducir al Español",
+    "translate_button_en": "Traducir al Inglés",
     "manage_vulnerability_button": "Gestionar Vulnerabilidad",
     "product": "Producto",
     "product_detection_result": "Resultado de la detección del producto",
@@ -241,6 +242,7 @@
     "solution_title": "Solución",
     "ai_solution_title": "Solución generada por AI",
     "generate_ai_solution": "Generar Solución AI",
+    "close_modal": "Cerrar",
     "urls_title": "URLs",
     "method": "{{method}} Método",
     "references_title": "Referencias",
@@ -373,6 +375,7 @@
       "estimated_closure_date": "Fecha estimada de cierre",
       "closure_date": "Fecha de cierre",
       "add_information": "Agregar información útil para la gestión de esta vulnerabilidad",
+      "add_information_vuln": "Gestiona esta vulnerabilidad",
       "vuln_detail": "Detalle de la vulnerabilidad",
       "overview": "Descripción general",
       "close_vuln": "Cerrar la gestión de la vulnerabilidad",
@@ -456,6 +459,9 @@
     }
   },
   "observability": {
+    "threshold_updated_successfully": "Umbral actualizado correctamente",
+    "threshold_updated_error": "Error al actualizar el umbral",
+    "threshold_settings": "Configuración de umbral",
     "provider": "Proveedor",
     "cloud_id": "CloudId",
     "cloud_obs_scans": "Escaneos observabilidad Cloud",
@@ -463,7 +469,7 @@
     "antivirus_info": "Antivirus Info",
     "logo": "Logo",
     "installed_antivirus": "Antivirus Instalados",
-    "instance_guide": "Guía de Instancia",
+    "instance_guide": "GUID de Instancia",
     "product_executable_path": "Ruta al Archivo Ejecutable del Producto Firmado",
     "report_executable_path": "Ruta al Archivo Ejecutable de Informes Firmado",
     "product_status": "Estado del Producto",
@@ -590,7 +596,28 @@
     "dark_web_total": "Total de Dark Web",
     "network_scans": "Escaneos de observabilidad de red",
     "host_table": "Tabla de Hosts",
-    "host": "Host"
+    "host": "Host",
+    "cloud_inventory": {
+      "provider_is_required": "El proveedor es obligatorio",
+      "aws_id_is_required": "El ID de AWS es obligatorio",
+      "aws_secret_is_required": "El AWS secret es obligatorio",
+      "azure_client_id_is_required": "El client id de Azure es obligatorio",
+      "azure_tenant_id_is_required": "El tenant id de Azure es obligatorio",
+      "azure_client_secret_is_required": "El client secret de Azure es obligatorio",
+      "gcp_credentials_file_is_required": "El archivo de credenciales de GCP es obligatorio",
+      "scan_created_successfully": "Escaneo creado con éxito",
+      "error_creating_scan": "Hubo un error al crear el Escaneo.",
+      "provider": "Proveedor",
+      "submit": "Enviar",
+      "azure_client_id": "Client id de Azure",
+      "azure_tenant_id": "Tenant id de Azure",
+      "azure_client_secret": "Client secret de Azure",
+      "new_scan": "Nuevo Escaneo",
+      "observability": "Observabilidad",
+      "cloud": "Cloud",
+      "create_cloud_scan": "Crear escaneo cloud"
+
+    }
   },
   "monitoring": {
     "top_threat_types": "Principales tipos de amenazas detectadas",
@@ -898,7 +925,10 @@
     "risk_level": "Nivel de riesgo",
     "impact": "Impacto",
     "probability_of_occurrence": "Probabilidad de ocurrencia",
-    "exploitable": "Explotable"
+    "exploitable": "Explotable",
+    "Overview":"Visión general",
+    "Vulnerabilities":"Vulnerabilidades",
+    "evidences":"Evidencias"
   },
   "installation_guide": {
     "title": "Guía de Instalación",

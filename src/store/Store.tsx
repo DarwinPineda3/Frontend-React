@@ -3,6 +3,9 @@ import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNe
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
+import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
+import ThresholdSlice from './observability/ThresholdSettingsSlice';
+import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
@@ -22,12 +25,14 @@ import AppScansReducer from './sections/mobile-app/AppScanSlice';
 import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
-import TicketReducer from "./support/FreshTicketsSlice";
+import VulnerabilitySolutionReducer from './sections/vulnerabilities-solutions/SolutionVulnerabilitySlice';
+import TranslationVulnerabilityReducer from './sections/vulnerabilities-solutions/TranslationVulnerabilitySlice';
+import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
+import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
-import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
-import CloudScanReducer from './vulnerabilities/cloud/CloudSlice'
+import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 
@@ -48,7 +53,7 @@ const dashboardReducer = combineReducers({
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
-  sentimentsSumaryReducer: SentimentsSumaryReducer
+  sentimentsSumaryReducer: SentimentsSumaryReducer,
 });
 
 export const store = configureStore({
@@ -74,7 +79,12 @@ export const store = configureStore({
     ChangePasswordUser: ChangePasswordUserReducer,
     cloudScanReducer: CloudScanReducer,
     WebApplicationsReducer: WebApplicationsReducer,
-    NetworkObservabilityReducer: NetworkObservabilityReducer
+    NetworkObservabilityReducer: NetworkObservabilityReducer,
+    cloudInventoryReducer: CloudInventoryReducer,
+    vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
+    translationVulnerabilityReducer: TranslationVulnerabilityReducer,
+    ThresholdSlice: ThresholdSlice,
+    ObservedAssetsReducer: ObservedAssetsReducer,
   },
 });
 
@@ -100,7 +110,12 @@ const rootReducer = combineReducers({
   ChangePasswordUser: ChangePasswordUserReducer,
   cloudScanReducer: CloudScanReducer,
   WebApplicationsReducer: WebApplicationsReducer,
-  NetworkObservabilityReducer: NetworkObservabilityReducer
+  NetworkObservabilityReducer: NetworkObservabilityReducer,
+  cloudInventoryReducer: CloudInventoryReducer,
+  vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
+  translationVulnerabilityReducer: TranslationVulnerabilityReducer,
+  ThresholdSlice: ThresholdSlice,
+  ObservedAssetsReducer: ObservedAssetsReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

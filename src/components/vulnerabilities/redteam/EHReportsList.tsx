@@ -11,9 +11,11 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchEHReports, setPage } from "src/store/vulnerabilities/redteam/EthicalHackingReportSlice";
+import { fetchEHReports, setPage } from "src/store/vulnerabilities/redteam/EHReportSlice";
 
 interface EHReportTableListProps {
   onEHReportClick: (ehReportId: string) => void;
@@ -25,9 +27,16 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
   const currentPage = useSelector((state: any) => state.ehReportsReducer.page);
   const totalPages = useSelector((state: any) => state.ehReportsReducer.totalPages);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
-    dispatch(fetchEHReports(currentPage));
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchEHReports(currentPage));
+      setIsLoading(false);
+    };
+    fetchData();
   }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -36,10 +45,16 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
     }
   };
 
+
   return (
     <DashboardCard
-      title={t("redteam.ethical_hacking_reports")}
+      title={t("redteam.ethical_hacking_reports") || ''}
     >
+      {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
       <Box>
         <TableContainer>
           <Table aria-label="ehReport table" sx={{ whiteSpace: 'nowrap' }}>
@@ -101,6 +116,7 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
           />
         </Box>
       </Box>
+      )}
     </DashboardCard>
   );
 };

@@ -220,7 +220,8 @@
     "scanned_ports": "Scanned Ports",
     "severity_cvss": "{{severity}} (CVSS: {{cvss}})",
     "vulnerability_name": "{{name}}",
-    "translate_button": "Translate to Spanish",
+    "translate_button_es": "Translate to Spanish",
+    "translate_button_en": "Translate to English",
     "manage_vulnerability_button": "Manage Vulnerability",
     "product": "Product",
     "product_detection_result": "Product Detection Result",
@@ -241,6 +242,7 @@
     "solution_title": "Solution",
     "ai_solution_title": "AI Generated Solution",
     "generate_ai_solution": "Generate AI Solution",
+    "close_modal": "Close",
     "urls_title": "URLs",
     "method": "{{method}} Method",
     "references_title": "References",
@@ -373,6 +375,7 @@
       "estimated_closure_date": "Estimated Closure Date",
       "closure_date": "Closure Date",
       "add_information": "Add useful information for managing this vulnerability",
+      "add_information_vuln": "Manage this vulnerability",
       "vuln_detail": "Vulnerability Detail",
       "overview": "Overview",
       "close_vuln": "Close vulnerability management",
@@ -457,6 +460,9 @@
     }
   },
   "observability": {
+    "threshold_updated_successfully": "Threshold updated successfully",
+    "threshold_updated_error": "Threshold cannot be updated correctly",
+    "threshold_settings": "Threshold settings",
     "provider": "Provider",
     "cloud_id": "Cloud ID",
     "cloud_obs_scans": "Cloud Observability Scans",
@@ -464,7 +470,7 @@
     "antivirus_info": "Antivirus Info",
     "logo": "Logo",
     "installed_antivirus": "Installed Antivirus",
-    "instance_guide": "Instance Guide",
+    "instance_guide": "Instance GUID",
     "product_executable_path": "Signed Product Executable Path",
     "report_executable_path": "Signed Report Executable Path",
     "product_status": "Product Status",
@@ -591,7 +597,28 @@
     "dark_web_total": "Dark Web Count",
     "network_scans": "Network Observability Scans",
     "host_table": "Host Table",
-    "host": "Host"
+    "host": "Host",
+    "cloud_inventory": {
+      "provider_is_required": "Provider is required",
+      "aws_id_is_required": "AWS ID is required",
+      "aws_secret_is_required": "AWS Secret is required",
+      "azure_client_id_is_required": "Azure Client ID is required",
+      "azure_tenant_id_is_required": "Azure Tenant ID is required",
+      "azure_client_secret_is_required": "Azure Client Secret is required",
+      "gcp_credentials_file_is_required": "GCP Credentials File is required",
+      "scan_created_successfully": "Scan created successfully",
+      "error_creating_scan": "There was an error creating the scan.",
+      "provider": "Provider",
+      "submit": "Submit",
+      "azure_client_id": "Azure Client ID",
+      "azure_tenant_id": "Azure Tenant ID",
+      "azure_client_secret": "Azure Client Secret",
+      "new_scan": "Create scan",
+      "observability": "Observability",
+      "cloud": "Cloud",
+      "create_cloud_scan": "Create Cloud Scan"
+
+    }
   },
   "monitoring": {
     "top_threat_types": "Top Detected Threat Types",
@@ -900,7 +927,10 @@
     "risk_level": "Risk Level",
     "impact": "Impact",
     "probability_of_occurrence": "Probability of Occurrence",
-    "exploitable": "Exploitable"
+    "exploitable": "Exploitable",
+    "Overview":"Overview",
+    "Vulnerabilities":"Vulnerabilities",
+    "evidences":"evidences"
   },
   "installation_guide": {
     "title": "Installation Guide",

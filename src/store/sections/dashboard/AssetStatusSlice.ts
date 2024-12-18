@@ -20,6 +20,11 @@ export const fetchAssetStatusData = createAsyncThunk('assetStatus/fetchData', as
       subtitle: '',
       amount: incomingData.assets_counts.assets_offline_count,
     },
+    unsecuredAssets: {
+      title: 'Insecured Assets',
+      subtitle: '',
+      amount: incomingData.assets_counts.assets_unsecured_count,
+    },
   };
   return parsedData;
 });
@@ -34,6 +39,7 @@ interface AssetStatusState {
   loading: boolean;
   connectedAssets: AssetStat | null;
   disconnectedAssets: AssetStat | null;
+  unsecuredAssets: AssetStat | null;
   error: string | null;
 }
 
@@ -41,6 +47,7 @@ const initialState: AssetStatusState = {
   loading: false,
   connectedAssets: null,
   disconnectedAssets: null,
+  unsecuredAssets: null,
   error: null,
 };
 
@@ -54,10 +61,11 @@ const assetStatusSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchAssetStatusData.fulfilled, (state, action) => {
-        const { connectedAssets, disconnectedAssets } = action.payload;
+        const { connectedAssets, disconnectedAssets, unsecuredAssets } = action.payload;
         state.loading = false;
         state.connectedAssets = connectedAssets;
         state.disconnectedAssets = disconnectedAssets;
+        state.unsecuredAssets = unsecuredAssets;
         state.error = null;
       })
       .addCase(fetchAssetStatusData.rejected, (state, action) => {

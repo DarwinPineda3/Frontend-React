@@ -52,19 +52,25 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         }
       } catch (err: any) {
         const errorDetail = err?.detail;
+        const statusCode = err?.response?.status;
 
         if (mounted.current) {
           setStatus({ success: false });
 
-          if (errorDetail === 'La combinación de credenciales no tiene una cuenta activa') {
+          
+          if (statusCode === 401 || errorDetail === 'La combinación de credenciales no tiene una cuenta activa') {
             setErrors({ submit: String(t('auth.error_account_inactive')) });
-          } else if (errorDetail === 'Credenciales inválidas') {
+          }
+          
+          else if (errorDetail === 'Credenciales inválidas') {
             setErrors({ submit: String(t('auth.invalid_credentials')) });
-          } else if (err?.request) {
-            // Error de conexión, servidor caído o no accesible
+          }
+          
+          else if (err?.request || statusCode === 0) {
             setErrors({ submit: String(t('auth.error_connection')) });
-          } else {
-            // Si es otro tipo de error
+          }
+          
+          else {
             setErrors({ submit: String(t('auth.error_unexpected')) });
           }
 
@@ -85,8 +91,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       ) : null}
 
       {subtext}
-      <Box mt={3}>
-      </Box>
+      <Box mt={3} />
 
       {errors.submit && (
         <Box mt={2}>

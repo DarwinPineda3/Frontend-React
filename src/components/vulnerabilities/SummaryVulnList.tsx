@@ -23,6 +23,7 @@ import { IconEye } from '@tabler/icons-react';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { createVulnerabilities } from 'src/store/vulnerabilities/ManagementVulnSlice';
@@ -31,14 +32,17 @@ import {
   setPage,
   setPageSize,
 } from 'src/store/vulnerabilities/SummaryVulnSlice';
+import { vulnerabilitySolution } from 'src/types/solutions/vulnerabilitySolution';
 import { managementVulnerabilityType } from 'src/types/vulnerabilities/vulnerabilityManagementType';
 import { getChipColor, getSeverityColor } from 'src/utils/severityUtils';
+import AiSolutionModal from '../aisolutioncontent/AiSolutionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
 const SummaryVulnerabilitiesList = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const summaryVuln = useSelector((state: any) => state.summaryVulnReducer.summaryVuln);
   const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
   const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
@@ -55,7 +59,10 @@ const SummaryVulnerabilitiesList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const [showModal, setShowModal] = useState(false);
+  const [selectedVulnerability, setSelectedVulnerability] = useState<vulnerabilitySolution | null>(
+    null,
+  );
   const [startDate, setStartDate] = useState(() => {
     const now = new Date();
     now.setDate(1);
@@ -94,6 +101,10 @@ const SummaryVulnerabilitiesList = () => {
     };
     fetchData();
   }, [dispatch, currentPage, pageSize, snackbarMessage, snackbarSeverity]);
+
+  const handleNavigateVuln = (report_url: string) => {
+    navigate(report_url);
+  };
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -210,6 +221,24 @@ const SummaryVulnerabilitiesList = () => {
       setSnackbarOpen(true);
     }
   };
+
+  const handleOpenModal = (vulnerability: managementVulnerabilityType) => {
+    const filteredVulnerability: vulnerabilitySolution = {
+      report_id: vulnerability.report_id,
+      tool: vulnerability.tool,
+      vulnerability_name: vulnerability.name,
+      vulnerability_id: vulnerability.id!,
+    };
+
+    setSelectedVulnerability(filteredVulnerability);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedVulnerability(null);
+  };
+
   return (
     <DashboardCard
       title={t('summary.vulnerabilities_summary')!}
@@ -372,8 +401,7 @@ const SummaryVulnerabilitiesList = () => {
                           <IconButton
                             size="small"
                             color="primary"
-                            href={vulnerability.report_url}
-                            target="_blank"
+                            onClick={() => handleNavigateVuln(vulnerability.report_url)}
                           >
                             <IconEye />
                           </IconButton>
@@ -382,8 +410,7 @@ const SummaryVulnerabilitiesList = () => {
                           <IconButton
                             size="small"
                             color="primary"
-                            href={vulnerability.report_url}
-                            target="_blank"
+                            onClick={() => handleOpenModal(vulnerability)}
                           >
                             <AutoAwesomeIcon />
                           </IconButton>
@@ -425,6 +452,11 @@ const SummaryVulnerabilitiesList = () => {
                 </Snackbar>
               )}
             </Box>
+            <AiSolutionModal
+              showModal={showModal}
+              onClose={handleCloseModal}
+              vulnerabilityProps={selectedVulnerability!}
+            />
           </>
         )}
       </Box>
