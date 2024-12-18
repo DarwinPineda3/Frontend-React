@@ -2,11 +2,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Grid, IconButton, Modal, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { getBaseApiUrl, getTenant } from 'src/guards/jwt/Jwt';
 
 interface PreviewFileModalProps {
   open: boolean;
   filePath: string | null;
   handleClose: () => void;
+}
+
+const getBaseUrl = (): string => {
+  const tenant = getTenant();
+  return `${import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant)}`;
 }
 
 const PreviewFileModal: React.FC<PreviewFileModalProps> = ({
@@ -16,7 +22,7 @@ const PreviewFileModal: React.FC<PreviewFileModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // Determinar el tipo de archivo basado en la extensión
+  
   const getFileType = (filePath: string | null): 'pdf' | 'image' | null => {
     if (!filePath) return null;
     const extension = filePath.split('.').pop()?.toLowerCase();
@@ -62,7 +68,7 @@ const PreviewFileModal: React.FC<PreviewFileModalProps> = ({
           {fileType === 'pdf' ? (
             <Grid item xs={12} xl={12}>
               <iframe
-                src={filePath || ''}
+                src={`${getBaseUrl()}${filePath}` || ''}
                 style={{
                   overflow: 'hidden',
                   height: 'calc(100vh - 20px)',
@@ -76,7 +82,7 @@ const PreviewFileModal: React.FC<PreviewFileModalProps> = ({
               />
             </Grid>
           ) : fileType === 'image' ? (
-            <img src={filePath || ''} alt="Preview" style={{ maxWidth: '100%', maxHeight: '500px' }} />
+            <img src={`${getBaseUrl()}${filePath}` || ''} alt="Preview" style={{ maxWidth: '100%', maxHeight: '500px' }} />
           ) : (
             <Typography>{t('redteam.file_format_not_supported_for_preview')}</Typography>
           )}

@@ -469,7 +469,7 @@
     "antivirus_info": "Antivirus Info",
     "logo": "Logo",
     "installed_antivirus": "Antivirus Instalados",
-    "instance_guide": "Guía de Instancia",
+    "instance_guide": "GUID de Instancia",
     "product_executable_path": "Ruta al Archivo Ejecutable del Producto Firmado",
     "report_executable_path": "Ruta al Archivo Ejecutable de Informes Firmado",
     "product_status": "Estado del Producto",
@@ -925,7 +925,10 @@
     "risk_level": "Nivel de riesgo",
     "impact": "Impacto",
     "probability_of_occurrence": "Probabilidad de ocurrencia",
-    "exploitable": "Explotable"
+    "exploitable": "Explotable",
+    "Overview":"Visión general",
+    "Vulnerabilities":"Vulnerabilidades",
+    "evidences":"Evidencias"
   },
   "installation_guide": {
     "title": "Guía de Instalación",

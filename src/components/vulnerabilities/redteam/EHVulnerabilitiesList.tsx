@@ -25,7 +25,7 @@ interface EHReportTableListProps {
 const paginated = 10;
 
 const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabilities }) => {
-  const scoreOrder = { "Critical": 1, "High": 2, "Medium": 3, "Low": 4 };
+  const scoreOrder = { "critical": 1, "high": 2, "medium": 3, "low": 4 };
   const vulnerabilitiesSorted = [...vulnerabilities].sort((a, b) => scoreOrder[a.risk] - scoreOrder[b.risk]);
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,104 +58,106 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
   const { high, medium, low, critical } = theme.palette.level;
 
   return (
-    <DashboardCard title={t("redteam.vulnerabilities")}>
-      <Box>
-        <TableContainer>
-          <Table aria-label="vulnerabilities table" sx={{ whiteSpace: 'nowrap' }}>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.id")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.vulnerability")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.risk")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.port")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.host")}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {vuls.map((vuln, index) => (
-                <TableRow key={index}>
+    <DashboardCard title={t("redteam.vulnerabilities") || ''}>
+      <>
+        <Box>
+          <TableContainer>
+            <Table aria-label="vulnerabilities table" sx={{ whiteSpace: 'nowrap' }}>
+              <TableHead>
+                <TableRow>
                   <TableCell>
-                    <Typography fontWeight={400}>{index + 1}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      variant="subtitle2"
-                      fontWeight={600}
-                      color="primary"
-                      component="a"
-                      onClick={() => handleOpenModal(vuln)}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      {vuln.vulnerability}
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell>
-                    <Typography fontWeight={400}>
-                      <Chip
-                        label={vuln.risk}
-                        color="secondary"
-                        size="small"
-                        style={{
-                          backgroundColor:
-                            vuln.risk === 'Critical'
-                              ? critical
-                              : vuln.risk === 'High'
-                                ? high
-                                : vuln.risk === 'Medium'
-                                  ? medium
-                                  : low,
-                          color: '#fff',
-                        }}
-                      />
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t("redteam.id")}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography fontWeight={400}>{vuln.port_protocol}</Typography>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t("redteam.vulnerability")}
+                    </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography fontWeight={400}>{vuln.host}</Typography>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t("redteam.risk")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t("redteam.port")}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2" fontWeight={600}>
+                      {t("redteam.host")}
+                    </Typography>
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Box my={3} display="flex" justifyContent="center">
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
-      </Box>
+              </TableHead>
+              <TableBody>
+                {vuls?.map((vuln, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Typography fontWeight={400}>{index + 1}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography
+                        variant="subtitle2"
+                        fontWeight={600}
+                        color="primary"
+                        component="span"
+                        onClick={() => handleOpenModal(vuln)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {vuln?.vulnerability}
+                      </Typography>
+                    </TableCell>
 
-      <VulnerabilityModal
-        open={openModal}
-        vulnerabilityData={selectedVulnerability}
-        handleClose={handleCloseModal}
-      />
+                    <TableCell>
+                      <Typography fontWeight={400}>
+                        <Chip
+                          label={vuln?.risk}
+                          color="secondary"
+                          size="small"
+                          style={{
+                            backgroundColor:
+                              vuln?.risk === 'critical'
+                                ? critical
+                                : vuln?.risk === 'high'
+                                  ? high
+                                  : vuln?.risk === 'medium'
+                                    ? medium
+                                    : low,
+                            color: '#fff',
+                          }}
+                        />
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography fontWeight={400}>{vuln?.port_protocol}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography fontWeight={400}>{vuln?.host}</Typography>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Box my={3} display="flex" justifyContent="center">
+            <Pagination
+              count={totalPages}
+              color="primary"
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Box>
+        </Box>
+
+        <VulnerabilityModal
+          open={openModal}
+          vulnerabilityData={selectedVulnerability}
+          handleClose={handleCloseModal}
+        />
+      </>
     </DashboardCard>
   );
 };
