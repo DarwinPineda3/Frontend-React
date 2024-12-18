@@ -7,6 +7,7 @@ import Logo from 'src/layouts/full/shared/logo/Logo';
 import AuthLogin from '../authForms/AuthLogin';
 
 const Login = () => (
+  <Box sx={{ paddingBottom: 0, '& > div': { paddingBottom: '0 !important' } }}>
   <PageContainer title="Login" description="this is Login page">
     <Grid container spacing={0} sx={{ overflowX: 'hidden' }}>
       <Grid
@@ -78,6 +79,7 @@ const Login = () => (
       </Grid>
     </Grid>
   </PageContainer>
+  </Box>
 );
 
 export default Login;
