@@ -3,6 +3,7 @@ import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNe
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
+import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
@@ -83,6 +84,7 @@ export const store = configureStore({
     vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
+    ObservedAssetsReducer: ObservedAssetsReducer,
   },
 });
 
@@ -112,7 +114,8 @@ const rootReducer = combineReducers({
   cloudInventoryReducer: CloudInventoryReducer,
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
-  ThresholdSlice: ThresholdSlice
+  ThresholdSlice: ThresholdSlice,
+  ObservedAssetsReducer: ObservedAssetsReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
