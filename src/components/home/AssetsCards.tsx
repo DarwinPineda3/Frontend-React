@@ -1,10 +1,13 @@
 import { Box, CardContent, Grid, Typography } from '@mui/material';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { fetchAssetStatusData } from 'src/store/sections/dashboard/AssetStatusSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import iconOrange from '../../assets/images/svgs/icon-alert-orange.svg';
 import iconYellow from '../../assets/images/svgs/icon-alert-yellow.svg';
 import iconRed from '../../assets/images/svgs/icon-bars.svg';
 import iconTan from '../../assets/images/svgs/icon-connect.svg';
+import Loader from '../shared/Loader/Loader';
 
 interface cardType {
   icon: string;
@@ -47,10 +50,58 @@ const assetsCards: cardType[] = [
 
 const AssetsCards = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const { loading, connectedAssets, disconnectedAssets, unsecuredAssets, error } = useSelector(
+    (state: AppState) => state.dashboard.assetStatus
+  );
+
+  useEffect(() => {
+    dispatch(fetchAssetStatusData());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Typography color="error" variant="h6">
+          {t('dashboard.errorMessage')}
+        </Typography>
+      </Box>
+    );
+  }
+
+  const updatedAssetsCards = assetsCards.map((card, i) => {
+    switch (card.title) {
+      case 'total':
+        return {
+          ...card, digits: (
+            (connectedAssets?.amount || 0) +
+            (disconnectedAssets?.amount || 0) +
+            (unsecuredAssets?.amount || 0)
+          )
+        };
+      case 'unsecured':
+        return { ...card, digits: unsecuredAssets?.amount };
+      case 'connected':
+        return { ...card, digits: connectedAssets?.amount };
+      case 'disconnected':
+        return { ...card, digits: disconnectedAssets?.amount };
+      default:
+        return card;
+    }
+  });
 
   return (
     <Grid container spacing={3} mt={0}>
-      {assetsCards.map((topcard, i) => (
+      {updatedAssetsCards.map((topcard, i) => (
         <Grid item xs={6} sm={4} lg={3} key={i}>
           <Box bgcolor={topcard.bgcolor + '.light'} textAlign="center">
             <CardContent>

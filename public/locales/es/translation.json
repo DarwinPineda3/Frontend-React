@@ -459,6 +459,9 @@
     }
   },
   "observability": {
+    "threshold_updated_successfully": "Umbral actualizado correctamente",
+    "threshold_updated_error": "Error al actualizar el umbral",
+    "threshold_settings": "Configuración de umbral",
     "provider": "Proveedor",
     "cloud_id": "CloudId",
     "cloud_obs_scans": "Escaneos observabilidad Cloud",
