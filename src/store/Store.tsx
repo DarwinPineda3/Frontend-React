@@ -3,6 +3,8 @@ import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNe
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
+import ThresholdSlice from './observability/ThresholdSettingsSlice';
+import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
@@ -27,12 +29,11 @@ import TranslationVulnerabilityReducer from './sections/vulnerabilities-solution
 import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
+import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EthicalHackingReportSlice';
-import CloudScanReducer from './vulnerabilities/cloud/CloudSlice'
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
-import CloudInventoryReducer from './observability/cloud/CloudInventorySlice'
 
 import {
   TypedUseSelectorHook,
@@ -80,7 +81,8 @@ export const store = configureStore({
     NetworkObservabilityReducer: NetworkObservabilityReducer,
     cloudInventoryReducer: CloudInventoryReducer,
     vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
-    translationVulnerabilityReducer: TranslationVulnerabilityReducer
+    translationVulnerabilityReducer: TranslationVulnerabilityReducer,
+    ThresholdSlice: ThresholdSlice,
   },
 });
 
@@ -109,11 +111,12 @@ const rootReducer = combineReducers({
   NetworkObservabilityReducer: NetworkObservabilityReducer,
   cloudInventoryReducer: CloudInventoryReducer,
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
-  translationVulnerabilityReducer: TranslationVulnerabilityReducer
+  translationVulnerabilityReducer: TranslationVulnerabilityReducer,
+  ThresholdSlice: ThresholdSlice
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const {} = store;
+export const { } = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;
