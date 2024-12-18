@@ -166,14 +166,7 @@ const AssetList = () => {
                       >
                         {t("dashboard.edit")}
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        size="small"
-                        onClick={() => handleDeleteClick(asset.id)}
-                      >
-                        {t("dashboard.delete")}
-                      </Button>
+
                     </Box>
                   </TableCell>
                 </TableRow>
