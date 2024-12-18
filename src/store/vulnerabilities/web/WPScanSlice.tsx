@@ -90,17 +90,6 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
 };
 
 
-// export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
-//   try {
-//     const response = await axios.post(`${getApiUrl()}`, newWPScan);
-
-//     dispatch(addWPScan(response.data));
-//   } catch (err: any) {
-//     console.error('Error creating WPScan:', err);
-//     dispatch(setError('Failed to create WPScan'));
-//   }
-// };
-
 export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
   let response = null
   try {
@@ -151,6 +140,7 @@ export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) 
       dispatch(setError('Failed to delete WPScan'));
     }
   } catch (err: any) {
+    dispatch(setError(err.response))
     console.error('Error deleting WPScan:', err);
     dispatch(setError('Failed to delete WPScan'));
   }
