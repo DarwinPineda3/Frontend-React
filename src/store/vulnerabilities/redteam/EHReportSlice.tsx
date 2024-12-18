@@ -12,7 +12,7 @@ function getApiUrl() {
 
 interface StateType {
   ehReports: EHReportType[];
-  ehReport: EHReportType | null;
+  ehReport: any | null;
   page: number;
   totalPages: number;
   error: string | null;
@@ -75,47 +75,14 @@ export const fetchEHReports = (page = 1) => async (dispatch: AppDispatch) => {
   }
 };
 
-// Async thunk for creating a new ehReport (CREATE)
-export const createEHReport = (newEHReport: EHReportType) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post(`${getApiUrl()}`, newEHReport);
-    dispatch(addEHReport(response.data.ehReport)); // Assuming the server returns the created ehReport
-  } catch (err: any) {
-    console.error('Error creating ehReport:', err);
-    dispatch(setError('Failed to create ehReport'));
-  }
-};
-
-// Async thunk for updating an ehReport (UPDATE)
-export const editEHReport = (updatedEHReport: EHReportType) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.put(`${API_URL}/${updatedEHReport.id}`, updatedEHReport);
-    dispatch(updateEHReport(response.data.ehReport)); // Assuming the server returns the updated ehReport
-  } catch (err: any) {
-    console.error('Error updating ehReport:', err);
-    dispatch(setError('Failed to update ehReport'));
-  }
-};
-
-// Async thunk for deleting an ehReport (DELETE)
-export const removeEHReport = (id: string) => async (dispatch: AppDispatch) => {
-  try {
-    await axios.delete(`${API_URL}/${id}`);
-    dispatch(deleteEHReport(id));
-  } catch (err: any) {
-    console.error('Error deleting ehReport:', err);
-    dispatch(setError('Failed to delete ehReport'));
-  }
-};
-
 export const fetchEHReportById = (ehReportId: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${DETAIL_API_URL}/${ehReportId}`);
+    const response = await axios.get(`${getApiUrl()}${ehReportId}/`);
 
     if (response.status === 200) {
-      dispatch(getEHReport({ data: response.data.ehReport }));
+      dispatch(getEHReport({ data: response.data }));
     } else {
-      dispatch(setError('fetch EHReport not found'));
+      dispatch(setError('fetch Ethical hacking report detail not found'));
     }
   } catch (err: any) {
     console.error('Error fetching EHReport detail:', err);

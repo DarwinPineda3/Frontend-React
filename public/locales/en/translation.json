@@ -903,7 +903,10 @@
     "risk_level": "Risk Level",
     "impact": "Impact",
     "probability_of_occurrence": "Probability of Occurrence",
-    "exploitable": "Exploitable"
+    "exploitable": "Exploitable",
+    "Overview":"Overview",
+    "Vulnerabilities":"Vulnerabilities",
+    "evidences":"evidences"
   },
   "installation_guide": {
     "title": "Installation Guide",

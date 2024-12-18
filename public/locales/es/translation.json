@@ -901,7 +901,10 @@
     "risk_level": "Nivel de riesgo",
     "impact": "Impacto",
     "probability_of_occurrence": "Probabilidad de ocurrencia",
-    "exploitable": "Explotable"
+    "exploitable": "Explotable",
+    "Overview":"Visión general",
+    "Vulnerabilities":"Vulnerabilidades",
+    "evidences":"Evidencias"
   },
   "installation_guide": {
     "title": "Guía de Instalación",
