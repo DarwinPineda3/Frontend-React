@@ -460,6 +460,9 @@
     }
   },
   "observability": {
+    "threshold_updated_successfully": "Threshold updated successfully",
+    "threshold_updated_error": "Threshold cannot be updated correctly",
+    "threshold_settings": "Threshold settings",
     "provider": "Provider",
     "cloud_id": "Cloud ID",
     "cloud_obs_scans": "Cloud Observability Scans",
