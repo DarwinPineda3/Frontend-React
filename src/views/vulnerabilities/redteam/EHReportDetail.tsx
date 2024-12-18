@@ -12,7 +12,7 @@ import EHEvidencesList from 'src/components/vulnerabilities/redteam/EHEvidenceLi
 import EHOverview from 'src/components/vulnerabilities/redteam/EHOverview';
 import EHVulnerabilitiesList from 'src/components/vulnerabilities/redteam/EHVulnerabilitiesList';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchEHReportById } from "src/store/vulnerabilities/redteam/EthicalHackingReportSlice";
+import { fetchEHReportById } from "src/store/vulnerabilities/redteam/EHReportSlice";
 
 const EHReportDetails = () => {
   const { ehReportId } = useParams<{ ehReportId?: string }>();

@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getBaseApiUrl } from "src/guards/jwt/Jwt";
 import { EHReportType } from "src/types/vulnerabilities/redteam/ethicalHackingReport";
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
-const API_URL = '/api/data/eh-reports';
+// const API_URL = '/api/data/eh-reports';
 const DETAIL_API_URL = '/api/data/eh-reports/detail';
+function getApiUrl() {
+  return `${getBaseApiUrl()}/eh-report/`;
+}
 
 interface StateType {
   ehReports: EHReportType[];
@@ -27,7 +31,9 @@ export const EHReportsSlice = createSlice({
   initialState,
   reducers: {
     getEHReports: (state, action) => {
-      state.ehReports = Array.isArray(action.payload.ehReports) ? action.payload.ehReports : [];
+      state.ehReports = Array.isArray(action.payload.ehReports)
+        ? action.payload.ehReports
+        : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
@@ -57,14 +63,12 @@ export const EHReportsSlice = createSlice({
 
 export const { getEHReports, addEHReport, updateEHReport, deleteEHReport, getEHReport, setPage, setError } = EHReportsSlice.actions;
 
-// Async thunk for fetching ehReports with pagination (READ)
 export const fetchEHReports = (page = 1) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${API_URL}?page=${page}`);
-    const { ehReports, currentPage, totalPages } = response.data;
-
-    // Envía la acción con el nombre correcto de los datos recibidos
-    dispatch(getEHReports({ ehReports, currentPage, totalPages }));
+    const response = await axios.get(`${getApiUrl()}`);
+    const ehReports = response.data;
+    const totalPages = Math.ceil(ehReports.length / 10);
+    dispatch(getEHReports({ ehReports, currentPage: page, totalPages }));
   } catch (err: any) {
     console.error('Error fetching ehReports:', err);
     dispatch(setError('Failed to fetch ehReports'));
@@ -74,7 +78,7 @@ export const fetchEHReports = (page = 1) => async (dispatch: AppDispatch) => {
 // Async thunk for creating a new ehReport (CREATE)
 export const createEHReport = (newEHReport: EHReportType) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post(API_URL, newEHReport);
+    const response = await axios.post(`${getApiUrl()}`, newEHReport);
     dispatch(addEHReport(response.data.ehReport)); // Assuming the server returns the created ehReport
   } catch (err: any) {
     console.error('Error creating ehReport:', err);
