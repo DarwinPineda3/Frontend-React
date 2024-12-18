@@ -38,7 +38,7 @@
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "lodash": "4.17.21",
-    "marked": "^15.0.3",
+    "marked": "^15.0.4",
     "react": "^18.3.1",
     "react-apexcharts": "1.4.0",
     "react-dom": "^18.3.1",
