@@ -4,8 +4,6 @@ import { EHReportType } from "src/types/vulnerabilities/redteam/ethicalHackingRe
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
-// const API_URL = '/api/data/eh-reports';
-const DETAIL_API_URL = '/api/data/eh-reports/detail';
 function getApiUrl() {
   return `${getBaseApiUrl()}/eh-report/`;
 }
