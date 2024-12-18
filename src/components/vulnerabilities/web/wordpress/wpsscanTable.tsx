@@ -117,6 +117,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
           <AddIcon />
         </IconButton>
       }>
+        <>
       <Box>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -237,6 +238,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
         onClose={() => setSnackbarOpen(false)}
       />
       )}
+      </>
     </DashboardCard>
   );
 };

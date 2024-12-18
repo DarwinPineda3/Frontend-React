@@ -3,9 +3,6 @@ import { getBaseApiUrl } from "src/guards/jwt/Jwt";
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
-// const tenant = getTenant()
-// const base_api_url = import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant);
-// const API_URL = `${base_api_url}/api/wpscans/`;
 
 function getApiUrl() {
   return `${getBaseApiUrl()}/wpscans/`;
