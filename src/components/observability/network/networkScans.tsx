@@ -1,3 +1,4 @@
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import {
@@ -14,7 +15,9 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
@@ -78,6 +81,7 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 1; // Adjust based on the number of pages
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { networkScansData } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
 
   useEffect(() => {
@@ -96,9 +100,15 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
     console.log(`Deleting scan ${scanId}`);
   };
 
+  const addButton = (
+    <IconButton color="primary" onClick={() => navigate('/observability/network/create')}>
+      <AddIcon />
+    </IconButton>
+  );
+
   return (
     <Box>
-      <DashboardCard title={t('observability.scans')!} subtitle={t('observability.list_of_all_scans')!}>
+      <DashboardCard title={t('observability.scans')!} subtitle={t('observability.list_of_all_scans')!} action={addButton}>
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -142,7 +152,8 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{scan["scan_start"]}</Typography>
+                      <HumanizedDate dateString={scan["scan_start"]} />
+                      <Typography>{new Date(scan["scan_start"]).toLocaleString()}</Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="body2">{scan["scan_type"]}</Typography>
