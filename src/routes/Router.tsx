@@ -40,10 +40,11 @@ import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import SocNewsDetails from 'src/views/monitoring/SOC/NewsletterDetails';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
-import { default as CloudInventory, default as CloudObservability } from 'src/views/observability/Cloud';
+import { default as CloudObservability } from 'src/views/observability/Cloud';
 import DarkWeb from 'src/views/observability/DarkWeb';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import NetworkObservability from 'src/views/observability/Network';
+import NetworkObservabilityCreateScan from 'src/views/observability/NetworkObservabilityCreateScan';
 import ObservedAssets from 'src/views/observability/ObservedAssets';
 import Solutions from 'src/views/support/Solutions';
 import TicketFormComp from 'src/views/support/TicketForm';
@@ -308,6 +309,11 @@ const Router = [
       {
         path: '/observability/network/scans',
         element: <NetworkObservability />,
+        roles: ['Admin', 'Scan360'],
+      },
+      {
+        path: '/observability/network/create',
+        element: <NetworkObservabilityCreateScan />,
         roles: ['Admin', 'Scan360'],
       },
       {
