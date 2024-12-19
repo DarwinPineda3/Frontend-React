@@ -101,11 +101,12 @@ export const createCloudInventory = (newCloudinventory: any) => async (dispatch:
       formData.append('gcp_credentials_json_file', newCloudinventory.gcp_credentials_json_file);
     }
     const response = await axios.post(getApiUrl(), formData);
+    // console.log(await axios.post(getApiUrl(), formData));
+
     dispatch(addCloudInventory(response.data));
   } catch (err: any) {
-    dispatch(setError(err.response))
-    console.error('Error creating inventory:', err);
-    dispatch(setError('Failed to create inventory'));
+    dispatch(setError(err.response.data))
+    throw err.response.data || 'Failed to create Cloud Scan';
   }
 };
 

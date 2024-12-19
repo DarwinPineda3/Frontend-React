@@ -108,8 +108,8 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cloudInventoryList.map((scan: any) => (
-                    <TableRow key={scan.id}>
+                  {cloudInventoryList.map((scan: any, index: any) => (
+                    <TableRow key={scan.id || `scan-${index}`}>
                       <TableCell>
                         <Box display="flex" alignItems="center">
                           {getProviderIcon(scan.provider)}
@@ -129,7 +129,6 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <HumanizedDate dateString={scan.timestamp} />
                         <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
                       </TableCell>
                     </TableRow>

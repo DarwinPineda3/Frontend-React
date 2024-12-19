@@ -43,7 +43,6 @@ const CloudInventory = () => {
   }, [location.state]);
 
 
-
   const handleInventoryClick = (cloudId: string) => {
     navigate(`/observability/cloud/scans/${cloudId}`);
   };
