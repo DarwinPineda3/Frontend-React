@@ -7,8 +7,13 @@ function getMonitoringApiUrl() {
   return `${getBaseApiUrl()}/observed-network`;
 }
 
+interface NetworkScan {
+  id: string;
+  name: string;
+}
+
 interface StateType {
-  networkScansData: [];
+  networkScansData: NetworkScan[];
   networkScansDetail: any | null;
   error: string | null;
 }
@@ -29,6 +34,9 @@ const networkObservabilitySlice = createSlice({
     getNetworkObservabilityDetail: (state, action) => {
       state.networkScansDetail = action.payload.data;
     },
+    createNetworkObservabilityScan: (state, action) => {
+      state.networkScansData.push(action.payload.data);
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
@@ -46,13 +54,15 @@ export const fetchNetworkObservabilityData =
   () =>
     async (dispatch: AppDispatch) => {
       try {
-        const response = await axios.get(
+        const scans = (await axios.get(
           `${getMonitoringApiUrl()}`,
-        );
+        )).data.scans;
+        // order by scan_start
+        scans.sort((a: any, b: any) => new Date(b.scan_start).getTime() - new Date(a.scan_start).getTime());
 
         dispatch(
           getNetworkObservabilityList({
-            data: response.data.scans
+            data: scans
           }),
         );
       } catch (err: any) {
@@ -85,4 +95,19 @@ export const fetchNetworkObservabilityById = (id: string) => async (dispatch: Ap
     dispatch(setError('Failed to fetch Network Observability detail'));
   }
 };
+
+export const createNetworkObservabilityScan = (newNetworkScan: any) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.post(`${getMonitoringApiUrl()}/`, newNetworkScan);
+
+    if (response.status === 201) {
+      dispatch(fetchNetworkObservabilityData());
+    } else {
+      dispatch(setError('Failed to create Network Observability scan'));
+    }
+  } catch (err: any) {
+    console.error('Error creating Network Observability scan:', err);
+    dispatch(setError('Failed to create Network Observability scan'));
+  }
+}
 export default networkObservabilitySlice.reducer;
