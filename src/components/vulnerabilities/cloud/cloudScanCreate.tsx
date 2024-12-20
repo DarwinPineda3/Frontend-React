@@ -97,8 +97,6 @@ const CreateProwlerScan: React.FC = () => {
 
 
       } catch (error: any) {
-        console.log(error);
-
         navigate('/vulnerabilities/cloud', {
           state: {
             message: error.message,

@@ -104,12 +104,8 @@ export const createCloudScan = (newCloudScan: any) => async (dispatch: AppDispat
     const response = await axios.post(getApiUrl(), formData);
     dispatch(addCloudScan(response.data));
   } catch (err: any) {
-    console.log(err.response.message);
-    console.log("-----------------")
-
     dispatch(setError(err.response.message))
     throw err.response.data || 'Failed to create Cloud Scan';
-
   }
 };
 
