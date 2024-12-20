@@ -3,6 +3,7 @@ import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { Data } from 'src/types/newsletters/newsletter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
+import { log } from 'console';
 
 function getApiUrl() {
   return `${getBaseApiUrl()}/prowler-vulnerabilities/`;
@@ -96,16 +97,19 @@ export const createCloudScan = (newCloudScan: any) => async (dispatch: AppDispat
     formData.append('azure_client_id', newCloudScan.azure_client_id);
     formData.append('azure_tenant_id', newCloudScan.azure_tenant_id);
     formData.append('azure_client_secret', newCloudScan.azure_client_secret);
-    
+
     if (newCloudScan.gcp_credentials_json_file) {
       formData.append('gcp_credentials_json_file', newCloudScan.gcp_credentials_json_file);
     }
     const response = await axios.post(getApiUrl(), formData);
     dispatch(addCloudScan(response.data));
   } catch (err: any) {
-    dispatch(setError(err.response))
-    console.error('Error creating scan:', err);
-    dispatch(setError('Failed to create scan'));
+    console.log(err.response.message);
+    console.log("-----------------")
+
+    dispatch(setError(err.response.message))
+    throw err.response.data || 'Failed to create Cloud Scan';
+
   }
 };
 

@@ -19,7 +19,6 @@ import { useNavigate } from 'react-router';
 import AwsLogo from 'src/assets/images/cloudscans/aws.png';
 import AzureLogo from 'src/assets/images/cloudscans/azure.png';
 import GcpLogo from 'src/assets/images/cloudscans/gcp.png';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudInventoryList, setPage } from 'src/store/observability/cloud/CloudInventorySlice';
