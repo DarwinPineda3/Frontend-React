@@ -24,12 +24,16 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { deleteWPScan, downloadWPScanReport, fetchWPScans, setPage } from 'src/store/vulnerabilities/web/WPScanSlice';
+import {
+  deleteWPScan,
+  downloadWPScanReport,
+  fetchWPScans,
+  setPage,
+} from 'src/store/vulnerabilities/web/WPScanSlice';
 import CreateWPScan from './wpscanCreate';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
-
 
 interface ScanListTableProps {
   onScanClick: (scanId: string) => void;
@@ -46,7 +50,9 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const totalPages = useSelector((state: any) => state.wpscanReducer.totalPages);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success');
   const [wpScanToDelete, setWPScanToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const error = useSelector((state: any) => state.wpscanReducer.error);
@@ -76,7 +82,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
 
   const handleDownload = (id: string) => {
     dispatch(downloadWPScanReport(id));
-
   };
 
   const handleDelete = (id: string) => {
@@ -89,7 +94,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     if (wpScanToDelete !== null) {
       await dispatch(deleteWPScan(wpScanToDelete));
       if (await error) {
-        setSnackbarMessage(t("wpscan.wpscan_deleted_successfully") || '');
+        setSnackbarMessage(t('wpscan.wpscan_deleted_successfully') || '');
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } else {
@@ -97,8 +102,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
       }
-
-
     }
     setDeleteDialogOpen(false);
     setWPScanToDelete(null);
@@ -109,7 +112,10 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     setWPScanToDelete(null);
   };
 
-  const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warning' | 'error') => {
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(false);
@@ -120,12 +126,15 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   };
 
   return (
-    <DashboardCard title={t('wpscan.wordpress_scans') || ''} subtitle={t('wpscan.list_all_wordpress_scans') || ''}
+    <DashboardCard
+      title={t('wpscan.wordpress_scans') || ''}
+      subtitle={t('wpscan.list_all_wordpress_scans') || ''}
       action={
         <IconButton color="primary" onClick={handleOpenModal}>
           <AddIcon />
         </IconButton>
-      }>
+      }
+    >
       <>
         <Box>
           {isLoading ? (
@@ -162,36 +171,73 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {wpscans.map((scan: any, index: any) => (
-                        <TableRow key={scan.id || index}>
-                          <TableCell>
-                            <Typography
-                              variant="subtitle2"
-                              fontWeight={600}
-                              color="primary"
-                              component="a"
-                              onClick={() => onScanClick(scan.id)}
-                              style={{ cursor: 'pointer' }}
+                      {wpscans.length > 0 ? (
+                        wpscans.map((scan: any, index: any) => (
+                          <TableRow key={scan.id || index}>
+                            <TableCell>
+                              <Typography
+                                variant="subtitle2"
+                                fontWeight={600}
+                                color="primary"
+                                component="a"
+                                onClick={() => onScanClick(scan.id)}
+                                style={{ cursor: 'pointer' }}
+                              >
+                                {scan.target_url}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography variant="body2">
+                                <HumanizedDate dateString={scan.scan_start} />
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              {scan.scan_type === 'scan_normal'
+                                ? 'Scan normal'
+                                : scan.scan_type === 'scan_deep'
+                                ? 'Scan deep'
+                                : 'Unknown scan type'}
+                            </TableCell>
+                            <TableCell>
+                              <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
+                                <DownloadIcon />
+                              </IconButton>
+                              <IconButton color="error" onClick={() => handleDelete(scan.id)}>
+                                <DeleteIcon />
+                              </IconButton>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      ) : (
+                        <TableRow>
+                          <TableCell colSpan={6} align="center">
+                            <Box
+                              display="flex"
+                              flexDirection="column"
+                              alignItems="center"
+                              justifyContent="center"
+                              height="100px"
                             >
-                              {scan.target_url}
-                            </Typography>
-                          </TableCell>
-                          <TableCell>
-                            <Typography variant="body2"><HumanizedDate dateString={scan.scan_start} /></Typography>
-                          </TableCell>
-                          <TableCell>
-                            {scan.scan_type === 'scan_normal' ? 'Scan normal' : scan.scan_type === 'scan_deep' ? 'Scan deep' : 'Unknown scan type'}
-                          </TableCell>
-                          <TableCell>
-                            <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
-                              <DownloadIcon />
-                            </IconButton>
-                            <IconButton color="error" onClick={() => handleDelete(scan.id)}>
-                              <DeleteIcon />
-                            </IconButton>
+                              <Typography variant="body2" color="textSecondary">
+                                {t('vulnerabilities.no_data_available')}
+                              </Typography>
+                              <Typography
+                                variant="body2"
+                                color="primary"
+                                component="a"
+                                onClick={handleOpenModal}
+                                style={{
+                                  cursor: 'pointer',
+                                  textDecoration: 'underline',
+                                  marginTop: '8px',
+                                }}
+                              >
+                                {t('vulnerabilities.create_scan_here')}
+                              </Typography>
+                            </Box>
                           </TableCell>
                         </TableRow>
-                      ))}
+                      )}
                     </TableBody>
                   </Table>
                 </TableContainer>
@@ -201,8 +247,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                     <Typography variant="h6">{t('wpscan.no_data_available')}</Typography>
                   </Grid>
                 </Grid>
-              )
-              }
+              )}
 
               <Box my={3} display="flex" justifyContent={'center'}>
                 <Pagination
@@ -216,24 +261,29 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
           )}
         </Box>
 
-
-        <Dialog open={openDialog} onClose={handleCloseModal} maxWidth="sm" fullWidth aria-labelledby="create-wpscan-dialog-title">
+        <Dialog
+          open={openDialog}
+          onClose={handleCloseModal}
+          maxWidth="sm"
+          fullWidth
+          aria-labelledby="create-wpscan-dialog-title"
+        >
           <DialogContent>
             <CreateWPScan onSubmit={handleFormSubmit} />
           </DialogContent>
         </Dialog>
 
         <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
-          <DialogTitle>{t("wpscan.delete_scan")}</DialogTitle>
+          <DialogTitle>{t('wpscan.delete_scan')}</DialogTitle>
           <DialogContent>
-            <Typography>{t("wpscan.are_you_sure_you_want_to_delete_this_scan")}</Typography>
+            <Typography>{t('wpscan.are_you_sure_you_want_to_delete_this_scan')}</Typography>
           </DialogContent>
           <DialogActions>
             <Button onClick={cancelDelete} color="info">
-              {t("wpscan.cancel")}
+              {t('wpscan.cancel')}
             </Button>
             <Button onClick={confirmDelete} color="primary" variant="contained">
-              {t("wpscan.confirm")}
+              {t('wpscan.confirm')}
             </Button>
           </DialogActions>
         </Dialog>

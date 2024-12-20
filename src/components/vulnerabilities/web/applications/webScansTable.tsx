@@ -62,17 +62,23 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   }
 
   const addButton = (
-    <IconButton color="primary" onClick={() => {
-      navigate('/vulnerabilities/web/applications/create');
-    }}>
+    <IconButton
+      color="primary"
+      onClick={() => {
+        navigate('/vulnerabilities/web/applications/create');
+      }}
+    >
       <AddIcon />
     </IconButton>
   );
 
-
   return (
     <Box>
-      <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!} action={addButton}>
+      <DashboardCard
+        title={t('vulnerabilities.scans')!}
+        subtitle={t('vulnerabilities.scan_list')!}
+        action={addButton}
+      >
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -111,46 +117,76 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/*@ts-ignore*/}
-                {data.map((scan, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Typography
-                        variant="subtitle2"
-                        fontWeight={600}
-                        color="primary"
-                        component="a"
-                        onClick={() => onScanClick(scan.id)}
-                        style={{ cursor: 'pointer' }}
+                {data.length > 0 ? (
+                  data.map((scan, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <Typography
+                          variant="subtitle2"
+                          fontWeight={600}
+                          color="primary"
+                          component="a"
+                          onClick={() => onScanClick(scan.id)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {scan.name}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">{scan.hosts}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">{scan.scan_start}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">{scan.type}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">{`${scan.progress}%`}</Typography>
+                        <Typography variant="caption" color="textSecondary">
+                          {scan.progressTime}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
+                          <DownloadIcon />
+                        </IconButton>
+                        <IconButton color="error" onClick={() => handleDelete(scan.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} align="center">
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        height="100px"
                       >
-                        {scan.name}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{scan.hosts}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{scan.scan_start}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{scan.type}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{`${scan.progress}%`}</Typography>
-                      <Typography variant="caption" color="textSecondary">
-                        {scan.progressTime}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
-                        <DownloadIcon />
-                      </IconButton>
-                      <IconButton color="error" onClick={() => handleDelete(scan.id)}>
-                        <DeleteIcon />
-                      </IconButton>
+                        <Typography variant="body2" color="textSecondary">
+                          {t('vulnerabilities.no_data_available')}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="primary"
+                          component="a"
+                          onClick={() => navigate('/vulnerabilities/web/applications/create')}
+                          style={{
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            marginTop: '8px',
+                          }}
+                        >
+                          {t('vulnerabilities.create_scan_here')}
+                        </Typography>
+                      </Box>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

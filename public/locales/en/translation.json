@@ -345,6 +345,7 @@
     "scan_resumed_successfully": "Network scanning has resumed successfully",
     "scan_failed": "There was an error executing this action",
     "no_data_available": "No data available",
+    "create_scan_here": "Create a scan here",
     "management": {
       "vulnerabilities": "Vulnerabilities",
       "management": "Management",
@@ -429,7 +430,7 @@
       "scan_target": "Scan Target",
       "scan_config": "Scan Config",
       "create_scan": "Create Scan",
-      "you_can_create_an_asset": "You can create an asset (Target)",
+      "you_can_create_an_asset": "You can create an asset (target)",
       "here": "here",
       "network_scan_create_successfully": "Network scan create successfully",
       "network_scan_create_failed": "Failed to create the network scan",
@@ -617,7 +618,6 @@
       "observability": "Observability",
       "cloud": "Cloud",
       "create_cloud_scan": "Create Cloud Scan"
-
     }
   },
   "monitoring": {
@@ -928,9 +928,9 @@
     "impact": "Impact",
     "probability_of_occurrence": "Probability of Occurrence",
     "exploitable": "Exploitable",
-    "Overview":"Overview",
-    "Vulnerabilities":"Vulnerabilities",
-    "evidences":"evidences"
+    "Overview": "Overview",
+    "Vulnerabilities": "Vulnerabilities",
+    "evidences": "evidences"
   },
   "installation_guide": {
     "title": "Installation Guide",

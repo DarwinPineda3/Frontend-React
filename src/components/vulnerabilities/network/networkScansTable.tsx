@@ -358,7 +358,30 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={5} align="center">
-                        {t('vulnerabilities.no_data_available')}
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                          justifyContent="center"
+                          height="100px"
+                        >
+                          <Typography variant="body2" color="textSecondary">
+                            {t('vulnerabilities.no_data_available')}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            component="a"
+                            onClick={() => navigate('/vulnerabilities/network/scans/create')}
+                            style={{
+                              cursor: 'pointer',
+                              textDecoration: 'underline',
+                              marginTop: '8px',
+                            }}
+                          >
+                            {t('vulnerabilities.create_scan_here')}
+                          </Typography>
+                        </Box>
                       </TableCell>
                     </TableRow>
                   )}
