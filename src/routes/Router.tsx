@@ -16,7 +16,6 @@ import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Par
 import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
-// import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
 import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
@@ -40,7 +39,6 @@ import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import SocNewsDetails from 'src/views/monitoring/SOC/NewsletterDetails';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
-import { default as CloudObservability } from 'src/views/observability/Cloud';
 import DarkWeb from 'src/views/observability/DarkWeb';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import NetworkObservability from 'src/views/observability/Network';
@@ -66,6 +64,7 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import CloudInventory from 'src/views/observability/Cloud';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -323,7 +322,7 @@ const Router = [
       },
       {
         path: '/observability/cloud',
-        element: <CloudObservability />,
+        element: <CloudInventory />,
         roles: ['Admin', 'Scan360'],
       },
       {
@@ -333,12 +332,12 @@ const Router = [
       },
       {
         path: '/observability/cloud/scans/:scanId',
-        element: <CloudObservability />,
+        element: <CloudInventory />,
         roles: ['Admin', 'Scan360'],
       },
       {
         path: '/observability/cloud/scans',
-        element: <CloudObservability />,
+        element: <CloudInventory />,
         roles: ['Admin', 'Scan360'],
       },
       {

@@ -94,7 +94,6 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
   };
 
   const imageDispatcher = (provider: string, service: string) => {
-    console.log(provider, service);
     const providerMap = serviceImageMap[provider];
     if (providerMap) {
       return providerMap[service] || providerMap.generic; // Return service-specific or generic provider image

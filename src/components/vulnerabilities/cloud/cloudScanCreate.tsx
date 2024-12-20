@@ -23,8 +23,7 @@ import CustomFormLabel from 'src/components/forms/theme-elements/CustomFormLabel
 import Thumbnail from 'src/components/home/monitoring/malware-analyses/MalwareAnalysisThumbnail';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { useDispatch } from 'src/store/Store';
 import { createCloudScan } from 'src/store/vulnerabilities/cloud/CloudSlice';
 import * as Yup from 'yup';
 
