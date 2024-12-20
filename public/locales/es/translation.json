@@ -345,6 +345,7 @@
     "scan_resumed_successfully": "El escaneo de red se ha reanudado con éxito",
     "scan_failed": "Se produjo un error al ejecutar esta acción.",
     "no_data_available": "No hay datos disponibles",
+    "create_scan_here": "Crea un escaneo aquí",
     "management": {
       "vulnerabilities": "Vulnerabilidades",
       "management": "Gestión",
@@ -428,7 +429,7 @@
       "scan_target": "Objetivo del escaneo",
       "scan_config": "Configuración del escaneo",
       "create_scan": "Crear escaneo",
-      "you_can_create_an_asset": "Puedes crear un activo (Objetivo)",
+      "you_can_create_an_asset": "Puedes crear un activo (objetivo)",
       "here": "aquí",
       "network_scan_create_successfully": "Escaneo de red creado exitosamente",
       "network_scan_create_failed": "Error al crear el escaneo de red",
@@ -616,7 +617,6 @@
       "observability": "Observabilidad",
       "cloud": "Cloud",
       "create_cloud_scan": "Crear escaneo cloud"
-
     }
   },
   "monitoring": {
@@ -926,9 +926,9 @@
     "impact": "Impacto",
     "probability_of_occurrence": "Probabilidad de ocurrencia",
     "exploitable": "Explotable",
-    "Overview":"Visión general",
-    "Vulnerabilities":"Vulnerabilidades",
-    "evidences":"Evidencias"
+    "Overview": "Visión general",
+    "Vulnerabilities": "Vulnerabilidades",
+    "evidences": "Evidencias"
   },
   "installation_guide": {
     "title": "Guía de Instalación",
