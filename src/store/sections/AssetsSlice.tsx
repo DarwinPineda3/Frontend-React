@@ -68,6 +68,19 @@ export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
   }
 };
 
+export const fetchAssetsWitURL = (page = 1) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}getAsssetsWithURL/`);
+    const {results} = response.data;
+    
+    const totalPages = Math.ceil(results.length / 10);
+    dispatch(getAssets({ results, currentPage: page, totalPages }));
+  } catch (err: any) {
+    console.error('Error fetching assets:', err);
+    dispatch(setError('Failed to fetch assets'));
+  }
+};
+
 // Async thunk for creating a new asset (CREATE)
 export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
