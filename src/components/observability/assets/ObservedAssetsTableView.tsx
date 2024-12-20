@@ -12,7 +12,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,8 +25,9 @@ interface ObservedAssetsProps {
 }
 
 const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => {
-
-  const { observedAssetsData, error } = useSelector((state: AppState) => state.ObservedAssetsReducer);
+  const { observedAssetsData, error } = useSelector(
+    (state: AppState) => state.ObservedAssetsReducer,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,7 +42,6 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
   const greylight = theme.palette.grey[100];
 
   const { t } = useTranslation();
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 1; // Adjust based on the number of pages
@@ -64,7 +64,10 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
 
   return (
     <Box>
-      <DashboardCard title={t('observability.scans')!} subtitle={t('observability.list_of_all_scans')!}>
+      <DashboardCard
+        title={t('observability.scans')!}
+        subtitle={t('observability.list_of_all_scans')!}
+      >
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -108,81 +111,103 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                 </TableRow>
               </TableHead>
               <TableBody>
-                {observedAssetsData.map((asset) => (
-                  <TableRow key={asset.id}>
-                    <TableCell>
-                      <Typography
-                        variant="subtitle2"
-                        fontWeight={600}
-                        color="primary"
-                        component="a"
-                        onClick={() => onScanClick(`${asset.id}`)}
-                        style={{ cursor: 'pointer' }}
+                {observedAssetsData.length > 0 ? (
+                  observedAssetsData.map((asset) => (
+                    <TableRow key={asset.id}>
+                      <TableCell>
+                        <Typography
+                          variant="subtitle2"
+                          fontWeight={600}
+                          color="primary"
+                          component="a"
+                          onClick={() => onScanClick(`${asset.id}`)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {asset.Hostname}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <LinearProgress
+                          variant="determinate"
+                          value={asset.CpuInfo.CpuUsage}
+                          sx={{
+                            width: '80%',
+                            height: 10,
+                            borderRadius: 5,
+                            bgcolor: '#e0e0e0',
+                          }}
+                        />
+                        <Typography variant="subtitle2">{asset.CpuInfo.CpuUsage}%</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <LinearProgress
+                          variant="determinate"
+                          value={asset.RamInfo.RamUsagePercentage}
+                          color="warning"
+                          sx={{
+                            width: '80%',
+                            height: 10,
+                            borderRadius: 5,
+                            bgcolor: '#e0e0e0',
+                          }}
+                        />
+                        <Typography variant="subtitle2">
+                          {asset.RamInfo.RamUsagePercentage}%
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <LinearProgress
+                          variant="determinate"
+                          value={asset.Storage.TotalUsagePercentage}
+                          color="success"
+                          sx={{
+                            width: '80%',
+                            height: 10,
+                            borderRadius: 5,
+                            bgcolor: '#e0e0e0',
+                          }}
+                        />
+                        <Typography variant="subtitle2">
+                          {asset.Storage.TotalUsagePercentage}%
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton>
+                          {asset.Firewall === 'Running' ? (
+                            <LocalFireDepartmentIcon style={{ color: primary }} />
+                          ) : (
+                            <LocalFireDepartmentIcon style={{ color: grey }} />
+                          )}
+                        </IconButton>
+                      </TableCell>
+                      <TableCell>
+                        <HumanizedDate dateString={asset.Timestamp} />
+                        <Typography variant="body2">{asset.Timestamp}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton color="error" onClick={() => onScanClick(`${asset.id}`)}>
+                          <Info />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={7} align="center">
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        height="100px"
                       >
-                        {asset.Hostname}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <LinearProgress
-                        variant="determinate"
-                        value={asset.CpuInfo.CpuUsage}
-                        sx={{
-                          width: '80%',
-                          height: 10,
-                          borderRadius: 5,
-                          bgcolor: '#e0e0e0',
-                        }}
-                      />
-                      <Typography variant="subtitle2">{asset.CpuInfo.CpuUsage}%</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <LinearProgress
-                        variant="determinate"
-                        value={asset.RamInfo.RamUsagePercentage}
-                        color="warning"
-                        sx={{
-                          width: '80%',
-                          height: 10,
-                          borderRadius: 5,
-                          bgcolor: '#e0e0e0',
-                        }}
-                      />
-                      <Typography variant="subtitle2">{asset.RamInfo.RamUsagePercentage}%</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <LinearProgress
-                        variant="determinate"
-                        value={asset.Storage.TotalUsagePercentage}
-                        color="success"
-                        sx={{
-                          width: '80%',
-                          height: 10,
-                          borderRadius: 5,
-                          bgcolor: '#e0e0e0',
-                        }}
-                      />
-                      <Typography variant="subtitle2">{asset.Storage.TotalUsagePercentage}%</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton>
-                        {asset.Firewall === 'Running' ? (
-                          <LocalFireDepartmentIcon style={{ color: primary }} />
-                        ) : (
-                          <LocalFireDepartmentIcon style={{ color: grey }} />
-                        )}
-                      </IconButton>
-                    </TableCell>
-                    <TableCell>
-                      <HumanizedDate dateString={asset.Timestamp} />
-                      <Typography variant="body2">{asset.Timestamp}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton color="error" onClick={() => onScanClick(`${asset.id}`)}>
-                        <Info />
-                      </IconButton>
+                        <Typography variant="body2" color="textSecondary">
+                          {t('vulnerabilities.no_data_available')}
+                        </Typography>
+                      </Box>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

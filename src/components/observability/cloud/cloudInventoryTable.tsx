@@ -8,7 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,10 @@ import GcpLogo from 'src/assets/images/cloudscans/gcp.png';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchCloudInventoryList, setPage } from 'src/store/observability/cloud/CloudInventorySlice';
+import {
+  fetchCloudInventoryList,
+  setPage,
+} from 'src/store/observability/cloud/CloudInventorySlice';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -32,8 +35,9 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const cloudInventoryList = useSelector((state: any) => state.cloudInventoryReducer.cloudInventoryList);
+  const cloudInventoryList = useSelector(
+    (state: any) => state.cloudInventoryReducer.cloudInventoryList,
+  );
   const currentPage = useSelector((state: any) => state.cloudInventoryReducer.page);
   const totalPages = useSelector((state: any) => state.cloudInventoryReducer.totalPages);
   const { t } = useTranslation();
@@ -44,7 +48,6 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
       dispatch(setPage(page));
     }
   };
-
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -68,17 +71,16 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
     }
   };
 
-
-
   return (
     <DashboardCard
-      title={t("vulnerabilities.scans")!}
-      subtitle={t("vulnerabilities.list_of_all_scans")!}
+      title={t('vulnerabilities.scans')!}
+      subtitle={t('vulnerabilities.list_of_all_scans')!}
       action={
         <IconButton color="primary" onClick={() => navigate('/observability/cloud/create')}>
           <AddIcon />
         </IconButton>
-      }>
+      }
+    >
       <>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -92,48 +94,79 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                   <TableRow>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {t("vulnerabilities.provider")}
+                        {t('vulnerabilities.provider')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {t("vulnerabilities.cloud_id")}
+                        {t('vulnerabilities.cloud_id')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {t("vulnerabilities.date")}
+                        {t('vulnerabilities.date')}
                       </Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cloudInventoryList.map((scan: any) => (
-                    <TableRow key={scan.id}>
-                      <TableCell>
-                        <Box display="flex" alignItems="center">
-                          {getProviderIcon(scan.provider)}
-                          <Typography variant="body2" style={{ marginLeft: '8px' }}>
-                            ({scan.provider})
+                  {cloudInventoryList.length > 0 ? (
+                    cloudInventoryList.map((scan: any) => (
+                      <TableRow key={scan.id}>
+                        <TableCell>
+                          <Box display="flex" alignItems="center">
+                            {getProviderIcon(scan.provider)}
+                            <Typography variant="body2" style={{ marginLeft: '8px' }}>
+                              ({scan.provider})
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => onScanClick(scan.id)}
+                          >
+                            {scan.cloud_id}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <HumanizedDate dateString={scan.timestamp} />
+                          <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} align="center">
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                          justifyContent="center"
+                          height="100px"
+                        >
+                          <Typography variant="body2" color="textSecondary">
+                            {t('vulnerabilities.no_data_available')}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            component="a"
+                            onClick={() => navigate('/observability/cloud/create')}
+                            style={{
+                              cursor: 'pointer',
+                              textDecoration: 'underline',
+                              marginTop: '8px',
+                            }}
+                          >
+                            {t('vulnerabilities.create_scan_here')}
                           </Typography>
                         </Box>
                       </TableCell>
-                      <TableCell>
-                        <Typography
-                          variant="body2"
-                          color="primary"
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => onScanClick(scan.id)}
-                        >
-                          {scan.cloud_id}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <HumanizedDate dateString={scan.timestamp} />
-                        <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
-                      </TableCell>
                     </TableRow>
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
