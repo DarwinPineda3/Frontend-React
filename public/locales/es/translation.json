@@ -437,6 +437,23 @@
       "network_scan_created": "Escaneo de red creado",
       "start_network_scan": "Inicie el escaneo de red haciendo clic aquí."
     },
+    "web_app": {
+      "network": "Red",
+      "add_scan": "Añadir escaneo",
+      "create_network_scan": "Crear escaneo de aplicación web",
+      "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de aplicación web",
+      "name": "Nombre",
+      "comment": "Comentario",
+      "scan_target": "Objetivo de escaneo",
+      "scan_config": "Configuración de escaneo",
+      "create_scan": "Crear escaneo",
+      "you_can_create_an_asset": "Puedes crear un activo (Objetivo)",
+      "here": "aquí",
+      "network_scan_create_successfully": "Escaneo de aplicación web creado con éxito",
+      "network_scan_create_failed": "Error al crear el escaneo de aplicación web",
+      "required_field": "Campo requerido",
+      "network_scan_created": "Escaneo de aplicación web creado"
+    },
     "cloud_scans": {
       "low": "Bajo",
       "medium": "Medio",
@@ -461,6 +478,8 @@
     }
   },
   "observability": {
+    "delete_scan": "Eliminar escaneo",
+    "delete_scan_warning": "¿Estás seguro de que deseas eliminar este escaneo de forma permanente?",
     "threshold_updated_successfully": "Umbral actualizado correctamente",
     "threshold_updated_error": "Error al actualizar el umbral",
     "threshold_settings": "Configuración de umbral",

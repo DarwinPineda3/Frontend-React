@@ -15,7 +15,7 @@ import AssetsStatus from './sections/dashboard/AssetStatusSlice';
 import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
-import RevenueUpdatesReducer from './sections/dashboard/RevenueUpdatesSlice';
+import RedTeamUpdatesReducer from './sections/dashboard/RedTeamUpdatesSlice';
 import SentimentsSumaryReducer from './sections/dashboard/SentimentHistorySlice';
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
 import TopVulneravilitesReducer from './sections/dashboard/TopVulnerabilitiesSlice';
@@ -46,14 +46,14 @@ import { combineReducers } from 'redux';
 const dashboardReducer = combineReducers({
   topCards: TopCardsReducer,
   vulnerabilities: TopVulneravilitesReducer,
-  revenueUpdates: RevenueUpdatesReducer,
+  redTeamUpdates: RedTeamUpdatesReducer,
   hosts: HostsUpdatesReducer,
   assetStatus: AssetsStatus,
   alertDistribution: AlertDistribution,
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
-  sentimentsSumaryReducer: SentimentsSumaryReducer,
+  sentimentsSumaryReducer: SentimentsSumaryReducer
 });
 
 export const store = configureStore({
