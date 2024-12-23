@@ -607,6 +607,7 @@
     "search": "Buscar",
     "datetime": "Fecha y hora",
     "no_data_available_for_selected_date": "No hay datos disponibles para el rango de fechas seleccionado.",
+    "file_system": "Sistema de archivos",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",

@@ -608,6 +608,7 @@
     "search": "Search",
     "datetime": "Datetime",
     "no_data_available_for_selected_date": "No data available for the selected date range.",
+    "file_system": "File System",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
       "aws_id_is_required": "AWS ID is required",
