@@ -340,7 +340,7 @@
     "not_available": "Not available",
     "network_scan_deleted_successfully": "Network scan has been successfully deleted",
     "network_scan_report_deleted_successfully": "Network scan report has been successfully deleted",
-    "scan_started_successfully": "Network scan has been successfully started",
+    "scan_started_successfully": "The network scan has started successfully. The report will be available once it is complete.",
     "scan_stopped_successfully": "Network scan has been successfully stopped",
     "scan_resumed_successfully": "Network scanning has resumed successfully",
     "scan_failed": "There was an error executing this action",
