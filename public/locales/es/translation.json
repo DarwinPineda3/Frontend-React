@@ -607,6 +607,7 @@
     "search": "Buscar",
     "datetime": "Fecha y hora",
     "no_data_available_for_selected_date": "No hay datos disponibles para el rango de fechas seleccionado.",
+    "no_data_available_for_chart": "No hay datos disponibles para este gráfico.",
     "file_system": "Sistema de archivos",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",

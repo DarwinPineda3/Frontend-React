@@ -608,6 +608,7 @@
     "search": "Search",
     "datetime": "Datetime",
     "no_data_available_for_selected_date": "No data available for the selected date range.",
+    "no_data_available_for_chart": "No data available for this chart.",
     "file_system": "File System",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
