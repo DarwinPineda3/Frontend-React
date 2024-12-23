@@ -174,7 +174,7 @@ const SystemInfoCards = ({ id }: SystemInfoCardsProps) => {
     <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
       <InfoCard title={t('observability.device_info')} data={deviceInfo} titleColor="#1e40af" />
       <InfoCard title={t('observability.pc_info')} data={pcInfo} titleColor="#047857" />
-      <DiskCard storage_charts={observedAssetsDetail?.storage_charts!} />
+      <DiskCard storage_charts={observedAssetsDetail?.storage_charts! || []} />
       <InfoCard title={t('observability.cpu_info')} data={cpuInfo} titleColor="#10b981" />
       <InfoCard title={t('observability.ram_info')} data={ramInfo} titleColor="#fbbf24" />
       <InfoCard

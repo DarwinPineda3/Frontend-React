@@ -44,7 +44,7 @@ const DiskCard: React.FC<DiskProps> = ({ storage_charts }) => {
       <DashboardCard title={t('observability.cpu_usage')!}>
         <Box>
           <Typography variant="h6" color="textSecondary">
-            {t('observability.no_data_available_for_selected_date')}
+            {t('observability.no_data_available_for_chart')}
           </Typography>
         </Box>
       </DashboardCard>
