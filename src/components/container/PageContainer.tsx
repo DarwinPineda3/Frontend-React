@@ -7,12 +7,12 @@ type Props = {
   description?: string;
   children: JSX.Element | JSX.Element[];
   title?: string;
-  noPadding?: boolean;
+  addBottomPadding?: boolean;
 };
 
-const PageContainer = ({ title, description, children, noPadding }: Props) => (
+const PageContainer = ({ title, description, children, addBottomPadding }: Props) => (
   <div
-    style={{ paddingBottom: noPadding ? 0 : 60 }}
+    style={{ paddingBottom: addBottomPadding ? 60 : 0 }}
   >
     <Helmet>
       <title>{title}</title>

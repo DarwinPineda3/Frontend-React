@@ -7,7 +7,7 @@ import Logo from 'src/layouts/full/shared/logo/Logo';
 import AuthLogin from '../authForms/AuthLogin';
 
 const Login = () => (
-  <PageContainer title="Login" description="this is Login page" noPadding>
+  <PageContainer title="Login" description="this is Login page" addBottomPadding={false}>
     <Grid container spacing={0} sx={{ overflowX: 'hidden'}}>
       <Grid
         item
