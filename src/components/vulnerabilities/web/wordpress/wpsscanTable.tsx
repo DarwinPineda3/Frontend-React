@@ -34,6 +34,7 @@ import CreateWPScan from './wpscanCreate';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
+import { useNavigate } from 'react-router';
 
 interface ScanListTableProps {
   onScanClick: (scanId: string) => void;
@@ -42,6 +43,7 @@ interface ScanListTableProps {
 const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -55,7 +57,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   >('success');
   const [wpScanToDelete, setWPScanToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const error = useSelector((state: any) => state.wpscanReducer.error);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -80,25 +81,32 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     setOpenDialog(false);
   };
 
-  const handleDownload = (id: string) => {
-    dispatch(downloadWPScanReport(id));
+  const handleDownload = async (id: string) => {
+    try{
+      await dispatch(downloadWPScanReport(id));
+    } catch (error: any) {
+
+      setSnackbarMessage(error || '');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    }
   };
 
   const handleDelete = (id: string) => {
     setWPScanToDelete(id);
     setDeleteDialogOpen(true);
-    // dispatch(deleteWPScan(scanId));
   };
 
   const confirmDelete = async () => {
     if (wpScanToDelete !== null) {
-      await dispatch(deleteWPScan(wpScanToDelete));
-      if (await error) {
+      try {
+        await dispatch(deleteWPScan(wpScanToDelete));
         setSnackbarMessage(t('wpscan.wpscan_deleted_successfully') || '');
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
-      } else {
-        setSnackbarMessage(error || '');
+      } catch (error: any) {
+
+        setSnackbarMessage(error.error || '');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
       }
@@ -130,7 +138,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
       title={t('wpscan.wordpress_scans') || ''}
       subtitle={t('wpscan.list_all_wordpress_scans') || ''}
       action={
-        <IconButton color="primary" onClick={handleOpenModal}>
+        <IconButton color="primary" onClick={() => navigate('/vulnerabilities/web/wordpress/create')}>
           <AddIcon />
         </IconButton>
       }
@@ -195,8 +203,8 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                               {scan.scan_type === 'scan_normal'
                                 ? 'Scan normal'
                                 : scan.scan_type === 'scan_deep'
-                                ? 'Scan deep'
-                                : 'Unknown scan type'}
+                                  ? 'Scan deep'
+                                  : 'Unknown scan type'}
                             </TableCell>
                             <TableCell>
                               <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
