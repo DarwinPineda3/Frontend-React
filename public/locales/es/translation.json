@@ -434,7 +434,8 @@
       "network_scan_create_successfully": "Escaneo de red creado exitosamente",
       "network_scan_create_failed": "Error al crear el escaneo de red",
       "required_field": "Campo requerido",
-      "network_scan_created": "Escaneo de red creado"
+      "network_scan_created": "Escaneo de red creado",
+      "start_network_scan": "Inicie el escaneo de red haciendo clic aquí."
     },
     "cloud_scans": {
       "low": "Bajo",

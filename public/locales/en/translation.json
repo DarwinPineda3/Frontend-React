@@ -435,7 +435,8 @@
       "network_scan_create_successfully": "Network scan create successfully",
       "network_scan_create_failed": "Failed to create the network scan",
       "required_field": "Required Field",
-      "network_scan_created": "Network scan created"
+      "network_scan_created": "Network scan created",
+      "start_network_scan": "Start the network scan by clicking here."
     },
     "cloud_scans": {
       "low": "Low",
