@@ -102,11 +102,16 @@ interface SystemInfo {
   };
   is_active: boolean;
   storage_charts: {
-    Drive: string;
-    VolumeName: string;
-    Size: number;
-    FreeSpace: number;
-    FileSystem: string;
+    chart: {
+      free_space: number;
+      used_space: number;
+    };
+    drive: string;
+    volume_name: string;
+    size: number;
+    used_space: number;
+    free_space: number;
+    file_system: string;
   }[];
   user_data: {
     id: string;
