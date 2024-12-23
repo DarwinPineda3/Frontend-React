@@ -3,6 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
+  Button,
+  Dialog,
   IconButton,
   Pagination,
   Table,
@@ -18,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import { fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
+import { deleteNetworkObservabilityScan, fetchNetworkObservabilityById, fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const burntScansData = [
@@ -82,7 +84,9 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
   const totalPages = 1; // Adjust based on the number of pages
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { networkScansData } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
+  const { networkScansData, networkScansDetail } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [selectedScanId, setSelectedScanId] = useState('');
 
   useEffect(() => {
     dispatch(fetchNetworkObservabilityData());
@@ -92,13 +96,44 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
     setCurrentPage(page);
   };
 
-  const handleDownload = (scanId: string) => {
-    console.log(`Downloading scan ${scanId}`);
+
+  const handleDownload = async (scanId: string) => {
+    try {
+      const response = await dispatch(fetchNetworkObservabilityById(scanId)); // Returns a plain object
+      if (response) {
+        const blob = new Blob([JSON.stringify(response, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `network_scan_${scanId}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } else {
+        console.error('No response data to download');
+      }
+    } catch (error) {
+      console.error('Error downloading the scan:', error);
+    }
   };
 
+
   const handleDelete = (scanId: string) => {
-    console.log(`Deleting scan ${scanId}`);
+    setSelectedScanId(scanId);
+    setShowDeleteDialog(true);
   };
+
+  const performDelete = async () => {
+    try {
+      console.log('Deleting scan:', selectedScanId);
+      await dispatch(deleteNetworkObservabilityScan(selectedScanId));
+      setShowDeleteDialog(false);
+    } catch (error) {
+      console.error('Error deleting the scan:', error);
+    }
+  }
 
   const addButton = (
     <IconButton color="primary" onClick={() => navigate('/observability/network/create')}>
@@ -181,6 +216,31 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
           </Box>
         </Box>
       </DashboardCard>
+      {
+        showDeleteDialog && (
+          <Dialog open={showDeleteDialog} maxWidth="sm">
+            <Box p={3}>
+              {/* Delete dialog */}
+              <Box>
+                {/* Dialog content */}
+                <Box>
+                  <Typography variant="h5">{t('observability.delete_scan')}</Typography>
+                  <Typography variant="body2">{t('observability.delete_scan_warning')}</Typography>
+                </Box>
+                {/* Dialog actions */}
+                <Box mt={3} display="flex" justifyContent="space-between">
+                  <Button color="info" onClick={() => setShowDeleteDialog(false)}>
+                    {t('dashboard.cancel')}
+                  </Button>
+                  <Button color="secondary" onClick={() => performDelete()}>
+                    {t('observability.delete')}
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
+          </Dialog>
+        )
+      }
     </Box>
   );
 };
