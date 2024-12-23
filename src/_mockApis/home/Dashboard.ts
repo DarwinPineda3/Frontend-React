@@ -1,11 +1,11 @@
-import mock from '../mock'; 
+import mock from '../mock';
 
 const fakeRequest = (time: Date | any) => {
   return new Promise((res) => setTimeout(res, time));
 };
 
 mock.onGet('/api/dashboard/topcards').reply(
-  async()=>{
+  async () => {
     await fakeRequest(1000);
     return [200, [
       { severity: 'critical', value: '96' },
@@ -18,9 +18,9 @@ mock.onGet('/api/dashboard/topcards').reply(
 );
 
 mock.onGet('/api/dashboard/vulnerabilities').reply(
-  async()=>{
+  async () => {
     await fakeRequest(2500);
-    return[200, [
+    return [200, [
       {
         id: '1',
         type: 'Critical',
@@ -69,18 +69,13 @@ mock.onGet('/api/revenue-updates').reply(
   async () => {
     await fakeRequest(1800);
     return [200, {
-      totalReports: 28,
-      redTeamReports: 20,
-      blueTeamReports: 8,
-      categories: ['16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08'], // Add dates here
+      totalReports: 1,
+      redTeamReports: 2,
+      categories: ['16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08'], // The dates of the reports
       series: [
         {
           name: 'Red team reports',
-          data: [1.5, 2.7, 2.2, 3.6, 1.5, 1.0],
-        },
-        {
-          name: 'Blue team reports',
-          data: [-1.8, -1.1, -2.5, -1.5, -0.6, -1.8],
+          data: [1.5, 2.7, 2.2, 3.6, 1.5, 1.0], // The number of red team reports for each date
         },
       ],
     }];
@@ -206,8 +201,7 @@ mock.onGet('/api/org-breaches').reply(
 
 
 
-  
+
 export default mock;
-  
-  
-  
+
+

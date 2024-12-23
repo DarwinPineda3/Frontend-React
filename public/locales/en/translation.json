@@ -436,6 +436,23 @@
       "required_field": "Required Field",
       "network_scan_created": "Network scan created"
     },
+    "web_app": {
+      "network": "Network",
+      "add_scan": "Add Scan",
+      "create_network_scan": "Create web app scan",
+      "create_network_scan_subtitle": "In this form you can create a web app scan",
+      "name": "Name",
+      "comment": "Comment",
+      "scan_target": "Scan Target",
+      "scan_config": "Scan Config",
+      "create_scan": "Create Scan",
+      "you_can_create_an_asset": "You can create an asset (Target)",
+      "here": "here",
+      "network_scan_create_successfully": "Web app scan created successfully",
+      "network_scan_create_failed": "Failed to create the web app scan",
+      "required_field": "Required Field",
+      "network_scan_created": "Web app scan created"
+    },
     "cloud_scans": {
       "low": "Low",
       "medium": "Medium",
@@ -460,6 +477,8 @@
     }
   },
   "observability": {
+    "delete_scan": "Delete Scan",
+    "delete_scan_warning": "Are you sure you want to delete this scan?",
     "threshold_updated_successfully": "Threshold updated successfully",
     "threshold_updated_error": "Threshold cannot be updated correctly",
     "threshold_settings": "Threshold settings",
@@ -617,7 +636,6 @@
       "observability": "Observability",
       "cloud": "Cloud",
       "create_cloud_scan": "Create Cloud Scan"
-
     }
   },
   "monitoring": {
@@ -928,9 +946,9 @@
     "impact": "Impact",
     "probability_of_occurrence": "Probability of Occurrence",
     "exploitable": "Exploitable",
-    "Overview":"Overview",
-    "Vulnerabilities":"Vulnerabilities",
-    "evidences":"evidences"
+    "Overview": "Overview",
+    "Vulnerabilities": "Vulnerabilities",
+    "evidences": "evidences"
   },
   "installation_guide": {
     "title": "Installation Guide",
