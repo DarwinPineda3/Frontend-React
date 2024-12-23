@@ -14,6 +14,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -36,6 +37,58 @@ import {
 } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
 
+const BlinkButton = ({ onClick }: { onClick: () => void }) => {
+  const { t } = useTranslation();
+
+  const [blinking, setBlinking] = useState(false);
+
+  useEffect(() => {
+    setBlinking(true);
+
+    const timer = setTimeout(() => {
+      setBlinking(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <Tooltip title={t('vulnerabilities.network_vulnerabilities.start_network_scan')} arrow>
+      <IconButton
+        color="primary"
+        onClick={onClick}
+        sx={{
+          animation: blinking ? 'blink 1s infinite, bounce 1s infinite' : 'none',
+          '@keyframes blink': {
+            '0%': {
+              opacity: 1,
+            },
+            '50%': {
+              opacity: 0.5,
+            },
+            '100%': {
+              opacity: 1,
+            },
+          },
+          '@keyframes bounce': {
+            '0%': {
+              transform: 'translateY(0)',
+            },
+            '50%': {
+              transform: 'translateY(-5px)',
+            },
+            '100%': {
+              transform: 'translateY(0)',
+            },
+          },
+        }}
+      >
+        <PlayCircleOutlineIcon />
+      </IconButton>
+    </Tooltip>
+  );
+};
+
 // Collapsible row
 const Row: React.FC<{
   row: any;
@@ -46,7 +99,6 @@ const Row: React.FC<{
   onResumeScan: (scanId: string) => void;
   navigate: any;
 }> = ({ row, onScanClick, onDeleteScan, onRunScan, onStopScan, onResumeScan, navigate }) => {
-  const { t } = useTranslation();
   const handleActionClick = (action: string, scanId: number) => {
     switch (action) {
       case 'run':
@@ -131,9 +183,7 @@ const Row: React.FC<{
             </IconButton>
           ) : row.status !== 'Requested' ? (
             <>
-              <IconButton color="primary" onClick={() => handleActionClick('run', row.id_elastic)}>
-                <PlayCircleOutlineIcon />
-              </IconButton>
+              <BlinkButton onClick={() => handleActionClick('run', row.id_elastic)} />
 
               {row.status === 'Stopped' && (
                 <IconButton

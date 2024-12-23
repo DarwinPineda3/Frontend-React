@@ -340,7 +340,7 @@
     "not_available": "No disponible",
     "network_scan_deleted_successfully": "El escaneo de red se ha eliminado correctamente",
     "network_scan_report_deleted_successfully": "El reporte de escaneo de red se ha eliminado correctamente",
-    "scan_started_successfully": "El escaneo de red se ha iniciado exitosamente",
+    "scan_started_successfully": "El escaneo de red se ha iniciado con éxito. El informe estará disponible una vez que finalice",
     "scan_stopped_successfully": "El escaneo de red se ha detenido exitosamente",
     "scan_resumed_successfully": "El escaneo de red se ha reanudado con éxito",
     "scan_failed": "Se produjo un error al ejecutar esta acción.",
@@ -434,7 +434,8 @@
       "network_scan_create_successfully": "Escaneo de red creado exitosamente",
       "network_scan_create_failed": "Error al crear el escaneo de red",
       "required_field": "Campo requerido",
-      "network_scan_created": "Escaneo de red creado"
+      "network_scan_created": "Escaneo de red creado",
+      "start_network_scan": "Inicie el escaneo de red haciendo clic aquí."
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -598,6 +599,14 @@
     "network_scans": "Escaneos de observabilidad de red",
     "host_table": "Tabla de Hosts",
     "host": "Host",
+    "start_date": "Fecha de inicio",
+    "end_date": "Fecha de fin",
+    "date_error_end_before_start": "La fecha de fin no puede ser anterior a la fecha de inicio",
+    "date_range_selection_error": "Por favor selecciona ambos rangos de fecha",
+    "invalid_date": "Fecha inválida. Asegúrese de que la fecha sea válida.",
+    "search": "Buscar",
+    "datetime": "Fecha y hora",
+    "no_data_available_for_selected_date": "No hay datos disponibles para el rango de fechas seleccionado.",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",

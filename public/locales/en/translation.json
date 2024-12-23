@@ -340,7 +340,7 @@
     "not_available": "Not available",
     "network_scan_deleted_successfully": "Network scan has been successfully deleted",
     "network_scan_report_deleted_successfully": "Network scan report has been successfully deleted",
-    "scan_started_successfully": "Network scan has been successfully started",
+    "scan_started_successfully": "The network scan has started successfully. The report will be available once it is complete.",
     "scan_stopped_successfully": "Network scan has been successfully stopped",
     "scan_resumed_successfully": "Network scanning has resumed successfully",
     "scan_failed": "There was an error executing this action",
@@ -435,7 +435,8 @@
       "network_scan_create_successfully": "Network scan create successfully",
       "network_scan_create_failed": "Failed to create the network scan",
       "required_field": "Required Field",
-      "network_scan_created": "Network scan created"
+      "network_scan_created": "Network scan created",
+      "start_network_scan": "Start the network scan by clicking here."
     },
     "cloud_scans": {
       "low": "Low",
@@ -599,6 +600,14 @@
     "network_scans": "Network Observability Scans",
     "host_table": "Host Table",
     "host": "Host",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "date_error_end_before_start": "The end date cannot be earlier than the start date",
+    "date_range_selection_error": "Please select both date ranges.",
+    "invalid_date": "Invalid date. Make sure the date is valid.",
+    "search": "Search",
+    "datetime": "Datetime",
+    "no_data_available_for_selected_date": "No data available for the selected date range.",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
       "aws_id_is_required": "AWS ID is required",

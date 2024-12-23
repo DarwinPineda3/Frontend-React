@@ -122,16 +122,40 @@ interface SystemInfo {
   };
 }
 
+interface RamInfo {
+  RamUsagePercentage: number;
+}
+
+interface CpuInfo {
+  CpuUsage: number;
+}
+
+interface Storage {
+  TotalUsagePercentage: number;
+}
+
+export interface AssetLog {
+  RamInfo: RamInfo;
+  CpuInfo: CpuInfo;
+  Storage: Storage;
+  Timestamp: string;
+}
+
+interface AssetLogsResponse {
+  asset_logs: AssetLog[];
+}
 
 interface StateType {
   observedAssetsData: AssetResume[];
   observedAssetsDetail: SystemInfo | null;
+  observedAssetsDetailLogs: AssetLogsResponse | null;
   error: string | null;
 }
 
 const initialState: StateType = {
   observedAssetsData: [],
   observedAssetsDetail: null,
+  observedAssetsDetailLogs: null,
   error: null,
 };
 
@@ -145,41 +169,63 @@ const ObservedAssetsSlice = createSlice({
     getObservedAssetDetail: (state, action) => {
       state.observedAssetsDetail = action.payload.data;
     },
+    getObservedAssetForCharts: (state, action) => {
+      state.observedAssetsDetailLogs = action.payload.asset_logs;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     },
   },
 });
 
-export const {
-  getObservedAssetList,
-  getObservedAssetDetail,
-  setError
-} = ObservedAssetsSlice.actions;
+export const { getObservedAssetList, getObservedAssetDetail, getObservedAssetForCharts, setError } =
+  ObservedAssetsSlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
-export const fetchObservedAssetData =
-  () =>
-    async (dispatch: AppDispatch) => {
-      try {
-        const response = await axios.get(
-          `${getMonitoringApiUrl()}`,
-        );
+export const fetchObservedAssetData = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getMonitoringApiUrl()}/`);
 
+    dispatch(
+      getObservedAssetList({
+        data: response.data.cpuInfo,
+      }),
+    );
+  } catch (err: any) {
+    console.error('Error fetching Network Observability data:', err);
+    dispatch(setError('Failed to fetch Network Observability data'));
+  }
+};
+
+export const fetchObservedAssetsLogsByDateRange =
+  (uuid: string, startDate: string, endDate: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getMonitoringApiUrl()}/observed-asset-for-date/`, {
+        params: {
+          uuid,
+          start_date: startDate,
+          end_date: endDate,
+        },
+      });
+
+      const { asset_logs } = response.data || {};
+
+      if (Array.isArray(asset_logs)) {
         dispatch(
-          getObservedAssetList({
-            data: response.data.cpuInfo
+          getObservedAssetForCharts({
+            asset_logs: response.data,
           }),
         );
-      } catch (err: any) {
-        console.error('Error fetching Network Observability data:', err);
-        dispatch(setError('Failed to fetch Network Observability data'));
       }
-    };
+    } catch (err: any) {
+      console.error('Error fetching observed assets by date range:', err);
+      dispatch(setError('Failed to fetch observed assets by date range'));
+    }
+  };
 
 export const fetchObservedAssetById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getMonitoringApiUrl()}/${id}`);
+    const response = await axios.get(`${getMonitoringApiUrl()}/${id}/`);
 
     if (response.status === 200) {
       dispatch(getObservedAssetDetail({ data: response.data }));
