@@ -1,22 +1,11 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  MenuItem,
-  Select,
-  useTheme
-} from '@mui/material';
+import { Box, Button, CircularProgress, Grid, MenuItem, Select, useTheme } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { createNetworkObservabilityScan } from 'src/store/observability/ObservabilityNetworkSlice';
 import { useDispatch } from 'src/store/Store';
-import {
-  ResponseData,
-  ScanConfig
-} from 'src/types/vulnerabilities/network/networkScansType';
+import { ResponseData, ScanConfig } from 'src/types/vulnerabilities/network/networkScansType';
 import * as Yup from 'yup';
 
 interface Props {
@@ -30,7 +19,7 @@ const configs = [
   { id: 'ports_fast_tcp', name: 'Fast TCP port scanning' },
   { id: 'ports_udp', name: 'UDP port scanning' },
   { id: 'ports_udp_tcp', name: 'Port scanning with TCP services' },
-]
+];
 
 const NetworkObsScansCreate: React.FC<Props> = ({ networkScanCreate, onSubmit }) => {
   const dispatch = useDispatch();
@@ -54,7 +43,6 @@ const NetworkObsScansCreate: React.FC<Props> = ({ networkScanCreate, onSubmit })
       ),
     }),
     onSubmit: async (values) => {
-      console.log('values:', values);
       const newNetworkScan = {
         ...values,
       };
@@ -134,12 +122,11 @@ const NetworkObsScansCreate: React.FC<Props> = ({ networkScanCreate, onSubmit })
               <MenuItem value="" disabled>
                 {t('vulnerabilities.network_vulnerabilities.scan_config')}
               </MenuItem>
-              {configs
-                .map((config: ScanConfig) => (
-                  <MenuItem key={config.id} value={config.id}>
-                    {config.name}
-                  </MenuItem>
-                ))}
+              {configs.map((config: ScanConfig) => (
+                <MenuItem key={config.id} value={config.id}>
+                  {config.name}
+                </MenuItem>
+              ))}
             </Select>
             {formik.touched.config && formik.errors.config && (
               <Box color="error.main" mt={1} fontSize="0.75rem">

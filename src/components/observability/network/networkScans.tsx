@@ -19,60 +19,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { deleteNetworkObservabilityScan, fetchNetworkObservabilityById, fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
-
-const burntScansData = [
-  {
-    id: '1',
-    url: 'google.com',
-    date: '8 de octubre de 2024 a las 07:47',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '2',
-    url: 'google.com',
-    date: '1 de octubre de 2024 a las 10:05',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '3',
-    url: 'google.com',
-    date: '10 de septiembre de 2024 a las 23:00',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '4',
-    url: 'google.com/',
-    date: '9 de septiembre de 2024 a las 23:00',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '5',
-    url: 'google.com',
-    date: '8 de septiembre de 2024 a las 23:00',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '6',
-    url: 'google.com',
-    date: '7 de septiembre de 2024 a las 23:00',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '7',
-    url: 'google.com',
-    date: '6 de septiembre de 2024 a las 23:00',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-  {
-    id: '8',
-    url: 'google.com',
-    date: '3 de septiembre de 2024 a las 12:11',
-    scanSetting: 'Escaneo de puertos TCP',
-  },
-];
 
 interface ScanListTableProps {
   onScanClick: (scanId: string) => void;
@@ -143,7 +91,11 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
 
   return (
     <Box>
-      <DashboardCard title={t('observability.scans')!} subtitle={t('observability.list_of_all_scans')!} action={addButton}>
+      <DashboardCard
+        title={t('observability.scans')!}
+        subtitle={t('observability.list_of_all_scans')!}
+        action={addButton}
+      >
         <Box>
           <TableContainer>
             <Table aria-label="scan list table">
@@ -172,37 +124,69 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                 </TableRow>
               </TableHead>
               <TableBody>
-                {networkScansData.map((scan) => (
-                  <TableRow key={scan["id"]}>
-                    <TableCell>
-                      <Typography
-                        variant="subtitle2"
-                        fontWeight={600}
-                        color="primary"
-                        component="a"
-                        onClick={() => onScanClick(scan["id"])}
-                        style={{ cursor: 'pointer' }}
+                {networkScansData.length > 0 ? (
+                  networkScansData.map((scan) => (
+                    <TableRow key={scan['id']}>
+                      <TableCell>
+                        <Typography
+                          variant="subtitle2"
+                          fontWeight={600}
+                          color="primary"
+                          component="a"
+                          onClick={() => onScanClick(scan['id'])}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {scan['name']}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">
+                          {new Date(scan['scan_start']).toLocaleString()}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="body2">{scan['scan_type']}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton color="primary" onClick={() => handleDownload(scan['id'])}>
+                          <DownloadIcon />
+                        </IconButton>
+                        <IconButton color="error" onClick={() => handleDelete(scan['id'])}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} align="center">
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        height="100px"
                       >
-                        {scan["name"]}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <HumanizedDate dateString={scan["scan_start"]} />
-                      <Typography>{new Date(scan["scan_start"]).toLocaleString()}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2">{scan["scan_type"]}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton color="primary" onClick={() => handleDownload(scan["id"])}>
-                        <DownloadIcon />
-                      </IconButton>
-                      <IconButton color="error" onClick={() => handleDelete(scan["id"])}>
-                        <DeleteIcon />
-                      </IconButton>
+                        <Typography variant="body2" color="textSecondary">
+                          {t('vulnerabilities.no_data_available')}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="primary"
+                          component="a"
+                          onClick={() => navigate('/observability/network/create')}
+                          style={{
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            marginTop: '8px',
+                          }}
+                        >
+                          {t('vulnerabilities.create_scan_here')}
+                        </Typography>
+                      </Box>
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

@@ -92,7 +92,7 @@ const NetworkVulnerabilitiesDetail = () => {
           <Box>
             <Box display={'flex'}>
               <Typography color="textPrimary">{t('vulnerabilities.name')} </Typography>
-              <Typography color="textPrimary">: {scanner?.scanner.name || 'NA'}</Typography>
+              <Typography color="textPrimary">: Akila Scan360 </Typography>
             </Box>
             <Box display={'flex'} mt={2}>
               <Typography color="textPrimary">{t('vulnerabilities.type')} </Typography>
