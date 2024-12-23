@@ -94,21 +94,19 @@ export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) =>
   let response = null
   try {
     response = await axios.post(`${getApiUrl()}`, newWPScan);
-    
+
     dispatch(addWPScan(response.data));
     return response.data;
   } catch (error: any) {
     const errorMessage =
       error.response?.data?.error || "Failed to create WPScan.";
-      response = {error: "Failed to create WPScan."}
-      console.error(errorMessage);
-      // throw new Error(errorMessage);
-      return response
+    dispatch(setError(errorMessage));
+    throw "Failed to create WPScan.";
   }
 };
 
 
-export const downloadWPScanReport = (id: string) => async () => {
+export const downloadWPScanReport = (id: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${getApiUrl()}download/?id=${id}`, {
       responseType: 'blob',
@@ -125,24 +123,25 @@ export const downloadWPScanReport = (id: string) => async () => {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(link);
   } catch (err: any) {
-    console.error('Error downloading report:', err);
+    dispatch(setError('Error downloading report'));
+    throw err.response.statusText;
   }
 };
 
 export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) => {
   dispatch(setLoading());
   try {
-    const response = await axios.delete(`${getApiUrl()}${wpscanId}`);
+    const response = await axios.delete(`${getApiUrl()}${wpscanId}/`);
 
     if (response.status === 200) {
       dispatch(removeWPScan(wpscanId));
     } else {
       dispatch(setError('Failed to delete WPScan'));
+      throw new Error('Failed to delete WPScan');
     }
   } catch (err: any) {
-    dispatch(setError(err.response))
-    console.error('Error deleting WPScan:', err);
     dispatch(setError('Failed to delete WPScan'));
+    throw err.response.data;
   }
 };
 

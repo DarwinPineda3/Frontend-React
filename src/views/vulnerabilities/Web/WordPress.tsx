@@ -6,6 +6,7 @@ import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-r
 import PageContainer from 'src/components/container/PageContainer';
 import WpScanDetail from 'src/components/vulnerabilities/web/wordpress/wpscanDetail';
 import WPScanListTable from 'src/components/vulnerabilities/web/wordpress/wpsscanTable';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
 const WordpressAplications = () => {
   const { scanId, vulnerabilityId: vulnId } = useParams<{ scanId?: string, vulnerabilityId?: string }>();
@@ -14,6 +15,12 @@ const WordpressAplications = () => {
 
   const [selectedScan, setSelectedScan] = useState<string | null>(null);
   const [selectedVulnerability, setSelectedVulnerability] = useState<string | null>(null);
+
+  const [snackBarInfo, setSnackBarInfo] = useState<{
+    color: 'error' | 'warning' | 'info' | 'success';
+    title: string;
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     if (scanId) {
@@ -26,6 +33,14 @@ const WordpressAplications = () => {
       setSelectedVulnerability(vulnId);
     } else {
       setSelectedVulnerability(null);
+    }
+
+    if (location.state?.message) {
+      setSnackBarInfo({
+        color: location.state.severity || 'success',
+        title: location.state.title || 'Info',
+        message: location.state.message,
+      });
     }
   }, [scanId, vulnId, location]);
 
@@ -71,8 +86,17 @@ const WordpressAplications = () => {
           <Grid item xs={12}>
             <WPScanListTable onScanClick={handleScanClick} />
           </Grid>
+          {snackBarInfo && (
+            <SnackBarInfo
+              color={snackBarInfo.color}
+              title={snackBarInfo.title}
+              message={snackBarInfo.message}
+            />
+          )}
         </Grid>
       )}
+
+
     </PageContainer>
   );
 };
