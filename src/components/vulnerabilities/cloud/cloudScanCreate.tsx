@@ -143,7 +143,7 @@ const CreateProwlerScan: React.FC = () => {
                   <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
                     <Loader />
                     <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
-                      Esto puede tardar un poco...
+                      {t('scan.scan_creation_message') || ''}
                     </Box>
                   </Box>
                 ) : (

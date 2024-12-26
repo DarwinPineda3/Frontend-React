@@ -1032,7 +1032,8 @@
     "wordpress_vulnerability": "Escaneos vulnerabilidad WordPress",
     "network_observability": "Escaneos observabilidad Red",
     "create_task_link": "Debes crear un/a",
-    "task": "tarea"
+    "task": "tarea",
+    "scan_creation_message": "La creación de este escaneo puede tardar un poco."
   },
   "threshold": {
     "threshold_settings": "Configuración de Umbral"

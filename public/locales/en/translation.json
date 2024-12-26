@@ -1034,7 +1034,8 @@
     "wordpress_vulnerability": "WordPress Vulnerability Scans",
     "network_observability": "Network Observability Scans",
     "create_task_link": "You must create a",
-    "task": "task"
+    "task": "task",
+    "scan_creation_message": "The creation of this scan may take a little time."
   },
   "threshold": {
     "threshold_settings": "Threshold Settings"
