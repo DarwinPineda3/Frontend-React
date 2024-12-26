@@ -20,7 +20,7 @@ import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchAssetsWitURL } from 'src/store/sections/AssetsSlice';
+import { fetchFilteredAssets } from 'src/store/sections/AssetsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { createWPScan } from 'src/store/vulnerabilities/web/WPScanSlice';
 import * as Yup from 'yup';
@@ -42,7 +42,7 @@ const CreateWPScan: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchAssetsWitURL(currentPage));
+      await dispatch(fetchFilteredAssets(currentPage));
     };
     fetchData();
   }, [dispatch, currentPage]);
@@ -102,7 +102,7 @@ const CreateWPScan: React.FC = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-          <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
+            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
               {t('menu.vulnerabilities')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/vulnerabilities/web/wordpress">
@@ -119,95 +119,95 @@ const CreateWPScan: React.FC = () => {
         <Grid item xs={12}>
           <DashboardCard
             title={t('wpscan.create_scan') || ''}>
-              <>
-            {isLoading ? (
-              <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                <Loader />
-              </Box>
-            ) : (
-              <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-                <FormControl
-                  fullWidth
-                  margin="normal"
-                  error={formik.touched.hosts && Boolean(formik.errors.hosts)}
-                >
-                  <Autocomplete
-                    options={assets}
-                    getOptionLabel={(option) => option.name}
-                    value={assets.find((asset: any) => asset.id === formik.values.hosts) || null}
-                    onChange={(event, newValue) => {
-                      formik.setFieldValue('hosts', newValue ? newValue.id : '');
-                    }}
-                    renderOption={(props, option) => (
-                      <li {...props} key={option.id}>
-                        {option.name} - {option.url}
-                      </li>
-                    )}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={t('wpscan.host_name')}
-                        variant="outlined"
-                        error={formik.touched.hosts && Boolean(formik.errors.hosts)}
-                      />
-                    )}
-                  />
-                  <FormHelperText>
-                    {formik.touched.hosts && formik.errors.hosts}
-                  </FormHelperText>
-                </FormControl>
-
-                <FormControl
-                  fullWidth
-                  margin="normal"
-                  error={formik.touched.config && Boolean(formik.errors.config)}
-                >
-                  <Autocomplete
-                    options={menuItems}
-                    getOptionLabel={(option) => option.label}
-                    value={menuItems.find((item) => item.value === formik.values.config) || null}
-                    onChange={(event, newValue) => {
-                      formik.setFieldValue('config', newValue ? newValue.value : '');
-                    }}
-                    renderOption={(props, option) => (
-                      <li {...props} key={option.value}>
-                        {option.label}
-                      </li>
-                    )}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={t('wpscan.config')}
-                        variant="outlined"
-                        error={formik.touched.config && Boolean(formik.errors.config)}
-                      />
-                    )}
-                  />
-                  <FormHelperText>
-                    {formik.touched.config && formik.errors.config}
-                  </FormHelperText>
-                </FormControl>
-
-                <Box mt={2}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    disabled={formik.isSubmitting}
-                  >
-                    {t('wpscan.create_scan')}
-                  </Button>
+            <>
+              {isLoading ? (
+                <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+                  <Loader />
                 </Box>
-              </Box>
-            )}
-            {isLoading && (
-              <SnackBarInfo
-                color="info"
-                title={t('wpscan.operation_status')}
-                message={t('wpscan.scan_in_progress')}
-              />
-            )}
+              ) : (
+                <Box component="form" onSubmit={formik.handleSubmit} noValidate>
+                  <FormControl
+                    fullWidth
+                    margin="normal"
+                    error={formik.touched.hosts && Boolean(formik.errors.hosts)}
+                  >
+                    <Autocomplete
+                      options={assets}
+                      getOptionLabel={(option) => option.name}
+                      value={assets.find((asset: any) => asset.id === formik.values.hosts) || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('hosts', newValue ? newValue.id : '');
+                      }}
+                      renderOption={(props, option) => (
+                        <li {...props} key={option.id}>
+                          {option.name} - {option.url}
+                        </li>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t('wpscan.host_name')}
+                          variant="outlined"
+                          error={formik.touched.hosts && Boolean(formik.errors.hosts)}
+                        />
+                      )}
+                    />
+                    <FormHelperText>
+                      {formik.touched.hosts && formik.errors.hosts}
+                    </FormHelperText>
+                  </FormControl>
+
+                  <FormControl
+                    fullWidth
+                    margin="normal"
+                    error={formik.touched.config && Boolean(formik.errors.config)}
+                  >
+                    <Autocomplete
+                      options={menuItems}
+                      getOptionLabel={(option) => option.label}
+                      value={menuItems.find((item) => item.value === formik.values.config) || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('config', newValue ? newValue.value : '');
+                      }}
+                      renderOption={(props, option) => (
+                        <li {...props} key={option.value}>
+                          {option.label}
+                        </li>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t('wpscan.config')}
+                          variant="outlined"
+                          error={formik.touched.config && Boolean(formik.errors.config)}
+                        />
+                      )}
+                    />
+                    <FormHelperText>
+                      {formik.touched.config && formik.errors.config}
+                    </FormHelperText>
+                  </FormControl>
+
+                  <Box mt={2}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      disabled={formik.isSubmitting}
+                    >
+                      {t('wpscan.create_scan')}
+                    </Button>
+                  </Box>
+                </Box>
+              )}
+              {isLoading && (
+                <SnackBarInfo
+                  color="info"
+                  title={t('wpscan.operation_status')}
+                  message={t('wpscan.scan_in_progress')}
+                />
+              )}
             </>
           </DashboardCard>
         </Grid>
