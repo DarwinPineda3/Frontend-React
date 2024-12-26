@@ -1,9 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios'; // Corrected import
+
+
+function getApiUrl() {
+  return `${getBaseApiUrl()}/dashbboard/top_ten/`;
+}
 
 // Async thunk to fetch vulnerability reports
 export const fetchVulnerabilityReports = createAsyncThunk('vulnerabilities/fetchReports', async () => {
-  const response = await axios.get('/api/dashboard/vulnerabilities'); // Mock API endpoint
+  const response = await axios.get(getApiUrl()); // Mock API endpoint
   return response.data;
 });
 

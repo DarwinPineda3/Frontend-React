@@ -12,7 +12,7 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
@@ -34,7 +34,9 @@ const CreateCloudInventory: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -50,30 +52,42 @@ const CreateCloudInventory: React.FC = () => {
       gcp_credentials_json_file: null,
     },
     validationSchema: Yup.object({
-      provider: Yup.string().required(t('vulnerabilities.cloud_scans.provider_is_required') || ''),
+      provider: Yup.string().required(
+        t('observability.cloud_inventory.provider_is_required') || '',
+      ),
       aws_id: Yup.string().when('provider', {
         is: 'aws',
-        then: Yup.string().required(t('vulnerabilities.cloud_scans.aws_id_is_required') || ''),
+        then: Yup.string().required(t('observability.cloud_inventory.aws_id_is_required') || ''),
       }),
       aws_secret: Yup.string().when('provider', {
         is: 'aws',
-        then: Yup.string().required(t('vulnerabilities.cloud_scans.aws_secret_is_required') || ''),
+        then: Yup.string().required(
+          t('observability.cloud_inventory.aws_secret_is_required') || '',
+        ),
       }),
       azure_client_id: Yup.string().when('provider', {
         is: 'azure',
-        then: Yup.string().required(t('vulnerabilities.cloud_scans.azure_client_id_is_required') || ''),
+        then: Yup.string().required(
+          t('observability.cloud_inventory.azure_client_id_is_required') || '',
+        ),
       }),
       azure_tenant_id: Yup.string().when('provider', {
         is: 'azure',
-        then: Yup.string().required(t('vulnerabilities.cloud_scans.azure_tenant_id_is_required') || ''),
+        then: Yup.string().required(
+          t('observability.cloud_inventory.azure_tenant_id_is_required') || '',
+        ),
       }),
       azure_client_secret: Yup.string().when('provider', {
         is: 'azure',
-        then: Yup.string().required(t('vulnerabilities.cloud_scans.azure_client_secret_is_required') || ''),
+        then: Yup.string().required(
+          t('observability.cloud_inventory.azure_client_secret_is_required') || '',
+        ),
       }),
       gcp_credentials_json_file: Yup.mixed().when('provider', {
         is: 'gcp',
-        then: Yup.mixed().required(t('vulnerabilities.cloud_scans.gcp_credentials_file_is_required') || ''),
+        then: Yup.mixed().required(
+          t('observability.cloud_inventory.gcp_credentials_file_is_required') || '',
+        ),
       }),
     }),
     onSubmit: async (values) => {
@@ -89,7 +103,6 @@ const CreateCloudInventory: React.FC = () => {
       };
 
       try {
-
         await dispatch(createCloudInventory(newCloudScan));
 
         if (await error) {
@@ -102,15 +115,13 @@ const CreateCloudInventory: React.FC = () => {
         } else {
           navigate('/observability/cloud', {
             state: {
-              message: t('vulnerabilities.cloud_scans.scan_created_successfully') || '',
+              message: t('observability.cloud_inventory.scan_created_successfully') || '',
               severity: 'success',
             },
           });
         }
-
-
       } catch (error) {
-        setSnackbarMessage(t('vulnerabilities.cloud_scans.error_creating_scan') || '');
+        setSnackbarMessage(t('observability.cloud_inventory.error_creating_scan') || '');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
       } finally {
@@ -135,22 +146,20 @@ const CreateCloudInventory: React.FC = () => {
             </IconButton>
             <Breadcrumbs aria-label="breadcrumb">
               <Link component={RouterLink} color="inherit" to="/observability/cloud">
-                {t('vulnerabilities.vulnerabilities')}
+                {t('observability.cloud_inventory.observability')}
               </Link>
               <Link component={RouterLink} color="inherit" to="/observability/cloud">
-                {t('vulnerabilities.cloud')}
-
+                {t('observability.cloud_inventory.cloud')}
               </Link>
               <Typography color="textPrimary">
-                {t('vulnerabilities.cloud_scans.new_scan')}
+                {t('observability.cloud_inventory.new_scan')}
               </Typography>
             </Breadcrumbs>
           </Box>
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <DashboardCard
-              title="Create Cloud Scan">
+            <DashboardCard title={t('observability.cloud_inventory.create_cloud_scan') || ''}>
               <>
                 {isLoading ? (
                   <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -158,8 +167,14 @@ const CreateCloudInventory: React.FC = () => {
                   </Box>
                 ) : (
                   <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-                    <FormControl fullWidth margin="normal" error={Boolean(formik.touched.provider && formik.errors.provider)}>
-                      <InputLabel id="provider-label">{t('vulnerabilities.cloud_scans.provider') || ''}</InputLabel>
+                    <FormControl
+                      fullWidth
+                      margin="normal"
+                      error={Boolean(formik.touched.provider && formik.errors.provider)}
+                    >
+                      <InputLabel id="provider-label">
+                        {t('observability.cloud_inventory.provider') || ''}
+                      </InputLabel>
                       <Select
                         labelId="provider-label"
                         id="provider"
@@ -170,7 +185,9 @@ const CreateCloudInventory: React.FC = () => {
                         <MenuItem value="azure">Azure</MenuItem>
                         <MenuItem value="gcp">GCP</MenuItem>
                       </Select>
-                      <FormHelperText>{formik.touched.provider && formik.errors.provider}</FormHelperText>
+                      <FormHelperText>
+                        {formik.touched.provider && formik.errors.provider}
+                      </FormHelperText>
                     </FormControl>
 
                     {provider === 'aws' && (
@@ -207,54 +224,76 @@ const CreateCloudInventory: React.FC = () => {
                           margin="normal"
                           id="azure_client_id"
                           name="azure_client_id"
-                          label={t('vulnerabilities.cloud_scans.azure_client_id') || ''}
+                          label={t('observability.cloud_inventory.azure_client_id') || ''}
                           value={formik.values.azure_client_id}
                           onChange={formik.handleChange}
-                          error={Boolean(formik.touched.azure_client_id && formik.errors.azure_client_id)}
-                          helperText={formik.touched.azure_client_id && formik.errors.azure_client_id}
+                          error={Boolean(
+                            formik.touched.azure_client_id && formik.errors.azure_client_id,
+                          )}
+                          helperText={
+                            formik.touched.azure_client_id && formik.errors.azure_client_id
+                          }
                         />
                         <TextField
                           fullWidth
                           margin="normal"
                           id="azure_tenant_id"
                           name="azure_tenant_id"
-                          label={t('vulnerabilities.cloud_scans.azure_tenant_id') || ''}
+                          label={t('observability.cloud_inventory.azure_tenant_id') || ''}
                           value={formik.values.azure_tenant_id}
                           onChange={formik.handleChange}
-                          error={Boolean(formik.touched.azure_tenant_id && formik.errors.azure_tenant_id)}
-                          helperText={formik.touched.azure_tenant_id && formik.errors.azure_tenant_id}
+                          error={Boolean(
+                            formik.touched.azure_tenant_id && formik.errors.azure_tenant_id,
+                          )}
+                          helperText={
+                            formik.touched.azure_tenant_id && formik.errors.azure_tenant_id
+                          }
                         />
                         <TextField
                           fullWidth
                           margin="normal"
                           id="azure_client_secret"
                           name="azure_client_secret"
-                          label={t('vulnerabilities.cloud_scans.azure_client_secret') || ''}
+                          label={t('observability.cloud_inventory.azure_client_secret') || ''}
                           value={formik.values.azure_client_secret}
                           onChange={formik.handleChange}
-                          error={Boolean(formik.touched.azure_client_secret && formik.errors.azure_client_secret)}
-                          helperText={formik.touched.azure_client_secret && formik.errors.azure_client_secret}
+                          error={Boolean(
+                            formik.touched.azure_client_secret && formik.errors.azure_client_secret,
+                          )}
+                          helperText={
+                            formik.touched.azure_client_secret && formik.errors.azure_client_secret
+                          }
                         />
                       </>
                     )}
 
                     {provider === 'gcp' && (
-                      <FormControl fullWidth margin="normal" error={Boolean(formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file)}>
-
-
-                        <CustomFormLabel htmlFor="attach_file">{t('support.attach_file')}</CustomFormLabel>
+                      <FormControl
+                        fullWidth
+                        margin="normal"
+                        error={Boolean(
+                          formik.touched.gcp_credentials_json_file &&
+                            formik.errors.gcp_credentials_json_file,
+                        )}
+                      >
+                        <CustomFormLabel htmlFor="attach_file">
+                          {t('support.attach_file')}
+                        </CustomFormLabel>
                         <Thumbnail
                           onDrop={(acceptedFiles) => {
                             formik.setFieldValue('gcp_credentials_json_file', acceptedFiles[0]);
                           }}
                         />
-                        <FormHelperText>{formik.touched.gcp_credentials_json_file && formik.errors.gcp_credentials_json_file}</FormHelperText>
+                        <FormHelperText>
+                          {formik.touched.gcp_credentials_json_file &&
+                            formik.errors.gcp_credentials_json_file}
+                        </FormHelperText>
                       </FormControl>
                     )}
 
                     <Box mt={2}>
                       <Button type="submit" variant="contained" color="primary" fullWidth>
-                        {t('vulnerabilities.cloud_scans.submit') || ''}
+                        {t('observability.cloud_inventory.submit') || ''}
                       </Button>
                     </Box>
                   </Box>

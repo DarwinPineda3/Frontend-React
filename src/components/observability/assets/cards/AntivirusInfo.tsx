@@ -1,37 +1,43 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { AppState, useSelector } from 'src/store/Store';
 
-const AntivirusTable = () => {
+interface AntivirusTableProps {
+  id: string;
+}
+
+const AntivirusTable = ({ id }: AntivirusTableProps) => {
   const { t } = useTranslation();
 
-  const antivirusData = [
-    {
-      name: 'Sophos Intercept X',
-      guide: '4473250D-283A-D88E-89A5-EEB3104F258F',
-      productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
-      reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
-      status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
-    },
-    {
-      name: 'Sophos Intercept X',
-      guide: '0E83324C-6B63-2B0B-AB0A-8AD0D3F6C09E',
-      productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
-      reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
-      status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
-    },
-    {
-      name: 'Sophos Intercept X',
-      guide: '7D604651-DE03-26C6-A29F-73C4A1CB45DB',
-      productPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDcli.exe',
-      reportPath: 'C:\\Program Files\\Sophos\\Endpoint Defense\\SEDService.exe',
-      status: '266240',
-      logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg',
-    },
-  ];
+  const { observedAssetsDetail, error } = useSelector((state: AppState) => state.ObservedAssetsReducer);
 
+
+  const logoDispatcher = (DisplayName: string) => {
+    if (DisplayName.includes('Sophos')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/7/78/Sophos_logo.svg';
+    }
+    if (DisplayName.includes('McAfee')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/c/cf/McAfee_logo.svg';
+    }
+    if (DisplayName.includes('Windows Defender')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Windows-defender.svg'
+    }
+  };
+
+
+  if (error) {
+    return (
+      <DashboardCard title={t('observability.antivirus_info')!}>
+        <Box>{error}</Box>
+      </DashboardCard>
+    );
+  }
+  if (observedAssetsDetail?.cpuInfo.AntivirusInfo.AntivirusList.length === 0) {
+    return (
+      <></>
+    );
+  }
   return (
     <DashboardCard title={t('observability.antivirus_info')!}>
       <TableContainer>
@@ -47,18 +53,18 @@ const AntivirusTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {antivirusData.map((antivirus, index) => (
+            {observedAssetsDetail?.cpuInfo.AntivirusInfo.AntivirusList.map((antivirus, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Box display="flex" alignItems="center" justifyContent="center">
-                    <img src={antivirus.logoUrl} alt={`${antivirus.name} Logo`} width={50} height={50} />
+                    <img src={logoDispatcher(antivirus.DisplayName)} alt={`${antivirus} Logo`} width={50} height={50} />
                   </Box>
                 </TableCell>
-                <TableCell>{antivirus.name}</TableCell>
-                <TableCell>{antivirus.guide}</TableCell>
-                <TableCell>{antivirus.productPath}</TableCell>
-                <TableCell>{antivirus.reportPath}</TableCell>
-                <TableCell>{antivirus.status}</TableCell>
+                <TableCell>{antivirus.DisplayName}</TableCell>
+                <TableCell>{antivirus.InstanceGuid}</TableCell>
+                <TableCell>{antivirus.PathToSignedProductExe}</TableCell>
+                <TableCell>{antivirus.PathToSignedReportingExe}</TableCell>
+                <TableCell>{antivirus.ProductState}</TableCell>
               </TableRow>
             ))}
           </TableBody>

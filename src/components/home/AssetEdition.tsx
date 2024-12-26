@@ -1,4 +1,3 @@
-import { Refresh } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -19,35 +18,45 @@ interface Props {
 }
 
 const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
+
+
   const dispatch = useDispatch();
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
     initialValues: {
       name: asset?.name || '',
-      ip: asset?.ip || '',
-      dominio: asset?.domain || '',
-      url: asset?.url || '',
+      ip: asset?.ip || null,
+      dominio: asset?.domain || null,
+      url: asset?.url || null,
       hostname: asset?.hostname || '',
       uuid: asset?.uuid || ''
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
-      ip: Yup.string()
+      ip: Yup.string().nullable()
         .matches(
           /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
           'Invalid IP address format'
-        )
-        .required('IP address is required'),
-      dominio: Yup.string().required('Domain is required'),
-      url: Yup.string().url('Invalid URL format').required('URL is required'),
-      hostname: Yup.string().required('Hostname is required'),
-    }),
+        ),
+      dominio: Yup.string().nullable(),
+      url: Yup.string().nullable().url('Invalid URL format'),
+      hostname: Yup.string(),
+    }).test(
+      'at-least-one-field',
+      'At least one of IP, Domain or URL must be filled',
+      (values) => {
+        const { ip, dominio, url } = values;
+        return ip || dominio || url;
+      }
+    ),
     onSubmit: (values) => {
       const newAsset: AssetType = {
         ...values,
         id: asset?.id || undefined, // Only include `id` if updating
         domain: values.dominio,
+        hostname: values.uuid.length > 0 ? values.uuid : values.name,
+        uuid: values.uuid.length > 0 ? values.uuid : crypto.randomUUID(),
       };
 
       if (asset) {
@@ -115,42 +124,6 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           helperText={formik.touched.url && formik.errors.url}
         />
 
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Hostname"
-          name="hostname"
-          value={formik.values.hostname}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.hostname && Boolean(formik.errors.hostname)}
-          helperText={formik.touched.hostname && formik.errors.hostname}
-        />
-
-        <Box display="flex" alignItems="center">
-          <TextField
-            fullWidth
-            margin="normal"
-            label="UUID"
-            name="uuid"
-            value={formik.values.uuid}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.uuid && Boolean(formik.errors.uuid)}
-            helperText={formik.touched.uuid && formik.errors.uuid}
-          />
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={() => {
-              const newUuid = crypto.randomUUID();
-              formik.setFieldValue('uuid', newUuid);
-            }}
-            style={{ marginLeft: '8px', height: '56px' }} // Adjust height to match TextField
-          >
-            <Refresh />
-          </Button>
-        </Box>
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
             {asset ? 'Edit' : 'Create'}

@@ -1,32 +1,27 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, CircularProgress, Grid, MenuItem, Select, useTheme } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { createNetworkObservabilityScan } from 'src/store/observability/ObservabilityNetworkSlice';
 import { useDispatch } from 'src/store/Store';
-import { createWebApplicationScan } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
-import {
-  ResponseData,
-  ScanConfig
-} from 'src/types/vulnerabilities/network/networkScansType';
-import { WebAppScanCreate } from 'src/types/vulnerabilities/web/webAppsType';
+import { ResponseData, ScanConfig } from 'src/types/vulnerabilities/network/networkScansType';
 import * as Yup from 'yup';
 
 interface Props {
-  webAppCreate: ResponseData;
+  networkScanCreate: ResponseData;
   onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
 }
 
-const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
+const configs = [
+  { id: 'ping', name: 'Ping Sweep' },
+  { id: 'ports_tcp', name: 'TCP port scanning' },
+  { id: 'ports_fast_tcp', name: 'Fast TCP port scanning' },
+  { id: 'ports_udp', name: 'UDP port scanning' },
+  { id: 'ports_udp_tcp', name: 'Port scanning with TCP services' },
+];
+
+const NetworkObsScansCreate: React.FC<Props> = ({ networkScanCreate, onSubmit }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -36,36 +31,32 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
   // Formik setup with Yup validation schema
   const formik = useFormik({
     initialValues: {
-      comment: '',
       hosts: '',
-      name: '',
-      scan_config_id: '',
+      config: '',
     },
     validationSchema: Yup.object({
-      comment: Yup.string(),
       hosts: Yup.string().required(
-        `${t('vulnerabilities.web_app.required_field')}`,
+        `${t('vulnerabilities.network_vulnerabilities.required_field')}`,
       ),
-      name: Yup.string().required(`${t('vulnerabilities.web_app.required_field')}`),
-      scan_config_id: Yup.string().required(
-        `${t('vulnerabilities.web_app.required_field')}`,
+      config: Yup.string().required(
+        `${t('vulnerabilities.network_vulnerabilities.required_field')}`,
       ),
     }),
     onSubmit: async (values) => {
-      const newNetworkScan: WebAppScanCreate = {
+      const newNetworkScan = {
         ...values,
       };
       setIsSubmitting(true);
       try {
-        await dispatch(createWebApplicationScan(newNetworkScan));
+        await dispatch(createNetworkObservabilityScan(newNetworkScan));
         onSubmit(
-          `${t('vulnerabilities.web_app.network_scan_create_successfully')}`,
+          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
           'success',
         );
       } catch (error) {
         console.error('Error creating network scan:', error);
         onSubmit(
-          `${t('vulnerabilities.web_app.network_scan_create_failed')}`,
+          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
           'error',
         );
       } finally {
@@ -76,27 +67,13 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
 
   return (
     <DashboardCard
-      title={t('vulnerabilities.web_app.create_network_scan')!}
-      subtitle={t('vulnerabilities.web_app.create_network_scan_subtitle')!}
+      title={t('vulnerabilities.network_vulnerabilities.create_network_scan')!}
+      subtitle={t('vulnerabilities.network_vulnerabilities.create_network_scan_subtitle')!}
     >
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Grid container spacing={2}>
-          {/* Name */}
-          <Grid item xs={12} sm={12}>
-            <TextField
-              fullWidth
-              label={t('vulnerabilities.web_app.name')}
-              name="name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
-              margin="normal"
-            />
-          </Grid>
-
           {/* Hosts */}
-          <Grid item xs={12} sm={6} >
+          <Grid item xs={12} sm={6}>
             <Select
               fullWidth
               name="hosts"
@@ -107,15 +84,13 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
               inputProps={{ 'aria-label': 'Select Hosts' }}
             >
               <MenuItem value="" disabled>
-                {t('vulnerabilities.web_app.scan_target')}
+                {t('vulnerabilities.network_vulnerabilities.scan_target')}
               </MenuItem>
-              {webAppCreate.assets.
-                filter((asset) => asset.url).
-                map((asset) => (
-                  <MenuItem key={asset.id} value={asset.id}>
-                    {asset.name} ({asset.ip || asset.domain || asset.url})
-                  </MenuItem>
-                ))}
+              {networkScanCreate.assets.map((asset) => (
+                <MenuItem key={asset.id} value={asset.id}>
+                  {asset.name} ({asset.ip || asset.domain || asset.url})
+                </MenuItem>
+              ))}
             </Select>
             {formik.touched.hosts && formik.errors.hosts && (
               <Box color="error.main" mt={1} fontSize="0.75rem">
@@ -123,12 +98,12 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
               </Box>
             )}
             <Box mt={1} fontSize="0.875rem">
-              {t('vulnerabilities.web_app.you_can_create_an_asset')}{' '}
+              {t('vulnerabilities.network_vulnerabilities.you_can_create_an_asset')}{' '}
               <a
                 href="/home/assets"
                 style={{ color: theme.palette.primary.main, textDecoration: 'underline' }}
               >
-                {t('vulnerabilities.web_app.here')}
+                {t('vulnerabilities.network_vulnerabilities.here')}
               </a>
             </Box>
           </Grid>
@@ -137,25 +112,25 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
           <Grid item xs={12} sm={6}>
             <Select
               fullWidth
-              name="scan_config_id"
-              value={formik.values.scan_config_id}
+              name="config"
+              value={formik.values.config}
               onChange={formik.handleChange}
-              error={formik.touched.scan_config_id && Boolean(formik.errors.scan_config_id)}
+              error={formik.touched.config && Boolean(formik.errors.config)}
               displayEmpty
               inputProps={{ 'aria-label': 'Select Scan Config' }}
             >
               <MenuItem value="" disabled>
-                {t('vulnerabilities.web_app.scan_config')}
+                {t('vulnerabilities.network_vulnerabilities.scan_config')}
               </MenuItem>
-              {[{ "id": "passive_scan", "name": "Passive Scan" }, { "id": "active_scan", "name": "Active Scan" }].map((config: ScanConfig) => (
+              {configs.map((config: ScanConfig) => (
                 <MenuItem key={config.id} value={config.id}>
                   {config.name}
                 </MenuItem>
               ))}
             </Select>
-            {formik.touched.scan_config_id && formik.errors.scan_config_id && (
+            {formik.touched.config && formik.errors.config && (
               <Box color="error.main" mt={1} fontSize="0.75rem">
-                {formik.errors.scan_config_id}
+                {formik.errors.config}
               </Box>
             )}
           </Grid>
@@ -170,7 +145,7 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
             startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
             sx={{ width: 'auto' }}
           >
-            {isSubmitting ? '' : t('vulnerabilities.web_app.create_scan')}
+            {isSubmitting ? '' : t('vulnerabilities.network_vulnerabilities.create_scan')}
           </Button>
         </Box>
       </Box>
@@ -178,4 +153,4 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
   );
 };
 
-export default WebAppCreateForm;
+export default NetworkObsScansCreate;

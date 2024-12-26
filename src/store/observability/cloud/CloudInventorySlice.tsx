@@ -103,9 +103,8 @@ export const createCloudInventory = (newCloudinventory: any) => async (dispatch:
     const response = await axios.post(getApiUrl(), formData);
     dispatch(addCloudInventory(response.data));
   } catch (err: any) {
-    dispatch(setError(err.response))
-    console.error('Error creating inventory:', err);
-    dispatch(setError('Failed to create inventory'));
+    dispatch(setError(err.response) || 'Failed to create inventory')
+    throw err;
   }
 };
 
