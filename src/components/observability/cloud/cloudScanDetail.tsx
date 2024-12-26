@@ -26,8 +26,6 @@ import firewallImg from '../../../assets/images/cloud_services/gcp/firewall.svg'
 import networkInterfaceImg from '../../../assets/images/cloud_services/gcp/network_interface.svg';
 import storageBucketsImg from '../../../assets/images/cloud_services/gcp/storage_buckets.svg';
 
-
-
 interface ResourceTypeTotals {
   [key: string]: number;
 }
@@ -50,15 +48,19 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
   const primarylight = theme.palette.primary.light;
   const borderColor = theme.palette.divider;
 
-  const cloudInventoryDetail = useSelector((state: any) => state.cloudInventoryReducer.cloudInventoryDetails);
+  const cloudInventoryDetail = useSelector(
+    (state: any) => state.cloudInventoryReducer.cloudInventoryDetails,
+  );
   useEffect(() => {
     dispatch(fetchCloudInventoryById(scanId));
   }, [dispatch]);
 
   if (!cloudInventoryDetail) {
-    return <Box display="flex" justifyContent="center" mt={4} mb={4}>
-      <Loader />
-    </Box>
+    return (
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+    );
   }
 
   const serviceImageMap: {
@@ -71,25 +73,25 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
       generic: awsGenericImg, // Fallback for AWS
       ec2: ec2Img,
       iam: iamImg,
-      lambda: lambdaImg
+      lambda: lambdaImg,
     },
     azure: {
       generic: azureGenericImg, // Fallback for Azure
-      "Microsoft.Network/virtualNetworks": virtualNetworksImg,
-      "Microsoft.Network/publicIPAddresses": publicIPAddressesImg,
-      "Microsoft.Network/networkSecurityGroups": networkSecurityGroupsImg,
-      "Microsoft.Network/networkWatchers": networkWatchersImg,
-      "Microsoft.Network/networkInterfaces": networkInterfacesImg,
-      "Microsoft.Compute/virtualMachines": virtualMachinesImg,
-      "Microsoft.Compute/disks": disksImg,
+      'Microsoft.Network/virtualNetworks': virtualNetworksImg,
+      'Microsoft.Network/publicIPAddresses': publicIPAddressesImg,
+      'Microsoft.Network/networkSecurityGroups': networkSecurityGroupsImg,
+      'Microsoft.Network/networkWatchers': networkWatchersImg,
+      'Microsoft.Network/networkInterfaces': networkInterfacesImg,
+      'Microsoft.Compute/virtualMachines': virtualMachinesImg,
+      'Microsoft.Compute/disks': disksImg,
     },
     gcp: {
       generic: gcpGenericImg, // Fallback for GCP
-      "storage#buckets": storageBucketsImg,
-      "compute#firewall": firewallImg,
-      "compute#instance": instanceImg,
-      "compute#attachedDisk": attachedDiskImg,
-      "compute#networkInterface": networkInterfaceImg,
+      'storage#buckets': storageBucketsImg,
+      'compute#firewall': firewallImg,
+      'compute#instance': instanceImg,
+      'compute#attachedDisk': attachedDiskImg,
+      'compute#networkInterface': networkInterfaceImg,
     },
   };
 
@@ -112,8 +114,8 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
         return '#d2e3fc';
       default:
         return primaryMain;
-    };
-  }
+    }
+  };
 
   const titleColorDispatcher = () => {
     const provider = cloudInventoryDetail.inventory_data.provider;
@@ -126,9 +128,8 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
         return 'black';
       default:
         return 'info.light';
-    };
-  }
-
+    }
+  };
 
   return (
     <Box display="flex" flexWrap="wrap" gap={2} justifyContent="start">
@@ -146,7 +147,12 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
           variant="outlined"
         >
           <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography variant="h5" color={titleColorDispatcher} gutterBottom sx={{ wordBreak: 'break-word', textAlign: 'center' }}>
+            <Typography
+              variant="h5"
+              color={titleColorDispatcher}
+              gutterBottom
+              sx={{ wordBreak: 'break-word', textAlign: 'center' }}
+            >
               {service.service.toUpperCase()}
             </Typography>
             <Typography variant="subtitle1" color={titleColorDispatcher} mb={2}>
@@ -156,7 +162,8 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
             <Box textAlign="center" mt={2} mb="-30px">
               <img
                 src={
-                  imageDispatcher(cloudInventoryDetail.inventory_data.provider, service.service) || undefined
+                  imageDispatcher(cloudInventoryDetail.inventory_data.provider, service.service) ||
+                  undefined
                 }
                 alt={service.service}
                 width="120"
@@ -184,7 +191,12 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography variant="body2" color="textSecondary" gutterBottom sx={{ wordBreak: 'break-word', textAlign: 'left' }}>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    gutterBottom
+                    sx={{ wordBreak: 'break-word', textAlign: 'left' }}
+                  >
                     {type}
                   </Typography>
                   <Chip

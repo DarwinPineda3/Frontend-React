@@ -8,7 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,11 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router';
-import { default as AwsLogo, default as AzureLogo, default as GcpLogo } from 'src/assets/images/cloudscans/aws.png';
+import {
+  default as AwsLogo,
+  default as AzureLogo,
+  default as GcpLogo,
+} from 'src/assets/images/cloudscans/aws.png';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
@@ -29,7 +33,6 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-
   const cloudScans = useSelector((state: any) => state.cloudScanReducer.cloudScans);
   const currentPage = useSelector((state: any) => state.cloudScanReducer.page);
   const totalPages = useSelector((state: any) => state.cloudScanReducer.totalPages);
@@ -41,7 +44,6 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
       dispatch(setPage(page));
     }
   };
-
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -65,17 +67,16 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
     }
   };
 
-
-
   return (
     <DashboardCard
-      title={t("vulnerabilities.scans")!}
-      subtitle={t("vulnerabilities.list_of_all_scans")!}
+      title={t('vulnerabilities.scans')!}
+      subtitle={t('vulnerabilities.list_of_all_scans')!}
       action={
         <IconButton color="primary" onClick={() => navigate('/vulnerabilities/cloud/create')}>
           <AddIcon />
         </IconButton>
-      }>
+      }
+    >
       <>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -89,47 +90,78 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                   <TableRow>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {t("vulnerabilities.provider")}
+                        {t('vulnerabilities.provider')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {t("vulnerabilities.cloud_id")}
+                        {t('vulnerabilities.cloud_id')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {t("vulnerabilities.date")}
+                        {t('vulnerabilities.date')}
                       </Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {cloudScans.map((scan: any, index: any) => (
-                    <TableRow key={scan.id || `scan-${index}`}>
-                      <TableCell>
-                        <Box display="flex" alignItems="center">
-                          {getProviderIcon(scan.provider)}
-                          <Typography variant="body2" style={{ marginLeft: '8px' }}>
-                            ({scan.provider})
+                  {cloudScans.length > 0 ? (
+                    cloudScans.map((scan: any) => (
+                      <TableRow key={scan.id}>
+                        <TableCell>
+                          <Box display="flex" alignItems="center">
+                            {getProviderIcon(scan.provider)}
+                            <Typography variant="body2" style={{ marginLeft: '8px' }}>
+                              ({scan.provider})
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => onScanClick(scan.id)}
+                          >
+                            {scan.cloud_id}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="body2">{new Date(scan.timestamp).toLocaleString()}</Typography>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} align="center">
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                          justifyContent="center"
+                          height="100px"
+                        >
+                          <Typography variant="body2" color="textSecondary">
+                            {t('vulnerabilities.no_data_available')}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            component="a"
+                            onClick={() => navigate('/vulnerabilities/cloud/create')}
+                            style={{
+                              cursor: 'pointer',
+                              textDecoration: 'underline',
+                              marginTop: '8px',
+                            }}
+                          >
+                            {t('vulnerabilities.create_scan_here')}
                           </Typography>
                         </Box>
                       </TableCell>
-                      <TableCell>
-                        <Typography
-                          variant="body2"
-                          color="primary"
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => onScanClick(scan.id)}
-                        >
-                          {scan.cloud_id}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body2">{new Date(scan.timestamp).toLocaleString()}</Typography>
-                      </TableCell>
                     </TableRow>
-                  ))}
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
