@@ -1,30 +1,23 @@
-import React, { useEffect } from 'react';
-import { MenuItem, Grid, Stack, Typography, Button, Avatar, Box } from '@mui/material';
-import Chart from 'react-apexcharts';
+import { Avatar, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconGridDots } from '@tabler/icons-react';
-import DashboardCard from '../../shared/DashboardCard';
-import CustomSelect from '../../forms/theme-elements/CustomSelect';
-import Loader from '../../shared/Loader/Loader';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchRevenueUpdatesData } from 'src/store/sections/dashboard/RevenueUpdatesSlice';
-import { AppState } from 'src/store/Store';
 import { ApexOptions } from 'apexcharts';
+import { useEffect } from 'react';
+import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { fetchRevenueUpdatesData } from 'src/store/sections/dashboard/RedTeamUpdatesSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import DashboardCard from '../../shared/DashboardCard';
+import Loader from '../../shared/Loader/Loader';
 
 const RevenueUpdates = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { loading, totalReports, redTeamReports, blueTeamReports, series, categories, error } = useSelector(
-    (state: AppState) => state.dashboard.revenueUpdates
+  const navigate = useNavigate();
+  const { loading, totalReports, redTeamReports: redTeamReports_old, series, categories, error } = useSelector(
+    (state: AppState) => state.dashboard.redTeamUpdates
   );
-
-  const [month, setMonth] = React.useState('1');
-  const currentYear = new Date().getFullYear();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMonth(event.target.value);
-  };
 
   useEffect(() => {
     dispatch(fetchRevenueUpdatesData());
@@ -36,7 +29,7 @@ const RevenueUpdates = () => {
 
   const optionscolumnchart: ApexOptions = {
     chart: {
-      type: 'bar',  
+      type: 'bar',
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
       foreColor: '#adb0bb',
       toolbar: {
@@ -70,8 +63,7 @@ const RevenueUpdates = () => {
       strokeDashArray: 3,
     },
     yaxis: {
-      min: -5,
-      max: 5,
+      min: 0,
       tickAmount: 4,
     },
     xaxis: {
@@ -88,7 +80,7 @@ const RevenueUpdates = () => {
 
   if (loading) {
     return (
-      <DashboardCard title={t("dashboard.reports_updates")}>
+      <DashboardCard title={t("dashboard.reports_updates") ?? "Reports Updates"}>
         <Box display="flex" justifyContent="center" mt={4} mb={4}>
           <Loader />
         </Box>
@@ -102,20 +94,7 @@ const RevenueUpdates = () => {
 
   return (
     <DashboardCard
-      title={t("dashboard.reports_updates")}
-      action={
-        <CustomSelect
-          labelId="month-dd"
-          id="month-dd"
-          size="small"
-          value={month}
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>{`${t("dashboard.march")} ${currentYear}`}</MenuItem>
-          <MenuItem value={2}>{`${t("dashboard.april")} ${currentYear}`}</MenuItem>
-          <MenuItem value={3}>{`${t("dashboard.may")} ${currentYear}`}</MenuItem>
-        </CustomSelect>
-      }
+      title={t("dashboard.reports_updates") ?? "Reports Updates"}
     >
       <Grid container spacing={3}>
         <Grid item xs={12} sm={8}>
@@ -162,22 +141,14 @@ const RevenueUpdates = () => {
                 <Typography variant="subtitle1" color="textSecondary">
                   {t("dashboard.red_team")}
                 </Typography>
-                <Typography variant="h5">{redTeamReports}</Typography>
-              </Box>
-            </Stack>
-            <Stack direction="row" spacing={2}>
-              <Avatar
-                sx={{ width: 9, mt: 1, height: 9, bgcolor: secondary, svg: { display: 'none' } }}
-              ></Avatar>
-              <Box>
-                <Typography variant="subtitle1" color="textSecondary">
-                  {t("dashboard.blue_team")}
-                </Typography>
-                <Typography variant="h5">{blueTeamReports}</Typography>
+                <Typography variant="h5">{redTeamReports_old}</Typography>
               </Box>
             </Stack>
           </Stack>
-          <Button color="primary" variant="contained" fullWidth>
+          <Button color="primary" variant="contained" fullWidth onClick={() => {
+            //redirect to vulnerabilities/redteam
+            navigate('/vulnerabilities/redteam');
+          }}>
             {t("dashboard.view_full_report")}
           </Button>
         </Grid>
