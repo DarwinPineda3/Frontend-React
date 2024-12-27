@@ -67,6 +67,10 @@ import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
 import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
+import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
+import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
+import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
+import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -394,6 +398,12 @@ const Router = [
       { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
 
       { path: '/maintenance', element: <Maintenance />, roles: ['Admin'] },
+
+      // Compliance
+      { path: '/compliance/assets', element: <ComplianceAssetsView /> },
+      { path: '/compliance/groups', element: <ComplianceGroupsView /> }, 
+      { path: '/compliance/projects', element: <ComplianceProjectsView /> },
+      { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
     ],
   },
   {

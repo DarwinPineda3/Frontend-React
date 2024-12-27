@@ -1227,5 +1227,23 @@
     "close": "Close",
     "scan_in_progress": "Scan in progress",
     "error_msg": "The scan could not be created. Please check the asset configuration."
+  },
+  "compliance_menu": {
+    "compliance": "Compliance",
+    "compliance_assets": "Assets",
+    "compliance_groups": "Groups",
+    "compliance_projects": "Projects",
+    "compliance_executions": "Executions"
+  },
+  "compliance": {
+    "assets_description": "Assets",
+    "assets_info": "List of all the assets that are under compliance management.",
+    "groups_description": "Groups",
+    "groups_info": "Here you can manage the different compliance groups.",
+    "projects_description": "Projects",
+    "projects_info": "Here you can manage and view compliance projects.",
+    "executions_description": "Executions",
+    "executions_info": "Here you can track and manage compliance executions."
+
   }
 }
