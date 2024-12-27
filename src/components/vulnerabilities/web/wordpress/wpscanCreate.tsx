@@ -35,17 +35,16 @@ const CreateWPScan: React.FC = () => {
   const { t } = useTranslation();
 
   const assets = useSelector((state: any) => state.assetsReducer.assets);
-  const currentPage = useSelector((state: any) => state.assetsReducer.page);
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchFilteredAssets(currentPage));
+      await dispatch(fetchFilteredAssets({ url: true }));
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -121,9 +120,12 @@ const CreateWPScan: React.FC = () => {
             title={t('wpscan.create_scan') || ''}>
             <>
               {isLoading ? (
-                <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                  <Loader />
+                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+                <Loader />
+                <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
+                  {t('scan.scan_creation_message') || ''}
                 </Box>
+              </Box>
               ) : (
                 <Box component="form" onSubmit={formik.handleSubmit} noValidate>
                   <FormControl
