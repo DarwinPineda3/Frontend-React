@@ -1,21 +1,20 @@
+import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { IconGridDots } from '@tabler/icons-react';
 import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { useTheme } from '@mui/material/styles';
-import { Stack, Typography, Avatar, Box } from '@mui/material';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
-import { IconGridDots } from '@tabler/icons-react';
 
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchWeeklyStatsData } from 'src/store/sections/dashboard/WeeklyStatsSlice';
-import { AppState } from 'src/store/Store';
 import { ApexOptions } from 'apexcharts';
 import { useTranslation } from 'react-i18next';
+import { fetchWeeklyStatsData } from 'src/store/sections/dashboard/WeeklyStatsSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const WeeklyStats: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { loading, series, stats, error } = useSelector(
+  const { loading, maxSeries, minSeries, avgSeries, stats, error } = useSelector(
     (state: AppState) => state.dashboard.weeklyStats
   );
 
@@ -40,6 +39,10 @@ const WeeklyStats: React.FC = () => {
         enabled: true,
       },
       group: 'sparklines',
+    },
+    yaxis: {
+      min: Math.min(...maxSeries) - 1,
+      max: Math.max(...maxSeries) + 1,
     },
     stroke: {
       curve: 'smooth',
@@ -80,11 +83,19 @@ const WeeklyStats: React.FC = () => {
     return <div>{t("dashboard.error", { error })}</div>;
   }
 
+  const yAxisRange = {
+
+  };
+
   return (
     <DashboardCard title={t("dashboard.weekly_stats")} subtitle={t("dashboard.average_downtime")}>
       <>
         <Stack mt={4}>
-          <Chart options={optionscolumnchart} series={[{ name: 'Weekly Stats', data: series }]} type="area" height="130px" />
+          <Chart options={optionscolumnchart}
+            series={[
+              { name: 'Max Service uptime', data: maxSeries },
+              { name: 'Avg Service uptime', data: minSeries },
+            ]} type="area" height="130px" />
         </Stack>
         <Stack spacing={3} mt={3}>
           {stats.map((stat, i) => (
@@ -118,10 +129,11 @@ const WeeklyStats: React.FC = () => {
                   width: 42,
                   height: 24,
                   borderRadius: '4px',
+                  padding: '4px',
                 }}
               >
                 <Typography variant="subtitle2" fontWeight="600">
-                  +{stat.percent}
+                  {Math.round(stat.percent)}
                 </Typography>
               </Avatar>
             </Stack>

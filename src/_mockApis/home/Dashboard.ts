@@ -156,7 +156,7 @@ mock.onGet('/api/weekly-stats').reply(
       series: [5, 15, 5, 10, 5],
       stats: [
         {
-          title: 'Service Uptime',
+          title: 'Average Service Uptime',
           subtitle: 'API Gateway',
           percent: '99.9',
           color: '#2196f3',  // Adjust colors as needed
@@ -164,7 +164,7 @@ mock.onGet('/api/weekly-stats').reply(
           icon: 'IconGridDots',  // Icon placeholder
         },
         {
-          title: 'Active Incidents',
+          title: 'Max Service Uptime',
           subtitle: 'Web Services',
           percent: '2',
           color: '#4caf50',
@@ -172,7 +172,7 @@ mock.onGet('/api/weekly-stats').reply(
           icon: 'IconGridDots',  // Icon placeholder
         },
         {
-          title: 'Resolved Tickets',
+          title: 'Min Service Uptime',
           subtitle: 'Security Issues',
           percent: '85',
           color: '#f44336',
