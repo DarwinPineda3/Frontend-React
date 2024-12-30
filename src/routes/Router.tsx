@@ -19,11 +19,13 @@ import AppScan from 'src/views/monitoring/mobile-app/AppScan';
 // import SIEMMonitoring from 'src/views/monitoring/SIEM';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
+import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
 import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import GroupGuard from 'src/guards/authGuard/GroupGuard';
 import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
 import Register from 'src/views/authentication/auth/Register';
 import ResetPassword from 'src/views/authentication/auth/ResetPassword';
+import ChangelogView from 'src/views/changelog/ChangelogView';
 import MobileApp from 'src/views/monitoring/mobile-app/MobileApp';
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
@@ -66,8 +68,6 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
-import ChangelogView from 'src/views/changelog/ChangelogView';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -391,15 +391,11 @@ const Router = [
       // User Profile
       { path: '/user-profile', element: <AccountSettings /> },
 
-      // Default Route
-      { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
-
+      // Maintenance
       { path: '/maintenance', element: <Maintenance />, roles: ['Admin'] },
 
-      // Ai soliution
-      { path: '/aisolution', element: <AiSolution />, roles: ['Admin'] },
-
-      
+      // Default Route
+      { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
     ],
   },
   {
