@@ -12,6 +12,8 @@ function getApiUrl() {
 interface StateType {
   assets: AssetType[];
   page: number;
+  pageSize: number;
+  loading: boolean;
   totalPages: number;
   error: string | null;
 }
@@ -20,6 +22,8 @@ const initialState: StateType = {
   assets: [],
   page: 1,
   totalPages: 1,
+  pageSize: 10,
+  loading: false,
   error: null,
 };
 
@@ -31,6 +35,7 @@ export const AssetsSlice = createSlice({
       state.assets = Array.isArray(action.payload.results) ? action.payload.results : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
+      state.pageSize = action.payload.pageSize;
     },
     addAsset: (state, action) => {
       state.assets.push(action.payload);
@@ -49,19 +54,27 @@ export const AssetsSlice = createSlice({
     },
     setError: (state, action) => {
       state.error = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     }
   }
 });
 
-export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError } = AssetsSlice.actions;
+export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading } = AssetsSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
-export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
+export const fetchAssets = (requestedPage: Number, pageSize: Number = 10) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}`);
-    const { results, count } = response.data; // Assuming DRF pagination
-    const totalPages = Math.ceil(count / 10); // Update 10 based on your page size
-    dispatch(getAssets({ results, currentPage: page, totalPages })); // Dispatch to update state
+    dispatch(setLoading(true));
+    if (pageSize !== initialState.pageSize) {
+      requestedPage = 1;
+    }
+    const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
+    const { results, page, totalPages } = response.data;
+
+    dispatch(getAssets({ results, currentPage: page, totalPages, pageSize }));
+    dispatch(setLoading(false));
   } catch (err: any) {
     console.error('Error fetching assets:', err);
     dispatch(setError('Failed to fetch assets'));
@@ -71,8 +84,8 @@ export const fetchAssets = (page = 1) => async (dispatch: AppDispatch) => {
 export const fetchAssetsWitURL = (page = 1) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${getApiUrl()}getAsssetsWithURL/`);
-    const {results} = response.data;
-    
+    const { results } = response.data;
+
     const totalPages = Math.ceil(results.length / 10);
     dispatch(getAssets({ results, currentPage: page, totalPages }));
   } catch (err: any) {

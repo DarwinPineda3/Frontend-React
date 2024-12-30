@@ -6,19 +6,20 @@ import {
   Button,
   Dialog,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
 import { deleteNetworkObservabilityScan, fetchNetworkObservabilityById, fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
@@ -28,20 +29,20 @@ interface ScanListTableProps {
 
 const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 1; // Adjust based on the number of pages
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { networkScansData, networkScansDetail } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
+  const { networkScansData, networkScansDetail, page, totalPages, pageSize, loading } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [selectedScanId, setSelectedScanId] = useState('');
 
   useEffect(() => {
-    dispatch(fetchNetworkObservabilityData());
+    dispatch(fetchNetworkObservabilityData(
+      page
+    ));
   }, [dispatch]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+    dispatch(fetchNetworkObservabilityData(page, pageSize));
   };
 
 
@@ -88,6 +89,14 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
       <AddIcon />
     </IconButton>
   );
+
+  if (loading) {
+    return <DashboardCard>
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader></Loader>
+      </Box>
+    </DashboardCard>
+  }
 
   return (
     <Box>
@@ -190,14 +199,15 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
               </TableBody>
             </Table>
           </TableContainer>
-          <Box my={3} display="flex" justifyContent={'center'}>
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          </Box>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={totalPages * pageSize}
+            rowsPerPage={pageSize}
+            page={page - 1}
+            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+            onRowsPerPageChange={(e) => dispatch(fetchNetworkObservabilityData(page, e.target.value))}
+          />
         </Box>
       </DashboardCard>
       {

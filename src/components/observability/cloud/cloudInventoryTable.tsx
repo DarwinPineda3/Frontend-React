@@ -1,14 +1,14 @@
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -40,10 +40,12 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   );
   const currentPage = useSelector((state: any) => state.cloudInventoryReducer.page);
   const totalPages = useSelector((state: any) => state.cloudInventoryReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.cloudInventoryReducer.pageSize);
+  const loading = useSelector((state: any) => state.cloudInventoryReducer.loading);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -52,7 +54,7 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchCloudInventoryList(currentPage));
+      await dispatch(fetchCloudInventoryList(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
@@ -70,6 +72,14 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
         return null;
     }
   };
+
+  if (loading) {
+    return <DashboardCard>
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader></Loader>
+      </Box>
+    </DashboardCard>
+  }
 
   return (
     <DashboardCard
@@ -170,14 +180,15 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+              onRowsPerPageChange={(e) => dispatch(fetchCloudInventoryList(currentPage, e.target.value))}
+            />
           </>
         )}
       </>

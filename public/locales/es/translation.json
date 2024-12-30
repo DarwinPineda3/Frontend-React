@@ -50,6 +50,7 @@
     "redteam": "RedTeam"
   },
   "dashboard": {
+    "page_size": "Tamaño de página",
     "montly_distribution": "Distribución mensual",
     "connected_assets": "Activos conectados",
     "disconnected_assets": "Activos desconectados",
