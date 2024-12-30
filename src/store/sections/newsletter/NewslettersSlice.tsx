@@ -8,7 +8,6 @@ function getApiUrl() {
   return `${getBaseApiUrl()}/newsletters/`;
 }
 
-//const DOWNLOAD_URL = `${API_URL}download?gid=`;
 function getDownloadUrl() {
   return `${getBaseApiUrl()}/newsletters/download?gid=`;
 }

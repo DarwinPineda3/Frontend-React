@@ -79,7 +79,6 @@ const NetworkScanCreateForm: React.FC<Props> = ({ onSubmit }) => {
           'success',
         );        
       } catch (error) {
-        // console.error('Error creating network scan:', error);
         onSubmit(
           `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
           'error',

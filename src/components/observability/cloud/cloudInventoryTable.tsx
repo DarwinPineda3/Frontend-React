@@ -141,7 +141,6 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          {/* <HumanizedDate dateString={scan.timestamp} /> */}
                           <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
                         </TableCell>
                       </TableRow>

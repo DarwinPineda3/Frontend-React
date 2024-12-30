@@ -258,15 +258,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                   </Grid>
                 </Grid>
               )}
-
-              {/* <Box my={3} display="flex" justifyContent={'center'}>
-                <Pagination
-                  count={totalPages}
-                  color="primary"
-                  page={currentPage}
-                  onChange={handlePageChange}
-                />
-              </Box> */}
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 component="div"

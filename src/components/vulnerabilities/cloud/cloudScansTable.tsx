@@ -42,7 +42,6 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
@@ -177,14 +176,6 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box> */}
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               component="div"

@@ -15,11 +15,9 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import WebAppCreateForm from 'src/components/vulnerabilities/web/applications/webAppCreate';
-import { useDispatch } from 'src/store/Store';
 
 const WebAppCreateScan = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -30,7 +28,7 @@ const WebAppCreateScan = () => {
   const handleFormSubmit = (
     message: string,
     severity: 'success' | 'info' | 'warning' | 'error',
-  ) => {    
+  ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(true);

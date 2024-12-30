@@ -29,7 +29,6 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   const currentPage = useSelector((state: any) => state.newsLettersReducer.page);
   const totalPages = useSelector((state: any) => state.newsLettersReducer.totalPages);
   const pageSize = useSelector((state: any) => state.cloudInventoryReducer.pageSize);
-  const loading = useSelector((state: any) => state.cloudInventoryReducer.loading);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
