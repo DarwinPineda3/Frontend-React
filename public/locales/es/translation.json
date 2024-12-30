@@ -1032,7 +1032,8 @@
     "wordpress_vulnerability": "Escaneos vulnerabilidad WordPress",
     "network_observability": "Escaneos observabilidad Red",
     "create_task_link": "Debes crear un/a",
-    "task": "tarea"
+    "task": "tarea",
+    "scan_creation_message": "La creación de este escaneo puede tardar un poco."
   },
   "threshold": {
     "threshold_settings": "Configuración de Umbral"
@@ -1241,5 +1242,19 @@
     "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
     "executions_description": "Ejecuciones",
     "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento."
+  },
+  "changelog": {
+    "title": "Registro de cambios",
+    "added": "Añadido",
+    "changed": "Cambiado",
+    "deprecated": "Obsoleto",
+    "removed": "Eliminado",
+    "fixed": "Arreglado",
+    "security": "Seguridad",
+    "version": "Versión",
+    "date": "Fecha",
+    "changes": "Cambios",
+    "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
+    "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
   }
 }

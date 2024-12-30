@@ -1034,7 +1034,8 @@
     "wordpress_vulnerability": "WordPress Vulnerability Scans",
     "network_observability": "Network Observability Scans",
     "create_task_link": "You must create a",
-    "task": "task"
+    "task": "task",
+    "scan_creation_message": "The creation of this scan may take a little time."
   },
   "threshold": {
     "threshold_settings": "Threshold Settings"
@@ -1244,6 +1245,19 @@
     "projects_info": "Here you can manage and view compliance projects.",
     "executions_description": "Executions",
     "executions_info": "Here you can track and manage compliance executions."
-
+  },
+  "changelog": {
+    "title": "Changelog",
+    "added": "Added",
+    "changed": "Changed",
+    "deprecated": "Deprecated",
+    "removed": "Removed",
+    "fixed": "Fixed",
+    "security": "Security",
+    "version": "Version",
+    "date": "Date",
+    "changes": "Changes",
+    "description": "All notable changes to this project will be documented in this file.",
+    "format": "The format is based on Keep a Changelog and this project adheres to Semantic Versioning (SemVer)."
   }
 }
