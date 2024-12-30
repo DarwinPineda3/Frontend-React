@@ -1227,5 +1227,19 @@
     "close": "Close",
     "scan_in_progress": "Scan in progress",
     "error_msg": "The scan could not be created. Please check the asset configuration."
+  },
+  "changelog": {
+    "title": "Changelog",
+    "added": "Added",
+    "changed": "Changed",
+    "deprecated": "Deprecated",
+    "removed": "Removed",
+    "fixed": "Fixed",
+    "security": "Security",
+    "version": "Version",
+    "date": "Date",
+    "changes": "Changes",
+    "description": "All notable changes to this project will be documented in this file.",
+    "format": "The format is based on Keep a Changelog and this project adheres to Semantic Versioning (SemVer)."
   }
 }
