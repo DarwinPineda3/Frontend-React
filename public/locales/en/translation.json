@@ -1260,5 +1260,15 @@
     "changes": "Changes",
     "description": "All notable changes to this project will be documented in this file.",
     "format": "The format is based on Keep a Changelog and this project adheres to Semantic Versioning (SemVer)."
+  },
+  "compliance_reports": {
+    "by_project": "Compliance by Project",
+    "select_project": "Select Project",
+    "report_description": "This report allows you to list all the compliance values for each asset in the groups of the selected project.",
+    "generate_download": "Generate and Download",
+    "report_generated": "Report generated and downloaded",
+    "compliance": "Compliance",
+    "reports": "Reports",
+    "loading": "Loading..."
   }
 }

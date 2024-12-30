@@ -1257,5 +1257,15 @@
     "changes": "Cambios",
     "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
     "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
+  },
+  "compliance_reports": {
+    "by_project": "Cumplimiento por Proyecto",
+    "select_project": "Seleccionar Proyecto",
+    "report_description": "Este reporte permite listar todos los valores de cumplimiento para cada activo en los grupos del proyecto seleccionado.",
+    "generate_download": "Generar y Descargar",
+    "report_generated": "Reporte generado y descargado",
+    "compliance": "Cumplimiento",
+    "reports": "Informes",
+    "loading": "Cargando..."
   }
 }
