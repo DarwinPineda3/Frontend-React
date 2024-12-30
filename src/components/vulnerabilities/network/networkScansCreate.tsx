@@ -9,29 +9,45 @@ import {
   useTheme,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import { useDispatch } from 'src/store/Store';
+import { fetchFilteredAssets } from 'src/store/sections/AssetsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchConfigurationList } from 'src/store/vulnerabilities/network/NetworkConfigSlice';
 import { createNetworkScan } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import {
-  NetworkScanCreate,
-  ResponseData,
-  ScanConfig,
+  ScanConfig
 } from 'src/types/vulnerabilities/network/networkScansType';
 import * as Yup from 'yup';
 
 interface Props {
-  networkScanCreate: ResponseData;
   onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
 }
 
-const NetworkScanCreateForm: React.FC<Props> = ({ networkScanCreate, onSubmit }) => {
+const NetworkScanCreateForm: React.FC<Props> = ({ onSubmit }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const theme = useTheme();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const assets = useSelector((state: any) => state.assetsReducer.assets);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchFilteredAssets({ ip: true, domain: true }));
+    };
+    fetchData();
+  }, [dispatch]);
+
+  const scan_configs = useSelector((state: any) => state.networkConfigurationReducer.configurationList);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchConfigurationList());
+    };
+    fetchData();
+  }, [dispatch]);
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -52,7 +68,7 @@ const NetworkScanCreateForm: React.FC<Props> = ({ networkScanCreate, onSubmit })
       ),
     }),
     onSubmit: async (values) => {
-      const newNetworkScan: NetworkScanCreate = {
+      const newNetworkScan: any = {
         ...values,
       };
       setIsSubmitting(true);
@@ -61,9 +77,9 @@ const NetworkScanCreateForm: React.FC<Props> = ({ networkScanCreate, onSubmit })
         onSubmit(
           `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
           'success',
-        );
+        );        
       } catch (error) {
-        console.error('Error creating network scan:', error);
+        // console.error('Error creating network scan:', error);
         onSubmit(
           `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
           'error',
@@ -123,7 +139,7 @@ const NetworkScanCreateForm: React.FC<Props> = ({ networkScanCreate, onSubmit })
               <MenuItem value="" disabled>
                 {t('vulnerabilities.network_vulnerabilities.scan_target')}
               </MenuItem>
-              {networkScanCreate.assets.map((asset) => (
+              {assets?.map((asset: any) => (
                 <MenuItem key={asset.id} value={asset.id}>
                   {asset.name} ({asset.ip || asset.domain || asset.url})
                 </MenuItem>
@@ -159,8 +175,8 @@ const NetworkScanCreateForm: React.FC<Props> = ({ networkScanCreate, onSubmit })
               <MenuItem value="" disabled>
                 {t('vulnerabilities.network_vulnerabilities.scan_config')}
               </MenuItem>
-              {networkScanCreate.scan_configs
-                .filter((config) => config.name === 'Full and fast') // Filtrar por el nombre "Full and fast"
+              {scan_configs
+                .filter((config: any) => config.name === 'Full and fast') // Filtrar por el nombre "Full and fast"
                 .map((config: ScanConfig) => (
                   <MenuItem key={config.id} value={config.id}>
                     {config.name}

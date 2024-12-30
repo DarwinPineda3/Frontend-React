@@ -10,14 +10,12 @@ import {
   Snackbar,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import WebAppCreateForm from 'src/components/vulnerabilities/web/applications/webAppCreate';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchNetworkScanCreate } from 'src/store/vulnerabilities/network/NetworkScansSlice';
-import { ResponseData } from 'src/types/vulnerabilities/network/networkScansType';
+import { useDispatch } from 'src/store/Store';
 
 const WebAppCreateScan = () => {
   const { t } = useTranslation();
@@ -29,24 +27,15 @@ const WebAppCreateScan = () => {
     'success' | 'info' | 'warning' | 'error'
   >('success');
 
-  const networkScanCreate: ResponseData = useSelector(
-    (state: any) => state.networkScanReducer.networkScanCreate,
-  );
-
-  useEffect(() => {
-    dispatch(fetchNetworkScanCreate());
-    if (snackbarMessage && snackbarSeverity) {
-      setSnackbarOpen(true);
-    }
-  }, [dispatch, snackbarMessage, snackbarSeverity]);
-
   const handleFormSubmit = (
     message: string,
     severity: 'success' | 'info' | 'warning' | 'error',
   ) => {
+    console.log(message);
+    
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false);
+    setSnackbarOpen(true);
   };
   return (
     <PageContainer title="Akila">
@@ -72,7 +61,6 @@ const WebAppCreateScan = () => {
         <Grid item xs={12}>
           <WebAppCreateForm
             onSubmit={handleFormSubmit}
-            webAppCreate={networkScanCreate}
           />
           <Grid item xs={12}>
             {/* Snackbar */}

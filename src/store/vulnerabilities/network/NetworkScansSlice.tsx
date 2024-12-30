@@ -329,18 +329,6 @@ export const fetchNetworkScanReportDetail =
     }
   };
 
-export const fetchNetworkScanCreate = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrlCreate()}/`);
-    const { assets, targets, scan_configs, error } = response.data;
-    dispatch(getNetworkScanCreate({ assets, targets, scan_configs, error }));
-  } catch (err: any) {
-    console.error('Error fetching Network Scans:', err);
-    dispatch(setError('Failed to fetch Network Scans'));
-    throw err;
-  }
-};
-
 export const createNetworkScan =
   (networkScan: NetworkScanCreateType) => async (dispatch: AppDispatch) => {
     try {
