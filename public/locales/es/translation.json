@@ -1226,6 +1226,23 @@
     "scan_in_progress": "Escaneo en progreso",
     "error_msg": "No se pudo crear el escaneo. Por favor, verifica la configuración del activo."
   },
+  "compliance_menu": {
+    "compliance": "Cumplimiento",
+    "compliance_assets": "Activos",
+    "compliance_groups": "Grupos",
+    "compliance_projects": "Proyectos",
+    "compliance_executions": "Ejecuciones"
+  },
+  "compliance": {
+    "assets_description": "Activos",
+    "assets_info": "Lista de todos los activos que están bajo gestión de cumplimiento.",
+    "groups_description": "Grupos",
+    "groups_info": "Aquí puedes gestionar los diferentes grupos de cumplimiento.",
+    "projects_description": "Proyectos",
+    "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
+    "executions_description": "Ejecuciones",
+    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento."
+  },
   "changelog": {
     "title": "Registro de cambios",
     "added": "Añadido",

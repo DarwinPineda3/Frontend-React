@@ -17,6 +17,10 @@ import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
 import Register from 'src/views/authentication/auth/Register';
 import ResetPassword from 'src/views/authentication/auth/ResetPassword';
 import ChangelogView from 'src/views/changelog/ChangelogView';
+import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
+import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
+import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
+import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -395,6 +399,12 @@ const Router = [
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
+
+      // Compliance
+      { path: '/compliance/assets', element: <ComplianceAssetsView /> },
+      { path: '/compliance/groups', element: <ComplianceGroupsView /> },
+      { path: '/compliance/projects', element: <ComplianceProjectsView /> },
+      { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
     ],
   },
   {
