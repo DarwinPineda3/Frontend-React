@@ -781,7 +781,8 @@
     "risk_analysis": "Análisis de Riesgo",
     "domain_up": "Dominio Activo",
     "potential_risk": "Riesgo Potencial",
-    "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM."
+    "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM.",
+    "identification_date": "Fecha de identificación",
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",

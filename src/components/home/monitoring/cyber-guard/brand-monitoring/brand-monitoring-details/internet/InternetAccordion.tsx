@@ -1,15 +1,15 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import InfoIcon from '@mui/icons-material/Info';
+import { Badge, Box, IconButton } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import Tooltip from '@mui/material/Tooltip';
-import { InternetCategories } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import { Box, IconButton } from '@mui/material';
-import InternetTable from './InternetTable';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { InternetCategories } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import InternetTable from './InternetTable';
 
 interface InternetAccordionProps {
   internet_data: InternetCategories[];
@@ -19,9 +19,7 @@ const formatKey = (key: string) => {
   return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-
 const InternetAccordion: React.FC<InternetAccordionProps> = ({ internet_data }) => {
-
   const { t } = useTranslation();
 
   const traslateCategoriesDescription = (description: string) => {
@@ -51,6 +49,18 @@ const InternetAccordion: React.FC<InternetAccordionProps> = ({ internet_data }) 
                     <InfoIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
+                {details.total_results_new > 0 && (
+                  <Badge
+                    badgeContent={`${details.total_results_new} Recent`}
+                    color="primary"
+                    sx={{
+                      ml: 5,
+                      '& .MuiBadge-badge': {
+                        whiteSpace: 'nowrap',
+                      },
+                    }}
+                  />
+                )}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
