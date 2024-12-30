@@ -30,9 +30,7 @@ const WebAppCreateScan = () => {
   const handleFormSubmit = (
     message: string,
     severity: 'success' | 'info' | 'warning' | 'error',
-  ) => {
-    console.log(message);
-    
+  ) => {    
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(true);
