@@ -7,14 +7,14 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAssets, removeAsset, setPage } from 'src/store/sections/AssetsSlice';
 import DashboardCard from '../shared/DashboardCard';
+import Loader from '../shared/Loader/Loader';
 import CreateUpdateAsset from './AssetEdition';
 const AssetList = () => {
   const { t } = useTranslation();
@@ -29,6 +30,8 @@ const AssetList = () => {
   const assets = useSelector((state: any) => state.assetsReducer.assets);
   const currentPage = useSelector((state: any) => state.assetsReducer.page);
   const totalPages = useSelector((state: any) => state.assetsReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.assetsReducer.pageSize);
+  const loading = useSelector((state: any) => state.assetsReducer.loading);
   const [editAsset, setEditAsset] = useState<null | any>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -38,10 +41,10 @@ const AssetList = () => {
   const [assetToDelete, setAssetToDelete] = useState<null | number>(null);
 
   React.useEffect(() => {
-    dispatch(fetchAssets(currentPage));
+    dispatch(fetchAssets(currentPage, pageSize));
   }, [dispatch, currentPage]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -96,6 +99,14 @@ const AssetList = () => {
       <AddIcon />
     </IconButton>
   );
+
+  if (loading) {
+    return <DashboardCard>
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader></Loader>
+      </Box>
+    </DashboardCard>
+  }
 
   return (
     <DashboardCard
@@ -174,15 +185,15 @@ const AssetList = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Box my={3} display="flex" justifyContent={'center'}>
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
-
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={totalPages * pageSize}
+          rowsPerPage={pageSize}
+          page={currentPage - 1}
+          onPageChange={(e, page) => handlePageChange(e, page + 1)}
+          onRowsPerPageChange={(e) => dispatch(fetchAssets(currentPage, e.target.value))}
+        />
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
           <DialogContent sx={{ padding: '50px' }}>
             <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />

@@ -50,6 +50,7 @@
     "redteam": "RedTeam"
   },
   "dashboard": {
+    "page_size": "Tamaño de página",
     "montly_distribution": "Distribución mensual",
     "connected_assets": "Activos conectados",
     "disconnected_assets": "Activos desconectados",
@@ -1033,7 +1034,8 @@
     "wordpress_vulnerability": "Escaneos vulnerabilidad WordPress",
     "network_observability": "Escaneos observabilidad Red",
     "create_task_link": "Debes crear un/a",
-    "task": "tarea"
+    "task": "tarea",
+    "scan_creation_message": "La creación de este escaneo puede tardar un poco."
   },
   "threshold": {
     "threshold_settings": "Configuración de Umbral"
@@ -1225,5 +1227,36 @@
     "close": "Cerrar",
     "scan_in_progress": "Escaneo en progreso",
     "error_msg": "No se pudo crear el escaneo. Por favor, verifica la configuración del activo."
+  },
+  "compliance_menu": {
+    "compliance": "Cumplimiento",
+    "compliance_assets": "Activos",
+    "compliance_groups": "Grupos",
+    "compliance_projects": "Proyectos",
+    "compliance_executions": "Ejecuciones"
+  },
+  "compliance": {
+    "assets_description": "Activos",
+    "assets_info": "Lista de todos los activos que están bajo gestión de cumplimiento.",
+    "groups_description": "Grupos",
+    "groups_info": "Aquí puedes gestionar los diferentes grupos de cumplimiento.",
+    "projects_description": "Proyectos",
+    "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
+    "executions_description": "Ejecuciones",
+    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento."
+  },
+  "changelog": {
+    "title": "Registro de cambios",
+    "added": "Añadido",
+    "changed": "Cambiado",
+    "deprecated": "Obsoleto",
+    "removed": "Eliminado",
+    "fixed": "Arreglado",
+    "security": "Seguridad",
+    "version": "Versión",
+    "date": "Fecha",
+    "changes": "Cambios",
+    "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
+    "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
   }
 }

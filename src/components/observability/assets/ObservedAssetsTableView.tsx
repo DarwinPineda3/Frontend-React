@@ -4,20 +4,21 @@ import {
   Box,
   IconButton,
   LinearProgress,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  useTheme,
+  useTheme
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
+import Loader from 'src/components/shared/Loader/Loader';
 import { fetchObservedAssetData } from 'src/store/observability/ObservedAssetsSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 interface ObservedAssetsProps {
@@ -25,13 +26,16 @@ interface ObservedAssetsProps {
 }
 
 const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => {
-  const { observedAssetsData, error } = useSelector(
+  const { observedAssetsData, error, page, totalPages, pageSize, loading } = useSelector(
     (state: AppState) => state.ObservedAssetsReducer,
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchObservedAssetData());
+    dispatch(fetchObservedAssetData(
+      page,
+      pageSize
+    ));
   }, [dispatch]);
 
   const theme = useTheme();
@@ -43,11 +47,8 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
 
   const { t } = useTranslation();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 1; // Adjust based on the number of pages
-
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+    dispatch(fetchObservedAssetData(page, pageSize));
   };
 
   const handleDownload = (scanId: string) => {
@@ -60,6 +61,15 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
 
   if (error) {
     return <Box>{error}</Box>;
+  }
+
+
+  if (loading) {
+    return <DashboardCard>
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader></Loader>
+      </Box>
+    </DashboardCard>
   }
 
   return (
@@ -211,14 +221,15 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
               </TableBody>
             </Table>
           </TableContainer>
-          <Box my={3} display="flex" justifyContent={'center'}>
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          </Box>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={totalPages * pageSize}
+            rowsPerPage={pageSize}
+            page={page - 1}
+            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+            onRowsPerPageChange={(e) => dispatch(fetchObservedAssetData(page, e.target.value))}
+          />
         </Box>
       </DashboardCard>
     </Box>

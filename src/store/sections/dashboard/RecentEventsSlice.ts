@@ -1,16 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios'; // Correct import
+
+
+function getApiUrl() {
+  return `${getBaseApiUrl()}/dashboard/historical/`;
+}
 
 // Async thunk to fetch recent events data
 export const fetchRecentEventsData = createAsyncThunk('recentEvents/fetchData', async () => {
-  const response = await axios.get('/api/recent-events'); // Mock API endpoint
+  const response = await axios.get(getApiUrl()); // Mock API endpoint
   return response.data;
 });
 
 interface EventData {
-  time: string;
-  description: string;
-  color: 'primary' | 'secondary' | 'success';
+  date: string;
+  event: string;
+  tool: string;
+  id: string;
   link?: string;
 }
 

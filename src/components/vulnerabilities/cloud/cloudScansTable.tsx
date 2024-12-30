@@ -55,7 +55,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   }, [dispatch, currentPage]);
 
   const getProviderIcon = (provider: string) => {
-    switch (provider.toLowerCase()) {
+    switch (provider?.toLowerCase()) {
       case 'aws':
         return <img src={AwsLogo} alt="AWS" style={{ width: 24, height: 24 }} />;
       case 'azure':
@@ -128,7 +128,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography variant="body2">{scan.timestamp}</Typography>
+                          <Typography variant="body2">{new Date(scan.timestamp).toLocaleString()}</Typography>
                         </TableCell>
                       </TableRow>
                     ))

@@ -52,7 +52,7 @@ export const WPScanSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
-    setLoading: (state) => {
+    setLoading: (state, action) => {
       state.isLoading = true;
     }
   }

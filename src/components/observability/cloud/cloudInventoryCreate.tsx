@@ -23,20 +23,13 @@ import CustomFormLabel from 'src/components/forms/theme-elements/CustomFormLabel
 import Thumbnail from 'src/components/home/monitoring/malware-analyses/MalwareAnalysisThumbnail';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { createCloudInventory } from 'src/store/observability/cloud/CloudInventorySlice';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { useDispatch } from 'src/store/Store';
 import * as Yup from 'yup';
 
 const CreateCloudInventory: React.FC = () => {
-  const error = useSelector((state: any) => state.cloudInventoryReducer.error);
   const [provider, setProvider] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    'success' | 'info' | 'warning' | 'error'
-  >('success');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -105,25 +98,22 @@ const CreateCloudInventory: React.FC = () => {
       try {
         await dispatch(createCloudInventory(newCloudScan));
 
-        if (await error) {
-          navigate('/observability/cloud', {
-            state: {
-              message: error,
-              severity: 'error',
-            },
-          });
-        } else {
-          navigate('/observability/cloud', {
-            state: {
-              message: t('observability.cloud_inventory.scan_created_successfully') || '',
-              severity: 'success',
-            },
-          });
-        }
+
+        navigate('/observability/cloud', {
+          state: {
+            message: t('observability.cloud_inventory.scan_created_successfully') || '',
+            severity: 'success',
+          },
+        });
+
+
       } catch (error) {
-        setSnackbarMessage(t('observability.cloud_inventory.error_creating_scan') || '');
-        setSnackbarSeverity('error');
-        setSnackbarOpen(true);
+        navigate('/observability/cloud', {
+          state: {
+            message: error,
+            severity: 'error',
+          },
+        });
       } finally {
         setIsLoading(false);
       }
@@ -162,8 +152,11 @@ const CreateCloudInventory: React.FC = () => {
             <DashboardCard title={t('observability.cloud_inventory.create_cloud_scan') || ''}>
               <>
                 {isLoading ? (
-                  <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+                  <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
                     <Loader />
+                    <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
+                      {t('scan.scan_creation_message') || ''}
+                    </Box>
                   </Box>
                 ) : (
                   <Box component="form" onSubmit={formik.handleSubmit} noValidate>
@@ -273,7 +266,7 @@ const CreateCloudInventory: React.FC = () => {
                         margin="normal"
                         error={Boolean(
                           formik.touched.gcp_credentials_json_file &&
-                            formik.errors.gcp_credentials_json_file,
+                          formik.errors.gcp_credentials_json_file,
                         )}
                       >
                         <CustomFormLabel htmlFor="attach_file">
@@ -297,14 +290,6 @@ const CreateCloudInventory: React.FC = () => {
                       </Button>
                     </Box>
                   </Box>
-                )}
-
-                {snackbarOpen && (
-                  <SnackBarInfo
-                    color={snackbarSeverity}
-                    title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
-                    message={snackbarMessage}
-                  />
                 )}
               </>
             </DashboardCard>
