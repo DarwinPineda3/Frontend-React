@@ -1,0 +1,33 @@
+[
+    {
+      "version": "v1.2.0",
+      "date": "2024-12-08",
+      "added": ["Mejoras de rendimiento.", "Se agregó componente X"],
+      "changed": ["Corrección de diseño en la interfaz de usuario.", "Corrección componente Y"],
+      "deprecated": ["Funcionalidad de búsqueda avanzada obsoleta."],
+      "removed": ["Se eliminó la integración con el sistema X.", "Se eliminó componente Z"],
+      "fixed": ["Arreglo de un error crítico en la base de datos."],
+      "security": ["Se corrigió una vulnerabilidad de XSS."]
+    },
+    {
+      "version": "v1.1.0",
+      "date": "2024-12-05",
+      "added": ["Se añadió la búsqueda de soluciones y mejoras en el diseño."],
+      "changed": [],
+      "deprecated": [],
+      "removed": [],
+      "fixed": [],
+      "security": ["Se corrigió una vulnerabilidad"]
+    },
+    {
+      "version": "v1.0.0",
+      "date": "2024-12-01",
+      "added": ["Lanzamiento inicial de la plataforma con funcionalidades básicas."],
+      "changed": [],
+      "deprecated": [],
+      "removed": [],
+      "fixed": [],
+      "security": []
+    }
+  ]
+  

@@ -4,10 +4,23 @@ import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
+import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
+import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
+import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
+import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
+import GroupGuard from 'src/guards/authGuard/GroupGuard';
 import AuditLogView from 'src/views/audit/AuditView';
+import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
+import Register from 'src/views/authentication/auth/Register';
+import ResetPassword from 'src/views/authentication/auth/ResetPassword';
+import ChangelogView from 'src/views/changelog/ChangelogView';
+import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
+import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
+import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
+import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -16,14 +29,6 @@ import ParametersMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/Par
 import MalwareAnalysis from 'src/views/monitoring/malware/MalwareAnalysis';
 import MitreView from 'src/views/monitoring/mitreview/MitreView';
 import AppScan from 'src/views/monitoring/mobile-app/AppScan';
-// import SIEMMonitoring from 'src/views/monitoring/SIEM';
-import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
-import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
-import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
-import GroupGuard from 'src/guards/authGuard/GroupGuard';
-import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
-import Register from 'src/views/authentication/auth/Register';
-import ResetPassword from 'src/views/authentication/auth/ResetPassword';
 import MobileApp from 'src/views/monitoring/mobile-app/MobileApp';
 import SOCMonitoring from 'src/views/monitoring/SOC';
 import DarkNet from 'src/views/monitoring/SOC/brand/darknet';
@@ -40,7 +45,7 @@ import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import SocNewsDetails from 'src/views/monitoring/SOC/NewsletterDetails';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
-import { default as CloudObservability } from 'src/views/observability/Cloud';
+import CloudInventory from 'src/views/observability/Cloud';
 import DarkWeb from 'src/views/observability/DarkWeb';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import NetworkObservability from 'src/views/observability/Network';
@@ -66,7 +71,6 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -329,7 +333,7 @@ const Router = [
       },
       {
         path: '/observability/cloud',
-        element: <CloudObservability />,
+        element: <CloudInventory />,
         roles: ['Admin', 'Scan360'],
       },
       {
@@ -339,12 +343,12 @@ const Router = [
       },
       {
         path: '/observability/cloud/scans/:scanId',
-        element: <CloudObservability />,
+        element: <CloudInventory />,
         roles: ['Admin', 'Scan360'],
       },
       {
         path: '/observability/cloud/scans',
-        element: <CloudObservability />,
+        element: <CloudInventory />,
         roles: ['Admin', 'Scan360'],
       },
       {
@@ -390,10 +394,17 @@ const Router = [
       // User Profile
       { path: '/user-profile', element: <AccountSettings /> },
 
+      // Maintenance
+      { path: '/maintenance', element: <Maintenance />, roles: ['Admin'] },
+
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
 
-      { path: '/maintenance', element: <Maintenance />, roles: ['Admin'] },
+      // Compliance
+      { path: '/compliance/assets', element: <ComplianceAssetsView /> },
+      { path: '/compliance/groups', element: <ComplianceGroupsView /> },
+      { path: '/compliance/projects', element: <ComplianceProjectsView /> },
+      { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
     ],
   },
   {
@@ -406,6 +417,8 @@ const Router = [
       { path: '/404', element: <Error /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/reset-password', element: <ResetPassword /> },
+      //changelog
+      { path: '/changelog', element: <ChangelogView />, roles: ['Admin', 'Scan360'] },
     ],
   },
   { path: '*', element: <Navigate to="/404" /> },

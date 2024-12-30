@@ -10,7 +10,7 @@ import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 
 
 const CloudInventory = () => {
-  const { cloudId } = useParams<{ cloudId?: string }>();
+  const { scanId } = useParams<{ scanId?: string }>();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,12 +24,12 @@ const CloudInventory = () => {
 
   const { t } = useTranslation();
   useEffect(() => {
-    if (cloudId) {
-      setSelectedCloud(cloudId);
+    if (scanId) {
+      setSelectedCloud(scanId);
     } else {
       setSelectedCloud(null);
     }
-  }, [cloudId, location]);
+  }, [scanId, location]);
 
   useEffect(() => {
     if (location.state?.message) {
@@ -43,9 +43,8 @@ const CloudInventory = () => {
   }, [location.state]);
 
 
-
-  const handleInventoryClick = (cloudId: string) => {
-    navigate(`/observability/cloud/scans/${cloudId}`);
+  const handleInventoryClick = (scanId: string) => {
+    navigate(`/observability/cloud/scans/${scanId}`);
   };
 
   return (

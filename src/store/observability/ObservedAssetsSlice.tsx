@@ -152,6 +152,10 @@ interface AssetLogsResponse {
 
 interface StateType {
   observedAssetsData: AssetResume[];
+  page: number;
+  totalPages: number;
+  pageSize: number;
+  loading: boolean;
   observedAssetsDetail: SystemInfo | null;
   observedAssetsDetailLogs: AssetLogsResponse | null;
   error: string | null;
@@ -160,6 +164,10 @@ interface StateType {
 const initialState: StateType = {
   observedAssetsData: [],
   observedAssetsDetail: null,
+  page: 1,
+  totalPages: 1,
+  pageSize: 10,
+  loading: false,
   observedAssetsDetailLogs: null,
   error: null,
 };
@@ -170,6 +178,9 @@ const ObservedAssetsSlice = createSlice({
   reducers: {
     getObservedAssetList: (state, action) => {
       state.observedAssetsData = action.payload.data;
+      state.page = action.payload.currentPage;
+      state.totalPages = action.payload.totalPages;
+      state.pageSize = action.payload.pageSize;
     },
     getObservedAssetDetail: (state, action) => {
       state.observedAssetsDetail = action.payload.data;
@@ -180,22 +191,32 @@ const ObservedAssetsSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    }
   },
 });
 
-export const { getObservedAssetList, getObservedAssetDetail, getObservedAssetForCharts, setError } =
+export const { getObservedAssetList, getObservedAssetDetail, getObservedAssetForCharts, setError, setLoading } =
   ObservedAssetsSlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
-export const fetchObservedAssetData = () => async (dispatch: AppDispatch) => {
+export const fetchObservedAssetData = (requestedPage: number, pageSize: number = 10) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getMonitoringApiUrl()}/`);
-
+    dispatch(setLoading(true));
+    if (pageSize !== initialState.pageSize) {
+      requestedPage = 1;
+    }
+    const response = await axios.get(`${getMonitoringApiUrl()}/?page=${requestedPage}&page_size=${pageSize}`);
     dispatch(
       getObservedAssetList({
-        data: response.data.cpuInfo,
+        data: response.data.results,
+        currentPage: response.data.page,
+        totalPages: response.data.totalPages,
+        pageSize,
       }),
     );
+    dispatch(setLoading(false));
   } catch (err: any) {
     console.error('Error fetching Network Observability data:', err);
     dispatch(setError('Failed to fetch Network Observability data'));
