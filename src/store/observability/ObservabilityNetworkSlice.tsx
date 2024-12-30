@@ -14,6 +14,10 @@ interface NetworkScan {
 
 interface StateType {
   networkScansData: NetworkScan[];
+  page: number;
+  totalPages: number;
+  pageSize: number;
+  loading: boolean;
   networkScansDetail: any | null;
   error: string | null;
 }
@@ -21,6 +25,10 @@ interface StateType {
 const initialState: StateType = {
   networkScansData: [],
   networkScansDetail: null,
+  page: 1,
+  totalPages: 1,
+  pageSize: 10,
+  loading: false,
   error: null,
 };
 
@@ -29,7 +37,10 @@ const networkObservabilitySlice = createSlice({
   initialState,
   reducers: {
     getNetworkObservabilityList: (state, action) => {
-      state.networkScansData = action.payload.data;
+      state.networkScansData = action.payload.results;
+      state.page = action.payload.currentPage;
+      state.totalPages = action.payload.totalPages;
+      state.pageSize = action.payload.pageSize;
     },
     getNetworkObservabilityDetail: (state, action) => {
       state.networkScansDetail = action.payload.data;
@@ -40,31 +51,50 @@ const networkObservabilitySlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    }
   },
 });
 
 export const {
   getNetworkObservabilityList,
   getNetworkObservabilityDetail,
-  setError
+  setError,
+  setLoading
 } = networkObservabilitySlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
 export const fetchNetworkObservabilityData =
-  () =>
+  (
+    requestedPage: number,
+    pageSize: number = 10
+  ) =>
     async (dispatch: AppDispatch) => {
       try {
-        const scans = (await axios.get(
-          `${getMonitoringApiUrl()}`,
-        )).data.scans;
+        dispatch(setLoading(true));
+        if (pageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const response = (await axios.get(
+          `${getMonitoringApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
+        )).data;
+
+        const scans = response.results;
+        const totalPages = response.totalPages;
+        const currentPage = response.page;
         // order by scan_start
         scans.sort((a: any, b: any) => new Date(b.scan_start).getTime() - new Date(a.scan_start).getTime());
 
         dispatch(
           getNetworkObservabilityList({
-            data: scans
+            results: scans,
+            currentPage,
+            totalPages,
+            pageSize,
           }),
         );
+        dispatch(setLoading(false));
       } catch (err: any) {
         console.error('Error fetching Network Observability data:', err);
         dispatch(setError('Failed to fetch Network Observability data'));
@@ -105,7 +135,9 @@ export const createNetworkObservabilityScan = (newNetworkScan: any) => async (di
     const response = await axios.post(`${getMonitoringApiUrl()}/`, newNetworkScan);
 
     if (response.status === 201) {
-      dispatch(fetchNetworkObservabilityData());
+      dispatch(fetchNetworkObservabilityData(
+        1
+      ));
     } else {
       dispatch(setError('Failed to create Network Observability scan'));
     }
@@ -119,7 +151,9 @@ export const deleteNetworkObservabilityScan = (scanId: string) => async (dispatc
   try {
     const response = await axios.delete(`${getMonitoringApiUrl()}/${scanId}`);
     if (response.status === 200) {
-      dispatch(fetchNetworkObservabilityData());
+      dispatch(fetchNetworkObservabilityData(
+        1
+      ));
     } else {
       dispatch(setError('Failed to delete Network Observability scan'));
     }
