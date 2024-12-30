@@ -10,7 +10,7 @@ type Props = {
   addBottomPadding?: boolean;
 };
 
-const PageContainer = ({ title, description, children, addBottomPadding }: Props) => (
+const PageContainer = ({ title, description, children, addBottomPadding = true}: Props) => (
   <div
     style={{ paddingBottom: addBottomPadding ? 60 : 0 }}
   >
