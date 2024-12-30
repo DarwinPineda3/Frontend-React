@@ -7,6 +7,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -36,10 +37,13 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const cloudScans = useSelector((state: any) => state.cloudScanReducer.cloudScans);
   const currentPage = useSelector((state: any) => state.cloudScanReducer.page);
   const totalPages = useSelector((state: any) => state.cloudScanReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.cloudScanReducer.pageSize);
+  const loading = useSelector((state: any) => state.cloudScanReducer.loading);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  // const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -48,7 +52,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchCloudScans(currentPage));
+      await dispatch(fetchCloudScans(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
@@ -66,6 +70,14 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
         return null;
     }
   };
+
+  if (loading) {
+    return <DashboardCard>
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader></Loader>
+      </Box>
+    </DashboardCard>
+  }
 
   return (
     <DashboardCard
@@ -165,14 +177,23 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
+            {/* <Box my={3} display="flex" justifyContent={'center'}>
               <Pagination
                 count={totalPages}
                 color="primary"
                 page={currentPage}
                 onChange={handlePageChange}
               />
-            </Box>
+            </Box> */}
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
+              onRowsPerPageChange={(e: any) => dispatch(fetchCloudScans(currentPage, e.target.value))}
+            />
           </>
         )}
       </>
