@@ -75,7 +75,9 @@ const ComplianceReports = () => {
                 </Grid>
 
                 <Grid item xs={12}>
+                  <Alert severity="info">
                   <Typography variant="body2" color="textSecondary">{t('compliance_reports.report_description')}</Typography>
+                  </Alert>
                 </Grid>
 
                 <Grid item xs={12} textAlign="center">
