@@ -32,22 +32,21 @@ const NetworkScanCreateForm: React.FC<Props> = ({ onSubmit }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const assets = useSelector((state: any) => state.assetsReducer.assets);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(fetchFilteredAssets({ ip: true, domain: true }));
-    };
-    fetchData();
-  }, [dispatch]);
-
   const scan_configs = useSelector((state: any) => state.networkConfigurationReducer.configurationList);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataFilteredAssets = async () => {
+      await dispatch(fetchFilteredAssets({ ip: true, domain: true }));
+    };
+    fetchDataFilteredAssets();
+
+    const fetchDataConfigList = async () => {
       await dispatch(fetchConfigurationList());
     };
-    fetchData();
+    fetchDataConfigList();
   }, [dispatch]);
+
+
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -77,7 +76,7 @@ const NetworkScanCreateForm: React.FC<Props> = ({ onSubmit }) => {
         onSubmit(
           `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
           'success',
-        );        
+        );
       } catch (error) {
         onSubmit(
           `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
