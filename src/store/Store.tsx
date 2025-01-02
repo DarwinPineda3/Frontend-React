@@ -7,6 +7,7 @@ import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
+import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
@@ -85,6 +86,7 @@ export const store = configureStore({
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
+    GiottoAssetsReducer: GiottoAssetsReducer
   },
 });
 
@@ -115,7 +117,8 @@ const rootReducer = combineReducers({
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   ThresholdSlice: ThresholdSlice,
-  ObservedAssetsReducer: ObservedAssetsReducer
+  ObservedAssetsReducer: ObservedAssetsReducer,
+  GiottoAssetsReducer: GiottoAssetsReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
