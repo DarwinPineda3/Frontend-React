@@ -72,6 +72,7 @@ import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
+import AssessmentStatusByAsset from 'src/views/compliance/compliance-reports/AssessmentStatusByAsset'
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -407,6 +408,7 @@ const Router = [
       { path: '/compliance/projects', element: <ComplianceProjectsView /> },
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
       { path: '/compliance/reports', element: <ComplianceReports /> },
+      { path: '/compliance/assessment-status', element: <AssessmentStatusByAsset /> },
     ],
   },
   {
