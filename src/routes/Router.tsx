@@ -71,6 +71,7 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -403,6 +404,7 @@ const Router = [
       // Compliance
       { path: '/compliance/assets', element: <ComplianceAssetsView /> },
       { path: '/compliance/groups', element: <ComplianceGroupsView /> },
+      { path: '/compliance/groups/:groupId', element: <GroupDetails /> },
       { path: '/compliance/projects', element: <ComplianceProjectsView /> },
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
     ],
