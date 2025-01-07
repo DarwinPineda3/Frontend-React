@@ -3,6 +3,8 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
+import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -71,9 +73,7 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
-import CreateUpdateGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
-import CreateGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
+import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -407,7 +407,8 @@ const Router = [
       { path: '/compliance/assets', element: <ComplianceAssetsView /> },
       { path: '/compliance/groups', element: <ComplianceGroupsView /> },
       { path: '/compliance/groups/:groupId', element: <GroupDetails /> },
-      { path: '/compliance/groups/create', element: <CreateGroup /> },
+      { path: '/compliance/groups/create', element: <CreateGiottoGroup /> },
+      { path: '/compliance/groups/edit/:groupId', element: <EditGiottoGroup /> },
       { path: '/compliance/projects', element: <ComplianceProjectsView /> },
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
     ],

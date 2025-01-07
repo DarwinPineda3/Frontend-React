@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { createGroup } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch } from 'src/store/Store';
 import * as Yup from 'yup';
 
@@ -35,10 +36,12 @@ interface Asset {
   name: string;
 }
 
-const CreateGroup: React.FC = ({ }) => {
+const CreateGiottoGroup: React.FC = ({ }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const templatesList: Template[] = Array.from({ length: 5 }, (_, index) => ({
     id: index + 1,
@@ -72,7 +75,7 @@ const CreateGroup: React.FC = ({ }) => {
       name: Yup.string().required('Name is required'),
       description: Yup.string().nullable(),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const newGroup = {
         name: values.name,
         description: values.description,
@@ -80,9 +83,26 @@ const CreateGroup: React.FC = ({ }) => {
         assets: selectedAssets,
       };
 
-      console.log(newGroup); // Replace with API call or dispatch logic
-      // onSubmit('Group created successfully', 'success');
-      console.log('Group created successfully');
+      try {
+        setIsLoading(true);
+        await dispatch(createGroup(newGroup));
+        setIsLoading(false);
+        navigate('/compliance/groups', {
+          state: {
+            message: t('wpscan.scan_created_successfully') || '',
+            severity: 'success',
+          },
+        });
+
+      } catch (error: any) {
+        navigate('/compliance/groups', {
+          state: {
+            message: error,
+            severity: 'error',
+          },
+        });
+
+      }
 
     },
   });
@@ -205,4 +225,4 @@ const CreateGroup: React.FC = ({ }) => {
   );
 };
 
-export default CreateGroup;
+export default CreateGiottoGroup;

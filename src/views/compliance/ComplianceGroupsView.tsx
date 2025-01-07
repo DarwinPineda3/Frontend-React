@@ -138,8 +138,8 @@ const ComplianceGroupsView: React.FC= ({}) => {
                     <TableBody>
                       {
                         itemsResults?.length > 0 ? (
-                          itemsResults?.map((group: any) => (
-                            <TableRow key={group.id} >
+                          itemsResults?.map((group: any, index: any) => (
+                            <TableRow key={group.id || index}>
 
                               < TableCell >
                                 <Typography
@@ -160,7 +160,7 @@ const ComplianceGroupsView: React.FC= ({}) => {
                               </TableCell>
                               <TableCell>
                                 {/* cambiar el navigate por la ruta correct */}
-                                <IconButton color="primary" onClick={() => navigate('/vulnerabilities/web/wordpress/create')}>
+                                <IconButton color="primary" onClick={() => navigate(`/compliance/groups/edit/${group?.id}`)}>
                                   <EditIcon />
                                 </IconButton>
                                 <IconButton color="error" onClick={() => handleDelete(group['id'])}>

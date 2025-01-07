@@ -121,12 +121,12 @@ export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(getApiUrl(), newGroup);
     if (response.status >= 200 && response.status < 300) {
-      dispatch(fetchGroups(initialState.page, initialState.pageSize));
-      return response.data;
+      dispatch(addGroup(response.data));
     }
     else {
       console.error('Error creating group:', response);
       dispatch(setError('Failed to create group'));
+      throw 'Failed to create group'
     }
   } catch (err: any) {
     console.error('Error creating group:', err);
@@ -139,19 +139,12 @@ export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) =>
   try {
     const response = await axios.put(`${getApiUrl()}${updatedGroup.id}`, updatedGroup);
 
-    if (response.status >= 200 && response.status < 300) {
-      console.log('Asset updated successfully:', response.data);
-      dispatch(fetchGroups(0, 10));
+    if (response.status === 200) {
+      dispatch(editGroup({ data: response.data }));
     } else {
-      console.error('Error updating group:', response);
-      dispatch(setError('Failed to update group'));
+      dispatch(setError('Do not update group'));
     }
   } catch (err: any) {
-    if (err.response) {
-      console.error('Error response:', err.response);
-    } else {
-      console.error('Unexpected error:', err.message || err);
-    }
     dispatch(setError('Failed to update group'));
     throw err;
   }
