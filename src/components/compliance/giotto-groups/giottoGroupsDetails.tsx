@@ -1,5 +1,5 @@
 import ArrowBack from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Chip, Grid, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Chip, Grid, IconButton, Link, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
@@ -49,9 +49,9 @@ const GroupDetails: React.FC = ({ }) => {
             <Link component={RouterLink} color="inherit" to="/compliance/groups">
               {t('compliance_menu.compliance_groups')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/compliance/groups">
-              cambiar detalle por el nombre del grupo
-            </Link>
+            <Typography color="textPrimary">
+            {groupDetail?.name}
+              </Typography>
           </Breadcrumbs>
         </Box>
       </Box>

@@ -106,7 +106,7 @@ const ComplianceGroupsView: React.FC= ({}) => {
           title={t('compliance.groups_description')!}
           subtitle={t('compliance.groups_info')!}
           action={
-            < IconButton color="primary" onClick={() => navigate('/vulnerabilities/web/wordpress/create')}>
+            < IconButton color="primary" onClick={() => navigate('/compliance/groups/create')}>
               <AddIcon />
             </IconButton>
           }
