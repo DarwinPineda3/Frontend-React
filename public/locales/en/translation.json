@@ -1260,5 +1260,24 @@
     "changes": "Changes",
     "description": "All notable changes to this project will be documented in this file.",
     "format": "The format is based on Keep a Changelog and this project adheres to Semantic Versioning (SemVer)."
+  },
+  "templates": {
+    "baseTemplates": "Base Templates",
+    "customTemplates": "Custom Templates",
+    "template": "Template",
+    "system": "System",
+    "creationDate": "Creation Date",
+    "options": "Options",
+    "windowsServer": "Windows Server XYZ",
+    "windowsSystem": "Windows Server 2019-2022",
+    "linuxServer": "Linux Server XYZ",
+    "linuxSystem": "Linux Ubuntu 20.04"
+  },
+  "breadcrumbs": {
+    "compliance": "Compliance",
+    "templates": "Templates"
+  },
+  "snackbar": {
+    "reportGenerated": "Report successfully generated!"
   }
 }

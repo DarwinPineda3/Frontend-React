@@ -71,6 +71,7 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import TemplateListPage from 'src/views/compliance/TemplateListPage';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -405,6 +406,8 @@ const Router = [
       { path: '/compliance/groups', element: <ComplianceGroupsView /> },
       { path: '/compliance/projects', element: <ComplianceProjectsView /> },
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
+      { path: '/compliance/templates', element: <TemplateListPage /> },
+
     ],
   },
   {
