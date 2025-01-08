@@ -1,10 +1,33 @@
 import { ArrowBack } from '@mui/icons-material';
-import { Box, Breadcrumbs, Grid, Typography, Card, CardContent, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, IconButton, Link } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import GiottoExecutionDetail from 'src/components/compliance/executions/giotoExecutionDetail';
+import GiottoExecutionList from 'src/components/compliance/executions/giottoExecutionList';
 import PageContainer from 'src/components/container/PageContainer';
 
 const ComplianceExecutionsView = () => {
+  const { executionId } = useParams<{ executionId?: string }>();
+  const { assetId } = useParams<{ assetId?: string }>();
+
+  const [selectedExecution, setSelectedExecution] = useState<string | null>(null);
+  const [selectedAsset, setselectedAsset] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (assetId) {
+      setselectedAsset(assetId);
+    } else {
+      setselectedAsset(null);
+    }
+
+    if (executionId) {
+      setSelectedExecution(executionId);
+    } else {
+      setSelectedExecution(null);
+    }
+  });
+
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -22,26 +45,33 @@ const ComplianceExecutionsView = () => {
             <Link component={RouterLink} color="inherit" to="/compliance/executions">
               {t('compliance_menu.compliance_executions')}
             </Link>
+            {
+              selectedExecution != null && <Link component={RouterLink} color="inherit" to={`/compliance/executions/${executionId}`} >
+                {executionId}
+              </Link>
+            }
+            {
+              selectedAsset != null && <Link component={RouterLink} color="inherit" to={`/compliance/executions/${executionId}/assets/${assetId}`} >
+                {assetId}
+              </Link>
+            }
           </Breadcrumbs>
         </Box>
       </Box>
+      {
+        selectedExecution == null ? <GiottoExecutionList onScanClick={(id) => {
+          navigate(`/compliance/executions/${id}`);
+        }} /> :
+          <GiottoExecutionDetail scanId={selectedExecution} assetId={selectedAsset}
+            onAssetClick={
+              (assetId) => {
+                navigate(`/compliance/executions/${selectedExecution}/assets/${assetId}`);
+              }
+            } />
+      }
 
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">
-                {t('compliance.executions_description')}
-              </Typography>
-
-              <Typography variant="body1">
-                {t('compliance.executions_info')}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
     </PageContainer>
+
   );
 };
 

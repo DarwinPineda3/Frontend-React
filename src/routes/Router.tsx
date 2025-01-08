@@ -406,6 +406,8 @@ const Router = [
       { path: '/compliance/groups', element: <ComplianceGroupsView /> },
       { path: '/compliance/projects', element: <ComplianceProjectsView /> },
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
+      { path: '/compliance/executions/:executionId', element: <ComplianceExecutionsView /> },
+      { path: '/compliance/executions/:executionId/assets/:assetId', element: <ComplianceExecutionsView /> },
     ],
   },
   {
