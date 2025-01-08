@@ -137,10 +137,10 @@ export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
 
 export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.put(`${getApiUrl()}${updatedGroup.id}`, updatedGroup);
+    const response = await axios.put(`${getApiUrl()}${updatedGroup.id}/`, updatedGroup);
 
     if (response.status === 200) {
-      dispatch(editGroup({ data: response.data }));
+      dispatch(updateGroup({ data: response.data }));
     } else {
       dispatch(setError('Do not update group'));
     }

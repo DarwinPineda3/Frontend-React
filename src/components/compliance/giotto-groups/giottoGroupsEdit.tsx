@@ -69,7 +69,7 @@ const EditGiottoGroup: React.FC = () => {
     fetchData();
   }, [dispatch]);
 
-  // Actualizamos los valores del formulario y listas seleccionadas cuando `groupDetail` cambia
+
   useEffect(() => {
     if (groupDetail) {
       formik.setValues({
@@ -101,33 +101,48 @@ const EditGiottoGroup: React.FC = () => {
       description: Yup.string().nullable(),
     }),
     onSubmit: async (values) => {
-      const updatedGroup = {
-        id: groupId,
-        name: values.name,
-        description: values.description,
-        templates: selectedTemplates,
-        assets: selectedAssets,
+
+      const originalAssetIds = groupDetail.assets.map((asset: any) => asset.id);
+      const originalTemplateIds = groupDetail.templates.map((template: any) => template.id);
+
+      const currentAssetIds = selectedAssets;
+      const currentTemplateIds = selectedTemplates;
+
+      const addedAssets = currentAssetIds.filter((id) => !originalAssetIds.includes(id));
+      const addedTemplates = currentTemplateIds.filter((id) => !originalTemplateIds.includes(id));
+
+      const removedAssets = originalAssetIds.filter((id) => !currentAssetIds.includes(id));
+      const removedTemplates = originalTemplateIds.filter((id) => !currentTemplateIds.includes(id));
+
+      const payload = {
+        id: 1,
+        name: formik.values.name,
+        description: formik.values.description,
+        addedAssets,
+        addedTemplates,
+        removedAssets,
+        removedTemplates,
       };
+
 
       try {
         setIsLoading(true);
-        await dispatch(editGroup(updatedGroup));
+        await dispatch(editGroup(payload));
         setIsLoading(false);
-        // navigate('/compliance/groups', {
-        //   state: {
-        //     message: t('wpscan.scan_created_successfully') || '',
-        //     severity: 'success',
-        //   },
-        // });
+        navigate('/compliance/groups', {
+          state: {
+            message: t('wpscan.scan_created_successfully') || '',
+            severity: 'success',
+          },
+        });
       } catch (error: any) {
-        // navigate('/compliance/groups', {
-        //   state: {
-        //     message: error,
-        //     severity: 'error',
-        //   },
-        // });
-        console.log("aquí");
-        
+        navigate('/compliance/groups', {
+          state: {
+            message: error,
+            severity: 'error',
+          },
+        });
+
       }
     },
   });
