@@ -2,7 +2,7 @@ import { ArrowBack } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Link, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { fetchGroups, removeGroup, setPage } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
-const ComplianceGroupsView: React.FC= ({}) => {
+const ComplianceGroupsView: React.FC = ({ }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,24 +28,22 @@ const ComplianceGroupsView: React.FC= ({}) => {
   const loading = useSelector((state: any) => state.giottoGroupReducer.loading);
 
   const itemsResults = useSelector((state: any) => state.giottoGroupReducer.itemsResults);
-  const currentPage = useSelector((state: any) => state.giottoGroupReducer.page);
-  const totalPages = useSelector((state: any) => state.giottoGroupReducer.totalPages);
+  const page = useSelector((state: any) => state.giottoGroupReducer.page);
   const pageSize = useSelector((state: any) => state.giottoGroupReducer.pageSize);
+  const totalItemsAmount = useSelector((state: any) => state.giottoGroupReducer.totalItemsAmount);
 
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== currentPage) {
+    if (page !== page) {
       dispatch(setPage(page));
     }
   };
 
   React.useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      await dispatch(fetchGroups(currentPage, pageSize));
-      setIsLoading(false);
+      await dispatch(fetchGroups(page, pageSize));
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, page]);
 
   const handleDelete = (id: string) => {
     setGroupToDelete(id);
@@ -186,7 +184,7 @@ const ComplianceGroupsView: React.FC= ({}) => {
                                   variant="body2"
                                   color="primary"
                                   component="a"
-                                  onClick={() => navigate('/vulnerabilities/cloud/create')}
+                                  onClick={() => navigate('/compliance/groups/create')}
                                   style={{
                                     cursor: 'pointer',
                                     textDecoration: 'underline',
@@ -202,7 +200,15 @@ const ComplianceGroupsView: React.FC= ({}) => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                  component="div"
+                  count={totalItemsAmount}
+                  rowsPerPage={pageSize}
+                  page={page - 1}
+                  onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+                  onRowsPerPageChange={(e) => dispatch(fetchGroups(page, pageSize))}
+                />
               </Grid>
             </Grid>
 

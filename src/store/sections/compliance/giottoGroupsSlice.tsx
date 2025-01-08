@@ -21,7 +21,7 @@ interface StateType {
 
 const initialState: StateType = {
   totalItemsAmount: 0,
-  pageSize: 10,
+  pageSize: 25,
   totalPages: 1,
   itemsResults: [],
   page: 1,
@@ -36,7 +36,7 @@ export const GiottoGroupSlice = createSlice({
   reducers: {
     getGroups: (state, action) => {
       state.itemsResults = Array.isArray(action.payload.results) ? action.payload.results : [];
-      state.page = action.payload.currentPage;
+      state.page = action.payload.page;
       state.totalPages = action.payload.totalPages;
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
@@ -85,15 +85,17 @@ export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 1
       pageSize,
       totalPages,
       itemsResult,
-      currentPage
+      currentPage,
+      page
     } = response.data;
-    // console.log(response.data);
+    console.log(response.data);
     dispatch(getGroups({
       results: itemsResult,
       currentPage,
       totalPages,
       totalItemsAmount,
-      pageSize
+      pageSize,
+      page
     }));
     dispatch(setLoading(false));
   } catch (err: any) {
@@ -140,7 +142,7 @@ export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) =>
     const response = await axios.put(`${getApiUrl()}${updatedGroup.id}/`, updatedGroup);
 
     if (response.status === 200) {
-      dispatch(updateGroup({ data: response.data }));
+      dispatch(editGroup({ data: response.data }));
     } else {
       dispatch(setError('Do not update group'));
     }
