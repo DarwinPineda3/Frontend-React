@@ -37,6 +37,9 @@ export const AssetsSlice = createSlice({
       state.totalPages = action.payload.totalPages;
       state.pageSize = action.payload.pageSize;
     },
+    getFilteredAssets: (state, action) => {
+      state.assets = Array.isArray(action.payload.results) ? action.payload.results : [];
+    },
     addAsset: (state, action) => {
       state.assets.push(action.payload);
     },
@@ -61,7 +64,7 @@ export const AssetsSlice = createSlice({
   }
 });
 
-export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading } = AssetsSlice.actions;
+export const { getAssets, getFilteredAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading } = AssetsSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
 export const fetchAssets = (requestedPage: number, pageSize: number = 10) => async (dispatch: AppDispatch) => {
@@ -87,18 +90,23 @@ export const fetchAssets = (requestedPage: number, pageSize: number = 10) => asy
   }
 };
 
-export const fetchAssetsWitURL = (page = 1) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrl()}getAsssetsWithURL/`);
-    const { results } = response.data;
+export const fetchFilteredAssets = (filters: { url?: boolean; ip?: boolean; domain?: boolean }) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const params = new URLSearchParams();
+      if (filters.url) params.append("url", "true");
+      if (filters.ip) params.append("ip", "true");
+      if (filters.domain) params.append("domain", "true");
 
-    const totalPages = Math.ceil(results.length / 10);
-    dispatch(getAssets({ results, currentPage: page, totalPages }));
-  } catch (err: any) {
-    console.error('Error fetching assets:', err);
-    dispatch(setError('Failed to fetch assets'));
-  }
-};
+      const response = await axios.get(`${getApiUrl()}filtered/?${params.toString()}/`);
+      const { results } = response.data;
+
+      dispatch(getFilteredAssets({ results }));
+    } catch (err: any) {
+      console.error('Error fetching assets:', err);
+      dispatch(setError('Failed to fetch assets'));
+    }
+  };
 
 // Async thunk for creating a new asset (CREATE)
 export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch) => {

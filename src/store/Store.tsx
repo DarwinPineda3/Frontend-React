@@ -33,6 +33,7 @@ import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
+import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
@@ -88,7 +89,8 @@ export const store = configureStore({
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
     GiottoAssetsReducer: GiottoAssetsReducer,
-    GiottoExecutionsReducer: GiottoExecutionsReducer
+    GiottoExecutionsReducer: GiottoExecutionsReducer,
+    networkConfigurationReducer: NetworkConfigurationReducer,
   },
 });
 
@@ -121,7 +123,8 @@ const rootReducer = combineReducers({
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
   GiottoAssetsReducer: GiottoAssetsReducer,
-  GiottoExecutionsReducer: GiottoExecutionsReducer
+  GiottoExecutionsReducer: GiottoExecutionsReducer,
+  networkConfigurationReducer: NetworkConfigurationReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

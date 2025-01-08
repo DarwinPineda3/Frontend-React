@@ -12,6 +12,8 @@ interface StateType {
   wpscan: any | null;
   page: number;
   totalPages: number;
+  // loading: boolean;
+  pageSize: number;
   error: string | null;
   isLoading: boolean;
 }
@@ -21,6 +23,8 @@ const initialState: StateType = {
   wpscan: null,
   page: 1,
   totalPages: 1,
+  pageSize: 10,
+  // loading: false,
   error: null,
   isLoading: false,
 };
@@ -30,7 +34,7 @@ export const WPScanSlice = createSlice({
   initialState,
   reducers: {
     getWPScans: (state, action) => {
-      state.wpscans = Array.isArray(action.payload.wpscans) ? action.payload.wpscans : [];
+      state.wpscans = Array.isArray(action.payload.results) ? action.payload.results : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
       state.isLoading = false;
@@ -60,21 +64,30 @@ export const WPScanSlice = createSlice({
 
 export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError, setLoading } = WPScanSlice.actions;
 
-export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrl()}`);
-
-    const totalPages = Math.ceil(response.data.length / 10);
-    dispatch(getWPScans({ wpscans: response.data, currentPage: page, totalPages }));
-  } catch (err: any) {
-    console.error('Error fetching wpscans:', err);
-    dispatch(setError('Failed to fetch wpscans'));
-  }
-};
+export const fetchWPScans = (
+    requestedPage = 1,
+    pageSize = 10
+  ) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+        if (pageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
+        const wpscans = response.data;
+        const { results, page, totalPages } = wpscans;
+        dispatch(getWPScans({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching wpscans:', err);
+      dispatch(setError('Failed to fetch wpscans'));
+    }
+  };
 
 
 export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   try {
     const response = await axios.get(`${getApiUrl()}${wpscanId}/`);
 
@@ -83,6 +96,7 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
     } else {
       dispatch(setError('fetch WPScan not found'));
     }
+    dispatch(setLoading(false));
   } catch (err: any) {
     console.error('Error fetching WPScan detail:', err);
     dispatch(setError('Failed to fetch WPScan detail'));
@@ -129,7 +143,7 @@ export const downloadWPScanReport = (id: string) => async (dispatch: AppDispatch
 };
 
 export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   try {
     const response = await axios.delete(`${getApiUrl()}${wpscanId}/`);
 
@@ -139,6 +153,7 @@ export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) 
       dispatch(setError('Failed to delete WPScan'));
       throw new Error('Failed to delete WPScan');
     }
+    dispatch(setLoading(false));
   } catch (err: any) {
     dispatch(setError('Failed to delete WPScan'));
     throw err.response.data;
