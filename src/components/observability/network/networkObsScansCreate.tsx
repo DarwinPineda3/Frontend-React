@@ -1,15 +1,15 @@
 import { Box, Button, CircularProgress, Grid, MenuItem, Select, useTheme } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { createNetworkObservabilityScan } from 'src/store/observability/ObservabilityNetworkSlice';
-import { useDispatch } from 'src/store/Store';
-import { ResponseData, ScanConfig } from 'src/types/vulnerabilities/network/networkScansType';
+import { fetchFilteredAssets } from 'src/store/sections/AssetsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { ScanConfig } from 'src/types/vulnerabilities/network/networkScansType';
 import * as Yup from 'yup';
 
 interface Props {
-  networkScanCreate: ResponseData;
   onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
 }
 
@@ -21,12 +21,20 @@ const configs = [
   { id: 'ports_udp_tcp', name: 'Port scanning with TCP services' },
 ];
 
-const NetworkObsScansCreate: React.FC<Props> = ({ networkScanCreate, onSubmit }) => {
+const NetworkObsScansCreate: React.FC<Props> = ({ onSubmit }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const theme = useTheme();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const assets = useSelector((state: any) => state.assetsReducer.assets);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchFilteredAssets({ ip: true, domain: true }));
+    };
+    fetchData();
+  }, [dispatch]);
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -86,7 +94,7 @@ const NetworkObsScansCreate: React.FC<Props> = ({ networkScanCreate, onSubmit })
               <MenuItem value="" disabled>
                 {t('vulnerabilities.network_vulnerabilities.scan_target')}
               </MenuItem>
-              {networkScanCreate.assets.map((asset) => (
+              {assets?.map((asset: any) => (
                 <MenuItem key={asset.id} value={asset.id}>
                   {asset.name} ({asset.ip || asset.domain || asset.url})
                 </MenuItem>
