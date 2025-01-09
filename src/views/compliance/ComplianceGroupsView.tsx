@@ -3,9 +3,9 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Link, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
@@ -17,6 +17,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [groupToDelete, setGroupToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -24,6 +25,11 @@ const ComplianceGroupsView: React.FC = ({ }) => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
   >('success');
+  const [snackBarInfo, setSnackBarInfo] = useState<{
+    color: 'error' | 'warning' | 'info' | 'success';
+    title: string;
+    message: string;
+  } | null>(null);
   const loading = useSelector((state: any) => state.giottoGroupReducer.loading);
 
   const itemsResults = useSelector((state: any) => state.giottoGroupReducer.itemsResults);
@@ -43,6 +49,17 @@ const ComplianceGroupsView: React.FC = ({ }) => {
     };
     fetchData();
   }, [dispatch, page]);
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setSnackBarInfo({
+        color: location.state.severity || 'success',
+        title: location.state.title || 'Info',
+        message: location.state.message,
+      });
+    }
+
+  }, [location.state]);
 
   const handleDelete = (id: string) => {
     setGroupToDelete(id);
@@ -234,6 +251,14 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                 title={snackbarSeverity === 'success' ? 'Success' : 'Error'}
                 message={snackbarMessage}
                 onClose={() => setSnackbarOpen(false)}
+              />
+            )}
+
+            {snackBarInfo && (
+              <SnackBarInfo
+                color={snackBarInfo.color}
+                title={snackBarInfo.title}
+                message={snackBarInfo.message}
               />
             )}
           </>

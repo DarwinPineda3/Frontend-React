@@ -1287,6 +1287,7 @@
       "asset_name": "Nombre del activo",
       "name_required": "El nombre es requerido",
       "group_created_successfully": "Grupo creado exitosamente",
+      "group_edited_successfully": "Group edited successfully",
       "edit_group": "Editar grupo"
     }
   }

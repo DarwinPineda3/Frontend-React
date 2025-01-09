@@ -1290,6 +1290,7 @@
       "asset_name": "Asset name",
       "name_required": "Name is required",
       "group_created_successfully": "Group created successfully",
+      "group_edited_successfully": "Group edited successfully",
       "edit_group": "Edit group"
     }
   }
