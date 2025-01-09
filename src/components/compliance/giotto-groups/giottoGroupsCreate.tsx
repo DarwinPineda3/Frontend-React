@@ -74,7 +74,7 @@ const CreateGiottoGroup: React.FC = ({ }) => {
       description: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required'),
+      name: Yup.string().required(t('giotto.groups.name_required')!),
       description: Yup.string().nullable(),
     }),
     onSubmit: async (values) => {
@@ -91,7 +91,7 @@ const CreateGiottoGroup: React.FC = ({ }) => {
         setIsLoading(false);
         navigate('/compliance/groups', {
           state: {
-            message: t('wpscan.scan_created_successfully') || '',
+            message: t('giotto.groups.group_created_successfully') || '',
             severity: 'success',
           },
         });

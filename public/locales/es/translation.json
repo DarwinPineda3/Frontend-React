@@ -1283,7 +1283,9 @@
       "operation_status": "Estado de la Operación",
       "select": "Seleccionar",
       "template_name": "Nombre de la plantilla",
-      "asset_name": "Nombre del activo"
+      "asset_name": "Nombre del activo",
+      "name_required": "El nombre es requerido",
+      "group_created_successfully": "Grupo creado exitosamente"
     }
   }
 }

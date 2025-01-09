@@ -1286,7 +1286,9 @@
       "operation_status": "Operation Status",
       "select": "Select",
       "template_name": "Template name",
-      "asset_name": "Asset name"
+      "asset_name": "Asset name",
+      "name_required": "Name is required",
+      "group_created_successfully": "Group created successfully"
     }
   }
 }
