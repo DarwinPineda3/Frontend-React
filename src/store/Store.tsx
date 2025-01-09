@@ -7,6 +7,7 @@ import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
+import GiottoProjectsReducer from './sections/compliance/giottoProjectsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
@@ -31,11 +32,11 @@ import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
+import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
-import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
+import WPScanReducer from './vulnerabilities/web/WPScanSlice';
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
-import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 
 import {
   TypedUseSelectorHook,
@@ -54,7 +55,7 @@ const dashboardReducer = combineReducers({
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
-  sentimentsSumaryReducer: SentimentsSumaryReducer
+  sentimentsSumaryReducer: SentimentsSumaryReducer,
 });
 
 export const store = configureStore({
@@ -87,6 +88,7 @@ export const store = configureStore({
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
+    giottoProjectsReducer: GiottoProjectsReducer,
   },
 });
 
@@ -119,10 +121,11 @@ const rootReducer = combineReducers({
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
+  giottoProjectsReducer: GiottoProjectsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const { } = store;
+export const {} = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;

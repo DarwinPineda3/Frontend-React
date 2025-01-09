@@ -27,6 +27,7 @@ import {
   setPage,
   setPageSize,
 } from 'src/store/sections/compliance/giottoProjectsSlice';
+import { ComplianceGroupListType } from 'src/types/giotto/ComplianceProjectType';
 import * as Yup from 'yup';
 
 const steps = ['Basic Information', 'Goups'];
