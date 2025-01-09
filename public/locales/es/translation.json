@@ -1257,5 +1257,26 @@
     "changes": "Cambios",
     "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
     "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
+  },
+  "compliance_projects": {
+    "project_name": "Nombre del Proyecto",
+    "projects_description": "Descripción del Proyecto",
+    "project_create": "Crear Proyecto",
+    "project_create_description": "En este formulario puede crear un proyecto de cumplimiento",
+    "project_start_date": "Fecha de Inicio",
+    "project_end_date": "Fecha de Fin",
+    "no_data_available": "No hay datos disponibles",
+    "project_created": "Proyecto Creado",
+    "project_details": "Detalles del Proyecto",
+    "project_template": "Plantilla",
+    "project_managers_title": "Managers",
+    "project_manager_username": "Nombre de Usuario",
+    "project_manager_full_name": "Nombre Completo",
+    "project_manager_email": "Correo",
+    "project_group_title": "Grupos",
+    "project_delete_title": "Eliminar Proyecto",
+    "project_delete_message": "¿Está seguro de que desea eliminar este proyecto?",
+    "project_cancel": "Cancelar",
+    "project_confirm": "Confirmar"
   }
 }
