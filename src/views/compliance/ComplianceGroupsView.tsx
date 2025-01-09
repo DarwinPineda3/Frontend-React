@@ -52,11 +52,9 @@ const ComplianceGroupsView: React.FC = ({ }) => {
 
   useEffect(() => {
     if (location.state?.message) {
-      setSnackBarInfo({
-        color: location.state.severity || 'success',
-        title: location.state.title || 'Info',
-        message: location.state.message,
-      });
+      setSnackbarMessage(location.state.message);
+      setSnackbarSeverity(location.state.severity || 'success');
+      setSnackbarOpen(true);
     }
 
   }, [location.state]);
@@ -70,7 +68,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
     if (groupToDelete !== null) {
       try {
         await dispatch(removeGroup(groupToDelete));
-        setSnackbarMessage(t('giotto.group.group_deleted_successfully') || '');
+        setSnackbarMessage(t('giotto.groups.group_deleted_successfully') || '');
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } catch (error: any) {
@@ -173,7 +171,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                 </Box>
                               </TableCell>
                               <TableCell>
-                                {/* cambiar el navigate por la ruta correct */}
                                 <IconButton color="primary" onClick={() => navigate(`/compliance/groups/edit/${group?.id}`)}>
                                   <EditIcon />
                                 </IconButton>
@@ -254,13 +251,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
               />
             )}
 
-            {snackBarInfo && (
-              <SnackBarInfo
-                color={snackBarInfo.color}
-                title={snackBarInfo.title}
-                message={snackBarInfo.message}
-              />
-            )}
           </>
         </DashboardCard>
       </>

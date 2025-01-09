@@ -1291,6 +1291,7 @@
       "name_required": "Name is required",
       "group_created_successfully": "Group created successfully",
       "group_edited_successfully": "Group edited successfully",
+      "group_deleted_successfully": "Group removed successfully",
       "edit_group": "Edit group"
     }
   }
