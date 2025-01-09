@@ -7,6 +7,7 @@ import {
   Grid,
   IconButton,
   Link,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -45,12 +46,12 @@ const CreateGiottoGroup: React.FC = ({ }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const templatesList: Template[] = Array.from({ length: 5 }, (_, index) => ({
+  const templatesList: Template[] = Array.from({ length: 17 }, (_, index) => ({
     id: index + 1,
     name: `Template ${index + 1}`,
   }));
 
-  const assetsList: Asset[] = Array.from({ length: 5 }, (_, index) => ({
+  const assetsList: Asset[] = Array.from({ length: 11 }, (_, index) => ({
     id: index + 1,
     name: `Asset ${index + 1}`,
   }));
@@ -108,6 +109,31 @@ const CreateGiottoGroup: React.FC = ({ }) => {
 
     },
   });
+
+  const paginatedT = 5;
+  const [currentPageT, setCurrentPageT] = useState(1);
+  const totalPagesT = Math.ceil(templatesList?.length / paginatedT);
+
+  const handlePageChangeT = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPageT(page);
+  };
+
+  const templatesPaginated = templatesList?.slice(
+    (currentPageT - 1) * paginatedT,
+    currentPageT * paginatedT
+  );
+  const paginatedA = 5;
+  const [currentPageA, setCurrentPageA] = useState(1);
+  const totalPagesA = Math.ceil(assetsList?.length / paginatedA);
+
+  const handlePageChangeA = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPageA(page);
+  };
+
+  const assetsPaginated = assetsList?.slice(
+    (currentPageA - 1) * paginatedA,
+    currentPageA * paginatedA
+  );
 
   return (
     <PageContainer>
@@ -185,7 +211,7 @@ const CreateGiottoGroup: React.FC = ({ }) => {
                                 </TableRow>
                               </TableHead>
                               <TableBody>
-                                {templatesList.map((template) => (
+                                {templatesPaginated.map((template) => (
                                   <TableRow key={template.id}>
                                     <TableCell>
                                       <Checkbox
@@ -200,6 +226,16 @@ const CreateGiottoGroup: React.FC = ({ }) => {
                                 ))}
                               </TableBody>
                             </Table>
+                            <Box my={3} display="flex" justifyContent="center">
+                              {totalPagesT > 0 && (
+                                <Pagination
+                                  count={totalPagesT}
+                                  color="primary"
+                                  page={currentPageT}
+                                  onChange={handlePageChangeT}
+                                />
+                              )}
+                            </Box>
                           </TableContainer>
                         </DashboardCard>
                       </Grid>
@@ -215,7 +251,7 @@ const CreateGiottoGroup: React.FC = ({ }) => {
                                 </TableRow>
                               </TableHead>
                               <TableBody>
-                                {assetsList.map((asset) => (
+                                {assetsPaginated.map((asset) => (
                                   <TableRow key={asset.id}>
                                     <TableCell>
                                       <Checkbox
@@ -230,6 +266,16 @@ const CreateGiottoGroup: React.FC = ({ }) => {
                                 ))}
                               </TableBody>
                             </Table>
+                            <Box my={3} display="flex" justifyContent="center">
+                              {totalPagesA > 0 && (
+                                <Pagination
+                                  count={totalPagesA}
+                                  color="primary"
+                                  page={currentPageA}
+                                  onChange={handlePageChangeA}
+                                />
+                              )}
+                            </Box>
                           </TableContainer>
                         </DashboardCard>
                       </Grid>
