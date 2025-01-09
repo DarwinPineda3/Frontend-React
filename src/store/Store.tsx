@@ -15,7 +15,7 @@ import AssetsStatus from './sections/dashboard/AssetStatusSlice';
 import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
 import OrgBreachesSlice from './sections/dashboard/OrgBreachesSlice';
 import RecentEvents from './sections/dashboard/RecentEventsSlice';
-import RevenueUpdatesReducer from './sections/dashboard/RevenueUpdatesSlice';
+import RedTeamUpdatesReducer from './sections/dashboard/RedTeamUpdatesSlice';
 import SentimentsSumaryReducer from './sections/dashboard/SentimentHistorySlice';
 import TopCardsReducer from './sections/dashboard/TopCardsSlice';
 import TopVulneravilitesReducer from './sections/dashboard/TopVulnerabilitiesSlice';
@@ -35,6 +35,7 @@ import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
+import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 
 import {
   TypedUseSelectorHook,
@@ -46,14 +47,14 @@ import { combineReducers } from 'redux';
 const dashboardReducer = combineReducers({
   topCards: TopCardsReducer,
   vulnerabilities: TopVulneravilitesReducer,
-  revenueUpdates: RevenueUpdatesReducer,
+  redTeamUpdates: RedTeamUpdatesReducer,
   hosts: HostsUpdatesReducer,
   assetStatus: AssetsStatus,
   alertDistribution: AlertDistribution,
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
-  sentimentsSumaryReducer: SentimentsSumaryReducer,
+  sentimentsSumaryReducer: SentimentsSumaryReducer
 });
 
 export const store = configureStore({
@@ -85,6 +86,7 @@ export const store = configureStore({
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
+    networkConfigurationReducer: NetworkConfigurationReducer,
   },
 });
 
@@ -115,7 +117,8 @@ const rootReducer = combineReducers({
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   ThresholdSlice: ThresholdSlice,
-  ObservedAssetsReducer: ObservedAssetsReducer
+  ObservedAssetsReducer: ObservedAssetsReducer,
+  networkConfigurationReducer: NetworkConfigurationReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

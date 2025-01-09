@@ -2,14 +2,14 @@ import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,19 +28,20 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   const newsletters = useSelector((state: any) => state.newsLettersReducer.newsletters);
   const currentPage = useSelector((state: any) => state.newsLettersReducer.page);
   const totalPages = useSelector((state: any) => state.newsLettersReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.cloudInventoryReducer.pageSize);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchNewsletters(currentPage));
+      await dispatch(fetchNewsletters(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
   }, [dispatch, currentPage]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -51,7 +52,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   };
 
   return (
-    <DashboardCard title={t('newsletter.newsletters')} subtitle={t('newsletter.newsletters_list')}>
+    <DashboardCard title={t('newsletter.newsletters')!} subtitle={t('newsletter.newsletters_list')!}>
       <Box>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -86,7 +87,8 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {newsletters.map((newsletter: any, index: number) => (
+
+                  {newsletters?.map((newsletter: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell>
                         <Typography
@@ -120,14 +122,15 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
+              onRowsPerPageChange={(e: any) => dispatch(fetchNewsletters(currentPage, e.target.value))}
+            />
           </>
         )}
       </Box>

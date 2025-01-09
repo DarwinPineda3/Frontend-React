@@ -68,7 +68,6 @@ const ThresholdSettings: React.FC = () => {
     dispatch(updateThresholdSettings(
       data,
       () => {
-        console.log('Threshold settings updated successfully');
         setSnackbarOpen(true);
       }
     ));

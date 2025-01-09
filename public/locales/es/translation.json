@@ -50,6 +50,7 @@
     "redteam": "RedTeam"
   },
   "dashboard": {
+    "page_size": "Tamaño de página",
     "montly_distribution": "Distribución mensual",
     "connected_assets": "Activos conectados",
     "disconnected_assets": "Activos desconectados",
@@ -340,11 +341,12 @@
     "not_available": "No disponible",
     "network_scan_deleted_successfully": "El escaneo de red se ha eliminado correctamente",
     "network_scan_report_deleted_successfully": "El reporte de escaneo de red se ha eliminado correctamente",
-    "scan_started_successfully": "El escaneo de red se ha iniciado exitosamente",
+    "scan_started_successfully": "El escaneo de red se ha iniciado con éxito. El informe estará disponible una vez que finalice",
     "scan_stopped_successfully": "El escaneo de red se ha detenido exitosamente",
     "scan_resumed_successfully": "El escaneo de red se ha reanudado con éxito",
     "scan_failed": "Se produjo un error al ejecutar esta acción.",
     "no_data_available": "No hay datos disponibles",
+    "create_scan_here": "Crea un escaneo aquí",
     "management": {
       "vulnerabilities": "Vulnerabilidades",
       "management": "Gestión",
@@ -428,12 +430,30 @@
       "scan_target": "Objetivo del escaneo",
       "scan_config": "Configuración del escaneo",
       "create_scan": "Crear escaneo",
-      "you_can_create_an_asset": "Puedes crear un activo (Objetivo)",
+      "you_can_create_an_asset": "Puedes crear un activo (objetivo)",
       "here": "aquí",
       "network_scan_create_successfully": "Escaneo de red creado exitosamente",
       "network_scan_create_failed": "Error al crear el escaneo de red",
       "required_field": "Campo requerido",
-      "network_scan_created": "Escaneo de red creado"
+      "network_scan_created": "Escaneo de red creado",
+      "start_network_scan": "Inicie el escaneo de red haciendo clic aquí."
+    },
+    "web_app": {
+      "network": "Red",
+      "add_scan": "Añadir escaneo",
+      "create_network_scan": "Crear escaneo de aplicación web",
+      "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de aplicación web",
+      "name": "Nombre",
+      "comment": "Comentario",
+      "scan_target": "Objetivo de escaneo",
+      "scan_config": "Configuración de escaneo",
+      "create_scan": "Crear escaneo",
+      "you_can_create_an_asset": "Puedes crear un activo (Objetivo)",
+      "here": "aquí",
+      "network_scan_create_successfully": "Escaneo de aplicación web creado con éxito",
+      "network_scan_create_failed": "Error al crear el escaneo de aplicación web",
+      "required_field": "Campo requerido",
+      "network_scan_created": "Escaneo de aplicación web creado"
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -459,6 +479,8 @@
     }
   },
   "observability": {
+    "delete_scan": "Eliminar escaneo",
+    "delete_scan_warning": "¿Estás seguro de que deseas eliminar este escaneo de forma permanente?",
     "threshold_updated_successfully": "Umbral actualizado correctamente",
     "threshold_updated_error": "Error al actualizar el umbral",
     "threshold_settings": "Configuración de umbral",
@@ -597,6 +619,16 @@
     "network_scans": "Escaneos de observabilidad de red",
     "host_table": "Tabla de Hosts",
     "host": "Host",
+    "start_date": "Fecha de inicio",
+    "end_date": "Fecha de fin",
+    "date_error_end_before_start": "La fecha de fin no puede ser anterior a la fecha de inicio",
+    "date_range_selection_error": "Por favor selecciona ambos rangos de fecha",
+    "invalid_date": "Fecha inválida. Asegúrese de que la fecha sea válida.",
+    "search": "Buscar",
+    "datetime": "Fecha y hora",
+    "no_data_available_for_selected_date": "No hay datos disponibles para el rango de fechas seleccionado.",
+    "no_data_available_for_chart": "No hay datos disponibles para este gráfico.",
+    "file_system": "Sistema de archivos",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",
@@ -616,7 +648,6 @@
       "observability": "Observabilidad",
       "cloud": "Cloud",
       "create_cloud_scan": "Crear escaneo cloud"
-
     }
   },
   "monitoring": {
@@ -926,9 +957,9 @@
     "impact": "Impacto",
     "probability_of_occurrence": "Probabilidad de ocurrencia",
     "exploitable": "Explotable",
-    "Overview":"Visión general",
-    "Vulnerabilities":"Vulnerabilidades",
-    "evidences":"Evidencias"
+    "Overview": "Visión general",
+    "Vulnerabilities": "Vulnerabilidades",
+    "evidences": "Evidencias"
   },
   "installation_guide": {
     "title": "Guía de Instalación",
@@ -1002,7 +1033,8 @@
     "wordpress_vulnerability": "Escaneos vulnerabilidad WordPress",
     "network_observability": "Escaneos observabilidad Red",
     "create_task_link": "Debes crear un/a",
-    "task": "tarea"
+    "task": "tarea",
+    "scan_creation_message": "La creación de este escaneo puede tardar un poco."
   },
   "threshold": {
     "threshold_settings": "Configuración de Umbral"
@@ -1194,5 +1226,36 @@
     "close": "Cerrar",
     "scan_in_progress": "Escaneo en progreso",
     "error_msg": "No se pudo crear el escaneo. Por favor, verifica la configuración del activo."
+  },
+  "compliance_menu": {
+    "compliance": "Cumplimiento",
+    "compliance_assets": "Activos",
+    "compliance_groups": "Grupos",
+    "compliance_projects": "Proyectos",
+    "compliance_executions": "Ejecuciones"
+  },
+  "compliance": {
+    "assets_description": "Activos",
+    "assets_info": "Lista de todos los activos que están bajo gestión de cumplimiento.",
+    "groups_description": "Grupos",
+    "groups_info": "Aquí puedes gestionar los diferentes grupos de cumplimiento.",
+    "projects_description": "Proyectos",
+    "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
+    "executions_description": "Ejecuciones",
+    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento."
+  },
+  "changelog": {
+    "title": "Registro de cambios",
+    "added": "Añadido",
+    "changed": "Cambiado",
+    "deprecated": "Obsoleto",
+    "removed": "Eliminado",
+    "fixed": "Arreglado",
+    "security": "Seguridad",
+    "version": "Versión",
+    "date": "Fecha",
+    "changes": "Cambios",
+    "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
+    "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
   }
 }

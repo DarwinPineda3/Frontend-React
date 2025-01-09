@@ -1,41 +1,39 @@
-import React, { useEffect } from 'react';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
 import {
-  MenuItem,
-  Typography,
+  Box,
+  Chip,
+  IconButton,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  Chip,
-  TableContainer,
-  IconButton,
-  Box,
+  Typography
 } from '@mui/material';
-import CustomSelect from '../../forms/theme-elements/CustomSelect';
+import { IconEye } from '@tabler/icons-react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import { IconEye } from '@tabler/icons-react';
 
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchVulnerabilityReports } from 'src/store/sections/dashboard/TopVulnerabilitiesSlice';
-import { AppState } from 'src/store/Store';
-import { useTranslation } from 'react-i18next';
-import _ from 'lodash';
 import { useTheme } from '@mui/material/styles';
+import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import { fetchVulnerabilityReports } from 'src/store/sections/dashboard/TopVulnerabilitiesSlice';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const TopVulnerabilities = () => {
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, data, error } = useSelector((state: AppState) => state.dashboard.vulnerabilities);
 
-  const [month, setMonth] = React.useState('1');
   const currentYear = new Date().getFullYear();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMonth(event.target.value);
-  };
 
   useEffect(() => {
     dispatch(fetchVulnerabilityReports());
@@ -63,54 +61,59 @@ const TopVulnerabilities = () => {
   const noneColor = theme.palette.level.none;
 
   const getChipColor = (riskLevel: string) => {
-      switch (riskLevel) {
-        case 'critical':
-          return { color: criticalColor, label: t('monitoring.critical') };
-        case 'high':
-          return { color: highColor, label: t('monitoring.high') };
-        case 'medium':
-          return { color: mediumColor, label: t('monitoring.medium') };
-        case 'low':
-          return { color: lowColor, label: t('monitoring.low') };
-        default:
-          return { color: noneColor, label: 'N/A' };
-      }
+    switch (riskLevel) {
+      case 'critical':
+        return { color: criticalColor, label: t('monitoring.critical') };
+      case 'high':
+        return { color: highColor, label: t('monitoring.high') };
+      case 'medium':
+        return { color: mediumColor, label: t('monitoring.medium') };
+      case 'low':
+        return { color: lowColor, label: t('monitoring.low') };
+      default:
+        return { color: noneColor, label: 'N/A' };
+    }
   };
 
   const getChipColorSeverity = (severity: number) => {
     if (severity > 9.0) {
-        return { color: criticalColor};
+      return { color: criticalColor };
     } else if (severity > 7.0) {
-        return { color: highColor};
+      return { color: highColor };
     } else if (severity > 4.0) {
-        return { color: mediumColor};
+      return { color: mediumColor };
     } else if (severity > 0) {
-      return { color: lowColor};
+      return { color: lowColor };
     } else {
-        return { color: noneColor};
+      return { color: noneColor };
     }
   };
 
+
+  const handleViewReport = (id: string, tool: string) => {
+    let url = '';
+    if (tool === 'Network') {
+      url = `/vulnerabilities/network/scans/detail/${id}`;
+    } else if (tool === 'Web App') {
+      url = `/vulnerabilities/web/applications/${id}`;
+    } else if (tool === 'WordPress') {
+      url = `/vulnerabilities/web/wordpress/${id}`;
+    } else if (tool === 'Cloud') {
+      url = `/vulnerabilities/cloud/vulnerabilities/${id}`;
+    } else if (tool === 'Applications') {
+      url = `/vulnerabilities/web/applications/${id}`;
+    }
+    return url
+  };
+
+
   return (
     <DashboardCard
-      title={t("dashboard.vulnerability_reports")}
-      subtitle={t("dashboard.most_recent_scans")}
-      action={
-        <CustomSelect
-          labelId="month-dd"
-          id="month-dd"
-          size="small"
-          value={month}
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>{`${t("dashboard.march")} ${currentYear}`}</MenuItem>
-          <MenuItem value={2}>{`${t("dashboard.april")} ${currentYear}`}</MenuItem>
-          <MenuItem value={3}>{`${t("dashboard.may")} ${currentYear}`}</MenuItem>
-        </CustomSelect>
-      }
+      title={t("dashboard.vulnerability_reports")!}
+      subtitle={t("dashboard.most_recent_scans")!}
     >
       <TableContainer>
-        <Table aria-label="vulnerability report table" sx={{ whiteSpace: 'nowrap' }}>
+        <Table aria-label="vulnerability report table" sx={{ whiteSpace: 'wrap' }}>
           <TableHead>
             <TableRow>
               {['type', 'hosts', 'severity', 'name', 'date', 'tool', 'view_report', 'ai_assistant_solution'].map((key) => (
@@ -127,13 +130,13 @@ const TopVulnerabilities = () => {
               <TableRow key={report.id}>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                      <Chip
-                          label={getChipColor(_.lowerCase(report.type)).label}
-                          sx={{
-                            backgroundColor: getChipColor(_.lowerCase(report.type)).color,
-                            color: 'white',
-                          }}
-                      />
+                    <Chip
+                      label={getChipColor(_.lowerCase(report.type)).label}
+                      sx={{
+                        backgroundColor: getChipColor(_.lowerCase(report.type)).color,
+                        color: 'white',
+                      }}
+                    />
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -142,13 +145,13 @@ const TopVulnerabilities = () => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                    <Chip
-                          label={report.severity}
-                          sx={{
-                            backgroundColor: getChipColorSeverity(report.severity).color,
-                            color: 'white',
-                          }}
-                    />
+                  <Chip
+                    label={report.severity}
+                    sx={{
+                      backgroundColor: getChipColorSeverity(report.severity).color,
+                      color: 'white',
+                    }}
+                  />
                 </TableCell>
                 <TableCell>
                   <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
@@ -156,30 +159,30 @@ const TopVulnerabilities = () => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="subtitle2">{report.date}</Typography>
+                  <HumanizedDate dateString={report.date} />
+                  <Typography>{new Date(report.date).toLocaleDateString()}</Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">{report.tool}</Typography>
                 </TableCell>
                 <TableCell>
-                    <IconButton
-                        size="small"
-                        color="primary"
-                        href="#"
-                        target="_blank"
-                    >
-                        <IconEye />
-                    </IconButton>
+                  <IconButton
+                    size="small"
+                    color="primary"
+                    href={handleViewReport(report.id, report.tool)}
+                  >
+                    <IconEye />
+                  </IconButton>
                 </TableCell>
                 <TableCell>
-                    <IconButton
-                        size="small"
-                        color="primary"
-                        href="#"
-                        target="_blank"
-                        >
-                            <AutoAwesomeIcon />
-                    </IconButton>
+                  <IconButton
+                    size="small"
+                    color="primary"
+                    href="#"
+                    target="_blank"
+                  >
+                    <AutoAwesomeIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}

@@ -9,6 +9,7 @@ import {
   IconClockBolt,
   IconCloud,
   IconExternalLink,
+  IconFile,
   IconGauge,
   IconGitMerge,
   IconLink,
@@ -28,7 +29,9 @@ import {
   IconSquaresFilled,
   IconTicket,
   IconUserBolt,
-  IconUserShield
+  IconUserShield,
+  IconBox,
+  IconClipboardList
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -397,6 +400,41 @@ const Menuitems: MenuitemsType[] = [
     href: '/support/solutions',
     icon: IconNotebook,
   },
+
+  {
+    navlabel: true,
+    subheader: 'compliance_menu.compliance', // Translation key for subheader
+    permissions: ['Admin', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_assets', // Translation key for title
+    href: '/compliance/assets',
+    icon: IconShoppingCart, 
+    permissions: ['Admin', 'Compliance','Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_groups', // Translation key for title
+    href: '/compliance/groups',
+    icon: IconFile, 
+    permissions: ['Admin', 'Compliance','Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_projects', // Translation key for title
+    href: '/compliance/projects',
+    icon: IconBox, 
+    permissions: ['Admin', 'Compliance','Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_executions', // Translation key for title
+    href: '/compliance/executions',
+    icon: IconClipboardList,
+    permissions: ['Admin', 'Compliance','Scan360'],
+  },
+  
 ];
 
 export default Menuitems;

@@ -14,9 +14,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
-import NetworkScanCreateForm from 'src/components/vulnerabilities/network/networkScansCreate';
+import NetworkObsScansCreate from 'src/components/observability/network/networkObsScansCreate';
 
-const NetworkCreateScan = () => {
+const NetworkObservabilityCreateScan = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -24,6 +24,7 @@ const NetworkCreateScan = () => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
   >('success');
+
 
   const handleFormSubmit = (
     message: string,
@@ -41,21 +42,21 @@ const NetworkCreateScan = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
-              {t('vulnerabilities.vulnerabilities')}
+            <Link component={RouterLink} color="inherit" to="/observability/network">
+              {t('menu.observability')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
-              {t('vulnerabilities.network_vulnerabilities.network')}
+            <Link component={RouterLink} color="inherit" to="/observability/network">
+              {t('observability.network_scans')}
             </Link>
             <Typography color="textPrimary">
-              {t('vulnerabilities.network_vulnerabilities.add_scan')}
+              {t('dashboard.create')}
             </Typography>
           </Breadcrumbs>
         </Box>
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <NetworkScanCreateForm
+          <NetworkObsScansCreate
             onSubmit={handleFormSubmit}
           />
           <Grid item xs={12}>
@@ -65,10 +66,10 @@ const NetworkCreateScan = () => {
                 open={snackbarOpen}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 autoHideDuration={2000}
-                onClose={() => navigate(`/vulnerabilities/network/scans`)}
+                onClose={() => navigate(`/observability/network`)}
               >
                 <Alert
-                  onClose={() => navigate(`/vulnerabilities/network/scans`)}
+                  onClose={() => navigate(`/observability/network`)}
                   severity={snackbarSeverity}
                   variant="filled"
                   sx={{ width: '100%' }}
@@ -87,4 +88,4 @@ const NetworkCreateScan = () => {
   );
 };
 
-export default NetworkCreateScan;
+export default NetworkObservabilityCreateScan;

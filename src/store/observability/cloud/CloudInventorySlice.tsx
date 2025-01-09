@@ -14,6 +14,8 @@ interface StateType {
   fileContent: string | null;
   page: number;
   totalPages: number;
+  loading: boolean;
+  pageSize: number;
   error: string | null;
 }
 
@@ -23,6 +25,8 @@ const initialState: StateType = {
   fileContent: null,
   page: 1,
   totalPages: 1,
+  pageSize: 10,
+  loading: false,
   error: null,
 };
 
@@ -31,11 +35,12 @@ export const CloudInventorySlice = createSlice({
   initialState,
   reducers: {
     getCloudInventoryList: (state, action) => {
-      state.cloudInventoryList = Array.isArray(action.payload.cloudInventoryList)
-        ? action.payload.cloudInventoryList
+      state.cloudInventoryList = Array.isArray(action.payload.results)
+        ? action.payload.results
         : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
+      state.pageSize = action.payload.pageSize;
     },
     getCloudInventoryDetail: (state, action) => {
       state.cloudInventoryDetails = action.payload.data;
@@ -52,19 +57,29 @@ export const CloudInventorySlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    }
   },
 });
 
-export const { getCloudInventoryList, getCloudInventoryDetail, addCloudInventory, setFileContent, setPage, setError } = CloudInventorySlice.actions;
+export const { getCloudInventoryList, getCloudInventoryDetail, addCloudInventory, setFileContent, setPage, setError, setLoading } = CloudInventorySlice.actions;
 
 export const fetchCloudInventoryList =
-  (page = 1) =>
+  (requestedPage = 1,
+    pageSize = 10
+  ) =>
     async (dispatch: AppDispatch) => {
       try {
-        const response = await axios.get(`${getApiUrl()}`);
+        dispatch(setLoading(true));
+        if (pageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
         const cloudInventoryList = response.data;
-        const totalPages = Math.ceil(cloudInventoryList.length / 10);
-        dispatch(getCloudInventoryList({ cloudInventoryList, currentPage: page, totalPages }));
+        const { results, page, totalPages } = cloudInventoryList;
+        dispatch(getCloudInventoryList({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
       } catch (err: any) {
         console.error('Error fetching cloudInventoryList', err);
         dispatch(setError('Failed to fetch cloudInventoryList'));
@@ -103,9 +118,8 @@ export const createCloudInventory = (newCloudinventory: any) => async (dispatch:
     const response = await axios.post(getApiUrl(), formData);
     dispatch(addCloudInventory(response.data));
   } catch (err: any) {
-    dispatch(setError(err.response))
-    console.error('Error creating inventory:', err);
-    dispatch(setError('Failed to create inventory'));
+    dispatch(setError(err.response) || 'Failed to create inventory')
+    throw err;
   }
 };
 
