@@ -91,8 +91,6 @@ const TopVulnerabilities = () => {
 
 
   const handleViewReport = (id: string, tool: string) => {
-    console.log(`Viewing report ${id} using tool ${tool}`);
-
     let url = '';
     if (tool === 'Network') {
       url = `/vulnerabilities/network/scans/detail/${id}`;
@@ -111,8 +109,8 @@ const TopVulnerabilities = () => {
 
   return (
     <DashboardCard
-      title={t("dashboard.vulnerability_reports")}
-      subtitle={t("dashboard.most_recent_scans")}
+      title={t("dashboard.vulnerability_reports")!}
+      subtitle={t("dashboard.most_recent_scans")!}
     >
       <TableContainer>
         <Table aria-label="vulnerability report table" sx={{ whiteSpace: 'wrap' }}>

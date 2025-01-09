@@ -13,6 +13,8 @@ interface StateType {
   ehReport: any | null;
   page: number;
   totalPages: number;
+  loading: boolean;
+  pageSize: number;
   error: string | null;
 }
 
@@ -21,6 +23,8 @@ const initialState: StateType = {
   ehReport: null,
   page: 1,
   totalPages: 1,
+  pageSize: 10,
+  loading: false,
   error: null,
 };
 
@@ -29,8 +33,8 @@ export const EHReportsSlice = createSlice({
   initialState,
   reducers: {
     getEHReports: (state, action) => {
-      state.ehReports = Array.isArray(action.payload.ehReports)
-        ? action.payload.ehReports
+      state.ehReports = Array.isArray(action.payload.results)
+        ? action.payload.results
         : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
@@ -55,23 +59,35 @@ export const EHReportsSlice = createSlice({
     },
     setError: (state, action) => {
       state.error = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload
     }
   }
 });
 
-export const { getEHReports, addEHReport, updateEHReport, deleteEHReport, getEHReport, setPage, setError } = EHReportsSlice.actions;
+export const { getEHReports, addEHReport, updateEHReport, deleteEHReport, getEHReport, setPage, setError, setLoading } = EHReportsSlice.actions;
 
-export const fetchEHReports = (page = 1) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrl()}`);
-    const ehReports = response.data;
-    const totalPages = Math.ceil(ehReports.length / 10);
-    dispatch(getEHReports({ ehReports, currentPage: page, totalPages }));
-  } catch (err: any) {
-    console.error('Error fetching ehReports:', err);
-    dispatch(setError('Failed to fetch ehReports'));
-  }
-};
+export const fetchEHReports =
+  (requestedPage = 1,
+    pageSize = 10
+  ) =>
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        if (pageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
+        const cloudInventoryList = response.data;
+        const { results, page, totalPages } = cloudInventoryList;
+        dispatch(getEHReports({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        console.error('Error fetching ehReports:', err);
+        dispatch(setError('Failed to fetch ehReports'));
+      }
+    };
 
 export const fetchEHReportById = (ehReportId: string) => async (dispatch: AppDispatch) => {
   try {

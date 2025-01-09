@@ -9,29 +9,36 @@ import {
   useTheme,
 } from '@mui/material';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import { useDispatch } from 'src/store/Store';
+import { fetchFilteredAssets } from 'src/store/sections/AssetsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 import { createWebApplicationScan } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 import {
-  ResponseData,
   ScanConfig
 } from 'src/types/vulnerabilities/network/networkScansType';
 import { WebAppScanCreate } from 'src/types/vulnerabilities/web/webAppsType';
 import * as Yup from 'yup';
 
 interface Props {
-  webAppCreate: ResponseData;
   onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
 }
 
-const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
+const WebAppCreateForm: React.FC<Props> = ({ onSubmit }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const theme = useTheme();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const assets = useSelector((state: any) => state.assetsReducer.assets);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchFilteredAssets({ url: true }));
+    };
+    fetchData();
+  }, [dispatch]);
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -58,6 +65,7 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
       setIsSubmitting(true);
       try {
         await dispatch(createWebApplicationScan(newNetworkScan));
+        
         onSubmit(
           `${t('vulnerabilities.web_app.network_scan_create_successfully')}`,
           'success',
@@ -109,9 +117,8 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
               <MenuItem value="" disabled>
                 {t('vulnerabilities.web_app.scan_target')}
               </MenuItem>
-              {webAppCreate.assets.
-                filter((asset) => asset.url).
-                map((asset) => (
+              {assets?.
+                map((asset: any) => (
                   <MenuItem key={asset.id} value={asset.id}>
                     {asset.name} ({asset.ip || asset.domain || asset.url})
                   </MenuItem>
@@ -132,7 +139,6 @@ const WebAppCreateForm: React.FC<Props> = ({ webAppCreate, onSubmit }) => {
               </a>
             </Box>
           </Grid>
-
           {/* Scan Config ID */}
           <Grid item xs={12} sm={6}>
             <Select

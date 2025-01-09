@@ -36,6 +36,7 @@ import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice'
+import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 
 import {
   TypedUseSelectorHook,
@@ -87,6 +88,7 @@ export const store = configureStore({
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
     giottoGroupReducer: GiottoGroupReducer,
+    networkConfigurationReducer: NetworkConfigurationReducer,
   },
 });
 
@@ -119,6 +121,7 @@ const rootReducer = combineReducers({
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
   giottoGroupReducer: GiottoGroupReducer,
+  networkConfigurationReducer: NetworkConfigurationReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
