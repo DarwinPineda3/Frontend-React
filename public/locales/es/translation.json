@@ -1277,6 +1277,7 @@
     "project_delete_title": "Eliminar Proyecto",
     "project_delete_message": "¿Está seguro de que desea eliminar este proyecto?",
     "project_cancel": "Cancelar",
-    "project_confirm": "Confirmar"
+    "project_confirm": "Confirmar",
+    "project_deleted_successfully": "Proyecto eliminado exitosamente"
   }
 }

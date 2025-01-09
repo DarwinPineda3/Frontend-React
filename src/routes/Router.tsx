@@ -3,6 +3,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import ProjectDetails from 'src/components/compliance/giotto-projects/giottoProjectDetails';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -21,6 +22,7 @@ import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
 import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
+import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjects';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -182,16 +184,20 @@ const Router = [
         roles: ['Admin', 'Scan360'],
       },
 
-      { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities />, roles: ['Admin', 'Scan360'] },
+      {
+        path: '/vulnerabilities/cloud',
+        element: <CloudVulnerabilities />,
+        roles: ['Admin', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
         element: <CloudVulnerabilitiesDetails />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
       {
         path: '/vulnerabilities/cloud/create',
         element: <CreateProwlerScan />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
 
       {
@@ -339,7 +345,7 @@ const Router = [
       {
         path: '/observability/cloud/create',
         element: <CreateCloudInventory />,
-        roles: ['Admin', 'Scan360']
+        roles: ['Admin', 'Scan360'],
       },
       {
         path: '/observability/cloud/scans/:scanId',
@@ -405,6 +411,8 @@ const Router = [
       { path: '/compliance/groups', element: <ComplianceGroupsView /> },
       { path: '/compliance/projects', element: <ComplianceProjectsView /> },
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
+      { path: '/compliance/projects/create', element: <CreateComplianceProjects /> },
+      { path: '/compliance/projects/:projectId', element: <ProjectDetails /> },
     ],
   },
   {

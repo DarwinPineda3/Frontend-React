@@ -32,11 +32,6 @@ import * as Yup from 'yup';
 
 const steps = ['Basic Information', 'Goups'];
 
-interface Props {
-  networkScanCreate: ResponseData;
-  onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
-}
-
 const CreateGiottoProjectForm = () => {
   const groupsList = [
     {
@@ -177,8 +172,6 @@ const CreateGiottoProjectForm = () => {
   const [allSelectedGroups, setAllSelectedGroups] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isStepOptional = (step) => step === 1;
-
   const isStepSkipped = (step) => skipped.has(step);
 
   const handleNext = () => {
@@ -197,12 +190,6 @@ const CreateGiottoProjectForm = () => {
   };
 
   const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());

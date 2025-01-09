@@ -1,7 +1,3 @@
-import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice';
-giottoProjectsReducer: GiottoProjectsReducer,
-
-
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Alert,
@@ -19,12 +15,9 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import CreateGiottoProjectForm from 'src/components/compliance/giotto-projects/createGiottoProject';
 import PageContainer from 'src/components/container/PageContainer';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { ResponseData } from 'src/types/vulnerabilities/network/networkScansType';
 
 const CreateComplianceProjects = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -32,18 +25,6 @@ const CreateComplianceProjects = () => {
     'success' | 'info' | 'warning' | 'error'
   >('success');
 
-  const networkScanCreate: ResponseData = useSelector(
-    (state: any) => state.networkScanReducer.networkScanCreate,
-  );
-
-  const handleFormSubmit = (
-    message: string,
-    severity: 'success' | 'info' | 'warning' | 'error',
-  ) => {
-    setSnackbarMessage(message);
-    setSnackbarSeverity(severity);
-    setSnackbarOpen(false);
-  };
   return (
     <PageContainer title="Akila">
       <Box mb={2}>
@@ -64,10 +45,7 @@ const CreateComplianceProjects = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <CreateGiottoProjectForm
-            onSubmit={handleFormSubmit}
-            networkScanCreate={networkScanCreate}
-          />
+          <CreateGiottoProjectForm />
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (
