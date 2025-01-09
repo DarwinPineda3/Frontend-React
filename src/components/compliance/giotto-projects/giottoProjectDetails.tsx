@@ -117,8 +117,14 @@ const ProjectDetails: React.FC = ({}) => {
                 </Box>
               </DashboardCard>
               <Grid item xs={12} lg={12}>
-                <GiottoProjecGroupsList groups={projectDetail?.groups} />
-                <GiottoProjectManagersList managers={projectDetail?.managers} />
+                <Box display="flex" flexDirection="column" gap={2} mt={3}>
+                  <GiottoProjecGroupsList groups={projectDetail?.groups} />
+                </Box>
+              </Grid>
+              <Grid item xs={12} lg={12}>
+                <Box display="flex" flexDirection="column" gap={2} mt={3}>
+                  <GiottoProjectManagersList managers={projectDetail?.managers} />
+                </Box>
               </Grid>
             </Grid>
           </>

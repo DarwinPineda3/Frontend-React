@@ -25,7 +25,7 @@ const GiottoProjecTemplatesTable: React.FC<{ templates: any[] }> = ({ templates 
   };
 
   return (
-    <DashboardCard title={t('compliance_projects.project_templates_name')!}>
+    <DashboardCard title={t('compliance_projects.project_templates_title')!}>
       <>
         {templates?.length > 0 ? (
           <Box>

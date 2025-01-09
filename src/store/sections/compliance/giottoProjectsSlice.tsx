@@ -21,14 +21,14 @@ export interface ComplianceProject {
 
 export interface ComplianceProjectCreate {
   name: string;
-  companyName: string | null;
+  companyId: number | null;
   startDate: string;
   endDate: string;
   isDisabled: boolean;
   disabledBy: boolean | null;
-  groupTechnicians: string[];
-  groups: string[];
-  managers: string[];
+  groupTechnicians: string[] | null;
+  groups: number[];
+  managers: string[] | null;
 }
 
 interface StateType {

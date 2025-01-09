@@ -19,11 +19,29 @@ import PageContainer from 'src/components/container/PageContainer';
 const CreateComplianceProjects = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [openDialog, setOpenDialog] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
   >('success');
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(false);
+    setTimeout(() => {
+      setSnackbarOpen(true);
+    }, 0);
+    handleCloseDialog();
+  };
 
   return (
     <PageContainer title="Akila">
@@ -45,7 +63,7 @@ const CreateComplianceProjects = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <CreateGiottoProjectForm />
+          <CreateGiottoProjectForm onSubmit={handleFormSubmit} />
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (

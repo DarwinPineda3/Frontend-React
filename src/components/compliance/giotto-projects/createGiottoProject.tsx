@@ -24,15 +24,18 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
   ComplianceProjectCreate,
+  createProject,
   setPage,
   setPageSize,
 } from 'src/store/sections/compliance/giottoProjectsSlice';
-import { ComplianceGroupListType } from 'src/types/giotto/ComplianceProjectType';
 import * as Yup from 'yup';
 
 const steps = ['Basic Information', 'Goups'];
+interface Props {
+  onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void; // Callback after submission
+}
 
-const CreateGiottoProjectForm = () => {
+const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const groupsList = [
     {
       id: 1,
@@ -164,7 +167,7 @@ const CreateGiottoProjectForm = () => {
   const [skipped, setSkipped] = React.useState(new Set());
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [selectedGroups, setSelectedGroups] = useState<ComplianceGroupListType[]>([]);
+  const [selectedGroups, setSelectedGroups] = useState<Number[]>([]);
 
   const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
   const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
@@ -183,63 +186,17 @@ const CreateGiottoProjectForm = () => {
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
+    if (activeStep === steps.length - 1) {
+      // Call create project
+      formik.values.groups = selectedGroups;
+      console.log('formik:', formik.values);
+      formik.handleSubmit();
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
-  const handleSkip = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-
-      return newSkipped;
-    });
-  };
-
-  // Formik setup with Yup validation schema
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      description: '',
-      groups: [],
-      managers: [],
-      groupTechnicians: [],
-      start_date: '',
-      end_date: '',
-      disabledBy: null,
-    },
-    validationSchema: Yup.object({
-      name: Yup.string().required(`${t('vulnerabilities.network_vulnerabilities.required_field')}`),
-      description: Yup.string().required(
-        `${t('vulnerabilities.network_vulnerabilities.required_field')}`,
-      ),
-    }),
-    onSubmit: async (values) => {
-      const objProject: ComplianceProjectCreate = {
-        ...values,
-      };
-      setIsSubmitting(true);
-      console.log('objProject:', objProject);
-      // try {
-      //   await dispatch(createProject(objProject));
-      //   onSubmit(
-      //     `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
-      //     'success',
-      //   );
-      // } catch (error) {
-      //   console.error('Error creating network scan:', error);
-      //   onSubmit(
-      //     `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
-      //     'error',
-      //   );
-      // } finally {
-      //   setIsSubmitting(false);
-      // }
-    },
-  });
 
   const [startDate, setStartDate] = useState(() => {
     const now = new Date();
@@ -256,6 +213,50 @@ const CreateGiottoProjectForm = () => {
   const startISO = startDate ? new Date(`${startDate}T00:00:00.000Z`).toISOString() : '';
   const endISO = endDate ? new Date(`${endDate}T00:00:00.000Z`).toISOString() : '';
 
+  // Formik setup with Yup validation schema
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      description: '',
+      groups: [],
+      managers: [],
+      groupTechnicians: [],
+      startDate: startDate.toString(),
+      endDate: endDate.toString(),
+      disabledBy: null,
+      companyId: null,
+      isDisabled: false,
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required(`${t('vulnerabilities.network_vulnerabilities.required_field')}`),
+    }),
+    onSubmit: async (values) => {
+      const objProject: ComplianceProjectCreate = {
+        ...values,
+      };
+      setIsSubmitting(true);
+      console.log('objProject:', objProject);
+      try {
+        const response = await dispatch(createProject(objProject));
+        console.log('Project created successfully');
+        console.log('response:', response);
+        onSubmit(
+          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
+          'success',
+        );
+      } catch (error) {
+        console.log('Error creating network scan:', error);
+        console.error('Error creating network scan:', error);
+        onSubmit(
+          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
+          'error',
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+  });
+
   React.useEffect(() => {
     const newEndDate = new Date(startDate);
     newEndDate.setMonth(newEndDate.getMonth() + 1);
@@ -266,13 +267,13 @@ const CreateGiottoProjectForm = () => {
     }
   }, [startDate]);
 
-  const handleSelectionChange = (group: ComplianceGroupListType) => {
+  const handleSelectionChange = (groupId: Number) => {
     setSelectedGroups((prev) => {
-      const exists = prev.find((g) => g.id === group.id);
+      const exists = prev.find((g) => g === groupId);
       if (exists) {
-        return prev.filter((g) => g.id !== group.id);
+        return prev.filter((g) => g !== groupId);
       }
-      return [...prev, group];
+      return [...prev, groupId];
     });
   };
 
@@ -341,9 +342,10 @@ const CreateGiottoProjectForm = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   label={t('compliance_projects.project_start_date')!}
+                  name="startDate"
                   type="date"
                   InputLabelProps={{ shrink: true }}
-                  value={startDate}
+                  value={formik.values.startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   sx={{ minWidth: '150px' }}
                 />
@@ -351,9 +353,10 @@ const CreateGiottoProjectForm = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   label={t('compliance_projects.project_end_date')!}
+                  name="endDate"
                   type="date"
                   InputLabelProps={{ shrink: true }}
-                  value={endDate}
+                  value={formik.values.endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   sx={{ minWidth: '150px' }}
                 />
@@ -396,8 +399,8 @@ const CreateGiottoProjectForm = () => {
                         <TableCell>
                           <input
                             type="checkbox"
-                            checked={selectedGroups.some((g) => g.id === group.id)}
-                            onChange={() => handleSelectionChange(group)}
+                            checked={selectedGroups.some((g) => g === group.id)}
+                            onChange={() => handleSelectionChange(group.id)}
                           />
                         </TableCell>
                         <TableCell>
@@ -490,12 +493,6 @@ const CreateGiottoProjectForm = () => {
                   Back
                 </Button>
                 <Box flex="1 1 auto" />
-                {isStepOptional(activeStep) && (
-                  <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                    Skip
-                  </Button>
-                )}
-
                 <Button
                   onClick={handleNext}
                   variant="contained"
