@@ -25,11 +25,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     'success' | 'info' | 'warning' | 'error'
   >('success');
-  const [snackBarInfo, setSnackBarInfo] = useState<{
-    color: 'error' | 'warning' | 'info' | 'success';
-    title: string;
-    message: string;
-  } | null>(null);
   const loading = useSelector((state: any) => state.giottoGroupReducer.loading);
 
   const itemsResults = useSelector((state: any) => state.giottoGroupReducer.itemsResults);
