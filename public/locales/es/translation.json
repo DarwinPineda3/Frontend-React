@@ -1280,12 +1280,14 @@
       "last_keep_alive": "Última vez activo",
       "group_in_progress": "Creación de grupo en proceso",
       "group_creation_message": "La creación de este grupo puede tardar un poco de tiempo.",
+      "group_edition_message": "La edición de este grupo puede tardar un poco de tiempo.",
       "operation_status": "Estado de la Operación",
       "select": "Seleccionar",
       "template_name": "Nombre de la plantilla",
       "asset_name": "Nombre del activo",
       "name_required": "El nombre es requerido",
-      "group_created_successfully": "Grupo creado exitosamente"
+      "group_created_successfully": "Grupo creado exitosamente",
+      "edit_group": "Editar grupo"
     }
   }
 }

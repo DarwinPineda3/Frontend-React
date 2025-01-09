@@ -1283,12 +1283,14 @@
       "last_keep_alive": "Last keep alive",
       "group_in_progress": "Group creation in progress",
       "group_creation_message": "The creation of this group may take a little time.",
+      "group_edition_message": "The edition of this group may take a little time.",
       "operation_status": "Operation Status",
       "select": "Select",
       "template_name": "Template name",
       "asset_name": "Asset name",
       "name_required": "Name is required",
-      "group_created_successfully": "Group created successfully"
+      "group_created_successfully": "Group created successfully",
+      "edit_group": "Edit group"
     }
   }
 }

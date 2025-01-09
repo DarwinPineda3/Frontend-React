@@ -1,7 +1,11 @@
+import { ArrowBack } from '@mui/icons-material';
 import {
   Box,
+  Breadcrumbs,
   Button,
   Checkbox,
+  Grid,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -15,8 +19,11 @@ import {
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import DashboardCard from 'src/components/shared/DashboardCard';
+import Loader from 'src/components/shared/Loader/Loader';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { editGroup, fetchGroupById } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
@@ -149,95 +156,156 @@ const EditGiottoGroup: React.FC = () => {
 
   return (
     <PageContainer>
-      <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Name"
-          name="name"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-        />
-
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Description"
-          name="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.description && Boolean(formik.errors.description)}
-          helperText={formik.touched.description && formik.errors.description}
-        />
-
-        <Typography variant="h6" mt={3} gutterBottom>
-          Templates
-        </Typography>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Select</TableCell>
-                <TableCell>Template Name</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {templatesList.map((template) => (
-                <TableRow key={template.id}>
-                  <TableCell>
-                    <Checkbox
-                      checked={selectedTemplates.includes(template.id)}
-                      onChange={() =>
-                        toggleSelection(template.id, setSelectedTemplates, selectedTemplates)
-                      }
-                    />
-                  </TableCell>
-                  <TableCell>{template.name}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <Typography variant="h6" mt={3} gutterBottom>
-          Assets
-        </Typography>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Select</TableCell>
-                <TableCell>Asset Name</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {assetsList.map((asset) => (
-                <TableRow key={asset.id}>
-                  <TableCell>
-                    <Checkbox
-                      checked={selectedAssets.includes(asset.id)}
-                      onChange={() =>
-                        toggleSelection(asset.id, setSelectedAssets, selectedAssets)
-                      }
-                    />
-                  </TableCell>
-                  <TableCell>{asset.name}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <Box mt={3}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Update Group
-          </Button>
+      {/* <></> */}
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBack />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link component={RouterLink} color="inherit" to="/compliance/groups">
+              {t('compliance_menu.compliance')}
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/compliance/groups">
+              {t('compliance_menu.compliance_groups')}
+            </Link>
+            <Typography color="textPrimary">
+              {t('giotto.groups.edit_group')}
+            </Typography>
+          </Breadcrumbs>
         </Box>
       </Box>
+      <Grid container spacing={3}>
+        <Grid item xs={12} xl={12}>
+          <>
+            {isLoading ? (
+              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+                <Loader />
+                <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
+                  {t('giotto.groups.group_creation_message') || ''}
+                </Box>
+              </Box>
+            ) : (
+              <Box component="form" onSubmit={formik.handleSubmit} noValidate>
+                <>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <DashboardCard title={t('giotto.groups.edit_group')!}>
+                        <Box>
+                          <TextField
+                            fullWidth
+                            margin="normal"
+                            label={t('giotto.groups.name')}
+                            name="name"
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.name && Boolean(formik.errors.name)}
+                            helperText={formik.touched.name && formik.errors.name}
+                          />
+
+                          <TextField
+                            fullWidth
+                            margin="normal"
+                            label={t('giotto.groups.description')}
+                            name="description"
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.description && Boolean(formik.errors.description)}
+                            helperText={formik.touched.description && formik.errors.description}
+                          />
+                        </Box>
+
+                      </DashboardCard>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <DashboardCard title={t('giotto.groups.templates')!}>
+                        <TableContainer component={Paper}>
+                          <Table>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>{t('giotto.groups.select')}</TableCell>
+                                <TableCell>{t('giotto.groups.template_name')}</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {templatesList.map((template) => (
+                                <TableRow key={template.id}>
+                                  <TableCell>
+                                    <Checkbox
+                                      checked={selectedTemplates.includes(template.id)}
+                                      onChange={() =>
+                                        toggleSelection(template.id, setSelectedTemplates, selectedTemplates)
+                                      }
+                                    />
+                                  </TableCell>
+                                  <TableCell>{template.name}</TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                      </DashboardCard>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <DashboardCard title={t('giotto.groups.assets')!}>
+                        <TableContainer component={Paper}>
+                          <Table>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>{t('giotto.groups.select')}</TableCell>
+                                <TableCell>{t('giotto.groups.asset_name')}</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {assetsList.map((asset) => (
+                                <TableRow key={asset.id}>
+                                  <TableCell>
+                                    <Checkbox
+                                      checked={selectedAssets.includes(asset.id)}
+                                      onChange={() =>
+                                        toggleSelection(asset.id, setSelectedAssets, selectedAssets)
+                                      }
+                                    />
+                                  </TableCell>
+                                  <TableCell>{asset.name}</TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                      </DashboardCard>
+                    </Grid>
+                  </Grid>
+
+
+                </>
+
+
+
+
+
+                <Box mt={3}>
+                  <Button type="submit" variant="contained" color="primary" fullWidth>
+                    {t('giotto.groups.edit_group')}
+                  </Button>
+                </Box>
+              </Box>
+            )}
+            {isLoading && (
+              <SnackBarInfo
+                color="info"
+                title={t('giotto.groups.operation_status')}
+                message={t('giotto.groups.group_in_progress')}
+              />
+            )}
+          </>
+        </Grid>
+      </Grid>
+
     </PageContainer>
   );
 };

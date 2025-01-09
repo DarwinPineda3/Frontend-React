@@ -141,7 +141,7 @@ export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) =>
     const response = await axios.put(`${getApiUrl()}${updatedGroup.id}/`, updatedGroup);
 
     if (response.status === 200) {
-      dispatch(editGroup({ data: response.data }));
+      dispatch(updateGroup({ data: response.data }));
     } else {
       dispatch(setError('Do not update group'));
     }
