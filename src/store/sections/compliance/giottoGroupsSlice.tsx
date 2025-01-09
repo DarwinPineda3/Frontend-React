@@ -88,7 +88,6 @@ export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 1
       currentPage,
       page
     } = response.data;
-    console.log(response.data);
     dispatch(getGroups({
       results: itemsResult,
       currentPage,

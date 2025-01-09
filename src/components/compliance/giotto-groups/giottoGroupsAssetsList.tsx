@@ -33,7 +33,7 @@ const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets }) => {
   );
 
   return (
-    <DashboardCard title={t('giotto.group.assets')!}>
+    <DashboardCard title={t('giotto.groups.assets')!}>
       <>
         {assets?.length > 0 ? (
           <Box>
@@ -85,7 +85,7 @@ const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets }) => {
         ) : (
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h6">{t('wpscan.no_data_available')}</Typography>
+              <Typography variant="h6">{t('giotto.groups.no_data_available')}</Typography>
             </Grid>
           </Grid>
         )

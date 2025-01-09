@@ -5,7 +5,7 @@ import {
   Grid,
   Tab
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'src/store/Store';
 
 import ListIcon from '@mui/icons-material/List';
@@ -30,14 +30,16 @@ const WpScanDetail: React.FC = () => {
   const { scanId } = useParams<{ scanId?: string }>();
   const dispatch = useDispatch();
   const wpscan = useSelector((state: any) => state.wpscanReducer.wpscan);
-  const isLoading = useSelector((state: any) => state.wpscanReducer.isLoading);
+  const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
   React.useEffect(() => {
     const fetchData = async () => {
       if (scanId) {
         try {
+          setIsLoading(true)
           await dispatch(fetchWPScanById(scanId));
+          setIsLoading(false)
         } catch (error) {
           console.error('Error fetching wpscans:', error);
         }
@@ -88,6 +90,7 @@ const WpScanDetail: React.FC = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
 
   return (
     <Grid container spacing={3}>

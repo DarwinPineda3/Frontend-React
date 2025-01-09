@@ -50,8 +50,8 @@ const GroupDetails: React.FC = ({ }) => {
               {t('compliance_menu.compliance_groups')}
             </Link>
             <Typography color="textPrimary">
-            {groupDetail?.name}
-              </Typography>
+              {groupDetail?.name}
+            </Typography>
           </Breadcrumbs>
         </Box>
       </Box>
@@ -61,18 +61,23 @@ const GroupDetails: React.FC = ({ }) => {
             <Loader />
           </Box>
         ) : (
-          <Grid item xs={12} lg={12}>
-
-            <Breadcrumb title={`${groupDetail?.name}`}>
-              <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-                <Chip label={`${t("vulnerabilities.cant_assets")}: ${groupDetail?.assets?.length}`} color="primary" variant="outlined" />
-                <Chip label={`${t("vulnerabilities.cant_templates")}: ${groupDetail?.templates?.length}`} color="secondary" variant="outlined" />
-                <Chip label={`${t("vulnerabilities.provider")}: ${groupDetail?.description}`} color="info" variant="outlined" />
-              </Box>
-            </Breadcrumb>
-            <GiottoTemplatesList templates={groupDetail?.templates} />
-            <GiottoAssetsList assets={groupDetail?.assets} />
-          </Grid>
+          <>
+            <Grid item xs={12} lg={12}>
+              <Breadcrumb title={`${groupDetail?.name}`}>
+                <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
+                  <Chip label={`${t("giotto.groups.total_assets")}: ${groupDetail?.assets?.length}`} color="primary" variant="outlined" />
+                  <Chip label={`${t("giotto.groups.total_templates")}: ${groupDetail?.templates?.length}`} color="secondary" variant="outlined" />
+                  <Chip label={`${t("giotto.groups.description")}: ${groupDetail?.description}`} color="info" variant="outlined" />
+                </Box>
+              </Breadcrumb>
+            </Grid>
+            <Grid item xs={12} xl={6}>
+              <GiottoTemplatesList templates={groupDetail?.templates} />
+            </Grid>
+            <Grid item xs={12} xl={6}>
+              <GiottoAssetsList assets={groupDetail?.assets} />
+            </Grid>
+          </>
         )}
       </Grid>
     </PageContainer>

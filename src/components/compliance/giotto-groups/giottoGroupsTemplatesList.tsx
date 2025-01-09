@@ -33,7 +33,7 @@ const GiottoTemplatesList: React.FC<{ templates: any[] }> = ({ templates }) => {
   );
 
   return (
-    <DashboardCard title={t('giotto.group.templates')!}>
+    <DashboardCard title={t('giotto.groups.templates')!}>
       <>
         {templates?.length > 0 ? (
           <Box>

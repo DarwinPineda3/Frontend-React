@@ -17,7 +17,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const [groupToDelete, setGroupToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -118,17 +117,17 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                       <TableRow>
                         <TableCell>
                           <Typography variant="subtitle2" fontWeight={600} >
-                            {t('vulnerabilities.name')}
+                            {t('giotto.groups.name')}
                           </Typography>
                         </TableCell>
                         < TableCell >
                           <Typography variant="subtitle2" fontWeight={600} >
-                            {t('vulnerabilities.assetQty')}
+                            {t('giotto.groups.assetQty')}
                           </Typography>
                         </TableCell>
                         < TableCell >
                           <Typography variant="subtitle2" fontWeight={600} >
-                            {t('vulnerabilities.actions')}
+                            {t('giotto.groups.actions')}
                           </Typography>
                         </TableCell>
                       </TableRow>
@@ -178,7 +177,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                 height="100px"
                               >
                                 <Typography variant="body2" color="textSecondary" >
-                                  {t('vulnerabilities.no_data_available')}
+                                  {t('giotto.groups.no_data_available')}
                                 </Typography>
                                 < Typography
                                   variant="body2"
@@ -190,8 +189,8 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                     textDecoration: 'underline',
                                     marginTop: '8px',
                                   }}
-                                > {/* actualizar ruta */}
-                                  Create group {/* traducir */}
+                                >
+                                  {t('giotto.groups.create_group')}
                                 </Typography>
                               </Box>
                             </TableCell>
@@ -214,16 +213,16 @@ const ComplianceGroupsView: React.FC = ({ }) => {
 
 
             <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
-              <DialogTitle>{t('giotto.group.delete_group')}</DialogTitle>
+              <DialogTitle>{t('giotto.groups.delete_group')}</DialogTitle>
               <DialogContent>
-                <Typography>{t('giotto.group.are_you_sure_you_want_to_delete_this_group')}</Typography>
+                <Typography>{t('giotto.groups.are_you_sure_you_want_to_delete_this_group')}</Typography>
               </DialogContent>
               <DialogActions>
                 <Button onClick={cancelDelete} color="info">
-                  {t('giotto.group.cancel')}
+                  {t('giotto.groups.cancel')}
                 </Button>
                 <Button onClick={confirmDelete} color="primary" variant="contained">
-                  {t('giotto.group.confirm')}
+                  {t('giotto.groups.confirm')}
                 </Button>
               </DialogActions>
             </Dialog>
