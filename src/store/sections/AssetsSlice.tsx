@@ -106,7 +106,13 @@ export const fetchFilteredAssets = (filters: { url?: boolean; ip?: boolean; doma
 export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(getApiUrl(), newAsset);
-    dispatch(addAsset(response.data)); // Assuming server returns the created asset
+    if (response.status >= 200 && response.status < 300) {
+      dispatch(fetchAssets(1, 10));
+    }
+    else {
+      console.error('Error creating asset:', response);
+      dispatch(setError('Failed to create asset'));
+    }
   } catch (err: any) {
     console.error('Error creating asset:', err);
     dispatch(setError('Failed to create asset'));
@@ -117,7 +123,13 @@ export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch
 export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.put(`${getApiUrl()}${updatedAsset.id}/`, updatedAsset);
-    dispatch(updateAsset(response.data)); // Assuming server returns the updated asset
+    if (response.status >= 200 && response.status < 300) {
+      dispatch(fetchAssets(1, 10));
+    }
+    else {
+      console.error('Error creating asset:', response);
+      dispatch(setError('Failed to create asset'));
+    }
   } catch (err: any) {
     console.error('Error updating asset:', err);
     dispatch(setError('Failed to update asset'));
