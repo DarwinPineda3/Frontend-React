@@ -239,6 +239,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
         await dispatch(createProject(objProject));
         onSubmit(`${t('compliance_projects.project_created_successfully')}`, 'success');
       } catch (error) {
+        console.error('Error creating project:', error);
         onSubmit(`${t('compliance_projects.project_create_failed')}`, 'error');
       } finally {
         setIsSubmitting(false);

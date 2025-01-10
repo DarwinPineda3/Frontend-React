@@ -79,7 +79,8 @@ const EditComplianceProjects = () => {
                   variant="filled"
                   sx={{ width: '100%' }}
                 >
-                  <AlertTitle>{t('compliance_projects.project_edit')}</AlertTitle> {snackbarMessage}
+                  <AlertTitle>{t('compliance_projects.project_edit_title')}</AlertTitle>{' '}
+                  {snackbarMessage}
                 </Alert>
               </Snackbar>
             )}

@@ -33,7 +33,6 @@ import {
 import { ComplianceGroupListType } from 'src/types/giotto/ComplianceProjectType';
 import * as Yup from 'yup';
 
-const steps = ['Basic Information', 'Goups'];
 interface Props {
   onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void; // Callback after submission
 }
@@ -181,6 +180,10 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isStepSkipped = (step) => skipped.has(step);
   const [isLoading, setIsLoading] = useState(false);
+  const steps = [
+    t('compliance_projects.project_basic_information'),
+    t('compliance_projects.project_group_title'),
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -293,7 +296,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       isDisabled: false,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required(`${t('vulnerabilities.network_vulnerabilities.required_field')}`),
+      name: Yup.string().required(`${t('compliance_projects.required_field')}`),
     }),
     enableReinitialize: true,
     onSubmit: async (values) => {
@@ -303,16 +306,10 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       setIsSubmitting(true);
       try {
         await dispatch(editProject(objProject));
-        onSubmit(
-          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
-          'success',
-        );
+        onSubmit(`${t('compliance_projects.project_updated_successfully')}`, 'success');
       } catch (error) {
-        console.error('Error creating network scan:', error);
-        onSubmit(
-          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
-          'error',
-        );
+        console.error('Error updating project:', error);
+        onSubmit(`${t('compliance_projects.project_update_failed')}`, 'error');
       } finally {
         setIsSubmitting(false);
       }
@@ -395,14 +392,12 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {/* {t('summary.date')} */}
-                        Name
+                        {t('compliance_projects.project_group_name')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {/* {t('summary.tool')} */}
-                        Assets Qty
+                        {t('compliance_projects.project_group_assets_qty')}
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -480,7 +475,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
           {activeStep === steps.length ? (
             <>
               <Stack spacing={2} mt={3}>
-                <Alert severity="success">All steps completed - you&apos;re finished</Alert>
+                <Alert severity="success">{t('compliance_projects.project_updated_message')}</Alert>
               </Stack>
             </>
           ) : (
@@ -495,7 +490,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                   onClick={handleBack}
                   sx={{ mr: 1 }}
                 >
-                  Back
+                  {t('compliance_projects.project_btn_back')}
                 </Button>
                 <Box flex="1 1 auto" />
                 <Button
@@ -503,7 +498,9 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                   variant="contained"
                   color={activeStep === steps.length - 1 ? 'success' : 'secondary'}
                 >
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                  {activeStep === steps.length - 1
+                    ? t('compliance_projects.project_btn_create')
+                    : t('compliance_projects.project_btn_next')}
                 </Button>
               </Box>
             </>

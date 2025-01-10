@@ -1298,6 +1298,9 @@
     "project_btn_create": "Create",
     "project_btn_next": "Next",
     "project_btn_back": "Back",
-    "project_create_message": "All steps completed - Creating..."
+    "project_create_message": "All steps completed - Creating...",
+    "project_updated_successfully": "Project updated successfully",
+    "project_update_failed": "Failed to update project",
+    "project_updated_message": "All steps completed - Updating..."
   }
 }
