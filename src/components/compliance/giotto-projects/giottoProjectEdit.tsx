@@ -248,7 +248,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     setAllSelectedGroups(isChecked);
 
     if (isChecked) {
-      setSelectedGroups(groupsList);
+      setSelectedGroups(groupsList.map((group) => group.id));
     } else {
       setSelectedGroups([]);
     }
@@ -499,7 +499,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                   color={activeStep === steps.length - 1 ? 'success' : 'secondary'}
                 >
                   {activeStep === steps.length - 1
-                    ? t('compliance_projects.project_btn_create')
+                    ? t('compliance_projects.project_btn_update')
                     : t('compliance_projects.project_btn_next')}
                 </Button>
               </Box>

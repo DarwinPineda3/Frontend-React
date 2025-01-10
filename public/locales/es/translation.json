@@ -1300,6 +1300,7 @@
     "project_updated_message": "Todos los pasos completados - Actualizando...",
     "project_technicians_username": "Nombre de Usuario",
     "project_technicians_fullname": "Nombre Completo",
-    "project_technicians_email": "Correo"
+    "project_technicians_email": "Correo",
+    "project_btn_update": "Actualizar"
   }
 }

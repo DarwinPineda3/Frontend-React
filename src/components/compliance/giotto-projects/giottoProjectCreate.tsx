@@ -28,6 +28,7 @@ import {
   setPage,
   setPageSize,
 } from 'src/store/sections/compliance/giottoProjectsSlice';
+import { ComplianceGroupListType } from 'src/types/giotto/ComplianceProjectType';
 import * as Yup from 'yup';
 
 interface Props {
@@ -166,7 +167,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const [skipped, setSkipped] = React.useState(new Set());
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [selectedGroups, setSelectedGroups] = useState<Number[]>([]);
+  const [selectedGroups, setSelectedGroups] = useState<any[]>([]);
 
   const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
   const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
@@ -257,16 +258,6 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     }
   }, [startDate]);
 
-  const handleSelectionChange = (groupId: Number) => {
-    setSelectedGroups((prev) => {
-      const exists = prev.find((g) => g === groupId);
-      if (exists) {
-        return prev.filter((g) => g !== groupId);
-      }
-      return [...prev, groupId];
-    });
-  };
-
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
     page: number,
@@ -288,10 +279,20 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     setAllSelectedGroups(isChecked);
 
     if (isChecked) {
-      setSelectedGroups(selectedGroups);
+      setSelectedGroups(groupsList.map((group) => group.id));
     } else {
       setSelectedGroups([]);
     }
+  };
+
+  const handleSelectionChange = (group: ComplianceGroupListType) => {
+    setSelectedGroups((prev) => {
+      const exists = prev.find((g) => g === group.id);
+      if (exists) {
+        return prev.filter((g) => g !== group.id);
+      }
+      return [...prev, group.id];
+    });
   };
 
   // eslint-disable-next-line consistent-return
@@ -388,7 +389,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                           <input
                             type="checkbox"
                             checked={selectedGroups.some((g) => g === group.id)}
-                            onChange={() => handleSelectionChange(group.id)}
+                            onChange={() => handleSelectionChange(group)}
                           />
                         </TableCell>
                         <TableCell>

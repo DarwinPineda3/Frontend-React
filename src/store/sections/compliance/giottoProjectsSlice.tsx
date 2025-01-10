@@ -188,12 +188,9 @@ export const editProject =
   (updatedProject: ComplianceProjectUpdate) => async (dispatch: AppDispatch) => {
     try {
       const url = `${getApiUrl()}${updatedProject.id}/`;
-      console.log('PUT request to URL:', url);
-
       const response = await axios.put(url, updatedProject);
 
       if (response.status >= 200 && response.status < 300) {
-        console.log('Project updated successfully:', response.data);
         dispatch(fetchProjects(initialState.page, initialState.pageSize));
       } else {
         console.error('Error updating project:', response);

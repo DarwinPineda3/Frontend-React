@@ -1303,6 +1303,7 @@
     "project_updated_message": "All steps completed - Updating...",
     "project_technicians_username": "Username",
     "project_technicians_fullname": "Full Name",
-    "project_technicians_email": "Email"
+    "project_technicians_email": "Email",
+    "project_btn_update": "Update"
   }
 }

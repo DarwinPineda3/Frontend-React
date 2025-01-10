@@ -14,6 +14,6 @@ export interface ComplianceProjectType {
 export interface ComplianceGroupListType {
   id?: number;
   name: string;
-  assetsQty?: string | null;
+  assetsQty?: number | null;
 }
 

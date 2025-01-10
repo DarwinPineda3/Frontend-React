@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import CreateGiottoProjectForm from 'src/components/compliance/giotto-projects/giottoiottoProjectCreate';
+import CreateGiottoProjectForm from 'src/components/compliance/giotto-projects/giottoProjectCreate';
 import PageContainer from 'src/components/container/PageContainer';
 
 const CreateComplianceProjects = () => {

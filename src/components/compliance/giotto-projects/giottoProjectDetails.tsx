@@ -82,7 +82,7 @@ const ProjectDetails: React.FC = ({}) => {
                 </Box>
               </Breadcrumb>
             </Grid>
-            <Grid item xs={5} lg={5}>
+            <Grid item xs={12} lg={12}>
               <DashboardCard title={t('compliance_projects.project_details')!}>
                 <Box display="flex" flexDirection="column" gap={2} mt={3}>
                   <Box>
@@ -116,16 +116,16 @@ const ProjectDetails: React.FC = ({}) => {
                 </Box>
               </DashboardCard>
             </Grid>
-            <Grid item xs={7} lg={7}>
+            <Grid item xs={12} lg={12}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+                <GiottoProjecGroupsList groups={projectDetail?.groups} />
+              </Box>
+            </Grid>
+            <Grid item xs={12} lg={12}>
               <Box display="flex" flexDirection="column">
                 <Box>
                   <GiottoProjectManagersList managers={projectDetail?.managers} />
                 </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} lg={12}>
-              <Box display="flex" flexDirection="column" gap={2} mt={1}>
-                <GiottoProjecGroupsList groups={projectDetail?.groups} />
               </Box>
             </Grid>
           </>
