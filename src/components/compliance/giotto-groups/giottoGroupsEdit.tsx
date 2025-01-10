@@ -248,7 +248,7 @@ const EditGiottoGroup: React.FC = () => {
 
                     <Grid item xs={12} md={6}>
                       <DashboardCard title={t('giotto.groups.templates')!}>
-                        <TableContainer component={Paper}>
+                        <TableContainer>
                           <Table>
                             <TableHead>
                               <TableRow>
@@ -288,7 +288,7 @@ const EditGiottoGroup: React.FC = () => {
 
                     <Grid item xs={12} md={6}>
                       <DashboardCard title={t('giotto.groups.assets')!}>
-                        <TableContainer component={Paper}>
+                        <TableContainer>
                           <Table>
                             <TableHead>
                               <TableRow>

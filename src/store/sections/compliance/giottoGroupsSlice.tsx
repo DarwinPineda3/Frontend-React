@@ -161,4 +161,34 @@ export const removeGroup = (groupId: string) => async (dispatch: AppDispatch) =>
   }
 };
 
+export const fetchGroupByName = (groupName: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}get_by_name?namegroup=${groupName}/`);
+
+    if (response.status === 200) {
+      dispatch(getGroupDetail({ data: response.data }));
+    } else {
+      dispatch(setError('fetch group report detail not found'));
+    }
+  } catch (err: any) {
+    console.error('Error fetching Group detail:', err);
+    dispatch(setError('Failed to fetch Group detail'));
+  }
+};
+
+export const fetchGroupName = async (name: string): Promise<boolean> => {
+  try {
+    const response = await axios.get(`${getApiUrl()}get_by_name?namegroup=${encodeURIComponent(name)}`);
+    return !!response.data;
+  } catch (error: any) {
+    console.log(error);
+    
+    if (error.response?.status === 404) {
+      return false;
+    }
+    console.error('Error fetching group name:', error);
+    return true;
+  }
+};
+
 export default GiottoGroupSlice.reducer;

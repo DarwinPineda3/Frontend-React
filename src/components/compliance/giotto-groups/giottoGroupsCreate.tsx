@@ -25,7 +25,7 @@ import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { createGroup } from 'src/store/sections/compliance/giottoGroupsSlice';
+import { createGroup, fetchGroupName } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch } from 'src/store/Store';
 import * as Yup from 'yup';
 
@@ -75,7 +75,16 @@ const CreateGiottoGroup: React.FC = ({ }) => {
       description: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required(t('giotto.groups.name_required')!),
+      name: Yup.string().required(t('giotto.groups.name_required')!)
+      .test(
+        'check-group-name',
+        t('giotto.groups.group_name_already_exists')!,
+        async function (value) {
+          if (!value) return true;
+          const exists = await fetchGroupName(value);
+          return !exists;
+        }
+      ),
       description: Yup.string().nullable(),
     }),
     onSubmit: async (values) => {
@@ -134,6 +143,8 @@ const CreateGiottoGroup: React.FC = ({ }) => {
     (currentPageA - 1) * paginatedA,
     currentPageA * paginatedA
   );
+
+
 
   return (
     <PageContainer>
