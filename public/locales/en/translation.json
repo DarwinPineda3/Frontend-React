@@ -1286,6 +1286,8 @@
     "project_templates_title": "Templates",
     "project_template_working_system": "Working System",
     "project_template_creation_date": "Creation Date",
-    "project_template_name": "Name"
+    "project_template_name": "Name",
+    "project_edit_title": "Edit Project",
+    "project_edit_subtitle": "In this form you can edit a compliance project"
   }
 }

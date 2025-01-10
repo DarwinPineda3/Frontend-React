@@ -1283,6 +1283,8 @@
     "project_templates_title": "Plantillas",
     "project_template_working_system": "SO",
     "project_template_creation_date": "Fecha de Creación",
-    "project_template_name": "Nombre"
+    "project_template_name": "Nombre",
+    "project_edit_title": "Editar Proyecto",
+    "project_edit_subtitle": "En este formulario puede editar un proyecto de cumplimiento",
   }
 }

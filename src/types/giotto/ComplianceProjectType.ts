@@ -12,7 +12,7 @@ export interface ComplianceProjectType {
 
 
 export interface ComplianceGroupListType {
-  id?: number | string;
+  id?: number;
   name: string;
   assetsQty?: string | null;
 }

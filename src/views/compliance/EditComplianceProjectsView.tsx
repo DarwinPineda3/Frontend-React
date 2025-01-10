@@ -13,10 +13,10 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import CreateGiottoProjectForm from 'src/components/compliance/giotto-projects/createGiottoProject';
+import EditGiottoProjectForm from 'src/components/compliance/giotto-projects/giottoProjectEdit';
 import PageContainer from 'src/components/container/PageContainer';
 
-const CreateComplianceProjects = () => {
+const EditComplianceProjects = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
@@ -57,13 +57,13 @@ const CreateComplianceProjects = () => {
             <Link component={RouterLink} color="inherit" to="/compliance/projects">
               {t('compliance_menu.compliance_projects')}
             </Link>
-            <Typography color="textPrimary">{t('dashboard.create')}</Typography>
+            <Typography color="textPrimary">{t('dashboard.edit')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <CreateGiottoProjectForm onSubmit={handleFormSubmit} />
+          <EditGiottoProjectForm onSubmit={handleFormSubmit} />
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (
@@ -79,8 +79,7 @@ const CreateComplianceProjects = () => {
                   variant="filled"
                   sx={{ width: '100%' }}
                 >
-                  <AlertTitle>{t('compliance_projects.project_created')}</AlertTitle>{' '}
-                  {snackbarMessage}
+                  <AlertTitle>{t('compliance_projects.project_edit')}</AlertTitle> {snackbarMessage}
                 </Alert>
               </Snackbar>
             )}
@@ -91,4 +90,4 @@ const CreateComplianceProjects = () => {
   );
 };
 
-export default CreateComplianceProjects;
+export default EditComplianceProjects;

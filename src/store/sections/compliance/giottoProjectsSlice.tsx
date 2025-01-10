@@ -20,6 +20,20 @@ export interface ComplianceProject {
 }
 
 export interface ComplianceProjectCreate {
+  id: number | null;
+  name: string;
+  companyId: number | null;
+  startDate: string;
+  endDate: string;
+  isDisabled: boolean;
+  disabledBy: boolean | null;
+  groupTechnicians: string[] | null;
+  groups: number[];
+  managers: string[] | null;
+}
+
+export interface ComplianceProjectUpdate {
+  id: number;
   name: string;
   companyId: number | null;
   startDate: string;
@@ -170,30 +184,31 @@ export const createProject =
   };
 
 // Async thunk for updating an project (UPDATE)
-export const editProject = (updatedProject: ComplianceProject) => async (dispatch: AppDispatch) => {
-  try {
-    const url = `${getApiUrl()}${updatedProject.id}`;
-    console.log('PUT request to URL:', url);
+export const editProject =
+  (updatedProject: ComplianceProjectUpdate) => async (dispatch: AppDispatch) => {
+    try {
+      const url = `${getApiUrl()}${updatedProject.id}/`;
+      console.log('PUT request to URL:', url);
 
-    const response = await axios.put(url, updatedProject);
+      const response = await axios.put(url, updatedProject);
 
-    if (response.status >= 200 && response.status < 300) {
-      console.log('Project updated successfully:', response.data);
-      dispatch(fetchProjects(0, 10));
-    } else {
-      console.error('Error updating project:', response);
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Project updated successfully:', response.data);
+        dispatch(fetchProjects(initialState.page, initialState.pageSize));
+      } else {
+        console.error('Error updating project:', response);
+        dispatch(setError('Failed to update project'));
+      }
+    } catch (err: any) {
+      if (err.response) {
+        console.error('Error response:', err.response);
+      } else {
+        console.error('Unexpected error:', err.message || err);
+      }
       dispatch(setError('Failed to update project'));
+      throw err;
     }
-  } catch (err: any) {
-    if (err.response) {
-      console.error('Error response:', err.response);
-    } else {
-      console.error('Unexpected error:', err.message || err);
-    }
-    dispatch(setError('Failed to update project'));
-    throw err;
-  }
-};
+  };
 
 // Async thunk for deleting an project (DELETE)
 export const removeProject = (projectId: string) => async (dispatch: AppDispatch) => {

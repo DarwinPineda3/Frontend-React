@@ -15,23 +15,19 @@ import GiottoProjectManagersList from './giottoProjectManagersList';
 
 const ProjectDetails: React.FC = ({}) => {
   const { projectId } = useParams<{ projectId?: string }>();
-  console.log(projectId);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const projectDetail = useSelector((state: any) => state.giottoProjectsReducer.projectDetail);
-  console.log(projectDetail);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('Holiii');
       if (projectId) {
         try {
           setIsLoading(true);
           await dispatch(fetchProjectById(projectId));
           setIsLoading(false);
-          console.log(projectDetail);
         } catch (error) {
           console.error('Error fetching group:', error);
         }

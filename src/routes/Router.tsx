@@ -22,7 +22,8 @@ import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
 import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
-import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjects';
+import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
+import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -413,6 +414,7 @@ const Router = [
       { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
       { path: '/compliance/projects/create', element: <CreateComplianceProjects /> },
       { path: '/compliance/projects/:projectId', element: <ProjectDetails /> },
+      { path: '/compliance/projects/edit/:projectId', element: <EditComplianceProjects /> },
     ],
   },
   {
