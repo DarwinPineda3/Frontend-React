@@ -1282,7 +1282,6 @@
     "project_cancel": "Cancel",
     "project_confirm": "Confirm",
     "project_deleted_successfully": "Project deleted successfully",
-    "project_technicians_name": "Technicians",
     "project_templates_title": "Templates",
     "project_template_working_system": "Working System",
     "project_template_creation_date": "Creation Date",
@@ -1301,6 +1300,9 @@
     "project_create_message": "All steps completed - Creating...",
     "project_updated_successfully": "Project updated successfully",
     "project_update_failed": "Failed to update project",
-    "project_updated_message": "All steps completed - Updating..."
+    "project_updated_message": "All steps completed - Updating...",
+    "project_technicians_username": "Username",
+    "project_technicians_fullname": "Full Name",
+    "project_technicians_email": "Email"
   }
 }

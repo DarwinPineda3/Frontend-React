@@ -3,12 +3,10 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
-import { useTranslation } from 'react-i18next';
 import GiottoProjecTemplatesTable from './giottoProjecTemplatesTable';
 import GiottoProjectTechniciansTable from './giottoProjectTechniciansTable';
 
 const GiottoProjectGroupsAccordion: React.FC<{ group: any }> = ({ group }) => {
-  const { t } = useTranslation();
   return (
     <Accordion key={`${group.name}`}>
       <AccordionSummary

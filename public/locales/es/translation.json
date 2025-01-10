@@ -1279,7 +1279,6 @@
     "project_cancel": "Cancelar",
     "project_confirm": "Confirmar",
     "project_deleted_successfully": "Proyecto eliminado exitosamente",
-    "project_technicians_name": "Tecnicas",
     "project_templates_title": "Plantillas",
     "project_template_working_system": "SO",
     "project_template_creation_date": "Fecha de Creación",
@@ -1298,6 +1297,9 @@
     "project_create_message": "Todos los pasos completados - Creando...",
     "project_updated_successfully": "Proyecto actualizado exitosamente",
     "project_udpate_failed": "Error al actualizar el Proyecto",
-    "project_updated_message": "Todos los pasos completados - Actualizando..."
+    "project_updated_message": "Todos los pasos completados - Actualizando...",
+    "project_technicians_username": "Nombre de Usuario",
+    "project_technicians_fullname": "Nombre Completo",
+    "project_technicians_email": "Correo"
   }
 }

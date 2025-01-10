@@ -1,6 +1,5 @@
 import {
   Box,
-  Grid,
   Pagination,
   Table,
   TableBody,
@@ -11,7 +10,6 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
 
 const paginated = 10;
 
@@ -25,72 +23,70 @@ const GiottoProjectTechniciansTable: React.FC<{ technicians: any[] }> = ({ techn
   };
 
   return (
-    <DashboardCard title={t('compliance_projects.project_technicians_name')!}>
-      <>
-        {technicians?.length > 0 ? (
-          <Box>
-            <Table aria-label="technicians version table">
-              <TableHead>
-                <TableRow>
+    <>
+      <Box>
+        <Table aria-label="technicians version table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  {t('compliance_projects.project_technicians_username')}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  {t('compliance_projects.project_technicians_fullname')}
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="subtitle2" fontWeight={600}>
+                  {t('compliance_projects.project_technicians_email')}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {technicians?.length > 0 ? (
+              technicians.map((technician, index) => (
+                <TableRow key={index}>
                   <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.project_template_name')}
-                    </Typography>
+                    <Typography variant="body2">{technician.name}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.project_template_working_system')}
-                    </Typography>
+                    <Box display="flex" alignItems="center" gap={1}>
+                      <Typography variant="body2">{technician?.fullName}</Typography>
+                    </Box>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.project_template_creation_date')}
-                    </Typography>
+                    <Box display="flex" alignItems="center" gap={1}>
+                      <Typography variant="body2">{technician?.email}</Typography>
+                    </Box>
                   </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {technicians?.map((technician, index) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
-                        {technician.name}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Box display="flex" alignItems="center" gap={1}>
-                        <Typography variant="body2">{technician?.workingSystemName}</Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Box display="flex" alignItems="center" gap={1}>
-                        <Typography variant="body2">{technician?.creationDate}</Typography>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h6">{t('compliance_projects.no_data_available')}</Typography>
-            </Grid>
-          </Grid>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  <Typography variant="body2" color="textSecondary">
+                    {t('compliance_projects.no_data_available')}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </Box>
+      <Box my={3} display="flex" justifyContent="center">
+        {totalPages > 0 && (
+          <Pagination
+            count={totalPages}
+            color="primary"
+            page={currentPage}
+            onChange={handlePageChange}
+          />
         )}
-        <Box my={3} display="flex" justifyContent="center">
-          {totalPages > 0 && (
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          )}
-        </Box>
-      </>
-    </DashboardCard>
+      </Box>
+    </>
   );
 };
 

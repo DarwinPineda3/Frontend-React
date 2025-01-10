@@ -55,9 +55,7 @@ const GiottoProjectManagersList: React.FC<{ managers: any[] }> = ({ managers }) 
                 {managersPaginated?.map((manager, index) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
-                        {manager.userName}
-                      </Typography>
+                      <Typography variant="body2">{manager.userName}</Typography>
                     </TableCell>
                     <TableCell>
                       <Box display="flex" alignItems="center" gap={1}>

@@ -61,6 +61,7 @@ const ProjectDetails: React.FC = ({}) => {
                 </Breadcrumbs>
               </Box>
             </Box>
+
             <Grid item xs={12} lg={12}>
               <Breadcrumb title={`${projectDetail?.name}`}>
                 <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
@@ -80,13 +81,15 @@ const ProjectDetails: React.FC = ({}) => {
                   />
                 </Box>
               </Breadcrumb>
+            </Grid>
+            <Grid item xs={5} lg={5}>
               <DashboardCard title={t('compliance_projects.project_details')!}>
                 <Box display="flex" flexDirection="column" gap={2} mt={3}>
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
                       {t('compliance_projects.projects_description')}:
                     </Typography>
-                    <Typography variant="body2">{projectDetail?.description}</Typography>
+                    <Typography variant="body2">{projectDetail?.description || 'NA'}</Typography>
                   </Box>
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
@@ -108,20 +111,22 @@ const ProjectDetails: React.FC = ({}) => {
                     <Typography variant="subtitle2" fontWeight={600}>
                       {t('compliance_projects.project_template')}:
                     </Typography>
-                    <Typography variant="body2">{projectDetail?.description}</Typography>
+                    <Typography variant="body2">{projectDetail?.template || 'NA'}</Typography>
                   </Box>
                 </Box>
               </DashboardCard>
-              <Grid item xs={12} lg={12}>
-                <Box display="flex" flexDirection="column" gap={2} mt={3}>
-                  <GiottoProjecGroupsList groups={projectDetail?.groups} />
-                </Box>
-              </Grid>
-              <Grid item xs={12} lg={12}>
-                <Box display="flex" flexDirection="column" gap={2} mt={3}>
+            </Grid>
+            <Grid item xs={7} lg={7}>
+              <Box display="flex" flexDirection="column">
+                <Box>
                   <GiottoProjectManagersList managers={projectDetail?.managers} />
                 </Box>
-              </Grid>
+              </Box>
+            </Grid>
+            <Grid item xs={12} lg={12}>
+              <Box display="flex" flexDirection="column" gap={2} mt={1}>
+                <GiottoProjecGroupsList groups={projectDetail?.groups} />
+              </Box>
             </Grid>
           </>
         )}
