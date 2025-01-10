@@ -458,10 +458,6 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     }
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   return (
     <DashboardCard
       title={t('compliance_projects.project_edit_title')!}
@@ -485,12 +481,6 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
             <>
               <Stack spacing={2} mt={3}>
                 <Alert severity="success">All steps completed - you&apos;re finished</Alert>
-
-                <Box textAlign="right">
-                  <Button onClick={handleReset} variant="contained" color="error">
-                    Reset
-                  </Button>
-                </Box>
               </Stack>
             </>
           ) : (

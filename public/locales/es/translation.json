@@ -1286,5 +1286,15 @@
     "project_template_name": "Nombre",
     "project_edit_title": "Editar Proyecto",
     "project_edit_subtitle": "En este formulario puede editar un proyecto de cumplimiento",
+    "required_field": "Campo requerido",
+    "project_created_successfully": "Proyecto creado exitosamente",
+    "project_create_failed": "Error al crear el Proyecto",
+    "project_group_name": "Nombre",
+    "project_group_assets_qty": "# de Assets",
+    "project_basic_information": "Información Básica",
+    "project_btn_create": "Crear",
+    "project_btn_next": "Siguiente",
+    "project_btn_back": "Atrás",
+    "project_create_message": "Todos los pasos completados - Creando..."
   }
 }

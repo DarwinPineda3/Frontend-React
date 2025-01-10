@@ -1288,6 +1288,16 @@
     "project_template_creation_date": "Creation Date",
     "project_template_name": "Name",
     "project_edit_title": "Edit Project",
-    "project_edit_subtitle": "In this form you can edit a compliance project"
+    "project_edit_subtitle": "In this form you can edit a compliance project",
+    "required_field": "This field is required",
+    "project_created_successfully": "Project created successfully",
+    "project_create_failed": "Failed to create project",
+    "project_group_name": "Name",
+    "project_group_assets_qty": "Assets Qty",
+    "project_basic_information": "Basic Information",
+    "project_btn_create": "Create",
+    "project_btn_next": "Next",
+    "project_btn_back": "Back",
+    "project_create_message": "All steps completed - Creating..."
   }
 }

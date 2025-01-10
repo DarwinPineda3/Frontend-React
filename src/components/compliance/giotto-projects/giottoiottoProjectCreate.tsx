@@ -30,7 +30,6 @@ import {
 } from 'src/store/sections/compliance/giottoProjectsSlice';
 import * as Yup from 'yup';
 
-const steps = ['Basic Information', 'Goups'];
 interface Props {
   onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void; // Callback after submission
 }
@@ -174,6 +173,10 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const pageSize = useSelector((state: any) => state.summaryVulnReducer.pageSize);
   const [allSelectedGroups, setAllSelectedGroups] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const steps = [
+    t('compliance_projects.project_basic_information'),
+    t('compliance_projects.project_group_title'),
+  ];
 
   const isStepSkipped = (step) => skipped.has(step);
 
@@ -189,7 +192,6 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     if (activeStep === steps.length - 1) {
       // Call create project
       formik.values.groups = selectedGroups;
-      console.log('formik:', formik.values);
       formik.handleSubmit();
     }
   };
@@ -210,12 +212,10 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     return now.toISOString().split('T')[0];
   });
 
-  const startISO = startDate ? new Date(`${startDate}T00:00:00.000Z`).toISOString() : '';
-  const endISO = endDate ? new Date(`${endDate}T00:00:00.000Z`).toISOString() : '';
-
   // Formik setup with Yup validation schema
   const formik = useFormik({
     initialValues: {
+      id: null,
       name: '',
       description: '',
       groups: [],
@@ -228,29 +228,18 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       isDisabled: false,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required(`${t('vulnerabilities.network_vulnerabilities.required_field')}`),
+      name: Yup.string().required(`${t('compliance_projects.required_field')}`),
     }),
     onSubmit: async (values) => {
       const objProject: ComplianceProjectCreate = {
         ...values,
       };
       setIsSubmitting(true);
-      console.log('objProject:', objProject);
       try {
-        const response = await dispatch(createProject(objProject));
-        console.log('Project created successfully');
-        console.log('response:', response);
-        onSubmit(
-          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_successfully')}`,
-          'success',
-        );
+        await dispatch(createProject(objProject));
+        onSubmit(`${t('compliance_projects.project_created_successfully')}`, 'success');
       } catch (error) {
-        console.log('Error creating network scan:', error);
-        console.error('Error creating network scan:', error);
-        onSubmit(
-          `${t('vulnerabilities.network_vulnerabilities.network_scan_create_failed')}`,
-          'error',
-        );
+        onSubmit(`${t('compliance_projects.project_create_failed')}`, 'error');
       } finally {
         setIsSubmitting(false);
       }
@@ -380,14 +369,12 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {/* {t('summary.date')} */}
-                        Name
+                        {t('compliance_projects.project_group_name')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                        {/* {t('summary.tool')} */}
-                        Assets Qty
+                        {t('compliance_projects.project_group_assets_qty')}
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -443,14 +430,10 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     }
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   return (
     <DashboardCard
       title={t('compliance_projects.project_create')!}
-      subtitle={t('vulnerabilities.network_vulnerabilities.create_network_scan_subtitle')!}
+      subtitle={t('compliance_projects.project_create_description')!}
     >
       <Grid item xs={12}>
         <Box component="form" onSubmit={formik.handleSubmit} noValidate>
@@ -469,13 +452,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
           {activeStep === steps.length ? (
             <>
               <Stack spacing={2} mt={3}>
-                <Alert severity="success">All steps completed - you&apos;re finished</Alert>
-
-                <Box textAlign="right">
-                  <Button onClick={handleReset} variant="contained" color="error">
-                    Reset
-                  </Button>
-                </Box>
+                <Alert severity="success">{t('compliance_projects.project_create_message')}</Alert>
               </Stack>
             </>
           ) : (
@@ -490,7 +467,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                   onClick={handleBack}
                   sx={{ mr: 1 }}
                 >
-                  Back
+                  {t('compliance_projects.project_btn_back')}
                 </Button>
                 <Box flex="1 1 auto" />
                 <Button
@@ -498,7 +475,9 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                   variant="contained"
                   color={activeStep === steps.length - 1 ? 'success' : 'secondary'}
                 >
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                  {activeStep === steps.length - 1
+                    ? t('compliance_projects.project_btn_create')
+                    : t('compliance_projects.project_btn_next')}
                 </Button>
               </Box>
             </>
