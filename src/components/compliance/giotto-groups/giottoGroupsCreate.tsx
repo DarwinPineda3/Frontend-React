@@ -75,19 +75,10 @@ const CreateGiottoGroup: React.FC = ({ }) => {
       description: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required(t('giotto.groups.name_required')!)
-      .test(
-        'check-group-name',
-        t('giotto.groups.group_name_already_exists')!,
-        async function (value) {
-          if (!value) return true;
-          const exists = await fetchGroupName(value);
-          return !exists;
-        }
-      ),
+      name: Yup.string().required(t('giotto.groups.name_required')!),
       description: Yup.string().nullable(),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setFieldError }) => {
       const newGroup = {
         name: values.name,
         description: values.description,
@@ -96,6 +87,13 @@ const CreateGiottoGroup: React.FC = ({ }) => {
       };
 
       try {
+        const existGroupName = await fetchGroupName(values.name)
+
+        if (existGroupName) {
+          setFieldError('name', t('giotto.groups.group_name_already_exists')!);
+          return;
+        }
+
         setIsLoading(true);
         await dispatch(createGroup(newGroup));
         setIsLoading(false);

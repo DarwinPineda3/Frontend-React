@@ -181,8 +181,6 @@ export const fetchGroupName = async (name: string): Promise<boolean> => {
     const response = await axios.get(`${getApiUrl()}get_by_name?namegroup=${encodeURIComponent(name)}`);
     return !!response.data;
   } catch (error: any) {
-    console.log(error);
-    
     if (error.response?.status === 404) {
       return false;
     }

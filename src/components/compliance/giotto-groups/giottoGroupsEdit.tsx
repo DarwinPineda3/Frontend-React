@@ -7,7 +7,6 @@ import {
   Grid,
   IconButton,
   Pagination,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -25,7 +24,7 @@ import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { editGroup, fetchGroupById } from 'src/store/sections/compliance/giottoGroupsSlice';
+import { editGroup, fetchGroupById, fetchGroupName } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
 
@@ -84,8 +83,8 @@ const EditGiottoGroup: React.FC = () => {
         name: groupDetail.name || '',
         description: groupDetail.description || '',
       });
-      setSelectedTemplates(groupDetail.templates.map((template: any) => template.id));
-      setSelectedAssets(groupDetail.assets.map((asset: any) => asset.id));
+      setSelectedTemplates(groupDetail.templates?.map((template: any) => template.id));
+      setSelectedAssets(groupDetail.assets?.map((asset: any) => asset.id));
     }
   }, [groupDetail]);
 
@@ -108,19 +107,19 @@ const EditGiottoGroup: React.FC = () => {
       name: Yup.string().required(t('giotto.groups.name_required')!),
       description: Yup.string().nullable(),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setFieldError }) => {
 
-      const originalAssetIds = groupDetail.assets.map((asset: any) => asset.id);
-      const originalTemplateIds = groupDetail.templates.map((template: any) => template.id);
+      const originalAssetIds = groupDetail?.assets?.map((asset: any) => asset.id);
+      const originalTemplateIds = groupDetail?.templates?.map((template: any) => template.id);
 
       const currentAssetIds = selectedAssets;
       const currentTemplateIds = selectedTemplates;
 
-      const addedAssets = currentAssetIds.filter((id) => !originalAssetIds.includes(id));
-      const addedTemplates = currentTemplateIds.filter((id) => !originalTemplateIds.includes(id));
+      const addedAssets = currentAssetIds?.filter((id) => !originalAssetIds.includes(id));
+      const addedTemplates = currentTemplateIds?.filter((id) => !originalTemplateIds.includes(id));
 
-      const removedAssets = originalAssetIds.filter((id) => !currentAssetIds.includes(id));
-      const removedTemplates = originalTemplateIds.filter((id) => !currentTemplateIds.includes(id));
+      const removedAssets = originalAssetIds?.filter((id) => !currentAssetIds.includes(id));
+      const removedTemplates = originalTemplateIds?.filter((id) => !currentTemplateIds.includes(id));
 
       const payload = {
         id: 1,
@@ -131,6 +130,13 @@ const EditGiottoGroup: React.FC = () => {
         removedAssets,
         removedTemplates,
       };
+
+      const existGroupName = await fetchGroupName(values.name)
+
+      if (existGroupName) {
+        setFieldError('name', t('giotto.groups.group_name_already_exists')!);
+        return;
+      }
 
 
       try {
@@ -257,17 +263,17 @@ const EditGiottoGroup: React.FC = () => {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {templatesPaginated.map((template) => (
-                                <TableRow key={template.id}>
+                              {templatesPaginated?.map((template) => (
+                                <TableRow key={template?.id}>
                                   <TableCell>
                                     <Checkbox
-                                      checked={selectedTemplates.includes(template.id)}
+                                      checked={selectedTemplates?.includes(template?.id)}
                                       onChange={() =>
-                                        toggleSelection(template.id, setSelectedTemplates, selectedTemplates)
+                                        toggleSelection(template?.id, setSelectedTemplates, selectedTemplates)
                                       }
                                     />
                                   </TableCell>
-                                  <TableCell>{template.name}</TableCell>
+                                  <TableCell>{template?.name}</TableCell>
                                 </TableRow>
                               ))}
                             </TableBody>
@@ -297,17 +303,17 @@ const EditGiottoGroup: React.FC = () => {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {assetsPaginated.map((asset) => (
+                              {assetsPaginated?.map((asset) => (
                                 <TableRow key={asset.id}>
                                   <TableCell>
                                     <Checkbox
-                                      checked={selectedAssets.includes(asset.id)}
+                                      checked={selectedAssets?.includes(asset?.id)}
                                       onChange={() =>
-                                        toggleSelection(asset.id, setSelectedAssets, selectedAssets)
+                                        toggleSelection(asset?.id, setSelectedAssets, selectedAssets)
                                       }
                                     />
                                   </TableCell>
-                                  <TableCell>{asset.name}</TableCell>
+                                  <TableCell>{asset?.name}</TableCell>
                                 </TableRow>
                               ))}
                             </TableBody>
