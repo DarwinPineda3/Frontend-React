@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
-import { Box, Card, CardHeader, CardContent, Grid, Breadcrumbs, IconButton, Link, Typography, Snackbar, Alert, Pagination } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import PageContainer from 'src/components/container/PageContainer';
-import { Link as RouterLink } from 'react-router-dom';
 import { ArrowBack } from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Breadcrumbs,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Link,
+  Pagination,
+  Snackbar,
+  Typography,
+} from '@mui/material';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import PageContainer from 'src/components/container/PageContainer';
 import BaseTemplateTable from 'src/components/template/BaseTemplateTable';
 import CustomTemplateTable from 'src/components/template/CustomTemplateTable';
-import { useTranslation } from 'react-i18next';
 
 const TemplateListPage = () => {
   const [isLoadingBase, setIsLoadingBase] = useState(false);
@@ -65,9 +77,7 @@ const TemplateListPage = () => {
             <Link component={RouterLink} color="inherit" to="/compliance/templates">
               {t('breadcrumbs.compliance')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/compliance/templates">
-              {t('breadcrumbs.templates')}
-            </Link>
+            <Typography>{t('breadcrumbs.templates')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>
@@ -77,7 +87,11 @@ const TemplateListPage = () => {
           <Card>
             <CardHeader
               title={<Typography variant="h6">{t('templates.baseTemplates')}</Typography>}
-              subheader={<Typography variant="body2" color="textSecondary">{t('templates.baseTemplates') + ' ' + t('templates.template')}</Typography>}
+              subheader={
+                <Typography variant="body2" color="textSecondary">
+                  {t('templates.baseTemplates') + ' ' + t('templates.template')}
+                </Typography>
+              }
               sx={{ backgroundColor: 'success.main', color: 'white' }}
             />
             <CardContent>
@@ -103,11 +117,18 @@ const TemplateListPage = () => {
           <Card>
             <CardHeader
               title={<Typography variant="h6">{t('templates.customTemplates')}</Typography>}
-              subheader={<Typography variant="body2" color="textSecondary">{t('templates.customTemplates') + ' ' + t('templates.template')}</Typography>}
+              subheader={
+                <Typography variant="body2" color="textSecondary">
+                  {t('templates.customTemplates') + ' ' + t('templates.template')}
+                </Typography>
+              }
               sx={{ backgroundColor: 'success.main', color: 'white' }}
             />
             <CardContent>
-              <CustomTemplateTable isLoading={isLoadingCustom} handleDownload={handleDownloadCustom} />
+              <CustomTemplateTable
+                isLoading={isLoadingCustom}
+                handleDownload={handleDownloadCustom}
+              />
               <Pagination
                 count={3}
                 color="primary"
@@ -124,7 +145,12 @@ const TemplateListPage = () => {
         </Grid>
       </Grid>
 
-      <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
         <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
           {snackbarMessage}
         </Alert>

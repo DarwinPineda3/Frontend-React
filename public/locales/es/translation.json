@@ -1232,7 +1232,8 @@
     "compliance_assets": "Activos",
     "compliance_groups": "Grupos",
     "compliance_projects": "Proyectos",
-    "compliance_executions": "Ejecuciones"
+    "compliance_executions": "Ejecuciones",
+    "compliance_templates": "Plantillas"
   },
   "compliance": {
     "assets_description": "Activos",

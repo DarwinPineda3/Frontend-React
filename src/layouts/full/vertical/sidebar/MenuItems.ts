@@ -3,9 +3,11 @@ import {
   IconAperture,
   IconBasket,
   IconBook,
+  IconBox,
   IconBrandWordpress,
   IconBroadcast,
   IconChartDonut3,
+  IconClipboardList,
   IconClockBolt,
   IconCloud,
   IconExternalLink,
@@ -29,9 +31,7 @@ import {
   IconSquaresFilled,
   IconTicket,
   IconUserBolt,
-  IconUserShield,
-  IconBox,
-  IconClipboardList
+  IconUserShield
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -410,31 +410,37 @@ const Menuitems: MenuitemsType[] = [
     id: uniqueId(),
     title: 'compliance_menu.compliance_assets', // Translation key for title
     href: '/compliance/assets',
-    icon: IconShoppingCart, 
-    permissions: ['Admin', 'Compliance','Scan360'],
+    icon: IconShoppingCart,
+    permissions: ['Admin', 'Compliance', 'Scan360'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_groups', // Translation key for title
     href: '/compliance/groups',
-    icon: IconFile, 
-    permissions: ['Admin', 'Compliance','Scan360'],
+    icon: IconFile,
+    permissions: ['Admin', 'Compliance', 'Scan360'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_projects', // Translation key for title
     href: '/compliance/projects',
-    icon: IconBox, 
-    permissions: ['Admin', 'Compliance','Scan360'],
+    icon: IconBox,
+    permissions: ['Admin', 'Compliance', 'Scan360'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_executions', // Translation key for title
     href: '/compliance/executions',
     icon: IconClipboardList,
-    permissions: ['Admin', 'Compliance','Scan360'],
+    permissions: ['Admin', 'Compliance', 'Scan360'],
   },
-  
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_templates', // Translation key for title
+    href: '/compliance/templates',
+    icon: IconClipboardList,
+    permissions: ['Admin', 'Compliance', 'Scan360'],
+  },
 ];
 
 export default Menuitems;
