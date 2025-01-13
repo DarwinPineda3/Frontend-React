@@ -1,7 +1,7 @@
 import mock from '../mock'; // Ensure correct path to mock
 
 
-interface GiottoTemplate {
+interface GiottoTemplateList {
   id: number,
   name: string,
   creationDate: string;
@@ -9,57 +9,89 @@ interface GiottoTemplate {
   isBaseTemplate: boolean
 }
 
-let baseTemplates: GiottoTemplate[] = [
-  {
-    "id": 1,
-    "name": "aWindows Server XYZies",
-    "creationDate": "2024-10-15T15:29:01.8133333+00:00",
-    "workingSystemName": "Windows Server 2019-2022",
-    "isBaseTemplate": true
-  }
+interface GiottoTemplateObjList {
+  itemsResult: GiottoTemplateList[],
+  totalItemsAmount: number,
+  pageSize: number,
+  totalPages: number,
+  currentPage: number
+}
 
-];
+let baseTemplates: GiottoTemplateObjList = {
+  "totalItemsAmount": 1,
+  "pageSize": 10,
+  "totalPages": 1,
+  "currentPage": 1,
+  "itemsResult": [
+    {
+      "id": 1,
+      "name": "aWindows Server XYZies",
+      "creationDate": "2024-10-15T15:29:01.8133333+00:00",
+      "workingSystemName": "Windows Server 2019-2022",
+      "isBaseTemplate": true
+    }
+  ]
+};
 
-let customTemplates: GiottoTemplate[] = [
-  {
-    "id": 1,
-    "name": "aWindows Server XYZies",
-    "creationDate": "2024-10-15T15:29:01.8133333+00:00",
-    "workingSystemName": "Windows Server 2019-2022",
-    "isBaseTemplate": true
-  }
+let customTemplates: GiottoTemplateObjList =
+{
+  "totalItemsAmount": 1,
+  "pageSize": 10,
+  "totalPages": 1,
+  "currentPage": 1,
+  "itemsResult": [
+    {
+      "id": 1,
+      "name": "aWindows Server XYZies",
+      "creationDate": "2024-10-15T15:29:01.8133333+00:00",
+      "workingSystemName": "Windows Server 2019-2022",
+      "isBaseTemplate": true
+    }
+  ]
+};
 
-];
-
-// GET: Fetch paginated projects
-mock.onGet(new RegExp('api/gioto/projects')).reply((config) => {
+// GET: Fetch paginated base templates
+mock.onGet(new RegExp('api/gioto/templates')).reply((config) => {
   try {
-    const urlParams = new URLSearchParams(config.url!.split('?')[1]);
 
-    const limit = 5;
-    const page = parseInt(urlParams.get('page') || '1', 10); // Default to page 1
-
-
-    const totalProjects = projects.length;
-    const totalPages = Math.ceil(totalProjects / limit);
     return [
       200,
       {
-        totalItemsAmount: totalProjects,
-        pageSize: limit,
-        totalPages,
-        currentPage: page,
-        itemsResult: projects
+        totalItemsAmount: baseTemplates.totalItemsAmount,
+        pageSize: baseTemplates.pageSize,
+        totalPages: baseTemplates.totalPages,
+        currentPage: baseTemplates.currentPage,
+        itemsResult: baseTemplates.itemsResult
       }
     ];
   } catch (error) {
-    console.error('Error in projects API:', error);
+    console.error('Error in templates API:', error);
+    return [500, { message: 'Internal server error' }];
+  }
+});
+
+// GET: Fetch paginated base templates
+mock.onGet(new RegExp('api/gioto/customTemplates')).reply((config) => {
+  try {
+
+    return [
+      200,
+      {
+        totalItemsAmount: customTemplates.totalItemsAmount,
+        pageSize: customTemplates.pageSize,
+        totalPages: customTemplates.totalPages,
+        currentPage: customTemplates.currentPage,
+        itemsResult: customTemplates.itemsResult
+      }
+    ];
+  } catch (error) {
+    console.error('Error in templates API:', error);
     return [500, { message: 'Internal server error' }];
   }
 });
 
 // POST: Create a new project
-mock.onPost('api/gioto/projects/').reply((config) => {
+mock.onPost('api/gioto/templates/').reply((config) => {
   try {
     const {
       name,
@@ -71,7 +103,7 @@ mock.onPost('api/gioto/projects/').reply((config) => {
     } = JSON.parse(config.data);
 
     const newProject: ComplianceProject = {
-      id: (projects.length + 1),
+      id: (templates.length + 1),
       name,
       companyName,
       startDate,
@@ -79,7 +111,7 @@ mock.onPost('api/gioto/projects/').reply((config) => {
       isDisabled,
       disabledBy
     };
-    projects.push(newProject); // Add new project to mock database
+    templates.push(newProject); // Add new project to mock database
     return [200, newProject];
   } catch (error) {
     console.error('Error in creating project:', error);
@@ -88,7 +120,7 @@ mock.onPost('api/gioto/projects/').reply((config) => {
 });
 
 // PUT: Update an existing project
-mock.onPut(new RegExp('api/gioto/projects/*')).reply((config) => {
+mock.onPut(new RegExp('api/gioto/templates/*')).reply((config) => {
   try {
     const projectId = Number(config.url!.split('/').pop());
     const updatedData = JSON.parse(config.data);
@@ -108,7 +140,7 @@ mock.onPut(new RegExp('api/gioto/projects/*')).reply((config) => {
 });
 
 // DELETE: Delete an project
-mock.onDelete(new RegExp('/api/gioto/projects/*')).reply((config) => {
+mock.onDelete(new RegExp('/api/gioto/templates/*')).reply((config) => {
   try {
     const projectId = Number(config.url!.split('/').pop()); // Extract the project ID from the URL
 

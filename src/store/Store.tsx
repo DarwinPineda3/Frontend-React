@@ -7,6 +7,7 @@ import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
+import GiottoTemplatesReducer from './sections/compliance/giottoTemplatesSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
@@ -33,7 +34,7 @@ import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
-import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
+import WPScanReducer from './vulnerabilities/web/WPScanSlice';
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
 
 import {
@@ -53,7 +54,7 @@ const dashboardReducer = combineReducers({
   recentEvents: RecentEvents,
   weeklyStats: WeeklyStatsReducer,
   orgBreaches: OrgBreachesSlice,
-  sentimentsSumaryReducer: SentimentsSumaryReducer
+  sentimentsSumaryReducer: SentimentsSumaryReducer,
 });
 
 export const store = configureStore({
@@ -85,6 +86,7 @@ export const store = configureStore({
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
+    giottoTemplatesReducer: GiottoTemplatesReducer,
   },
 });
 
@@ -115,11 +117,12 @@ const rootReducer = combineReducers({
   vulnerabitySolutionReducer: VulnerabilitySolutionReducer,
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   ThresholdSlice: ThresholdSlice,
-  ObservedAssetsReducer: ObservedAssetsReducer
+  ObservedAssetsReducer: ObservedAssetsReducer,
+  giottoTemplatesReducer: GiottoTemplatesReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const { } = store;
+export const {} = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;
