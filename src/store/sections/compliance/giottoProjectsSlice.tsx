@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
 // Update to match the backend API endpoint
 function getApiUrl() {
-  // return `api/gioto/projects/`;
-  return `${getBaseApiUrl()}/compliance/projects/`;
+  return `api/giotto/projects/`;
+  // return `${getBaseApiUrl()}/compliance/projects/`;
 }
 
 export interface ComplianceProject {
@@ -152,9 +151,10 @@ export const fetchProjects =
 
 export const fetchProjectById = (projectId: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${projectId}/`);
+    const url = `${getApiUrl()}detail/${projectId}`;
+    const response = await axios.get(url);
     if (response.status === 200) {
-      dispatch(getProjectDetail({ data: response.data }));
+      dispatch(getProjectDetail({ data: response.data.data }));
     } else {
       dispatch(setError('fetch project detail not found'));
     }
@@ -187,9 +187,8 @@ export const createProject =
 export const editProject =
   (updatedProject: ComplianceProjectUpdate) => async (dispatch: AppDispatch) => {
     try {
-      const url = `${getApiUrl()}${updatedProject.id}/`;
+      const url = `${getApiUrl()}edit/${updatedProject.id}`;
       const response = await axios.put(url, updatedProject);
-
       if (response.status >= 200 && response.status < 300) {
         dispatch(fetchProjects(initialState.page, initialState.pageSize));
       } else {
@@ -210,7 +209,8 @@ export const editProject =
 // Async thunk for deleting an project (DELETE)
 export const removeProject = (projectId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}${projectId}`);
+    const url = `${getApiUrl()}delete/${projectId}`;
+    const response = await axios.delete(url);
     dispatch(deleteProject(projectId));
   } catch (err: any) {
     console.error('Error deleting project:', err);
