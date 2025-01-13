@@ -185,6 +185,20 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     t('compliance_projects.project_group_title'),
   ];
 
+  // Dates
+  const [startDate, setStartDate] = useState(() => {
+    const now = new Date();
+    now.setDate(1);
+    return now.toISOString().split('T')[0];
+  });
+
+  const [endDate, setEndDate] = useState(() => {
+    const now = new Date();
+    now.setMonth(now.getMonth() + 1, 1);
+    return now.toISOString().split('T')[0];
+  });
+
+  // Fetch project details
   useEffect(() => {
     const fetchData = async () => {
       if (projectId) {
@@ -200,19 +214,14 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     fetchData();
   }, [projectId, dispatch]);
 
-  // Dates
-  const [startDate, setStartDate] = useState(() => {
-    const now = new Date();
-    now.setDate(1);
-    return now.toISOString().split('T')[0];
-  });
+  // Load to checkboxes
+  useEffect(() => {
+    if (projectDetail?.groups) {
+      setSelectedGroups(projectDetail?.groups.map((group: any) => group.groupId));
+    }
+  }, [projectDetail]);
 
-  const [endDate, setEndDate] = useState(() => {
-    const now = new Date();
-    now.setMonth(now.getMonth() + 1, 1);
-    return now.toISOString().split('T')[0];
-  });
-
+  // Set end date to be one month after start date
   useEffect(() => {
     const newEndDate = new Date(startDate);
     newEndDate.setMonth(newEndDate.getMonth() + 1);
@@ -223,7 +232,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     }
   }, [startDate]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -316,7 +325,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     },
   });
 
-  // eslint-disable-next-line consistent-return
+  // Data for steps
   const handleSteps = (step) => {
     switch (step) {
       case 0:
