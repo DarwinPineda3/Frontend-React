@@ -12,4 +12,5 @@ import './vulnerabilities/Summary';
 import './vulnerabilities/Management';
 import './monitoring/soc/Newsletter';
 import './vulnerabilities/redteam/ehReports'
+import './compliance/giottoGroups'
 mock.onAny().passThrough();

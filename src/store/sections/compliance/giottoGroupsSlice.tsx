@@ -4,7 +4,7 @@ import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
 function getApiUrl() {
-  // return `api/gioto/itemsResults/`;
+  return `api/giotto/groups/`;
   return `${getBaseApiUrl()}/compliance/groups/`;
 }
 
@@ -36,7 +36,7 @@ export const GiottoGroupSlice = createSlice({
   reducers: {
     getGroups: (state, action) => {
       state.itemsResults = Array.isArray(action.payload.results) ? action.payload.results : [];
-      state.page = action.payload.page;
+      state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
@@ -105,8 +105,9 @@ export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 1
 
 export const fetchGroupById = (groupId: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${groupId}/`);
-
+    const response = await axios.get(`${getApiUrl()}${groupId}`);
+    console.log(response);
+    
     if (response.status === 200) {
       dispatch(getGroupDetail({ data: response.data }));
     } else {
