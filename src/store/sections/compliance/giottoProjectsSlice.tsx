@@ -19,7 +19,6 @@ export interface ComplianceProject {
 }
 
 export interface ComplianceProjectCreate {
-  id: number | null;
   name: string;
   companyId: number | null;
   startDate: string;
@@ -187,8 +186,7 @@ export const createProject =
 export const editProject =
   (updatedProject: ComplianceProjectUpdate) => async (dispatch: AppDispatch) => {
     try {
-      const url = `${getApiUrl()}edit/${updatedProject.id}`;
-      const response = await axios.put(url, updatedProject);
+      const response = await axios.put(`${getApiUrl()}${updatedProject.id}`, updatedProject);
       if (response.status >= 200 && response.status < 300) {
         dispatch(fetchProjects(initialState.page, initialState.pageSize));
       } else {
@@ -209,8 +207,7 @@ export const editProject =
 // Async thunk for deleting an project (DELETE)
 export const removeProject = (projectId: string) => async (dispatch: AppDispatch) => {
   try {
-    const url = `${getApiUrl()}delete/${projectId}`;
-    const response = await axios.delete(url);
+    await axios.delete(`${getApiUrl()}${projectId}`);
     dispatch(deleteProject(projectId));
   } catch (err: any) {
     console.error('Error deleting project:', err);

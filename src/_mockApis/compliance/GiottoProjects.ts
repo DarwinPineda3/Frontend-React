@@ -19,11 +19,11 @@ interface ComplianceProject {
 interface ComplianceProjectObjList {
   id: number,
   name: string,
-  companyName: string | undefined;
+  companyName?: string | undefined;
   start_date: string,
   end_date: string,
   disabledBy: boolean,
-  disabledDate: boolean | null,
+  disabledDate?: boolean | null,
 }
 interface ComplianceProjectList {
   itemsResult: ComplianceProjectObjList[],
@@ -33,9 +33,20 @@ interface ComplianceProjectList {
   pageSize: number
 }
 
+export interface ComplianceProjectCreate {
+  name: string;
+  companyId: number | null;
+  startDate: string;
+  endDate: string;
+  isDisabled: boolean;
+  disabledBy: boolean | null;
+  groupTechnicians: string[] | null;
+  groups: number[];
+  managers: string[] | null;
+}
 
 
-let projects: any =
+let projects: ComplianceProjectList =
 {
   "itemsResult": [
     {
@@ -298,7 +309,7 @@ let projectDetail: ComplianceProject =
 }
 
 // DELETE: Delete an project
-mock.onDelete(new RegExp('api/giotto/projects/delete/*')).reply((config) => {
+mock.onDelete(new RegExp('api/giotto/projects/*')).reply((config) => {
   try {
     const projectId = Number(config.url!.split('/').pop()); // Extract the project ID from the URL
     const projectIndex = projects.itemsResult.findIndex((project: ComplianceProjectObjList) => project.id === projectId);
@@ -358,26 +369,23 @@ mock.onGet(new RegExp('api/giotto/projects')).reply((config) => {
 
 // POST: Create a new project
 mock.onPost('api/giotto/projects/').reply((config) => {
+  const id = projects.itemsResult.length + 1; // Create a new ID
   try {
     const {
       name,
-      companyName,
-      startDate,
-      endDate,
-      isDisabled,
-      disabledBy
+      start_date,
+      end_date,
+      disabledBy,
     } = JSON.parse(config.data);
 
-    const newProject: ComplianceProject = {
-      id: (projects.length + 1),
+    const newProject: ComplianceProjectObjList = {
+      id,
       name,
-      companyName,
-      startDate,
-      endDate,
-      isDisabled,
-      disabledBy
+      start_date,
+      end_date,
+      disabledBy,
     };
-    projects.push(newProject); // Add new project to mock database
+    projects.itemsResult.push(newProject); // Add new project to mock database
     return [200, newProject];
   } catch (error) {
     console.error('Error in creating project:', error);
@@ -386,7 +394,7 @@ mock.onPost('api/giotto/projects/').reply((config) => {
 });
 
 // PUT: Update an existing project
-mock.onPut(new RegExp('api/giotto/projects/edit/*')).reply((config) => {
+mock.onPut(new RegExp('api/giotto/projects/*')).reply((config) => {
   try {
     const projectId = Number(config.url!.split('/').pop());
     const updatedData = JSON.parse(config.data);
