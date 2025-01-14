@@ -13,12 +13,17 @@ import {
   Snackbar,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import BaseTemplateTable from 'src/components/template/BaseTemplateTable';
 import CustomTemplateTable from 'src/components/template/CustomTemplateTable';
+import {
+  fetchGetAllTemplates,
+  setLoading,
+} from 'src/store/sections/compliance/giottoTemplatesSlice';
 
 const TemplateListPage = () => {
   const [isLoadingBase, setIsLoadingBase] = useState(false);
@@ -30,9 +35,21 @@ const TemplateListPage = () => {
 
   const [basePage, setBasePage] = useState(1);
   const [customPage, setCustomPage] = useState(1);
-
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const { templates, loading } = useSelector((state: any) => state.giottoTemplatesReducer);
+  console.log(templates);
+  console.log(loading);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(fetchGetAllTemplates());
+      setLoading(false);
+    };
+    fetchData();
+  }, [dispatch]);
 
   const handleDownloadBase = () => {
     setIsLoadingBase(true);
