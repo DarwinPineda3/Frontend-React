@@ -9,6 +9,7 @@ import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
 import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
 import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice';
+import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
@@ -38,7 +39,6 @@ import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
-import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice';
 
 import {
   TypedUseSelectorHook,
