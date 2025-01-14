@@ -7,6 +7,8 @@ import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
+import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
+import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
@@ -31,11 +33,11 @@ import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
+import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from "./vulnerabilities/web/WPScanSlice";
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
-import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 
 import {
   TypedUseSelectorHook,
@@ -86,6 +88,8 @@ export const store = configureStore({
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
+    GiottoAssetsReducer: GiottoAssetsReducer,
+    GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
   },
 });
@@ -118,6 +122,8 @@ const rootReducer = combineReducers({
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
+  GiottoAssetsReducer: GiottoAssetsReducer,
+  GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
 });
 

@@ -67,11 +67,17 @@ export const AssetsSlice = createSlice({
 export const { getAssets, getFilteredAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading } = AssetsSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
-export const fetchAssets = (requestedPage: Number, pageSize: Number = 10) => async (dispatch: AppDispatch) => {
+export const fetchAssets = (requestedPage: number, pageSize: number = 10) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading(true));
     if (pageSize !== initialState.pageSize) {
       requestedPage = 1;
+    }
+    if (isNaN(requestedPage)) {
+      requestedPage = 1;
+    }
+    if (isNaN(pageSize)) {
+      pageSize = 10;
     }
     const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
     const { results, page, totalPages } = response.data;
