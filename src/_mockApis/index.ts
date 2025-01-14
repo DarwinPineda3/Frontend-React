@@ -1,4 +1,6 @@
 import './auth/Account';
+import './compliance/GiottoAssets';
+import './compliance/GiottoExecutions';
 import './compliance/GiottoProjects';
 import './home/Asset';
 import './home/cyber-guard/brandMonitoring/BrandMonitoring';
@@ -13,4 +15,5 @@ import './monitoring/soc/Newsletter';
 import './vulnerabilities/Management';
 import './vulnerabilities/redteam/ehReports';
 import './vulnerabilities/Summary';
+
 mock.onAny().passThrough();

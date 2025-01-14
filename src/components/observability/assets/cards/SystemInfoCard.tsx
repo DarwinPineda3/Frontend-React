@@ -1,35 +1,10 @@
 import Masonry from '@mui/lab/Masonry';
-import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import InfoCard from 'src/components/shared/InfoCard';
 import { AppState, useSelector } from 'src/store/Store';
 import DiskCard from './DiskCard';
 
-interface InfoCardProps {
-  title: string;
-  data: { label: string; value: string }[];
-  titleColor: string;
-}
 
-const InfoCard = ({ title, data, titleColor }: InfoCardProps) => (
-  <DashboardCard>
-    <>
-      <Typography variant="h6" style={{ color: titleColor }} gutterBottom>
-        {title}
-      </Typography>
-      <Box>
-        {data.map((item, index) => (
-          <Box key={index} mb={1}>
-            <Typography variant="body2" fontWeight={600}>
-              {item.label}
-            </Typography>
-            <Typography variant="body2">{item.value}</Typography>
-          </Box>
-        ))}
-      </Box>
-    </>
-  </DashboardCard>
-);
 
 interface SystemInfoCardsProps {
   id: string;
@@ -111,12 +86,12 @@ const SystemInfoCards = ({ id }: SystemInfoCardsProps) => {
 
   const partitionInfo = observedAssetsDetail?.cpuInfo.Storage.Partitions
     ? [].concat(
-        ...observedAssetsDetail.cpuInfo.Storage.Partitions.map((item) => [
-          { label: t('observability.partitions'), value: item.Partition },
-          { label: t('observability.size'), value: `${item.Size.toFixed(2)} GB` },
-          { label: t('observability.type'), value: item.Type },
-        ]),
-      )
+      ...observedAssetsDetail.cpuInfo.Storage.Partitions.map((item) => [
+        { label: t('observability.partitions'), value: item.Partition },
+        { label: t('observability.size'), value: `${item.Size.toFixed(2)} GB` },
+        { label: t('observability.type'), value: item.Type },
+      ]),
+    )
     : [];
 
   const partitionInfo_old = [

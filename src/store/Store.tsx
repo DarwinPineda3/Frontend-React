@@ -7,6 +7,8 @@ import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
+import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
+import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice';
 import GiottoProjectsReducer from './sections/compliance/giottoProjectsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
@@ -87,6 +89,8 @@ export const store = configureStore({
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
+    GiottoAssetsReducer: GiottoAssetsReducer,
+    GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
     giottoProjectsReducer: GiottoProjectsReducer,
   },
@@ -120,12 +124,14 @@ const rootReducer = combineReducers({
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
+  GiottoAssetsReducer: GiottoAssetsReducer,
+  GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
   giottoProjectsReducer: GiottoProjectsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const {} = store;
+export const { } = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;
