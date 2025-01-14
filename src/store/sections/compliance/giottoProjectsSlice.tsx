@@ -4,8 +4,7 @@ import { AppDispatch } from '../../Store';
 
 // Update to match the backend API endpoint
 function getApiUrl() {
-  return `api/giotto/projects/`;
-  // return `${getBaseApiUrl()}/compliance/projects/`;
+  return `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/giotto-proxy?url=Projects/`;
 }
 
 export interface ComplianceProject {
@@ -127,9 +126,10 @@ export const fetchProjects =
       if (requestedPageSize !== initialState.pageSize) {
         requestedPage = 1;
       }
-      const response = await axios.get(
-        `${getApiUrl()}?page=${requestedPage}&page_size=${requestedPageSize}`,
-      );
+      // const url = `${getApiUrl()}?page=${requestedPage}&page_size=${requestedPageSize}`;
+      const url = `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
+      const response = await axios.get(url);
+      console.log(response);
       const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
 
       dispatch(
@@ -145,6 +145,7 @@ export const fetchProjects =
     } catch (err: any) {
       console.error('Error fetching projects:', err);
       dispatch(setError('Failed to fetch projects'));
+      dispatch(setLoading(false));
     }
   };
 
