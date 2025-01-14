@@ -126,10 +126,8 @@ export const fetchProjects =
       if (requestedPageSize !== initialState.pageSize) {
         requestedPage = 1;
       }
-      // const url = `${getApiUrl()}?page=${requestedPage}&page_size=${requestedPageSize}`;
       const url = `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
       const response = await axios.get(url);
-      console.log(response);
       const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
 
       dispatch(
@@ -151,10 +149,10 @@ export const fetchProjects =
 
 export const fetchProjectById = (projectId: string) => async (dispatch: AppDispatch) => {
   try {
-    const url = `${getApiUrl()}detail/${projectId}`;
+    const url = `${getApiUrl()}GetById/${projectId}`;
     const response = await axios.get(url);
     if (response.status === 200) {
-      dispatch(getProjectDetail({ data: response.data.data }));
+      dispatch(getProjectDetail({ data: response.data }));
     } else {
       dispatch(setError('fetch project detail not found'));
     }
@@ -208,7 +206,7 @@ export const editProject =
 // Async thunk for deleting an project (DELETE)
 export const removeProject = (projectId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}${projectId}`);
+    await axios.delete(`${getApiUrl()}DeleteProject/${projectId}`);
     dispatch(deleteProject(projectId));
   } catch (err: any) {
     console.error('Error deleting project:', err);

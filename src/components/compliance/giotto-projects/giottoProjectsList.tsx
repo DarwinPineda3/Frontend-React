@@ -121,11 +121,11 @@ const GiottoProjectsList = () => {
               {/* Table head */}
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Start Date</TableCell>
-                  <TableCell>End Date</TableCell>
-                  <TableCell>State</TableCell>
-                  <TableCell>Actions</TableCell>
+                  <TableCell>{t('compliance_projects.project_name')}</TableCell>
+                  <TableCell>{t('compliance_projects.project_start_date')}</TableCell>
+                  <TableCell>{t('compliance_projects.project_end_date')}</TableCell>
+                  <TableCell>{t('compliance_projects.project_state')}</TableCell>
+                  <TableCell>{t('compliance_projects.project_actions')}</TableCell>
                 </TableRow>
               </TableHead>
               {/* Table body */}

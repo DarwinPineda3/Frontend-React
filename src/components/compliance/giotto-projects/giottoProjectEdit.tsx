@@ -289,6 +289,11 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     dispatch(setPage(1));
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    return new Date(dateString).toISOString().split('T')[0];
+  };
+
   // Formik setup with Yup validation schema
   const formik = useFormik({
     initialValues: {
@@ -298,8 +303,8 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       groups: [],
       managers: [],
       groupTechnicians: [],
-      startDate: startDate.toString(),
-      endDate: endDate.toString(),
+      startDate: formatDate(projectDetail?.startDate) || startDate.toString(),
+      endDate: formatDate(projectDetail?.endDate) || endDate.toString(),
       disabledBy: null,
       companyId: null,
       isDisabled: false,
