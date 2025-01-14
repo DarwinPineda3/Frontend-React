@@ -37,11 +37,6 @@ interface Template {
   name: string;
 }
 
-interface Asset {
-  id: number;
-  name: string;
-}
-
 const CreateGiottoGroup: React.FC = ({ }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -69,11 +64,6 @@ const CreateGiottoGroup: React.FC = ({ }) => {
   const templatesList: Template[] = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
     name: `Template ${index + 1}`,
-  }));
-
-  const assetsList: Asset[] = Array.from({ length: 11 }, (_, index) => ({
-    id: index + 1,
-    name: `Asset ${index + 1}`,
   }));
 
   const [selectedTemplates, setSelectedTemplates] = useState<number[]>([]);
