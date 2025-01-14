@@ -1291,5 +1291,40 @@
       "group_deleted_successfully": "Grupo eliminado exitosamente",
       "edit_group": "Editar grupo"
     }
+  },
+  "compliance_reports": {
+    "by_project": "Cumplimiento por Proyecto",
+    "select_project": "Seleccionar Proyecto",
+    "report_description": "Este reporte permite listar todos los valores de cumplimiento para cada activo en los grupos del proyecto seleccionado.",
+    "generate_download": "Generar y Descargar",
+    "report_generated": "Reporte generado y descargado",
+    "compliance": "Cumplimiento",
+    "reports": "Informes",
+    "loading": "Cargando..."
+  },
+  "assessment_status": {
+    "title": "Estado de la Evaluación",
+    "by_asset": "Estado de evaluación por activo",
+    "select_parameters": "Seleccionar Parámetros",
+    "select_project": "Seleccionar Proyecto",
+    "select_project_option": "Seleccionar un Proyecto",
+    "project_option_1": "Grupo Demo Giotto 2",
+    "select_group": "Seleccionar Grupo",
+    "select_group_option": "Seleccionar un Grupo",
+    "group_option_1": "Grupo Demo Giotto",
+    "select_template": "Seleccionar Plantilla",
+    "select_template_option": "Seleccionar una Plantilla",
+    "template_option_1": "Plantilla Windows Server 2019 (Recortada)",
+    "select_execution": "Seleccionar Ejecución",
+    "select_execution_option": "Seleccionar Ejecución",
+    "execution_option_1": "Lun Dic 16 2024 16:52:17 GMT-0500 (Hora Estándar de Colombia)",
+    "execution_option_2": "Lun Dic 16 2024 16:51:25 GMT-0500 (Hora Estándar de Colombia)",
+    "select_asset": "Seleccionar Activo",
+    "select_asset_option": "Seleccionar un Activo",
+    "asset_option_1": "giotto-win-srva",
+    "report_info": "Este reporte te permite ver todos los resultados de control de cumplimiento para el activo y ejecución de evaluación seleccionados.",
+    "loading": "Cargando...",
+    "generate_download": "Generar y Descargar",
+    "report_generated": "Reporte generado exitosamente"
   }
 }
