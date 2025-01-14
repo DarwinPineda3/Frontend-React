@@ -8,14 +8,14 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -50,6 +50,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const wpscans = useSelector((state: any) => state.wpscanReducer.wpscans);
   const currentPage = useSelector((state: any) => state.wpscanReducer.page);
   const totalPages = useSelector((state: any) => state.wpscanReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.wpscanReducer.pageSize);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -61,13 +62,13 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchWPScans(currentPage));
+      await dispatch(fetchWPScans(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
   }, [dispatch, currentPage]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -82,7 +83,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   };
 
   const handleDownload = async (id: string) => {
-    try{
+    try {
       await dispatch(downloadWPScanReport(id));
     } catch (error: any) {
 
@@ -132,6 +133,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     }, 0);
     handleCloseModal();
   };
+
 
   return (
     <DashboardCard
@@ -256,15 +258,15 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                   </Grid>
                 </Grid>
               )}
-
-              <Box my={3} display="flex" justifyContent={'center'}>
-                <Pagination
-                  count={totalPages}
-                  color="primary"
-                  page={currentPage}
-                  onChange={handlePageChange}
-                />
-              </Box>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                component="div"
+                count={totalPages * pageSize}
+                rowsPerPage={pageSize}
+                page={currentPage - 1}
+                onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
+                onRowsPerPageChange={(e: any) => dispatch(fetchWPScans(currentPage, e.target.value))}
+              />
             </>
           )}
         </Box>

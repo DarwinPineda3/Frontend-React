@@ -10,18 +10,14 @@ import {
   Snackbar,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import NetworkScanCreateForm from 'src/components/vulnerabilities/network/networkScansCreate';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchNetworkScanCreate } from 'src/store/vulnerabilities/network/NetworkScansSlice';
-import { ResponseData } from 'src/types/vulnerabilities/network/networkScansType';
 
 const NetworkCreateScan = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -29,24 +25,13 @@ const NetworkCreateScan = () => {
     'success' | 'info' | 'warning' | 'error'
   >('success');
 
-  const networkScanCreate: ResponseData = useSelector(
-    (state: any) => state.networkScanReducer.networkScanCreate,
-  );
-
-  useEffect(() => {
-    dispatch(fetchNetworkScanCreate());
-    if (snackbarMessage && snackbarSeverity) {
-      setSnackbarOpen(true);
-    }
-  }, [dispatch, snackbarMessage, snackbarSeverity]);
-
   const handleFormSubmit = (
     message: string,
     severity: 'success' | 'info' | 'warning' | 'error',
   ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false);
+    setSnackbarOpen(true);
   };
   return (
     <PageContainer title="Akila">
@@ -72,7 +57,6 @@ const NetworkCreateScan = () => {
         <Grid item xs={12}>
           <NetworkScanCreateForm
             onSubmit={handleFormSubmit}
-            networkScanCreate={networkScanCreate}
           />
           <Grid item xs={12}>
             {/* Snackbar */}

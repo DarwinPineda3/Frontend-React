@@ -13,9 +13,6 @@ function getApiUrl() {
   return `${getBaseApiUrl()}/vulnerabilities/network/scans`;
 }
 
-function getApiUrlCreate() {
-  return `${getBaseApiUrl()}/vulnerabilities/network/scans/create`;
-}
 interface NetworkScanCreateType {
   comment: string;
   hosts: string;
@@ -264,45 +261,45 @@ export const {
 // Async thunk for fetching NetworkScans with pagination (READ)
 export const fetchNetworkScans =
   (page = 1, pageSize = 25) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${getApiUrl()}/?page=${page}&page_size=${pageSize}`);
-      const { list_task, page: currentPage, totalPages } = response.data;
-      dispatch(
-        getNetworkScans({
-          data: list_task,
-          currentPage,
-          totalPages,
-        }),
-      );
-    } catch (err: any) {
-      console.error('Error fetching Network Scans:', err);
-      dispatch(setError('Failed to fetch Network Scans'));
-      throw err;
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${getApiUrl()}/?page=${page}&page_size=${pageSize}`);
+        const { list_task, page: currentPage, totalPages } = response.data;
+        dispatch(
+          getNetworkScans({
+            data: list_task,
+            currentPage,
+            totalPages,
+          }),
+        );
+      } catch (err: any) {
+        console.error('Error fetching Network Scans:', err);
+        dispatch(setError('Failed to fetch Network Scans'));
+        throw err;
+      }
+    };
 
 export const fetchNetworkScansReports =
   (page = 1, pageSize = 25, scanId: string) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(
-        `${getApiUrl()}/reports/${scanId}/?page=${page}&page_size=${pageSize}`,
-      );
-      const { results, page: currentPage, totalPages } = response.data;
-      dispatch(
-        getNetworkScanReports({
-          data: results,
-          currentPage,
-          totalPages,
-        }),
-      );
-    } catch (err: any) {
-      console.error('Error fetching Network Scan Reports:', err);
-      dispatch(setError('Failed to fetch Network Scans Reports'));
-      throw err;
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(
+          `${getApiUrl()}/reports/${scanId}/?page=${page}&page_size=${pageSize}`,
+        );
+        const { results, page: currentPage, totalPages } = response.data;
+        dispatch(
+          getNetworkScanReports({
+            data: results,
+            currentPage,
+            totalPages,
+          }),
+        );
+      } catch (err: any) {
+        console.error('Error fetching Network Scan Reports:', err);
+        dispatch(setError('Failed to fetch Network Scans Reports'));
+        throw err;
+      }
+    };
 
 export const fetchNetworkScanDetail = (scanId: string) => async (dispatch: AppDispatch) => {
   try {
@@ -329,22 +326,10 @@ export const fetchNetworkScanReportDetail =
     }
   };
 
-export const fetchNetworkScanCreate = () => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrlCreate()}/`);
-    const { assets, targets, scan_configs, error } = response.data;
-    dispatch(getNetworkScanCreate({ assets, targets, scan_configs, error }));
-  } catch (err: any) {
-    console.error('Error fetching Network Scans:', err);
-    dispatch(setError('Failed to fetch Network Scans'));
-    throw err;
-  }
-};
-
 export const createNetworkScan =
   (networkScan: NetworkScanCreateType) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.post(`${getApiUrlCreate()}/`, networkScan);
+      const response = await axios.post(`${getApiUrl()}/`, networkScan);
       dispatch(addNetworkScan(response.data));
     } catch (err: any) {
       console.error('Error creating Network Scans:', err);
@@ -377,31 +362,31 @@ export const removeNetworkScanReport = (scanId: string) => async (dispatch: AppD
 
 export const downloadNetworkScanReport =
   (name_prefix: string, report_tool: string, idElastic: string) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.post(
-        `${getApiUrl()}/reports/generate-report/`,
-        {
-          name_prefix,
-          report_tool,
-          idElastic,
-        },
-        { responseType: 'blob' },
-      );
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.post(
+          `${getApiUrl()}/reports/generate-report/`,
+          {
+            name_prefix,
+            report_tool,
+            idElastic,
+          },
+          { responseType: 'blob' },
+        );
 
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', response.headers['content-disposition'].split('filename=')[1]);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (err: any) {
-      console.error('Error downloading the report:', err);
-      dispatch(setError('Failed to download Network Scan report'));
-      throw err;
-    }
-  };
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', response.headers['content-disposition'].split('filename=')[1]);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (err: any) {
+        console.error('Error downloading the report:', err);
+        dispatch(setError('Failed to download Network Scan report'));
+        throw err;
+      }
+    };
 
 export const fetchRunNetworkScan = (scanId: string) => async (dispatch: AppDispatch) => {
   try {

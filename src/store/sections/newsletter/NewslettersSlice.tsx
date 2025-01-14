@@ -8,7 +8,6 @@ function getApiUrl() {
   return `${getBaseApiUrl()}/newsletters/`;
 }
 
-//const DOWNLOAD_URL = `${API_URL}download?gid=`;
 function getDownloadUrl() {
   return `${getBaseApiUrl()}/newsletters/download?gid=`;
 }
@@ -19,6 +18,8 @@ interface StateType {
   fileContent: string | null;
   page: number;
   totalPages: number;
+  loading: boolean;
+  pageSize: number;
   error: string | null;
 }
 
@@ -28,6 +29,8 @@ const initialState: StateType = {
   fileContent: null,
   page: 1,
   totalPages: 1,
+  pageSize: 10,
+  loading: false,
   error: null,
 };
 
@@ -36,8 +39,8 @@ export const NewsletterSlice = createSlice({
   initialState,
   reducers: {
     getNewsletters: (state, action) => {
-      state.newsletters = Array.isArray(action.payload.newsletters)
-        ? action.payload.newsletters
+      state.newsletters = Array.isArray(action.payload.results)
+        ? action.payload.results
         : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
@@ -54,19 +57,29 @@ export const NewsletterSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    }
   },
 });
 
-export const { getNewsletters, getNewsletterDetail, setFileContent, setPage, setError } = NewsletterSlice.actions;
+export const { getNewsletters, getNewsletterDetail, setFileContent, setPage, setError, setLoading } = NewsletterSlice.actions;
 
 export const fetchNewsletters =
-  (page = 1) =>
+  (requestedPage = 1,
+    pageSize = 10
+  ) =>
     async (dispatch: AppDispatch) => {
       try {
-        const response = await axios.get(`${getApiUrl()}`);
-        const newsletters = response.data;
-        const totalPages = Math.ceil(newsletters.length / 10);
-        dispatch(getNewsletters({ newsletters, currentPage: page, totalPages })); // Dispatch to update state
+        dispatch(setLoading(true));
+        if (pageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
+        const cloudInventoryList = response.data;
+        const { results, page, totalPages } = cloudInventoryList;
+        dispatch(getNewsletters({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
       } catch (err: any) {
         console.error('Error fetching newsletters', err);
         dispatch(setError('Failed to fetch newsletters'));

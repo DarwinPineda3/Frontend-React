@@ -1279,5 +1279,40 @@
   },
   "snackbar": {
     "reportGenerated": "Report successfully generated!"
+  },
+  "compliance_reports": {
+    "by_project": "Compliance by Project",
+    "select_project": "Select Project",
+    "report_description": "This report allows you to list all the compliance values for each asset in the groups of the selected project.",
+    "generate_download": "Generate and Download",
+    "report_generated": "Report generated and downloaded",
+    "compliance": "Compliance",
+    "reports": "Reports",
+    "loading": "Loading..."
+  },
+  "assessment_status": {
+    "title": "Assessment Status",
+    "by_asset": "Assessment Status by Asset",
+    "select_parameters": "Select Parameters",
+    "select_project": "Select Project",
+    "select_project_option": "Select a Project",
+    "project_option_1": "Demo Giotto Group 2",
+    "select_group": "Select Group",
+    "select_group_option": "Select a Group",
+    "group_option_1": "Demo Giotto Group",
+    "select_template": "Select Template",
+    "select_template_option": "Select a Template",
+    "template_option_1": "Windows Server 2019 Template (Trimmed)",
+    "select_execution": "Select Execution",
+    "select_execution_option": "Select Execution",
+    "execution_option_1": "Mon Dec 16 2024 16:52:17 GMT-0500 (Colombia Standard Time)",
+    "execution_option_2": "Mon Dec 16 2024 16:51:25 GMT-0500 (Colombia Standard Time)",
+    "select_asset": "Select Asset",
+    "select_asset_option": "Select an Asset",
+    "asset_option_1": "giotto-win-srva",
+    "report_info": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+    "loading": "Loading...",
+    "generate_download": "Generate and Download",
+    "report_generated": "Report generated successfully"
   }
 }

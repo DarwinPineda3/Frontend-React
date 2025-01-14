@@ -1,3 +1,5 @@
+import { parseISO } from "date-fns";
+
 Object.defineProperty(
   String.prototype,
   'capitalize',
@@ -10,3 +12,14 @@ Object.defineProperty(
   }
 );
 
+Object.defineProperty(
+  String.prototype,
+  'toDateString',
+  {
+    value: function () {
+      return parseISO(this).toLocaleString()
+    },
+    writable: true,
+    configurable: true,
+  }
+);

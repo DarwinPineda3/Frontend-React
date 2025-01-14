@@ -10,18 +10,14 @@ import {
   Snackbar,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import NetworkObsScansCreate from 'src/components/observability/network/networkObsScansCreate';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchNetworkScanCreate } from 'src/store/vulnerabilities/network/NetworkScansSlice';
-import { ResponseData } from 'src/types/vulnerabilities/network/networkScansType';
 
 const NetworkObservabilityCreateScan = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -29,20 +25,6 @@ const NetworkObservabilityCreateScan = () => {
     'success' | 'info' | 'warning' | 'error'
   >('success');
 
-  const networkScanCreate: ResponseData = useSelector(
-    (state: any) => state.networkScanReducer.networkScanCreate,
-  );
-
-  const { error } = useSelector(
-    (state: any) => state.NetworkObservabilityReducer,
-  );
-
-  useEffect(() => {
-    dispatch(fetchNetworkScanCreate());
-    if (snackbarMessage && snackbarSeverity) {
-      setSnackbarOpen(true);
-    }
-  }, [dispatch, snackbarMessage, snackbarSeverity]);
 
   const handleFormSubmit = (
     message: string,
@@ -50,7 +32,7 @@ const NetworkObservabilityCreateScan = () => {
   ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false);
+    setSnackbarOpen(true);
   };
   return (
     <PageContainer title="Akila">
@@ -76,7 +58,6 @@ const NetworkObservabilityCreateScan = () => {
         <Grid item xs={12}>
           <NetworkObsScansCreate
             onSubmit={handleFormSubmit}
-            networkScanCreate={networkScanCreate}
           />
           <Grid item xs={12}>
             {/* Snackbar */}
