@@ -118,7 +118,7 @@ export const fetchGroupById = (groupId: string) => async (dispatch: AppDispatch)
 
 export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post(getApiUrl(), newGroup);
+    const response = await axios.post(`${getApiUrl()}CreateGroup`, newGroup);
     if (response.status >= 200 && response.status < 300) {
       dispatch(addGroup(response.data));
     }
@@ -136,7 +136,7 @@ export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
 
 export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.put(`${getApiUrl()}${updatedGroup.id}/`, updatedGroup);
+    const response = await axios.put(`${getApiUrl()}EditGroup/${updatedGroup.id}/`, updatedGroup);
 
     if (response.status === 200) {
       dispatch(updateGroup({ data: response.data }));
@@ -176,7 +176,7 @@ export const fetchGroupByName = (groupName: string) => async (dispatch: AppDispa
 
 export const fetchGroupName = async (name: string): Promise<boolean> => {
   try {
-    const response = await axios.get(`${getApiUrl()}get_by_name?namegroup=${encodeURIComponent(name)}`);
+    const response = await axios.get(`${getApiUrl()}GetByName/${encodeURIComponent(name)}`);
     return !!response.data;
   } catch (error: any) {
     if (error.response?.status === 404) {

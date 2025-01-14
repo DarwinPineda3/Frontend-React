@@ -1327,7 +1327,8 @@
       "group_created_successfully": "Group created successfully",
       "group_edited_successfully": "Group edited successfully",
       "group_deleted_successfully": "Group removed successfully",
-      "edit_group": "Edit group"
+      "edit_group": "Edit group",
+      "group_name_already_exists": "Group name already exists"
     }
   }
 }
