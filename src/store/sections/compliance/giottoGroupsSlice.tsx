@@ -4,7 +4,7 @@ import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
 function getApiUrl() {
-  return `api/giotto/groups/`;
+  return `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/giotto-proxy?url=Groups/`;
   return `${getBaseApiUrl()}/compliance/groups/`;
 }
 
@@ -70,15 +70,13 @@ export const GiottoGroupSlice = createSlice({
 
 export const { getGroups, addGroup, updateGroup, deleteGroup, setPage, setError, setLoading, getGroupDetail } = GiottoGroupSlice.actions;
 
-//ColumnIndexOrdering & AscendingOrdering tener en cuenta para este servicio
 export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 10) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoading(true));
     if (requestedPageSize !== initialState.pageSize) {
       requestedPage = 1;
     }
-    const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${requestedPageSize}`);
-
+    const response = await axios.get(`${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`);
 
     const {
       totalItemsAmount,
@@ -105,9 +103,8 @@ export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 1
 
 export const fetchGroupById = (groupId: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${groupId}`);
-    console.log(response);
-    
+    const response = await axios.get(`${getApiUrl()}GetById/${groupId}`);
+
     if (response.status === 200) {
       dispatch(getGroupDetail({ data: response.data }));
     } else {
@@ -154,7 +151,7 @@ export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) =>
 
 export const removeGroup = (groupId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}${groupId}/`);
+    await axios.delete(`${getApiUrl()}DeleteGroup/${groupId}/`);
     dispatch(deleteGroup(groupId));
   } catch (err: any) {
     console.error('Error deleting group:', err);
