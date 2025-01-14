@@ -153,14 +153,13 @@ const GiottoProjectsList = () => {
                       </TableCell>
                       <TableCell>
                         <Typography variant="caption">
-                          <HumanizedDate dateString={project?.start_date} />
-                          {project?.startDate}
+                          <HumanizedDate dateString={project?.startDate} />
                         </Typography>
                       </TableCell>
                       <TableCell>
                         <Box display="flex" flexDirection="column">
                           <Typography variant="caption">
-                            <HumanizedDate dateString={project?.end_date} />
+                            <HumanizedDate dateString={project?.endDate} />
                           </Typography>
                         </Box>
                       </TableCell>
