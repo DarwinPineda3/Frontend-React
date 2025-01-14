@@ -3,7 +3,6 @@ import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { Data } from 'src/types/newsletters/newsletter';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
-import { log } from 'console';
 
 function getApiUrl() {
   return `${getBaseApiUrl()}/prowler-vulnerabilities/`;
@@ -15,6 +14,8 @@ interface StateType {
   fileContent: string | null;
   page: number;
   totalPages: number;
+  loading: boolean;
+  pageSize: number;
   error: string | null;
 }
 
@@ -24,6 +25,8 @@ const initialState: StateType = {
   fileContent: null,
   page: 1,
   totalPages: 1,
+  pageSize: 10,
+  loading: false,
   error: null,
 };
 
@@ -32,11 +35,12 @@ export const CloudScansSlice = createSlice({
   initialState,
   reducers: {
     getCloudScans: (state, action) => {
-      state.cloudScans = Array.isArray(action.payload.cloudScans)
-        ? action.payload.cloudScans
+      state.cloudScans = Array.isArray(action.payload.results)
+        ? action.payload.results
         : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
+      state.pageSize = action.payload.pageSize;
     },
     getCloudScanDetail: (state, action) => {
       state.cloudScanDetails = action.payload.data;
@@ -53,19 +57,29 @@ export const CloudScansSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    }
   },
 });
 
-export const { getCloudScans, getCloudScanDetail, addCloudScan, setFileContent, setPage, setError } = CloudScansSlice.actions;
+export const { getCloudScans, getCloudScanDetail, addCloudScan, setFileContent, setPage, setError, setLoading } = CloudScansSlice.actions;
 
 export const fetchCloudScans =
-  (page = 1) =>
+  (requestedPage = 1,
+    pageSize = 10
+  ) =>
     async (dispatch: AppDispatch) => {
       try {
-        const response = await axios.get(`${getApiUrl()}`);
+        dispatch(setLoading(true));
+        if (pageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
         const cloudScans = response.data;
-        const totalPages = Math.ceil(cloudScans.length / 10);
-        dispatch(getCloudScans({ cloudScans, currentPage: page, totalPages }));
+        const { results, page, totalPages } = cloudScans;
+        dispatch(getCloudScans({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
       } catch (err: any) {
         console.error('Error fetching cloudScans', err);
         dispatch(setError('Failed to fetch cloudScans'));

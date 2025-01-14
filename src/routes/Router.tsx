@@ -17,10 +17,13 @@ import ForgotPassword from 'src/views/authentication/auth/ForgotPassword';
 import Register from 'src/views/authentication/auth/Register';
 import ResetPassword from 'src/views/authentication/auth/ResetPassword';
 import ChangelogView from 'src/views/changelog/ChangelogView';
+import AssessmentStatusByAsset from 'src/views/compliance/compliance-reports/AssessmentStatusByAsset';
 import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
 import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
+import ComplianceReports from 'src/views/compliance/ComplianceReports';
+import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -71,7 +74,6 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import TemplateListPage from 'src/views/compliance/TemplateListPage';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -222,95 +224,6 @@ const Router = [
         roles: ['Admin', 'Scan360'],
       },
 
-      // Monitoring
-      {
-        path: '/monitoring/threats-overview',
-        element: <DarkWeb />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-
-      {
-        path: '/monitoring/cyber-guard/parameters',
-        element: <ParametersMonitoringCyberGuard />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/monitoring',
-        element: <BrandMonitoringCyberGuard />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/monitoring/:id',
-        element: <BrandMonitoringCyberGuard />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/malware-analysis',
-        element: <MalwareAnalysis />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId',
-        element: <MalwareAnalysis />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/mobile-apps',
-        element: <AppScan />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/mobile-apps/:appScanId',
-        element: <MobileApp />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:resultAppId',
-        element: <MobileApp />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-
-      { path: '/monitoring/soc', element: <SOCMonitoring />, roles: ['Admin'] },
-      { path: '/monitoring/soc/service-statistics', element: <ServiceStatus />, roles: ['Admin'] },
-      {
-        path: '/monitoring/soc/source-monitoring',
-        element: <SourceMonitoring />,
-        roles: ['Admin'],
-      },
-      { path: '/monitoring/soc/cti', element: <CTI />, roles: ['Admin'] },
-      { path: '/monitoring/soc/cti/abusech', element: <AbuseCH />, roles: ['Admin'] },
-      { path: '/monitoring/soc/cti/files', element: <FilesSoc />, roles: ['Admin'] },
-      { path: '/monitoring/soc/cti/urls', element: <UrlsSoc />, roles: ['Admin'] },
-      {
-        path: '/monitoring/soc/cti/threat-intelligence',
-        element: <ThreatIntelligence />,
-        roles: ['Admin'],
-      },
-      { path: '/monitoring/soc/cti/emerging-risks', element: <EmergingRisks />, roles: ['Admin'] },
-      {
-        path: '/monitoring/soc/cti/technologies-inventory',
-        element: <TechInventory />,
-        roles: ['Admin'],
-      },
-      { path: '/monitoring/soc/cti/mitre', element: <MitreView />, roles: ['Admin'] },
-      { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring />, roles: ['Admin'] },
-      { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand />, roles: ['Admin'] },
-      { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet />, roles: ['Admin'] },
-      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Admin', 'CyberGuard'] },
-      {
-        path: '/monitoring/soc/newsletters/:newsletterId',
-        element: <SocNewsDetails />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-      {
-        path: '/monitoring/soc/takedown',
-        element: <TicketFormComp />,
-        roles: ['Admin', 'CyberGuard'],
-      },
-
-      // { path: '/monitoring/siem', element: <SIEMMonitoring /> },
-      { path: '/monitoring/siem', element: <Navigate to="/maintenance" />, roles: ['Admin'] },
-
       // Observability
       {
         path: '/observability/network',
@@ -378,36 +291,130 @@ const Router = [
         roles: ['Admin', 'Scan360'],
       },
 
+      // Monitoring
+      {
+        path: '/monitoring/threats-overview',
+        element: <DarkWeb />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+
+      {
+        path: '/monitoring/cyber-guard/parameters',
+        element: <ParametersMonitoringCyberGuard />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/monitoring',
+        element: <BrandMonitoringCyberGuard />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/monitoring/:id',
+        element: <BrandMonitoringCyberGuard />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/malware-analysis',
+        element: <MalwareAnalysis />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/malware-analysis/:malwareAnalysisId',
+        element: <MalwareAnalysis />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps',
+        element: <AppScan />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps/:appScanId',
+        element: <MobileApp />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/cyber-guard/mobile-apps/:appScanId/results/:resultAppId',
+        element: <MobileApp />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+
+      // TODO: add CyberGuard role to monitoring routes once CTI is completed
+      { path: '/monitoring/soc', element: <SOCMonitoring />, roles: ['Admin'] },
+      { path: '/monitoring/soc/service-statistics', element: <ServiceStatus />, roles: ['Admin'] },
+      {
+        path: '/monitoring/soc/source-monitoring',
+        element: <SourceMonitoring />,
+        roles: ['Admin'],
+      },
+      { path: '/monitoring/soc/cti', element: <CTI />, roles: ['Admin'] },
+      { path: '/monitoring/soc/cti/abusech', element: <AbuseCH />, roles: ['Admin'] },
+      { path: '/monitoring/soc/cti/files', element: <FilesSoc />, roles: ['Admin'] },
+      { path: '/monitoring/soc/cti/urls', element: <UrlsSoc />, roles: ['Admin'] },
+      {
+        path: '/monitoring/soc/cti/threat-intelligence',
+        element: <ThreatIntelligence />,
+        roles: ['Admin'],
+      },
+      { path: '/monitoring/soc/cti/emerging-risks', element: <EmergingRisks />, roles: ['Admin'] },
+      {
+        path: '/monitoring/soc/cti/technologies-inventory',
+        element: <TechInventory />,
+        roles: ['Admin'],
+      },
+      { path: '/monitoring/soc/cti/mitre', element: <MitreView />, roles: ['Admin'] },
+      { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring />, roles: ['Admin'] },
+      { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand />, roles: ['Admin'] },
+      { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet />, roles: ['Admin'] },
+      // { path: '/monitoring/siem', element: <SIEMMonitoring /> },
+      { path: '/monitoring/siem', element: <Navigate to="/maintenance" />, roles: ['Admin'] },
+
+      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Admin', 'CyberGuard'] },
+      {
+        path: '/monitoring/soc/newsletters/:newsletterId',
+        element: <SocNewsDetails />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+      {
+        path: '/monitoring/soc/takedown',
+        element: <TicketFormComp />,
+        roles: ['Admin', 'CyberGuard'],
+      },
+
       // Support
-      { path: '/support/tickets', element: <Tickets />, roles: ['Admin'] },
-      { path: '/support/solutions', element: <Solutions />, roles: ['Admin'] },
-      { path: '/support/solutions/:id', element: <SolutionDetail />, roles: ['Admin'] },
-      { path: '/support/ticketform', element: <TicketFormComp />, roles: ['Admin'] },
-      { path: '/support/ticket/:id', element: <TicketDetail />, roles: ['Admin'] },
+      { path: '/support/tickets', element: <Tickets />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
+      { path: '/support/solutions', element: <Solutions />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
+      { path: '/support/solutions/:id', element: <SolutionDetail />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
+      { path: '/support/ticketform', element: <TicketFormComp />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
+      { path: '/support/ticket/:id', element: <TicketDetail />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
 
       // Configuration
-      { path: '/configuration/scheduled-scans', element: <ScheduledScans />, roles: ['Admin'] },
-      { path: '/configuration/schedule-scan', element: <ScheduleScanForm />, roles: ['Admin'] },
+      { path: '/configuration/scheduled-scans', element: <ScheduledScans />, roles: ['Admin', 'Scan360'] },
+      { path: '/configuration/schedule-scan', element: <ScheduleScanForm />, roles: ['Admin', 'Scan360'] },
 
       // Audit
-      { path: '/audit/logs', element: <AuditLogView />, roles: ['Admin'] },
+      { path: '/audit/logs', element: <AuditLogView />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
 
       // User Profile
       { path: '/user-profile', element: <AccountSettings /> },
 
       // Maintenance
-      { path: '/maintenance', element: <Maintenance />, roles: ['Admin'] },
+      { path: '/maintenance', element: <Maintenance />, roles: ['Admin', 'Scan360', 'CyberGuard', 'Defender'] },
 
       // Default Route
-      { path: '/', element: <Navigate to="/home/dashboard" />, roles: ['Admin'] },
+      { path: '/', element: <Navigate to="/home/dashboard" /> },
 
       // Compliance
-      { path: '/compliance/assets', element: <ComplianceAssetsView /> },
-      { path: '/compliance/groups', element: <ComplianceGroupsView /> },
-      { path: '/compliance/projects', element: <ComplianceProjectsView /> },
-      { path: '/compliance/executions', element: <ComplianceExecutionsView /> },
-      { path: '/compliance/templates', element: <TemplateListPage /> },
-
+      { path: '/compliance/assets', element: <ComplianceAssetsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/assets/:assetId', element: <ComplianceAssetsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/groups', element: <ComplianceGroupsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/projects', element: <ComplianceProjectsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/executions', element: <ComplianceExecutionsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/executions/:executionId', element: <ComplianceExecutionsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/executions/:executionId/assets/:assetId', element: <ComplianceExecutionsView />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/reports', element: <ComplianceReports />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/assessment-status', element: <AssessmentStatusByAsset />, roles: ['Admin', 'Defender'] },
+      { path: '/compliance/templates', element: <TemplateListPage />, roles: ['Admin', 'Defender'] },
     ],
   },
   {
@@ -420,8 +427,7 @@ const Router = [
       { path: '/404', element: <Error /> },
       { path: '/auth/forgot-password', element: <ForgotPassword /> },
       { path: '/auth/reset-password', element: <ResetPassword /> },
-      //changelog
-      { path: '/changelog', element: <ChangelogView />, roles: ['Admin', 'Scan360'] },
+      { path: '/changelog', element: <ChangelogView /> },
     ],
   },
   { path: '*', element: <Navigate to="/404" /> },

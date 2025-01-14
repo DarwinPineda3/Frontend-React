@@ -7,6 +7,8 @@ import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
+import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
+import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice';
 import GiottoTemplatesReducer from './sections/compliance/giottoTemplatesSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
@@ -32,6 +34,7 @@ import TicketReducer from './support/FreshTicketsSlice';
 import ManagementVulnReducer from './vulnerabilities/ManagementVulnSlice';
 import SummaryVulnReducer from './vulnerabilities/SummaryVulnSlice';
 import CloudScanReducer from './vulnerabilities/cloud/CloudSlice';
+import NetworkConfigurationReducer from './vulnerabilities/network/NetworkConfigSlice';
 import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from './vulnerabilities/web/WPScanSlice';
@@ -87,6 +90,9 @@ export const store = configureStore({
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
     giottoTemplatesReducer: GiottoTemplatesReducer,
+    GiottoAssetsReducer: GiottoAssetsReducer,
+    GiottoExecutionsReducer: GiottoExecutionsReducer,
+    networkConfigurationReducer: NetworkConfigurationReducer,
   },
 });
 
@@ -119,6 +125,9 @@ const rootReducer = combineReducers({
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
   giottoTemplatesReducer: GiottoTemplatesReducer,
+  GiottoAssetsReducer: GiottoAssetsReducer,
+  GiottoExecutionsReducer: GiottoExecutionsReducer,
+  networkConfigurationReducer: NetworkConfigurationReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
