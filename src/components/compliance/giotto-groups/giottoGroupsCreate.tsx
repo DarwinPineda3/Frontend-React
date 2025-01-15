@@ -130,7 +130,6 @@ const CreateGiottoGroup: React.FC = ({ }) => {
   const paginatedT = 5;
   const [currentPageT, setCurrentPageT] = useState(1);
 
-
   const templatesPaginated = templatesList?.slice(
     (currentPageT - 1) * paginatedT,
     currentPageT * paginatedT
@@ -140,9 +139,6 @@ const CreateGiottoGroup: React.FC = ({ }) => {
   const handlePageChangeT = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPageT(page);
   };
-
-
-
 
   return (
     <PageContainer>
@@ -179,6 +175,7 @@ const CreateGiottoGroup: React.FC = ({ }) => {
                 <Box component="form" onSubmit={formik.handleSubmit} noValidate>
                   <>
                     <Grid container spacing={3}>
+
                       <Grid item xs={12}>
                         <DashboardCard title={t('giotto.groups.create_group')!}>
                           <Box>
@@ -313,8 +310,6 @@ const CreateGiottoGroup: React.FC = ({ }) => {
                       </Grid>
                     </Grid>
 
-
-
                     <Box mt={3}>
                       <Button type="submit" variant="contained" color="primary" fullWidth>
                         {t('giotto.groups.create_group')}
@@ -333,7 +328,6 @@ const CreateGiottoGroup: React.FC = ({ }) => {
             </>
           </Grid>
         </Grid>
-
       </>
     </PageContainer>
   );

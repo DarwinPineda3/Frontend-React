@@ -42,28 +42,28 @@ const EditGiottoGroup: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-      assets, page, pageSize, loading, totalItemsAmount
-    } = useSelector((state: any) => state.GiottoAssetsReducer);
+    assets, page, pageSize, loading, totalItemsAmount
+  } = useSelector((state: any) => state.GiottoAssetsReducer);
 
-    useEffect(() => {
-        const fetchData = async () => {
-          setLoading(true);
-          await dispatch(fetchAssets(page));
-          setLoading(false);
-        };
-        fetchData();
-      }, [dispatch, page]);
-      const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, askedPage: number) => {
-        if (page !== askedPage) {
-          dispatch(fetchAssets(askedPage));
-        }
-      };
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(fetchAssets(page));
+      setLoading(false);
+    };
+    fetchData();
+  }, [dispatch, page]);
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, askedPage: number) => {
+    if (page !== askedPage) {
+      dispatch(fetchAssets(askedPage));
+    }
+  };
 
   const [isLoading, setIsLoading] = useState(false);
 
   const groupDetail = useSelector((state: any) => state.giottoGroupReducer.groupDetail);
 
-  const templatesList: Template[] = Array.from({ length: 17 }, (_, index) => ({
+  const templatesList: Template[] = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
     name: `Template ${index + 1}`,
   }));
@@ -132,7 +132,7 @@ const EditGiottoGroup: React.FC = () => {
       const removedTemplates = originalTemplateIds?.filter((id: any) => !currentTemplateIds.includes(id));
 
       const payload = {
-        id: 1,
+        id: groupId,
         name: formik.values.name,
         description: formik.values.description,
         addedAssets,
@@ -183,7 +183,7 @@ const EditGiottoGroup: React.FC = () => {
     (currentPageT - 1) * paginatedT,
     currentPageT * paginatedT
   );
-  
+
 
   return (
     <PageContainer>
@@ -251,66 +251,66 @@ const EditGiottoGroup: React.FC = () => {
                       </DashboardCard>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                    <DashboardCard title={t('giotto.groups.assets')!}>
-                          <Box>
-                            <TableContainer>
-                              {/* Table view */}
-                              <Table>
-                                {/* Table head */}
-                                <TableHead>
+                      <DashboardCard title={t('giotto.groups.assets')!}>
+                        <Box>
+                          <TableContainer>
+                            {/* Table view */}
+                            <Table>
+                              {/* Table head */}
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell>{t('giotto.groups.select')}</TableCell>
+                                  <TableCell>{t('giotto.groups.name')}</TableCell>
+                                  <TableCell>{t('giotto.groups.last_keep_alive')}</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              {/* Table body */}
+                              <TableBody>
+                                {loading ? (
                                   <TableRow>
-                                    <TableCell>{t('giotto.groups.select')}</TableCell>
-                                    <TableCell>{t('giotto.groups.name')}</TableCell>
-                                    <TableCell>{t('giotto.groups.last_keep_alive')}</TableCell>
+                                    <TableCell colSpan={5}>
+                                      <Loader />
+                                    </TableCell>
                                   </TableRow>
-                                </TableHead>
-                                {/* Table body */}
-                                <TableBody>
-                                  {loading ? (
-                                    <TableRow>
-                                      <TableCell colSpan={5}>
-                                        <Loader />
+                                ) : (
+                                  assets.map((asset: any) => (
+                                    <TableRow key={asset.id}>
+                                      <TableCell>
+                                        <Checkbox
+                                          checked={selectedAssets.includes(parseInt(asset.id))}
+                                          onChange={() =>
+                                            toggleSelection(parseInt(asset.id), setSelectedAssets, selectedAssets)
+                                          }
+                                        />
+                                      </TableCell>
+                                      <TableCell>
+                                        {asset.name}
+                                      </TableCell>
+                                      <TableCell>
+                                        <Box display="flex" flexDirection="column">
+                                          <HumanizedDate dateString={asset.lastKeepAlive} />
+                                          <Typography variant="caption">
+                                            {new Date(asset.lastKeepAlive).toLocaleString()}
+                                          </Typography>
+                                        </Box>
                                       </TableCell>
                                     </TableRow>
-                                  ) : (
-                                    assets.map((asset: any) => (
-                                      <TableRow key={asset.id}>
-                                        <TableCell>
-                                          <Checkbox
-                                            checked={selectedAssets.includes(parseInt(asset.id))}
-                                            onChange={() =>
-                                              toggleSelection(parseInt(asset.id), setSelectedAssets, selectedAssets)
-                                            }
-                                          />
-                                        </TableCell>
-                                        <TableCell>
-                                          {asset.name}
-                                        </TableCell>
-                                        <TableCell>
-                                          <Box display="flex" flexDirection="column">
-                                            <HumanizedDate dateString={asset.lastKeepAlive} />
-                                            <Typography variant="caption">
-                                              {new Date(asset.lastKeepAlive).toLocaleString()}
-                                            </Typography>
-                                          </Box>
-                                        </TableCell>
-                                      </TableRow>
-                                    ))
-                                  )}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
-                            <TablePagination
-                              rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                              component="div"
-                              count={totalItemsAmount}
-                              rowsPerPage={pageSize}
-                              page={page - 1}
-                              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-                              onRowsPerPageChange={(e) => dispatch(fetchAssets(page))}
-                            />
-                          </Box>
-                        </DashboardCard>
+                                  ))
+                                )}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                          <TablePagination
+                            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                            component="div"
+                            count={totalItemsAmount}
+                            rowsPerPage={pageSize}
+                            page={page - 1}
+                            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+                            onRowsPerPageChange={(e) => dispatch(fetchAssets(page))}
+                          />
+                        </Box>
+                      </DashboardCard>
                     </Grid>
 
                     <Grid item xs={12} md={6}>
@@ -352,17 +352,8 @@ const EditGiottoGroup: React.FC = () => {
                         </TableContainer>
                       </DashboardCard>
                     </Grid>
-
-
                   </Grid>
-
-
                 </>
-
-
-
-
-
                 <Box mt={3}>
                   <Button type="submit" variant="contained" color="primary" fullWidth>
                     {t('giotto.groups.edit_group')}
