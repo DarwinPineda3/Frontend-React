@@ -84,7 +84,7 @@ export const fetchAssets = (requestedPage: Number, requestedPageSize: Number = 1
       requestedPage = 1;
     }
     const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${requestedPageSize}`);
-    console.log('response', response.data);
+
     const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
     dispatch(getAssets({

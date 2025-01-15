@@ -9,6 +9,7 @@ import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
 import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
 import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice';
+import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
@@ -88,6 +89,7 @@ export const store = configureStore({
     translationVulnerabilityReducer: TranslationVulnerabilityReducer,
     ThresholdSlice: ThresholdSlice,
     ObservedAssetsReducer: ObservedAssetsReducer,
+    giottoGroupReducer: GiottoGroupReducer,
     GiottoAssetsReducer: GiottoAssetsReducer,
     GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
@@ -122,6 +124,7 @@ const rootReducer = combineReducers({
   translationVulnerabilityReducer: TranslationVulnerabilityReducer,
   ThresholdSlice: ThresholdSlice,
   ObservedAssetsReducer: ObservedAssetsReducer,
+  giottoGroupReducer: GiottoGroupReducer,
   GiottoAssetsReducer: GiottoAssetsReducer,
   GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,

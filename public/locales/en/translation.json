@@ -1295,5 +1295,40 @@
     "loading": "Loading...",
     "generate_download": "Generate and Download",
     "report_generated": "Report generated successfully"
+  },
+  "giotto": {
+    "groups": {
+      "name": "Name",
+      "assetQty": "Asset Qty",
+      "actions": "Actions",
+      "no_data_available": "No data available",
+      "create_group": "Create group",
+      "delete_group": "Delete group",
+      "are_you_sure_you_want_to_delete_this_group": "Are you sure you want to delete this group?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "total_assets": "Total assets",
+      "total_templates": "Total templates",
+      "description": "Description",
+      "templates": "Templates",
+      "working_system": "Working system",
+      "creation_date": "Creation date",
+      "assets": "Assets",
+      "network_address": "Network address",
+      "last_keep_alive": "Last keep alive",
+      "group_in_progress": "Group creation in progress",
+      "group_creation_message": "The creation of this group may take a little time.",
+      "group_edition_message": "The edition of this group may take a little time.",
+      "operation_status": "Operation Status",
+      "select": "Select",
+      "template_name": "Template name",
+      "asset_name": "Asset name",
+      "name_required": "Name is required",
+      "group_created_successfully": "Group created successfully",
+      "group_edited_successfully": "Group edited successfully",
+      "group_deleted_successfully": "Group removed successfully",
+      "edit_group": "Edit group",
+      "group_name_already_exists": "Group name already exists"
+    }
   }
 }

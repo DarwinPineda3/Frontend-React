@@ -3,6 +3,9 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
+import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
+import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -407,6 +410,9 @@ const Router = [
       { path: '/compliance/assets', element: <ComplianceAssetsView />, roles: ['Administrator', 'Defender'] },
       { path: '/compliance/assets/:assetId', element: <ComplianceAssetsView />, roles: ['Administrator', 'Defender'] },
       { path: '/compliance/groups', element: <ComplianceGroupsView />, roles: ['Administrator', 'Defender'] },
+      { path: '/compliance/groups/:groupId', element: <GroupDetails />, roles: ['Administrator', 'Defender'] },
+      { path: '/compliance/groups/create', element: <CreateGiottoGroup />, roles: ['Administrator', 'Defender'] },
+      { path: '/compliance/groups/edit/:groupId', element: <EditGiottoGroup />, roles: ['Administrator', 'Defender'] },
       { path: '/compliance/projects', element: <ComplianceProjectsView />, roles: ['Administrator', 'Defender'] },
       { path: '/compliance/executions', element: <ComplianceExecutionsView />, roles: ['Administrator', 'Defender'] },
       { path: '/compliance/executions/:executionId', element: <ComplianceExecutionsView />, roles: ['Administrator', 'Defender'] },
