@@ -19,7 +19,6 @@ export interface ComplianceProject {
 
 export interface ComplianceProjectCreate {
   name: string;
-  companyId: number | null;
   startDate: string;
   endDate: string;
   isDisabled: boolean;
@@ -166,7 +165,8 @@ export const fetchProjectById = (projectId: string) => async (dispatch: AppDispa
 export const createProject =
   (newProject: ComplianceProjectCreate) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.post(getApiUrl(), newProject);
+      const url = `${getApiUrl()}CreateProject`;
+      const response = await axios.post(url, newProject);
       if (response.status >= 200 && response.status < 300) {
         dispatch(fetchProjects(initialState.page, initialState.pageSize));
         return response.data;
