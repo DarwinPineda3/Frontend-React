@@ -17,11 +17,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import GiottoTemplateTable from 'src/components/compliance/giotto-templates/giottoTemplateTable';
 import PageContainer from 'src/components/container/PageContainer';
-import BaseTemplateTable from 'src/components/template/BaseTemplateTable';
-import CustomTemplateTable from 'src/components/template/CustomTemplateTable';
 import {
-  fetchGetAllTemplates,
+  fetchBaseTemplates,
+  fetchCustomTemplates,
   setLoading,
 } from 'src/store/sections/compliance/giottoTemplatesSlice';
 
@@ -36,20 +36,29 @@ const TemplateListPage = () => {
   const [basePage, setBasePage] = useState(1);
   const [customPage, setCustomPage] = useState(1);
   const { t } = useTranslation();
-  const { templates, loading } = useSelector((state: any) => state.giottoTemplatesReducer);
-  console.log(templates);
-  console.log(loading);
+  const { baseTemplates, customTemplates, loading } = useSelector(
+    (state: any) => state.giottoTemplatesReducer,
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      await dispatch(fetchGetAllTemplates());
+      await dispatch(fetchBaseTemplates(baseTemplates.currentPage, baseTemplates.pageSize));
       setLoading(false);
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, baseTemplates.currentPage]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(fetchCustomTemplates(customTemplates.currentPage, customTemplates.pageSize));
+      setLoading(false);
+    };
+    fetchData();
+  }, [dispatch, customTemplates.currentPage]);
 
   const handleDownloadBase = () => {
     setIsLoadingBase(true);
@@ -112,7 +121,11 @@ const TemplateListPage = () => {
               sx={{ backgroundColor: 'success.main', color: 'white' }}
             />
             <CardContent>
-              <BaseTemplateTable isLoading={isLoadingBase} handleDownload={handleDownloadBase} />
+              <GiottoTemplateTable
+                templates={baseTemplates}
+                isLoading={isLoadingBase}
+                handleDownload={handleDownloadBase}
+              />
               <Pagination
                 count={3}
                 color="primary"
@@ -142,7 +155,8 @@ const TemplateListPage = () => {
               sx={{ backgroundColor: 'success.main', color: 'white' }}
             />
             <CardContent>
-              <CustomTemplateTable
+              <GiottoTemplateTable
+                templates={customTemplates}
                 isLoading={isLoadingCustom}
                 handleDownload={handleDownloadCustom}
               />
