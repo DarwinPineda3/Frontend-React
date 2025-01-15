@@ -1319,5 +1319,40 @@
     "templates_controls_title": "Controles por Categoria",
     "template_base_template_title": "Plantilla Base",
     "template_working_system_title": "Sistema Operativo"
+  },
+  "giotto": {
+    "groups": {
+      "name": "Nombre",
+      "assetQty": "Calidad del activo",
+      "actions": "Acciones",
+      "no_data_available": "No hay datos disponibles",
+      "create_group": "Crear grupo",
+      "delete_group": "Eliminar grupo",
+      "are_you_sure_you_want_to_delete_this_group": "¿Estás seguro de que deseas eliminar este grupo?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "total_assets": "Total activos",
+      "total_templates": "Total plantillas",
+      "description": "Descripción",
+      "templates": "Plantillas",
+      "working_system": "sistema de trabajo",
+      "creation_date": "Fecha de creación",
+      "assets": "Activos",
+      "network_address": "Dirección de red",
+      "last_keep_alive": "Última vez activo",
+      "group_in_progress": "Creación de grupo en proceso",
+      "group_creation_message": "La creación de este grupo puede tardar un poco de tiempo.",
+      "group_edition_message": "La edición de este grupo puede tardar un poco de tiempo.",
+      "operation_status": "Estado de la Operación",
+      "select": "Seleccionar",
+      "template_name": "Nombre de la plantilla",
+      "asset_name": "Nombre del activo",
+      "name_required": "El nombre es requerido",
+      "group_created_successfully": "Grupo creado exitosamente",
+      "group_edited_successfully": "Grupo editado exitosamente",
+      "group_deleted_successfully": "Grupo eliminado exitosamente",
+      "edit_group": "Editar grupo",
+      "group_name_already_exists": "El nombre del grupo ya existe."
+    }
   }
 }
