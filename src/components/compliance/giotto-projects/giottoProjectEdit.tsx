@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { useDispatch, useSelector } from 'src/store/Store';
+import { fetchGroups } from 'src/store/sections/compliance/giottoGroupsSlice';
 import {
   ComplianceProjectUpdate,
   editProject,
@@ -38,133 +39,7 @@ interface Props {
 }
 
 const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
-  const groupsList = [
-    {
-      id: 1,
-      name: 'Grupo Demo A',
-      assetsQty: 1,
-    },
-    {
-      id: 2,
-      name: 'Grupo Demo B',
-      assetsQty: 2,
-    },
-    {
-      id: 3,
-      name: 'Grupo Demo C',
-      assetsQty: 3,
-    },
-    {
-      id: 4,
-      name: 'Grupo Demo D',
-      assetsQty: 4,
-    },
-    {
-      id: 5,
-      name: 'Grupo Demo E',
-      assetsQty: 5,
-    },
-    {
-      id: 6,
-      name: 'Grupo Demo F',
-      assetsQty: 6,
-    },
-    {
-      id: 7,
-      name: 'Grupo Demo G',
-      assetsQty: 7,
-    },
-    {
-      id: 8,
-      name: 'Grupo Demo H',
-      assetsQty: 8,
-    },
-    {
-      id: 9,
-      name: 'Grupo Demo I',
-      assetsQty: 9,
-    },
-    {
-      id: 10,
-      name: 'Grupo Demo J',
-      assetsQty: 10,
-    },
-    {
-      id: 11,
-      name: 'Grupo Demo K',
-      assetsQty: 11,
-    },
-    {
-      id: 12,
-      name: 'Grupo Demo L',
-      assetsQty: 12,
-    },
-    {
-      id: 13,
-      name: 'Grupo Demo M',
-      assetsQty: 13,
-    },
-    {
-      id: 14,
-      name: 'Grupo Demo N',
-      assetsQty: 14,
-    },
-    {
-      id: 15,
-      name: 'Grupo Demo O',
-      assetsQty: 15,
-    },
-    {
-      id: 16,
-      name: 'Grupo Demo P',
-      assetsQty: 16,
-    },
-    {
-      id: 17,
-      name: 'Grupo Demo Q',
-      assetsQty: 17,
-    },
-    {
-      id: 18,
-      name: 'Grupo Demo R',
-      assetsQty: 18,
-    },
-    {
-      id: 19,
-      name: 'Grupo Demo S',
-      assetsQty: 19,
-    },
-    {
-      id: 20,
-      name: 'Grupo Demo T',
-      assetsQty: 20,
-    },
-    {
-      id: 21,
-      name: 'Grupo Demo U',
-      assetsQty: 21,
-    },
-    {
-      id: 22,
-      name: 'Grupo Demo V',
-      assetsQty: 22,
-    },
-    {
-      id: 23,
-      name: 'Grupo Demo W',
-      assetsQty: 23,
-    },
-    {
-      id: 24,
-      name: 'Grupo Demo X',
-      assetsQty: 24,
-    },
-    {
-      id: 25,
-      name: 'Grupo Demo Y',
-      assetsQty: 25,
-    },
-  ];
+  const groupsList = useSelector((state: any) => state.giottoGroupReducer.itemsResults);
   const { projectId } = useParams<{ projectId?: string }>();
   const projectDetail = useSelector((state: any) => state.giottoProjectsReducer.projectDetail);
   const { t } = useTranslation();
@@ -173,9 +48,9 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const [skipped, setSkipped] = React.useState(new Set());
   const [selectedGroups, setSelectedGroups] = useState<any[]>([]);
 
-  const currentPage = useSelector((state: any) => state.summaryVulnReducer.page);
-  const totalPages = useSelector((state: any) => state.summaryVulnReducer.totalPages);
-  const pageSize = useSelector((state: any) => state.summaryVulnReducer.pageSize);
+  const page = useSelector((state: any) => state.giottoGroupReducer.page);
+  const pageSize = useSelector((state: any) => state.giottoGroupReducer.pageSize);
+  const totalItemsAmount = useSelector((state: any) => state.giottoGroupReducer.totalItemsAmount);
   const [allSelectedGroups, setAllSelectedGroups] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isStepSkipped = (step) => skipped.has(step);
@@ -184,6 +59,13 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     t('compliance_projects.project_basic_information'),
     t('compliance_projects.project_group_title'),
   ];
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchGroups(page, pageSize));
+    };
+    fetchData();
+  }, [dispatch, page]);
 
   // Dates
   const [startDate, setStartDate] = useState(() => {
@@ -301,7 +183,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       name: projectDetail?.name || '',
       description: projectDetail?.description || '',
       groups: [],
-      managers: [],
+      managers: ['10147728-d58b-4858-a86d-73bc263ea7cc'],
       groupTechnicians: [],
       startDate: formatDate(projectDetail?.startDate) || startDate.toString(),
       endDate: formatDate(projectDetail?.endDate) || endDate.toString(),
@@ -331,7 +213,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   });
 
   // Data for steps
-  const handleSteps = (step) => {
+  const handleSteps = (step: any) => {
     switch (step) {
       case 0:
         return (
@@ -454,9 +336,9 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               component="div"
-              count={totalPages * pageSize}
+              count={totalItemsAmount}
               rowsPerPage={pageSize}
-              page={currentPage - 1}
+              page={page - 1}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handlePageSizeChange}
             />

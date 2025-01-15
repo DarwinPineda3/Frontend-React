@@ -54,7 +54,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     t('compliance_projects.project_group_title'),
   ];
 
-  const isStepSkipped = (step) => skipped.has(step);
+  const isStepSkipped = (step: any) => skipped.has(step);
   React.useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchGroups(page, pageSize));
