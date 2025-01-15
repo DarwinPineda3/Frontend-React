@@ -6,6 +6,7 @@ import AccountSettings from 'src/components/account-settings/AccountSettings';
 import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
 import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
+import TemplateDetails from 'src/components/compliance/giotto-templates/giottoTemplateDetails';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -26,6 +27,7 @@ import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsV
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
+import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -547,6 +549,16 @@ const Router = [
       {
         path: '/compliance/assessment-status',
         element: <AssessmentStatusByAsset />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/templates',
+        element: <TemplateListPage />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/templates/:templateId',
+        element: <TemplateDetails />,
         roles: ['Administrator', 'Defender'],
       },
     ],
