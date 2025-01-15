@@ -69,7 +69,7 @@ export const GiottoProjectsSlice = createSlice({
   reducers: {
     getProjects: (state, action) => {
       state.projects = Array.isArray(action.payload.results) ? action.payload.results : [];
-      state.page = action.payload.page;
+      state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
@@ -127,12 +127,12 @@ export const fetchProjects =
       }
       const url = `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
       const response = await axios.get(url);
-      const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
+      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
       dispatch(
         getProjects({
           results: itemsResult,
-          page,
+          currentPage,
           totalPages,
           totalItemsAmount,
           pageSize,
