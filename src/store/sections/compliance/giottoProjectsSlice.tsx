@@ -36,9 +36,9 @@ export interface ComplianceProjectUpdate {
   endDate: string;
   isDisabled: boolean;
   disabledBy: boolean | null;
-  groupTechnicians: string[] | null;
-  groups: number[];
-  managers: string[] | null;
+  addedGroups: number[];
+  removedGroups: number[];
+  groups?: number[];
 }
 
 interface StateType {

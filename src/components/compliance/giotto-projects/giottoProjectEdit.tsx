@@ -125,7 +125,12 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     setSkipped(newSkipped);
     if (activeStep === steps.length - 1) {
       // Call create project
-      formik.values.groups = selectedGroups;
+      const currentGroupIds = formik.values.groups.map((group) => group.groupId);
+      const addedGroups = selectedGroups.filter((groupId) => !currentGroupIds.includes(groupId));
+      const removedGroups = currentGroupIds.filter((groupId) => !selectedGroups.includes(groupId));
+      delete formik.values.groups;
+      formik.values.addedGroups = addedGroups;
+      formik.values.removedGroups = removedGroups;
       formik.handleSubmit();
     }
   };
@@ -137,9 +142,8 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const handleSelectAllGroups = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked;
     setAllSelectedGroups(isChecked);
-
     if (isChecked) {
-      setSelectedGroups(groupsList.map((group) => group.id));
+      setSelectedGroups(groupsList.map((group: any) => group.id));
     } else {
       setSelectedGroups([]);
     }
@@ -160,7 +164,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     page: number,
   ) => {
     const newPage = page + 1;
-    if (newPage !== currentPage) {
+    if (newPage !== page) {
       dispatch(setPage(newPage));
     }
   };
@@ -171,7 +175,7 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     dispatch(setPage(1));
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: any) => {
     if (!dateString) return '';
     return new Date(dateString).toISOString().split('T')[0];
   };
@@ -182,9 +186,9 @@ const EditGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       id: projectDetail?.id || null,
       name: projectDetail?.name || '',
       description: projectDetail?.description || '',
-      groups: [],
-      managers: ['10147728-d58b-4858-a86d-73bc263ea7cc'],
-      groupTechnicians: [],
+      groups: projectDetail?.groups,
+      addedGroups: [],
+      removedGroups: [],
       startDate: formatDate(projectDetail?.startDate) || startDate.toString(),
       endDate: formatDate(projectDetail?.endDate) || endDate.toString(),
       disabledBy: null,

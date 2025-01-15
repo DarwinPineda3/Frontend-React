@@ -142,7 +142,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
     page: number,
   ) => {
     const newPage = page + 1;
-    if (newPage !== currentPage) {
+    if (newPage !== page) {
       dispatch(setPage(newPage));
     }
   };
