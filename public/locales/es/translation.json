@@ -1312,5 +1312,12 @@
     "loading": "Cargando...",
     "generate_download": "Generar y Descargar",
     "report_generated": "Reporte generado exitosamente"
+  },
+  "compliance_templates": {
+    "template_description": "Descripción",
+    "template_details": "Detalles de la Plantilla",
+    "templates_controls_title": "Controles por Categoria",
+    "template_base_template_title": "Plantilla Base",
+    "template_working_system_title": "Sistema Operativo"
   }
 }

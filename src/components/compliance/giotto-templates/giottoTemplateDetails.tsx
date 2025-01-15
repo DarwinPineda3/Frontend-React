@@ -6,7 +6,6 @@ import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { fetchTemplateById } from 'src/store/sections/compliance/giottoTemplatesSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
@@ -49,11 +48,11 @@ const TemplateDetails: React.FC = ({}) => {
                   <ArrowBack />
                 </IconButton>
                 <Breadcrumbs aria-label="breadcrumb">
-                  <Link component={RouterLink} color="inherit" to="/compliance/projects">
+                  <Link component={RouterLink} color="inherit" to="/compliance/templates">
                     {t('compliance_menu.compliance')}
                   </Link>
-                  <Link component={RouterLink} color="inherit" to="/compliance/projects">
-                    {t('compliance_menu.compliance_projects')}
+                  <Link component={RouterLink} color="inherit" to="/compliance/templates">
+                    {t('compliance_menu.compliance_templates')}
                   </Link>
                   <Typography color="textPrimary">{templateDetail?.name}</Typography>
                 </Breadcrumbs>
@@ -64,52 +63,35 @@ const TemplateDetails: React.FC = ({}) => {
               <Breadcrumb title={`${templateDetail?.name}`}>
                 <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
                   <Chip
-                    label={`${t('compliance_projects.project_group_title')}: ${
-                      templateDetail?.groups?.length
+                    label={`${t('compliance_templates.template_controls_title')}: ${
+                      templateDetail?.controls?.length
                     }`}
                     color="primary"
-                    variant="outlined"
-                  />
-                  <Chip
-                    label={`${t('compliance_projects.project_managers_title')}: ${
-                      templateDetail?.managers?.length
-                    }`}
-                    color="info"
                     variant="outlined"
                   />
                 </Box>
               </Breadcrumb>
             </Grid>
             <Grid item xs={12} lg={12}>
-              <DashboardCard title={t('compliance_projects.project_details')!}>
+              <DashboardCard title={t('compliance_templates.template_details')!}>
                 <Box display="flex" flexDirection="column" gap={2} mt={3}>
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.projects_description')}:
+                      {t('compliance_templates.template_description')}:
                     </Typography>
                     <Typography variant="body2">{templateDetail?.description || 'NA'}</Typography>
                   </Box>
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.project_start_date')}:
+                      {t('compliance_templates.template_base_template_title')}:
                     </Typography>
-                    <Typography variant="body2">
-                      <HumanizedDate dateString={templateDetail?.startDate} />
-                    </Typography>
+                    <Typography variant="body2">{templateDetail?.name}</Typography>
                   </Box>
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.project_end_date')}:
+                      {t('compliance_templates.template_working_system_title')}:
                     </Typography>
-                    <Typography variant="body2">
-                      <HumanizedDate dateString={templateDetail?.endDate} />
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('compliance_projects.project_template')}:
-                    </Typography>
-                    <Typography variant="body2">{templateDetail?.template || 'NA'}</Typography>
+                    <Typography variant="body2">{templateDetail?.workingSystemName}</Typography>
                   </Box>
                 </Box>
               </DashboardCard>
@@ -117,11 +99,6 @@ const TemplateDetails: React.FC = ({}) => {
             <Grid item xs={12} lg={12}>
               <Box display="flex" flexDirection="column" gap={2} mt={1}>
                 {/* <GiottoProjecGroupsList groups={templateDetail?.groups} /> */}
-              </Box>
-            </Grid>
-            <Grid item xs={12} lg={12}>
-              <Box display="flex" flexDirection="column">
-                <Box>{/* <GiottoProjectManagersList managers={templateDetail?.managers} /> */}</Box>
               </Box>
             </Grid>
           </>

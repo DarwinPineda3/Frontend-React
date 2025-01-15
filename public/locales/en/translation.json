@@ -1315,5 +1315,12 @@
     "loading": "Loading...",
     "generate_download": "Generate and Download",
     "report_generated": "Report generated successfully"
+  },
+  "compliance_templates": {
+    "template_description": "Description",
+    "template_details": "Template Details",
+    "template_controls_title": "Controls by Category",
+    "template_base_template_title": "Base Template",
+    "template_working_system_title": "Working System"
   }
 }

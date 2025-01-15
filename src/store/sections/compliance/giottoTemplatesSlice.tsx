@@ -254,7 +254,7 @@ export const fetchCustomTemplates =
 
 export const fetchTemplateById = (templateId: string) => async (dispatch: AppDispatch) => {
   try {
-    const url = `${getApiUrl()}GetById/${templateId}`;
+    const url = `${getApiUrl()}GetCompleteById/${templateId}`;
     const response = await axios.get(url);
     if (response.status === 200) {
       dispatch(getTemplateDetail({ data: response.data }));
