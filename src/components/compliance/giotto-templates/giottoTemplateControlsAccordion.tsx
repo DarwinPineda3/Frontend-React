@@ -1,27 +1,41 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import { IconButton } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
-// import GiottoProjectTechniciansTable from './giottoProjectTechniciansTable';
+import GiottoTemplateControlDescriptionAccordion from './giottoTemplateControlDescriptionAccordion';
 
-const GiottoProjectGroupsAccordion: React.FC<{ group: any }> = ({ group }) => {
+interface GiottoGroupControlsListProps {
+  groupName: string;
+  controls: any[];
+}
+const GiottoTemplateControlsAccordion: React.FC<GiottoGroupControlsListProps> = ({
+  groupName,
+  controls,
+}) => {
   return (
-    <Accordion key={`${group.name}`}>
+    <Accordion key={`${groupName}`}>
       <AccordionSummary
         expandIcon={<ArrowDownwardIcon />}
-        aria-controls={`${group.name}-content`}
-        id={`${group.name}-header`}
+        aria-controls={`${groupName}-content`}
+        id={`${groupName}-header`}
       >
+        <IconButton aria-label="Example">
+          <FormatListBulletedIcon />
+        </IconButton>
         <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-          {group.name}
+          {groupName}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {/* <GiottoProjectTechniciansTable technicians={group.groupTechnicians} /> */}
+        {Object.entries(controls).map(([index]: any) => (
+          <GiottoTemplateControlDescriptionAccordion control={controls[index]} />
+        ))}
       </AccordionDetails>
     </Accordion>
   );
 };
 
-export default GiottoProjectGroupsAccordion;
+export default GiottoTemplateControlsAccordion;

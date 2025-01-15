@@ -9,6 +9,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import { fetchTemplateById } from 'src/store/sections/compliance/giottoTemplatesSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
+import GiottoTemplateControlsList from './giottoTemplateControls';
 
 const TemplateDetails: React.FC = ({}) => {
   const { templateId } = useParams<{ templateId?: string }>();
@@ -17,6 +18,18 @@ const TemplateDetails: React.FC = ({}) => {
   const templateDetail = useSelector((state: any) => state.giottoTemplatesReducer.templateDetail);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  const [groupedControls, setGroupedControls] = useState<any>(null);
+
+  const groupByGroupName = (controls: any[]) => {
+    return controls.reduce((groups, control) => {
+      if (!groups[control.groupName]) {
+        groups[control.groupName] = [];
+      }
+      groups[control.groupName].push(control);
+      return groups;
+    }, {});
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +45,13 @@ const TemplateDetails: React.FC = ({}) => {
     };
     fetchData();
   }, [templateId, dispatch]);
+
+  useEffect(() => {
+    if (templateDetail && templateDetail.controls) {
+      const grouped = groupByGroupName(templateDetail.controls);
+      setGroupedControls(grouped);
+    }
+  }, [templateDetail]);
 
   return (
     <PageContainer title="Akila">
@@ -98,7 +118,7 @@ const TemplateDetails: React.FC = ({}) => {
             </Grid>
             <Grid item xs={12} lg={12}>
               <Box display="flex" flexDirection="column" gap={2} mt={1}>
-                {/* <GiottoProjecGroupsList groups={templateDetail?.groups} /> */}
+                <GiottoTemplateControlsList groupsControl={groupedControls} />
               </Box>
             </Grid>
           </>
