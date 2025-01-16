@@ -1,7 +1,6 @@
 import './auth/Account';
 import './compliance/GiottoAssets';
 import './compliance/GiottoExecutions';
-import './compliance/GiottoProjects';
 import './home/Asset';
 import './home/cyber-guard/brandMonitoring/BrandMonitoring';
 import './home/cyber-guard/parameters/Parameter';
