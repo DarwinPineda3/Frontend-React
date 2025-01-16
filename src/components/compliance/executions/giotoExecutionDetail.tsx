@@ -45,6 +45,11 @@ const GiottoExecutionDetail: React.FC<GiottoExecutionDetailProps> = ({ scanId, a
 
   const consolidatedControlResults = executionControls.map((controlResult: any) => {
     var controlResultExecutions = executionControlResults.find((result: any) => result.controlId === controlResult.id);
+    if (!controlResultExecutions) {
+      controlResultExecutions = {
+        controlResultExecutions: []
+      }
+    }
     return {
       control: controlResult,
       hasUnexpextedResults: controlResultExecutions.controlResultExecutions.some((result: any) => !result.isExpectedResult),
