@@ -2,6 +2,7 @@ import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { parseISO } from "date-fns";
 import { useState } from "react";
 import HumanizedDate from "src/components/shared/HumanizedDate";
+import Loader from "src/components/shared/Loader/Loader";
 
 //[{"id":842,"assetId":1,"controlProcessType":"Policy","controlProcessOrder":1,"executedProcess":"Assessment","executedOperation":"{\"Id\":559,\"ReadOperationType\":2,\"ReadOperation\":\"{ \\\"Path\\\":\\\"Privilege Rights\\\", \\\"Name\\\":\\\"SeShutdownPrivilege\\\", \\\"ExpectedValue\\\":{ \\\"Value\\\":\\\"*S-1-5-32-544\\\", \\\"LogicExpression\\\":\\\"readOperationValue == expectedValue\\\" } }\",\"WriteOperationType\":2,\"WriteOperation\":\"{ \\\"Path\\\":\\\"Privilege Rights\\\", \\\"Name\\\":\\\"SeShutdownPrivilege\\\", \\\"ValueToWrite\\\":{ \\\"Value\\\":\\\"*S-1-5-32-544\\\"} }\",\"LastAssessmentValue\":null,\"Order\":1}","valueResult":"{\"Value\":\"*S-1-5-32-544\",\"LogicExpression\":null}","messageResult":"The configuration was verified successfully","exceptionResult":null,"status":"SuccessfulExecution","isExpectedResult":true,"executionDate":"2025-01-07T20:59:32.898108-06:00"},{"id":842,"assetId":1,"controlProcessType":"Policy","controlProcessOrder":1,"executedProcess":"Hardening","executedOperation":"{\"Id\":559,\"ReadOperationType\":2,\"ReadOperation\":\"{ \\\"Path\\\":\\\"Privilege Rights\\\", \\\"Name\\\":\\\"SeShutdownPrivilege\\\", \\\"ExpectedValue\\\":{ \\\"Value\\\":\\\"*S-1-5-32-544\\\", \\\"LogicExpression\\\":\\\"readOperationValue == expectedValue\\\" } }\",\"WriteOperationType\":2,\"WriteOperation\":\"{ \\\"Path\\\":\\\"Privilege Rights\\\", \\\"Name\\\":\\\"SeShutdownPrivilege\\\", \\\"ValueToWrite\\\":{ \\\"Value\\\":\\\"*S-1-5-32-544\\\"} }\",\"LastAssessmentValue\":null,\"Order\":1}","valueResult":"{\"Value\":\"*S-1-5-32-544\",\"LogicExpression\":null}","messageResult":"The configuration was verified successfully","exceptionResult":null,"status":"SuccessfulExecution","isExpectedResult":true,"executionDate":"2025-01-07T20:59:32.898108-06:00"}]
 interface ControlResultExecutions {
@@ -40,6 +41,11 @@ const GiottoExecutionTabs: React.FC<GiottoExecutionTabsProps> = ({ tabs }) => {
     }
   };
 
+  if ((tabs[selectedTab] === undefined)) {
+    return <Box>
+      <Loader />
+    </Box>
+  }
   const currentValueResult = parseValueResult(tabs[selectedTab].valueResult);
 
   return (

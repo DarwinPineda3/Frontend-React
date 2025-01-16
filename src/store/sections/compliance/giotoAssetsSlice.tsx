@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBaseApiUrl } from "src/guards/jwt/Jwt";
+import { getBaseBackofficeUrl } from "src/guards/jwt/Jwt";
 import axios from 'src/utils/axios';
 import { AppDispatch } from "../../Store";
 
 // Update to match the backend API endpoint
 function getApiUrl() {
-  return `api/gioto/assets/`;
-  return `${getBaseApiUrl()}/assets/`;
+  return `${getBaseBackofficeUrl()}/api/giotto-proxy`;
 }
 
 export interface ComplianceAsset {
@@ -83,7 +82,7 @@ export const fetchAssets = (requestedPage: Number, requestedPageSize: Number = 1
     if (requestedPageSize !== initialState.pageSize) {
       requestedPage = 1;
     }
-    const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${requestedPageSize}`);
+    const response = await axios.get(`${getApiUrl()}?url=Assets/GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}`);
     console.log('response', response.data);
     const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
@@ -117,7 +116,7 @@ export const fetchAssetsWitURL = (page = 1) => async (dispatch: AppDispatch) => 
 // Async thunk for creating a new asset (CREATE)
 export const createAsset = (newAsset: ComplianceAsset) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post(getApiUrl(), newAsset);
+    const response = await axios.post(`${getApiUrl()}?url=Assets/CreateAsset`, newAsset);
     if (response.status >= 200 && response.status < 300) {
       dispatch(fetchAssets(initialState.page, initialState.pageSize));
       return response.data;
@@ -136,14 +135,14 @@ export const createAsset = (newAsset: ComplianceAsset) => async (dispatch: AppDi
 // Async thunk for updating an asset (UPDATE)
 export const editAsset = (updatedAsset: ComplianceAsset) => async (dispatch: AppDispatch) => {
   try {
-    const url = `${getApiUrl()}${updatedAsset.id}`;
+    const url = `${getApiUrl()}?url=Assets/EditAsset/${updatedAsset.id}`;
     console.log('PUT request to URL:', url);
 
     const response = await axios.put(url, updatedAsset);
 
     if (response.status >= 200 && response.status < 300) {
       console.log('Asset updated successfully:', response.data);
-      dispatch(fetchAssets(0, 10));
+      dispatch(fetchAssets(1, 10));
     } else {
       console.error('Error updating asset:', response);
       dispatch(setError('Failed to update asset'));

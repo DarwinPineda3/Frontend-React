@@ -1,4 +1,4 @@
-import { Delete, PlayCircleOutline, SettingsSuggest, Visibility } from '@mui/icons-material';
+import { Delete, FlipCameraAndroid, PlayCircleOutline, SettingsSuggest, Visibility } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import DashboardCard from "src/components/shared/DashboardCard";
 import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchExecutions, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
+import { fetchExecutions, requsetAssessmentExecution, requsetHardeningExecution, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
 import { useDispatch, useSelector } from "src/store/Store";
 
 interface GiottoExecutionListProps {
@@ -41,13 +41,25 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
     }
   };
 
-  const handleEditClick = (asset: any = null) => {
+  const handleDetailClick = (asset: any = null) => {
     onScanClick(asset.id);
   };
 
   const handleDeleteClick = (asset: any) => {
     setEditAsset(asset);
     setOpenDialog(true);
+  }
+
+  const handleAssessmentClick = (asset: any) => {
+    dispatch(requsetAssessmentExecution(page));
+  }
+
+  const handleHardeningClick = (asset: any) => {
+    dispatch(requsetHardeningExecution(page));
+  }
+
+  const handleRollbackClick = (asset: any) => {
+    dispatch(requsetRollbackExecution(page));
   }
 
   const handleCloseDialog = () => {
@@ -67,7 +79,7 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
 
 
   const addButton = (
-    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+    <IconButton color="primary" onClick={() => handleDetailClick(undefined)}>
       <AddIcon />
     </IconButton>
   );
@@ -143,25 +155,31 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
                           <IconButton
                             color="primary"
                             about='Play'
-                            onClick={() => handleEditClick(execution)}
+                            onClick={() => handleAssessmentClick(execution)}
                           >
                             <PlayCircleOutline />
                           </IconButton>
                           <IconButton
                             color="primary"
-                            onClick={() => handleEditClick(execution)}
+                            onClick={() => handleHardeningClick(execution)}
                           >
                             <SettingsSuggest />
                           </IconButton>
                           <IconButton
                             color="primary"
-                            onClick={() => handleEditClick(execution)}
+                            onClick={() => handleRollbackClick(execution)}
+                          >
+                            <FlipCameraAndroid />
+                          </IconButton>
+                          <IconButton
+                            color="primary"
+                            onClick={() => handleDetailClick(execution)}
                           >
                             <Visibility />
                           </IconButton>
                           <IconButton
                             color="primary"
-                            onClick={() => handleEditClick(execution)}
+                            onClick={() => handleDetailClick(execution)}
                           >
                             <Delete />
                           </IconButton>
@@ -198,3 +216,7 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
 };
 
 export default GiottoExecutionList;
+function requsetRollbackExecution(page: any): any {
+  throw new Error('Function not implemented.');
+}
+

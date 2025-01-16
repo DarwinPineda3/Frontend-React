@@ -81,6 +81,10 @@ const getBaseApiUrl = (): string => {
   return `${import.meta.env.VITE_API_BACKEND_BASE_URL_TEMPLATE.replace("{}", tenant)}/api`;
 }
 
+const getBaseBackofficeUrl = (): string => {
+  return `${import.meta.env.VITE_API_BACKEND_BASE_URL}`;
+}
+
 // Function to get user information from the token
 const getUserInfo = (): { user_id: string; first_name: string; last_name: string; email: string; groups: string } | null => {
   const accessToken = window.localStorage.getItem('accessToken');
@@ -169,5 +173,5 @@ const verify = (token: string, secretKey: string) => {
   return payload;
 };
 
-export { getBaseApiUrl, getTenant, getUserGroups, getUserInfo, isValidToken, setSession, sign, verify };
+export { getBaseApiUrl, getBaseBackofficeUrl, getTenant, getUserGroups, getUserInfo, isValidToken, setSession, sign, verify };
 
