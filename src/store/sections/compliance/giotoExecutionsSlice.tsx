@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBaseApiUrl } from "src/guards/jwt/Jwt";
+import { getBaseBackofficeUrl } from "src/guards/jwt/Jwt";
 import axios from "src/utils/axios";
 
 function getApiUrl() {
-  return `api/gioto/executions/`;
-  return `${getBaseApiUrl()}/assets/`;
+  return `${getBaseBackofficeUrl()}/api/giotto-proxy`;
 }
 
 export interface TemplateExecution {
@@ -148,9 +147,16 @@ export default GiottoExecutionSlice.reducer;
 
 export const fetchExecutions = (page: number = 1) => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}?page=${page}`);
+    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetByTemplateProjectGroup?templateId=2&projectId=2&groupId=1`);
     const data = response.data;
-    dispatch(getExecutions(data));
+    const payload = {
+      itemsResult: data,
+      currentPage: page,
+      totalPages: 1,
+      totalItemsAmount: data.length,
+      pageSize: data.length,
+    };
+    dispatch(getExecutions(payload));
   } catch (error) {
     dispatch(setError('An error occurred while fetching the executions'));
   }
@@ -158,7 +164,7 @@ export const fetchExecutions = (page: number = 1) => async (dispatch: any) => {
 
 export const fetchExecutionDetail = (id: string) => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${id}`);
+    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetById/${id}`);
     const newExecution: TemplateExecution = response.data;
     dispatch(getExecutionDetail(newExecution));
   } catch (error) {
@@ -167,7 +173,44 @@ export const fetchExecutionDetail = (id: string) => async (dispatch: any) => {
 }
 
 export const fetchExecutionAssets = (id: string) => async (dispatch: any) => {
-  const url = `${getApiUrl()}${id}/assets/`;
+  const url = `${getApiUrl()}?url=TemplateExecutions/GetAssetsById/${id}`;
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+    dispatch(getExecutionAssets(data));
+  } catch (error) {
+    console.error(error, url);
+    dispatch(setError('An error occurred while fetching the execution assets'));
+  }
+}
+
+
+export const requsetAssessmentExecution = (id: string) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions//api/TemplateExecutions/StartAssessmentExecution?templateExecutionId=${id}`;
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+    dispatch(getExecutionAssets(data));
+  } catch (error) {
+    console.error(error, url);
+    dispatch(setError('An error occurred while fetching the execution assets'));
+  }
+}
+
+export const requsetHardeningExecution = (id: string) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions//api/TemplateExecutions/StartHardeningExecution?templateExecutionId=${id}`;
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+    dispatch(getExecutionAssets(data));
+  } catch (error) {
+    console.error(error, url);
+    dispatch(setError('An error occurred while fetching the execution assets'));
+  }
+}
+
+export const requsetRollbackExecution = (id: string) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions//api/TemplateExecutions/StartRollbackExecution?templateExecutionId=${id}`;
   try {
     const response = await axios.get(url);
     const data = response.data;
@@ -180,7 +223,7 @@ export const fetchExecutionAssets = (id: string) => async (dispatch: any) => {
 
 export const fetchExecutionControlResults = (executionId: string, assetId: string) => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${executionId}/assets/${assetId}/results/`);
+    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetControlExecutionsRollbackAndResultsByIdAndAsset?id=${executionId}&assetId=${assetId}`);
     const data = response.data;
     dispatch(getExecutionControlResults(data));
   } catch (error) {
@@ -190,7 +233,7 @@ export const fetchExecutionControlResults = (executionId: string, assetId: strin
 
 export const fetchExecutionControls = (executionId: string, assetId: string) => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}${executionId}/assets/${assetId}/controls/`);
+    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetControlsById/${executionId}`);
     const data = response.data;
     dispatch(getExecutionControls(data));
   } catch (error) {
