@@ -6,6 +6,7 @@ import AccountSettings from 'src/components/account-settings/AccountSettings';
 import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
 import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
+import ProjectDetails from 'src/components/compliance/giotto-projects/giottoProjectDetails';
 import TemplateDetails from 'src/components/compliance/giotto-templates/giottoTemplateDetails';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
@@ -27,6 +28,8 @@ import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsV
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
+import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
+import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
 import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
@@ -559,6 +562,26 @@ const Router = [
       {
         path: '/compliance/templates/:templateId',
         element: <TemplateDetails />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects',
+        element: <ComplianceProjectsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects/create',
+        element: <CreateComplianceProjects />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects/:projectId',
+        element: <ProjectDetails />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects/edit/:projectId',
+        element: <EditComplianceProjects />,
         roles: ['Administrator', 'Defender'],
       },
     ],
