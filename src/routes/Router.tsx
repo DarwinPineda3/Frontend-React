@@ -7,6 +7,7 @@ import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGro
 import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
 import ProjectDetails from 'src/components/compliance/giotto-projects/giottoProjectDetails';
+import TemplateDetails from 'src/components/compliance/giotto-templates/giottoTemplateDetails';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -29,6 +30,7 @@ import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView'
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
 import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
 import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
+import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -190,6 +192,16 @@ const Router = [
         roles: ['Administrator', 'Scan360'],
       },
 
+      {
+        path: '/vulnerabilities/cloud',
+        element: <CloudVulnerabilities />,
+        roles: ['Administrator', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
+        element: <CloudVulnerabilitiesDetails />,
+        roles: ['Administrator', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/cloud',
         element: <CloudVulnerabilities />,
@@ -513,6 +525,11 @@ const Router = [
         roles: ['Administrator', 'Defender'],
       },
       {
+        path: '/compliance/projects',
+        element: <ComplianceProjectsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
         path: '/compliance/executions',
         element: <ComplianceExecutionsView />,
         roles: ['Administrator', 'Defender'],
@@ -535,6 +552,16 @@ const Router = [
       {
         path: '/compliance/assessment-status',
         element: <AssessmentStatusByAsset />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/templates',
+        element: <TemplateListPage />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/templates/:templateId',
+        element: <TemplateDetails />,
         roles: ['Administrator', 'Defender'],
       },
       {

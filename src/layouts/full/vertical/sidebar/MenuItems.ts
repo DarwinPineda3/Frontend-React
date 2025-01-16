@@ -434,6 +434,13 @@ const Menuitems: MenuitemsType[] = [
     icon: IconClipboardList,
     permissions: ['Administrator', 'Compliance', 'Scan360'],
   },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_templates', // Translation key for title
+    href: '/compliance/templates',
+    icon: IconClipboardList,
+    permissions: ['Administrator', 'Compliance', 'Scan360'],
+  },
 
 ];
 

@@ -1232,7 +1232,8 @@
     "compliance_assets": "Activos",
     "compliance_groups": "Grupos",
     "compliance_projects": "Proyectos",
-    "compliance_executions": "Ejecuciones"
+    "compliance_executions": "Ejecuciones",
+    "compliance_templates": "Plantillas"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1257,6 +1258,13 @@
     "changes": "Cambios",
     "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
     "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
+  },
+  "breadcrumbs": {
+    "compliance": "Cumplimiento",
+    "templates": "Plantillas"
+  },
+  "snackbar": {
+    "reportGenerated": "¡Informe generado con éxito!"
   },
   "compliance_projects": {
     "project_name": "Nombre del Proyecto",
@@ -1374,5 +1382,23 @@
       "edit_group": "Editar grupo",
       "group_name_already_exists": "El nombre del grupo ya existe."
     }
+  },
+  "compliance_templates": {
+    "template_description": "Descripción",
+    "template_details": "Detalles de la Plantilla",
+    "templates_controls_title": "Controles por Categoria",
+    "template_base_template_title": "Plantilla Base",
+    "template_working_system_title": "Sistema Operativo",
+    "no_data_available": "No hay datos disponibles",
+    "baseTemplates": "Plantillas Base",
+    "customTemplates": "Plantillas Personalizadas",
+    "template": "Plantilla",
+    "system": "Sistema",
+    "creationDate": "Fecha de Creación",
+    "options": "Opciones",
+    "windowsServer": "Windows Server XYZ",
+    "windowsSystem": "Windows Server 2019-2022",
+    "linuxServer": "Linux Server XYZ",
+    "linuxSystem": "Linux Ubuntu 20.04"
   }
 }

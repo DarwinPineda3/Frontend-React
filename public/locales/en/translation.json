@@ -1235,7 +1235,8 @@
     "compliance_assets": "Assets",
     "compliance_groups": "Groups",
     "compliance_projects": "Projects",
-    "compliance_executions": "Executions"
+    "compliance_executions": "Executions",
+    "compliance_templates": "Templates"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1260,6 +1261,13 @@
     "changes": "Changes",
     "description": "All notable changes to this project will be documented in this file.",
     "format": "The format is based on Keep a Changelog and this project adheres to Semantic Versioning (SemVer)."
+  },
+  "breadcrumbs": {
+    "compliance": "Compliance",
+    "templates": "Templates"
+  },
+  "snackbar": {
+    "reportGenerated": "Report successfully generated!"
   },
   "compliance_projects": {
     "project_name": "Project Name",
@@ -1377,5 +1385,23 @@
       "edit_group": "Edit group",
       "group_name_already_exists": "Group name already exists"
     }
+  },
+  "compliance_templates": {
+    "template_description": "Description",
+    "template_details": "Template Details",
+    "template_controls_title": "Controls by Category",
+    "template_base_template_title": "Base Template",
+    "template_working_system_title": "Working System",
+    "no_data_available": "No data available",
+    "baseTemplates": "Base Templates",
+    "customTemplates": "Custom Templates",
+    "template": "Template",
+    "system": "System",
+    "creationDate": "Creation Date",
+    "options": "Options",
+    "windowsServer": "Windows Server XYZ",
+    "windowsSystem": "Windows Server 2019-2022",
+    "linuxServer": "Linux Server XYZ",
+    "linuxSystem": "Linux Ubuntu 20.04"
   }
 }
