@@ -12,7 +12,6 @@ interface StateType {
   wpscan: any | null;
   page: number;
   totalPages: number;
-  // loading: boolean;
   pageSize: number;
   error: string | null;
   isLoading: boolean;
@@ -24,7 +23,6 @@ const initialState: StateType = {
   page: 1,
   totalPages: 1,
   pageSize: 10,
-  // loading: false,
   error: null,
   isLoading: false,
 };
@@ -100,6 +98,7 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
   } catch (err: any) {
     console.error('Error fetching WPScan detail:', err);
     dispatch(setError('Failed to fetch WPScan detail'));
+  } finally {
   }
 };
 

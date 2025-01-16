@@ -3,6 +3,10 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
+import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
+import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
+import ProjectDetails from 'src/components/compliance/giotto-projects/giottoProjectDetails';
 import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -23,6 +27,8 @@ import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsV
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
+import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
+import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -184,16 +190,20 @@ const Router = [
         roles: ['Administrator', 'Scan360'],
       },
 
-      { path: '/vulnerabilities/cloud', element: <CloudVulnerabilities />, roles: ['Administrator', 'Scan360'] },
+      {
+        path: '/vulnerabilities/cloud',
+        element: <CloudVulnerabilities />,
+        roles: ['Administrator', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/cloud/vulnerabilities/:cloudId',
         element: <CloudVulnerabilitiesDetails />,
-        roles: ['Administrator', 'Scan360']
+        roles: ['Administrator', 'Scan360'],
       },
       {
         path: '/vulnerabilities/cloud/create',
         element: <CreateProwlerScan />,
-        roles: ['Administrator', 'Scan360']
+        roles: ['Administrator', 'Scan360'],
       },
 
       {
@@ -206,7 +216,11 @@ const Router = [
         element: <ManagementVulnerabilities />,
         roles: ['Administrator', 'Scan360'],
       },
-      { path: '/vulnerabilities/redteam', element: <EHReport />, roles: ['Administrator', 'Scan360'] },
+      {
+        path: '/vulnerabilities/redteam',
+        element: <EHReport />,
+        roles: ['Administrator', 'Scan360'],
+      },
       {
         path: '/vulnerabilities/redteam/:ehReportId',
         element: <EHReportDetail />,
@@ -252,7 +266,7 @@ const Router = [
       {
         path: '/observability/cloud/create',
         element: <CreateCloudInventory />,
-        roles: ['Administrator', 'Scan360']
+        roles: ['Administrator', 'Scan360'],
       },
       {
         path: '/observability/cloud/scans/:scanId',
@@ -340,7 +354,11 @@ const Router = [
 
       // TODO: add CyberGuard role to monitoring routes once CTI is completed
       { path: '/monitoring/soc', element: <SOCMonitoring />, roles: ['Administrator'] },
-      { path: '/monitoring/soc/service-statistics', element: <ServiceStatus />, roles: ['Administrator'] },
+      {
+        path: '/monitoring/soc/service-statistics',
+        element: <ServiceStatus />,
+        roles: ['Administrator'],
+      },
       {
         path: '/monitoring/soc/source-monitoring',
         element: <SourceMonitoring />,
@@ -355,20 +373,44 @@ const Router = [
         element: <ThreatIntelligence />,
         roles: ['Administrator'],
       },
-      { path: '/monitoring/soc/cti/emerging-risks', element: <EmergingRisks />, roles: ['Administrator'] },
+      {
+        path: '/monitoring/soc/cti/emerging-risks',
+        element: <EmergingRisks />,
+        roles: ['Administrator'],
+      },
       {
         path: '/monitoring/soc/cti/technologies-inventory',
         element: <TechInventory />,
         roles: ['Administrator'],
       },
       { path: '/monitoring/soc/cti/mitre', element: <MitreView />, roles: ['Administrator'] },
-      { path: '/monitoring/soc/brand-monitoring', element: <BrandMonitoring />, roles: ['Administrator'] },
-      { path: '/monitoring/soc/brand-monitoring/demo', element: <DemoBrand />, roles: ['Administrator'] },
-      { path: '/monitoring/soc/brand-monitoring/darknet', element: <DarkNet />, roles: ['Administrator'] },
+      {
+        path: '/monitoring/soc/brand-monitoring',
+        element: <BrandMonitoring />,
+        roles: ['Administrator'],
+      },
+      {
+        path: '/monitoring/soc/brand-monitoring/demo',
+        element: <DemoBrand />,
+        roles: ['Administrator'],
+      },
+      {
+        path: '/monitoring/soc/brand-monitoring/darknet',
+        element: <DarkNet />,
+        roles: ['Administrator'],
+      },
       // { path: '/monitoring/siem', element: <SIEMMonitoring /> },
-      { path: '/monitoring/siem', element: <Navigate to="/maintenance" />, roles: ['Administrator'] },
+      {
+        path: '/monitoring/siem',
+        element: <Navigate to="/maintenance" />,
+        roles: ['Administrator'],
+      },
 
-      { path: '/monitoring/soc/newsletters', element: <SocNews />, roles: ['Administrator', 'CyberGuard'] },
+      {
+        path: '/monitoring/soc/newsletters',
+        element: <SocNews />,
+        roles: ['Administrator', 'CyberGuard'],
+      },
       {
         path: '/monitoring/soc/newsletters/:newsletterId',
         element: <SocNewsDetails />,
@@ -381,38 +423,140 @@ const Router = [
       },
 
       // Support
-      { path: '/support/tickets', element: <Tickets />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
-      { path: '/support/solutions', element: <Solutions />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
-      { path: '/support/solutions/:id', element: <SolutionDetail />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
-      { path: '/support/ticketform', element: <TicketFormComp />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
-      { path: '/support/ticket/:id', element: <TicketDetail />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
+      {
+        path: '/support/tickets',
+        element: <Tickets />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
+      {
+        path: '/support/solutions',
+        element: <Solutions />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
+      {
+        path: '/support/solutions/:id',
+        element: <SolutionDetail />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
+      {
+        path: '/support/ticketform',
+        element: <TicketFormComp />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
+      {
+        path: '/support/ticket/:id',
+        element: <TicketDetail />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
 
       // Configuration
-      { path: '/configuration/scheduled-scans', element: <ScheduledScans />, roles: ['Administrator', 'Scan360'] },
-      { path: '/configuration/schedule-scan', element: <ScheduleScanForm />, roles: ['Administrator', 'Scan360'] },
+      {
+        path: '/configuration/scheduled-scans',
+        element: <ScheduledScans />,
+        roles: ['Administrator', 'Scan360'],
+      },
+      {
+        path: '/configuration/schedule-scan',
+        element: <ScheduleScanForm />,
+        roles: ['Administrator', 'Scan360'],
+      },
 
       // Audit
-      { path: '/audit/logs', element: <AuditLogView />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
+      {
+        path: '/audit/logs',
+        element: <AuditLogView />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
 
       // User Profile
       { path: '/user-profile', element: <AccountSettings /> },
 
       // Maintenance
-      { path: '/maintenance', element: <Maintenance />, roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'] },
+      {
+        path: '/maintenance',
+        element: <Maintenance />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
 
       // Default Route
       { path: '/', element: <Navigate to="/home/dashboard" /> },
 
       // Compliance
-      { path: '/compliance/assets', element: <ComplianceAssetsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/assets/:assetId', element: <ComplianceAssetsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/groups', element: <ComplianceGroupsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/projects', element: <ComplianceProjectsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/executions', element: <ComplianceExecutionsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/executions/:executionId', element: <ComplianceExecutionsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/executions/:executionId/assets/:assetId', element: <ComplianceExecutionsView />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/reports', element: <ComplianceReports />, roles: ['Administrator', 'Defender'] },
-      { path: '/compliance/assessment-status', element: <AssessmentStatusByAsset />, roles: ['Administrator', 'Defender'] },
+      {
+        path: '/compliance/assets',
+        element: <ComplianceAssetsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/assets/:assetId',
+        element: <ComplianceAssetsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/groups',
+        element: <ComplianceGroupsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/groups/:groupId',
+        element: <GroupDetails />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/groups/create',
+        element: <CreateGiottoGroup />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/groups/edit/:groupId',
+        element: <EditGiottoGroup />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/executions',
+        element: <ComplianceExecutionsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/executions/:executionId',
+        element: <ComplianceExecutionsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/executions/:executionId/assets/:assetId',
+        element: <ComplianceExecutionsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/reports',
+        element: <ComplianceReports />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/assessment-status',
+        element: <AssessmentStatusByAsset />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects',
+        element: <ComplianceProjectsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects/create',
+        element: <CreateComplianceProjects />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects/:projectId',
+        element: <ProjectDetails />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/projects/edit/:projectId',
+        element: <EditComplianceProjects />,
+        roles: ['Administrator', 'Defender'],
+      },
     ],
   },
   {
