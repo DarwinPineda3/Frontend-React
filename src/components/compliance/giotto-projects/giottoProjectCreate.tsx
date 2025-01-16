@@ -49,6 +49,8 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const totalItemsAmount = useSelector((state: any) => state.giottoGroupReducer.totalItemsAmount);
   const [allSelectedGroups, setAllSelectedGroups] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
   const steps = [
     t('compliance_projects.project_basic_information'),
     t('compliance_projects.project_group_title'),
@@ -173,6 +175,10 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
       return [...prev, group.id];
     });
   };
+
+  React.useEffect(() => {
+    setIsButtonDisabled(!formik.values.name.trim());
+  }, [formik.values.name]);
 
   // eslint-disable-next-line consistent-return
   const handleSteps = (step) => {
@@ -355,6 +361,7 @@ const CreateGiottoProjectForm: React.FC<Props> = ({ onSubmit }) => {
                   onClick={handleNext}
                   variant="contained"
                   color={activeStep === steps.length - 1 ? 'success' : 'secondary'}
+                  disabled={isButtonDisabled}
                 >
                   {activeStep === steps.length - 1
                     ? t('compliance_projects.project_btn_create')
