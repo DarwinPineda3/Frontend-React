@@ -1393,15 +1393,10 @@
     "template_base_template_title": "Base Template",
     "template_working_system_title": "Working System",
     "no_data_available": "No data available",
-    "baseTemplates": "Base Templates",
-    "customTemplates": "Custom Templates",
+    "base_templates": "Base Templates",
+    "custom_templates": "Custom Templates",
     "template": "Template",
-    "system": "System",
-    "creationDate": "Creation Date",
-    "options": "Options",
-    "windowsServer": "Windows Server XYZ",
-    "windowsSystem": "Windows Server 2019-2022",
-    "linuxServer": "Linux Server XYZ",
-    "linuxSystem": "Linux Ubuntu 20.04"
+    "template_control_executable": "Executable",
+    "template_control_editable": "Editable"
   }
 }
