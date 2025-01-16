@@ -7,7 +7,7 @@ import DashboardCard from "src/components/shared/DashboardCard";
 import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchExecutions, requsetAssessmentExecution, requsetHardeningExecution, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
+import { fetchExecutions, requestAssessmentExecution, requestHardeningExecution, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
 import { useDispatch, useSelector } from "src/store/Store";
 
 interface GiottoExecutionListProps {
@@ -51,15 +51,27 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
   }
 
   const handleAssessmentClick = (asset: any) => {
-    dispatch(requsetAssessmentExecution(page));
+    const id = asset.id;
+    dispatch(requestAssessmentExecution(id));
+    setSnackbarMessage('Assessment execution requested');
+    setSnackbarSeverity('info');
+    setSnackbarOpen(true);
   }
 
   const handleHardeningClick = (asset: any) => {
-    dispatch(requsetHardeningExecution(page));
+    const id = asset.id;
+    dispatch(requestHardeningExecution(id));
+    setSnackbarMessage('Hardening execution requested');
+    setSnackbarSeverity('info');
+    setSnackbarOpen(true);
   }
 
   const handleRollbackClick = (asset: any) => {
-    dispatch(requsetRollbackExecution(page));
+    const id = asset.id;
+    dispatch(requsetRollbackExecution(id));
+    setSnackbarMessage('Rollback execution requested');
+    setSnackbarSeverity('info');
+    setSnackbarOpen(true);
   }
 
   const handleCloseDialog = () => {

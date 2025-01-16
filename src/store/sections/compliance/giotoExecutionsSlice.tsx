@@ -185,10 +185,10 @@ export const fetchExecutionAssets = (id: string) => async (dispatch: any) => {
 }
 
 
-export const requsetAssessmentExecution = (id: string) => async (dispatch: any) => {
-  const url = `${getApiUrl()}?url=TemplateExecutions//api/TemplateExecutions/StartAssessmentExecution?templateExecutionId=${id}`;
+export const requestAssessmentExecution = (id: string) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions/StartAssessmentExecution?templateExecutionId=${id}`;
   try {
-    const response = await axios.get(url);
+    const response = await axios.post(url);
     const data = response.data;
     dispatch(getExecutionAssets(data));
   } catch (error) {
@@ -197,10 +197,10 @@ export const requsetAssessmentExecution = (id: string) => async (dispatch: any) 
   }
 }
 
-export const requsetHardeningExecution = (id: string) => async (dispatch: any) => {
-  const url = `${getApiUrl()}?url=TemplateExecutions//api/TemplateExecutions/StartHardeningExecution?templateExecutionId=${id}`;
+export const requestHardeningExecution = (id: string) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions/StartHardeningExecution?templateExecutionId=${id}`;
   try {
-    const response = await axios.get(url);
+    const response = await axios.post(url);
     const data = response.data;
     dispatch(getExecutionAssets(data));
   } catch (error) {
@@ -209,10 +209,10 @@ export const requsetHardeningExecution = (id: string) => async (dispatch: any) =
   }
 }
 
-export const requsetRollbackExecution = (id: string) => async (dispatch: any) => {
-  const url = `${getApiUrl()}?url=TemplateExecutions//api/TemplateExecutions/StartRollbackExecution?templateExecutionId=${id}`;
+export const requestRollbackExecution = (id: string) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions/StartRollbackExecution?templateExecutionId=${id}`;
   try {
-    const response = await axios.get(url);
+    const response = await axios.post(url);
     const data = response.data;
     dispatch(getExecutionAssets(data));
   } catch (error) {
