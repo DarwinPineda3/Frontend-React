@@ -76,7 +76,6 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
 
   const performDelete = async () => {
     try {
-      console.log('Deleting scan:', selectedScanId);
       await dispatch(deleteNetworkObservabilityScan(selectedScanId));
       setShowDeleteDialog(false);
     } catch (error) {

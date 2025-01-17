@@ -48,8 +48,6 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         companyName: 'Company Name',
       };
 
-      console.log(newAsset);
-
       try {
         if (asset) {
           await dispatch(editAsset(newAsset)); // Use await to handle the promise
@@ -95,18 +93,6 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           onBlur={formik.handleBlur}
           error={formik.touched.networkAddress && Boolean(formik.errors.networkAddress)}
           helperText={formik.touched.networkAddress && formik.errors.networkAddress}
-        />
-
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Description"
-          name="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.description && Boolean(formik.errors.description)}
-          helperText={formik.touched.description && formik.errors.description}
         />
 
         <Box mt={2}>
