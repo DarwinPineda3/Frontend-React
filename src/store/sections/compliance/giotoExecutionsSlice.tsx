@@ -145,13 +145,14 @@ export const { getExecutions, getExecutionDetail, getExecutionAssets, getExecuti
 
 export default GiottoExecutionSlice.reducer;
 
-export const fetchExecutions = (page: number = 1) => async (dispatch: any) => {
+export const fetchExecutions = (project: number, group: number, template: number) => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetByTemplateProjectGroup?templateId=2&projectId=2&groupId=1`);
+    dispatch(setLoadingExecutions(true));
+    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetByTemplateProjectGroup?templateId=${template}&projectId=${project}&groupId=${group}`);
     const data = response.data;
     const payload = {
       itemsResult: data,
-      currentPage: page,
+      currentPage: 1,
       totalPages: 1,
       totalItemsAmount: data.length,
       pageSize: data.length,

@@ -1,6 +1,6 @@
-import { Delete, FlipCameraAndroid, PlayCircleOutline, SettingsSuggest, Visibility } from '@mui/icons-material';
+import { Delete, FlipCameraAndroid, PlayCircleOutline, Refresh, SettingsSuggest, Visibility } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import { Box, FormControl, IconButton, InputLabel, LinearProgress, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import DashboardCard from "src/components/shared/DashboardCard";
@@ -8,6 +8,7 @@ import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { fetchExecutions, requestAssessmentExecution, requestHardeningExecution, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
+import { fetchProjectById, fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
 import { useDispatch, useSelector } from "src/store/Store";
 
 interface GiottoExecutionListProps {
@@ -17,19 +18,44 @@ interface GiottoExecutionListProps {
 
 const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const {
     executions, page, pageSize, loading, totalItemsAmount
   } = useSelector((state: any) => state.GiottoExecutionsReducer);
+
+
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchExecutions(page));
+      await dispatch(fetchProjects(page));
     };
     fetchData();
-  }, [dispatch, page]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (selectedTemplate) {
+      dispatch(fetchExecutions(selectedProject!, selectedGroup!, selectedTemplate));
+    }
+  }, [dispatch, selectedTemplate]
+  );
+
+  useEffect(() => {
+    if (selectedProject != null) {
+      dispatch(fetchProjectById(selectedProject.toString()));
+    }
+  }, [dispatch, selectedProject]);
 
   const [editAsset, setEditAsset] = useState<null | any>(null);
   const [openDialog, setOpenDialog] = useState(false);
+
+  const { projects, projectDetail } = useSelector((state: any) => state.giottoProjectsReducer);
+
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
@@ -89,6 +115,10 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
     handleCloseDialog();
   };
 
+  const groups = projectDetail?.groups;
+  const templates = projectDetail?.groups?.find((group: any) => group.groupId === selectedGroup)?.groupTemplates;
+
+
 
   const addButton = (
     <IconButton color="primary" onClick={() => handleDetailClick(undefined)}>
@@ -96,133 +126,241 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
     </IconButton>
   );
 
-  return (
-    <DashboardCard
-      title={t('compliance.executions_description') ?? ''}
-      subtitle={t('compliance.executions_info') ?? ''}
-    //action={addButton}
-    >
-      <Box>
-        <Box>
-          <TableContainer>
-            {/* Table view */}
-            <Table>
-              {/* Table head */}
-              <TableHead>
-                <TableRow>
-                  <TableCell>Creation Date</TableCell>
-                  <TableCell>Execution Date</TableCell>
-                  <TableCell>Process</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>User</TableCell>
-                  <TableCell>Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              {/* Table body */}
-              <TableBody>
-                {loading ? (
-                  <TableRow>
-                    <TableCell colSpan={5}>
-                      <Loader />
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  executions.map((execution: TemplateExecution) => (
-                    <TableRow key={execution.id}>
-                      <TableCell>
-                        <Box display="flex" flexDirection="column">
-                          <HumanizedDate dateString={execution.creationDate} />
-                          <Typography variant="caption">
-                            {new Date(execution.creationDate).toLocaleString()}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>
-                        <Box display="flex" flexDirection="column">
-                          {execution.executionDate ? (
-                            <>
-                              <HumanizedDate dateString={execution.executionDate} />
-                              <Typography variant="caption">
-                                {new Date(execution.executionDate).toLocaleString()}
-                              </Typography>
-                            </>
-                          ) : (
-                            <Typography variant="caption">
-                              {t('never')}
-                            </Typography>
-                          )}
-                        </Box>
-                      </TableCell>
-                      <TableCell>
-                        {execution.processToExecute}
-                      </TableCell>
-                      <TableCell>
-                        {execution.status}
-                      </TableCell>
-                      <TableCell>
-                        {execution.userRequesting}
-                      </TableCell>
-                      <TableCell>
-                        <Box display="flex" gap={1}>
-                          <IconButton
-                            color="primary"
-                            about='Play'
-                            onClick={() => handleAssessmentClick(execution)}
-                          >
-                            <PlayCircleOutline />
-                          </IconButton>
-                          <IconButton
-                            color="primary"
-                            onClick={() => handleHardeningClick(execution)}
-                          >
-                            <SettingsSuggest />
-                          </IconButton>
-                          <IconButton
-                            color="primary"
-                            onClick={() => handleRollbackClick(execution)}
-                          >
-                            <FlipCameraAndroid />
-                          </IconButton>
-                          <IconButton
-                            color="primary"
-                            onClick={() => handleDetailClick(execution)}
-                          >
-                            <Visibility />
-                          </IconButton>
-                          <IconButton
-                            color="primary"
-                            onClick={() => handleDetailClick(execution)}
-                          >
-                            <Delete />
-                          </IconButton>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25, 50, 100]}
-            component="div"
-            count={totalItemsAmount}
-            rowsPerPage={pageSize}
-            page={page - 1}
-            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-            onRowsPerPageChange={(e) => dispatch(fetchExecutions(page))}
-          />
-        </Box>
-        {snackbarOpen && (
-          <SnackBarInfo
-            color={snackbarSeverity}
-            title={t("dashboard.operation_status")}
-            message={snackbarMessage}
-          />
-        )}
-      </Box>
+  const refreshButton = (
+    <IconButton color="primary" onClick={() => dispatch(fetchExecutions(selectedProject!, selectedGroup!, selectedTemplate!))}>
+      <Refresh />
+    </IconButton>
+  );
 
-    </DashboardCard>
+  const selectors = (
+    <Box sx={{ marginBottom: 2 }}>
+      <DashboardCard >
+        <Box
+          display="flex"
+          flexDirection={isSmallScreen ? "column" : "row"}
+          gap={2}
+          padding={2}
+        >
+          {/* Project Selector*/}
+          {
+            projects && projects.length > 0 ? (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Project</InputLabel>
+                <Select
+                  value={selectedProject}
+                  onChange={(e) => {
+                    setSelectedProject(Number(e.target.value));
+                    setSelectedGroup(null);
+                    setSelectedTemplate(null);
+                  }}
+                >
+                  {projects.map((project: any) => (
+                    <MenuItem value={project.id} key={project.id}>
+                      {project.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ) : <LinearProgress />
+          }
+
+          {/* Group Selector*/}
+          {
+            groups && groups.length > 0 ? (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Group</InputLabel>
+                <Select
+                  value={selectedGroup}
+                  onChange={(e) => {
+                    setSelectedGroup(Number(e.target.value));
+                    setSelectedTemplate(null);
+                  }}
+                >
+                  {groups.map((group: any) => (
+                    <MenuItem value={group.groupId} key={group.groupId}>
+                      {group.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ) : <LinearProgress />
+          }
+
+          {/* Template Selector*/}
+          {
+            templates && templates.length > 0 ? (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Template</InputLabel>
+                <Select
+                  value={selectedTemplate}
+                  onChange={(e) => setSelectedTemplate(Number(e.target.value))}
+                >
+                  {templates.map((template: any) => (
+                    <MenuItem value={template.id} key={template.id}>
+                      {template.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ) : <LinearProgress />
+          }
+        </Box>
+      </DashboardCard>
+    </Box>
+  )
+
+  const tableResults = (
+    <Box>
+      <TableContainer>
+        {/* Table view */}
+        <Table>
+          {/* Table head */}
+          <TableHead>
+            <TableRow>
+              <TableCell>Creation Date</TableCell>
+              <TableCell>Execution Date</TableCell>
+              <TableCell>Process</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>User</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          {/* Table body */}
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <Loader />
+                </TableCell>
+              </TableRow>
+            ) : (
+              executions.map((execution: TemplateExecution) => (
+                <TableRow key={execution.id}>
+                  <TableCell>
+                    <Box display="flex" flexDirection="column">
+                      <HumanizedDate dateString={execution.creationDate} />
+                      <Typography variant="caption">
+                        {new Date(execution.creationDate).toLocaleString()}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box display="flex" flexDirection="column">
+                      {execution.executionDate ? (
+                        <>
+                          <HumanizedDate dateString={execution.executionDate} />
+                          <Typography variant="caption">
+                            {new Date(execution.executionDate).toLocaleString()}
+                          </Typography>
+                        </>
+                      ) : (
+                        <Typography variant="caption">
+                          {t('never')}
+                        </Typography>
+                      )}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {execution.processToExecute}
+                  </TableCell>
+                  <TableCell>
+                    {execution.status}
+                  </TableCell>
+                  <TableCell>
+                    {execution.userRequesting}
+                  </TableCell>
+                  <TableCell>
+                    <Box display="flex" gap={1}>
+                      <IconButton
+                        color="primary"
+                        about='Play'
+                        onClick={() => handleAssessmentClick(execution)}
+                        disabled={
+                          !(execution.processToExecute === 'Assessment' && execution.status === 'Registered')
+                        }
+                      >
+                        <PlayCircleOutline />
+                      </IconButton>
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleHardeningClick(execution)}
+                        disabled={
+                          !(execution.processToExecute === 'Hardening')
+                        }
+                      >
+                        <SettingsSuggest />
+                      </IconButton>
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleRollbackClick(execution)}
+                        disabled={
+                          !(execution.processToExecute === 'Rollback')
+                        }
+                      >
+                        <FlipCameraAndroid />
+                      </IconButton>
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleDetailClick(execution)}
+                      >
+                        <Visibility />
+                      </IconButton>
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleDetailClick(execution)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
+        component="div"
+        count={totalItemsAmount}
+        rowsPerPage={pageSize}
+        page={page - 1}
+        onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+        onRowsPerPageChange={(e) => { }}
+      />
+    </Box>
+  );
+
+  return (
+    <Box>
+      {projects && projects.length > 0 ? selectors : <LinearProgress></LinearProgress>}
+      <DashboardCard
+        title={t('compliance.executions_description') ?? ''}
+        subtitle={t('compliance.executions_info') ?? ''}
+
+        action={selectedTemplate ? refreshButton : null}
+      >
+        <Box>
+          {
+            selectedTemplate ? tableResults :
+              <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+                <Typography variant="body1">
+                  {"Please select a template to view executions"}
+                </Typography>
+              </Box>
+          }
+          {snackbarOpen && (
+            <SnackBarInfo
+              color={snackbarSeverity}
+              title={t("dashboard.operation_status")}
+              message={snackbarMessage}
+            />
+          )}
+        </Box>
+
+      </DashboardCard>
+    </Box>
+
 
   );
 };
