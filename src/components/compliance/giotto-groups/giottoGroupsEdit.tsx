@@ -150,11 +150,13 @@ const EditGiottoGroup: React.FC = () => {
         removedTemplates,
       };
 
-      const existGroupName = await fetchGroupName(values.name)
+      if (formik.values.name !== groupDetail.name) {
+        const existGroupName = await fetchGroupName(values.name);
 
-      if (existGroupName) {
-        setFieldError('name', t('giotto.groups.group_name_already_exists')!);
-        return;
+        if (existGroupName) {
+          setFieldError('name', t('giotto.groups.group_name_already_exists')!);
+          return;
+        }
       }
 
 
@@ -323,62 +325,60 @@ const EditGiottoGroup: React.FC = () => {
 
                     <Grid item xs={12} md={6}>
                       <DashboardCard title={t('giotto.groups.templates')!}>
-                        <DashboardCard title={t('giotto.groups.templates')!}>
-                          <Box>
-                            <TableContainer>
-                              {/* Table view */}
-                              {loading ? (
-                                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
-                                  <Loader />
-                                </Box>
-                              ) : (
-                                <Table>
-                                  {/* Table head */}
-                                  <TableHead>
-                                    <TableRow>
-                                      <TableCell>{t('giotto.groups.select')}</TableCell>
-                                      <TableCell>{t('giotto.groups.name')}</TableCell>
-                                      <TableCell>{t('giotto.groups.working_system')}</TableCell>
-                                    </TableRow>
-                                  </TableHead>
-                                  {/* Table body */}
-                                  <TableBody>
+                        <Box>
+                          <TableContainer>
+                            {/* Table view */}
+                            {loading ? (
+                              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+                                <Loader />
+                              </Box>
+                            ) : (
+                              <Table>
+                                {/* Table head */}
+                                <TableHead>
+                                  <TableRow>
+                                    <TableCell>{t('giotto.groups.select')}</TableCell>
+                                    <TableCell>{t('giotto.groups.name')}</TableCell>
+                                    <TableCell>{t('giotto.groups.working_system')}</TableCell>
+                                  </TableRow>
+                                </TableHead>
+                                {/* Table body */}
+                                <TableBody>
 
-                                    {templates.itemsResult.map((template: any) => (
-                                      <TableRow key={template.id}>
-                                        <TableCell>
-                                          <Checkbox
-                                            checked={selectedTemplates.includes(parseInt(template.id))}
-                                            onChange={() =>
-                                              toggleSelection(parseInt(template.id), setSelectedTemplates, selectedTemplates)
-                                            }
-                                          />
-                                        </TableCell>
-                                        <TableCell>
-                                          {template.name}
-                                        </TableCell>
-                                        <TableCell>
-                                          <Box display="flex" flexDirection="column">
-                                            {template.workingSystemName}
-                                          </Box>
-                                        </TableCell>
-                                      </TableRow>
-                                    ))}
-                                  </TableBody>
-                                </Table>
-                              )}
-                            </TableContainer>
-                            <TablePagination
-                              rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                              component="div"
-                              count={templates.totalItemsAmount}
-                              rowsPerPage={templates.pageSize}
-                              page={page - 1}
-                              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-                              onRowsPerPageChange={(e) => dispatch(fetchGetAllTemplates(templates.currentPage, templates.pageSize))}
-                            />
-                          </Box>
-                        </DashboardCard>
+                                  {templates.itemsResult.map((template: any) => (
+                                    <TableRow key={template.id}>
+                                      <TableCell>
+                                        <Checkbox
+                                          checked={selectedTemplates.includes(parseInt(template.id))}
+                                          onChange={() =>
+                                            toggleSelection(parseInt(template.id), setSelectedTemplates, selectedTemplates)
+                                          }
+                                        />
+                                      </TableCell>
+                                      <TableCell>
+                                        {template.name}
+                                      </TableCell>
+                                      <TableCell>
+                                        <Box display="flex" flexDirection="column">
+                                          {template.workingSystemName}
+                                        </Box>
+                                      </TableCell>
+                                    </TableRow>
+                                  ))}
+                                </TableBody>
+                              </Table>
+                            )}
+                          </TableContainer>
+                          <TablePagination
+                            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                            component="div"
+                            count={templates.totalItemsAmount}
+                            rowsPerPage={templates.pageSize}
+                            page={page - 1}
+                            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+                            onRowsPerPageChange={(e) => dispatch(fetchGetAllTemplates(templates.currentPage, templates.pageSize))}
+                          />
+                        </Box>
                       </DashboardCard>
                     </Grid>
                   </Grid>
