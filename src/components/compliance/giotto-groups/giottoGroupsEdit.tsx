@@ -72,11 +72,6 @@ const EditGiottoGroup: React.FC = () => {
 
   const groupDetail = useSelector((state: any) => state.giottoGroupReducer.groupDetail);
 
-  const templatesList: Template[] = Array.from({ length: 2 }, (_, index) => ({
-    id: index + 1,
-    name: `Template ${index + 1}`,
-  }));
-
   const [selectedTemplates, setSelectedTemplates] = useState<number[]>([]);
   const [selectedAssets, setSelectedAssets] = useState<number[]>([]);
 
@@ -181,20 +176,6 @@ const EditGiottoGroup: React.FC = () => {
       }
     },
   });
-
-  const paginatedT = 5;
-  const [currentPageT, setCurrentPageT] = useState(1);
-  const totalPagesT = Math.ceil(templatesList?.length / paginatedT);
-
-  const handlePageChangeT = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPageT(page);
-  };
-
-  const templatesPaginated = templatesList?.slice(
-    (currentPageT - 1) * paginatedT,
-    currentPageT * paginatedT
-  );
-
 
   return (
     <PageContainer>
