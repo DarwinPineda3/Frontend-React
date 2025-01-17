@@ -83,7 +83,7 @@ export const fetchAssets = (requestedPage: Number, requestedPageSize: Number = 1
       requestedPage = 1;
     }
     const response = await axios.get(`${getApiUrl()}?url=Assets/GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}`);
-    console.log('response', response.data);
+    ////console.log('response', response.data);
     const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
     dispatch(getAssets({
@@ -105,7 +105,7 @@ export const uploadAssets = (files: FileList) => async (dispatch: AppDispatch) =
     const formData = new FormData();
     formData.append('uploadFile', files[0]);
     const response = await axios.post(`${getApiUrl()}?url=Assets/UploadAssets`, formData);
-    console.log('response', response.data);
+    ////console.log('response', response.data);
     dispatch(fetchAssets(1, 10));
   } catch (err: any) {
     console.error('Error uploading assets:', err);
@@ -149,15 +149,15 @@ export const createAsset = (newAsset: ComplianceAsset) => async (dispatch: AppDi
 export const editAsset = (updatedAsset: ComplianceAsset) => async (dispatch: AppDispatch) => {
   try {
     const url = `${getApiUrl()}?url=Assets/EditAsset/${updatedAsset.id}`;
-    console.log('PUT request to URL:', url);
+    ////console.log('PUT request to URL:', url);
 
     const response = await axios.put(url, updatedAsset);
 
     if (response.status >= 200 && response.status < 300) {
-      console.log('Asset updated successfully:', response.data);
+      ////console.log('Asset updated successfully:', response.data);
       dispatch(fetchAssets(1, 10));
     } else {
-      console.error('Error updating asset:', response);
+      //console.error('Error updating asset:', response);
       dispatch(setError('Failed to update asset'));
     }
   } catch (err: any) {

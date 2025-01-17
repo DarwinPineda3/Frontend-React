@@ -29,7 +29,6 @@ const GiottoAssetsImport: React.FC = () => {
   }, [myFiles])
 
   const uploadFile = (files: FileList) => {
-    console.log(files);
     dispatch(uploadAssets(files));
     navigate('/compliance/assets');
   }
@@ -45,7 +44,6 @@ const GiottoAssetsImport: React.FC = () => {
     });
 
   const removeFile = () => {
-    console.log(myFiles);
     setMyFiles([]);
   }
 

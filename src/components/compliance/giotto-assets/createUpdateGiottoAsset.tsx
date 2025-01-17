@@ -48,8 +48,6 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         companyName: 'Company Name',
       };
 
-      console.log(newAsset);
-
       try {
         if (asset) {
           await dispatch(editAsset(newAsset)); // Use await to handle the promise

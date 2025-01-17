@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
 import {
+  Box,
+  IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
-  IconButton,
-  TableContainer,
-  Box,
-  Pagination,
 } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DashboardCard from 'src/components/shared/DashboardCard';
 
 const burntScansData = [
   {
@@ -75,11 +75,11 @@ const CloudScansTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   };
 
   const handleDownload = (scanId: string) => {
-    console.log(`Downloading scan ${scanId}`);
+    //console.log(`Downloading scan ${scanId}`);
   };
 
   const handleDelete = (scanId: string) => {
-    console.log(`Deleting scan ${scanId}`);
+    //console.log(`Deleting scan ${scanId}`);
   };
 
   return (

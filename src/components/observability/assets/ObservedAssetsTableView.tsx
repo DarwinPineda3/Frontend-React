@@ -51,14 +51,6 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
     dispatch(fetchObservedAssetData(page, pageSize));
   };
 
-  const handleDownload = (scanId: string) => {
-    console.log(`Downloading scan ${scanId}`);
-  };
-
-  const handleDelete = (scanId: string) => {
-    console.log(`Deleting scan ${scanId}`);
-  };
-
   if (error) {
     return <Box>{error}</Box>;
   }
