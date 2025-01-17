@@ -112,10 +112,14 @@ const TemplateListPage = () => {
         <Grid item xs={12} sx={{ mb: 2 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="h6">{t('templates.baseTemplates')}</Typography>}
+              title={
+                <Typography variant="h6">{t('compliance_templates.base_templates')}</Typography>
+              }
               subheader={
                 <Typography variant="body2" color="textSecondary">
-                  {t('templates.baseTemplates') + ' ' + t('templates.template')}
+                  {t('compliance_templates.base_templates') +
+                    ' ' +
+                    t('compliance_templates.template')}
                 </Typography>
               }
               sx={{ backgroundColor: 'success.main', color: 'white' }}
@@ -146,10 +150,14 @@ const TemplateListPage = () => {
         <Grid item xs={12}>
           <Card>
             <CardHeader
-              title={<Typography variant="h6">{t('templates.customTemplates')}</Typography>}
+              title={
+                <Typography variant="h6">{t('compliance_templates.custom_templates')}</Typography>
+              }
               subheader={
                 <Typography variant="body2" color="textSecondary">
-                  {t('templates.customTemplates') + ' ' + t('templates.template')}
+                  {t('compliance_templates.custom_templates') +
+                    ' ' +
+                    t('compliance_templates.template')}
                 </Typography>
               }
               sx={{ backgroundColor: 'success.main', color: 'white' }}

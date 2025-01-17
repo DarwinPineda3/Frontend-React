@@ -6,7 +6,6 @@ import {
   Checkbox,
   Grid,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -23,11 +22,11 @@ import { useTranslation } from 'react-i18next';
 import { Link, Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { fetchAssets, setLoading } from 'src/store/sections/compliance/giotoAssetsSlice';
 import { editGroup, fetchGroupById, fetchGroupName } from 'src/store/sections/compliance/giottoGroupsSlice';
+import { fetchGetAllTemplates } from 'src/store/sections/compliance/giottoTemplatesSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
 
@@ -45,14 +44,24 @@ const EditGiottoGroup: React.FC = () => {
     assets, page, pageSize, loading, totalItemsAmount
   } = useSelector((state: any) => state.GiottoAssetsReducer);
 
+  const { templates } = useSelector((state: any) => state.giottoTemplatesReducer);
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataAssets = async () => {
       setLoading(true);
       await dispatch(fetchAssets(page));
       setLoading(false);
     };
-    fetchData();
-  }, [dispatch, page]);
+
+    const fetchDataTemplates = async () => {
+      setLoading(true);
+      await dispatch(fetchGetAllTemplates(templates.currentPage, templates.pageSize));
+      setLoading(false);
+    };
+    fetchDataTemplates();
+    fetchDataAssets();
+  }, [dispatch, page, templates.currentPage]);
+
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, askedPage: number) => {
     if (page !== askedPage) {
       dispatch(fetchAssets(askedPage));
@@ -255,25 +264,23 @@ const EditGiottoGroup: React.FC = () => {
                         <Box>
                           <TableContainer>
                             {/* Table view */}
-                            <Table>
-                              {/* Table head */}
-                              <TableHead>
-                                <TableRow>
-                                  <TableCell>{t('giotto.groups.select')}</TableCell>
-                                  <TableCell>{t('giotto.groups.name')}</TableCell>
-                                  <TableCell>{t('giotto.groups.last_keep_alive')}</TableCell>
-                                </TableRow>
-                              </TableHead>
-                              {/* Table body */}
-                              <TableBody>
-                                {loading ? (
+                            {loading ? (
+                              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+                                <Loader />
+                              </Box>
+                            ) : (
+                              <Table>
+                                {/* Table head */}
+                                <TableHead>
                                   <TableRow>
-                                    <TableCell colSpan={5}>
-                                      <Loader />
-                                    </TableCell>
+                                    <TableCell>{t('giotto.groups.select')}</TableCell>
+                                    <TableCell>{t('giotto.groups.name')}</TableCell>
+                                    <TableCell>{t('giotto.groups.network_address')}</TableCell>
                                   </TableRow>
-                                ) : (
-                                  assets.map((asset: any) => (
+                                </TableHead>
+                                {/* Table body */}
+                                <TableBody>
+                                  {assets.map((asset: any) => (
                                     <TableRow key={asset.id}>
                                       <TableCell>
                                         <Checkbox
@@ -288,17 +295,18 @@ const EditGiottoGroup: React.FC = () => {
                                       </TableCell>
                                       <TableCell>
                                         <Box display="flex" flexDirection="column">
-                                          <HumanizedDate dateString={asset.lastKeepAlive} />
                                           <Typography variant="caption">
-                                            {new Date(asset.lastKeepAlive).toLocaleString()}
+
+                                            {asset.networkAddress}
                                           </Typography>
                                         </Box>
                                       </TableCell>
                                     </TableRow>
-                                  ))
-                                )}
-                              </TableBody>
-                            </Table>
+                                  ))}
+
+                                </TableBody>
+                              </Table>
+                            )}
                           </TableContainer>
                           <TablePagination
                             rowsPerPageOptions={[5, 10, 25, 50, 100]}
@@ -315,41 +323,62 @@ const EditGiottoGroup: React.FC = () => {
 
                     <Grid item xs={12} md={6}>
                       <DashboardCard title={t('giotto.groups.templates')!}>
-                        <TableContainer>
-                          <Table>
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>{t('giotto.groups.select')}</TableCell>
-                                <TableCell>{t('giotto.groups.template_name')}</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {templatesPaginated?.map((template) => (
-                                <TableRow key={template?.id}>
-                                  <TableCell>
-                                    <Checkbox
-                                      checked={selectedTemplates?.includes(template?.id)}
-                                      onChange={() =>
-                                        toggleSelection(template?.id, setSelectedTemplates, selectedTemplates)
-                                      }
-                                    />
-                                  </TableCell>
-                                  <TableCell>{template?.name}</TableCell>
-                                </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                          <Box my={3} display="flex" justifyContent="center">
-                            {totalPagesT > 0 && (
-                              <Pagination
-                                count={totalPagesT}
-                                color="primary"
-                                page={currentPageT}
-                                onChange={handlePageChangeT}
-                              />
-                            )}
+                        <DashboardCard title={t('giotto.groups.templates')!}>
+                          <Box>
+                            <TableContainer>
+                              {/* Table view */}
+                              {loading ? (
+                                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+                                  <Loader />
+                                </Box>
+                              ) : (
+                                <Table>
+                                  {/* Table head */}
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>{t('giotto.groups.select')}</TableCell>
+                                      <TableCell>{t('giotto.groups.name')}</TableCell>
+                                      <TableCell>{t('giotto.groups.working_system')}</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  {/* Table body */}
+                                  <TableBody>
+
+                                    {templates.itemsResult.map((template: any) => (
+                                      <TableRow key={template.id}>
+                                        <TableCell>
+                                          <Checkbox
+                                            checked={selectedTemplates.includes(parseInt(template.id))}
+                                            onChange={() =>
+                                              toggleSelection(parseInt(template.id), setSelectedTemplates, selectedTemplates)
+                                            }
+                                          />
+                                        </TableCell>
+                                        <TableCell>
+                                          {template.name}
+                                        </TableCell>
+                                        <TableCell>
+                                          <Box display="flex" flexDirection="column">
+                                            {template.workingSystemName}
+                                          </Box>
+                                        </TableCell>
+                                      </TableRow>
+                                    ))}
+                                  </TableBody>
+                                </Table>
+                              )}
+                            </TableContainer>
+                            <TablePagination
+                              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                              component="div"
+                              count={templates.totalItemsAmount}
+                              rowsPerPage={templates.pageSize}
+                              page={page - 1}
+                              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+                              onRowsPerPageChange={(e) => dispatch(fetchGetAllTemplates(templates.currentPage, templates.pageSize))}
+                            />
                           </Box>
-                        </TableContainer>
+                        </DashboardCard>
                       </DashboardCard>
                     </Grid>
                   </Grid>

@@ -103,9 +103,9 @@ const ComplianceGroupsView: React.FC = ({ }) => {
               <Link component={RouterLink} color="inherit" to="/compliance/groups">
                 {t('compliance_menu.compliance')}
               </Link>
-              <Link component={RouterLink} color="inherit" to="/compliance/groups">
+              <Typography>
                 {t('compliance_menu.compliance_groups')}
-              </Link>
+              </Typography>
             </Breadcrumbs>
           </Box>
         </Box>

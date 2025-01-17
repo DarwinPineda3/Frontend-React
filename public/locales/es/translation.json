@@ -1390,15 +1390,10 @@
     "template_base_template_title": "Plantilla Base",
     "template_working_system_title": "Sistema Operativo",
     "no_data_available": "No hay datos disponibles",
-    "baseTemplates": "Plantillas Base",
-    "customTemplates": "Plantillas Personalizadas",
+    "base_templates": "Plantillas Base",
+    "custom_templates": "Plantillas Personalizadas",
     "template": "Plantilla",
-    "system": "Sistema",
-    "creationDate": "Fecha de Creación",
-    "options": "Opciones",
-    "windowsServer": "Windows Server XYZ",
-    "windowsSystem": "Windows Server 2019-2022",
-    "linuxServer": "Linux Server XYZ",
-    "linuxSystem": "Linux Ubuntu 20.04"
+    "template_control_executable": "Ejecutable",
+    "template_control_editable": "Editable"
   }
 }

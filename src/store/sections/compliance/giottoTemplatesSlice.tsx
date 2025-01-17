@@ -89,7 +89,9 @@ export const GiottoTemplatesSlice = createSlice({
   initialState,
   reducers: {
     getAllTemplates: (state, action) => {
-      state.templates = Array.isArray(action.payload.results) ? action.payload.results : [];
+      state.templates.itemsResult = Array.isArray(action.payload.results)
+        ? action.payload.results
+        : [];
       state.templates.currentPage = action.payload.currentPage;
       state.templates.totalPages = action.payload.totalPages;
       state.templates.totalItemsAmount = action.payload.totalItemsAmount;
@@ -161,30 +163,35 @@ export const {
   getTemplateDetail,
 } = GiottoTemplatesSlice.actions;
 
-export const fetchGetAllTemplates = () => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoading(true));
-    const url = `${getApiUrl()}GetPaginated?Page=${
-      initialState.baseTemplates.currentPage
-    }&PageSize=${initialState.baseTemplates.pageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
-    const response = await axios.get(url);
-    const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
+export const fetchGetAllTemplates =
+  (requestedPage: Number, requestedPageSize: Number = 10) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      if (requestedPageSize !== initialState.templates.pageSize) {
+        requestedPage = 1;
+      }
+      const url = `${getApiUrl()}GetPaginated?Page=${initialState.templates.currentPage}&PageSize=${
+        initialState.templates.pageSize
+      }&ColumnIndexOrdering=0&AscendingOrdering=true`;
+      const response = await axios.get(url);
+      const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
 
-    dispatch(
-      getAllTemplates({
-        results: itemsResult,
-        page,
-        totalPages,
-        totalItemsAmount,
-        pageSize,
-      }),
-    );
-    dispatch(setLoading(false));
-  } catch (err: any) {
-    console.error('Error fetching templates:', err);
-    dispatch(setError('Failed to fetch templates'));
-  }
-};
+      dispatch(
+        getAllTemplates({
+          results: itemsResult,
+          page,
+          totalPages,
+          totalItemsAmount,
+          pageSize,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching templates:', err);
+      dispatch(setError('Failed to fetch templates'));
+    }
+  };
 
 // Async thunk for fetching templates with pagination (READ)
 export const fetchBaseTemplates =
