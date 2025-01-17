@@ -97,18 +97,6 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           helperText={formik.touched.networkAddress && formik.errors.networkAddress}
         />
 
-        <TextField
-          fullWidth
-          margin="normal"
-          label="Description"
-          name="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.description && Boolean(formik.errors.description)}
-          helperText={formik.touched.description && formik.errors.description}
-        />
-
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
             {asset ? 'Edit' : 'Create'}

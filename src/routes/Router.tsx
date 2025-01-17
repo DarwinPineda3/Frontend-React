@@ -3,6 +3,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import GiottoAssetsImport from 'src/components/compliance/giotto-assets/giottoAssetsImport';
 import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
 import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
@@ -497,6 +498,11 @@ const Router = [
       {
         path: '/compliance/assets',
         element: <ComplianceAssetsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/assets/import',
+        element: <GiottoAssetsImport />,
         roles: ['Administrator', 'Defender'],
       },
       {

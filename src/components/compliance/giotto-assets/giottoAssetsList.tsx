@@ -2,6 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Dialog, DialogContent, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import DashboardCard from "src/components/shared/DashboardCard";
 import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
@@ -16,9 +17,10 @@ interface GiottoAssetsListProps {
 
 
 const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const {
-    assets, page, pageSize, loading, totalItemsAmount
+    assets, page, pageSize, loading, totalItemsAmount, error
   } = useSelector((state: any) => state.GiottoAssetsReducer);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,6 +31,14 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     };
     fetchData();
   }, [dispatch, page]);
+
+  useEffect(() => {
+    if (error) {
+      setSnackbarOpen(true);
+      setSnackbarSeverity('error');
+    }
+  }
+    , [error]);
 
   const [editAsset, setEditAsset] = useState<null | any>(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -65,109 +75,133 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
 
 
   const addButton = (
-    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
-      <AddIcon />
-    </IconButton>
+    <Box>
+      <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+        <AddIcon />
+      </IconButton>
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        onClick={() => navigate('/compliance/assets/import')}
+      >
+        {"Bulk Import"}
+      </Button>
+    </Box>
   );
 
   return (
-    <DashboardCard
-      title={t('compliance.assets_description') ?? ''}
-      subtitle={t('compliance.assets_info') ?? ''}
-      action={addButton}
-    >
-      <Box>
+    <>
+      <DashboardCard
+        title={t('compliance.assets_description') ?? ''}
+        subtitle={t('compliance.assets_info') ?? ''}
+        action={addButton}
+      >
         <Box>
-          <TableContainer>
-            {/* Table view */}
-            <Table>
-              {/* Table head */}
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Network Address</TableCell>
-                  <TableCell>Company Name</TableCell>
-                  <TableCell>Creation Date</TableCell>
-                  <TableCell>Last Keep Alive</TableCell>
-                  <TableCell>Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              {/* Table body */}
-              <TableBody>
-                {loading ? (
+          <Box>
+            <TableContainer>
+              {/* Table view */}
+              <Table>
+                {/* Table head */}
+                <TableHead>
                   <TableRow>
-                    <TableCell colSpan={5}>
-                      <Loader />
-                    </TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Network Address</TableCell>
+                    <TableCell>Company Name</TableCell>
+                    <TableCell>Creation Date</TableCell>
+                    <TableCell>Last Keep Alive</TableCell>
+                    <TableCell>Actions</TableCell>
                   </TableRow>
-                ) : (
-                  assets.map((asset: any) => (
-                    <TableRow key={asset.id}>
-                      <TableCell>
-                        {asset.name}
-                      </TableCell>
-                      <TableCell>{asset.networkAddress}</TableCell>
-                      <TableCell>{asset.companyName}</TableCell>
-                      <TableCell>
-                        <Box display="flex" flexDirection="column">
-                          <HumanizedDate dateString={asset.creationDate} />
-                          <Typography variant="caption">
-                            {new Date(asset.creationDate).toLocaleString()}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>
-                        <Box display="flex" flexDirection="column">
-                          <HumanizedDate dateString={asset.lastKeepAlive} />
-                          <Typography variant="caption">
-                            {new Date(asset.lastKeepAlive).toLocaleString()}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>
-                        <Box display="flex" gap={1}>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            onClick={() => handleEditClick(asset)}
-                          >
-                            {t("dashboard.edit")}
-                          </Button>
-
-                        </Box>
+                </TableHead>
+                {/* Table body */}
+                <TableBody>
+                  {loading ? (
+                    <TableRow>
+                      <TableCell colSpan={5}>
+                        <Loader />
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25, 50, 100]}
-            component="div"
-            count={totalItemsAmount}
-            rowsPerPage={pageSize}
-            page={page - 1}
-            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-            onRowsPerPageChange={(e) => dispatch(fetchAssets(page))}
-          />
-        </Box>
-        <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-          <DialogContent sx={{ padding: '50px' }}>
-            <CreateUpdateGiottoAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
-          </DialogContent>
-        </Dialog>
-        {snackbarOpen && (
-          <SnackBarInfo
-            color={snackbarSeverity}
-            title={t("dashboard.operation_status")}
-            message={snackbarMessage}
-          />
-        )}
-      </Box>
+                  ) : (
+                    assets.map((asset: any) => (
+                      <TableRow key={asset.id}>
+                        <TableCell>
+                          {asset.name}
+                        </TableCell>
+                        <TableCell>{asset.networkAddress}</TableCell>
+                        <TableCell>{asset.companyName}</TableCell>
+                        <TableCell>
+                          <Box display="flex" flexDirection="column">
+                            <HumanizedDate dateString={asset.creationDate} />
+                            <Typography variant="caption">
+                              {new Date(asset.creationDate).toLocaleString()}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box display="flex" flexDirection="column">
+                            {asset.lastKeepAlive ? <HumanizedDate dateString={asset.lastKeepAlive} /> : "None"}
+                            {
+                              asset.lastKeepAlive &&
+                              <Typography variant="caption">
+                                {new Date(asset.lastKeepAlive).toLocaleString()}
+                              </Typography>
+                            }
 
-    </DashboardCard>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box display="flex" gap={1}>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              size="small"
+                              onClick={() => handleEditClick(asset)}
+                            >
+                              {t("dashboard.edit")}
+                            </Button>
+
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalItemsAmount}
+              rowsPerPage={pageSize}
+              page={page - 1}
+              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
+              onRowsPerPageChange={(e) => dispatch(fetchAssets(page))}
+            />
+          </Box>
+          <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
+            <DialogContent sx={{ padding: '50px' }}>
+              <CreateUpdateGiottoAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
+            </DialogContent>
+          </Dialog>
+          {snackbarOpen && (
+            <SnackBarInfo
+              color={snackbarSeverity}
+              title={t("dashboard.operation_status")}
+              message={snackbarMessage}
+            />
+          )}
+        </Box>
+
+      </DashboardCard>
+      {snackbarOpen && (
+        <SnackBarInfo
+          color={snackbarSeverity}
+          title={t("dashboard.operation_status")}
+          message={error}
+        />
+      )}
+    </>
+
 
   );
 };

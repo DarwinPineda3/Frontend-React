@@ -100,6 +100,19 @@ export const fetchAssets = (requestedPage: Number, requestedPageSize: Number = 1
   }
 };
 
+export const uploadAssets = (files: FileList) => async (dispatch: AppDispatch) => {
+  try {
+    const formData = new FormData();
+    formData.append('uploadFile', files[0]);
+    const response = await axios.post(`${getApiUrl()}?url=Assets/UploadAssets`, formData);
+    console.log('response', response.data);
+    dispatch(fetchAssets(1, 10));
+  } catch (err: any) {
+    console.error('Error uploading assets:', err);
+    dispatch(setError('Failed to upload assets'));
+  }
+}
+
 export const fetchAssetsWitURL = (page = 1) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.get(`${getApiUrl()}getAsssetsWithURL/`);
