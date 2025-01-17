@@ -208,12 +208,12 @@ export const fetchBaseTemplates =
         initialState.baseTemplates.pageSize
       }&ColumnIndexOrdering=0&AscendingOrdering=true&ColumnIndexSearchFilter[0].column=4&ColumnIndexSearchFilter[0].value=base`;
       const response = await axios.get(urlBaseTemplates);
-      const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
+      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
       dispatch(
         getBaseTemplates({
           results: itemsResult,
-          page,
+          currentPage,
           totalPages,
           totalItemsAmount,
           pageSize,
@@ -241,12 +241,12 @@ export const fetchCustomTemplates =
         initialState.baseTemplates.pageSize
       }&ColumnIndexOrdering=0&AscendingOrdering=true&ColumnIndexSearchFilter[0].column=4&ColumnIndexSearchFilter[0].value=custom`;
       const response = await axios.get(urlCustomTemplates);
-      const { totalItemsAmount, pageSize, totalPages, itemsResult, page } = response.data;
+      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
       dispatch(
         getCustomTemplates({
           results: itemsResult,
-          page,
+          currentPage,
           totalPages,
           totalItemsAmount,
           pageSize,

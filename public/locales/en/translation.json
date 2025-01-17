@@ -1394,9 +1394,13 @@
     "template_working_system_title": "Working System",
     "no_data_available": "No data available",
     "base_templates": "Base Templates",
+    "base_templates_description": "List of all Base templates",
     "custom_templates": "Custom Templates",
+    "custom_templates_description": "List of customized templates according to a base template",
     "template": "Template",
     "template_control_executable": "Executable",
-    "template_control_editable": "Editable"
+    "template_control_editable": "Editable",
+    "template_control_create_date": "CreationDate",
+    "template_options": "Options"
   }
 }
