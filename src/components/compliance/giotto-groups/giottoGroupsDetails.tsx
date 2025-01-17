@@ -57,9 +57,11 @@ const GroupDetails: React.FC = ({ }) => {
       </Box>
       <Grid container spacing={1}>
         {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-            <Loader />
-          </Box>
+          <Grid item xs={12} lg={12}>
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          </Grid>
         ) : (
           <>
             <Grid item xs={12} lg={12}>
@@ -71,11 +73,13 @@ const GroupDetails: React.FC = ({ }) => {
                 </Box>
               </Breadcrumb>
             </Grid>
-            <Grid item xs={12} xl={6}>
-              <GiottoTemplatesList templates={groupDetail?.templates} />
-            </Grid>
+
             <Grid item xs={12} xl={6}>
               <GiottoAssetsList assets={groupDetail?.assets} />
+            </Grid>
+
+            <Grid item xs={12} xl={6}>
+              <GiottoTemplatesList templates={groupDetail?.templates} />
             </Grid>
           </>
         )}

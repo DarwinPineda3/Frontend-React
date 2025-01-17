@@ -1,42 +1,47 @@
 import {
   Box,
-  Grid,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography
+  Typography,
+  Grid,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 
-
-const paginated = 10;
-
 const GiottoTemplatesList: React.FC<{ templates: any[] }> = ({ templates }) => {
-
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(templates?.length / paginated);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  // Calculate paginated templates
+  const templatesPaginated = templates?.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
+  // Handlers for pagination
+  const handlePageChange = (event: unknown, newPage: number) => {
+    setPage(newPage);
   };
 
-  const templatesPaginated = templates?.slice(
-    (currentPage - 1) * paginated,
-    currentPage * paginated
-  );
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page
+  };
 
   return (
     <DashboardCard title={t('giotto.groups.templates')!}>
       <>
         {templates?.length > 0 ? (
-          <Box>
+          <>
             <Table aria-label="template version table">
               <TableHead>
                 <TableRow>
@@ -58,48 +63,54 @@ const GiottoTemplatesList: React.FC<{ templates: any[] }> = ({ templates }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {templatesPaginated?.map((template, index) => (
+                {templatesPaginated.map((template, index) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
+                      <Typography
+                        variant="body2"
+                        color="primary"
+                        style={{ cursor: 'pointer' }}
+                      >
                         {template.name}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Box display="flex" alignItems="center" gap={1}>
-                        <Typography variant="body2">{template?.workingSystemName}</Typography>
-
+                        <Typography variant="body2">
+                          {template?.workingSystemName}
+                        </Typography>
                       </Box>
                     </TableCell>
                     <TableCell>
                       <Typography variant="body2">
-                        <HumanizedDate dateString={new Date(template?.creationDate).toISOString()} />
+                        <HumanizedDate
+                          dateString={new Date(template?.creationDate).toISOString()}
+                        />
                       </Typography>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </Box>
-
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={templates?.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+            />
+          </>
         ) : (
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h6">{t('giotto.groups.no_data_available')}</Typography>
+              <Typography variant="h6">
+                {t('giotto.groups.no_data_available')}
+              </Typography>
             </Grid>
           </Grid>
-        )
-        }
-        <Box my={3} display="flex" justifyContent="center">
-          {totalPages > 0 && (
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          )}
-        </Box>
+        )}
       </>
     </DashboardCard>
   );

@@ -1,41 +1,41 @@
 import {
   Box,
-  Grid,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 
-
-const paginated = 10;
-
-const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets }) => {
-
+const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets = [] }) => {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(assets?.length / paginated);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  const paginatedAssets = assets.slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
   };
 
-  const assetsPaginated = assets?.slice(
-    (currentPage - 1) * paginated,
-    currentPage * paginated
-  );
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
 
   return (
     <DashboardCard title={t('giotto.groups.assets')!}>
       <>
-        {assets?.length > 0 ? (
+        {assets.length > 0 ? (
           <Box>
             <Table aria-label="asset version table">
               <TableHead>
@@ -58,8 +58,8 @@ const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {assetsPaginated?.map((asset, index) => (
-                  <TableRow key={index}>
+                {paginatedAssets.map((asset, index) => (
+                  <TableRow key={asset.id || index}>
                     <TableCell>
                       <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
                         {asset.name}
@@ -67,13 +67,16 @@ const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets }) => {
                     </TableCell>
                     <TableCell>
                       <Box display="flex" alignItems="center" gap={1}>
-                        <Typography variant="body2">{asset?.networkAddress}</Typography>
-
+                        <Typography variant="body2">{asset.networkAddress}</Typography>
                       </Box>
                     </TableCell>
                     <TableCell>
                       <Typography variant="body2">
-                        <HumanizedDate dateString={new Date(asset?.lastKeepAlive).toISOString()} />
+                        {asset.lastKeepAlive ? (
+                          <HumanizedDate dateString={new Date(asset.lastKeepAlive).toISOString()} />
+                        ) : (
+                          t('giotto.groups.no_data_available')
+                        )}
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -81,25 +84,19 @@ const GiottoAssetsList: React.FC<{ assets: any[] }> = ({ assets }) => {
               </TableBody>
             </Table>
           </Box>
-
         ) : (
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h6">{t('giotto.groups.no_data_available')}</Typography>
-            </Grid>
-          </Grid>
-        )
-        }
-        <Box my={3} display="flex" justifyContent="center">
-          {totalPages > 0 && (
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          )}
-        </Box>
+          <Typography variant="h6">{t('giotto.groups.no_data_available')}</Typography>
+        )}
+
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={assets.length}
+          rowsPerPage={rowsPerPage}
+          page={currentPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </>
     </DashboardCard>
   );
