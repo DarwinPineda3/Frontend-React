@@ -1391,9 +1391,13 @@
     "template_working_system_title": "Sistema Operativo",
     "no_data_available": "No hay datos disponibles",
     "base_templates": "Plantillas Base",
+    "base_templates_description": "Lista de plantillas base disponibles",
     "custom_templates": "Plantillas Personalizadas",
+    "custom_templates_description": "Lista de plantillas personalizadas según una plantilla base",
     "template": "Plantilla",
     "template_control_executable": "Ejecutable",
-    "template_control_editable": "Editable"
+    "template_control_editable": "Editable",
+    "template_control_create_date": "Fecha de Creación",
+    "template_options": "Opciones"
   }
 }

@@ -40,7 +40,13 @@ const ProjectDetails: React.FC = ({}) => {
     <PageContainer title="Akila">
       <Grid container spacing={1}>
         {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            height="300px"
+          >
             <Loader />
           </Box>
         ) : (

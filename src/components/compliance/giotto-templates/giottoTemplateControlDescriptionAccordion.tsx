@@ -24,28 +24,37 @@ const GiottoTemplateControlDescriptionAccordion: React.FC<{ control: any }> = ({
           <SettingsIcon />
         </IconButton>
         <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-          {control.name} -
+          {control.name}
+          {control.isExecutable && (
+            <>
+              -
+              <IconButton aria-label="Example">
+                <BoltIcon sx={{ color: 'yellow' }} />
+              </IconButton>
+              <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
+                {t('compliance_templates.template_control_executable')} - {control.isExecutable}
+              </Typography>
+            </>
+          )}
+          {control.isSettable && (
+            <>
+              <IconButton aria-label="Example">
+                <EditIcon />
+              </IconButton>
+              <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
+                {t('compliance_templates.template_control_editable')} - {control.isSettable}
+              </Typography>
+            </>
+          )}
+          <IconButton aria-label="Example">
+            <WarningIcon />
+          </IconButton>
+          <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
+            {control.criticalness}
+          </Typography>
         </Typography>
-        <IconButton aria-label="Example">
-          <BoltIcon />
-        </IconButton>
-        <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-          {t('compliance_templates.template_control_executable')} - {control.isExecutable}
-        </Typography>
-        <IconButton aria-label="Example">
-          <EditIcon />
-        </IconButton>
-        <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-          {t('compliance_templates.template_control_editable')} - {control.isSettable}
-        </Typography>
-        <IconButton aria-label="Example">
-          <WarningIcon />
-        </IconButton>
       </AccordionSummary>
-      <AccordionDetails>
-        {/* // TODO: agregar detalle del control */}
-        {/* <GiottoProjectTechniciansTable technicians={control.groupTechnicians} /> */}
-      </AccordionDetails>
+      <AccordionDetails>{control.description}</AccordionDetails>
     </Accordion>
   );
 };
