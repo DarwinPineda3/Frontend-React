@@ -3,7 +3,7 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import EditIcon from '@mui/icons-material/Edit';
 import SettingsIcon from '@mui/icons-material/Settings';
 import WarningIcon from '@mui/icons-material/Warning';
-import { IconButton } from '@mui/material';
+import { IconButton, useTheme } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -12,6 +12,9 @@ import { useTranslation } from 'react-i18next';
 
 const GiottoTemplateControlDescriptionAccordion: React.FC<{ control: any }> = ({ control }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const highColor = theme.palette.level.high;
+  const lowColor = theme.palette.level.low;
 
   return (
     <Accordion key={`${control.name}`}>
@@ -29,7 +32,7 @@ const GiottoTemplateControlDescriptionAccordion: React.FC<{ control: any }> = ({
             <>
               -
               <IconButton aria-label="Example">
-                <BoltIcon sx={{ color: 'yellow' }} />
+                <BoltIcon sx={{ color: lowColor }} />
               </IconButton>
               <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
                 {t('compliance_templates.template_control_executable')} - {control.isExecutable}
@@ -38,7 +41,7 @@ const GiottoTemplateControlDescriptionAccordion: React.FC<{ control: any }> = ({
           )}
           {control.isSettable && (
             <>
-              <IconButton aria-label="Example">
+              <IconButton color="primary">
                 <EditIcon />
               </IconButton>
               <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
@@ -46,8 +49,8 @@ const GiottoTemplateControlDescriptionAccordion: React.FC<{ control: any }> = ({
               </Typography>
             </>
           )}
-          <IconButton aria-label="Example">
-            <WarningIcon />
+          <IconButton>
+            <WarningIcon sx={{ color: highColor }} />
           </IconButton>
           <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
             {control.criticalness}
