@@ -1,4 +1,4 @@
-import { Delete, FlipCameraAndroid, PlayCircleOutline, Refresh, SettingsSuggest, Visibility } from '@mui/icons-material';
+import { FlipCameraAndroid, PlayCircleOutline, Refresh, SettingsSuggest, Visibility } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, FormControl, IconButton, InputLabel, LinearProgress, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import DashboardCard from "src/components/shared/DashboardCard";
 import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchExecutions, requestAssessmentExecution, requestHardeningExecution, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
+import { fetchExecutions, requestAssessmentExecution, requestCreateExecution, requestHardeningExecution, requestRollbackExecution, TemplateExecution } from 'src/store/sections/compliance/giotoExecutionsSlice';
 import { fetchProjectById, fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
 import { useDispatch, useSelector } from "src/store/Store";
 
@@ -94,7 +94,7 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
 
   const handleRollbackClick = (asset: any) => {
     const id = asset.id;
-    dispatch(requsetRollbackExecution(id));
+    dispatch(requestRollbackExecution(id));
     setSnackbarMessage('Rollback execution requested');
     setSnackbarSeverity('info');
     setSnackbarOpen(true);
@@ -105,15 +105,12 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
     setEditAsset(null);
   };
 
-  const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warning' | 'error') => {
-    setSnackbarMessage(message);
-    setSnackbarSeverity(severity);
-    setSnackbarOpen(false);
-    setTimeout(() => {
-      setSnackbarOpen(true);
-    }, 0);
-    handleCloseDialog();
-  };
+  const handleAddClick = () => {
+    dispatch(requestCreateExecution(selectedTemplate!, selectedProject!, selectedGroup!));
+    setSnackbarMessage('Execution Creation requested');
+    setSnackbarSeverity('info');
+    setSnackbarOpen(true);
+  }
 
   const groups = projectDetail?.groups;
   const templates = projectDetail?.groups?.find((group: any) => group.groupId === selectedGroup)?.groupTemplates;
@@ -121,15 +118,35 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
 
 
   const addButton = (
-    <IconButton color="primary" onClick={() => handleDetailClick(undefined)}>
+    <IconButton color="primary" onClick={() => handleAddClick()}>
       <AddIcon />
     </IconButton>
   );
+
+  const canRollback = (execution: TemplateExecution) => {
+    const rollbackList = executions.filter((te: TemplateExecution) => te.processToExecute === 'Rollback');
+
+    const maxDate = new Date(Math.max.apply(null, rollbackList.map((e: TemplateExecution) => new Date(e.creationDate))));
+
+    return execution.processToExecute === 'Rollback' && execution.status !== 'Requested' && new Date(execution.creationDate).valueOf() === maxDate.valueOf();
+  }
+
+  const canCreate = () => {
+    const workingList = executions.filter((te: TemplateExecution) => te.status !== 'Executed');
+    return workingList.length === 0
+  }
 
   const refreshButton = (
     <IconButton color="primary" onClick={() => dispatch(fetchExecutions(selectedProject!, selectedGroup!, selectedTemplate!))}>
       <Refresh />
     </IconButton>
+  );
+
+  const buttonActions = (
+    <Box display="flex" justifyContent="flex-end">
+      {addButton}
+      {refreshButton}
+    </Box>
   );
 
   const selectors = (
@@ -265,6 +282,11 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
                   </TableCell>
                   <TableCell>
                     {execution.status}
+                    {
+                      execution.status === 'Requested' ? (
+                        <LinearProgress />
+                      ) : null
+                    }
                   </TableCell>
                   <TableCell>
                     {execution.userRequesting}
@@ -294,7 +316,7 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
                         color="primary"
                         onClick={() => handleRollbackClick(execution)}
                         disabled={
-                          !(execution.processToExecute === 'Rollback')
+                          !(execution.processToExecute === 'Rollback' && canRollback(execution))
                         }
                       >
                         <FlipCameraAndroid />
@@ -304,12 +326,6 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
                         onClick={() => handleDetailClick(execution)}
                       >
                         <Visibility />
-                      </IconButton>
-                      <IconButton
-                        color="primary"
-                        onClick={() => handleDetailClick(execution)}
-                      >
-                        <Delete />
                       </IconButton>
                     </Box>
                   </TableCell>
@@ -338,7 +354,7 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
         title={t('compliance.executions_description') ?? ''}
         subtitle={t('compliance.executions_info') ?? ''}
 
-        action={selectedTemplate ? refreshButton : null}
+        action={selectedTemplate ? buttonActions : null}
       >
         <Box>
           {
@@ -366,7 +382,4 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
 };
 
 export default GiottoExecutionList;
-function requsetRollbackExecution(page: any): any {
-  throw new Error('Function not implemented.');
-}
 
