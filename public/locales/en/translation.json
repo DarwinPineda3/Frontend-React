@@ -1236,7 +1236,8 @@
     "compliance_groups": "Groups",
     "compliance_projects": "Projects",
     "compliance_executions": "Executions",
-    "compliance_templates": "Templates"
+    "compliance_templates": "Templates",
+    "compliance_reports": "Reports"
   },
   "compliance": {
     "assets_description": "Assets",

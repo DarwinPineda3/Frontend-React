@@ -412,6 +412,13 @@ const Menuitems: MenuitemsType[] = [
     icon: IconClipboardList,
     permissions: ['Administrator', 'Compliance'],
   },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_reports',
+    href: '/compliance/reports',
+    icon: IconClipboardList,
+    permissions: ['Administrator', 'Compliance'],
+  },
 
   // CONFIGURATION
   // TODO: enable to Scan360?
