@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer'; 
 import { Link as RouterLink } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
+import ReportComplianceByProjects from 'src/components/compliance/giotto-reports/giottoReportsByProjects';
 
 const ComplianceReports = () => {
   const { t } = useTranslation();
@@ -115,6 +116,8 @@ const ComplianceReports = () => {
           <strong>{snackbarTitle}</strong> {snackbarMessage}
         </Alert>
       </Snackbar>
+
+      <ReportComplianceByProjects />
     </PageContainer>
   );
 };

@@ -1381,6 +1381,17 @@
       "group_deleted_successfully": "Grupo eliminado exitosamente",
       "edit_group": "Editar grupo",
       "group_name_already_exists": "El nombre del grupo ya existe."
+    },
+    "reports": {
+      "compliance_reports": "Informes de cumplimiento",
+      "module_description": "Genera y descarga informes de cumplimiento fácilmente por proyecto.",
+      "project": "Proyecto",
+      "report_generation_message": "La generación de este reporte puede tardar un poco.",
+      "project_is_required": "El projecto es requerido",
+      "report_generated_successfully": "El reporte se generó de manera exitosa.",
+      "report_generation_failed": "Falló la generación del reporte",
+      "success":"Exitoso",
+      "error":"Error"
     }
   },
   "compliance_templates": {

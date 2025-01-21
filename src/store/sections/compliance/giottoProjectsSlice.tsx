@@ -74,6 +74,9 @@ export const GiottoProjectsSlice = createSlice({
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
     },
+    getAllInList: (state, action) => {
+      state.projects = Array.isArray(action.payload.projects) ? action.payload.projects : [];
+    },
     getProjectDetail: (state, action) => {
       state.projectDetail = action.payload.data;
     },
@@ -114,6 +117,7 @@ export const {
   setLoading,
   setPageSize,
   getProjectDetail,
+  getAllInList,
 } = GiottoProjectsSlice.actions;
 
 // Async thunk for fetching projects with pagination (READ)
@@ -214,5 +218,27 @@ export const removeProject = (projectId: string) => async (dispatch: AppDispatch
     dispatch(setError('Failed to delete project'));
   }
 };
+
+export const fetchAllProjectsInList =
+  () =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const url = `${getApiUrl()}GetAllInList`;
+      const response = await axios.get(url);
+      const projects = response.data;
+
+      dispatch(
+        getAllInList({
+          projects,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching projects:', err);
+      dispatch(setError('Failed to fetch projects'));
+      dispatch(setLoading(false));
+    }
+  };
 
 export default GiottoProjectsSlice.reducer;

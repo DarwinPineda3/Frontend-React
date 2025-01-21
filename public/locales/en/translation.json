@@ -1384,6 +1384,17 @@
       "group_deleted_successfully": "Group removed successfully",
       "edit_group": "Edit group",
       "group_name_already_exists": "Group name already exists"
+    },
+    "reports": {
+      "compliance_reports": "Compliance reports",
+      "module_description": "Generate and download compliance reports easily by project.",
+      "project": "Project",
+      "report_generation_message": "The generation of this report may take a little time.",
+      "project_is_required": "Project is required",
+      "report_generated_successfully": "Report generated successfully",
+      "report_generation_failed": "Report generation failed",
+      "success":"Success",
+      "error":"Error"
     }
   },
   "compliance_templates": {
