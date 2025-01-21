@@ -57,9 +57,11 @@ const TemplateDetails: React.FC = ({}) => {
     <PageContainer title="Akila">
       <Grid container spacing={1}>
         {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-            <Loader />
-          </Box>
+          <Grid item xs={12} lg={12}>
+            <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+              <Loader></Loader>
+            </Box>
+          </Grid>
         ) : (
           <>
             <Box mb={2}>

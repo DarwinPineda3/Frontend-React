@@ -175,7 +175,8 @@ export const editAsset = (updatedAsset: ComplianceAsset) => async (dispatch: App
 // Async thunk for deleting an asset (DELETE)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}${assetId}`);
+    const url = `${getApiUrl()}?url=Assets/DeleteAsset/${assetId}`;
+    await axios.delete(url);
     dispatch(deleteAsset(assetId));
   } catch (err: any) {
     console.error('Error deleting asset:', err);
@@ -183,4 +184,15 @@ export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) =>
   }
 };
 
+
+export const requestRestartSession = (assetId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const url = `${getApiUrl()}?url=Assets/ResetTokenAsset/${assetId}`;
+    await axios.post(url);
+    dispatch(fetchAssets(1, 10));
+  } catch (err: any) {
+    console.error('Error deleting asset:', err);
+    dispatch(setError('Failed to delete asset'));
+  }
+};
 export default GiottoAssetsSlice.reducer;

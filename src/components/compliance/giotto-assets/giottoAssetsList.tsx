@@ -1,5 +1,6 @@
+import { Delete, DesktopAccessDisabled, EditRounded, Monitor, Refresh } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Dialog, DialogContent, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -7,7 +8,7 @@ import DashboardCard from "src/components/shared/DashboardCard";
 import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchAssets, setLoading } from "src/store/sections/compliance/giotoAssetsSlice";
+import { fetchAssets, removeAsset, requestRestartSession, setLoading } from "src/store/sections/compliance/giotoAssetsSlice";
 import { useDispatch, useSelector } from "src/store/Store";
 import CreateUpdateGiottoAsset from './createUpdateGiottoAsset';
 
@@ -53,10 +54,32 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     }
   };
 
+  const isAssetAlive = (asset: any) => {
+    const fiveMinutesAgo = new Date(new Date().getTime() - 5 * 60 * 1000);
+    return asset.lastKeepAlive && new Date(asset.lastKeepAlive) > fiveMinutesAgo;
+  }
+
   const handleEditClick = (asset: any = null) => {
     setEditAsset(asset);
     setOpenDialog(true);
   };
+
+  const handleDeleteClick = (asset: any) => {
+    const id = asset.id;
+    dispatch(removeAsset(id));
+    setSnackbarMessage('Asset deletion requested');
+    setSnackbarSeverity('info');
+    setSnackbarOpen(true);
+  }
+
+
+  const handleRefreshTokenClick = (asset: any) => {
+    const id = asset.id;
+    dispatch(requestRestartSession(id));
+    setSnackbarMessage('Asset Session Refresh requested');
+    setSnackbarSeverity('info');
+    setSnackbarOpen(true);
+  }
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -125,7 +148,16 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                     assets.map((asset: any) => (
                       <TableRow key={asset.id}>
                         <TableCell>
-                          {asset.name}
+                          <Box display="flex" gap={1}>
+                            {
+                              isAssetAlive(asset) ?
+                                <Monitor color={'success'} /> :
+                                <DesktopAccessDisabled color={'error'} />
+                            }
+                            <Typography variant="subtitle1">
+                              {asset.name}
+                            </Typography>
+                          </Box>
                         </TableCell>
                         <TableCell>{asset.networkAddress}</TableCell>
                         <TableCell>{asset.companyName}</TableCell>
@@ -151,15 +183,26 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                         </TableCell>
                         <TableCell>
                           <Box display="flex" gap={1}>
-                            <Button
-                              variant="contained"
+                            <IconButton
                               color="primary"
-                              size="small"
                               onClick={() => handleEditClick(asset)}
                             >
-                              {t("dashboard.edit")}
-                            </Button>
-
+                              <EditRounded />
+                            </IconButton>
+                            <IconButton
+                              color="primary"
+                              onClick={() => handleDeleteClick(asset)}
+                            >
+                              <Delete />
+                            </IconButton>
+                            <Tooltip title="Restart Session">
+                              <IconButton
+                                color="primary"
+                                onClick={() => handleRefreshTokenClick(asset)}
+                              >
+                                <Refresh />
+                              </IconButton>
+                            </Tooltip>
                           </Box>
                         </TableCell>
                       </TableRow>

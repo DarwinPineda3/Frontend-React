@@ -222,6 +222,25 @@ export const requestRollbackExecution = (id: string) => async (dispatch: any) =>
   }
 }
 
+export const requestCreateExecution = (idTemplate: number, idProject: number, idGroup: number) => async (dispatch: any) => {
+  const url = `${getApiUrl()}?url=TemplateExecutions/CreateTemplateExecution`;
+  try {
+    const body = {
+      templateId: idTemplate,
+      projectId: idProject,
+      groupId: idGroup,
+      startAssessment: false
+    };
+    const response = await axios.post(url, body);
+    const data = response.data;
+    dispatch(fetchExecutions(idProject, idGroup, idTemplate));
+  } catch (error) {
+    console.error(error, url);
+    dispatch(setError('An error occurred while fetching the creation of executions'));
+  }
+}
+
+
 export const fetchExecutionControlResults = (executionId: string, assetId: string) => async (dispatch: any) => {
   try {
     const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetControlExecutionsRollbackAndResultsByIdAndAsset?id=${executionId}&assetId=${assetId}`);
