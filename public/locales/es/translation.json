@@ -1391,8 +1391,20 @@
       "project_is_required": "El projecto es requerido",
       "report_generated_successfully": "El reporte se generó de manera exitosa.",
       "report_generation_failed": "Falló la generación del reporte",
-      "success":"Exitoso",
-      "error":"Error"
+      "success": "Exitoso",
+      "error": "Error",
+      "module_info": "En este módulo podrá descargar reportes clave para evaluar y gestionar el cumplimiento normativo en sus operaciones.",
+      "by_projects_tittle": "Reporte por proyectos:",
+      "by_projects_description": "Obtenga un análisis del estado de cumplimiento de cada proyecto.",
+      "by_assessments_tittle": "Reporte por evaluaciones:",
+      "by_assessments_description": "Consulte información relacionada con assessments, medidas de hardening y cualquier rollback realizado, asegurando la seguridad y trazabilidad de sus sistemas.",
+      "select_option": "Por favor, seleccione una de las opciones.",
+      "select_report": "Seleccione un reporte",
+      "by_projects": "Por proyectos",
+      "by_assessments": "Por tipo de evaluación",
+      "report_by_project_info": "Este reporte te permite ver todos los resultados de control de cumplimiento para el activo y ejecución de evaluación seleccionados.",
+      "operation_status": "Estado de la Operación",
+      "generation_in_progress": "Generación en progreso"
     }
   },
   "compliance_templates": {

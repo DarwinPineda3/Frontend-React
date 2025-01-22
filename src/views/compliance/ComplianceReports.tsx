@@ -43,19 +43,19 @@ const ComplianceReports = () => {
                   <Grid item xs={12}>
                     <Alert severity="info">
                       <Typography variant="body2" color="textSecondary">
-                        En este módulo podrá descargar reportes clave para evaluar y gestionar el cumplimiento normativo en sus operaciones.
+                        {t('giotto.reports.module_info')}
                         <br />
-                        - <strong>Reporte por proyectos:</strong> Obtenga un análisis del estado de cumplimiento de cada proyecto.
+                        - <strong>{t('giotto.reports.by_projects_tittle')}</strong>{t('giotto.reports.by_projects_description')}
                         <br />
-                        - <strong>Reporte por evaluaciones:</strong> Consulte información relacionada con assessments, medidas de hardening y cualquier rollback realizado, asegurando la seguridad y trazabilidad de sus sistemas.
+                        - <strong>{t('giotto.reports.by_assessments_tittle')}</strong> {t('giotto.reports.by_assessments_description')}
                         <br />
-                        Por favor, sleccione una de las opciones.
+                        {t('giotto.reports.select_option')}
                       </Typography>
                     </Alert>
                   </Grid>
                 }
                 <FormControl fullWidth margin="normal">
-                  <InputLabel id="report-select-label">Select Report</InputLabel>
+                  <InputLabel id="report-select-label">{t('giotto.reports.select_report')}</InputLabel>
                   <Select
                     labelId="report-select-label"
                     value={selectedReport}
@@ -63,10 +63,10 @@ const ComplianceReports = () => {
                   >
 
                     <MenuItem value="" disabled>
-                      Please select a report
+                      {t('giotto.reports.select_option')}
                     </MenuItem>
-                    <MenuItem value="projects">By Projects</MenuItem>
-                    <MenuItem value="categories">By Categories</MenuItem>
+                    <MenuItem value="projects">{t('giotto.reports.by_projects')}</MenuItem>
+                    <MenuItem value="categories">{t('giotto.reports.by_assessments')}</MenuItem>
                   </Select>
                 </FormControl>
                 {selectedReport === 'projects' && <ReportComplianceByProjects />}

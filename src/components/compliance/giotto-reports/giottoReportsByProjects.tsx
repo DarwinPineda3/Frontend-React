@@ -12,7 +12,6 @@ import {
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { fetchAllProjectsInList } from 'src/store/sections/compliance/giottoProjectsSlice';
@@ -27,7 +26,6 @@ interface Report {
 const ReportComplianceByProjects: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { projects, page, pageSize, loading, totalItemsAmount } = useSelector(
     (state: any) => state.giottoProjectsReducer,
   );
@@ -89,7 +87,7 @@ const ReportComplianceByProjects: React.FC = () => {
     <Box>
       <>
         {isLoading ? (
-          <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+          <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" margin="1em">
             <Loader />
             <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
               {t('giotto.reports.report_generation_message') || ''}
@@ -130,7 +128,7 @@ const ReportComplianceByProjects: React.FC = () => {
 
             <Grid item xs={12}>
               <Alert severity="info">
-                <Typography variant="body2" color="textSecondary">{t('assessment_status.report_info')}</Typography>
+                <Typography variant="body2" color="textSecondary">{t('giotto.reports.report_by_project_info')}</Typography>
               </Alert>
             </Grid>
 
@@ -150,8 +148,8 @@ const ReportComplianceByProjects: React.FC = () => {
         {isLoading && (
           <SnackBarInfo
             color="info"
-            title={t('wpscan.operation_status')}
-            message={t('wpscan.scan_in_progress')}
+            title={t('giotto.reports.operation_status')}
+            message={t('giotto.reports.generation_in_progress')}
           />
         )}
 
@@ -164,7 +162,6 @@ const ReportComplianceByProjects: React.FC = () => {
                 : t('giotto.reports.error')
             }
             message={snackbarState.message}
-          // onClose={closeSnackbar}
           />
         )}
       </>
