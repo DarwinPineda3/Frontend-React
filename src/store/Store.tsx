@@ -3,6 +3,7 @@ import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNe
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
+import InstallationGuideVariablesReducer from './installation-guide/InstallationGuideSlice';
 import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
@@ -97,6 +98,7 @@ export const store = configureStore({
     GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
     giottoProjectsReducer: GiottoProjectsReducer,
+    installationGuideVariablesReducer: InstallationGuideVariablesReducer,
   },
 });
 
@@ -134,6 +136,7 @@ const rootReducer = combineReducers({
   GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
   giottoProjectsReducer: GiottoProjectsReducer,
+  installationGuideVariablesReducer: InstallationGuideVariablesReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

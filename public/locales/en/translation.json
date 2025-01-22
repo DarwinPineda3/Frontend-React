@@ -1018,7 +1018,7 @@
       },
       "error_notes": {
         "title": "Error notes",
-        "intro": "Next commands:"
+        "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
       }
     }
   },
@@ -1246,7 +1246,66 @@
     "projects_description": "Projects",
     "projects_info": "Here you can manage and view compliance projects.",
     "executions_description": "Executions",
-    "executions_info": "Here you can track and manage compliance executions."
+    "executions_info": "Here you can track and manage compliance executions.",
+    "installation_guide": {
+      "title": "Installation Guide",
+      "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows or Linux, you will find all the necessary steps to ensure a smooth installation process.",
+      "windows": {
+        "title": "Windows",
+        "individual_installation": {
+          "title": "Individual Installation",
+          "steps": {
+            "intro": "To run the command on Windows, follow these steps:",
+            "step1": "Step 1: Open PowerShell with administrative privileges.",
+            "step2": "Step 2: Copy the following command:",
+            "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
+            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+          }
+        },
+        "bulk_installation": {
+          "title": "Bulk Installation",
+          "steps": {
+            "intro": "To create a script for bulk installation, follow these steps:",
+            "step1": "Step 1: Create a new PowerShell script file with a .ps1 extension, e.g., install_agent.ps1.",
+            "step2": "Step 2: Copy the following script into the newly created PowerShell script file:",
+            "step3": "Step 3: Save the script file."
+          }
+        },
+        "active_directory": {
+          "title": "Instructions for Active Directory Group Policy",
+          "intro": "To apply group policies in Active Directory, follow these steps:",
+          "steps": {
+            "step1": "Step 1: Open the Group Policy Management Console (GPMC).",
+            "step2": "Step 2: Navigate to the desired Organizational Unit (OU) or domain where you want to apply the Group Policy.",
+            "step3": "Step 3: Create a new Group Policy Object (GPO) or edit an existing one.",
+            "step4": "Step 4: Navigate to Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).",
+            "step5": "Step 5: Add a new startup script and specify the path to your PowerShell script (e.g., instalar_agente.ps1).",
+            "step6": "Step 6: Ensure that the execution policy allows the script to run. You may need to set the execution policy to RemoteSigned or Bypass.",
+            "step7": "Step 7: Once the Group Policy is applied to the desired computers, the script will run during startup."
+          }
+        },
+        "notes": "Notes: The Windows agent is compatible with Windows Server 2008 R2 and later."
+      },
+      "linux": {
+        "title": "Linux",
+        "individual_installation": {
+          "title": "Individual Installation",
+          "steps": {
+            "intro": "To run the command on Linux, follow these steps:",
+            "step1": "Step 1: Open a terminal on your Linux system.",
+            "step2": "Step 2: Choose your Linux distribution:",
+            "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
+            "step4": "Step 4: Copy the following command:",
+            "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
+            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+          }
+        },
+        "error_notes": {
+          "title": "Error notes",
+          "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
+        }
+      }
+    }
   },
   "changelog": {
     "title": "Changelog",
@@ -1267,7 +1326,8 @@
     "templates": "Templates"
   },
   "snackbar": {
-    "reportGenerated": "Report successfully generated!"
+    "reportGenerated": "Report successfully generated!",
+    "copied_text": "Text copied to your clipboard"
   },
   "compliance_projects": {
     "project_name": "Project Name",
