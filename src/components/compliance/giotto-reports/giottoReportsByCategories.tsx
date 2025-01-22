@@ -16,6 +16,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import { getAssetsByGroup } from 'src/store/sections/compliance/giotoAssetsSlice';
 import { getExecutionByTemplate } from 'src/store/sections/compliance/giotoExecutionsSlice';
 import { getGroupsByProjectId } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { fecthListInTemplateExecutions } from 'src/store/sections/compliance/giottoProjectsSlice';
@@ -44,12 +45,11 @@ const ReportComplianceByCategory: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [assets, setAssets] = useState<any[]>([]);
-
   const [isFetching, setIsFetching] = useState(false);
   const groupsList = useSelector((state: any) => state.giottoGroupReducer.groups);
   const templates = useSelector((state: any) => state.giottoTemplatesReducer.templates);
   const executions = useSelector((state: any) => state.GiottoExecutionsReducer.executions);
+  const assets = useSelector((state: any) => state.GiottoAssetsReducer.assets);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -102,17 +102,19 @@ const ReportComplianceByCategory: React.FC = () => {
           //grupos
           await dispatch(getGroupsByProjectId(3/* assetstment, hardening, rollback*/, formik.values.project))
 
-          //templates
-          await dispatch(getTemplatesByGroupId(3/* assetstment, hardening, rollback*/, formik.values.project, formik.values.group))
-          
-          // Executions
-          await dispatch(getExecutionByTemplate(3/* assetstment, hardening, rollback*/, formik.values.project, formik.values.group, formik.values.template))
-          
-          const assetData = await fetch(`/api/assets?projectId=${formik.values.project}`).then((res) =>
-            res.json(),
-          );
+          if (formik.values.group) {
+            //templates
+            await dispatch(getTemplatesByGroupId(3/* assetstment, hardening, rollback*/, formik.values.project, formik.values.group))
 
-          setAssets(assetData);
+            //assets
+            await dispatch(getAssetsByGroup(formik.values.group))
+          }
+
+          if (formik.values.group) {
+            // Executions
+            await dispatch(getExecutionByTemplate(3/* assetstment, hardening, rollback*/, formik.values.project, formik.values.group, formik.values.template))
+          }
+
         } catch (error) {
           console.error('Error fetching dynamic data:', error);
         } finally {
@@ -237,6 +239,30 @@ const ReportComplianceByCategory: React.FC = () => {
                       label={t('giotto.reports.execution')}
                       variant="outlined"
                       error={formik.touched.execution && Boolean(formik.errors.execution)}
+                    />
+                  )}
+                />
+              </FormControl>
+
+              <FormControl fullWidth margin="normal">
+                <Autocomplete
+                  options={Array.isArray(assets) ? assets : []}
+                  getOptionLabel={(option) => option.name}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  value={Array.isArray(assets) ? assets.find((asset: any) => asset.id === formik.values.asset) : null}
+                  onChange={(event, newValue) => {
+                    formik.setFieldValue('asset', newValue ? newValue.id : '');
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('giotto.reports.asset')}
+                      variant="outlined"
+                      error={formik.touched.asset && Boolean(formik.errors.asset)}
                     />
                   )}
                 />
