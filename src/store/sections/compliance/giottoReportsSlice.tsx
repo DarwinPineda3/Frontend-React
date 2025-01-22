@@ -53,23 +53,44 @@ export const fetchComplianceByProjectReport =
         const response = await axios.get(urlrequest, {
           responseType: 'blob',
         });
-        // console.log(response);
-        
-        // const report = response.data;
 
-        // dispatch(
-        //   getcomplianceByProject({
-        //     report,
-        //   }),
-        // );
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-    
+
         link.setAttribute('download', `${newReport.project}.xlsx`);
         document.body.appendChild(link);
         link.click();
-    
+
+        // Limpiando memoria
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        dispatch(setError('Failed to fetch report'));
+        dispatch(setLoading(false));
+        throw err;
+      }
+    };
+
+export const downloadReportByCategory =
+  (newReport: any) =>
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        const urlrequest = `${getApiUrl()}${newReport.type}?templateExecutionId=${newReport.executionId}&assetId=${newReport.assetId}`;
+        const response = await axios.get(urlrequest, {
+          responseType: 'blob',
+        });
+
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+
+        link.setAttribute('download', `${newReport.type}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+
         // Limpiando memoria
         window.URL.revokeObjectURL(url);
         document.body.removeChild(link);

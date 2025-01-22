@@ -1,7 +1,7 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Alert, Box, Breadcrumbs, FormControl, Grid, IconButton, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
-import { t } from 'i18next';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ReportComplianceByCategory from 'src/components/compliance/giotto-reports/giottoReportsByCategories';
 import ReportComplianceByProjects from 'src/components/compliance/giotto-reports/giottoReportsByProjects';
 import PageContainer from 'src/components/container/PageContainer';
@@ -13,6 +13,8 @@ const ComplianceReports = () => {
   const handleReportChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedReport(event.target.value as string);
   };
+
+  const { t } = useTranslation();
 
   return (
     <PageContainer title="Akila">
@@ -36,7 +38,7 @@ const ComplianceReports = () => {
                 </Box>
               </Box>
               <Box>
-              {selectedReport === '' &&
+                {selectedReport === '' &&
                   <Grid item xs={12}>
                     <Alert severity="info">
                       <Typography variant="body2" color="textSecondary">
@@ -68,7 +70,7 @@ const ComplianceReports = () => {
                 </FormControl>
                 {selectedReport === 'projects' && <ReportComplianceByProjects />}
                 {selectedReport === 'categories' && <ReportComplianceByCategory />}
-                
+
 
 
               </Box>
