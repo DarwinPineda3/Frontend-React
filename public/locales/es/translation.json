@@ -1414,7 +1414,20 @@
       "group": "Grupo",
       "template": "Plantilla",
       "execution": "Ejecución",
-      "asset": "Activo"
+      "asset": "Activo",
+      "report_type": "Tipo de reporte",
+      "GetAssessmentStatusByAssetReport": "Estado de evaluación por activo",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Detalles técnicos de evaluación por activo",
+      "GetHardeningStatusByAssetReport": "Estado de hardening por activo",
+      "GetHardeningTechnicalDetailsByAssetReport": "Detalles técnicos de hardening por activo",
+      "GetRollbackStatusByAssetReport": "Estado de rollback por activo",
+      "GetRollbackTechnicalDetailsByAssetReport": "Detalles técnicos de rollback por activo",
+      "GetAssessmentStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de evaluación.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de evaluación.",
+      "GetHardeningStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de hardening.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de hardening.",
+      "GetRollbackStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de rollback.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de rollback."
     }
   },
   "compliance_templates": {

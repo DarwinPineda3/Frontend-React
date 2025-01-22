@@ -1417,7 +1417,20 @@
       "group": "Group",
       "template": "Template",
       "execution": "Execution",
-      "asset": "Asset"
+      "asset": "Asset",
+      "report_type": "Report type",
+      "GetAssessmentStatusByAssetReport": "Assessment Status by Asset",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Assessment Tech Details by Asset",
+      "GetHardeningStatusByAssetReport": "Hardening Status by Asset",
+      "GetHardeningTechnicalDetailsByAssetReport": "Hardening Tech Details by Asset",
+      "GetRollbackStatusByAssetReport": "Rollback Status by Asset",
+      "GetRollbackTechnicalDetailsByAssetReport": "Rollback Tech Details by Asset",
+      "GetAssessmentStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and assessment execution.",
+      "GetHardeningStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and hardening execution.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and hardening execution.",
+      "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
     }
   },
   "compliance_templates": {

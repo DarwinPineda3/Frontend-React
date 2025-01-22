@@ -1,12 +1,15 @@
 import {
+  Alert,
   Autocomplete,
   Box,
   Button,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
@@ -41,8 +44,9 @@ const ReportComplianceByCategory: React.FC = () => {
   } | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [isVisible, setIsVisible] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [selectedDescription, setSelectedDescription] = useState<string>('');
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 50);
@@ -55,7 +59,6 @@ const ReportComplianceByCategory: React.FC = () => {
     transition: 'opacity 0.5s ease, transform 0.5s ease',
   };
 
-  const [isFetching, setIsFetching] = useState(false);
   const groupsList = useSelector((state: any) => state.giottoGroupReducer.groups);
   const templates = useSelector((state: any) => state.giottoTemplatesReducer.templates);
   const executions = useSelector((state: any) => state.GiottoExecutionsReducer.executions);
@@ -72,18 +75,12 @@ const ReportComplianceByCategory: React.FC = () => {
       processToExecute: null,
     },
     validationSchema: Yup.object({
-      project: Yup.string()
-        .required(t('giotto.reports.project_is_required') || ''),
-      group: Yup.string()
-        .required(t('giotto.reports.group_is_required') || ''),
-      template: Yup.string()
-        .required(t('giotto.reports.template_is_required') || ''),
-      execution: Yup.string()
-        .required(t('giotto.reports.execution_is_required') || ''),
-      asset: Yup.string()
-        .required(t('giotto.reports.asset_is_required') || ''),
-      type: Yup.string()
-        .required(t('giotto.reports.report_type_is_required') || ''),
+      project: Yup.string().required(t('giotto.reports.project_is_required') || ''),
+      group: Yup.string().required(t('giotto.reports.group_is_required') || ''),
+      template: Yup.string().required(t('giotto.reports.template_is_required') || ''),
+      execution: Yup.string().required(t('giotto.reports.execution_is_required') || ''),
+      asset: Yup.string().required(t('giotto.reports.asset_is_required') || ''),
+      type: Yup.string().required(t('giotto.reports.report_type_is_required') || ''),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const newReport: Report = { ...values };
@@ -97,7 +94,6 @@ const ReportComplianceByCategory: React.FC = () => {
           severity: 'success',
         });
         formik.setFieldValue('asset', '');
-        // resetForm();
       } catch (error: any) {
         setSnackbarState({
           message: t('giotto.reports.report_generation_failed') || '',
@@ -115,6 +111,7 @@ const ReportComplianceByCategory: React.FC = () => {
     if (selectedReport) {
       formik.setFieldValue('type', value);
       formik.setFieldValue('processToExecute', selectedReport.processToExecute);
+      setSelectedDescription(selectedReport.description);
     }
   };
 
@@ -164,13 +161,45 @@ const ReportComplianceByCategory: React.FC = () => {
   }, [formik.values.project, formik.values.group, formik.values.template, formik.values.processToExecute, formik.values.type]);
 
   const reportOptions = [
-    { value: "GetAssessmentStatusByAssetReport", label: "Estado de evaluación por activo", processToExecute: 2 },
-    { value: "GetAssessmentTechnicalDetailsByAssetReport", label: "Detalles técnicos de evaluación por activo", processToExecute: 2 },
-    { value: "GetHardeningStatusByAssetReport", label: "Estado de hardening por activo", processToExecute: 3 },
-    { value: "GetHardeningTechnicalDetailsByAssetReport", label: "Detalles técnicos de hardening por activo", processToExecute: 3 },
-    { value: "GetRollbackStatusByAssetReport", label: "Estado de rollback por activo", processToExecute: 0 },
-    { value: "GetRollbackTechnicalDetailsByAssetReport", label: "Detalles técnicos de rollback por activo", processToExecute: 0 },
+    {
+      value: "GetAssessmentStatusByAssetReport",
+      label: t('giotto.reports.GetAssessmentStatusByAssetReport'),
+      description: t('giotto.reports.GetAssessmentStatusByAssetReportDescription'),
+      processToExecute: 2
+    },
+    {
+      value: "GetAssessmentTechnicalDetailsByAssetReport",
+      label: t('giotto.reports.GetAssessmentTechnicalDetailsByAssetReport'),
+      description: t('giotto.reports.GetAssessmentTechnicalDetailsByAssetReportDescription'),
+      processToExecute: 2
+    },
+    {
+      value: "GetHardeningStatusByAssetReport",
+      label: t('giotto.reports.GetHardeningStatusByAssetReport'),
+      description: t('giotto.reports.GetHardeningStatusByAssetReportDescription'),
+      processToExecute: 3
+    },
+    {
+      value: "GetHardeningTechnicalDetailsByAssetReport",
+      label: t('giotto.reports.GetHardeningTechnicalDetailsByAssetReport'),
+      description: t('giotto.reports.GetHardeningTechnicalDetailsByAssetReportDescription'),
+      processToExecute: 3
+    },
+    {
+      value: "GetRollbackStatusByAssetReport",
+      label: t('giotto.reports.GetRollbackStatusByAssetReport'),
+      description: t('giotto.reports.GetRollbackStatusByAssetReportDescription'),
+      processToExecute: 0
+    },
+    {
+      value: "GetRollbackTechnicalDetailsByAssetReport",
+      label: t('giotto.reports.GetRollbackTechnicalDetailsByAssetReport'),
+      description: t('giotto.reports.GetRollbackTechnicalDetailsByAssetReportDescription'),
+      processToExecute: 0
+    },
   ];
+
+
 
   return (
     <Box component="form" onSubmit={formik.handleSubmit} noValidate>
@@ -355,6 +384,14 @@ const ReportComplianceByCategory: React.FC = () => {
           <Loader />
         </Box>
       ))}
+
+      {selectedDescription && (
+        <Grid item xs={12}>
+          <Alert severity="info">
+            <Typography variant="body2" color="textSecondary">{selectedDescription}</Typography>
+          </Alert>
+        </Grid>
+      )}
 
       <Button type="submit" variant="contained" color="primary" fullWidth>
         {t('compliance_reports.generate_download')}
