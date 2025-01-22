@@ -1,23 +1,18 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
+  Alert,
   Autocomplete,
   Box,
-  Breadcrumbs,
   Button,
   FormControl,
   FormHelperText,
   Grid,
-  IconButton,
-  Link,
   TextField,
   Typography
 } from '@mui/material';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import PageContainer from 'src/components/container/PageContainer';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import { useNavigate } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { fetchAllProjectsInList } from 'src/store/sections/compliance/giottoProjectsSlice';
@@ -91,109 +86,89 @@ const ReportComplianceByProjects: React.FC = () => {
   });
 
   return (
-    <PageContainer title="Akila">
-      <Box mb={2}>
-        <Box display="flex" alignItems="center" mt={2}>
-          <IconButton onClick={() => navigate(-1)} color="primary">
-            <ArrowBackIcon />
-          </IconButton>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/compliance/reports">
-              {t('compliance_reports.compliance')}
-            </Link>
-            <Typography color="textPrimary">
-              {t('compliance_reports.reports')}
-            </Typography>
-          </Breadcrumbs>
-        </Box>
-      </Box>
-
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <DashboardCard
-            title={t('giotto.reports.compliance_reports') || ''}
-            subtitle={t('giotto.reports.module_description') || ''}>
-            <>
-              {isLoading ? (
-                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
-                  <Loader />
-                  <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
-                    {t('giotto.reports.report_generation_message') || ''}
-                  </Box>
-                </Box>
-              ) : (
-                <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-                  <FormControl
-                    fullWidth
-                    margin="normal"
+    <Box>
+      <>
+        {isLoading ? (
+          <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+            <Box component="small" mt={2} color="gray" textAlign="center" style={{ fontSize: '0.875rem' }}>
+              {t('giotto.reports.report_generation_message') || ''}
+            </Box>
+          </Box>
+        ) : (
+          <Box component="form" onSubmit={formik.handleSubmit} noValidate>
+            <FormControl
+              fullWidth
+              margin="normal"
+              error={formik.touched.project && Boolean(formik.errors.project)}
+            >
+              <Autocomplete
+                options={projects}
+                getOptionLabel={(option) => option.name}
+                value={projects.find((asset: any) => asset.id === formik.values.project) || null}
+                onChange={(event, newValue) => {
+                  formik.setFieldValue('project', newValue ? newValue.id : '');
+                }}
+                renderOption={(props, option) => (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t('giotto.reports.project')}
+                    variant="outlined"
                     error={formik.touched.project && Boolean(formik.errors.project)}
-                  >
-                    <Autocomplete
-                      options={projects}
-                      getOptionLabel={(option) => option.name}
-                      value={projects.find((asset: any) => asset.id === formik.values.project) || null}
-                      onChange={(event, newValue) => {
-                        formik.setFieldValue('project', newValue ? newValue.id : '');
-                      }}
-                      renderOption={(props, option) => (
-                        <li {...props} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={t('giotto.reports.project')}
-                          variant="outlined"
-                          error={formik.touched.project && Boolean(formik.errors.project)}
-                        />
-                      )}
-                    />
-                    <FormHelperText>
-                      {formik.touched.project && formik.errors.project}
-                    </FormHelperText>
-                  </FormControl>
+                  />
+                )}
+              />
+              <FormHelperText>
+                {formik.touched.project && formik.errors.project}
+              </FormHelperText>
+            </FormControl>
 
-                  <Box mt={2}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      disabled={formik.isSubmitting}
-                    >
-                      {t('compliance_reports.generate_download')}
-                    </Button>
-                  </Box>
-                </Box>
-              )}
-              {isLoading && (
-                <SnackBarInfo
-                  color="info"
-                  title={t('wpscan.operation_status')}
-                  message={t('wpscan.scan_in_progress')}
-                />
-              )}
+            <Grid item xs={12}>
+              <Alert severity="info">
+                <Typography variant="body2" color="textSecondary">{t('assessment_status.report_info')}</Typography>
+              </Alert>
+            </Grid>
 
-              {snackbarState && (
-                <SnackBarInfo
-                  color={snackbarState.severity}
-                  title={
-                    snackbarState.severity === 'success'
-                      ? t('giotto.reports.success')
-                      : t('giotto.reports.error')
-                  }
-                  message={snackbarState.message}
-                // onClose={closeSnackbar}
-                />
-              )}
-            </>
-          </DashboardCard>
-        </Grid>
-      </Grid>
+            <Box mt={2}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                disabled={formik.isSubmitting}
+              >
+                {t('compliance_reports.generate_download')}
+              </Button>
+            </Box>
+          </Box>
+        )}
+        {isLoading && (
+          <SnackBarInfo
+            color="info"
+            title={t('wpscan.operation_status')}
+            message={t('wpscan.scan_in_progress')}
+          />
+        )}
 
-
-    </PageContainer>
+        {snackbarState && (
+          <SnackBarInfo
+            color={snackbarState.severity}
+            title={
+              snackbarState.severity === 'success'
+                ? t('giotto.reports.success')
+                : t('giotto.reports.error')
+            }
+            message={snackbarState.message}
+          // onClose={closeSnackbar}
+          />
+        )}
+      </>
+    </Box>
   );
 };
 
