@@ -1,47 +1,59 @@
 import { ArrowBack } from '@mui/icons-material';
-import { Box, Breadcrumbs, Grid, Typography, Card, CardContent, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import GiottoAssetsList from 'src/components/compliance/giotto-assets/giottoAssetsList';
 import PageContainer from 'src/components/container/PageContainer';
 
 const ComplianceAssetsView = () => {
+  const { assetId } = useParams<{ assetId?: string }>();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const [selectedAsset, setselectedAsset] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (assetId) {
+      setselectedAsset(assetId);
+    } else {
+      setselectedAsset(null);
+    }
+  });
+
   return (
     <PageContainer title={String(t('compliance_menu.compliance_assets'))}>
-  <Box mb={2}>
-    <Box display="flex" alignItems="center" mt={2}>
-      <IconButton onClick={() => navigate(-1)} color="primary">
-        <ArrowBack />
-      </IconButton>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link component={RouterLink} color="inherit" to="/compliance/assets">
-          {t('compliance_menu.compliance')}
-        </Link>
-        <Link component={RouterLink} color="inherit" to="/compliance/assets">
-          {t('compliance_menu.compliance_assets')}
-        </Link>
-      </Breadcrumbs>
-    </Box>
-  </Box>
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBack />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link component={RouterLink} color="inherit" to="/compliance/assets">
+              {t('compliance_menu.compliance')}
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/compliance/assets">
+              {t('compliance_menu.compliance_assets')}
+            </Link>
 
-  <Grid container spacing={3}>
-    <Grid item xs={12}>
-      <Card>
-        <CardContent>
-          <Typography variant="h6">
-            {t('compliance.assets_description')}
-          </Typography>
-
-          <Typography variant="body1">
-            {t('compliance.assets_info')}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
-  </Grid>
-</PageContainer>
+          </Breadcrumbs>
+        </Box>
+      </Box>
+      {
+        selectedAsset == null ? (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <GiottoAssetsList onScanClick={(scanId: string) => navigate(`/compliance/assets/${scanId}`)} />
+            </Grid>
+          </Grid>
+        ) :
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              a
+            </Grid>
+          </Grid>
+      }
+    </PageContainer>
   );
 };
 

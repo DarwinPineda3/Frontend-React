@@ -3,9 +3,11 @@ import {
   IconAperture,
   IconBasket,
   IconBook,
+  IconBox,
   IconBrandWordpress,
   IconBroadcast,
   IconChartDonut3,
+  IconClipboardList,
   IconClockBolt,
   IconCloud,
   IconExternalLink,
@@ -29,9 +31,7 @@ import {
   IconSquaresFilled,
   IconTicket,
   IconUserBolt,
-  IconUserShield,
-  IconBox,
-  IconClipboardList
+  IconUserShield
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -52,298 +52,311 @@ interface MenuitemsType {
 }
 
 const Menuitems: MenuitemsType[] = [
+  // SCAN360
   {
     navlabel: true,
-    subheader: 'menu.home', // Translation key for subheader
-    permissions: ['Admin', 'Scan360'],
+    subheader: 'menu.home',
+    permissions: ['Administrator', 'Scan360'],
   },
   {
     id: uniqueId(),
-    title: 'menu.dashboard', // Translation key for title
+    title: 'menu.dashboard',
     href: '/home/dashboard',
     icon: IconAperture,
-    permissions: ['Admin', 'Scan360'],
+    permissions: ['Administrator', 'Scan360'],
   },
   {
     id: uniqueId(),
-    title: 'menu.assets', // Translation key for title
+    title: 'menu.assets',
     href: '/home/assets',
     icon: IconShoppingCart,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    navlabel: true,
-    subheader: 'menu.vulnerabilities', // Translation key for subheader
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.network', // Translation key for title
-    href: '/vulnerabilities/network/scans',
-    icon: IconNetwork,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.web', // Translation key for title
-    href: '/vulnerabilities/web',
-    icon: IconChartDonut3,
-    permissions: ['Admin', 'Scan360'],
-    children: [
-      {
-        id: uniqueId(),
-        title: 'menu.applications', // Translation key for title
-        href: '/vulnerabilities/web/applications',
-        icon: IconSquaresFilled,
-        permissions: ['Admin', 'Scan360'],
-      },
-      {
-        id: uniqueId(),
-        title: 'menu.wordpress', // Translation key for title
-        href: '/vulnerabilities/web/wordpress',
-        icon: IconBrandWordpress,
-        permissions: ['Admin', 'Scan360'],
-      },
-    ],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.cloud', // Translation key for title
-    href: '/vulnerabilities/cloud',
-    icon: IconCloud,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.summary', // Translation key for title
-    href: '/vulnerabilities/summary',
-    icon: IconListDetails,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.management', // Translation key for title
-    href: '/vulnerabilities/management',
-    icon: IconUserBolt,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.redteam', // Translation key for title
-    href: '/vulnerabilities/redteam',
-    icon: IconUserShield,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    navlabel: true,
-    subheader: 'menu.observability', // Translation key for subheader
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.network', // Translation key for title
-    href: '/observability/network',
-    icon: IconNetwork,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.cloud', // Translation key for title
-    href: '/observability/cloud',
-    icon: IconCloud,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.observed_assets', // Translation key for title
-    href: '/observability/observed-assets',
-    icon: IconPackage,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.installation_guide', // Translation key for title
-    href: '/observability/installation-guide',
-    icon: IconBook,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.threshold_settings', // Translation key for title
-    href: '/observability/threshold-settings',
-    icon: IconGauge,
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    navlabel: true,
-    subheader: 'menu.monitoring', // Translation key for subheader
-    permissions: ['Admin', 'CyberGuard'],
-  },
-  {
-    id: uniqueId(),
-    title: 'menu.dark_web_monitoring', // Translation key for title
-    href: '/monitoring/threats-overview',
-    icon: IconSpy,
-    permissions: ['Admin', 'CyberGuard'],
+    permissions: ['Administrator', 'Scan360'],
   },
 
+  // VULNERABILITIES (SCAN360)
+  {
+    navlabel: true,
+    subheader: 'menu.vulnerabilities',
+    permissions: ['Administrator', 'Scan360'],
+  },
   {
     id: uniqueId(),
-    title: 'menu.cyber_guard', // Translation key for title
-    href: '/monitoring/cyber-guard',
-    icon: IconShieldBolt,
-    permissions: ['Admin', 'CyberGuard'],
+    title: 'menu.network',
+    href: '/vulnerabilities/network/scans',
+    icon: IconNetwork,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.web',
+    href: '/vulnerabilities/web',
+    icon: IconChartDonut3,
+    permissions: ['Administrator', 'Scan360'],
     children: [
       {
         id: uniqueId(),
-        title: 'monitoring.parameters', // Translation key for title
-        href: '/monitoring/cyber-guard/parameters',
-        icon: IconPoint,
-        permissions: ['Admin', 'CyberGuard'],
+        title: 'menu.applications',
+        href: '/vulnerabilities/web/applications',
+        icon: IconSquaresFilled,
+        permissions: ['Administrator', 'Scan360'],
       },
       {
         id: uniqueId(),
-        title: 'menu.monitoring', // Translation key for title
+        title: 'menu.wordpress',
+        href: '/vulnerabilities/web/wordpress',
+        icon: IconBrandWordpress,
+        permissions: ['Administrator', 'Scan360'],
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.cloud',
+    href: '/vulnerabilities/cloud',
+    icon: IconCloud,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.summary',
+    href: '/vulnerabilities/summary',
+    icon: IconListDetails,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.management',
+    href: '/vulnerabilities/management',
+    icon: IconUserBolt,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.redteam',
+    href: '/vulnerabilities/redteam',
+    icon: IconUserShield,
+    permissions: ['Administrator', 'Scan360'],
+  },
+
+  // OBERVABILITY (SCAN360)
+  {
+    navlabel: true,
+    subheader: 'menu.observability',
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.network',
+    href: '/observability/network',
+    icon: IconNetwork,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.cloud',
+    href: '/observability/cloud',
+    icon: IconCloud,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.observed_assets',
+    href: '/observability/observed-assets',
+    icon: IconPackage,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.installation_guide',
+    href: '/observability/installation-guide',
+    icon: IconBook,
+    permissions: ['Administrator', 'Scan360'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.threshold_settings',
+    href: '/observability/threshold-settings',
+    icon: IconGauge,
+    permissions: ['Administrator', 'Scan360'],
+  },
+
+  // MONITORING (CYBERGUARD)
+  {
+    navlabel: true,
+    subheader: 'menu.monitoring',
+    permissions: ['Administrator', 'CyberGuard'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.dark_web_monitoring',
+    href: '/monitoring/threats-overview',
+    icon: IconSpy,
+    permissions: ['Administrator', 'CyberGuard'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.cyber_guard',
+    href: '/monitoring/cyber-guard',
+    icon: IconShieldBolt,
+    permissions: ['Administrator', 'CyberGuard'],
+    children: [
+      {
+        id: uniqueId(),
+        title: 'monitoring.parameters',
+        href: '/monitoring/cyber-guard/parameters',
+        icon: IconPoint,
+        permissions: ['Administrator', 'CyberGuard'],
+      },
+      {
+        id: uniqueId(),
+        title: 'menu.monitoring',
         href: '/monitoring/cyber-guard/monitoring',
         icon: IconPoint,
-        permissions: ['Admin', 'CyberGuard'],
+        permissions: ['Administrator', 'CyberGuard'],
       },
       // {
       //   id: uniqueId(),
-      //   title: 'menu.malware', // Translation key for title
+      //   title: 'menu.malware',
       //   href: '/monitoring/cyber-guard/malware-analysis',
       //   icon: IconPoint,
+      //   permissions: ['Administrator', 'CyberGuard'],
       // },
       // {
       //   id: uniqueId(),
-      //   title: 'menu.mobile_apps', // Translation key for title
+      //   title: 'menu.mobile_apps',
       //   href: '/monitoring/cyber-guard/mobile-apps',
       //   icon: IconPoint,
+      //   permissions: ['Administrator', 'CyberGuard'],
       // },
     ],
   },
   {
     id: uniqueId(),
-    title: 'menu.news', // Translation key for title
+    title: 'menu.news',
     href: '/monitoring/soc/newsletters',
-    permissions: ['Admin', 'CyberGuard'],
+    permissions: ['Administrator', 'CyberGuard'],
     icon: IconNews,
   },
   {
     id: uniqueId(),
-    title: 'menu.takedown', // Translation key for title
+    title: 'menu.takedown',
     href: '/monitoring/soc/takedown',
-    permissions: ['Admin', 'CyberGuard'],
+    permissions: ['Administrator', 'CyberGuard'],
     icon: IconTicket,
   },
+  // TODO: enable to CyberGuard?
   {
     id: uniqueId(),
-    title: 'menu.soc', // Translation key for title
+    title: 'menu.soc',
     icon: IconBasket,
-    permissions: ['Admin'],
+    permissions: ['Administrator'],
     children: [
       {
         id: uniqueId(),
-        title: 'menu.service_statistics', // Translation key for title
+        title: 'menu.service_statistics',
         href: '/monitoring/soc/service-statistics',
         icon: IconReport,
-        permissions: ['Admin'],
+        permissions: ['Administrator'],
       },
       {
         id: uniqueId(),
-        title: 'menu.source_monitoring', // Translation key for title
+        title: 'menu.source_monitoring',
         href: '/monitoring/soc/source-monitoring',
         icon: IconBroadcast,
-        permissions: ['Admin'],
+        permissions: ['Administrator'],
       },
       {
         id: uniqueId(),
-        title: 'menu.cti', // Translation key for title
+        title: 'menu.cti',
         href: '/monitoring/soc/cti',
         icon: IconMenu,
-        permissions: ['Admin'],
+        permissions: ['Administrator'],
         children: [
           //   {
           //     id: uniqueId(),
-          //     title: 'menu.description', // Translation key for title
+          //     title: 'menu.description',
           //     href: '/monitoring/soc/cti/description',
           //     icon: IconAlertHexagon,
+          //     permissions: ['Administrator'],
           //   },
           //   {
           //     id: uniqueId(),
-          //     title: 'menu.abusech', // Translation key for title
+          //     title: 'menu.abusech',
           //     href: '/monitoring/soc/cti/abusech',
           //     icon: IconClockBolt,
+          //     permissions: ['Administrator'],
           //   },
           //   {
           //     id: uniqueId(),
-          //     title: 'menu.files', // Translation key for title
+          //     title: 'menu.files',
           //     href: '/monitoring/soc/cti/files',
           //     icon: IconFiles,
+          //     permissions: ['Administrator'],
           //   },
           //   {
           //     id: uniqueId(),
-          //     title: 'menu.urls', // Translation key for title
+          //     title: 'menu.urls',
           //     href: '/monitoring/soc/cti/urls',
           //     icon: IconLink,
+          //     permissions: ['Administrator'],
           //   },
           {
             id: uniqueId(),
-            title: 'menu.technologies_inventory', // Translation key for title
+            title: 'menu.technologies_inventory',
             href: '/monitoring/soc/cti/technologies-inventory',
             icon: IconBroadcast,
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
           },
           {
             id: uniqueId(),
-            title: 'menu.threat_intelligence', // Translation key for title
+            title: 'menu.threat_intelligence',
             href: '/monitoring/soc/cti/threat-intelligence',
             icon: IconAlertHexagon,
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
           },
           {
             id: uniqueId(),
-            title: 'menu.emerging_risks', // Translation key for title
+            title: 'menu.emerging_risks',
             href: '/monitoring/soc/cti/emerging-risks',
             icon: IconClockBolt,
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
           },
           {
             id: uniqueId(),
-            title: 'menu.mitre', // Translation key for title
+            title: 'menu.mitre',
             href: '/monitoring/soc/cti/mitre',
             icon: IconLink,
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
           },
           {
             id: uniqueId(),
-            title: 'menu.open_cti', // Translation key for title
+            title: 'menu.open_cti',
             href: 'http://201.149.34.142:8080/dashboard',
             icon: IconExternalLink,
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
             external: true,
           }
         ]
       },
       {
         id: uniqueId(),
-        title: 'menu.monitoring', // Translation key for title
+        title: 'menu.monitoring',
         href: '/monitoring/soc/brand-monitoring',
-        permissions: ['Admin'],
+        permissions: ['Administrator'],
         icon: IconSocial,
         children: [
           {
             id: uniqueId(),
-            title: 'menu.demo', // Translation key for title
+            title: 'menu.demo',
             href: '/monitoring/soc/brand-monitoring/demo',
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
             icon: IconPoint,
           },
           {
             id: uniqueId(),
-            title: 'menu.darknet', // Translation key for title
+            title: 'menu.darknet',
             href: '/monitoring/soc/brand-monitoring/darknet',
-            permissions: ['Admin'],
+            permissions: ['Administrator'],
             icon: IconPoint,
           }
         ]
@@ -352,89 +365,105 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: 'menu.siem', // Translation key for title
+    title: 'menu.siem',
     href: '/monitoring/siem',
-    permissions: ['Admin'],
+    permissions: ['Administrator'],
     icon: IconMessage2,
   },
+
+  // COMPLIANCE (DEFENDER)
   {
     navlabel: true,
-    subheader: 'menu.configuration', // Translation key for subheader
-    permissions: ['Admin'],
+    subheader: 'compliance_menu.compliance',
+    permissions: ['Administrator', 'Compliance'],
   },
   {
     id: uniqueId(),
-    title: 'menu.scheduled_scans', // Translation key for title
+    title: 'compliance_menu.compliance_assets',
+    href: '/compliance/assets',
+    icon: IconShoppingCart,
+    permissions: ['Administrator', 'Compliance'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_groups',
+    href: '/compliance/groups',
+    icon: IconFile,
+    permissions: ['Administrator', 'Compliance'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_projects',
+    href: '/compliance/projects',
+    icon: IconBox,
+    permissions: ['Administrator', 'Compliance'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_executions',
+    href: '/compliance/executions',
+    icon: IconClipboardList,
+    permissions: ['Administrator', 'Compliance'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_templates',
+    href: '/compliance/templates',
+    icon: IconClipboardList,
+    permissions: ['Administrator', 'Compliance'],
+  },
+
+  // CONFIGURATION
+  // TODO: enable to Scan360?
+  {
+    navlabel: true,
+    subheader: 'menu.configuration',
+    permissions: ['Administrator'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.scheduled_scans',
     href: '/configuration/scheduled-scans',
-    permissions: ['Admin'],
+    permissions: ['Administrator'],
     icon: IconClockBolt,
   },
+
+  // AUDIT
+  // TODO: enable to all groups?
   {
     navlabel: true,
-    subheader: 'menu.audit', // Translation key for subheader
-    permissions: ['Admin'],
+    subheader: 'menu.audit',
+    permissions: ['Administrator'],
   },
   {
     id: uniqueId(),
-    title: 'menu.log', // Translation key for title
+    title: 'menu.log',
     href: '/audit/logs',
-    permissions: ['Admin+'],
+    permissions: ['Administrator'],
     icon: IconGitMerge,
   },
+
+  // SUPPORT
+  // TODO: enable to all groups?
   {
     navlabel: true,
-    subheader: 'menu.support', // Translation key for subheader
-    permissions: ['Admin'],
+    subheader: 'menu.support',
+    permissions: ['Administrator'],
   },
   {
     id: uniqueId(),
-    title: 'menu.tickets', // Translation key for title
+    title: 'menu.tickets',
     href: '/support/tickets',
-    permissions: ['Admin'],
+    permissions: ['Administrator'],
     icon: IconTicket,
   },
   {
     id: uniqueId(),
-    title: 'menu.solutions', // Translation key for title
-    permissions: ['Admin'],
+    title: 'menu.solutions',
+    permissions: ['Administrator'],
     href: '/support/solutions',
     icon: IconNotebook,
   },
-
-  {
-    navlabel: true,
-    subheader: 'compliance_menu.compliance', // Translation key for subheader
-    permissions: ['Admin', 'Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'compliance_menu.compliance_assets', // Translation key for title
-    href: '/compliance/assets',
-    icon: IconShoppingCart, 
-    permissions: ['Admin', 'Compliance','Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'compliance_menu.compliance_groups', // Translation key for title
-    href: '/compliance/groups',
-    icon: IconFile, 
-    permissions: ['Admin', 'Compliance','Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'compliance_menu.compliance_projects', // Translation key for title
-    href: '/compliance/projects',
-    icon: IconBox, 
-    permissions: ['Admin', 'Compliance','Scan360'],
-  },
-  {
-    id: uniqueId(),
-    title: 'compliance_menu.compliance_executions', // Translation key for title
-    href: '/compliance/executions',
-    icon: IconClipboardList,
-    permissions: ['Admin', 'Compliance','Scan360'],
-  },
-  
 ];
 
 export default Menuitems;
