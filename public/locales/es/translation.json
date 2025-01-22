@@ -82,6 +82,7 @@
     "low": "Bajo",
     "total_assets": "Total de Activos",
     "vulnerability_reports": "Reportes de Vulnerabilidad",
+    "no_vulnerability_reports": "No hay reportes de vulnerabilidad",
     "most_recent_scans": "Escaneos Más Recientes",
     "type": "Tipo",
     "hosts": "Hosts",
