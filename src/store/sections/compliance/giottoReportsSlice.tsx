@@ -78,7 +78,7 @@ export const downloadReportByCategory =
     async (dispatch: AppDispatch) => {
       try {
         dispatch(setLoading(true));
-        const urlrequest = `${getApiUrl()}${newReport.type}?templateExecutionId=${newReport.executionId}&assetId=${newReport.assetId}`;
+        const urlrequest = `${getApiUrl()}${newReport.type}?templateExecutionId=${newReport.execution}&assetId=${newReport.asset}`;
         const response = await axios.get(urlrequest, {
           responseType: 'blob',
         });

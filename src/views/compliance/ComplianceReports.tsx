@@ -70,9 +70,6 @@ const ComplianceReports = () => {
                 </FormControl>
                 {selectedReport === 'projects' && <ReportComplianceByProjects />}
                 {selectedReport === 'categories' && <ReportComplianceByCategory />}
-
-
-
               </Box>
             </>
           </DashboardCard>

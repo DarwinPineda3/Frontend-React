@@ -3,6 +3,9 @@ import {
   Box,
   Button,
   FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField
 } from '@mui/material';
 import { useFormik } from 'formik';
@@ -12,7 +15,7 @@ import { getAssetsByGroup } from 'src/store/sections/compliance/giotoAssetsSlice
 import { getExecutionByTemplate } from 'src/store/sections/compliance/giotoExecutionsSlice';
 import { getGroupsByProjectId } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { fecthListInTemplateExecutions } from 'src/store/sections/compliance/giottoProjectsSlice';
-import { fetchComplianceByProjectReport } from 'src/store/sections/compliance/giottoReportsSlice';
+import { downloadReportByCategory } from 'src/store/sections/compliance/giottoReportsSlice';
 import { getTemplatesByGroupId } from 'src/store/sections/compliance/giottoTemplatesSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
@@ -23,6 +26,7 @@ interface Report {
   template: string;
   execution: string;
   asset: string;
+  type: string
 }
 
 const ReportComplianceByCategory: React.FC = () => {
@@ -57,21 +61,25 @@ const ReportComplianceByCategory: React.FC = () => {
       template: '',
       execution: '',
       asset: '',
+      type: ''
     },
     validationSchema: Yup.object({
       project: Yup.string().required(t('giotto.reports.project_is_required') || ''),
+      //demás validaciones
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const newReport: Report = { ...values };
 
       try {
         setIsLoading(true);
-        await dispatch(fetchComplianceByProjectReport(newReport));
+        await dispatch(downloadReportByCategory(newReport));
+        // console.log(newReport);
+
         setSnackbarState({
           message: t('giotto.reports.report_generated_successfully') || '',
           severity: 'success',
         });
-        resetForm();
+        // resetForm();
       } catch (error: any) {
         setSnackbarState({
           message: t('giotto.reports.report_generation_failed') || '',
@@ -118,7 +126,17 @@ const ReportComplianceByCategory: React.FC = () => {
     fetchDynamicData();
   }, [formik.values.project, formik.values.group, formik.values.template]);
 
+  const reportOptions = [
+    { value: "GetAssessmentStatusByAssetReport", label: "Estado de evaluación por activo" },
+    { value: "GetAssessmentTechnicalDetailsByAssetReport", label: "Detalles técnicos de evaluación por activo" },
+    { value: "GetHardeningStatusByAssetReport", label: "Estado de hardening por activo" },
+    { value: "GetHardeningTechnicalDetailsByAssetReport", label: "Detalles técnicos de hardening por activo" },
+    { value: "GetRollbackStatusByAssetReport", label: "Estado de rollback por activo" },
+    { value: "GetRollbackTechnicalDetailsByAssetReport", label: "Detalles técnicos de rollback por activo" },
+  ];
+
   return (
+    //ocultar campos que esten con array vacio
     <Box component="form" onSubmit={formik.handleSubmit} noValidate>
       <FormControl fullWidth margin="normal">
         <Autocomplete
@@ -238,6 +256,21 @@ const ReportComplianceByCategory: React.FC = () => {
             />
           )}
         />
+      </FormControl>
+
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="report-type-select-label">{t('giotto.reports.report_type')}</InputLabel>
+        <Select
+          labelId="report-type-select-label"
+          value={formik.values.type}
+          onChange={(e) => formik.setFieldValue('type', e.target.value)}
+        >
+          {reportOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
       </FormControl>
 
       <Button type="submit" variant="contained" color="primary" fullWidth>
