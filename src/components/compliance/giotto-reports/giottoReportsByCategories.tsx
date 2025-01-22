@@ -72,8 +72,18 @@ const ReportComplianceByCategory: React.FC = () => {
       processToExecute: null,
     },
     validationSchema: Yup.object({
-      project: Yup.string().required(t('giotto.reports.project_is_required') || ''),
-      //demás validaciones
+      project: Yup.string()
+        .required(t('giotto.reports.project_is_required') || ''),
+      group: Yup.string()
+        .required(t('giotto.reports.group_is_required') || ''),
+      template: Yup.string()
+        .required(t('giotto.reports.template_is_required') || ''),
+      execution: Yup.string()
+        .required(t('giotto.reports.execution_is_required') || ''),
+      asset: Yup.string()
+        .required(t('giotto.reports.asset_is_required') || ''),
+      type: Yup.string()
+        .required(t('giotto.reports.report_type_is_required') || ''),
     }),
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       const newReport: Report = { ...values };
@@ -86,6 +96,7 @@ const ReportComplianceByCategory: React.FC = () => {
           message: t('giotto.reports.report_generated_successfully') || '',
           severity: 'success',
         });
+        formik.setFieldValue('asset', '');
         // resetForm();
       } catch (error: any) {
         setSnackbarState({
@@ -136,6 +147,11 @@ const ReportComplianceByCategory: React.FC = () => {
             await dispatch(getExecutionByTemplate(processToExecute, project, group, template));
           }
         }
+        if (assets.length === 0) {
+          formik.setErrors({
+            asset: t('giotto.reports.no_assets_found') || '',
+          });
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -158,7 +174,6 @@ const ReportComplianceByCategory: React.FC = () => {
 
   return (
     <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-
       <FormControl fullWidth margin="normal" sx={{ ...fadeStyle }}>
         <InputLabel id="report-type-select-label">{t('giotto.reports.report_type')}</InputLabel>
         <Select
@@ -172,6 +187,11 @@ const ReportComplianceByCategory: React.FC = () => {
             </MenuItem>
           ))}
         </Select>
+        {formik.touched.type && formik.errors.type && (
+          <Box color="error.main" mt={1} fontSize="0.75rem">
+            {formik.errors.type}
+          </Box>
+        )}
       </FormControl>
 
       {Array.isArray(projects) && projects.length > 0 && (
@@ -197,6 +217,11 @@ const ReportComplianceByCategory: React.FC = () => {
               />
             )}
           />
+          {formik.touched.project && formik.errors.project && (
+            <Box color="error.main" mt={1} fontSize="0.75rem">
+              {formik.errors.project}
+            </Box>
+          )}
         </FormControl>
       )}
 
@@ -223,6 +248,11 @@ const ReportComplianceByCategory: React.FC = () => {
               />
             )}
           />
+          {formik.touched.group && formik.errors.group && (
+            <Box color="error.main" mt={1} fontSize="0.75rem">
+              {formik.errors.group}
+            </Box>
+          )}
         </FormControl>
       )}
 
@@ -249,6 +279,11 @@ const ReportComplianceByCategory: React.FC = () => {
               />
             )}
           />
+          {formik.touched.template && formik.errors.template && (
+            <Box color="error.main" mt={1} fontSize="0.75rem">
+              {formik.errors.template}
+            </Box>
+          )}
         </FormControl>
       )}
 
@@ -275,35 +310,45 @@ const ReportComplianceByCategory: React.FC = () => {
               />
             )}
           />
+          {formik.touched.execution && formik.errors.execution && (
+            <Box color="error.main" mt={1} fontSize="0.75rem">
+              {formik.errors.execution}
+            </Box>
+          )}
         </FormControl>
       )}
 
-      {/* {Array.isArray(assets) && assets.length > 0 && ( */}
-      <FormControl fullWidth margin="normal">
-        <Autocomplete
-          options={assets}
-          getOptionLabel={(option) => option.name}
-          renderOption={(props, option) => (
-            <li {...props} key={option.id}>
-              {option.name}
-            </li>
+      {Array.isArray(executions) && executions.length > 0 && (
+        <FormControl fullWidth margin="normal">
+          <Autocomplete
+            options={assets}
+            getOptionLabel={(option) => option.name}
+            renderOption={(props, option) => (
+              <li {...props} key={option.id}>
+                {option.name}
+              </li>
+            )}
+            value={assets.find((asset: any) => asset.id === formik.values.asset) || null}
+            onChange={(event, newValue) => {
+              formik.setFieldValue('asset', newValue ? newValue.id : '');
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t('giotto.reports.asset')}
+                variant="outlined"
+                error={formik.touched.asset && Boolean(formik.errors.asset)}
+              />
+            )}
+            disabled={assets.length === 0}
+          />
+          {formik.touched.asset && formik.errors.asset && (
+            <Box color="error.main" mt={1} fontSize="0.75rem">
+              {formik.errors.asset}
+            </Box>
           )}
-          value={assets.find((asset: any) => asset.id === formik.values.asset) || null}
-          onChange={(event, newValue) => {
-            formik.setFieldValue('asset', newValue ? newValue.id : '');
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={t('giotto.reports.asset')}
-              variant="outlined"
-              error={formik.touched.asset && Boolean(formik.errors.asset)}
-            />
-          )}
-          disabled={assets.length === 0}
-        />
-      </FormControl>
-      {/* )} */}
+        </FormControl>
+      )}
 
       {(isFetching && (
         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" margin="1em">

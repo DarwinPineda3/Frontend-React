@@ -1407,7 +1407,17 @@
       "by_assessments": "By Assessments",
       "report_by_project_info": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
       "operation_status": "Operation Status",
-      "generation_in_progress": "generation in progress"
+      "generation_in_progress": "generation in progress",
+      "group_is_required": "The group is required",
+      "template_is_required": "The template is required",
+      "execution_is_required": "The execution is required",
+      "asset_is_required": "The asset is required",
+      "report_type_is_required": "The report type is required",
+      "no_assets_found": "No assets were found with the selected parameters.",
+      "group": "Group",
+      "template": "Template",
+      "execution": "Execution",
+      "asset": "Asset"
     }
   },
   "compliance_templates": {

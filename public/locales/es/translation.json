@@ -1404,7 +1404,17 @@
       "by_assessments": "Por tipo de evaluación",
       "report_by_project_info": "Este reporte te permite ver todos los resultados de control de cumplimiento para el activo y ejecución de evaluación seleccionados.",
       "operation_status": "Estado de la Operación",
-      "generation_in_progress": "Generación en progreso"
+      "generation_in_progress": "Generación en progreso",
+      "group_is_required": "El grupo es requerido",
+      "template_is_required": "La plantilla es requerida",
+      "execution_is_required": "La ejecución es requerida",
+      "asset_is_required": "El activo es requerido",
+      "report_type_is_required": "El tipo de reporte es requerido",
+      "no_assets_found": "No se encontraron activos con los parámetros seleccionados.",
+      "group": "Grupo",
+      "template": "Plantilla",
+      "execution": "Ejecución",
+      "asset": "Activo"
     }
   },
   "compliance_templates": {
