@@ -7,35 +7,20 @@ import PageContainer from 'src/components/container/PageContainer';
 import { Link as RouterLink } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
 import ReportComplianceByProjects from 'src/components/compliance/giotto-reports/giottoReportsByProjects';
+import ReportComplianceByCategory from 'src/components/compliance/giotto-reports/giottoReportsByCategories';
 
 const ComplianceReports = () => {
-  const { t } = useTranslation();
-  const [selectedProject, setSelectedProject] = useState<string>('1');
-  const [isLoading, setIsLoading] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarTitle, setSnackbarTitle] = useState('');
-  const [snackbarColor, setSnackbarColor] = useState<'error' | 'warning' | 'info' | 'success'>('success'); 
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const navigate = useNavigate();
-
-  const handleDownload = () => {
-    setIsLoading(true);  
-
-    setTimeout(() => {
-      setIsLoading(false); 
-      setSnackbarMessage(String(t('compliance_reports.report_generated'))); 
-      setSnackbarColor('success'); 
-      setOpenSnackbar(true); 
-    }, 2000);  
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false); 
-  };
+  // const { t } = useTranslation();
+  // const [isLoading, setIsLoading] = useState(false);
+  // const navigate = useNavigate();
+  
+  // const [selectedProject, setSelectedProject] = useState<string>('1');
 
   return (
     <PageContainer title={'Akila'}>
+      {/* TODO: select with report selectd */}
       <ReportComplianceByProjects />
+      <ReportComplianceByCategory />
     </PageContainer>
   );
 };

@@ -219,6 +219,29 @@ export const removeProject = (projectId: string) => async (dispatch: AppDispatch
   }
 };
 
+export const fecthListInTemplateExecutions =
+  (processToExecute: number) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const url = `${getApiUrl()}GetListInTemplateExecutions?processToExecute=${processToExecute}`;
+      const response = await axios.get(url);
+      const projects = response.data;
+
+      dispatch(
+        getAllInList({
+          projects,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching projects:', err);
+      dispatch(setError('Failed to fetch projects'));
+      dispatch(setLoading(false));
+    }
+  };
+
+
 export const fetchAllProjectsInList =
   () =>
   async (dispatch: AppDispatch) => {

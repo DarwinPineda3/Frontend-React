@@ -86,7 +86,6 @@ const ReportComplianceByProjects: React.FC = () => {
         });
       } finally {
         setSubmitting(false);
-        // closeSnackbar()
       }
     },
   });
@@ -99,7 +98,7 @@ const ReportComplianceByProjects: React.FC = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
+            <Link component={RouterLink} color="inherit" to="/compliance/reports">
               {t('compliance_reports.compliance')}
             </Link>
             <Typography color="textPrimary">
