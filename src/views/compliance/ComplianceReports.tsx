@@ -18,25 +18,26 @@ const ComplianceReports = () => {
 
   return (
     <PageContainer title="Akila">
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton color="primary">
+            <ArrowBackIcon />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" to="/compliance/reports">
+              {t('compliance_reports.compliance')}
+            </Link>
+            <Typography color="textPrimary">{t('compliance_reports.reports')}</Typography>
+          </Breadcrumbs>
+        </Box>
+      </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <DashboardCard
             title={t('giotto.reports.compliance_reports') || ''}
             subtitle={t('giotto.reports.module_description') || ''}>
             <>
-              <Box mb={2}>
-                <Box display="flex" alignItems="center" mt={2}>
-                  <IconButton color="primary">
-                    <ArrowBackIcon />
-                  </IconButton>
-                  <Breadcrumbs aria-label="breadcrumb">
-                    <Link color="inherit" to="/compliance/reports">
-                      {t('compliance_reports.compliance')}
-                    </Link>
-                    <Typography color="textPrimary">{t('compliance_reports.reports')}</Typography>
-                  </Breadcrumbs>
-                </Box>
-              </Box>
+
               <Box>
                 {selectedReport === '' &&
                   <Grid item xs={12}>
