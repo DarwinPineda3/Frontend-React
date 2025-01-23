@@ -422,7 +422,7 @@
     },
     "network_vulnerabilities": {
       "network": "Red",
-      "add_scan": "Agregar escaneo",
+      "add_scan": "Crear escaneo",
       "create_network_scan": "Crear escaneo de red",
       "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de red",
       "name": "Nombre",
@@ -440,7 +440,7 @@
     },
     "web_app": {
       "network": "Red",
-      "add_scan": "Añadir escaneo",
+      "add_scan": "Crear escaneo",
       "create_network_scan": "Crear escaneo de aplicación web",
       "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de aplicación web",
       "name": "Nombre",
@@ -453,7 +453,9 @@
       "network_scan_create_successfully": "Escaneo de aplicación web creado con éxito",
       "network_scan_create_failed": "Error al crear el escaneo de aplicación web",
       "required_field": "Campo requerido",
-      "network_scan_created": "Escaneo de aplicación web creado"
+      "network_scan_created": "Escaneo de aplicación web creado",
+      "active_scan": "Escaneo Activo",
+      "passive_scan": "Escaneo Pasivo"
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -782,7 +784,8 @@
     "risk_analysis": "Análisis de Riesgo",
     "domain_up": "Dominio Activo",
     "potential_risk": "Riesgo Potencial",
-    "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM."
+    "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM.",
+    "identification_date": "Fecha de identificación"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",

@@ -10,7 +10,7 @@ function getApiUrl() {
 // Utility to extract error message
 
 function getErrorMessage(error: unknown): string {
-  //@ts-ignore  
+  //@ts-ignore
   if (axios.isAxiosError(error)) {
     //@ts-ignore
     return 'An error occurred';
@@ -27,11 +27,11 @@ export const fetchWebApplicationsData = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(getApiUrl());
-      return response.data.scans;
+      return response.data;
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 export const createWebApplicationScan = createAsyncThunk(
@@ -43,7 +43,7 @@ export const createWebApplicationScan = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 // Async thunk to fetch a single web application data
@@ -56,7 +56,7 @@ export const fetchWebApplicationData = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 // Async thunk to fetch a single alert for a web application
@@ -66,12 +66,15 @@ export const fetchWebApplicationAlertData = createAsyncThunk(
     try {
       const response = await axios.get(`${getApiUrl()}${scanId}/alerts/${alertId}`);
       const response_data = response.data.alert;
-      response_data["references"] = response_data["reference"].replace(/<p>/g, '').replace(/<\/p>/g, '\n').split("\n");
+      response_data['references'] = response_data['reference']
+        .replace(/<p>/g, '')
+        .replace(/<\/p>/g, '\n')
+        .split('\n');
       return response_data;
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 interface WebApplicationsState {
@@ -80,6 +83,9 @@ interface WebApplicationsState {
   detail: any | null;
   alert: any | null;
   error: string | null;
+  page: number;
+  pageSize: number;
+  totalPages: number;
 }
 
 const initialState: WebApplicationsState = {
@@ -88,12 +94,19 @@ const initialState: WebApplicationsState = {
   detail: null,
   alert: null,
   error: null,
+  page: 1,
+  pageSize: 25,
+  totalPages: 1,
 };
 
 const webApplicationsSlice = createSlice({
   name: 'webApplications',
   initialState,
-  reducers: {},
+  reducers: {
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWebApplicationsData.pending, (state) => {
@@ -101,7 +114,9 @@ const webApplicationsSlice = createSlice({
       })
       .addCase(fetchWebApplicationsData.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.data = action.payload.results;
+        state.page = action.payload.currentPage;
+        state.totalPages = action.payload.totalPages;
         state.error = null;
       })
       .addCase(fetchWebApplicationsData.rejected, (state, action) => {
@@ -142,9 +157,10 @@ const webApplicationsSlice = createSlice({
       .addCase(createWebApplicationScan.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
-      })
-      ;
+      });
   },
 });
+
+export const { setPage } = webApplicationsSlice.actions;
 
 export default webApplicationsSlice.reducer;

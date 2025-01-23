@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -7,7 +7,6 @@ import PageContainer from 'src/components/container/PageContainer';
 import CloudInventoryTable from 'src/components/observability/cloud/cloudInventoryTable';
 import CloudScansDetailObs from 'src/components/observability/cloud/cloudScanDetail';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-
 
 const CloudInventory = () => {
   const { scanId } = useParams<{ scanId?: string }>();
@@ -39,9 +38,7 @@ const CloudInventory = () => {
         message: location.state.message,
       });
     }
-
   }, [location.state]);
-
 
   const handleInventoryClick = (scanId: string) => {
     navigate(`/observability/cloud/scans/${scanId}`);
@@ -59,26 +56,23 @@ const CloudInventory = () => {
               <Link component={RouterLink} color="inherit" to="/observability/cloud">
                 {t('menu.observability')}
               </Link>
-              <Link component={RouterLink} color="inherit" to="/observability/cloud">
-                {t('menu.cloud')}
-              </Link>
+              <Typography color="textPrimary">{t('menu.cloud')}</Typography>
             </Breadcrumbs>
           </Box>
         </Box>
-        {
-          selectedCloud ? (
-            <Grid container spacing={0}>
-              <Grid item xs={12}>
-                <CloudScansDetailObs scanId={selectedCloud!} />
-              </Grid>
+        {selectedCloud ? (
+          <Grid container spacing={0}>
+            <Grid item xs={12}>
+              <CloudScansDetailObs scanId={selectedCloud!} />
             </Grid>
-          ) : (<Grid container spacing={3}>
+          </Grid>
+        ) : (
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <CloudInventoryTable onScanClick={handleInventoryClick} />
             </Grid>
-          </Grid>)
-        }
-
+          </Grid>
+        )}
 
         {snackBarInfo && (
           <SnackBarInfo
@@ -91,6 +85,5 @@ const CloudInventory = () => {
     </PageContainer>
   );
 };
-
 
 export default CloudInventory;

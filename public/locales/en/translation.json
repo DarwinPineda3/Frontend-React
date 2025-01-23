@@ -423,7 +423,7 @@
     },
     "network_vulnerabilities": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create network scan",
       "create_network_scan_subtitle": "In this form you can create a network scan",
       "name": "Name",
@@ -441,7 +441,7 @@
     },
     "web_app": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create web app scan",
       "create_network_scan_subtitle": "In this form you can create a web app scan",
       "name": "Name",
@@ -454,7 +454,9 @@
       "network_scan_create_successfully": "Web app scan created successfully",
       "network_scan_create_failed": "Failed to create the web app scan",
       "required_field": "Required Field",
-      "network_scan_created": "Web app scan created"
+      "network_scan_created": "Web app scan created",
+      "active_scan": "Active Scan",
+      "passive_scan": "Passive Scan"
     },
     "cloud_scans": {
       "low": "Low",
@@ -784,7 +786,8 @@
     "risk_analysis": "Risk Analysis",
     "domain_up": "Domain Up",
     "potential_risk": "Potential Risk",
-    "monitoring_times": "The parameters monitoring is executed every day at 2AM."
+    "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
+    "identification_date": "Identification Date"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
