@@ -1016,7 +1016,7 @@
       },
       "error_notes": {
         "title": "Notas de error",
-        "intro": "Si hay problemas, intente con los siguientes comandos:"
+        "intro": "Si recibe algún error `libssl` durante la instalación del agente, puede utilizar los siguientes comandos:"
       }
     }
   },
@@ -1233,7 +1233,8 @@
     "compliance_groups": "Grupos",
     "compliance_projects": "Proyectos",
     "compliance_executions": "Ejecuciones",
-    "compliance_templates": "Plantillas"
+    "compliance_templates": "Plantillas",
+    "compliance_reports": "Reportes"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1243,7 +1244,66 @@
     "projects_description": "Proyectos",
     "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
     "executions_description": "Ejecuciones",
-    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento."
+    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento.",
+    "installation_guide": {
+      "title": "Guía de Instalación",
+      "welcome_message": "¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones paso a pasopara instalar el agente en diferentes sistemas operativos.Ya sea que esté implementando en Windows o Linux, encontrará todos lospasos necesarios para garantizar un proceso de instalación fluido.",
+      "windows": {
+        "title": "Windows",
+        "individual_installation": {
+          "title": "Instalación Individual",
+          "steps": {
+            "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
+            "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
+            "step2": "Paso 2: Copie el siguiente comando:",
+            "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+          }
+        },
+        "bulk_installation": {
+          "title": "Instalación Masiva",
+          "steps": {
+            "intro": "Para crear un script para instalación masiva, siga estos pasos:",
+            "step1": "Paso 1: Cree un nuevo archivo de script de PowerShell con una extensión .ps1.",
+            "step2": "Paso 2: Copie el siguiente script en el archivo de script.",
+            "step3": "Paso 3:Guarde el archivo de script."
+          }
+        },
+        "active_directory": {
+          "title": "Instrucciones para la Directiva de Grupo de Active Directory",
+          "intro": "Para aplicar políticas de grupo en Active Directory, siga estos pasos:",
+          "steps": {
+            "step1": "Paso 1: Abra la Consola de Administración de Directivas de Grupo (GPMC, por sus siglas en inglés).",
+            "step2": "Paso 2: Navegue hasta la Unidad Organizativa (OU) o dominio deseado donde desee aplicar la Directiva de Grupo.",
+            "step3": "Paso 3: Cree un nuevo Objeto de Directiva de Grupo (GPO) o edite uno existente.",
+            "step4": "Paso 4: Navegue a Configuración del Equipo > Directivas > Configuración de Windows > Scripts (Inicio/Apagado).",
+            "step5": "Paso 5: Agregue un nuevo script de inicio y especifique la ruta de su script de PowerShell (por ejemplo, instalar_agente.ps1).",
+            "step6": "Paso 6: Asegúrese de que la directiva de ejecución permita que el script se ejecute. Es posible que necesite establecer la directiva de ejecución en RemoteSigned o Bypass.",
+            "step7": "Paso 7: Una vez que la Directiva de Grupo se aplique a las computadoras deseadas, el script se ejecutará durante el inicio."
+          }
+        },
+        "notes": "Notas: El agente de Windows es compatible con las versiones de Windows Server 2008 R2 y posteriores."
+      },
+      "linux": {
+        "title": "Linux",
+        "individual_installation": {
+          "title": "Instalación Individual",
+          "steps": {
+            "intro": "Para ejecutar el comando en Linux, siga estos pasos:",
+            "step1": "Paso 1: Abra una terminal en su sistema Linux.",
+            "step2": "Paso 2: Elija su distribución de Linux:",
+            "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+            "step4": "Paso 4: Copie el siguiente comando:",
+            "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+          }
+        },
+        "error_notes": {
+          "title": "Notas de error",
+          "intro": "Si recibe algún error `libssl` durante la instalación del agente, puede utilizar los siguientes comandos:"
+        }
+      }
+    }
   },
   "changelog": {
     "title": "Registro de cambios",
@@ -1264,7 +1324,8 @@
     "templates": "Plantillas"
   },
   "snackbar": {
-    "reportGenerated": "¡Informe generado con éxito!"
+    "reportGenerated": "¡Informe generado con éxito!",
+    "copied_text": "Texto copiado a su portapapeles"
   },
   "compliance_projects": {
     "project_name": "Nombre del Proyecto",
@@ -1381,6 +1442,52 @@
       "group_deleted_successfully": "Grupo eliminado exitosamente",
       "edit_group": "Editar grupo",
       "group_name_already_exists": "El nombre del grupo ya existe."
+    },
+    "reports": {
+      "compliance_reports": "Informes de cumplimiento",
+      "module_description": "Genera y descarga informes de cumplimiento fácilmente por proyecto.",
+      "project": "Proyecto",
+      "report_generation_message": "La generación de este reporte puede tardar un poco.",
+      "project_is_required": "El projecto es requerido",
+      "report_generated_successfully": "El reporte se generó de manera exitosa.",
+      "report_generation_failed": "Falló la generación del reporte",
+      "success": "Exitoso",
+      "error": "Error",
+      "module_info": "En este módulo podrá descargar reportes clave para evaluar y gestionar el cumplimiento normativo en sus operaciones.",
+      "by_projects_tittle": "Reporte por proyectos:",
+      "by_projects_description": "Obtenga un análisis del estado de cumplimiento de cada proyecto.",
+      "by_assessments_tittle": "Reporte por evaluaciones:",
+      "by_assessments_description": "Consulte información relacionada con assessments, medidas de hardening y cualquier rollback realizado, asegurando la seguridad y trazabilidad de sus sistemas.",
+      "select_option": "Por favor, seleccione una de las opciones.",
+      "select_report": "Seleccione un reporte",
+      "by_projects": "Por proyectos",
+      "by_assessments": "Por tipo de evaluación",
+      "report_by_project_info": "Este reporte te permite ver todos los resultados de control de cumplimiento para el activo y ejecución de evaluación seleccionados.",
+      "operation_status": "Estado de la Operación",
+      "generation_in_progress": "Generación en progreso",
+      "group_is_required": "El grupo es requerido",
+      "template_is_required": "La plantilla es requerida",
+      "execution_is_required": "La ejecución es requerida",
+      "asset_is_required": "El activo es requerido",
+      "report_type_is_required": "El tipo de reporte es requerido",
+      "no_assets_found": "No se encontraron activos con los parámetros seleccionados.",
+      "group": "Grupo",
+      "template": "Plantilla",
+      "execution": "Ejecución",
+      "asset": "Activo",
+      "report_type": "Tipo de reporte",
+      "GetAssessmentStatusByAssetReport": "Estado de evaluación por activo",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Detalles técnicos de evaluación por activo",
+      "GetHardeningStatusByAssetReport": "Estado de hardening por activo",
+      "GetHardeningTechnicalDetailsByAssetReport": "Detalles técnicos de hardening por activo",
+      "GetRollbackStatusByAssetReport": "Estado de rollback por activo",
+      "GetRollbackTechnicalDetailsByAssetReport": "Detalles técnicos de rollback por activo",
+      "GetAssessmentStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de evaluación.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de evaluación.",
+      "GetHardeningStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de hardening.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de hardening.",
+      "GetRollbackStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de rollback.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de rollback."
     }
   },
   "compliance_templates": {

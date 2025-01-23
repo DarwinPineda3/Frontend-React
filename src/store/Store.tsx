@@ -9,6 +9,7 @@ import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNe
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
+import InstallationGuideVariablesReducer from './installation-guide/InstallationGuideSlice';
 import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
@@ -18,6 +19,7 @@ import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice'
 import GiottoDashboardSlice from './sections/compliance/giottoDashboardSlice';
 import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice';
 import GiottoProjectsReducer from './sections/compliance/giottoProjectsSlice';
+import GiottoReportsReducer from './sections/compliance/giottoReportsSlice';
 import GiottoTemplatesReducer from './sections/compliance/giottoTemplatesSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
@@ -98,6 +100,8 @@ export const store = configureStore({
     networkConfigurationReducer: NetworkConfigurationReducer,
     giottoProjectsReducer: GiottoProjectsReducer,
     giottoDashboardSlice: GiottoDashboardSlice,
+    giottoReportsReducer: GiottoReportsReducer,
+    installationGuideVariablesReducer: InstallationGuideVariablesReducer,
   },
 });
 
@@ -136,6 +140,8 @@ const rootReducer = combineReducers({
   networkConfigurationReducer: NetworkConfigurationReducer,
   giottoProjectsReducer: GiottoProjectsReducer,
   giottoDashboardSlice: GiottoDashboardSlice,
+  giottoReportsReducer: GiottoReportsReducer,
+  installationGuideVariablesReducer: InstallationGuideVariablesReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

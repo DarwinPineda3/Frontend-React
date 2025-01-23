@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
 
-interface Node {
+interface UnifiedNode {
   id: string;
   label?: string;
   properties: {
@@ -11,14 +11,13 @@ interface Node {
 }
 
 interface Relationship {
-  id: string;
   source: string;
   target: string;
   type: string;
 }
 
 interface Neo4jGraph {
-  nodes: Node[];
+  nodes: UnifiedNode[];
   edges: Relationship[];
 }
 
@@ -29,6 +28,42 @@ interface NetworkGraphProps {
 const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
+  function normalizeNode(input: any): UnifiedNode {
+    if ('properties' in input) {
+      return {
+        id: input.id,
+        label: input.label,
+        properties: input.properties,
+      };
+    } else if ('data' in input) {
+      const { id, label, ip, ...rest } = input.data;
+      return {
+        id: id,
+        label: label,
+        properties: { ip, ...rest },
+      };
+    } else {
+      throw new Error("Unsupported format");
+    }
+  }
+
+  function normalizeEdge(input: any): Relationship {
+    if ('data' in input) {
+      return {
+        source: input.data.source,
+        target: input.data.target,
+        type: input.data.label,
+      };
+    } else {
+      return {
+        source: input.source,
+        target: input.target,
+        type: input.label,
+      };
+    }
+  }
+
+
   useEffect(() => {
     interface CustomSimulationNodeDatum extends d3.SimulationNodeDatum {
       id: string;
@@ -37,17 +72,23 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => {
       name?: string;
     }
 
-    const nodes: CustomSimulationNodeDatum[] = data.nodes.map((node) => ({
-      id: node.id,
-      label: node.label,
-      ...node.properties,
-    }));
+    const nodes: CustomSimulationNodeDatum[] = data.nodes.map((node) => {
+      const normalized = normalizeNode(node);
+      return {
+        id: normalized.id,
+        label: normalized.label,
+      }
+    });
 
-    const links = data.edges.map((link) => ({
-      source: link.source,
-      target: link.target,
-      type: link.type,
-    }));
+    const links = data.edges.map((link) => {
+      const normalized = normalizeEdge(link);
+      return {
+        source: normalized.source,
+        target: normalized.target,
+      }
+    });
+
+
 
     const svg = d3.select(svgRef.current);
     const width = svg.node()?.getBoundingClientRect().width || 600;
@@ -120,7 +161,7 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => {
       .attr('text-anchor', 'middle') // Center the text horizontally
       .attr('x', 0) // Keep x at 0 for proper centering
       .attr('y', 0) // Slightly lower the y to position it below the node's center
-      .text((d) => d.ip || d.name || '')
+      .text((d) => d.ip || d.name || d.label || '')
       .attr('fill', '#000')
       .attr('font-size', '12px')
       .style('user-select', 'none');

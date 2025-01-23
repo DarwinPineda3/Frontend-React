@@ -1,12 +1,11 @@
-import React from 'react';
-import InstallationGuide from '../../components/installation-guide/InstallationGuides'; 
+import InstallationGuides from '../../components/installation-guide/InstallationGuides';
 
 const InstallationGuidePage = () => {
-    return (
-        <div>
-            <InstallationGuide />
-        </div>
-    );
+  return (
+    <div>
+      <InstallationGuides />
+    </div>
+  );
 };
 
 export default InstallationGuidePage;
