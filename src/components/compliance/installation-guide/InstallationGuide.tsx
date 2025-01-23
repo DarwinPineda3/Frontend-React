@@ -23,10 +23,10 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import { fetchInstallationGuideVariables } from 'src/store/installation-guide/InstallationGuideSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
-import DashboardCard from '../shared/DashboardCard';
-import Loader from '../shared/Loader/Loader';
+import DashboardCard from '../../shared/DashboardCard';
+import Loader from '../../shared/Loader/Loader';
 
-const InstallationGuides = () => {
+const InstallationGuideComponent = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -96,10 +96,10 @@ const InstallationGuides = () => {
               <DashboardCard>
                 <Box>
                   <Typography variant="h4" gutterBottom>
-                    {t('installation_guide.title')}
+                    {t('compliance.installation_guide.title')}
                   </Typography>
                   <Typography variant="body1" sx={{ marginBottom: 3 }}>
-                    {t('installation_guide.welcome_message')}
+                    {t('compliance.installation_guide.welcome_message')}
                   </Typography>
 
                   {/* Accordion para Windows */}
@@ -107,74 +107,88 @@ const InstallationGuides = () => {
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       <Typography variant="h6">
                         <FaWindows style={{ marginRight: '8px' }} />{' '}
-                        {t('installation_guide.windows.title')}
+                        {t('compliance.installation_guide.windows.title')}
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       <Typography variant="h6">
-                        {t('installation_guide.windows.individual_installation.title')}
+                        {t('compliance.installation_guide.windows.individual_installation.title')}
                       </Typography>
                       <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                        {t('installation_guide.windows.individual_installation.steps.intro')}
+                        {t(
+                          'compliance.installation_guide.windows.individual_installation.steps.intro',
+                        )}
                       </Typography>
                       <ul>
                         <li>
                           <strong>
-                            {t('installation_guide.windows.individual_installation.steps.step1')}
+                            {t(
+                              'compliance.installation_guide.windows.individual_installation.steps.step1',
+                            )}
                           </strong>
                         </li>
                         <li>
                           <strong>
-                            {t('installation_guide.windows.individual_installation.steps.step2')}
+                            {t(
+                              'compliance.installation_guide.windows.individual_installation.steps.step2',
+                            )}
                           </strong>
                         </li>
                       </ul>
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait`,
+                            `Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait`,
                           )
                         }
                       >
-                        {`Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait`}
+                        {`Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait`}
                       </CodeBlock>
                       <ul>
                         <li>
-                          {t('installation_guide.windows.individual_installation.steps.note')}
+                          {t(
+                            'compliance.installation_guide.windows.individual_installation.steps.note',
+                          )}
                         </li>
                       </ul>
 
                       <Typography variant="h6" sx={{ marginTop: 2 }}>
-                        {t('installation_guide.windows.bulk_installation.title')}
+                        {t('compliance.installation_guide.windows.bulk_installation.title')}
                       </Typography>
                       <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                        {t('installation_guide.windows.bulk_installation.steps.intro')}
+                        {t('compliance.installation_guide.windows.bulk_installation.steps.intro')}
                       </Typography>
                       <ul>
                         <li>
                           <strong>
-                            {t('installation_guide.windows.bulk_installation.steps.step1')}
+                            {t(
+                              'compliance.installation_guide.windows.bulk_installation.steps.step1',
+                            )}
                           </strong>
                         </li>
                         <li>
                           <strong>
-                            {t('installation_guide.windows.bulk_installation.steps.step2')}
+                            {t(
+                              'compliance.installation_guide.windows.bulk_installation.steps.step2',
+                            )}
                           </strong>
                         </li>
                       </ul>
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait New-Item -ItemType File -Path $markerFile -Force }`,
+                            `$markerFile = "$env:ProgramData\GiottoAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait New-Item -ItemType File -Path $markerFile -Force }`,
                           )
                         }
                       >
-                        {`$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
+                        {`$markerFile = "$env:ProgramData\GiottoAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
                       </CodeBlock>
                       <ul>
                         <li>
                           <strong>
-                            {t('installation_guide.windows.bulk_installation.steps.step3')}
+                            {t(
+                              'compliance.installation_guide.windows.bulk_installation.steps.step3',
+                            )}
                           </strong>
                         </li>
                       </ul>
@@ -187,51 +201,65 @@ const InstallationGuides = () => {
                         }}
                       >
                         <Typography variant="h6">
-                          {t('installation_guide.windows.active_directory.title')}
+                          {t('compliance.installation_guide.windows.active_directory.title')}
                         </Typography>
                         <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                          {t('installation_guide.windows.active_directory.intro')}
+                          {t('compliance.installation_guide.windows.active_directory.intro')}
                         </Typography>
                         <ul>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step1')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step1',
+                              )}
                             </strong>
                           </li>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step2')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step2',
+                              )}
                             </strong>
                           </li>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step3')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step3',
+                              )}
                             </strong>
                           </li>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step4')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step4',
+                              )}
                             </strong>
                           </li>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step5')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step5',
+                              )}
                             </strong>
                           </li>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step6')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step6',
+                              )}
                             </strong>
                           </li>
                           <li>
                             <strong>
-                              {t('installation_guide.windows.active_directory.steps.step7')}
+                              {t(
+                                'compliance.installation_guide.windows.active_directory.steps.step7',
+                              )}
                             </strong>
                           </li>
                         </ul>
                       </Box>
                       <Typography variant="body2">
-                        {t('installation_guide.windows.notes')}
+                        {t('compliance.installation_guide.windows.notes')}
                       </Typography>
                     </AccordionDetails>
                   </Accordion>
@@ -241,25 +269,31 @@ const InstallationGuides = () => {
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       <Typography variant="h6">
                         <FaLinux style={{ marginRight: '8px' }} />{' '}
-                        {t('installation_guide.linux.title')}
+                        {t('compliance.installation_guide.linux.title')}
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       <Typography variant="h6">
-                        {t('installation_guide.linux.individual_installation.title')}
+                        {t('compliance.installation_guide.linux.individual_installation.title')}
                       </Typography>
                       <Typography variant="body2" sx={{ marginBottom: 1 }}>
-                        {t('installation_guide.linux.individual_installation.steps.intro')}
+                        {t(
+                          'compliance.installation_guide.linux.individual_installation.steps.intro',
+                        )}
                       </Typography>
                       <ul>
                         <li>
                           <strong>
-                            {t('installation_guide.linux.individual_installation.steps.step1')}
+                            {t(
+                              'compliance.installation_guide.linux.individual_installation.steps.step1',
+                            )}
                           </strong>
                         </li>
                         <li>
                           <strong>
-                            {t('installation_guide.linux.individual_installation.steps.step2')}
+                            {t(
+                              'compliance.installation_guide.linux.individual_installation.steps.step2',
+                            )}
                           </strong>
                         </li>
                       </ul>
@@ -281,7 +315,9 @@ const InstallationGuides = () => {
                         <ul>
                           <li>
                             <strong>
-                              {t('installation_guide.linux.individual_installation.steps.step3')}
+                              {t(
+                                'compliance.installation_guide.linux.individual_installation.steps.step3',
+                              )}
                             </strong>
                           </li>
                         </ul>
@@ -357,21 +393,27 @@ const InstallationGuides = () => {
                       <ul>
                         <li>
                           <strong>
-                            {t('installation_guide.linux.individual_installation.steps.step4')}
+                            {t(
+                              'compliance.installation_guide.linux.individual_installation.steps.step4',
+                            )}
                           </strong>
                         </li>
                       </ul>
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `sudo curl -o- ${variables?.akila_agent_linux_installer_url} | sudo bash -s -- --url "${variables?.api_url}" --api-key "${variables?.api_key}" --version "${variables?.last_version_agent}"`,
+                            `sudo curl -o- ${variables?.giotto_agent_linux_installer_url} | sudo bash`,
                           )
                         }
                       >
-                        {`sudo curl -o- ${variables?.akila_agent_linux_installer_url} | sudo bash -s -- --url "${variables?.api_url}" --api-key "${variables?.api_key}" --version "${variables?.last_version_agent}"`}
+                        {`sudo curl -o- ${variables?.giotto_agent_linux_installer_url} | sudo bash`}
                       </CodeBlock>
                       <ul>
-                        <li>{t('installation_guide.linux.individual_installation.steps.note')}</li>
+                        <li>
+                          {t(
+                            'compliance.installation_guide.linux.individual_installation.steps.note',
+                          )}
+                        </li>
                       </ul>
                     </AccordionDetails>
                   </Accordion>
@@ -425,4 +467,4 @@ const CodeBlock: React.FC<{ children: React.ReactNode; onClick: () => void }> = 
   );
 };
 
-export default InstallationGuides;
+export default InstallationGuideComponent;
