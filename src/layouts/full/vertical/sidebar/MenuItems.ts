@@ -376,21 +376,21 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'compliance_menu.compliance',
-    permissions: ['Administrator', 'Compliance', 'Defender'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'menu.dashboard',
     href: '/compliance/dashboard',
     icon: IconAperture,
-    permissions: ['Administrator', 'Compliance', 'Defender'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_assets',
     href: '/compliance/assets',
     icon: IconShoppingCart,
-    permissions: ['Administrator', 'Defender', 'Defender'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
@@ -404,20 +404,13 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_projects',
     href: '/compliance/projects',
     icon: IconBox,
-    permissions: ['Administrator', 'Compliance', 'Defender'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_executions',
     href: '/compliance/executions',
     icon: IconPlayerPlay,
-    permissions: ['Administrator', 'Defender', 'Compliance'],
-  },
-  {
-    id: uniqueId(),
-    title: 'compliance_menu.compliance_templates',
-    href: '/compliance/templates',
-    icon: IconTemplate,
     permissions: ['Administrator', 'Defender'],
   },
   {
@@ -425,7 +418,14 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_reports',
     href: '/compliance/reports',
     icon: IconReport,
-    permissions: ['Administrator', 'Compliance', 'Defender'],
+    permissions: ['Administrator', 'Defender'],
+  },
+  {
+    id: uniqueId(),
+    title: 'compliance_menu.compliance_templates',
+    href: '/compliance/templates',
+    icon: IconTemplate,
+    permissions: ['Administrator', 'Defender'],
   },
 
   // CONFIGURATION
