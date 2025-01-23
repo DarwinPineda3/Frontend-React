@@ -3,6 +3,7 @@ import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNe
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
 import CustomizerReducer from './customizer/CustomizerSlice';
+import InstallationGuideVariablesReducer from './installation-guide/InstallationGuideSlice';
 import ObservedAssetsReducer from './observability/ObservedAssetsSlice';
 import ThresholdSlice from './observability/ThresholdSettingsSlice';
 import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
@@ -41,6 +42,7 @@ import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from './vulnerabilities/web/WPScanSlice';
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
+import GiottoReportsReducer from './sections/compliance/giottoReportsSlice';
 
 import {
   TypedUseSelectorHook,
@@ -97,6 +99,8 @@ export const store = configureStore({
     GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
     giottoProjectsReducer: GiottoProjectsReducer,
+    giottoReportsReducer: GiottoReportsReducer,
+    installationGuideVariablesReducer: InstallationGuideVariablesReducer,
   },
 });
 
@@ -134,6 +138,8 @@ const rootReducer = combineReducers({
   GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
   giottoProjectsReducer: GiottoProjectsReducer,
+  giottoReportsReducer: GiottoReportsReducer,
+  installationGuideVariablesReducer: InstallationGuideVariablesReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
