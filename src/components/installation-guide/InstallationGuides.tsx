@@ -132,11 +132,11 @@ const InstallationGuides = () => {
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait`,
+                            `Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait`,
                           )
                         }
                       >
-                        {`Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait`}
+                        {`Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait`}
                       </CodeBlock>
                       <ul>
                         <li>
@@ -165,11 +165,11 @@ const InstallationGuides = () => {
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait New-Item -ItemType File -Path $markerFile -Force }`,
+                            `$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait New-Item -ItemType File -Path $markerFile -Force }`,
                           )
                         }
                       >
-                        {`$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
+                        {`$markerFile = "$env:ProgramData\AkilaAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.akila_agent_windows_installer_url}" -OutFile "$env:temp\\Akila_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Akila_Agent_setup.exe" -ArgumentList '/VERYSILENT URL="${variables?.api_url}" API_KEY="${variables?.api_key}" Version="${variables?.last_version_agent}"' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
                       </CodeBlock>
                       <ul>
                         <li>

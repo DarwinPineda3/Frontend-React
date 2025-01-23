@@ -138,11 +138,11 @@ const InstallationGuideComponent = () => {
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait`,
+                            `Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait`,
                           )
                         }
                       >
-                        {`Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait`}
+                        {`Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait`}
                       </CodeBlock>
                       <ul>
                         <li>
@@ -177,11 +177,11 @@ const InstallationGuideComponent = () => {
                       <CodeBlock
                         onClick={() =>
                           copyToClipboard(
-                            `$markerFile = "$env:ProgramData\GiottoAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait New-Item -ItemType File -Path $markerFile -Force }`,
+                            `$markerFile = "$env:ProgramData\GiottoAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait New-Item -ItemType File -Path $markerFile -Force }`,
                           )
                         }
                       >
-                        {`$markerFile = "$env:ProgramData\GiottoAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
+                        {`$markerFile = "$env:ProgramData\GiottoAgentInstalled.txt" # Path to the marker file if (-not (Test-Path $markerFile)) { # Download and install the agent only if the marker does not exist Invoke-WebRequest -Uri "${variables?.giotto_agent_windows_installer_url}" -OutFile "$env:temp\\Giotto_Agent_setup.exe"; Start-Process -FilePath "$env:temp\\Giotto_Agent_setup.exe" -ArgumentList '/VERYSILENT' -Wait New-Item -ItemType File -Path $markerFile -Force }`}
                       </CodeBlock>
                       <ul>
                         <li>
