@@ -424,7 +424,7 @@
     },
     "network_vulnerabilities": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create network scan",
       "create_network_scan_subtitle": "In this form you can create a network scan",
       "name": "Name",
@@ -442,7 +442,7 @@
     },
     "web_app": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create web app scan",
       "create_network_scan_subtitle": "In this form you can create a web app scan",
       "name": "Name",
@@ -455,7 +455,9 @@
       "network_scan_create_successfully": "Web app scan created successfully",
       "network_scan_create_failed": "Failed to create the web app scan",
       "required_field": "Required Field",
-      "network_scan_created": "Web app scan created"
+      "network_scan_created": "Web app scan created",
+      "active_scan": "Active Scan",
+      "passive_scan": "Passive Scan"
     },
     "cloud_scans": {
       "low": "Low",
@@ -785,7 +787,8 @@
     "risk_analysis": "Risk Analysis",
     "domain_up": "Domain Up",
     "potential_risk": "Potential Risk",
-    "monitoring_times": "The parameters monitoring is executed every day at 2AM."
+    "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
+    "identification_date": "Identification Date"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -974,8 +977,7 @@
         "steps": {
           "intro": "To run the command on Windows, follow these steps:",
           "step1": "Step 1: Open PowerShell with administrative privileges.",
-          "step2": "Step 2: Copy the following command:",
-          "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
+          "step2": "Step 2: Copy and paste the following command into the PowerShell window, then press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
@@ -1012,8 +1014,7 @@
           "step1": "Step 1: Open a terminal on your Linux system.",
           "step2": "Step 2: Choose your Linux distribution:",
           "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
-          "step4": "Step 4: Copy the following command:",
-          "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
+          "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
@@ -1259,9 +1260,8 @@
           "steps": {
             "intro": "To run the command on Windows, follow these steps:",
             "step1": "Step 1: Open PowerShell with administrative privileges.",
-            "step2": "Step 2: Copy the following command:",
-            "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
-            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+            "step2": "Step 2: Copy and paste the following command into the PowerShell window, then press Enter to execute it.",
+            "note": "The command will download and run the Defender Agent with the provided URL and API key."
           }
         },
         "bulk_installation": {
@@ -1297,9 +1297,8 @@
             "step1": "Step 1: Open a terminal on your Linux system.",
             "step2": "Step 2: Choose your Linux distribution:",
             "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
-            "step4": "Step 4: Copy the following command:",
-            "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
-            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+            "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
+            "note": "The command will download and run the Defender Agent with the provided URL and API key."
           }
         },
         "error_notes": {

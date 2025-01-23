@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
 import {
+  Box,
+  Button,
+  Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  InputAdornment,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Typography,
-  Box,
   TextField,
-  InputAdornment,
-  Grid,
-  Chip,
-  IconButton,
-  Tooltip,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
+  Typography,
 } from '@mui/material';
-import { IconSearch, IconEye, IconEdit, IconTrash, IconAlertCircle, IconAlertTriangle, IconAlertOctagon, IconCheck } from '@tabler/icons-react';
+import {
+  IconAlertCircle,
+  IconAlertOctagon,
+  IconAlertTriangle,
+  IconCheck,
+  IconSearch,
+} from '@tabler/icons-react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Alert {
@@ -56,13 +60,15 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
 
   const filteredAlerts = alerts.filter((alert) => {
     const matchesSearch = alert.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRiskLevel = selectedRiskLevel ? alert.riskLevel.toLowerCase().includes(selectedRiskLevel.toLowerCase()) : true;
+    const matchesRiskLevel = selectedRiskLevel
+      ? alert.riskLevel.toLowerCase().includes(selectedRiskLevel.toLowerCase())
+      : true;
     return matchesSearch && matchesRiskLevel;
   });
 
   const toggleSelectAlert = (alertId: number) => {
     setSelectedAlerts((prev) =>
-      prev.includes(alertId) ? prev.filter((id) => id !== alertId) : [...prev, alertId]
+      prev.includes(alertId) ? prev.filter((id) => id !== alertId) : [...prev, alertId],
     );
   };
 
@@ -77,10 +83,27 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     <Box>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="primary.light" p={3} onClick={() => handleRiskFilter('Critical')} sx={{ cursor: 'pointer' }}>
+          <Box
+            bgcolor="primary.light"
+            p={3}
+            onClick={() => handleRiskFilter('Critical')}
+            sx={{ cursor: 'pointer' }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
-              <Box width={38} height={38} bgcolor="primary.main" display="flex" alignItems="center" justifyContent="center">
-                <Typography color="primary.contrastText" display="flex" alignItems="center" justifyContent="center">
+              <Box
+                width={38}
+                height={38}
+                bgcolor="primary.main"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography
+                  color="primary.contrastText"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
                   <IconAlertCircle width={22} />
                 </Typography>
               </Box>
@@ -94,10 +117,27 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="secondary.light" p={3} onClick={() => handleRiskFilter('High')} sx={{ cursor: 'pointer' }}>
+          <Box
+            bgcolor="secondary.light"
+            p={3}
+            onClick={() => handleRiskFilter('High')}
+            sx={{ cursor: 'pointer' }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
-              <Box width={38} height={38} bgcolor="secondary.main" display="flex" alignItems="center" justifyContent="center">
-                <Typography color="background.default" display="flex" alignItems="center" justifyContent="center">
+              <Box
+                width={38}
+                height={38}
+                bgcolor="secondary.main"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography
+                  color="background.default"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
                   <IconAlertTriangle width={22} />
                 </Typography>
               </Box>
@@ -111,10 +151,27 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="error.light" p={3} onClick={() => handleRiskFilter('Medium')} sx={{ cursor: 'pointer' }}>
+          <Box
+            bgcolor="error.light"
+            p={3}
+            onClick={() => handleRiskFilter('Medium')}
+            sx={{ cursor: 'pointer' }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
-              <Box width={38} height={38} bgcolor="error.main" display="flex" alignItems="center" justifyContent="center">
-                <Typography color="primary.contrastText" display="flex" alignItems="center" justifyContent="center">
+              <Box
+                width={38}
+                height={38}
+                bgcolor="error.main"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography
+                  color="primary.contrastText"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
                   <IconAlertOctagon width={22} />
                 </Typography>
               </Box>
@@ -128,10 +185,27 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           </Box>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Box bgcolor="warning.light" p={3} onClick={() => handleRiskFilter('Low')} sx={{ cursor: 'pointer' }}>
+          <Box
+            bgcolor="warning.light"
+            p={3}
+            onClick={() => handleRiskFilter('Low')}
+            sx={{ cursor: 'pointer' }}
+          >
             <Stack direction="row" gap={2} alignItems="center">
-              <Box width={38} height={38} bgcolor="warning.main" display="flex" alignItems="center" justifyContent="center">
-                <Typography color="primary.contrastText" display="flex" alignItems="center" justifyContent="center">
+              <Box
+                width={38}
+                height={38}
+                bgcolor="warning.main"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Typography
+                  color="primary.contrastText"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
                   <IconCheck width={22} />
                 </Typography>
               </Box>
@@ -170,17 +244,26 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
             <TableCell>{t('vulnerabilities.name')}</TableCell>
             <TableCell>{t('vulnerabilities.risk_level')}</TableCell>
             <TableCell>{t('vulnerabilities.instances')}</TableCell>
-            <TableCell>{t('vulnerabilities.actions')}</TableCell>
+            {/* <TableCell>{t('vulnerabilities.actions')}</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
           {filteredAlerts.map((alert) => (
             <TableRow key={alert.id}>
               <TableCell padding="checkbox">
-                <input type="checkbox" checked={selectedAlerts.includes(alert.id)} onChange={() => toggleSelectAlert(alert.id)} />
+                <input
+                  type="checkbox"
+                  checked={selectedAlerts.includes(alert.id)}
+                  onChange={() => toggleSelectAlert(alert.id)}
+                />
               </TableCell>
               <TableCell>
-                <Typography color="primary" fontWeight={500} onClick={() => onAlertClick(alert.id)} style={{ cursor: 'pointer' }}>
+                <Typography
+                  color="primary"
+                  fontWeight={500}
+                  onClick={() => onAlertClick(alert.id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   {alert.name}
                 </Typography>
               </TableCell>
@@ -190,7 +273,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <TableCell>
                 <Typography>{alert.instances}</Typography>
               </TableCell>
-              <TableCell>
+              {/* <TableCell>
                 <Tooltip title={t('vulnerabilities.view_alert')}>
                   <IconButton onClick={() => onAlertClick(alert.id)} color="success">
                     <IconEye />
@@ -206,7 +289,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                     <IconTrash />
                   </IconButton>
                 </Tooltip>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>

@@ -423,7 +423,7 @@
     },
     "network_vulnerabilities": {
       "network": "Red",
-      "add_scan": "Agregar escaneo",
+      "add_scan": "Crear escaneo",
       "create_network_scan": "Crear escaneo de red",
       "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de red",
       "name": "Nombre",
@@ -441,7 +441,7 @@
     },
     "web_app": {
       "network": "Red",
-      "add_scan": "Añadir escaneo",
+      "add_scan": "Crear escaneo",
       "create_network_scan": "Crear escaneo de aplicación web",
       "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de aplicación web",
       "name": "Nombre",
@@ -454,7 +454,9 @@
       "network_scan_create_successfully": "Escaneo de aplicación web creado con éxito",
       "network_scan_create_failed": "Error al crear el escaneo de aplicación web",
       "required_field": "Campo requerido",
-      "network_scan_created": "Escaneo de aplicación web creado"
+      "network_scan_created": "Escaneo de aplicación web creado",
+      "active_scan": "Escaneo Activo",
+      "passive_scan": "Escaneo Pasivo"
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -783,7 +785,8 @@
     "risk_analysis": "Análisis de Riesgo",
     "domain_up": "Dominio Activo",
     "potential_risk": "Riesgo Potencial",
-    "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM."
+    "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM.",
+    "identification_date": "Fecha de identificación"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",
@@ -972,8 +975,7 @@
         "steps": {
           "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
           "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
-          "step2": "Paso 2: Copie el siguiente comando:",
-          "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
+          "step2": "Paso 2: Copia y pega el siguiente comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },
@@ -1010,8 +1012,7 @@
           "step1": "Paso 1: Abra una terminal en su sistema Linux.",
           "step2": "Paso 2: Elija su distribución de Linux:",
           "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-          "step4": "Paso 4: Copie el siguiente comando:",
-          "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+          "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },
@@ -1256,9 +1257,8 @@
           "steps": {
             "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
             "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
-            "step2": "Paso 2: Copie el siguiente comando:",
-            "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
-            "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+            "step2": "Paso 2: Copia y pega el siguiente comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Defender Agent con la URL y la clave API proporcionadas."
           }
         },
         "bulk_installation": {
@@ -1294,9 +1294,8 @@
             "step1": "Paso 1: Abra una terminal en su sistema Linux.",
             "step2": "Paso 2: Elija su distribución de Linux:",
             "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-            "step4": "Paso 4: Copie el siguiente comando:",
-            "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-            "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+            "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Defender Agent  con la URL y la clave API proporcionadas."
           }
         },
         "error_notes": {
