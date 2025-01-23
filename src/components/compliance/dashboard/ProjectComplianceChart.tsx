@@ -1,60 +1,30 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Typography, FormControl, InputLabel, Select, MenuItem as MuiMenuItem, IconButton, Menu } from '@mui/material';
-import Chart from 'react-apexcharts';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchComplianceByProyect, fetchProjectsComplianceByCompany } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const ProjectComplianceChart: React.FC = () => {
-  const projects = [
-    { id: 1, name: 'Proyecto Demo Giotto', value: 74.58 },
-    { id: 2, name: 'Grupo Demo Giotto 2', value: 80 },
-    { id: 3, name: 'Prueba akila', value: 65 },
-    { id: 4, name: 'Prueba akila 2 editado', value: 50 },
-    { id: 5, name: 'Akila Prueba', value: 90 },
-    { id: 6, name: 'Prueba desde Akila 2025', value: 60 },
-  ];
+  const dispatch = useDispatch();
+  const { ComplianceByProject: groups, ProjectsComplianceByCompany: projects } = useSelector((state) => state.giottoDashboardSlice);
 
-  const groups = [
-    { id: 1, name: 'prueba de edición 2.2' }, 
-  ];
 
   const [selectedProject, setSelectedProject] = useState<number>(1);
   const [selectedGroup, setSelectedGroup] = useState<number>(1);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const chartOptions = {
-    chart: {
-      type: 'radialBar' as const,
-      toolbar: {
-        show: false,
-      },
-    },
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: '22px',
-            fontWeight: 'regular',
-            fill: '#373d3f',
-          },
-          value: {
-            fontSize: '16px',
-            fontWeight: 'regular',
-            fill: '#373d3f',
-          },
-        },
-        track: {
-          background: '#e6e6e6',
-        },
-      },
-    },
-    labels: projects.map(project => project.name),
-    colors: ['#FF6347', '#FF4500', '#32CD32', '#FFD700', '#20B2AA', '#8A2BE2'],
-  };
+  useEffect(() => {
+    dispatch(fetchProjectsComplianceByCompany());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchComplianceByProyect(selectedProject));
+  }, [dispatch, selectedProject]);
 
-  const chartData = projects.map(project => project.value);
-
-  const selectedValue = selectedProject - 1;
-  const averageValue = chartData[selectedValue];
+  if (projects === null) {
+    return <Loader />;
+  }
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -81,6 +51,66 @@ const ProjectComplianceChart: React.FC = () => {
   }, [selectedProject]);
   */
 
+  function ChartPlot() {
+    if (!groups || !projects) {
+      return <Loader />;
+    }
+    const chartOptions = {
+      chart: {
+        type: 'radialBar' as const,
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        radialBar: {
+          dataLabels: {
+            name: {
+              fontSize: '22px',
+              fontWeight: 'regular',
+              fill: '#373d3f',
+            },
+            value: {
+              fontSize: '16px',
+              fontWeight: 'regular',
+              fill: '#373d3f',
+            },
+          },
+          track: {
+            background: '#e6e6e6',
+          },
+        },
+      },
+      labels: projects.map(project => project.name),
+      colors: ['#FF6347', '#FF4500', '#32CD32', '#FFD700', '#20B2AA', '#8A2BE2'],
+    };
+
+    const chartData = projects.map(project => project.compliancePercent);
+
+    const selectedValue = selectedGroup ? selectedGroup - 1 : 0;
+    const validSelectedValue =
+      selectedValue >= 0 && selectedValue < chartData.length
+        ? selectedValue
+        : 0;
+    const averageValue = chartData[validSelectedValue];
+
+    return <Box>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+        <Chart
+          options={chartOptions}
+          series={[chartData[validSelectedValue]]}
+          type="radialBar"
+          height={350}
+        />
+      </div>
+
+      <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
+        Average: {averageValue}%
+      </Typography>
+    </Box>
+  }
+
+
   return (
     <Card>
       <CardContent>
@@ -91,7 +121,10 @@ const ProjectComplianceChart: React.FC = () => {
               labelId="project-select-label"
               value={selectedProject}
               label="Seleccionar Proyecto"
-              onChange={(e) => setSelectedProject(Number(e.target.value))}
+              onChange={(e) => {
+                setSelectedProject(Number(e.target.value));
+                setSelectedGroup(null);
+              }}
             >
               {projects.map((project) => (
                 <MuiMenuItem key={project.id} value={project.id}>
@@ -109,11 +142,14 @@ const ProjectComplianceChart: React.FC = () => {
               label="Seleccionar Grupo"
               onChange={(e) => setSelectedGroup(Number(e.target.value))}
             >
-              {groups.map((group) => (
-                <MuiMenuItem key={group.id} value={group.id}>
-                  {group.name}
-                </MuiMenuItem>
-              ))}
+              {
+                groups &&
+                groups.map((group) => (
+                  <MuiMenuItem key={group.id} value={group.id}>
+                    {group.name}
+                  </MuiMenuItem>
+                ))
+              }
             </Select>
           </FormControl>
 
@@ -134,19 +170,9 @@ const ProjectComplianceChart: React.FC = () => {
             <MuiMenuItem onClick={() => handleDownload('PNG')}>Download PNG</MuiMenuItem>
           </Menu>
         </div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-          <Chart
-            options={chartOptions}
-            series={[chartData[selectedValue]]}
-            type="radialBar"
-            height={350}
-          />
-        </div>
-
-        <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
-          Average: {averageValue}%
-        </Typography>
+        {
+          ChartPlot()
+        }
       </CardContent>
     </Card>
   );

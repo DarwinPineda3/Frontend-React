@@ -1,45 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { Card, CardContent, Typography, FormControl, InputLabel, MenuItem, Select, IconButton, Menu, MenuItem as MuiMenuItem } from '@mui/material';
-import { ApexOptions } from 'apexcharts';
-import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchProjectsComplianceByGroup } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const ExecutionByGroup: React.FC = () => {
   const [selectedGroup, setSelectedGroup] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  // Datos quemados
-  const groups = [
-    { id: 1, name: 'prueba de edición 2.2', values: { assessment: 12, hardening: 7, rollback: 1 } },
-    { id: 2, name: 'Grupo Test', values: { assessment: 10, hardening: 5, rollback: 3 } },
-    { id: 3, name: 'Grupo Demo', values: { assessment: 8, hardening: 6, rollback: 2 } },
-  ];
-
-  // useEffect(() => {
-  //   const fetchGroupsData = async () => {
-  //     try {
-  //       const response = await fetch('http://201.149.34.143:8443/api/Charting/GetGroupsExecutionsByProject/1');
-  //       const data = await response.json();
-  //       const transformedData = data.map((group: any) => ({
-  //         id: group.groupId,
-  //         name: group.groupName,
-  //         values: {
-  //           assessment: group.assessmentExecutionsCount,
-  //           hardening: group.hardeningExecutionsCount,
-  //           rollback: group.rollbackExecutionsCount,
-  //         },
-  //       }));
-  //       setGroups(transformedData); 
-  //     } catch (error) {
-  //       console.error('Error fetching group data:', error);
-  //     }
-  //   };
-
-  //   fetchGroupsData();
-  // }, []);
-
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const { ProjectsComplianceByGroup: groups } = useSelector((state) => state.giottoDashboardSlice);
+
+
+  const { projects } = useSelector((state: any) => state.giottoProjectsReducer);
+  useEffect(() => {
+    dispatch(fetchProjects(1, 100));
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchProjectsComplianceByGroup(selectedGroup));
+  }, [dispatch, selectedGroup]);
+
+  if (!groups) {
+    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loader />
+    </Box>;
+  }
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -51,7 +41,7 @@ const ExecutionByGroup: React.FC = () => {
     },
     plotOptions: {
       bar: {
-        horizontal: true, 
+        horizontal: true,
         columnWidth: '50%',
         borderRadius: 5,
       },
@@ -67,7 +57,7 @@ const ExecutionByGroup: React.FC = () => {
     xaxis: {
       categories: ['Assessment', 'Hardening', 'Rollback'],
       title: {
-        text: 'Qty. of Executions', 
+        text: 'Qty. of Executions',
         style: {
           fontSize: '14px',
           fontWeight: 600,
@@ -77,7 +67,7 @@ const ExecutionByGroup: React.FC = () => {
     },
     yaxis: {
       title: {
-        text: '', 
+        text: '',
       },
     },
     legend: {
@@ -104,19 +94,19 @@ const ExecutionByGroup: React.FC = () => {
     {
       name: 'Assessment',
       data: [
-        groups.find((group) => group.id === selectedGroup)?.values.assessment || 0,
+        groups.length > 0 ? groups[0].values.assessment || 0 : 0,
       ],
     },
     {
       name: 'Hardening',
       data: [
-        groups.find((group) => group.id === selectedGroup)?.values.hardening || 0,
+        groups.length > 0 ? groups[0].values.hardening || 0 : 0,
       ],
     },
     {
       name: 'Rollback',
       data: [
-        groups.find((group) => group.id === selectedGroup)?.values.rollback || 0,
+        groups.length > 0 ? groups[0].values.rollback || 0 : 0,
       ],
     },
   ];
@@ -160,7 +150,6 @@ const ExecutionByGroup: React.FC = () => {
   const average = selectedGroup === 0
     ? calculateAverageForAllGroups()
     : calculateAverageForGroup(selectedGroup);
-
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent>
@@ -173,10 +162,10 @@ const ExecutionByGroup: React.FC = () => {
               label="Seleccionar Grupo"
               onChange={(e) => setSelectedGroup(Number(e.target.value))}
             >
-              <MenuItem value={0}>Todos los grupos</MenuItem>
-              {groups.map((group) => (
-                <MenuItem key={group.id} value={group.id}>
-                  {group.name}
+              <MenuItem value={0} key={'all'}>Todos los grupos</MenuItem>
+              {projects.map((project) => (
+                <MenuItem key={project.id} value={project.id}>
+                  {project.name}
                 </MenuItem>
               ))}
             </Select>

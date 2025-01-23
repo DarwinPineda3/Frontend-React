@@ -1,99 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, IconButton, Menu, MenuItem, FormControl, InputLabel, Select, MenuItem as MuiMenuItem } from '@mui/material';
-import Chart from 'react-apexcharts';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchGroupCompliance } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const GroupComplianceChart: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const { GroupCompliance: groups } = useSelector((state) => state.giottoDashboardSlice);
+  const { projects } = useSelector((state: any) => state.giottoProjectsReducer);
+
   // Datos quemados
-  const groups = [
-    { id: 1, name: 'Proyecto Demo Giotto', value: 74.58 },
-    { id: 2, name: 'Grupo Demo Giotto 2', value: 80 },
-    { id: 3, name: 'Prueba akila', value: 65 },
-    { id: 4, name: 'Prueba akila 2 editado', value: 50 },
-    { id: 5, name: 'Akila Prueba', value: 90 },
-    { id: 6, name: 'Prueba desde Akila 2025', value: 60 },
-  ];
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  useEffect(() => {
+    dispatch(fetchProjects(1, 100));
+  }, [dispatch]);
 
-  const [selectedProject, setSelectedProject] = useState<number>(1);  
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);  
 
-  const chartOptions = {
-    chart: {
-      type: 'radialBar' as const,
-      toolbar: {
-        show: false, 
-      },
-    },
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          name: {
-            fontSize: '22px',
-            fontWeight: 'regular',
-            fill: '#373d3f',
-          },
-          value: {
-            fontSize: '16px',
-            fontWeight: 'regular',
-            fill: '#373d3f',
-          },
-        },
-        track: {
-          background: '#e6e6e6',
-        },
-      },
-    },
-    labels: groups.map(group => group.name), 
-    colors: ['#FF6347', '#FF4500', '#32CD32', '#FFD700', '#20B2AA', '#8A2BE2'],
-  };
+  useEffect(() => {
+    if (selectedProject) {
+      dispatch(fetchGroupCompliance(selectedProject));
+    }
+  }, [dispatch, selectedProject]);
 
-  const chartData = groups.map(group => group.value);  
+  useEffect(() => {
+    setSelectedProject(projects[0]?.id);
+  }, [projects]);
 
-  const selectedValue = selectedProject - 1;  
-  const averageValue = chartData[selectedValue]; 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  if (!projects) {
+    return <Loader />;
+  }
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null); 
+    setAnchorEl(null);
   };
 
   const handleDownload = (format: string) => {
     console.log(`Descargando gráfico en formato ${format}`);
-    setAnchorEl(null); 
+    setAnchorEl(null);
   };
 
-  // const fetchGroupComplianceData = async (projectId: number) => {
-  //   try {
-  //     const response = await fetch(`http://201.149.34.143:8443/api/Charting/GetGroupsComplianceByProject/${projectId}`);
-  //     const data = await response.json();
-  //     setGroups(data);  
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
+  function chartGraphic() {
 
-  // useEffect(() => {
-  //   fetchGroupComplianceData(selectedProject); 
-  // }, [selectedProject]);
+    if (!selectedProject) {
+      return <></>
+    }
+    if (!groups || !selectedProject) {
+      return <Loader />
+    }
+    const chartOptions = {
+      chart: {
+        type: 'radialBar' as const,
+        toolbar: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        radialBar: {
+          dataLabels: {
+            name: {
+              fontSize: '22px',
+              fontWeight: 'regular',
+              fill: '#373d3f',
+            },
+            value: {
+              fontSize: '16px',
+              fontWeight: 'regular',
+              fill: '#373d3f',
+            },
+          },
+          track: {
+            background: '#e6e6e6',
+          },
+        },
+      },
+      labels: groups.map(group => group.name),
+      colors: ['#FF6347', '#FF4500', '#32CD32', '#FFD700', '#20B2AA', '#8A2BE2'],
+    };
+    const chartData = groups.map(group => group.value) || [];
 
+    const selectedValue = 1;
+    const validSelectedValue =
+      selectedValue >= 0 && selectedValue < chartData.length
+        ? selectedValue
+        : 0;
+    const averageValue = chartData[selectedValue] || 0;
+
+    return <Box>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+        <Chart
+          options={chartOptions}
+          series={[chartData[validSelectedValue]]}
+          type="radialBar"
+          height={350}
+        />
+      </div>
+
+      <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
+        Average: {averageValue}%
+      </Typography>
+    </Box>
+  }
   return (
     <Card>
       <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <FormControl fullWidth>
-            <InputLabel id="project-select-label">Seleccionar Proyecto</InputLabel>
+            <InputLabel id="project-select-label">Seleccionar Proyecto:</InputLabel>
             <Select
               labelId="project-select-label"
               value={selectedProject}
               label="Seleccionar Proyecto"
               onChange={(e) => setSelectedProject(Number(e.target.value))}
             >
-              {groups.map((group) => (
-                <MuiMenuItem key={group.id} value={group.id}>
-                  {group.name}
+              {projects.map((project) => (
+                <MuiMenuItem key={project.id} value={project.id}>
+                  {project.name}
                 </MuiMenuItem>
               ))}
             </Select>
@@ -117,19 +148,10 @@ const GroupComplianceChart: React.FC = () => {
             <MuiMenuItem onClick={() => handleDownload('PNG')}>Download PNG</MuiMenuItem>
           </Menu>
         </div>
-
+        {chartGraphic()}
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-          <Chart
-            options={chartOptions}
-            series={[chartData[selectedValue]]}  
-            type="radialBar"
-            height={350}
-          />
-        </div>
 
-        <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
-          Average: {averageValue}%
-        </Typography>
+        </div>
       </CardContent>
     </Card>
   );

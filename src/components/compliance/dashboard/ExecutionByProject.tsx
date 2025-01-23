@@ -1,65 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { Card, CardContent, Typography, FormControl, InputLabel, MenuItem, Select, IconButton, Menu } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ApexOptions } from 'apexcharts';
+import { Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, Select, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchExecutionsCountByProject } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const ExecutionByProject: React.FC = () => {
-  const [projects, setProjects] = useState<any[]>([]); 
-  const [selectedProject, setSelectedProject] = useState<number>(0); 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  // Datos quemados
-  const mockProjects = [
-    {
-      projectName: "Proyecto Demo Giotto",
-      assessmentExecutionsCount: 12,
-      hardeningExecutionsCount: 7,
-      rollbackExecutionsCount: 1,
-    },
-    {
-      projectName: "Grupo Demo Giotto 2",
-      assessmentExecutionsCount: 12,
-      hardeningExecutionsCount: 7,
-      rollbackExecutionsCount: 1,
-    },
-    {
-      projectName: "Prueba akila",
-      assessmentExecutionsCount: 12,
-      hardeningExecutionsCount: 7,
-      rollbackExecutionsCount: 1,
-    },
-    {
-      projectName: "Prueba akila 2 editado",
-      assessmentExecutionsCount: 12,
-      hardeningExecutionsCount: 7,
-      rollbackExecutionsCount: 1,
-    }
-  ];
-
-  /*
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://201.149.34.143:8443/api/Charting/GetProjectsExecutionsByCompany/1');
-        const data = await response.json();
-        setProjects(data); 
-      } catch (error) {
-        console.error('Error fetching projects data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-  */
-  
-  useEffect(() => {
-    setProjects(mockProjects);
-  }, []);
-
+  const dispatch = useDispatch();
   const theme = useTheme();
 
+  const [selectedProject, setSelectedProject] = useState<number>(0);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const { ExecutionByProject: projects } = useSelector((state) => state.giottoDashboardSlice);
+
+  useEffect(() => {
+
+    dispatch(fetchExecutionsCountByProject());
+  }, [dispatch]);
+
+  if (!projects) {
+    return <Loader />;
+  }
   const chartOptions: ApexOptions = {
     chart: {
       type: 'bar',
@@ -72,12 +37,12 @@ const ExecutionByProject: React.FC = () => {
       bar: {
         horizontal: false,
         columnWidth: '50%',
-        borderRadius: 5, 
+        borderRadius: 5,
       },
     },
     colors: [
-      theme.palette.primary.main, 
-      theme.palette.secondary.main,  
+      theme.palette.primary.main,
+      theme.palette.secondary.main,
       theme.palette.success.main,
     ],
     dataLabels: {
@@ -88,11 +53,11 @@ const ExecutionByProject: React.FC = () => {
     },
     yaxis: {
       title: {
-        text: 'Qty of Executions', 
+        text: 'Qty of Executions',
         style: {
           fontSize: '14px',
-          fontWeight: 600,   
-          fontFamily: 'Arial, Helvetica, sans-serif', 
+          fontWeight: 600,
+          fontFamily: 'Arial, Helvetica, sans-serif',
         },
       },
     },
@@ -157,6 +122,7 @@ const ExecutionByProject: React.FC = () => {
               value={selectedProject}
               label="Seleccionar Proyecto"
               onChange={(e) => setSelectedProject(Number(e.target.value))}
+              key={selectedProject}
             >
               <MenuItem value={0}>Todos los proyectos</MenuItem>
               {projects.map((project) => (
@@ -166,7 +132,6 @@ const ExecutionByProject: React.FC = () => {
               ))}
             </Select>
           </FormControl>
-
           <IconButton onClick={handleMenuClick}>
             <MenuIcon />
           </IconButton>

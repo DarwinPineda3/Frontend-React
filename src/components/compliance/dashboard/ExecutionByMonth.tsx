@@ -1,43 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { Card, CardContent, Typography, FormControl, InputLabel, MenuItem, Select, IconButton, Menu } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ApexOptions } from 'apexcharts';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, Select, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchExecutionsCountByMonth } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const ExecutionByMonth: React.FC = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [selectedProject, setSelectedProject] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [dataByMonth, setDataByMonth] = useState<any[]>([]);  
-  const [loading, setLoading] = useState<boolean>(false); 
+  //const [dataByMonth, setDataByMonth] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const staticData = [
-    { month: 'ene. 2025', assessmentExecutionsCount: 5, hardeningExecutionsCount: 6, rollbackExecutionsCount: 1 },
-    { month: 'dic. 2024', assessmentExecutionsCount: 2, hardeningExecutionsCount: 0, rollbackExecutionsCount: 0 },
-    { month: 'oct. 2024', assessmentExecutionsCount: 0, hardeningExecutionsCount: 1, rollbackExecutionsCount: 0 },
-  ];
-
-  /*
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://201.149.34.143:8443/api/Charting/GetExecutionsCountByMonth');
-      const data = await response.json();
-      setDataByMonth(data); 
-      setLoading(false); 
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-      setLoading(false); 
-    }
-  };
-  */
+  const { ExecutionsCountByMonth: dataByMonth } = useSelector((state) => state.giottoDashboardSlice);
 
   useEffect(() => {
-    setDataByMonth(staticData);
+    dispatch(fetchExecutionsCountByMonth());
     setLoading(false);
-    
-    // fetchData();
-  }, []);
+  }, [dispatch]);
+
+  if (!dataByMonth) {
+    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loader />
+    </Box>;
+  }
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -46,8 +36,8 @@ const ExecutionByMonth: React.FC = () => {
       toolbar: { show: false },
     },
     colors: [
-      theme.palette.primary.main, 
-      theme.palette.secondary.main, 
+      theme.palette.primary.main,
+      theme.palette.secondary.main,
       theme.palette.success.main,
     ],
     xaxis: {
@@ -115,7 +105,7 @@ const ExecutionByMonth: React.FC = () => {
 
   const handleDownload = (format: string) => {
     console.log(`Descargando gráfico en formato ${format}`);
-    setAnchorEl(null); 
+    setAnchorEl(null);
   };
 
   return (
@@ -169,8 +159,8 @@ const ExecutionByMonth: React.FC = () => {
         </div>
 
         <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
-          {selectedProject === 0 ? 'Promedio' : 'Valor del Proyecto'}: {selectedProject === 0 
-            ? (dataByMonth.reduce((acc, data) => acc + data.assessmentExecutionsCount + data.hardeningExecutionsCount + data.rollbackExecutionsCount, 0) / (dataByMonth.length * 3)) 
+          {selectedProject === 0 ? 'Promedio' : 'Valor del Proyecto'}: {selectedProject === 0
+            ? (dataByMonth.reduce((acc, data) => acc + data.assessmentExecutionsCount + data.hardeningExecutionsCount + data.rollbackExecutionsCount, 0) / (dataByMonth.length * 3))
             : (dataByMonth[selectedProject - 1]?.assessmentExecutionsCount || 0)} %
         </Typography>
       </CardContent>

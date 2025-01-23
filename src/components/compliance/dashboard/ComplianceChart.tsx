@@ -1,53 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { Card, CardContent, Typography, FormControl, InputLabel, MenuItem, Select, IconButton, Menu, MenuItem as MuiMenuItem } from '@mui/material';
-import { ApexOptions } from 'apexcharts';
-import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchProjectsComplianceByCompany } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const ComplianceChart: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<number>(0); 
+  const [selectedProject, setSelectedProject] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [projects, setProjects] = useState<any[]>([]);  
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const dispatch = useDispatch();
+
+  const { ProjectsComplianceByCompany: projects } = useSelector((state) => state.giottoDashboardSlice);
+
 
   const theme = useTheme();
 
-  // Datos quemados
-  const staticProjects = [
-    { id: 1, name: 'Proyecto Demo Giotto', compliancePercent: 100 },
-    { id: 2, name: 'Grupo Demo Giotto 2', compliancePercent: 75 },
-    { id: 3, name: 'Prueba akila', compliancePercent: 60 },
-    { id: 4, name: 'Prueba akila 2 editado', compliancePercent: 45 },
-  ];
-
-  /*
-  const fetchProjectsData = async () => {
-    try {
-      const response = await fetch('http://201.149.34.143:8443/api/Charting/GetProjectsComplianceByCompany/1');
-      const data = await response.json();
-
-      const projectsWithIds = data.map((project: any, index: number) => ({
-        id: index + 1, 
-        name: project.projectName,
-        compliancePercent: project.compliancePercent,
-      }));
-
-      setProjects(projectsWithIds);  
-      setLoading(false);  
-    } catch (error) {
-      console.error('Error al obtener los datos de los proyectos:', error);
-      setLoading(false);  
-    }
-  };
-  */
 
   useEffect(() => {
-    setProjects(staticProjects);
-    setLoading(false);  
+    setLoading(false);
+    dispatch(fetchProjectsComplianceByCompany());
+  }, [dispatch]);
 
-    // fetchProjectsData();
-  }, []);
+  if (!projects) {
+    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loader />
+    </Box>;
+  }
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -142,7 +125,7 @@ const ComplianceChart: React.FC = () => {
               value={selectedProject}
               label="Seleccionar Proyecto"
               onChange={(e) => setSelectedProject(Number(e.target.value))}
-              disabled={loading} 
+              disabled={loading}
             >
               <MenuItem value={0}>Todos los proyectos</MenuItem>
               {projects.map((project) => (

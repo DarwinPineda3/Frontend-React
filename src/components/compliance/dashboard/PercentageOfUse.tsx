@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { Card, CardContent, Typography, FormControl, InputLabel, MenuItem, Select, IconButton, Menu, MenuItem as MuiMenuItem } from '@mui/material';
-import { ApexOptions } from 'apexcharts';
-import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import Loader from 'src/components/shared/Loader/Loader';
+import { fetchTemplatesUsage } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 const PercentageOfUse: React.FC = () => {
+  const dispatch = useDispatch();
   const [selectedTemplate, setSelectedTemplate] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [templates, setTemplates] = useState<any[]>([]);  
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
+  const { TemplatesUsage: templates } = useSelector((state) => state.giottoDashboardSlice);
 
   const theme = useTheme();
-
-  // Datos quemados
-  const staticTemplates = [
-    { id: 1, name: 'aWindows Server XYZies', usagePercent: 100.0 },
-    { id: 2, name: 'Plantilla Windows Server 2019 (Recortada)', usagePercent: 17.36111 },
-  ];
 
   /*
   const fetchTemplatesData = async () => {
@@ -39,10 +37,20 @@ const PercentageOfUse: React.FC = () => {
   */
 
   useEffect(() => {
-    setTemplates(staticTemplates);
-    setLoading(false);  
+    dispatch(fetchTemplatesUsage());
+    setLoading(false);
     // fetchTemplatesData();
-  }, []);
+  }, [dispatch]);
+
+  if (loading || !templates) {
+    return (
+      <Card sx={{ height: '100%' }}>
+        <CardContent>
+          <Loader />
+        </CardContent>
+      </Card>
+    );
+  }
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -60,8 +68,8 @@ const PercentageOfUse: React.FC = () => {
       },
     },
     colors: [
-      theme.palette.primary.main,  
-      theme.palette.error.main, 
+      theme.palette.primary.main,
+      theme.palette.error.main,
     ],
     dataLabels: {
       enabled: true,
@@ -97,7 +105,7 @@ const PercentageOfUse: React.FC = () => {
       name: 'Disabled Controls',
       data: [
         100 - (templates.find((template) => template.id === selectedTemplate)?.usagePercent || 0),
-      ], 
+      ],
     },
   ];
 
@@ -125,7 +133,7 @@ const PercentageOfUse: React.FC = () => {
               value={selectedTemplate}
               label="Seleccionar Plantilla"
               onChange={(e) => setSelectedTemplate(Number(e.target.value))}
-              disabled={loading}  
+              disabled={loading}
             >
               <MenuItem value={0}>Todas las plantillas</MenuItem>
               {templates.map((template) => (

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardHeader, CardContent, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { styled } from '@mui/system';
-import { FaUsers, FaCubes, FaTasks, FaServer } from 'react-icons/fa';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { FaCubes, FaServer, FaTasks, FaUsers } from 'react-icons/fa';
+import { fetchAssetsStatistics, fetchProjectsStatistics, fetchTemplatesStatistics, fetchUserStatistics } from 'src/store/sections/compliance/giottoDashboardSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 
 interface StatsCardProps {
   title: string;
@@ -48,41 +49,36 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, icon, data, className }) =
 };
 
 const StatsCardGrid: React.FC = () => {
+  const dispatch = useDispatch();
   const [stats, setStats] = useState({
     users: { adminUsersCount: 0, managerUsersCount: 0, technicianUsersCount: 0 },
     projects: { projectsCount: 0, groupsCount: 0, assetsCount: 0 },
     templates: { templatesCount: 0, controlsCount: 0, enabledControlsCount: 0 },
-    assets: { 
-      assetsCountWithAssessment: 0, 
-      assetsCountWithHardening: 0, 
-      assetsCountWithRollback: 0 
+    assets: {
+      assetsCountWithAssessment: 0,
+      assetsCountWithHardening: 0,
+      assetsCountWithRollback: 0
     },
   });
 
+  const { usersResponse, projectsResponse, templatesResponse, assetsResponse } = useSelector((state) => state.giottoDashboardSlice);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const usersResponse = await axios.get('http://201.149.34.143:8443/api/Charting/GetUsersStatistics');
-        
-        const projectsResponse = await axios.get('http://201.149.34.143:8443/api/Charting/GetProjectsStatistics');
-        
-        const templatesResponse = await axios.get('http://201.149.34.143:8443/api/Charting/GetTemplatesStatistics');
-        
-        const assetsResponse = await axios.get('http://201.149.34.143:8443/api/Charting/GetAssetsStatistics');
+    dispatch(fetchUserStatistics());
+    dispatch(fetchProjectsStatistics());
+    dispatch(fetchTemplatesStatistics());
+    dispatch(fetchAssetsStatistics());
+  }, [dispatch]);
 
-        setStats({
-          users: usersResponse.data,
-          projects: projectsResponse.data,
-          templates: templatesResponse.data,
-          assets: assetsResponse.data,
-        });
-      } catch (error) {
-        console.error('Error al obtener los datos:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  useEffect(() => {
+    if (usersResponse && projectsResponse && templatesResponse && assetsResponse) {
+      setStats({
+        users: usersResponse,
+        projects: projectsResponse,
+        templates: templatesResponse,
+        assets: assetsResponse,
+      });
+    }
+  }, [usersResponse, projectsResponse, templatesResponse, assetsResponse]);
 
   return (
     <Grid container spacing={3}>

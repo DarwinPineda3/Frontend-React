@@ -1,14 +1,14 @@
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { Box, Grid, Card, CardContent, Typography } from '@mui/material';
-import PageContainer from 'src/components/container/PageContainer';
-import StatsCardGrid from 'src/components/compliance/dashboard/StatsCard'; 
-import ComplianceChart from 'src/components/compliance/dashboard/ComplianceChart'; 
-import GroupComplianceChart from 'src/components/compliance/dashboard/GroupComplianceChart'; 
+import ComplianceChart from 'src/components/compliance/dashboard/ComplianceChart';
+import ExecutionByGroup from 'src/components/compliance/dashboard/ExecutionByGroup';
+import ExecutionByMonth from 'src/components/compliance/dashboard/ExecutionByMonth';
+import ExecutionByProject from 'src/components/compliance/dashboard/ExecutionByProject';
+import GroupComplianceChart from 'src/components/compliance/dashboard/GroupComplianceChart';
+import PercentageOfUse from 'src/components/compliance/dashboard/PercentageOfUse';
 import ProjectComplianceChart from 'src/components/compliance/dashboard/ProjectComplianceChart';
-import ExecutionByMonth from 'src/components/compliance/dashboard/ExecutionByMonth'; 
-import ExecutionByProject from 'src/components/compliance/dashboard/ExecutionByProject'; 
-import ExecutionByGroup from 'src/components/compliance/dashboard/ExecutionByGroup'; 
-import PercentageOfUse from 'src/components/compliance/dashboard/PercentageOfUse';  
+import StatsCardGrid from 'src/components/compliance/dashboard/StatsCard';
+import PageContainer from 'src/components/container/PageContainer';
 
 const GiottoDashboard: React.FC = () => {
   return (
@@ -39,7 +39,7 @@ const GiottoDashboard: React.FC = () => {
                     <Card>
                       <CardContent>
                         <Typography variant="h6" color="textPrimary">
-                          Compliance by Group
+                          Compliance by Group:
                         </Typography>
                         <GroupComplianceChart />
                       </CardContent>
@@ -54,7 +54,7 @@ const GiottoDashboard: React.FC = () => {
                     <Typography variant="h6" color="textPrimary">
                       Compliance by Group
                     </Typography>
-                    <ProjectComplianceChart /> 
+                    <ProjectComplianceChart />
                   </CardContent>
                 </Card>
               </Grid>
@@ -65,7 +65,7 @@ const GiottoDashboard: React.FC = () => {
                     <Typography variant="h6" color="textPrimary">
                       Execution by Month
                     </Typography>
-                    <ExecutionByMonth /> 
+                    <ExecutionByMonth />
                   </CardContent>
                 </Card>
               </Grid>
@@ -76,7 +76,7 @@ const GiottoDashboard: React.FC = () => {
                     <Typography variant="h6" color="textPrimary">
                       Execution by Project
                     </Typography>
-                    <ExecutionByProject /> 
+                    <ExecutionByProject />
                   </CardContent>
                 </Card>
               </Grid>
@@ -98,7 +98,7 @@ const GiottoDashboard: React.FC = () => {
                     <Typography variant="h6" color="textPrimary">
                       Percentage of Use
                     </Typography>
-                    <PercentageOfUse /> 
+                    <PercentageOfUse />
                   </CardContent>
                 </Card>
               </Grid>
