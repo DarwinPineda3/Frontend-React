@@ -54,7 +54,7 @@ const ComplianceReports = () => {
                     </Alert>
                   </Grid>
                 }
-                <FormControl fullWidth margin="normal">
+                <FormControl fullWidth margin="normal" sx={{ marginBottom: 0 }}>
                   <InputLabel id="report-select-label">{t('giotto.reports.select_report')}</InputLabel>
                   <Select
                     labelId="report-select-label"

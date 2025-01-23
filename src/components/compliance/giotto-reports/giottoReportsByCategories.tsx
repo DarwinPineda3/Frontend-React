@@ -203,7 +203,7 @@ const ReportComplianceByCategory: React.FC = () => {
 
   return (
     <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-      <FormControl fullWidth margin="normal" sx={{ ...fadeStyle }}>
+      <FormControl fullWidth margin="normal" sx={{ ...fadeStyle, marginBottom: 0 }}>
         <InputLabel id="report-type-select-label">{t('giotto.reports.report_type')}</InputLabel>
         <Select
           labelId="report-type-select-label"
@@ -224,7 +224,7 @@ const ReportComplianceByCategory: React.FC = () => {
       </FormControl>
 
       {Array.isArray(projects) && projects.length > 0 && (
-        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle }}>
+        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle, marginBottom: 0 }}>
           <Autocomplete
             options={projects}
             getOptionLabel={(option) => option.name}
@@ -255,7 +255,7 @@ const ReportComplianceByCategory: React.FC = () => {
       )}
 
       {Array.isArray(groupsList) && groupsList.length > 0 && (
-        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle }}>
+        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle, marginBottom: 0 }}>
           <Autocomplete
             options={groupsList}
             getOptionLabel={(option) => option.name}
@@ -286,7 +286,7 @@ const ReportComplianceByCategory: React.FC = () => {
       )}
 
       {Array.isArray(templates) && templates.length > 0 && (
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle, marginBottom: 0 }}>
           <Autocomplete
             options={templates}
             getOptionLabel={(option) => option.name}
@@ -317,7 +317,7 @@ const ReportComplianceByCategory: React.FC = () => {
       )}
 
       {Array.isArray(executions) && executions.length > 0 && (
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle, marginBottom: 0 }}>
           <Autocomplete
             options={executions}
             getOptionLabel={(option) => option.creationDate}
@@ -348,7 +348,7 @@ const ReportComplianceByCategory: React.FC = () => {
       )}
 
       {Array.isArray(executions) && executions.length > 0 && (
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={{ ...fadeStyle, marginBottom: 0 }}>
           <Autocomplete
             options={assets}
             getOptionLabel={(option) => option.name}
@@ -386,14 +386,16 @@ const ReportComplianceByCategory: React.FC = () => {
       ))}
 
       {selectedDescription && (
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ marginTop: 2 }}>
           <Alert severity="info">
-            <Typography variant="body2" color="textSecondary">{selectedDescription}</Typography>
+            <Typography variant="body2" color="textSecondary">
+              {selectedDescription}
+            </Typography>
           </Alert>
         </Grid>
       )}
 
-      <Button type="submit" variant="contained" color="primary" fullWidth>
+      <Button type="submit" variant="contained" color="primary" fullWidth sx={{ ...fadeStyle, marginTop: 2 }}>
         {t('compliance_reports.generate_download')}
       </Button>
     </Box>

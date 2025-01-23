@@ -98,6 +98,7 @@ const ReportComplianceByProjects: React.FC = () => {
             <FormControl
               fullWidth
               margin="normal"
+              sx={{ marginTop: 2 }}
               error={formik.touched.project && Boolean(formik.errors.project)}
             >
               <Autocomplete
@@ -126,7 +127,7 @@ const ReportComplianceByProjects: React.FC = () => {
               </FormHelperText>
             </FormControl>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ marginTop: 1 }}>
               <Alert severity="info">
                 <Typography variant="body2" color="textSecondary">{t('giotto.reports.report_by_project_info')}</Typography>
               </Alert>
