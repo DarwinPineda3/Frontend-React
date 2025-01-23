@@ -1,25 +1,28 @@
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
-import { fetchWebApplicationsData } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
+import {
+  fetchWebApplicationsData,
+  setLoading,
+  setPage,
+} from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 
 interface ScanListTableProps {
   onScanClick: (scanId: number) => void;
@@ -27,17 +30,26 @@ interface ScanListTableProps {
 
 const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const { loading, data, error } = useSelector((state: AppState) => state.WebApplicationsReducer);
+  const currentPage = useSelector((state: any) => state.WebApplicationsReducer.page);
+  const totalPages = useSelector((state: any) => state.WebApplicationsReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.WebApplicationsReducer.pageSize);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchWebApplicationsData());
-  }, [dispatch]);
-  const totalPages = 1;
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(fetchWebApplicationsData(currentPage, pageSize));
+      setLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage]);
+
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+    if (page !== currentPage) {
+      dispatch(setPage(page));
+    }
   };
 
   const handleDownload = (scanId: number) => {
@@ -48,7 +60,7 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     console.log(`Deleting scan ${scanId}`);
   };
 
-  if (loading || data == null) {
+  if (loading) {
     return (
       <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!}>
         <Box display="flex" justifyContent="center" mt={4} mb={4}>
@@ -109,11 +121,11 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       {t('vulnerabilities.progress')}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
                       {t('vulnerabilities.actions')}
                     </Typography>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -136,10 +148,16 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                         <Typography variant="body2">{scan.hosts}</Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="body2">{scan.scan_start}</Typography>
+                        <Typography variant="body2">
+                          <HumanizedDate dateString={scan.scan_start} />
+                        </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="body2">{scan.type}</Typography>
+                        <Typography variant="body2">
+                          {scan.scan_type == 'active_scan'
+                            ? t('vulnerabilities.web_app.active_scan')
+                            : t('vulnerabilities.web_app.passive_scan')}
+                        </Typography>
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2">{`${scan.progress}%`}</Typography>
@@ -147,14 +165,14 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                           {scan.progressTime}
                         </Typography>
                       </TableCell>
-                      <TableCell>
+                      {/* <TableCell>
                         <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
                           <DownloadIcon />
                         </IconButton>
                         <IconButton color="error" onClick={() => handleDelete(scan.id)}>
                           <DeleteIcon />
                         </IconButton>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   ))
                 ) : (
@@ -190,14 +208,15 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Box my={3} display="flex" justifyContent="center">
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          </Box>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={totalPages * pageSize}
+            rowsPerPage={pageSize}
+            page={currentPage - 1}
+            onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
+            onRowsPerPageChange={(e) => dispatch(fetchWebApplicationsData(currentPage))}
+          />
         </Box>
       </DashboardCard>
     </Box>
