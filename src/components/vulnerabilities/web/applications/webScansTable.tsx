@@ -1,6 +1,4 @@
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
   IconButton,
@@ -22,6 +20,7 @@ import Loader from 'src/components/shared/Loader/Loader';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import {
   fetchWebApplicationsData,
+  setLoading,
   setPage,
 } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 
@@ -37,9 +36,15 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const totalPages = useSelector((state: any) => state.WebApplicationsReducer.totalPages);
   const pageSize = useSelector((state: any) => state.WebApplicationsReducer.pageSize);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchWebApplicationsData());
-  }, [dispatch]);
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(fetchWebApplicationsData(currentPage, pageSize));
+      setLoading(false);
+    };
+    fetchData();
+  }, [dispatch, currentPage]);
 
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
@@ -55,7 +60,7 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     console.log(`Deleting scan ${scanId}`);
   };
 
-  if (loading || data == null) {
+  if (loading) {
     return (
       <DashboardCard title={t('vulnerabilities.scans')!} subtitle={t('vulnerabilities.scan_list')!}>
         <Box display="flex" justifyContent="center" mt={4} mb={4}>
@@ -116,11 +121,11 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       {t('vulnerabilities.progress')}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  {/* <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
                       {t('vulnerabilities.actions')}
                     </Typography>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -160,14 +165,14 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                           {scan.progressTime}
                         </Typography>
                       </TableCell>
-                      <TableCell>
+                      {/* <TableCell>
                         <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
                           <DownloadIcon />
                         </IconButton>
                         <IconButton color="error" onClick={() => handleDelete(scan.id)}>
                           <DeleteIcon />
                         </IconButton>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   ))
                 ) : (
@@ -203,17 +208,15 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Box my={3} display="flex" justifyContent="center">
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50, 100]}
-              component="div"
-              count={totalPages * pageSize}
-              rowsPerPage={pageSize}
-              page={currentPage - 1}
-              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-              onRowsPerPageChange={(e) => dispatch(fetchWebApplicationsData())}
-            />
-          </Box>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={totalPages * pageSize}
+            rowsPerPage={pageSize}
+            page={currentPage - 1}
+            onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
+            onRowsPerPageChange={(e) => dispatch(fetchWebApplicationsData(currentPage))}
+          />
         </Box>
       </DashboardCard>
     </Box>

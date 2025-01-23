@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
+import { AppDispatch } from 'src/store/Store';
 import { WebAppScanCreate } from 'src/types/vulnerabilities/web/webAppsType';
 import axios from 'src/utils/axios';
 
@@ -20,19 +21,6 @@ function getErrorMessage(error: unknown): string {
   }
   return 'An unknown error occurred';
 }
-
-// Async thunk to fetch all the web applications data
-export const fetchWebApplicationsData = createAsyncThunk(
-  'webApplications/fetchAll',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(getApiUrl());
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
-  },
-);
 
 export const createWebApplicationScan = createAsyncThunk(
   'webApplications/create',
@@ -90,7 +78,7 @@ interface WebApplicationsState {
 
 const initialState: WebApplicationsState = {
   loading: false,
-  data: null,
+  data: [],
   detail: null,
   alert: null,
   error: null,
@@ -103,26 +91,25 @@ const webApplicationsSlice = createSlice({
   name: 'webApplications',
   initialState,
   reducers: {
+    getScans: (state, action) => {
+      state.data = Array.isArray(action.payload.results) ? action.payload.results : [];
+      state.page = action.payload.currentPage;
+      state.totalPages = action.payload.totalPages;
+      state.loading = false;
+    },
     setPage: (state, action) => {
       state.page = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchWebApplicationsData.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchWebApplicationsData.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload.results;
-        state.page = action.payload.currentPage;
-        state.totalPages = action.payload.totalPages;
-        state.error = null;
-      })
-      .addCase(fetchWebApplicationsData.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
       .addCase(fetchWebApplicationData.pending, (state) => {
         state.loading = true;
       })
@@ -161,6 +148,25 @@ const webApplicationsSlice = createSlice({
   },
 });
 
-export const { setPage } = webApplicationsSlice.actions;
+export const { getScans, setLoading, setError, setPage } = webApplicationsSlice.actions;
+
+export const fetchWebApplicationsData =
+  (requestedPage = 1, pageSize = 25) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      if (pageSize !== initialState.pageSize) {
+        requestedPage = 1;
+      }
+      const url = `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`;
+      const response = await axios.get(url);
+      const { results, page, totalPages } = response.data;
+      dispatch(getScans({ results, currentPage: page, totalPages, pageSize }));
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching scans:', err);
+      dispatch(setError('Failed to fetch scans'));
+    }
+  };
 
 export default webApplicationsSlice.reducer;
