@@ -27,10 +27,12 @@ import AssessmentStatusByAsset from 'src/views/compliance/compliance-reports/Ass
 import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
 import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
+import ComplianceInstallationGuidePage from 'src/views/compliance/ComplianceInstallationGuide';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
 import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
 import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
+import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
@@ -82,7 +84,6 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
-import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -591,7 +592,16 @@ const Router = [
         element: <EditComplianceProjects />,
         roles: ['Administrator', 'Defender'],
       },
-      { path: '/compliance/dashboard', element: <GiottoDashboard />, roles: ['Administrator', 'Defender', 'Scan360', 'CyberGuard',] },
+      {
+        path: '/compliance/installation-guide',
+        element: <ComplianceInstallationGuidePage />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/dashboard',
+        element: <GiottoDashboard />,
+        roles: ['Administrator', 'Defender', 'Scan360', 'CyberGuard'],
+      },
     ],
   },
   {

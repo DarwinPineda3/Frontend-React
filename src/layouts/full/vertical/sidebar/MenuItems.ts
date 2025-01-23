@@ -32,7 +32,7 @@ import {
   IconTemplate,
   IconTicket,
   IconUserBolt,
-  IconUserShield
+  IconUserShield,
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -336,8 +336,8 @@ const Menuitems: MenuitemsType[] = [
             icon: IconExternalLink,
             permissions: ['Administrator'],
             external: true,
-          }
-        ]
+          },
+        ],
       },
       {
         id: uniqueId(),
@@ -359,10 +359,10 @@ const Menuitems: MenuitemsType[] = [
             href: '/monitoring/soc/brand-monitoring/darknet',
             permissions: ['Administrator'],
             icon: IconPoint,
-          }
-        ]
+          },
+        ],
       },
-    ]
+    ],
   },
   {
     id: uniqueId(),
@@ -427,6 +427,13 @@ const Menuitems: MenuitemsType[] = [
     icon: IconTemplate,
     permissions: ['Administrator', 'Defender'],
   },
+  {
+    id: uniqueId(),
+    title: 'menu.installation_guide',
+    href: '/compliance/installation-guide',
+    icon: IconBook,
+    permissions: ['Administrator', 'Compliance'],
+  },
 
   // CONFIGURATION
   // TODO: enable to Scan360?
@@ -483,4 +490,3 @@ const Menuitems: MenuitemsType[] = [
 
 export default Menuitems;
 export type { MenuitemsType };
-

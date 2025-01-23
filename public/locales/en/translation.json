@@ -977,8 +977,7 @@
         "steps": {
           "intro": "To run the command on Windows, follow these steps:",
           "step1": "Step 1: Open PowerShell with administrative privileges.",
-          "step2": "Step 2: Copy the following command:",
-          "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
+          "step2": "Step 2: Copy and paste the following command into the PowerShell window, then press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
@@ -1015,8 +1014,7 @@
           "step1": "Step 1: Open a terminal on your Linux system.",
           "step2": "Step 2: Choose your Linux distribution:",
           "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
-          "step4": "Step 4: Copy the following command:",
-          "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
+          "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
@@ -1262,9 +1260,8 @@
           "steps": {
             "intro": "To run the command on Windows, follow these steps:",
             "step1": "Step 1: Open PowerShell with administrative privileges.",
-            "step2": "Step 2: Copy the following command:",
-            "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
-            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+            "step2": "Step 2: Copy and paste the following command into the PowerShell window, then press Enter to execute it.",
+            "note": "The command will download and run the Defender Agent with the provided URL and API key."
           }
         },
         "bulk_installation": {
@@ -1300,9 +1297,8 @@
             "step1": "Step 1: Open a terminal on your Linux system.",
             "step2": "Step 2: Choose your Linux distribution:",
             "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
-            "step4": "Step 4: Copy the following command:",
-            "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
-            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+            "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
+            "note": "The command will download and run the Defender Agent with the provided URL and API key."
           }
         },
         "error_notes": {
