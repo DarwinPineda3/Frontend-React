@@ -82,6 +82,7 @@
     "low": "Low",
     "total_assets": "Total Assets",
     "vulnerability_reports": "Vulnerability Reports",
+    "no_vulnerability_reports": "No vulnerability reports",
     "most_recent_scans": "Most Recent Scans",
     "type": "Type",
     "hosts": "Hosts",
