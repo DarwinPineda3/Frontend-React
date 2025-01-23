@@ -27,6 +27,7 @@ import AssessmentStatusByAsset from 'src/views/compliance/compliance-reports/Ass
 import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
 import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
+import ComplianceInstallationGuidePage from 'src/views/compliance/ComplianceInstallationGuide';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
 import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
@@ -588,6 +589,11 @@ const Router = [
       {
         path: '/compliance/projects/edit/:projectId',
         element: <EditComplianceProjects />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/installation-guide',
+        element: <ComplianceInstallationGuidePage />,
         roles: ['Administrator', 'Defender'],
       },
     ],

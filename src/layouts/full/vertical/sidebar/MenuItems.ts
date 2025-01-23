@@ -31,7 +31,7 @@ import {
   IconSquaresFilled,
   IconTicket,
   IconUserBolt,
-  IconUserShield
+  IconUserShield,
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -335,8 +335,8 @@ const Menuitems: MenuitemsType[] = [
             icon: IconExternalLink,
             permissions: ['Administrator'],
             external: true,
-          }
-        ]
+          },
+        ],
       },
       {
         id: uniqueId(),
@@ -358,10 +358,10 @@ const Menuitems: MenuitemsType[] = [
             href: '/monitoring/soc/brand-monitoring/darknet',
             permissions: ['Administrator'],
             icon: IconPoint,
-          }
-        ]
+          },
+        ],
       },
-    ]
+    ],
   },
   {
     id: uniqueId(),
@@ -410,6 +410,13 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_templates',
     href: '/compliance/templates',
     icon: IconClipboardList,
+    permissions: ['Administrator', 'Compliance'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.installation_guide',
+    href: '/compliance/installation-guide',
+    icon: IconBook,
     permissions: ['Administrator', 'Compliance'],
   },
 
@@ -468,4 +475,3 @@ const Menuitems: MenuitemsType[] = [
 
 export default Menuitems;
 export type { MenuitemsType };
-
