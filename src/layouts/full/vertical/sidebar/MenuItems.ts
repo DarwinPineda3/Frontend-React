@@ -432,7 +432,7 @@ const Menuitems: MenuitemsType[] = [
     title: 'menu.installation_guide',
     href: '/compliance/installation-guide',
     icon: IconBook,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
 
   // CONFIGURATION
@@ -490,3 +490,4 @@ const Menuitems: MenuitemsType[] = [
 
 export default Menuitems;
 export type { MenuitemsType };
+
