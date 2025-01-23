@@ -376,7 +376,6 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'compliance_menu.compliance',
-    permissions: ['Administrator', 'Defender'],
     permissions: ['Administrator', 'Compliance', 'Defender'],
   },
   {
@@ -405,7 +404,6 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_projects',
     href: '/compliance/projects',
     icon: IconBox,
-    permissions: ['Administrator', 'Defender'],
     permissions: ['Administrator', 'Compliance', 'Defender'],
   },
   {
@@ -413,9 +411,7 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_executions',
     href: '/compliance/executions',
     icon: IconPlayerPlay,
-    permissions: ['Administrator', 'Defender'],
-    icon: IconClipboardList,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender', 'Compliance'],
   },
   {
     id: uniqueId(),
@@ -429,9 +425,7 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_reports',
     href: '/compliance/reports',
     icon: IconReport,
-    permissions: ['Administrator', 'Defender'],
-    icon: IconClipboardList,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Compliance', 'Defender'],
   },
 
   // CONFIGURATION
