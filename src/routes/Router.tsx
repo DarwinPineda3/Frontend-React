@@ -82,6 +82,7 @@ import WebAppCreateScan from 'src/views/vulnerabilities/Web/WebAppCreateScan';
 import WordpressAplications from 'src/views/vulnerabilities/Web/WordPress';
 import Loadable from '../layouts/full/shared/loadable/Loadable';
 import ThresholdSettings from '../views/observability/ThresholdSettings';
+import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
@@ -590,6 +591,7 @@ const Router = [
         element: <EditComplianceProjects />,
         roles: ['Administrator', 'Defender'],
       },
+      { path: '/compliance/dashboard', element: <GiottoDashboard />, roles: ['Administrator', 'Defender', 'Scan360', 'CyberGuard',] },
     ],
   },
   {

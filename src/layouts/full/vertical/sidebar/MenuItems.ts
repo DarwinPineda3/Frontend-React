@@ -380,6 +380,13 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: 'menu.dashboard',
+    href: '/compliance/dashboard',
+    icon: IconAperture,
+    permissions: ['Administrator', 'Defender'],
+  },
+  {
+    id: uniqueId(),
     title: 'compliance_menu.compliance_assets',
     href: '/compliance/assets',
     icon: IconShoppingCart,
@@ -408,16 +415,16 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: 'compliance_menu.compliance_templates',
-    href: '/compliance/templates',
-    icon: IconTemplate,
+    title: 'compliance_menu.compliance_reports',
+    href: '/compliance/reports',
+    icon: IconReport,
     permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
-    title: 'compliance_menu.compliance_reports',
-    href: '/compliance/reports',
-    icon: IconReport,
+    title: 'compliance_menu.compliance_templates',
+    href: '/compliance/templates',
+    icon: IconTemplate,
     permissions: ['Administrator', 'Defender'],
   },
 
