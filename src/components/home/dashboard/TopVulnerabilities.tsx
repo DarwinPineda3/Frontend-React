@@ -107,88 +107,97 @@ const TopVulnerabilities = () => {
   };
 
 
+
+
   return (
     <DashboardCard
       title={t("dashboard.vulnerability_reports")!}
       subtitle={t("dashboard.most_recent_scans")!}
     >
-      <TableContainer>
-        <Table aria-label="vulnerability report table" sx={{ whiteSpace: 'wrap' }}>
-          <TableHead>
-            <TableRow>
-              {['type', 'hosts', 'severity', 'name', 'date', 'tool', 'view_report', 'ai_assistant_solution'].map((key) => (
-                <TableCell key={key}>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t(`dashboard.${key}`)}
-                  </Typography>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data?.map((report) => (
-              <TableRow key={report.id}>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    <Chip
-                      label={getChipColor(_.lowerCase(report.type)).label}
-                      sx={{
-                        backgroundColor: getChipColor(_.lowerCase(report.type)).color,
-                        color: 'white',
-                      }}
-                    />
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                    {report.hosts}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Chip
-                    label={report.severity}
-                    sx={{
-                      backgroundColor: getChipColorSeverity(report.severity).color,
-                      color: 'white',
-                    }}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                    {report.name}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <HumanizedDate dateString={report.date} />
-                  <Typography>{new Date(report.date).toLocaleDateString()}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2">{report.tool}</Typography>
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    size="small"
-                    color="primary"
-                    href={handleViewReport(report.id, report.tool)}
-                  >
-                    <IconEye />
-                  </IconButton>
-                </TableCell>
-                <TableCell>
-                  <IconButton
-                    size="small"
-                    color="primary"
-                    href="#"
-                    target="_blank"
-                  >
-                    <AutoAwesomeIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {
+        !data || data.length === 0 ?
+          <Box display="flex" justifyContent="center" mt={4} mb={4}>
+            <Typography variant="h6">{t("dashboard.no_vulnerability_reports")}</Typography>
+          </Box>
+          : <TableContainer>
+            <Table aria-label="vulnerability report table" sx={{ whiteSpace: 'wrap' }}>
+              <TableHead>
+                <TableRow>
+                  {['type', 'hosts', 'severity', 'name', 'date', 'tool', 'view_report', 'ai_assistant_solution'].map((key) => (
+                    <TableCell key={key}>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t(`dashboard.${key}`)}
+                      </Typography>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data?.map((report) => (
+                  <TableRow key={report.id}>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        <Chip
+                          label={getChipColor(_.lowerCase(report.type)).label}
+                          sx={{
+                            backgroundColor: getChipColor(_.lowerCase(report.type)).color,
+                            color: 'white',
+                          }}
+                        />
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                        {report.hosts}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Chip
+                        label={report.severity}
+                        sx={{
+                          backgroundColor: getChipColorSeverity(report.severity).color,
+                          color: 'white',
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                        {report.name}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <HumanizedDate dateString={report.date} />
+                      <Typography>{new Date(report.date).toLocaleDateString()}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2">{report.tool}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton
+                        size="small"
+                        color="primary"
+                        href={handleViewReport(report.id, report.tool)}
+                      >
+                        <IconEye />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton
+                        size="small"
+                        color="primary"
+                        href="#"
+                        target="_blank"
+                      >
+                        <AutoAwesomeIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+      }
+
     </DashboardCard>
   );
 };

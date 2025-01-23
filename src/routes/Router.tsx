@@ -32,6 +32,7 @@ import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView'
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
 import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
 import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
+import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
@@ -595,6 +596,11 @@ const Router = [
         path: '/compliance/installation-guide',
         element: <ComplianceInstallationGuidePage />,
         roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/dashboard',
+        element: <GiottoDashboard />,
+        roles: ['Administrator', 'Defender', 'Scan360', 'CyberGuard'],
       },
     ],
   },

@@ -82,6 +82,7 @@
     "low": "Low",
     "total_assets": "Total Assets",
     "vulnerability_reports": "Vulnerability Reports",
+    "no_vulnerability_reports": "No vulnerability reports",
     "most_recent_scans": "Most Recent Scans",
     "type": "Type",
     "hosts": "Hosts",
@@ -423,7 +424,7 @@
     },
     "network_vulnerabilities": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create network scan",
       "create_network_scan_subtitle": "In this form you can create a network scan",
       "name": "Name",
@@ -441,7 +442,7 @@
     },
     "web_app": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create web app scan",
       "create_network_scan_subtitle": "In this form you can create a web app scan",
       "name": "Name",
@@ -454,7 +455,9 @@
       "network_scan_create_successfully": "Web app scan created successfully",
       "network_scan_create_failed": "Failed to create the web app scan",
       "required_field": "Required Field",
-      "network_scan_created": "Web app scan created"
+      "network_scan_created": "Web app scan created",
+      "active_scan": "Active Scan",
+      "passive_scan": "Passive Scan"
     },
     "cloud_scans": {
       "low": "Low",
@@ -784,7 +787,8 @@
     "risk_analysis": "Risk Analysis",
     "domain_up": "Domain Up",
     "potential_risk": "Potential Risk",
-    "monitoring_times": "The parameters monitoring is executed every day at 2AM."
+    "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
+    "identification_date": "Identification Date"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -1234,7 +1238,8 @@
     "compliance_groups": "Groups",
     "compliance_projects": "Projects",
     "compliance_executions": "Executions",
-    "compliance_templates": "Templates"
+    "compliance_templates": "Templates",
+    "compliance_reports": "Reports"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1440,6 +1445,52 @@
       "group_deleted_successfully": "Group removed successfully",
       "edit_group": "Edit group",
       "group_name_already_exists": "Group name already exists"
+    },
+    "reports": {
+      "compliance_reports": "Compliance reports",
+      "module_description": "Generate and download compliance reports easily by project.",
+      "project": "Project",
+      "report_generation_message": "The generation of this report may take a little time.",
+      "project_is_required": "Project is required",
+      "report_generated_successfully": "Report generated successfully",
+      "report_generation_failed": "Report generation failed",
+      "success": "Success",
+      "error": "Error",
+      "module_info": "In this module, you can download key reports to assess and manage regulatory compliance in your operations.",
+      "by_projects_tittle": "By Projects:",
+      "by_projects_description": "get an analysis of the compliance status of each project.",
+      "by_assessments_tittle": "By Assessments:",
+      "by_assessments_description": "Review information related to assessments, hardening measures, and any rollbacks performed, ensuring the security and traceability of your systems.",
+      "select_option": "Please select one of the options.",
+      "select_report": "Select a report",
+      "by_projects": "By Projects",
+      "by_assessments": "By Assessments",
+      "report_by_project_info": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "operation_status": "Operation Status",
+      "generation_in_progress": "generation in progress",
+      "group_is_required": "The group is required",
+      "template_is_required": "The template is required",
+      "execution_is_required": "The execution is required",
+      "asset_is_required": "The asset is required",
+      "report_type_is_required": "The report type is required",
+      "no_assets_found": "No assets were found with the selected parameters.",
+      "group": "Group",
+      "template": "Template",
+      "execution": "Execution",
+      "asset": "Asset",
+      "report_type": "Report type",
+      "GetAssessmentStatusByAssetReport": "Assessment Status by Asset",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Assessment Tech Details by Asset",
+      "GetHardeningStatusByAssetReport": "Hardening Status by Asset",
+      "GetHardeningTechnicalDetailsByAssetReport": "Hardening Tech Details by Asset",
+      "GetRollbackStatusByAssetReport": "Rollback Status by Asset",
+      "GetRollbackTechnicalDetailsByAssetReport": "Rollback Tech Details by Asset",
+      "GetAssessmentStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and assessment execution.",
+      "GetHardeningStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and hardening execution.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and hardening execution.",
+      "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
     }
   },
   "compliance_templates": {

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import Chart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
-import DashboardCard from '../../shared/DashboardCard';
-import { useTranslation } from 'react-i18next';
 import { ApexOptions } from 'apexcharts';
+import React from 'react';
+import Chart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
+import DashboardCard from '../../shared/DashboardCard';
 
 interface SecurityIncidentsPolygonProps {
   series: { name: string; data: number[] }[];

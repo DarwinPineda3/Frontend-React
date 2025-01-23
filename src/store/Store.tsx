@@ -1,4 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import {
+  TypedUseSelectorHook,
+  useDispatch as useAppDispatch,
+  useSelector as useAppSelector,
+} from 'react-redux';
+import { combineReducers } from 'redux';
 import NetworkObservabilityReducer from 'src/store/observability/ObservabilityNetworkSlice.tsx';
 import ChangePasswordUserReducer from './apps/userProfile/ChangePassWordSlice';
 import UserProfileReducer from './apps/userProfile/UserProfileSlice';
@@ -10,8 +16,10 @@ import CloudInventoryReducer from './observability/cloud/CloudInventorySlice';
 import AssetsReducer from './sections/AssetsSlice';
 import GiottoAssetsReducer from './sections/compliance/giotoAssetsSlice';
 import GiottoExecutionsReducer from './sections/compliance/giotoExecutionsSlice';
+import GiottoDashboardSlice from './sections/compliance/giottoDashboardSlice';
 import GiottoGroupReducer from './sections/compliance/giottoGroupsSlice';
 import GiottoProjectsReducer from './sections/compliance/giottoProjectsSlice';
+import GiottoReportsReducer from './sections/compliance/giottoReportsSlice';
 import GiottoTemplatesReducer from './sections/compliance/giottoTemplatesSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
@@ -42,13 +50,6 @@ import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from './vulnerabilities/web/WPScanSlice';
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
-
-import {
-  TypedUseSelectorHook,
-  useDispatch as useAppDispatch,
-  useSelector as useAppSelector,
-} from 'react-redux';
-import { combineReducers } from 'redux';
 
 const dashboardReducer = combineReducers({
   topCards: TopCardsReducer,
@@ -98,6 +99,8 @@ export const store = configureStore({
     GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
     giottoProjectsReducer: GiottoProjectsReducer,
+    giottoDashboardSlice: GiottoDashboardSlice,
+    giottoReportsReducer: GiottoReportsReducer,
     installationGuideVariablesReducer: InstallationGuideVariablesReducer,
   },
 });
@@ -136,11 +139,13 @@ const rootReducer = combineReducers({
   GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
   giottoProjectsReducer: GiottoProjectsReducer,
+  giottoDashboardSlice: GiottoDashboardSlice,
+  giottoReportsReducer: GiottoReportsReducer,
   installationGuideVariablesReducer: InstallationGuideVariablesReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const {} = store;
+export const { } = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;

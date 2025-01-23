@@ -117,6 +117,9 @@ export const GiottoExecutionSlice = createSlice({
       state.pageSize = action.payload.pageSize;
       state.loading = false;
     },
+    getAllInList: (state, action) => {
+      state.executions = Array.isArray(action.payload.executions) ? action.payload.executions : [];
+    },
     getExecutionDetail: (state, action) => {
       state.executionDetail = action.payload;
     },
@@ -141,7 +144,7 @@ export const GiottoExecutionSlice = createSlice({
   }
 });
 
-export const { getExecutions, getExecutionDetail, getExecutionAssets, getExecutionControls, setPage, setError, setLoadingExecutions, getExecutionControlResults } = GiottoExecutionSlice.actions;
+export const { getExecutions, getExecutionDetail, getExecutionAssets, getExecutionControls, setPage, setError, setLoadingExecutions, getExecutionControlResults, getAllInList } = GiottoExecutionSlice.actions;
 
 export default GiottoExecutionSlice.reducer;
 
@@ -260,3 +263,23 @@ export const fetchExecutionControls = (executionId: string, assetId: string) => 
     dispatch(setError('An error occurred while fetching the execution controls'));
   }
 }
+
+export const getExecutionByTemplate = (processToExecute: any, project: any, group: any, template: any) => async (dispatch: AppDispatch) => {
+
+  try {
+    dispatch(setLoadingExecutions(true));
+    const response = await axios.get(`${getApiUrl()}?url=TemplateExecutions/GetWithExecutionsByTemplateProjectGroup?templateId=${template}&projectId=${project}&groupId=${group}&processToExecute=${processToExecute}`);
+
+    const executions = response.data;
+
+    dispatch(
+      getAllInList({
+        executions,
+      }),
+    );
+    dispatch(setLoadingExecutions(false));
+  } catch (err: any) {
+    console.error('Error fetching tempaltes:', err);
+    dispatch(setError('Failed to fetch tempaltes'));
+  }
+};

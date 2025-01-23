@@ -79,9 +79,7 @@ const InstallationGuides = () => {
             <Link component={RouterLink} color="inherit" to="/observability/installation-guide">
               {t('menu.observability')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/observability/installation-guide">
-              {t('menu.installation_guide')}
-            </Link>
+            <Typography color="textPrimary">{t('menu.installation_guide')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>

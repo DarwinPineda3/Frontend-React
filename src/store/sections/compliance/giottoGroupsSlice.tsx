@@ -13,6 +13,7 @@ interface StateType {
   pageSize: number;
   totalPages: number;
   itemsResults: any[];
+  groups: any[];
   page: number; //currentPage
   loading: boolean;
   error: string | null;
@@ -24,6 +25,7 @@ const initialState: StateType = {
   pageSize: 25,
   totalPages: 1,
   itemsResults: [],
+  groups: [],
   page: 1,
   loading: false,
   error: null,
@@ -40,6 +42,9 @@ export const GiottoGroupSlice = createSlice({
       state.totalPages = action.payload.totalPages;
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
+    },
+    getAllInList: (state, action) => {
+      state.groups = Array.isArray(action.payload.groups) ? action.payload.groups : [];
     },
     getGroupDetail: (state, action) => {
       state.groupDetail = action.payload.data;
@@ -68,7 +73,8 @@ export const GiottoGroupSlice = createSlice({
   }
 });
 
-export const { getGroups, addGroup, updateGroup, deleteGroup, setPage, setError, setLoading, getGroupDetail } = GiottoGroupSlice.actions;
+export const { getGroups, addGroup, updateGroup, deleteGroup, setPage, setError, setLoading, getGroupDetail, getAllInList } = GiottoGroupSlice.actions;
+
 
 export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 10) => async (dispatch: AppDispatch) => {
   try {
@@ -184,6 +190,24 @@ export const fetchGroupName = async (name: string): Promise<boolean> => {
     }
     console.error('Error fetching group name:', error);
     return true;
+  }
+};
+
+export const getGroupsByProjectId = (processToExecute: number, project: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const response = await axios.get(`${getApiUrl()}GetListInTemplateExecutions/${project}?processToExecute=${processToExecute}`);
+    const groups = response.data;
+
+    dispatch(
+      getAllInList({
+        groups,
+      }),
+    );
+    dispatch(setLoading(false));
+  } catch (err: any) {
+    console.error('Error fetching itemsResults:', err);
+    dispatch(setError('Failed to fetch itemsResults'));
   }
 };
 

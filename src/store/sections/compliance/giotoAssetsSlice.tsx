@@ -49,6 +49,9 @@ export const GiottoAssetsSlice = createSlice({
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
     },
+    getAllInList: (state, action) => {
+      state.assets = Array.isArray(action.payload.assets) ? action.payload.assets : [];
+    },
     addAsset: (state, action) => {
       state.assets.push(action.payload);
     },
@@ -73,7 +76,7 @@ export const GiottoAssetsSlice = createSlice({
   }
 });
 
-export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading } = GiottoAssetsSlice.actions;
+export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading, getAllInList } = GiottoAssetsSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
 export const fetchAssets = (requestedPage: Number, requestedPageSize: Number = 10) => async (dispatch: AppDispatch) => {
@@ -193,6 +196,26 @@ export const requestRestartSession = (assetId: string) => async (dispatch: AppDi
   } catch (err: any) {
     console.error('Error deleting asset:', err);
     dispatch(setError('Failed to delete asset'));
+  }
+};
+
+export const getAssetsByGroup = (group: any) => async (dispatch: AppDispatch) => {
+
+  try {
+    dispatch(setLoading(true));
+    const response = await axios.get(`${getApiUrl()}?url=Assets/GetListByGroupId/${group}`);
+
+    const assets = response.data;
+
+    dispatch(
+      getAllInList({
+        assets,
+      }),
+    );
+    dispatch(setLoading(false));
+  } catch (err: any) {
+    console.error('Error fetching tempaltes:', err);
+    dispatch(setError('Failed to fetch tempaltes'));
   }
 };
 export default GiottoAssetsSlice.reducer;
