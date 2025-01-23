@@ -38,8 +38,6 @@ const ReportComplianceByProjects: React.FC = () => {
     setSnackbarState(null);
   };
 
-
-
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

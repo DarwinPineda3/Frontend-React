@@ -15,6 +15,7 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from 'src/components/shared/Loader/Loader';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { getAssetsByGroup } from 'src/store/sections/compliance/giotoAssetsSlice';
 import { getExecutionByTemplate } from 'src/store/sections/compliance/giotoExecutionsSlice';
 import { getGroupsByProjectId } from 'src/store/sections/compliance/giottoGroupsSlice';
@@ -393,6 +394,18 @@ const ReportComplianceByCategory: React.FC = () => {
             </Typography>
           </Alert>
         </Grid>
+      )}
+
+      {snackbarState && (
+        <SnackBarInfo
+          color={snackbarState.severity}
+          title={
+            snackbarState.severity === 'success'
+              ? t('giotto.reports.success')
+              : t('giotto.reports.error')
+          }
+          message={snackbarState.message}
+        />
       )}
 
       <Button type="submit" variant="contained" color="primary" fullWidth sx={{ ...fadeStyle, marginTop: 2 }}>
