@@ -82,6 +82,7 @@
     "low": "Low",
     "total_assets": "Total Assets",
     "vulnerability_reports": "Vulnerability Reports",
+    "no_vulnerability_reports": "No vulnerability reports",
     "most_recent_scans": "Most Recent Scans",
     "type": "Type",
     "hosts": "Hosts",
@@ -1021,7 +1022,7 @@
       },
       "error_notes": {
         "title": "Error notes",
-        "intro": "Next commands:"
+        "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
       }
     }
   },
@@ -1239,7 +1240,8 @@
     "compliance_groups": "Groups",
     "compliance_projects": "Projects",
     "compliance_executions": "Executions",
-    "compliance_templates": "Templates"
+    "compliance_templates": "Templates",
+    "compliance_reports": "Reports"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1249,7 +1251,66 @@
     "projects_description": "Projects",
     "projects_info": "Here you can manage and view compliance projects.",
     "executions_description": "Executions",
-    "executions_info": "Here you can track and manage compliance executions."
+    "executions_info": "Here you can track and manage compliance executions.",
+    "installation_guide": {
+      "title": "Installation Guide",
+      "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows or Linux, you will find all the necessary steps to ensure a smooth installation process.",
+      "windows": {
+        "title": "Windows",
+        "individual_installation": {
+          "title": "Individual Installation",
+          "steps": {
+            "intro": "To run the command on Windows, follow these steps:",
+            "step1": "Step 1: Open PowerShell with administrative privileges.",
+            "step2": "Step 2: Copy the following command:",
+            "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
+            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+          }
+        },
+        "bulk_installation": {
+          "title": "Bulk Installation",
+          "steps": {
+            "intro": "To create a script for bulk installation, follow these steps:",
+            "step1": "Step 1: Create a new PowerShell script file with a .ps1 extension, e.g., install_agent.ps1.",
+            "step2": "Step 2: Copy the following script into the newly created PowerShell script file:",
+            "step3": "Step 3: Save the script file."
+          }
+        },
+        "active_directory": {
+          "title": "Instructions for Active Directory Group Policy",
+          "intro": "To apply group policies in Active Directory, follow these steps:",
+          "steps": {
+            "step1": "Step 1: Open the Group Policy Management Console (GPMC).",
+            "step2": "Step 2: Navigate to the desired Organizational Unit (OU) or domain where you want to apply the Group Policy.",
+            "step3": "Step 3: Create a new Group Policy Object (GPO) or edit an existing one.",
+            "step4": "Step 4: Navigate to Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).",
+            "step5": "Step 5: Add a new startup script and specify the path to your PowerShell script (e.g., instalar_agente.ps1).",
+            "step6": "Step 6: Ensure that the execution policy allows the script to run. You may need to set the execution policy to RemoteSigned or Bypass.",
+            "step7": "Step 7: Once the Group Policy is applied to the desired computers, the script will run during startup."
+          }
+        },
+        "notes": "Notes: The Windows agent is compatible with Windows Server 2008 R2 and later."
+      },
+      "linux": {
+        "title": "Linux",
+        "individual_installation": {
+          "title": "Individual Installation",
+          "steps": {
+            "intro": "To run the command on Linux, follow these steps:",
+            "step1": "Step 1: Open a terminal on your Linux system.",
+            "step2": "Step 2: Choose your Linux distribution:",
+            "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
+            "step4": "Step 4: Copy the following command:",
+            "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
+            "note": "The command will download and run the Akila Agent with the provided URL and API key."
+          }
+        },
+        "error_notes": {
+          "title": "Error notes",
+          "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
+        }
+      }
+    }
   },
   "changelog": {
     "title": "Changelog",
@@ -1270,7 +1331,8 @@
     "templates": "Templates"
   },
   "snackbar": {
-    "reportGenerated": "Report successfully generated!"
+    "reportGenerated": "Report successfully generated!",
+    "copied_text": "Text copied to your clipboard"
   },
   "compliance_projects": {
     "project_name": "Project Name",
@@ -1387,6 +1449,52 @@
       "group_deleted_successfully": "Group removed successfully",
       "edit_group": "Edit group",
       "group_name_already_exists": "Group name already exists"
+    },
+    "reports": {
+      "compliance_reports": "Compliance reports",
+      "module_description": "Generate and download compliance reports easily by project.",
+      "project": "Project",
+      "report_generation_message": "The generation of this report may take a little time.",
+      "project_is_required": "Project is required",
+      "report_generated_successfully": "Report generated successfully",
+      "report_generation_failed": "Report generation failed",
+      "success": "Success",
+      "error": "Error",
+      "module_info": "In this module, you can download key reports to assess and manage regulatory compliance in your operations.",
+      "by_projects_tittle": "By Projects:",
+      "by_projects_description": "get an analysis of the compliance status of each project.",
+      "by_assessments_tittle": "By Assessments:",
+      "by_assessments_description": "Review information related to assessments, hardening measures, and any rollbacks performed, ensuring the security and traceability of your systems.",
+      "select_option": "Please select one of the options.",
+      "select_report": "Select a report",
+      "by_projects": "By Projects",
+      "by_assessments": "By Assessments",
+      "report_by_project_info": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "operation_status": "Operation Status",
+      "generation_in_progress": "generation in progress",
+      "group_is_required": "The group is required",
+      "template_is_required": "The template is required",
+      "execution_is_required": "The execution is required",
+      "asset_is_required": "The asset is required",
+      "report_type_is_required": "The report type is required",
+      "no_assets_found": "No assets were found with the selected parameters.",
+      "group": "Group",
+      "template": "Template",
+      "execution": "Execution",
+      "asset": "Asset",
+      "report_type": "Report type",
+      "GetAssessmentStatusByAssetReport": "Assessment Status by Asset",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Assessment Tech Details by Asset",
+      "GetHardeningStatusByAssetReport": "Hardening Status by Asset",
+      "GetHardeningTechnicalDetailsByAssetReport": "Hardening Tech Details by Asset",
+      "GetRollbackStatusByAssetReport": "Rollback Status by Asset",
+      "GetRollbackTechnicalDetailsByAssetReport": "Rollback Tech Details by Asset",
+      "GetAssessmentStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and assessment execution.",
+      "GetHardeningStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and hardening execution.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and hardening execution.",
+      "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
     }
   },
   "compliance_templates": {
