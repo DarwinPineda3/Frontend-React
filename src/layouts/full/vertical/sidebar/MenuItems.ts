@@ -6,12 +6,11 @@ import {
   IconBox,
   IconBrandWordpress,
   IconBroadcast,
+  IconCategory,
   IconChartDonut3,
-  IconClipboardList,
   IconClockBolt,
   IconCloud,
   IconExternalLink,
-  IconFile,
   IconGauge,
   IconGitMerge,
   IconLink,
@@ -22,6 +21,7 @@ import {
   IconNews,
   IconNotebook,
   IconPackage,
+  IconPlayerPlay,
   IconPoint,
   IconReport,
   IconShieldBolt,
@@ -29,12 +29,10 @@ import {
   IconSocial,
   IconSpy,
   IconSquaresFilled,
+  IconTemplate,
   IconTicket,
   IconUserBolt,
-  IconUserShield,
-  IconPlayerPlay,
-  IconTemplate,
-  IconCategory
+  IconUserShield
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -378,49 +376,49 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'compliance_menu.compliance',
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_assets',
     href: '/compliance/assets',
     icon: IconShoppingCart,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_groups',
     href: '/compliance/groups',
     icon: IconCategory,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_projects',
     href: '/compliance/projects',
     icon: IconBox,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_executions',
     href: '/compliance/executions',
     icon: IconPlayerPlay,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_templates',
     href: '/compliance/templates',
     icon: IconTemplate,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_reports',
     href: '/compliance/reports',
     icon: IconReport,
-    permissions: ['Administrator', 'Compliance'],
+    permissions: ['Administrator', 'Defender'],
   },
 
   // CONFIGURATION
