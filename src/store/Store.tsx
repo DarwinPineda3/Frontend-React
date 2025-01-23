@@ -42,6 +42,7 @@ import NetworkScanReducer from './vulnerabilities/network/NetworkScansSlice';
 import EHReportsReducer from './vulnerabilities/redteam/EHReportSlice';
 import WPScanReducer from './vulnerabilities/web/WPScanSlice';
 import WebApplicationsReducer from './vulnerabilities/web/WebAplicationsSlice';
+import GiottoReportsReducer from './sections/compliance/giottoReportsSlice';
 
 import {
   TypedUseSelectorHook,
@@ -98,6 +99,7 @@ export const store = configureStore({
     GiottoExecutionsReducer: GiottoExecutionsReducer,
     networkConfigurationReducer: NetworkConfigurationReducer,
     giottoProjectsReducer: GiottoProjectsReducer,
+    giottoReportsReducer: GiottoReportsReducer,
     installationGuideVariablesReducer: InstallationGuideVariablesReducer,
   },
 });
@@ -136,6 +138,7 @@ const rootReducer = combineReducers({
   GiottoExecutionsReducer: GiottoExecutionsReducer,
   networkConfigurationReducer: NetworkConfigurationReducer,
   giottoProjectsReducer: GiottoProjectsReducer,
+  giottoReportsReducer: GiottoReportsReducer,
   installationGuideVariablesReducer: InstallationGuideVariablesReducer,
 });
 
