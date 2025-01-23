@@ -74,6 +74,9 @@ export const GiottoProjectsSlice = createSlice({
       state.totalItemsAmount = action.payload.totalItemsAmount;
       state.pageSize = action.payload.pageSize;
     },
+    getAllInList: (state, action) => {
+      state.projects = Array.isArray(action.payload.projects) ? action.payload.projects : [];
+    },
     getProjectDetail: (state, action) => {
       state.projectDetail = action.payload.data;
     },
@@ -114,37 +117,38 @@ export const {
   setLoading,
   setPageSize,
   getProjectDetail,
+  getAllInList,
 } = GiottoProjectsSlice.actions;
 
 // Async thunk for fetching projects with pagination (READ)
 export const fetchProjects =
   (requestedPage: Number, requestedPageSize: Number = 10) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      dispatch(setLoading(true));
-      if (requestedPageSize !== initialState.pageSize) {
-        requestedPage = 1;
-      }
-      const url = `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
-      const response = await axios.get(url);
-      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        if (requestedPageSize !== initialState.pageSize) {
+          requestedPage = 1;
+        }
+        const url = `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
+        const response = await axios.get(url);
+        const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
-      dispatch(
-        getProjects({
-          results: itemsResult,
-          currentPage,
-          totalPages,
-          totalItemsAmount,
-          pageSize,
-        }),
-      );
-      dispatch(setLoading(false));
-    } catch (err: any) {
-      console.error('Error fetching projects:', err);
-      dispatch(setError('Failed to fetch projects'));
-      dispatch(setLoading(false));
-    }
-  };
+        dispatch(
+          getProjects({
+            results: itemsResult,
+            currentPage,
+            totalPages,
+            totalItemsAmount,
+            pageSize,
+          }),
+        );
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        console.error('Error fetching projects:', err);
+        dispatch(setError('Failed to fetch projects'));
+        dispatch(setLoading(false));
+      }
+    };
 
 export const fetchProjectById = (projectId: string) => async (dispatch: AppDispatch) => {
   try {
@@ -214,5 +218,50 @@ export const removeProject = (projectId: string) => async (dispatch: AppDispatch
     dispatch(setError('Failed to delete project'));
   }
 };
+
+export const fecthProjectsByProcessId =
+  (processToExecute: number) =>
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        const url = `${getApiUrl()}GetListInTemplateExecutions?processToExecute=${processToExecute}`;
+        const response = await axios.get(url);
+        const projects = response.data;
+
+        dispatch(
+          getAllInList({
+            projects,
+          }),
+        );
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        console.error('Error fetching projects:', err);
+        dispatch(setError('Failed to fetch projects'));
+        dispatch(setLoading(false));
+      }
+    };
+
+
+export const fetchAllProjectsInList =
+  () =>
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        const url = `${getApiUrl()}GetAllInList`;
+        const response = await axios.get(url);
+        const projects = response.data;
+
+        dispatch(
+          getAllInList({
+            projects,
+          }),
+        );
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        console.error('Error fetching projects:', err);
+        dispatch(setError('Failed to fetch projects'));
+        dispatch(setLoading(false));
+      }
+    };
 
 export default GiottoProjectsSlice.reducer;

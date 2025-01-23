@@ -31,7 +31,10 @@ import {
   IconSquaresFilled,
   IconTicket,
   IconUserBolt,
-  IconUserShield
+  IconUserShield,
+  IconPlayerPlay,
+  IconTemplate,
+  IconCategory
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -395,8 +398,8 @@ const Menuitems: MenuitemsType[] = [
     id: uniqueId(),
     title: 'compliance_menu.compliance_groups',
     href: '/compliance/groups',
-    icon: IconFile,
-    permissions: ['Administrator', 'Compliance','Defender'],
+    icon: IconCategory,
+    permissions: ['Administrator', 'Compliance'],
   },
   {
     id: uniqueId(),
@@ -410,14 +413,14 @@ const Menuitems: MenuitemsType[] = [
     title: 'compliance_menu.compliance_executions',
     href: '/compliance/executions',
     icon: IconClipboardList,
-    permissions: ['Administrator', 'Compliance', 'Defender'],
+    permissions: ['Administrator', 'Compliance'],
   },
   {
     id: uniqueId(),
     title: 'compliance_menu.compliance_templates',
     href: '/compliance/templates',
     icon: IconClipboardList,
-    permissions: ['Administrator', 'Compliance', 'Defender'],
+    permissions: ['Administrator', 'Compliance'],
   },
 
   // CONFIGURATION

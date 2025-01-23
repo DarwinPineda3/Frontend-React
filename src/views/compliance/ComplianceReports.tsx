@@ -1,120 +1,81 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Alert, Box, Breadcrumbs, FormControl, Grid, IconButton, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Box, Card, CardHeader, CardContent, Grid, Typography, Button, Select, MenuItem, InputLabel, FormControl, Breadcrumbs, IconButton, Link, Snackbar, Alert } from '@mui/material';
-import { Download as DownloadIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import PageContainer from 'src/components/container/PageContainer'; 
-import { Link as RouterLink } from 'react-router-dom';
-import Loader from 'src/components/shared/Loader/Loader';
+import ReportComplianceByCategory from 'src/components/compliance/giotto-reports/giottoReportsByCategories';
+import ReportComplianceByProjects from 'src/components/compliance/giotto-reports/giottoReportsByProjects';
+import PageContainer from 'src/components/container/PageContainer';
+import DashboardCard from 'src/components/shared/DashboardCard';
 
 const ComplianceReports = () => {
+  const [selectedReport, setSelectedReport] = useState<string>(''); // Valor inicial vacío
+
+  const handleReportChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedReport(event.target.value as string);
+  };
+
   const { t } = useTranslation();
-  const [selectedProject, setSelectedProject] = useState<string>('1');
-  const [isLoading, setIsLoading] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarTitle, setSnackbarTitle] = useState('');
-  const [snackbarColor, setSnackbarColor] = useState<'error' | 'warning' | 'info' | 'success'>('success'); 
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const navigate = useNavigate();
-
-  const handleDownload = () => {
-    setIsLoading(true);  
-
-    setTimeout(() => {
-      setIsLoading(false); 
-      setSnackbarMessage(String(t('compliance_reports.report_generated'))); 
-      setSnackbarColor('success'); 
-      setOpenSnackbar(true); 
-    }, 2000);  
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false); 
-  };
 
   return (
-    <PageContainer title={'Akila'}>
+    <PageContainer title="Akila">
       <Box mb={2}>
         <Box display="flex" alignItems="center" mt={2}>
-          <IconButton onClick={() => navigate(-1)} color="primary">
+          <IconButton color="primary">
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/compliance/reports">
+            <Link color="inherit" to="/compliance/reports">
               {t('compliance_reports.compliance')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/compliance/reports">
-              {t('compliance_reports.reports')}
-            </Link>
+            <Typography color="textPrimary">{t('compliance_reports.reports')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>
-      
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Card>
-            <CardHeader
-              title={<Typography variant="h6">{t('compliance_reports.by_project')}</Typography>}
-              subheader={<Typography variant="body2" color="textSecondary">{t('compliance_reports.select_project')}</Typography>}
-              sx={{ backgroundColor: 'success.main', color: 'white' }}
-            />
-            <CardContent>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth variant="outlined">
-                    <InputLabel>{t('compliance_reports.select_project')}</InputLabel>
-                    <Select
-                      value={selectedProject}
-                      onChange={(e) => setSelectedProject(e.target.value)}
-                      label={t('compliance_reports.select_project')}
-                    >
-                      <MenuItem value="1">Proyecto Demo Giotto</MenuItem>
-                      <MenuItem value="2">Grupo Demo Giotto 2</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
+          <DashboardCard
+            title={t('giotto.reports.compliance_reports') || ''}
+            subtitle={t('giotto.reports.module_description') || ''}>
+            <>
 
-                <Grid item xs={12}>
-                  <Alert severity="info">
-                  <Typography variant="body2" color="textSecondary">{t('compliance_reports.report_description')}</Typography>
-                  </Alert>
-                </Grid>
-
-                <Grid item xs={12} textAlign="center">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleDownload}
-                    startIcon={isLoading ? <Loader /> : <DownloadIcon />}
-                    disabled={isLoading}
-                    sx={{
-                      position: 'relative', 
-                      paddingLeft: isLoading ? '20px' : '',
-                    }}
+              <Box>
+                {selectedReport === '' &&
+                  <Grid item xs={12}>
+                    <Alert severity="info">
+                      <Typography variant="body2" color="textSecondary">
+                        {t('giotto.reports.module_info')}
+                        <br />
+                        - <strong>{t('giotto.reports.by_projects_tittle')}</strong>{t('giotto.reports.by_projects_description')}
+                        <br />
+                        - <strong>{t('giotto.reports.by_assessments_tittle')}</strong> {t('giotto.reports.by_assessments_description')}
+                        <br />
+                        {t('giotto.reports.select_option')}
+                      </Typography>
+                    </Alert>
+                  </Grid>
+                }
+                <FormControl fullWidth margin="normal" sx={{ marginBottom: 0 }}>
+                  <InputLabel id="report-select-label">{t('giotto.reports.select_report')}</InputLabel>
+                  <Select
+                    labelId="report-select-label"
+                    value={selectedReport}
+                    onChange={handleReportChange}
                   >
-                    {isLoading ? t('compliance_reports.loading') : t('compliance_reports.generate_download')}
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
+
+                    <MenuItem value="" disabled>
+                      {t('giotto.reports.select_option')}
+                    </MenuItem>
+                    <MenuItem value="projects">{t('giotto.reports.by_projects')}</MenuItem>
+                    <MenuItem value="categories">{t('giotto.reports.by_assessments')}</MenuItem>
+                  </Select>
+                </FormControl>
+                {selectedReport === 'projects' && <ReportComplianceByProjects />}
+                {selectedReport === 'categories' && <ReportComplianceByCategory />}
+              </Box>
+            </>
+          </DashboardCard>
         </Grid>
       </Grid>
-
-      
-      <Snackbar 
-        open={openSnackbar} 
-        autoHideDuration={3000} 
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
-        sx={{
-          top: 20, 
-        }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarColor} sx={{ width: '100%' }}>
-          <strong>{snackbarTitle}</strong> {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </PageContainer>
   );
 };
