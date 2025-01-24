@@ -62,6 +62,10 @@ const ThresholdForm: React.FC<ThresholdFormProps> = ({ onSubmit, initialValues }
     STORAGE: number;
     USEREMAIL: string;
   }) => {
+    if (emails.length === 0) {
+      setEmailError(t('thresholdForm.email_required') ?? 'At least one email is required');
+      return;
+    }
     onSubmit({
       ...values,
       USEREMAIL: emails.join(', '),
@@ -106,7 +110,7 @@ const ThresholdForm: React.FC<ThresholdFormProps> = ({ onSubmit, initialValues }
           CPU: initialValues?.cpu ?? 95,
           RAM: initialValues?.ram ?? 95,
           STORAGE: initialValues?.storage ?? 95,
-          USEREMAIL: '',
+          USEREMAIL: initialValues?.email || '',
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
