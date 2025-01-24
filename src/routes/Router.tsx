@@ -27,10 +27,12 @@ import AssessmentStatusByAsset from 'src/views/compliance/compliance-reports/Ass
 import ComplianceAssetsView from 'src/views/compliance/ComplianceAssetsView';
 import ComplianceExecutionsView from 'src/views/compliance/ComplianceExecutionsView';
 import ComplianceGroupsView from 'src/views/compliance/ComplianceGroupsView';
+import ComplianceInstallationGuidePage from 'src/views/compliance/ComplianceInstallationGuide';
 import ComplianceProjectsView from 'src/views/compliance/ComplianceProjectsView';
 import ComplianceReports from 'src/views/compliance/ComplianceReports';
 import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProjectsView';
 import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
+import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 import TemplateListPage from 'src/views/compliance/TemplateListPage';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
@@ -589,6 +591,16 @@ const Router = [
         path: '/compliance/projects/edit/:projectId',
         element: <EditComplianceProjects />,
         roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/installation-guide',
+        element: <ComplianceInstallationGuidePage />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/dashboard',
+        element: <GiottoDashboard />,
+        roles: ['Administrator', 'Defender', 'Scan360', 'CyberGuard'],
       },
     ],
   },

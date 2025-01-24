@@ -32,7 +32,7 @@ import {
   IconTemplate,
   IconTicket,
   IconUserBolt,
-  IconUserShield
+  IconUserShield,
 } from '@tabler/icons-react';
 import { uniqueId } from 'lodash';
 
@@ -336,8 +336,8 @@ const Menuitems: MenuitemsType[] = [
             icon: IconExternalLink,
             permissions: ['Administrator'],
             external: true,
-          }
-        ]
+          },
+        ],
       },
       {
         id: uniqueId(),
@@ -359,10 +359,10 @@ const Menuitems: MenuitemsType[] = [
             href: '/monitoring/soc/brand-monitoring/darknet',
             permissions: ['Administrator'],
             icon: IconPoint,
-          }
-        ]
+          },
+        ],
       },
-    ]
+    ],
   },
   {
     id: uniqueId(),
@@ -376,6 +376,13 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'compliance_menu.compliance',
+    permissions: ['Administrator', 'Defender'],
+  },
+  {
+    id: uniqueId(),
+    title: 'menu.dashboard',
+    href: '/compliance/dashboard',
+    icon: IconAperture,
     permissions: ['Administrator', 'Defender'],
   },
   {
@@ -408,6 +415,13 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: 'compliance_menu.compliance_reports',
+    href: '/compliance/reports',
+    icon: IconReport,
+    permissions: ['Administrator', 'Defender'],
+  },
+  {
+    id: uniqueId(),
     title: 'compliance_menu.compliance_templates',
     href: '/compliance/templates',
     icon: IconTemplate,
@@ -415,9 +429,9 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: 'compliance_menu.compliance_reports',
-    href: '/compliance/reports',
-    icon: IconReport,
+    title: 'menu.installation_guide',
+    href: '/compliance/installation-guide',
+    icon: IconBook,
     permissions: ['Administrator', 'Defender'],
   },
 

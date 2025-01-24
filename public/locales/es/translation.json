@@ -980,8 +980,7 @@
         "steps": {
           "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
           "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
-          "step2": "Paso 2: Copie el siguiente comando:",
-          "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
+          "step2": "Paso 2: Copia y pega el siguiente comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },
@@ -1018,8 +1017,7 @@
           "step1": "Paso 1: Abra una terminal en su sistema Linux.",
           "step2": "Paso 2: Elija su distribución de Linux:",
           "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-          "step4": "Paso 4: Copie el siguiente comando:",
-          "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+          "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },
@@ -1264,9 +1262,8 @@
           "steps": {
             "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
             "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
-            "step2": "Paso 2: Copie el siguiente comando:",
-            "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
-            "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+            "step2": "Paso 2: Copia y pega el siguiente comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Defender Agent con la URL y la clave API proporcionadas."
           }
         },
         "bulk_installation": {
@@ -1302,9 +1299,8 @@
             "step1": "Paso 1: Abra una terminal en su sistema Linux.",
             "step2": "Paso 2: Elija su distribución de Linux:",
             "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-            "step4": "Paso 4: Copie el siguiente comando:",
-            "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-            "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+            "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Defender Agent  con la URL y la clave API proporcionadas."
           }
         },
         "error_notes": {
