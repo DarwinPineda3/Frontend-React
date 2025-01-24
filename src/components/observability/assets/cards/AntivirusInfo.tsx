@@ -1,4 +1,13 @@
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Shield as ShieldIcon } from '@mui/icons-material';
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import { AppState, useSelector } from 'src/store/Store';
@@ -10,8 +19,9 @@ interface AntivirusTableProps {
 const AntivirusTable = ({ id }: AntivirusTableProps) => {
   const { t } = useTranslation();
 
-  const { observedAssetsDetail, error } = useSelector((state: AppState) => state.ObservedAssetsReducer);
-
+  const { observedAssetsDetail, error } = useSelector(
+    (state: AppState) => state.ObservedAssetsReducer,
+  );
 
   const logoDispatcher = (DisplayName: string) => {
     if (DisplayName.includes('Sophos')) {
@@ -21,10 +31,13 @@ const AntivirusTable = ({ id }: AntivirusTableProps) => {
       return 'https://upload.wikimedia.org/wikipedia/commons/c/cf/McAfee_logo.svg';
     }
     if (DisplayName.includes('Windows Defender')) {
-      return 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Windows-defender.svg'
+      return 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Windows-defender.svg';
     }
+    if (DisplayName.includes('ClamAV')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/f/f2/ClamAV_Logo.png';
+    }
+    return <ShieldIcon fontSize="large" color="action" />;
   };
-
 
   if (error) {
     return (
@@ -34,9 +47,7 @@ const AntivirusTable = ({ id }: AntivirusTableProps) => {
     );
   }
   if (observedAssetsDetail?.cpuInfo.AntivirusInfo.AntivirusList.length === 0) {
-    return (
-      <></>
-    );
+    return <></>;
   }
   return (
     <DashboardCard title={t('observability.antivirus_info')!}>
@@ -57,7 +68,16 @@ const AntivirusTable = ({ id }: AntivirusTableProps) => {
               <TableRow key={index}>
                 <TableCell>
                   <Box display="flex" alignItems="center" justifyContent="center">
-                    <img src={logoDispatcher(antivirus.DisplayName)} alt={`${antivirus} Logo`} width={50} height={50} />
+                    {typeof logoDispatcher(antivirus.DisplayName) === 'string' ? (
+                      <img
+                        src={logoDispatcher(antivirus.DisplayName)}
+                        alt={`${antivirus.DisplayName} Logo`}
+                        width={50}
+                        height={50}
+                      />
+                    ) : (
+                      logoDispatcher(antivirus.DisplayName)
+                    )}
                   </Box>
                 </TableCell>
                 <TableCell>{antivirus.DisplayName}</TableCell>
