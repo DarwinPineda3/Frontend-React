@@ -1052,7 +1052,9 @@
     "cpu_required": "Se requiere el umbral de CPU",
     "ram_required": "Se requiere el umbral de RAM",
     "storage_required": "Se requiere el umbral de almacenamiento",
-    "email_required": "Se requiere al menos un correo electrónico"
+    "email_required": "Se requiere al menos un correo electrónico",
+    "success_message": "Configuraciones de umbral actualizadas correctamente",
+    "error_message": "Error al actualizar las configuraciones de umbral"
   },
   "breadcrumb": {
     "observability": "Observabilidad",

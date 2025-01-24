@@ -1054,7 +1054,9 @@
     "cpu_required": "CPU threshold is required",
     "ram_required": "RAM threshold is required",
     "storage_required": "Storage threshold is required",
-    "email_required": "At least one email is required"
+    "email_required": "At least one email is required",
+    "success_message": "Threshold settings updated successfully",
+    "error_message": "Error updating threshold settings"
   },
   "breadcrumb": {
     "observability": "Observability",
