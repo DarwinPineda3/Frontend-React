@@ -25,12 +25,13 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   const formik = useFormik({
     initialValues: {
       name: asset?.name || '',
-      networkAddress: asset?.networkAddress || null,
-      description: asset?.description || null
+      networkAddress: asset?.networkAddress || '',
+      description: asset?.description || '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
-      networkAddress: Yup.string().required('IP Address is required')
+      networkAddress: Yup.string()
+        .required('IP Address is required')
         .matches(
           /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
           'Invalid IP address format'
