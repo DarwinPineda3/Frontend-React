@@ -1049,7 +1049,11 @@
     "ram_threshold": "RAM Threshold (%)",
     "storage_threshold": "Storage Threshold (%)",
     "user_email": "Email Address",
-    "save_changes": "Save Changes"
+    "save_changes": "Save Changes",
+    "invalid_email": "One or more emails are invalid",
+    "cpu_required": "CPU threshold is required",
+    "ram_required": "RAM threshold is required",
+    "storage_required": "Storage threshold is required"
   },
   "breadcrumb": {
     "observability": "Observability",
