@@ -107,6 +107,9 @@ const webApplicationsSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    removeScan: (state, action) => {
+      state.data = state.data.filter((scan) => scan.id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -148,7 +151,7 @@ const webApplicationsSlice = createSlice({
   },
 });
 
-export const { getScans, setLoading, setError, setPage } = webApplicationsSlice.actions;
+export const { getScans, setLoading, setError, setPage, removeScan } = webApplicationsSlice.actions;
 
 export const fetchWebApplicationsData =
   (requestedPage = 1, pageSize = 25) =>
@@ -168,5 +171,46 @@ export const fetchWebApplicationsData =
       dispatch(setError('Failed to fetch scans'));
     }
   };
+
+export const downloadWebApplicationReport = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}download/?id=${id}`, {
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    const fileName = `Vulnerabilities-web-applications_${id}_${
+      new Date().toISOString().split('T')[0]
+    }.json`;
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  } catch (err: any) {
+    console.log('Error downloading report:', err);
+    dispatch(setError('Error downloading report'));
+    throw err.response.statusText;
+  }
+};
+
+export const deleteWebApplicationScan = (scanId: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.delete(`${getApiUrl()}${scanId}/`);
+
+    if (response.status === 200) {
+      dispatch(removeScan(scanId));
+    } else {
+      dispatch(setError('Failed to delete Web Application Scan'));
+      throw new Error('Failed to delete Web Application Scan');
+    }
+  } catch (err: any) {
+    dispatch(setError('Failed to delete Web Application Scan'));
+    throw err.response.data;
+  }
+};
 
 export default webApplicationsSlice.reducer;

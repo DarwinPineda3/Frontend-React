@@ -456,7 +456,12 @@
       "required_field": "Campo requerido",
       "network_scan_created": "Escaneo de aplicación web creado",
       "active_scan": "Escaneo Activo",
-      "passive_scan": "Escaneo Pasivo"
+      "passive_scan": "Escaneo Pasivo",
+      "scan_deleted_successfully": "Escaneo eliminado exitosamente",
+      "delete_title": "Eliminar escaneo",
+      "delete_message": "¿Estás seguro de que deseas eliminar este escaneo?",
+      "delete_cancel": "Cancelar",
+      "delete_confirm": "Confirmar"
     },
     "cloud_scans": {
       "low": "Bajo",
