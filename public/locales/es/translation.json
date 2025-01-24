@@ -1051,7 +1051,8 @@
     "invalid_email": "Uno o más correos electrónicos son inválidos",
     "cpu_required": "Se requiere el umbral de CPU",
     "ram_required": "Se requiere el umbral de RAM",
-    "storage_required": "Se requiere el umbral de almacenamiento"
+    "storage_required": "Se requiere el umbral de almacenamiento",
+    "email_required": "Se requiere al menos un correo electrónico"
   },
   "breadcrumb": {
     "observability": "Observabilidad",
