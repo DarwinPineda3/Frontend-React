@@ -19,6 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import {
   deleteNetworkObservabilityScan,
@@ -153,7 +154,7 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2">
-                          {new Date(scan['scan_start']).toLocaleString()}
+                          <HumanizedDate dateString={scan['scan_start']} />
                         </Typography>
                       </TableCell>
                       <TableCell>
