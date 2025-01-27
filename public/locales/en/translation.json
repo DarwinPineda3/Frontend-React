@@ -1493,9 +1493,19 @@
       "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
       "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
     },
-    "assets":{
-      "select_file": "Select file",
-      "selected_file": "Selected file"
+    "assets": {
+      "select_file": "Select File",
+      "selected_file": "Selected File",
+      "name_required": "Name is required",
+      "ip_required": "IP Address is required",
+      "ip_invalid_format": "Invalid IP address format",
+      "asset_updated": "Asset updated successfully",
+      "asset_created": "Asset created successfully",
+      "asset_error": "An error occurred while processing the asset",
+      "edit_asset": "Edit Asset",
+      "create_asset": "Create Asset",
+      "name": "Name",
+      "ip_address": "IP Address"
     }
   },
   "compliance_templates": {
