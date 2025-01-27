@@ -1522,7 +1522,12 @@
       "confirm_delete": "Are you sure you want to delete this asset?",
       "cancel": "Cancel",
       "confirm": "Confirm",
-      "bulk_import": "Bulk Import"
+      "bulk_import": "Bulk Import",
+      "remove": "Remove",
+      "download_template": "Download the template here",
+      "import_giotto_assets": "Bulk assets import",
+      "upload": "Upload",
+      "select_csv_file": "It must be a CSV file."
     }
   },
   "compliance_templates": {
