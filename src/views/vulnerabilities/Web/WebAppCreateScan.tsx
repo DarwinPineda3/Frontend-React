@@ -55,9 +55,7 @@ const WebAppCreateScan = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <WebAppCreateForm
-            onSubmit={handleFormSubmit}
-          />
+          <WebAppCreateForm onSubmit={handleFormSubmit} />
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (
@@ -65,8 +63,10 @@ const WebAppCreateScan = () => {
                 open={snackbarOpen}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 autoHideDuration={2000}
+                onClose={() => navigate(`/vulnerabilities/web/applications`)}
               >
                 <Alert
+                  onClose={() => navigate(`/vulnerabilities/web/applications`)}
                   severity={snackbarSeverity}
                   variant="filled"
                   sx={{ width: '100%' }}
