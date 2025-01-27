@@ -1,11 +1,14 @@
-import { Box, Button, Chip, Divider, Typography, useTheme } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
+import { Box, Breadcrumbs, Button, Chip, Divider, IconButton, Link, Typography, useTheme } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
+import PageContainer from "src/components/container/PageContainer";
 import DashboardCard from "src/components/shared/DashboardCard";
 import { uploadAssets } from "src/store/sections/compliance/giotoAssetsSlice";
 import { useDispatch, useSelector } from "src/store/Store";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const GiottoAssetsImport: React.FC = () => {
   const theme = useTheme();
@@ -71,12 +74,29 @@ const GiottoAssetsImport: React.FC = () => {
   ));
 
   return (
-    <Box sx={{ p: 3 }}>
+    <PageContainer title={String(t('compliance_menu.compliance_assets'))}>
+      <Box mb={2}>
+        <Box display="flex" alignItems="center" mt={2}>
+          <IconButton onClick={() => navigate(-1)} color="primary">
+            <ArrowBack />
+          </IconButton>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link component={RouterLink} color="inherit" to="/compliance/assets">
+              {t('compliance_menu.compliance')}
+            </Link>
+            <Link component={RouterLink} color="inherit" to="/compliance/assets">
+              {t('compliance_menu.compliance_assets')}
+            </Link>
+            <Typography color="textPrimary">{t('compliance_menu.bulk_import')}</Typography>
+          </Breadcrumbs>
+        </Box>
+      </Box>
+    <Box>
       <DashboardCard title="Import Giotto Assets">
 
         {/*file drop zone*/}
-        <Box >
-          <Box sx={{ p: 3 }}>
+        <Box>
+          <Box>
 
             <Box
               mt={3}
@@ -92,20 +112,20 @@ const GiottoAssetsImport: React.FC = () => {
               {...getRootProps({ className: "dropzone" })}
             >
               <input {...getInputProps()} />
-              <p>{"Select File"}</p>
+              <Typography>{t('giotto.assets.select_file')}</Typography>
             </Box>
             <Box mt={2}>
               <Typography variant="h6" fontSize="15px">
-                {"Selected File"}
+                {t('giotto.assets.selected_file')}:
               </Typography>
-              <Typography variant="body1">{files}</Typography>
+              <Box>{files}</Box>
             </Box>
           </Box>
           {
             myFiles.length > 0 && <Divider />
           }
           {
-            myFiles.length > 0 && <Box sx={{ p: 3, display: "flex", justifyContent: "end" }}>
+            myFiles.length > 0 && <Box sx={{ pt: 3, display: "flex", justifyContent: "end" }}>
               <Button
                 variant="contained"
                 color="primary"
@@ -120,6 +140,7 @@ const GiottoAssetsImport: React.FC = () => {
 
       </DashboardCard>
     </Box>
+    </PageContainer>
   );
 };
 

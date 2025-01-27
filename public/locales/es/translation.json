@@ -1236,7 +1236,8 @@
     "compliance_projects": "Proyectos",
     "compliance_executions": "Ejecuciones",
     "compliance_templates": "Plantillas",
-    "compliance_reports": "Reportes"
+    "compliance_reports": "Reportes",
+    "bulk_import": "importación masiva"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1488,6 +1489,10 @@
       "GetHardeningTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de hardening.",
       "GetRollbackStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de rollback.",
       "GetRollbackTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de rollback."
+    },
+    "assets":{
+      "select_file": "Seleccionar archivo",
+      "selected_file": "Archivo seleccionado"
     }
   },
   "compliance_templates": {

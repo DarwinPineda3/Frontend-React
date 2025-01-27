@@ -1239,7 +1239,8 @@
     "compliance_projects": "Projects",
     "compliance_executions": "Executions",
     "compliance_templates": "Templates",
-    "compliance_reports": "Reports"
+    "compliance_reports": "Reports",
+    "bulk_import": "Bulk import"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1491,6 +1492,10 @@
       "GetHardeningTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and hardening execution.",
       "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
       "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
+    },
+    "assets":{
+      "select_file": "Select file",
+      "selected_file": "Selected file"
     }
   },
   "compliance_templates": {
