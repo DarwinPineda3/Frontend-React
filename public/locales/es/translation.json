@@ -1502,7 +1502,19 @@
       "edit_asset": "Editar activo",
       "create_asset": "Crear activo",
       "name": "Nombre",
-      "ip_address": "Dirección IP"
+      "ip_address": "Dirección IP",
+      "asset_removed": "El activo se eliminó correctamente",
+      "asset_session_refresh": "Se solicitó actualización de la sesión del activo",
+      "network_address": "Dirección de red",
+      "company_name": "Nombre de la empresa",
+      "creation_date": "Fecha de creación",
+      "last_keep_alive": "Última conexión",
+      "actions": "Acciones",
+      "delete_asset": "Eliminar activo",
+      "confirm_delete": "¿Está seguro de que desea eliminar este activo?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "bulk_import": "Importación masiva"
     }
   },
   "compliance_templates": {

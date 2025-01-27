@@ -80,7 +80,7 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     if (assetToDelete !== null) {
       try {
         await dispatch(removeAsset(assetToDelete));
-        setSnackbarMessage(t('giotto.groups.group_deleted_successfully') || '');
+        setSnackbarMessage(t('giotto.assets.asset_removed') || '');
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } catch (error: any) {
@@ -98,7 +98,7 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
   const handleRefreshTokenClick = (asset: any) => {
     const id = asset.id;
     dispatch(requestRestartSession(id));
-    setSnackbarMessage('Asset Session Refresh requested');
+    setSnackbarMessage(t('giotto.assets.asset_session_refresh') || '');
     setSnackbarSeverity('info');
     setSnackbarOpen(true);
   }
@@ -130,7 +130,7 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
         size="small"
         onClick={() => navigate('/compliance/assets/import')}
       >
-        {"Bulk Import"}
+        {t('giotto.assets.bulk_import') || ''}
       </Button>
     </Box>
   );
@@ -150,12 +150,12 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                 {/* Table head */}
                 <TableHead>
                   <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Network Address</TableCell>
-                    <TableCell>Company Name</TableCell>
-                    <TableCell>Creation Date</TableCell>
-                    <TableCell>Last Keep Alive</TableCell>
-                    <TableCell>Actions</TableCell>
+                    <TableCell>{t('giotto.assets.name') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.network_address') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.company_name') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.creation_date') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.last_keep_alive') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.actions') || ''}</TableCell>
                   </TableRow>
                 </TableHead>
                 {/* Table body */}
@@ -252,16 +252,16 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
           </Dialog>
 
           <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
-            <DialogTitle>{t('giotto.groups.delete_group')}</DialogTitle>
+            <DialogTitle>{t('giotto.assets.delete_asset') || ''}</DialogTitle>
             <DialogContent>
-              <Typography>{t('giotto.groups.are_you_sure_you_want_to_delete_this_group')}</Typography>
+              <Typography>{t('giotto.assets.confirm_delete') || ''}</Typography>
             </DialogContent>
             <DialogActions>
               <Button onClick={cancelDelete} color="info">
-                {t('giotto.groups.cancel')}
+                {t('giotto.assets.cancel') || ''}
               </Button>
               <Button onClick={confirmDelete} color="primary" variant="contained">
-                {t('giotto.groups.confirm')}
+                {t('giotto.assets.confirm') || ''}
               </Button>
             </DialogActions>
           </Dialog>
