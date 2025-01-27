@@ -1,6 +1,6 @@
 import { Delete, DesktopAccessDisabled, EditRounded, Monitor, Refresh } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Dialog, DialogContent, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -46,6 +46,8 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [assetToDelete, setAssetToDelete] = useState<null | string>(null);
 
 
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, askedPage: number) => {
@@ -64,13 +66,41 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     setOpenDialog(true);
   };
 
+  // const handleDeleteClick = (asset: any) => {
+  //   const id = asset.id;
+  //   dispatch(removeAsset(id));
+  //   setSnackbarMessage('Asset deletion requested');
+  //   setSnackbarSeverity('info');
+  //   setSnackbarOpen(true);
+  // }
+
   const handleDeleteClick = (asset: any) => {
-    const id = asset.id;
-    dispatch(removeAsset(id));
-    setSnackbarMessage('Asset deletion requested');
-    setSnackbarSeverity('info');
-    setSnackbarOpen(true);
-  }
+    setAssetToDelete(asset?.id);
+    setDeleteDialogOpen(true);
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setAssetToDelete(null);
+  };
+
+  const confirmDelete = async () => {
+    if (assetToDelete !== null) {
+      try {
+        await dispatch(removeAsset(assetToDelete));
+        setSnackbarMessage(t('giotto.groups.group_deleted_successfully') || '');
+        setSnackbarSeverity('success');
+        setSnackbarOpen(true);
+      } catch (error: any) {
+        setSnackbarMessage(error.error || '');
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
+      }
+    }
+    setDeleteDialogOpen(false);
+    setAssetToDelete(null);
+  };
+
 
 
   const handleRefreshTokenClick = (asset: any) => {
@@ -140,12 +170,12 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                    <TableCell colSpan={6}>
-                      <Box display="flex" justifyContent="center" alignItems="center" height="100px">
-                        <Loader />
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+                      <TableCell colSpan={6}>
+                        <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                          <Loader />
+                        </Box>
+                      </TableCell>
+                    </TableRow>
                   ) : (
                     assets.map((asset: any) => (
                       <TableRow key={asset.id}>
@@ -228,6 +258,22 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
               <CreateUpdateGiottoAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
             </DialogContent>
           </Dialog>
+
+          <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
+            <DialogTitle>{t('giotto.groups.delete_group')}</DialogTitle>
+            <DialogContent>
+              <Typography>{t('giotto.groups.are_you_sure_you_want_to_delete_this_group')}</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={cancelDelete} color="info">
+                {t('giotto.groups.cancel')}
+              </Button>
+              <Button onClick={confirmDelete} color="primary" variant="contained">
+                {t('giotto.groups.confirm')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           {snackbarOpen && (
             <SnackBarInfo
               color={snackbarSeverity}
