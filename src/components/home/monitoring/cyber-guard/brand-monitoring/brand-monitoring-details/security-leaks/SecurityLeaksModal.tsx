@@ -1,4 +1,14 @@
-import { Box, Divider, List, ListItem, ListItemText, Modal, Typography } from '@mui/material';
+import { Visibility } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  Modal,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -86,7 +96,20 @@ const SecurityLeakDetailModal: React.FC<SecurityLeakDetailModalProps> = ({
                     }}
                   >
                     <strong>{formatKey(key)}:</strong>
-                    {Array.isArray(value) ? (
+                    {key === 'screenshot_url' ? (
+                      <div style={{ marginTop: '5px' }}>
+                        <a href={value as string} target="_blank" rel="noopener noreferrer">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<Visibility />}
+                            size="small"
+                          >
+                            {t('monitoring.evidence')}
+                          </Button>
+                        </a>
+                      </div>
+                    ) : Array.isArray(value) ? (
                       value.map((item, index) => (
                         <div key={index}>
                           {isUrl(item) ? (
