@@ -140,10 +140,12 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                      <TableCell colSpan={5}>
+                    <TableCell colSpan={6}>
+                      <Box display="flex" justifyContent="center" alignItems="center" height="100px">
                         <Loader />
-                      </TableCell>
-                    </TableRow>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
                   ) : (
                     assets.map((asset: any) => (
                       <TableRow key={asset.id}>
