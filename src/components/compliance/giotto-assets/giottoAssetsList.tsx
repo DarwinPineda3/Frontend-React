@@ -66,14 +66,6 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     setOpenDialog(true);
   };
 
-  // const handleDeleteClick = (asset: any) => {
-  //   const id = asset.id;
-  //   dispatch(removeAsset(id));
-  //   setSnackbarMessage('Asset deletion requested');
-  //   setSnackbarSeverity('info');
-  //   setSnackbarOpen(true);
-  // }
-
   const handleDeleteClick = (asset: any) => {
     setAssetToDelete(asset?.id);
     setDeleteDialogOpen(true);

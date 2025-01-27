@@ -1505,7 +1505,19 @@
       "edit_asset": "Edit Asset",
       "create_asset": "Create Asset",
       "name": "Name",
-      "ip_address": "IP Address"
+      "ip_address": "IP Address",
+      "asset_removed": "Asset removed successfully",
+      "asset_session_refresh": "Asset Session Refresh requested",
+      "network_address": "Network Address",
+      "company_name": "Company Name",
+      "creation_date": "Creation Date",
+      "last_keep_alive": "Last Keep Alive",
+      "actions": "Actions",
+      "delete_asset": "Delete asset",
+      "confirm_delete": "Are you sure you want to delete this asset?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "bulk_import": "Bulk Import"
     }
   },
   "compliance_templates": {
