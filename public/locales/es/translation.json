@@ -456,7 +456,12 @@
       "required_field": "Campo requerido",
       "network_scan_created": "Escaneo de aplicación web creado",
       "active_scan": "Escaneo Activo",
-      "passive_scan": "Escaneo Pasivo"
+      "passive_scan": "Escaneo Pasivo",
+      "scan_deleted_successfully": "Escaneo eliminado exitosamente",
+      "delete_title": "Eliminar escaneo",
+      "delete_message": "¿Estás seguro de que deseas eliminar este escaneo?",
+      "delete_cancel": "Cancelar",
+      "delete_confirm": "Confirmar"
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -1243,7 +1248,8 @@
     "compliance_projects": "Proyectos",
     "compliance_executions": "Ejecuciones",
     "compliance_templates": "Plantillas",
-    "compliance_reports": "Reportes"
+    "compliance_reports": "Reportes",
+    "bulk_import": "importación masiva"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1495,6 +1501,20 @@
       "GetHardeningTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de hardening.",
       "GetRollbackStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de rollback.",
       "GetRollbackTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de rollback."
+    },
+    "assets": {
+      "select_file": "Seleccionar archivo",
+      "selected_file": "Archivo seleccionado",
+      "name_required": "El nombre es obligatorio",
+      "ip_required": "La dirección IP es obligatoria",
+      "ip_invalid_format": "Formato de dirección IP no válido",
+      "asset_updated": "El activo se actualizó correctamente",
+      "asset_created": "El activo se creó correctamente",
+      "asset_error": "Ocurrió un error al procesar el activo",
+      "edit_asset": "Editar activo",
+      "create_asset": "Crear activo",
+      "name": "Nombre",
+      "ip_address": "Dirección IP"
     }
   },
   "compliance_templates": {
