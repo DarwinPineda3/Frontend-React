@@ -8,7 +8,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router';
 import AwsLogo from 'src/assets/images/cloudscans/aws.png';
 import AzureLogo from 'src/assets/images/cloudscans/azure.png';
 import GcpLogo from 'src/assets/images/cloudscans/gcp.png';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
@@ -73,11 +74,13 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   };
 
   if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
   }
 
   return (
@@ -141,7 +144,9 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
+                          <Typography>
+                            <HumanizedDate dateString={scan.timestamp} />
+                          </Typography>
                         </TableCell>
                       </TableRow>
                     ))
@@ -185,7 +190,9 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
               rowsPerPage={pageSize}
               page={currentPage - 1}
               onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-              onRowsPerPageChange={(e) => dispatch(fetchCloudInventoryList(currentPage, e.target.value))}
+              onRowsPerPageChange={(e) =>
+                dispatch(fetchCloudInventoryList(currentPage, e.target.value))
+              }
             />
           </>
         )}
