@@ -793,7 +793,8 @@
     "domain_up": "Domain Up",
     "potential_risk": "Potential Risk",
     "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
-    "identification_date": "Identification Date"
+    "identification_date": "Identification Date",
+    "evidence": "Evidence"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
