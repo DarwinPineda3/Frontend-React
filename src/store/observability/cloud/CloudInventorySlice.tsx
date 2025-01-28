@@ -60,6 +60,9 @@ export const CloudInventorySlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
@@ -71,6 +74,7 @@ export const {
   setPage,
   setError,
   setLoading,
+  setPageSize,
 } = CloudInventorySlice.actions;
 
 export const fetchCloudInventoryList =
@@ -78,9 +82,6 @@ export const fetchCloudInventoryList =
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      if (pageSize !== initialState.pageSize) {
-        requestedPage = 1;
-      }
       const response = await axios.get(
         `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
       );
