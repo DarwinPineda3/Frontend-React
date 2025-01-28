@@ -1,7 +1,6 @@
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -22,6 +21,7 @@ import {
   default as AzureLogo,
   default as GcpLogo,
 } from 'src/assets/images/cloudscans/aws.png';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
@@ -43,7 +43,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-    const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -72,11 +72,13 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   };
 
   if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
   }
 
   return (
@@ -140,7 +142,9 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <HumanizedDate dateString={scan.timestamp} />
+                          <Typography>
+                            <HumanizedDate dateString={scan.timestamp} />
+                          </Typography>
                         </TableCell>
                       </TableRow>
                     ))
@@ -184,7 +188,9 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
               rowsPerPage={pageSize}
               page={currentPage - 1}
               onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
-              onRowsPerPageChange={(e: any) => dispatch(fetchCloudScans(currentPage, e.target.value))}
+              onRowsPerPageChange={(e: any) =>
+                dispatch(fetchCloudScans(currentPage, e.target.value))
+              }
             />
           </>
         )}

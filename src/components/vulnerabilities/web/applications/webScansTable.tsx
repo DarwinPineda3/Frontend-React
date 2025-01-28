@@ -284,7 +284,9 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                   rowsPerPage={pageSize}
                   page={currentPage - 1}
                   onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
-                  onRowsPerPageChange={(e) => dispatch(fetchWebApplicationsData(currentPage))}
+                  onRowsPerPageChange={(e) =>
+                    dispatch(fetchWebApplicationsData(currentPage, e.target.value))
+                  }
                 />
               </>
             )}

@@ -21,7 +21,7 @@ const initialState: StateType = {
   wpscan: null,
   page: 1,
   totalPages: 1,
-  pageSize: 10,
+  pageSize: 25,
   error: null,
   isLoading: false,
 };
@@ -63,7 +63,7 @@ export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError
   WPScanSlice.actions;
 
 export const fetchWPScans =
-  (requestedPage = 1, pageSize = 10) =>
+  (requestedPage = 1, pageSize = 25) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
