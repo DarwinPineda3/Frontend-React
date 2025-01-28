@@ -84,11 +84,11 @@ const GiottoAssetsImport: React.FC = () => {
   );
 
   const handleHelpToBulkImportClick = () => {
-    const fileUrl = '/assets/template-bulk-import.csv';
+    const fileUrl = '/assets/assets-bulk-import-template.csv';
 
     const link = document.createElement('a');
     link.href = fileUrl;
-    link.download = 'template.csv';
+    link.download = 'assets-bulk-import-template.csv';
     link.click();
   };
 
