@@ -1,7 +1,6 @@
-import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import EHMatrixVulnerabilities from './EHMatrixVulnerabilities';
@@ -24,7 +23,6 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
       ehReport?.matriz_high_high
     ]
     : [];
-
 
   function generateCounters(vulnerabilities: any[] = []): number[] {
     let contLow = 0;
@@ -60,38 +58,17 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
     ehReport?.vulnerabilities || []
   );
 
-
-
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={3}>
       {!ehReport ? (
         <Loader />
       ) : (
         <>
-          <Grid item xs={12} xl={12}>
-            <Breadcrumb title={ehReport?.name}>
-              <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-                <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
-                <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
-                <Chip label={`${t("redteam.end_date")}: ${ehReport?.end_date_report}`} color="primary" variant="outlined" />
-              </Box>
-            </Breadcrumb>
-          </Grid>
           <Grid item xs={12} xl={6}>
             <DashboardCard
               title={t("redteam.baseline_information") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
-                <Box>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    mb={1}
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                  </Stack>
-                </Box>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10em' }}>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("redteam.start_date")}
@@ -120,17 +97,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.report_summary") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
-                <Box>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    mb={1}
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                  </Stack>
-                </Box>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10em' }}>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("redteam.ethical_hacking_tab")}
@@ -153,7 +120,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.risk_exposure_level") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '250px' }}>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '14em' }}>
                 <EHRiskExposureLevelChart riskExposureLevel={ehReport?.risk_exposure_level!} />
               </Box>
             </DashboardCard>
@@ -163,17 +130,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.evaluation_result") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '250px' }}>
-                <Box>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    mb={1}
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                  </Stack>
-                </Box>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '16em' }}>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("redteam.comments")}
@@ -194,7 +151,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.risk_consolidation") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '350px', maxHeight: '350px' }}>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '350px', maxHeight: '25em' }}>
                 <RiskConsolidateChart
                   contLow={contLow} contMedium={contMedium}
                   contHigh={contHigh} contCritical={contCritical}
@@ -208,8 +165,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.matrix_of_unique_vulnerabilities") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '350px' }}>
-                {/* <HeatmapChart></HeatmapChart> */}
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '25em' }}>
                 <EHMatrixVulnerabilities matrixRequest={riskMatrizData} />
               </Box>
             </DashboardCard>
@@ -219,17 +175,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.conclusions") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '200px' }}>
-                <Box>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    mb={1}
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                  </Stack>
-                </Box>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '15em' }}>
                 {ehReport?.first_conclusion && (
                   <Box>
                     <Typography variant="subtitle2" fontWeight={600}>
@@ -274,11 +220,9 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
                     <Typography variant="body2">{ehReport?.fifth_conclusion}</Typography>
                   </Box>
                 )}
-
               </Box>
             </DashboardCard>
           </Grid>
-
         </>
       )}
     </Grid>

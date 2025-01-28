@@ -3,11 +3,12 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import ListIcon from '@mui/icons-material/List';
 import GlobeIcon from '@mui/icons-material/Public';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Badge, Box, Breadcrumbs, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
+import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import Loader from 'src/components/shared/Loader/Loader';
 import EHEvidencesList from 'src/components/vulnerabilities/redteam/EHEvidenceList';
 import EHOverview from 'src/components/vulnerabilities/redteam/EHOverview';
@@ -89,7 +90,7 @@ const EHReportDetails = () => {
           )}
         </Breadcrumbs>
       </Box>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         {isLoading ? (
           <Grid item xs={12} lg={12}>
             <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -97,6 +98,17 @@ const EHReportDetails = () => {
             </Box>
           </Grid>
         ) : (
+          <>
+          <Grid item xs={12} xl={12}>
+            <Breadcrumb title={ehReport?.name}>
+              <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
+                <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
+                <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
+                <Chip label={`${t("redteam.end_date")}: ${ehReport?.end_date_report}`} color="primary" variant="outlined" />
+              </Box>
+            </Breadcrumb>
+          </Grid>
+
           <Grid item xs={12} lg={12}>
             <TabContext value={value}>
               <Box>
@@ -132,6 +144,7 @@ const EHReportDetails = () => {
               </Box>
             </TabContext>
           </Grid>
+          </>
         )}
       </Grid>
     </PageContainer>

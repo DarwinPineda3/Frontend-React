@@ -140,7 +140,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                   fontWeight={600}
                                   color="primary"
                                   component="a"
-                                  onClick={() => navigate(`/compliance/projects/${project.id}`)}
+                                  onClick={() => navigate(`/compliance/projects/${group.id}`)}
                                   style={{ cursor: 'pointer' }}
                                 >
                                   {group.name}
