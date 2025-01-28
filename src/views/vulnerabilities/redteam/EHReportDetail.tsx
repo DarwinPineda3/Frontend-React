@@ -70,7 +70,7 @@ const EHReportDetails = () => {
 
   return (
     <PageContainer title="Akila">
-      <Box display="flex" alignItems="center" mt={2}>
+      <Box display="flex" alignItems="center" mb={2}>
         <IconButton onClick={() => navigate(-1)} color="primary">
           <ArrowBackIcon />
         </IconButton>
@@ -91,13 +91,15 @@ const EHReportDetails = () => {
       </Box>
       <Grid container spacing={1}>
         {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-            <Loader />
-          </Box>
+          <Grid item xs={12} lg={12}>
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          </Grid>
         ) : (
           <Grid item xs={12} lg={12}>
             <TabContext value={value}>
-              <Box sx={{ p: 0 }}>
+              <Box>
                 <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
                   {COMMON_TAB.map((tab) => (
                     <Tab
@@ -115,13 +117,13 @@ const EHReportDetails = () => {
                       }
                       value={tab.value}
                       disabled={tab.disabled}
-                      sx={{ mb: 1 }}
+                      sx={{ mb: 0 }}
                     />
                   ))}
                 </TabList>
               </Box>
               <Divider />
-              <Box mt={2} sx={{ p: 0 }}>
+              <Box mt={2}>
                 {COMMON_TAB.map((panel) => (
                   <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
                     {panel.content}
