@@ -24,7 +24,7 @@ import {
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import { fetchCloudScans, setPage, setPageSize } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -42,12 +42,6 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
-    }
-  };
-
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -55,7 +49,23 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
+
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
+    }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
+  };
 
   const getProviderIcon = (provider: string) => {
     switch (provider?.toLowerCase()) {
@@ -186,10 +196,8 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
               count={totalPages * pageSize}
               rowsPerPage={pageSize}
               page={currentPage - 1}
-              onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
-              onRowsPerPageChange={(e: any) =>
-                dispatch(fetchCloudScans(currentPage, e.target.value))
-              }
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
             />
           </>
         )}

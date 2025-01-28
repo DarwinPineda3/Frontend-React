@@ -58,6 +58,9 @@ export const CloudScansSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
@@ -69,6 +72,7 @@ export const {
   setPage,
   setError,
   setLoading,
+  setPageSize,
 } = CloudScansSlice.actions;
 
 export const fetchCloudScans =
@@ -76,9 +80,6 @@ export const fetchCloudScans =
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      if (pageSize !== initialState.pageSize) {
-        requestedPage = 1;
-      }
       const response = await axios.get(
         `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
       );
