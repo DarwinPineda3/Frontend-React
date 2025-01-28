@@ -15,7 +15,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +29,7 @@ import {
   downloadWPScanReport,
   fetchWPScans,
   setPage,
+  setPageSize,
 } from 'src/store/vulnerabilities/web/WPScanSlice';
 import CreateWPScan from './wpscanCreate';
 
@@ -66,12 +67,22 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleOpenModal = () => {
@@ -86,7 +97,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     try {
       await dispatch(downloadWPScanReport(id));
     } catch (error: any) {
-
       setSnackbarMessage(error || '');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
@@ -106,7 +116,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } catch (error: any) {
-
         setSnackbarMessage(error.error || '');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
@@ -134,13 +143,15 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
     handleCloseModal();
   };
 
-
   return (
     <DashboardCard
       title={t('wpscan.wordpress_scans') || ''}
       subtitle={t('wpscan.list_all_wordpress_scans') || ''}
       action={
-        <IconButton color="primary" onClick={() => navigate('/vulnerabilities/web/wordpress/create')}>
+        <IconButton
+          color="primary"
+          onClick={() => navigate('/vulnerabilities/web/wordpress/create')}
+        >
           <AddIcon />
         </IconButton>
       }
@@ -205,8 +216,8 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                               {scan.scan_type === 'scan_normal'
                                 ? 'Scan normal'
                                 : scan.scan_type === 'scan_deep'
-                                  ? 'Scan deep'
-                                  : 'Unknown scan type'}
+                                ? 'Scan deep'
+                                : 'Unknown scan type'}
                             </TableCell>
                             <TableCell>
                               <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
@@ -264,8 +275,8 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                 count={totalPages * pageSize}
                 rowsPerPage={pageSize}
                 page={currentPage - 1}
-                onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
-                onRowsPerPageChange={(e: any) => dispatch(fetchWPScans(currentPage, e.target.value))}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handlePageSizeChange}
               />
             </>
           )}
