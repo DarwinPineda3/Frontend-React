@@ -113,7 +113,8 @@
     "are_you_sure_to_delete_asset": "Are you sure you want to delete this asset?",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "asset_deleted_successfully": "Asset deleted successfully."
+    "asset_deleted_successfully": "Asset deleted successfully.",
+    "errorMessage": "Something went wrong while loading the information. Please try reloading the page."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Your scheduled scans that are running automatically",

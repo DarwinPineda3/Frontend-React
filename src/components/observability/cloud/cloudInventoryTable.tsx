@@ -26,7 +26,7 @@ import {
   fetchCloudInventoryList,
   setPage,
 } from 'src/store/observability/cloud/CloudInventorySlice';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
+
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
