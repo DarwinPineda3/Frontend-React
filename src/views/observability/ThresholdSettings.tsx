@@ -1,13 +1,24 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Breadcrumbs,
+  Grid,
+  IconButton,
+  Link,
+  Snackbar,
+} from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import ThresholdForm from 'src/components/observability/thresholdform/ThresholdForm';
 import Loader from 'src/components/shared/Loader/Loader';
-import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchThresholdSettings, updateThresholdSettings } from 'src/store/observability/ThresholdSettingsSlice';
+import {
+  fetchThresholdSettings,
+  updateThresholdSettings,
+} from 'src/store/observability/ThresholdSettingsSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const ThresholdSettings: React.FC = () => {
@@ -16,40 +27,15 @@ const ThresholdSettings: React.FC = () => {
   const dispatch = useDispatch();
   const { settingsId } = useParams<{ settingsId?: string }>();
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Ref to track the first render
   const isFirstRender = useRef(true);
 
-  const { thresholds, error } = useSelector((state: AppState) => state.ThresholdSlice);
-
-  useEffect(() => {
-    // Skip showing the snackbar on the first render
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    if (error) {
-      setSnackbarMessage(error);
-      setSnackbarSeverity('error');
-      setSnackbarOpen(true);  // Show snackbar when there is an error
-    }
-  }, [error]);
-
-  useEffect(() => {
-    // Skip showing the snackbar on the first render
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    if (thresholds) {
-      setSnackbarMessage('Threshold settings updated successfully');
-      setSnackbarSeverity('success');
-    }
-  }, [thresholds]);
+  const { thresholds } = useSelector((state: AppState) => state.ThresholdSlice);
 
   useEffect(() => {
     dispatch(fetchThresholdSettings());
@@ -59,18 +45,18 @@ const ThresholdSettings: React.FC = () => {
     navigate(-1);
   };
 
-  const handleFormSubmit = (data: {
-    cpu: number;
-    ram: number;
-    storage: number;
-    email: string;
-  }) => {
-    dispatch(updateThresholdSettings(
-      data,
-      () => {
+  const handleFormSubmit = (data: { cpu: number; ram: number; storage: number; email: string }) => {
+    dispatch(updateThresholdSettings(data))
+      .then(() => {
+        setSnackbarMessage(t('thresholdForm.success_message')!);
+        setSnackbarSeverity('success');
         setSnackbarOpen(true);
-      }
-    ));
+      })
+      .catch((err) => {
+        setSnackbarMessage(t('thresholdForm.error_message')!);
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
+      });
   };
 
   const handleCloseSnackbar = () => {
@@ -100,7 +86,11 @@ const ThresholdSettings: React.FC = () => {
               {t('breadcrumb.threshold_settings')}
             </Link>
             {settingsId && (
-              <Link component={RouterLink} color="inherit" to={`/observability/threshold-settings/${settingsId}`}>
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/observability/threshold-settings/${settingsId}`}
+              >
                 {t('breadcrumb.threshold_details')}
               </Link>
             )}
@@ -111,15 +101,20 @@ const ThresholdSettings: React.FC = () => {
       <Grid item xs={12}>
         <ThresholdForm onSubmit={handleFormSubmit} initialValues={thresholds} />
       </Grid>
-
-      {snackbarOpen && (
-        <SnackBarInfo
-          color={snackbarSeverity}
-          title={t('dashboard.operation_status')}
-          message={snackbarMessage}
-          onClose={handleCloseSnackbar}  // Close snackbar on close event
-        />
-      )}
+      <Grid item xs={12}>
+        {snackbarOpen && (
+          <Snackbar
+            open={snackbarOpen}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            autoHideDuration={3000}
+            onClose={handleCloseSnackbar}
+          >
+            <Alert severity={snackbarSeverity} variant="filled" sx={{ width: '100%' }}>
+              <AlertTitle>{t('dashboard.operation_status')}</AlertTitle> {snackbarMessage}
+            </Alert>
+          </Snackbar>
+        )}
+      </Grid>
     </PageContainer>
   );
 };

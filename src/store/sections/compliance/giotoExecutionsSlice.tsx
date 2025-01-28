@@ -235,7 +235,6 @@ export const requestCreateExecution = (idTemplate: number, idProject: number, id
       startAssessment: false
     };
     const response = await axios.post(url, body);
-    const data = response.data;
     dispatch(fetchExecutions(idProject, idGroup, idTemplate));
   } catch (error) {
     console.error(error, url);

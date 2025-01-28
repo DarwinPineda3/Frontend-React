@@ -1052,8 +1052,15 @@
     "cpu_threshold": "Umbral de CPU (%)",
     "ram_threshold": "Umbral de RAM (%)",
     "storage_threshold": "Umbral de Almacenamiento (%)",
-    "user_email": "Dirección de Correo Electrónico",
-    "save_changes": "Guardar Cambios"
+    "user_email": "Dirección de correo electrónico",
+    "save_changes": "Guardar cambios",
+    "invalid_email": "Uno o más correos electrónicos son inválidos",
+    "cpu_required": "Se requiere el umbral de CPU",
+    "ram_required": "Se requiere el umbral de RAM",
+    "storage_required": "Se requiere el umbral de almacenamiento",
+    "email_required": "Se requiere al menos un correo electrónico",
+    "success_message": "Configuraciones de umbral actualizadas correctamente",
+    "error_message": "Error al actualizar las configuraciones de umbral"
   },
   "breadcrumb": {
     "observability": "Observabilidad",

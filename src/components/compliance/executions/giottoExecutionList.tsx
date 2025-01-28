@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, FormControl, IconButton, InputLabel, LinearProgress, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import DashboardCard from "src/components/shared/DashboardCard";
 import HumanizedDate from "src/components/shared/HumanizedDate";
 import Loader from "src/components/shared/Loader/Loader";
@@ -17,6 +18,7 @@ interface GiottoExecutionListProps {
 
 
 const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }) => {
+  const [searchParams, setsearchParams] = useSearchParams();
   const { t } = useTranslation();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -24,6 +26,7 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
     executions, page, pageSize, loading, totalItemsAmount
   } = useSelector((state: any) => state.GiottoExecutionsReducer);
 
+  const { projects, projectDetail } = useSelector((state: any) => state.giottoProjectsReducer);
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState(null);
@@ -31,30 +34,49 @@ const GiottoExecutionList: React.FC<GiottoExecutionListProps> = ({ onScanClick }
 
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchData = async () => {
+      //Get all the projects
       await dispatch(fetchProjects(page));
+
     };
     fetchData();
   }, [dispatch]);
 
   useEffect(() => {
-    if (selectedTemplate) {
-      dispatch(fetchExecutions(selectedProject!, selectedGroup!, selectedTemplate));
+    if (searchParams.get('project')) {
+      setSelectedProject(Number(searchParams.get('project')));
     }
-  }, [dispatch, selectedTemplate]
-  );
+    if (searchParams.get('group')) {
+      setSelectedGroup(Number(searchParams.get('group')));
+    }
+    if (searchParams.get('template')) {
+      setSelectedTemplate(Number(searchParams.get('template')));
+    }
+  }, [searchParams, projects]);
+
+
 
   useEffect(() => {
     if (selectedProject != null) {
       dispatch(fetchProjectById(selectedProject.toString()));
+      //add the selected project to the search params
+      setsearchParams({ project: selectedProject.toString() });
     }
   }, [dispatch, selectedProject]);
 
+  useEffect(() => {
+    if (selectedTemplate) {
+      dispatch(fetchExecutions(selectedProject!, selectedGroup!, selectedTemplate));
+      //add the selected template to the search params
+      setsearchParams({ template: selectedTemplate.toString(), project: selectedProject.toString(), group: selectedGroup.toString() });
+    }
+  }, [dispatch, selectedTemplate]
+  );
   const [editAsset, setEditAsset] = useState<null | any>(null);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const { projects, projectDetail } = useSelector((state: any) => state.giottoProjectsReducer);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');

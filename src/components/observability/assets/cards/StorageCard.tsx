@@ -134,7 +134,7 @@ const StorageCard: React.FC<StorageCardProps> = ({ history }) => {
             </Avatar>
             <Typography variant="subtitle2" color="textSecondary">
               {isPositive ? '+' : ''}
-              {trend}%
+              {trend.toFixed(2)}%
             </Typography>
           </Stack>
         </Stack>

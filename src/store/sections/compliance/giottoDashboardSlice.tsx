@@ -88,7 +88,7 @@ export default GiottoDashboardSlice.reducer;
 
 export const fetchProjectsComplianceByCompany = () => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsComplianceByCompany/1`);
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsComplianceByCompany&setCompany=True`);
     const data = await response.data;
     const projectsWithIds = data.map((project: any, index: number) => ({
       id: index + 1,
@@ -134,7 +134,7 @@ export const fetchExecutionsCountByMonth = () => async (dispatch: any) => {
 
 export const fetchExecutionsCountByProject = () => async (dispatch: any) => {
   try {
-    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsExecutionsByCompany/1`);
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsExecutionsByCompany&setCompany=True`);
     const data = await response.data;
     dispatch(getExecutionByProject(data));
   } catch (error) {
