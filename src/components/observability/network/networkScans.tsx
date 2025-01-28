@@ -25,6 +25,8 @@ import {
   deleteNetworkObservabilityScan,
   fetchNetworkObservabilityById,
   fetchNetworkObservabilityData,
+  setPage,
+  setPageSize,
 } from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
@@ -36,18 +38,33 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { networkScansData, networkScansDetail, page, totalPages, pageSize, loading } = useSelector(
+  const { networkScansData, networkScansDetail, loading } = useSelector(
     (state: AppState) => state.NetworkObservabilityReducer,
   );
+  const currentPage = useSelector((state: any) => state.NetworkObservabilityReducer.page);
+  const totalPages = useSelector((state: any) => state.NetworkObservabilityReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.NetworkObservabilityReducer.pageSize);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [selectedScanId, setSelectedScanId] = useState('');
 
   useEffect(() => {
-    dispatch(fetchNetworkObservabilityData(page));
-  }, [dispatch]);
+    dispatch(fetchNetworkObservabilityData(currentPage, pageSize));
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    dispatch(fetchNetworkObservabilityData(page, pageSize));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
+    }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleDownload = async (scanId: string) => {
@@ -223,11 +240,9 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
             component="div"
             count={totalPages * pageSize}
             rowsPerPage={pageSize}
-            page={page - 1}
-            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-            onRowsPerPageChange={(e) =>
-              dispatch(fetchNetworkObservabilityData(page, e.target.value))
-            }
+            page={currentPage - 1}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handlePageSizeChange}
           />
         </Box>
       </DashboardCard>
