@@ -32,6 +32,8 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
       hostname: asset?.hostname || '',
       uuid: asset?.uuid || ''
     },
+    validateOnChange: true,
+    validateOnBlur: true,
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
       ip: Yup.string().nullable()
@@ -45,9 +47,12 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
     }).test(
       'at-least-one-field',
       'At least one of IP, Domain or URL must be filled',
-      (values) => {
-        const { ip, dominio, url } = values;
-        return ip || dominio || url;
+      function (values, context) {
+        const { ip, dominio, url } = values || {};
+        const isValid = !!(ip?.trim() || dominio?.trim() || url?.trim());
+        if (!isValid) {
+          return context.createError({ message: 'At least one of IP, Domain or URL must be filled', path: 'at-least-one-field' });
+        }
       }
     ),
     onSubmit: (values) => {
@@ -71,7 +76,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
 
   return (
     <Container maxWidth="sm">
-      <Box component="form" onSubmit={formik.handleSubmit} noValidate>
+      <Box component="form" onSubmit={formik.handleSubmit} >
         <Typography variant="h5" gutterBottom>
           {asset ? 'Edit Asset' : 'Create Asset'}
         </Typography>
@@ -123,7 +128,9 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           error={formik.touched.url && Boolean(formik.errors.url)}
           helperText={formik.touched.url && formik.errors.url}
         />
-
+        {formik.errors['at-least-one-field'] && (
+          <Typography color="error">{formik.errors['at-least-one-field']}</Typography>
+        )}
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary" fullWidth>
             {asset ? 'Edit' : 'Create'}

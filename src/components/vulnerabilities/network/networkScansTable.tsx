@@ -132,15 +132,28 @@ const Row: React.FC<{
             color="primary"
             component="a"
             onClick={() => handleScanClick(row.id_elastic)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', display: 'block' }}
           >
             {row.name}
-            {row.comment && (
-              <Typography variant="caption" color="textSecondary">
-                ({row.comment})
-              </Typography>
-            )}
           </Typography>
+          {row.comment && (
+            <Tooltip title={row.comment} arrow>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                style={{
+                  display: 'block',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '250px',
+                  cursor: 'default',
+                }}
+              >
+                {row.comment}
+              </Typography>
+            </Tooltip>
+          )}
         </TableCell>
         <TableCell>
           {row.status === 'Running' ? (

@@ -92,7 +92,7 @@ const GiottoExecutionDetail: React.FC<GiottoExecutionDetailProps> = ({ scanId, a
   return (
     <Box>
       <Breadcrumb
-        title={executionDetail.processToExecute}>
+        title={`${executionDetail.processToExecute}: ${executionDetail.status}`}>
         <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
           <Chip label={`${parseISO(executionDetail.creationDate).toLocaleString()}`} color="primary" variant="outlined" />
         </Box>
