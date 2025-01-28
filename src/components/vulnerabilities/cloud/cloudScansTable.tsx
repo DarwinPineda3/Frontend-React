@@ -25,6 +25,7 @@ import {
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -139,7 +140,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography variant="body2">{new Date(scan.timestamp).toLocaleString()}</Typography>
+                          <HumanizedDate dateString={scan.timestamp} />
                         </TableCell>
                       </TableRow>
                     ))

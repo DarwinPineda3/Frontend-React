@@ -25,6 +25,7 @@ import {
   fetchCloudInventoryList,
   setPage,
 } from 'src/store/observability/cloud/CloudInventorySlice';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -141,7 +142,7 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
+                        <HumanizedDate dateString={scan.timestamp} />
                         </TableCell>
                       </TableRow>
                     ))
