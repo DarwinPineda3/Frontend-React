@@ -56,20 +56,28 @@ export const WPScanSlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
-export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError, setLoading } =
-  WPScanSlice.actions;
+export const {
+  getWPScans,
+  getWPScan,
+  addWPScan,
+  removeWPScan,
+  setPage,
+  setError,
+  setLoading,
+  setPageSize,
+} = WPScanSlice.actions;
 
 export const fetchWPScans =
   (requestedPage = 1, pageSize = 25) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      if (pageSize !== initialState.pageSize) {
-        requestedPage = 1;
-      }
       const response = await axios.get(
         `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
       );

@@ -34,6 +34,7 @@ import {
   fetchWebApplicationsData,
   setLoading,
   setPage,
+  setPageSize,
 } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 
 interface ScanListTableProps {
@@ -62,12 +63,22 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
       setLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleDownload = async (scanId: string) => {
@@ -283,10 +294,8 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                   count={totalPages * pageSize}
                   rowsPerPage={pageSize}
                   page={currentPage - 1}
-                  onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
-                  onRowsPerPageChange={(e) =>
-                    dispatch(fetchWebApplicationsData(currentPage, e.target.value))
-                  }
+                  onPageChange={handlePageChange}
+                  onRowsPerPageChange={handlePageSizeChange}
                 />
               </>
             )}
