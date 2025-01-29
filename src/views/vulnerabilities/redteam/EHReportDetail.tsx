@@ -52,7 +52,7 @@ const EHReportDetails = () => {
       icon: <ListIcon />,
       label: t("redteam.Vulnerabilities"),
       disabled: false,
-      content: <EHVulnerabilitiesList vulnerabilities={ehReport?.vulnerabilities} />,
+      content: <EHVulnerabilitiesList vulnerabilities={ehReport?.vulnerabilities} name={ehReport?.name} />,
     },
     {
       value: 'evidences',
@@ -90,7 +90,7 @@ const EHReportDetails = () => {
           )}
         </Breadcrumbs>
       </Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {isLoading ? (
           <Grid item xs={12} lg={12}>
             <Box display="flex" justifyContent="center" alignItems="center" height="300px">

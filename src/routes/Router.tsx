@@ -14,6 +14,7 @@ import CreateCloudInventory from 'src/components/observability/cloud/cloudInvent
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
+import EHVulnerabilityDetail from 'src/components/vulnerabilities/redteam/EhVulnerabilityDetail';
 import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
 import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
@@ -239,6 +240,11 @@ const Router = [
       {
         path: '/vulnerabilities/redteam/:ehReportId',
         element: <EHReportDetail />,
+        roles: ['Administrator', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/redteam/:ehReportId/vulnerability/detail',
+        element: <EHVulnerabilityDetail />,
         roles: ['Administrator', 'Scan360'],
       },
       {

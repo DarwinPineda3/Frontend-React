@@ -970,7 +970,11 @@
     "exploitable": "Explotable",
     "Overview": "Visión general",
     "Vulnerabilities": "Vulnerabilidades",
-    "evidences": "Evidencias"
+    "evidences": "Evidencias",
+    "yes": "Si",
+    "no": "No",
+    "vulnerability_details": "Detalles de la vulnerabilidad",
+    "identifier": "Identificador"
   },
   "installation_guide": {
     "title": "Guía de Instalación",
