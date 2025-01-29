@@ -1555,5 +1555,62 @@
     "template_control_editable": "Editable",
     "template_control_create_date": "CreationDate",
     "template_options": "Options"
+  },
+  "settings": {
+    "scheduled_scans": {
+      "search_placeholder": "Search...",
+      "table_headers": {
+        "name": "Name",
+        "scan_type": "Scan Type",
+        "execution_frequency": "Execution Frequency",
+        "execution_time": "Execution Time",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "deactivate": "Deactivate"
+      },
+      "messages": {
+        "no_scheduled_scans_found": "No scheduled scans found"
+      },
+      "navigation": {
+        "create_scan_here": "Create a scan here"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "scan_types": {
+        "network_vulnerability": "Network Vulnerability Analysis",
+        "web_vulnerability": "Web Vulnerability Analysis",
+        "wordpress_vulnerability": "WordPress Vulnerability Analysis",
+        "network_observability": "Network Observability Analysis"
+      },
+      "execution_frequencies": {
+        "every_day": "Every day"
+      },
+      "common": {
+        "unknown": "Unknown"
+      },
+      "detail": {
+        "breadcrumbs": {
+          "detail": "Detail"
+        },
+        "titles": {
+          "first_title": "Overview",
+          "second_title": "Scheduled Executions"
+        },
+        "subtitles": {
+          "name": "Name",
+          "scan_type": "Scan Type",
+          "target": "Target",
+          "execution_frequency": "Execution Frequency",
+          "execution_time": "Execution Time",
+          "scheduled_date": "Scheduled Date",
+          "status": "Status",
+          "actions": "Actions"
+        }
+      }
+    }
   }
 }
