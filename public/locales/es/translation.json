@@ -113,7 +113,8 @@
     "are_you_sure_to_delete_asset": "¿Estás seguro de que deseas eliminar este activo?",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
-    "asset_deleted_successfully": "Activo eliminado con éxito."
+    "asset_deleted_successfully": "Activo eliminado con éxito.",
+    "errorMessage": "Algo salió mal al cargar la información. Intenta recargar la página."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Tus escaneos programados que se ejecutan automáticamente",

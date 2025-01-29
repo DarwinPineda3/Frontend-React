@@ -21,10 +21,10 @@ import {
   default as AzureLogo,
   default as GcpLogo,
 } from 'src/assets/images/cloudscans/aws.png';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -141,9 +141,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>
-                            <HumanizedDate dateString={scan.timestamp} />
-                          </Typography>
+                         <HumanizedDate dateString={scan.timestamp} />
                         </TableCell>
                       </TableRow>
                     ))

@@ -17,6 +17,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  Chip,
+  LinearProgress,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -48,9 +50,7 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const dispatch = useDispatch();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    'success' | 'info' | 'warning' | 'error'
-  >('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
 
   const [scanToDelete, setScanToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -174,52 +174,76 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {data.length > 0 ? (
-                        data.map((scan: any, index: number) => (
-                          <TableRow key={index}>
-                            <TableCell>
-                              <Typography
-                                variant="subtitle2"
-                                fontWeight={600}
-                                color="primary"
-                                component="a"
-                                onClick={() => onScanClick(scan.id)}
-                                style={{ cursor: 'pointer' }}
-                              >
-                                {scan.name}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography variant="body2">{scan.hosts}</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography variant="body2">
-                                <HumanizedDate dateString={scan.scan_start} />
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography variant="body2">
-                                {scan.scan_type == 'active_scan'
-                                  ? t('vulnerabilities.web_app.active_scan')
-                                  : t('vulnerabilities.web_app.passive_scan')}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography variant="body2">{`${scan.progress}%`}</Typography>
-                              <Typography variant="caption" color="textSecondary">
-                                {scan.progressTime}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
-                                <DownloadIcon />
-                              </IconButton>
-                              <IconButton color="error" onClick={() => handleDelete(scan.id)}>
-                                <DeleteIcon />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))
+                    {data.length > 0 ? (
+                      data.map((scan: any, index: number) => {
+                        let progressColor: 'error' | 'warning' | 'success' = 'error'; 
+                        if (scan.progress >= 80) {
+                          progressColor = 'success'; 
+                        } else if (scan.progress >= 50) {
+                          progressColor = 'warning'; 
+                        } else {
+                          progressColor = 'error'; 
+                        }
+
+                          return (
+                            <TableRow key={index}>
+                              <TableCell>
+                                <Typography
+                                  variant="subtitle2"
+                                  fontWeight={600}
+                                  color="primary"
+                                  component="a"
+                                  onClick={() => onScanClick(scan.id)}
+                                  style={{ cursor: 'pointer' }}
+                                >
+                                  {scan.name}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography variant="body2">{scan.hosts}</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography variant="body2">
+                                  <HumanizedDate dateString={scan.scan_start} />
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography variant="body2">
+                                  {scan.scan_type === 'active_scan'
+                                    ? t('vulnerabilities.web_app.active_scan')
+                                    : t('vulnerabilities.web_app.passive_scan')}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                              <Box display="flex" flexDirection="column" alignItems="center">
+                                <LinearProgress
+                                  variant="determinate"
+                                  value={scan.progress}
+                                  color={progressColor}
+                                  sx={{
+                                    width: '80%',
+                                    height: 10,
+                                    borderRadius: 5,
+                                    bgcolor: '#e0e0e0',
+                                    marginBottom: 1,
+                                  }}
+                                />
+                                <Typography variant="caption" color="textSecondary">
+                                  {scan.progress}%
+                                </Typography>
+                              </Box>
+                              </TableCell>
+                              <TableCell>
+                                <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
+                                  <DownloadIcon />
+                                </IconButton>
+                                <IconButton color="error" onClick={() => handleDelete(scan.id)}>
+                                  <DeleteIcon />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })
                       ) : (
                         <TableRow>
                           <TableCell colSpan={6} align="center">

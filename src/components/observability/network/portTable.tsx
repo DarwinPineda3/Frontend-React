@@ -29,6 +29,8 @@ const PortTable = ({ hostData }) => {
     setPage(0);
   };
 
+  const hasPorts = hostData.some(host => host.ports && host.ports.length > 0);
+
   return (
     <>
       <TableContainer>
@@ -50,11 +52,13 @@ const PortTable = ({ hostData }) => {
                   {t('observability.status')}
                 </Typography>
               </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight={600}>
-                  {t('monitoring.actions')}
-                </Typography>
-              </TableCell>
+              {hasPorts && (
+                <TableCell>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {t('monitoring.actions')}
+                  </Typography>
+                </TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -69,15 +73,13 @@ const PortTable = ({ hostData }) => {
                 <TableCell>
                   <Typography variant="body2">{row.state}</Typography>
                 </TableCell>
-                <TableCell>
-                  {
-                    row.ports.length > 0 && (
-                      <IconButton onClick={() => handleOpen(row.ports)}>
-                        <Visibility />
-                      </IconButton>
-                    )
-                  }
-                </TableCell>
+                {hasPorts && row.ports.length > 0 && (
+                  <TableCell>
+                    <IconButton onClick={() => handleOpen(row.ports)}>
+                      <Visibility />
+                    </IconButton>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

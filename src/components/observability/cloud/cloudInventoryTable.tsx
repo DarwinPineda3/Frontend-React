@@ -27,6 +27,7 @@ import {
   setPage,
 } from 'src/store/observability/cloud/CloudInventorySlice';
 
+
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
 }
