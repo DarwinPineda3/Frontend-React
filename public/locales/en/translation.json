@@ -971,7 +971,11 @@
     "exploitable": "Exploitable",
     "Overview": "Overview",
     "Vulnerabilities": "Vulnerabilities",
-    "evidences": "evidences"
+    "evidences": "Evidences",
+    "yes": "Yes",
+    "no": "No",
+    "vulnerability_details": "Vulnerability Details",
+    "identifier": "Identifier"
   },
   "installation_guide": {
     "title": "Installation Guide",
