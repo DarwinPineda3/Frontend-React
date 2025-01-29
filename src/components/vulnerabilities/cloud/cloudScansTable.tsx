@@ -151,9 +151,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>
-                            <HumanizedDate dateString={scan.timestamp} />
-                          </Typography>
+                          <HumanizedDate dateString={scan.timestamp} />
                         </TableCell>
                       </TableRow>
                     ))

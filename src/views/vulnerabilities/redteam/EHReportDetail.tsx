@@ -3,11 +3,12 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import ListIcon from '@mui/icons-material/List';
 import GlobeIcon from '@mui/icons-material/Public';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Badge, Box, Breadcrumbs, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
+import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
+import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import Loader from 'src/components/shared/Loader/Loader';
 import EHEvidencesList from 'src/components/vulnerabilities/redteam/EHEvidenceList';
 import EHOverview from 'src/components/vulnerabilities/redteam/EHOverview';
@@ -70,7 +71,7 @@ const EHReportDetails = () => {
 
   return (
     <PageContainer title="Akila">
-      <Box display="flex" alignItems="center" mt={2}>
+      <Box display="flex" alignItems="center" mb={2}>
         <IconButton onClick={() => navigate(-1)} color="primary">
           <ArrowBackIcon />
         </IconButton>
@@ -89,15 +90,28 @@ const EHReportDetails = () => {
           )}
         </Breadcrumbs>
       </Box>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         {isLoading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-            <Loader />
-          </Box>
+          <Grid item xs={12} lg={12}>
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          </Grid>
         ) : (
+          <>
+          <Grid item xs={12} xl={12}>
+            <Breadcrumb title={ehReport?.name}>
+              <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
+                <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
+                <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
+                <Chip label={`${t("redteam.end_date")}: ${ehReport?.end_date_report}`} color="primary" variant="outlined" />
+              </Box>
+            </Breadcrumb>
+          </Grid>
+
           <Grid item xs={12} lg={12}>
             <TabContext value={value}>
-              <Box sx={{ p: 0 }}>
+              <Box>
                 <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
                   {COMMON_TAB.map((tab) => (
                     <Tab
@@ -115,13 +129,13 @@ const EHReportDetails = () => {
                       }
                       value={tab.value}
                       disabled={tab.disabled}
-                      sx={{ mb: 1 }}
+                      sx={{ mb: 0 }}
                     />
                   ))}
                 </TabList>
               </Box>
               <Divider />
-              <Box mt={2} sx={{ p: 0 }}>
+              <Box mt={2}>
                 {COMMON_TAB.map((panel) => (
                   <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
                     {panel.content}
@@ -130,6 +144,7 @@ const EHReportDetails = () => {
               </Box>
             </TabContext>
           </Grid>
+          </>
         )}
       </Grid>
     </PageContainer>
