@@ -53,10 +53,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     medium: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('medium')).length,
     low: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('low')).length,
   };
-  const cardConfig: Record<string, {
-    bgcolor: string;
-    txtcolor: string;
-  }> = {
+  const cardConfig: Record<
+    string,
+    {
+      bgcolor: string;
+      txtcolor: string;
+    }
+  > = {
     critical: {
       bgcolor: 'level.critical',
       txtcolor: 'background.default',
@@ -105,7 +108,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor={cardConfig.critical.bgcolor }
+            bgcolor={cardConfig.critical.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('Critical')}
             sx={{ cursor: 'pointer' }}
@@ -197,7 +200,9 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color={cardConfig.medium.txtcolor}>{t('vulnerabilities.medium')}</Typography>
+                <Typography color={cardConfig.medium.txtcolor}>
+                  {t('vulnerabilities.medium')}
+                </Typography>
                 <Typography fontWeight={500} color={cardConfig.medium.txtcolor}>
                   {counts.medium} {t('vulnerabilities.alerts')}
                 </Typography>
@@ -261,7 +266,6 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>{t('vulnerabilities.select')}</TableCell>
             <TableCell>{t('vulnerabilities.name')}</TableCell>
             <TableCell>{t('vulnerabilities.risk_level')}</TableCell>
             <TableCell>{t('vulnerabilities.instances')}</TableCell>
@@ -271,13 +275,6 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         <TableBody>
           {filteredAlerts.map((alert) => (
             <TableRow key={alert.id}>
-              <TableCell padding="checkbox">
-                <input
-                  type="checkbox"
-                  checked={selectedAlerts.includes(alert.id)}
-                  onChange={() => toggleSelectAlert(alert.id)}
-                />
-              </TableCell>
               <TableCell>
                 <Typography
                   color="primary"
