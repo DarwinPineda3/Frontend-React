@@ -34,6 +34,7 @@ import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProje
 import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
 import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 import TemplateListPage from 'src/views/compliance/TemplateListPage';
+import ScheduledScansDetail from 'src/views/configuration/ScheduledScanDetail';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
@@ -471,8 +472,13 @@ const Router = [
         roles: ['Administrator', 'Scan360'],
       },
       {
-        path: '/configuration/schedule-scan',
+        path: '/configuration/schedule-scan/create',
         element: <ScheduleScanForm />,
+        roles: ['Administrator', 'Scan360'],
+      },
+      {
+        path: '/configuration/schedule-scan/detail/:scanId',
+        element: <ScheduledScansDetail />,
         roles: ['Administrator', 'Scan360'],
       },
 
