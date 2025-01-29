@@ -1,12 +1,11 @@
 import {
-  Box,
   Grid,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography
 } from '@mui/material';
@@ -14,24 +13,29 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-const WPSUsers: React.FC<{ users: any }> = ({ users}) => {
+const WPSUsers: React.FC<{ users: any }> = ({ users }) => {
   const { t } = useTranslation();
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
 
   const usersArray = users ? Object.entries(users).map(([key, value]) => ({
     key,
     ...value,
   })) : [];
 
-  const totalPages = Math.ceil(usersArray.length / rowsPerPage);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handlePageChange = (event: any, value: any) => {
-    setCurrentPage(value);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
   };
 
-  const currentData = usersArray.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const paginatedItems = usersArray.slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
 
   return (
     <DashboardCard title={t('wpscan.users_tittle')!}>
@@ -41,14 +45,14 @@ const WPSUsers: React.FC<{ users: any }> = ({ users}) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.username')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.id')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confirmed_by')}</Typography></TableCell>
+                  <TableCell>{t('wpscan.username')}</TableCell>
+                  <TableCell>{t('wpscan.id')}</TableCell>
+                  <TableCell>{t('wpscan.confidence')}</TableCell>
+                  <TableCell>{t('wpscan.confirmed_by')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {currentData.map((user, index) => (
+                {paginatedItems.map((user: any, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
@@ -79,6 +83,15 @@ const WPSUsers: React.FC<{ users: any }> = ({ users}) => {
                 ))}
               </TableBody>
             </Table>
+            <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={usersArray.length}
+          rowsPerPage={rowsPerPage}
+          page={currentPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
           </TableContainer>
         ) : (
           <Grid container spacing={3}>
@@ -87,14 +100,7 @@ const WPSUsers: React.FC<{ users: any }> = ({ users}) => {
             </Grid>
           </Grid>
         )}
-        <Box my={3} display="flex" justifyContent="center">
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
+        
       </>
     </DashboardCard>
   );

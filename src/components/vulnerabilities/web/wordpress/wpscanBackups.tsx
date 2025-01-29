@@ -1,13 +1,12 @@
 import {
-  Box,
   Grid,
   Link,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography
 } from '@mui/material';
@@ -18,17 +17,21 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
   const { t } = useTranslation();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const totalPages = Math.ceil(backups?.length / rowsPerPage);
-
-  const handlePageChange = (event: any, value: any) => {
-    setCurrentPage(value);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
   };
 
-  const currentData = backups?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-
+  const paginatedItems = (backups || []).slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
 
   return (
     <DashboardCard title={t('wpscan.backups')!}>
@@ -38,20 +41,19 @@ const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.url')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.found_by')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
+                  <TableCell>{t('wpscan.url')}</TableCell>
+                  <TableCell>{t('wpscan.found_by')}</TableCell>
+                  <TableCell>{t('wpscan.confidence')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {currentData?.map((backup?, index?) => (
+                {paginatedItems?.map((backup?, index?) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
                         <Link href={backup?.name} target="_blank" rel="noopener">
                           {backup?.name}
                         </Link>
-
                       </Typography>
                     </TableCell>
                     <TableCell><Typography variant="body2">{backup?.found_by}</Typography></TableCell>
@@ -60,6 +62,15 @@ const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
                 ))}
               </TableBody>
             </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={(backups || []).length}
+              rowsPerPage={rowsPerPage}
+              page={currentPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
           </TableContainer>
         ) : (
           <Grid container spacing={3}>
@@ -69,14 +80,7 @@ const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
           </Grid>
         )
         }
-        <Box my={3} display="flex" justifyContent="center">
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
+
       </>
     </DashboardCard>
   );
