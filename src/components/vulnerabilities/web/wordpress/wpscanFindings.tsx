@@ -62,12 +62,12 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.url')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.description')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.type')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.interesting_entries')}</Typography></TableCell>
+                  <TableCell>{t('wpscan.url')}</TableCell>
+                  <TableCell>{t('wpscan.description')}</TableCell>
+                  <TableCell>{t('wpscan.type')}</TableCell>
+                  <TableCell>{t('wpscan.detected_by')}</TableCell>
+                  <TableCell>{t('wpscan.confidence')}</TableCell>
+                  <TableCell>{t('wpscan.interesting_entries')}</TableCell>
 
                 </TableRow>
               </TableHead>
