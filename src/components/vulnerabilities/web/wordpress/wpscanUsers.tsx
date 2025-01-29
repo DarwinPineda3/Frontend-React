@@ -1,4 +1,5 @@
 import {
+  Box,
   Grid,
   Table,
   TableBody,
@@ -11,7 +12,6 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
 
 const WPSUsers: React.FC<{ users: any }> = ({ users }) => {
   const { t } = useTranslation();
@@ -38,7 +38,10 @@ const WPSUsers: React.FC<{ users: any }> = ({ users }) => {
   );
 
   return (
-    <DashboardCard title={t('wpscan.users_tittle')!}>
+    <Box mb={2}>
+      <Typography variant="h6" fontWeight="bold">
+        {t('wpscan.users_tittle')}
+      </Typography>
       <>
         {usersArray.length > 0 ? (
           <TableContainer>
@@ -84,14 +87,14 @@ const WPSUsers: React.FC<{ users: any }> = ({ users }) => {
               </TableBody>
             </Table>
             <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          component="div"
-          count={usersArray.length}
-          rowsPerPage={rowsPerPage}
-          page={currentPage}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={usersArray.length}
+              rowsPerPage={rowsPerPage}
+              page={currentPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
           </TableContainer>
         ) : (
           <Grid container spacing={3}>
@@ -100,9 +103,9 @@ const WPSUsers: React.FC<{ users: any }> = ({ users }) => {
             </Grid>
           </Grid>
         )}
-        
+
       </>
-    </DashboardCard>
+    </Box>
   );
 };
 

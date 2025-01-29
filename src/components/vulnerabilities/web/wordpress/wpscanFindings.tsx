@@ -19,7 +19,6 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
 
 const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
   const { t } = useTranslation();
@@ -55,7 +54,8 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
   );
 
   return (
-    <DashboardCard title={t('wpscan.interesting_findings_tittle')!}>
+    <Box mb={2}>
+      <Typography variant="h6" fontWeight="bold">{t('wpscan.interesting_findings_tittle')}</Typography>
       <>
         {findings?.length > 0 ? (
           <TableContainer>
@@ -137,7 +137,7 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
           </DialogActions>
         </Dialog>
       </>
-    </DashboardCard>
+    </Box>
   );
 };
 

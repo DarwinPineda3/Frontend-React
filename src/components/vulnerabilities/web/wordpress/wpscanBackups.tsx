@@ -1,4 +1,5 @@
 import {
+  Box,
   Grid,
   Link,
   Table,
@@ -12,7 +13,6 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
 
 const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
   const { t } = useTranslation();
@@ -34,7 +34,10 @@ const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
   );
 
   return (
-    <DashboardCard title={t('wpscan.backups')!}>
+    <Box mb={2}>
+      <Typography variant="h6" fontWeight="bold">
+        {t('wpscan.backups')}
+      </Typography>
       <>
         {backups?.length > 0 ? (
           <TableContainer>
@@ -82,7 +85,7 @@ const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
         }
 
       </>
-    </DashboardCard>
+    </Box>
   );
 };
 
