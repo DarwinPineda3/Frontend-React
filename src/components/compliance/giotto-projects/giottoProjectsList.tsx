@@ -36,7 +36,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 
 const GiottoProjectsList = () => {
   const { t } = useTranslation();
-  const { projects, loading } = useSelector((state: any) => state.giottoProjectsReducer);
+  const { projects, loading, error } = useSelector((state: any) => state.giottoProjectsReducer);
   const currentPage = useSelector((state: any) => state.giottoProjectsReducer.page);
   const totalPages = useSelector((state: any) => state.giottoProjectsReducer.totalPages);
   const pageSize = useSelector((state: any) => state.giottoProjectsReducer.pageSize);
@@ -81,9 +81,13 @@ const GiottoProjectsList = () => {
     setDeleteDialogOpen(true);
   };
 
-  const handleEditClick = (project: any = null) => {
-    setOpenDialog(true);
-  };
+  useEffect(() => {
+    if (error) {
+      setSnackbarOpen(true);
+      setSnackbarMessage(error);
+      setSnackbarSeverity('error');
+    }
+  }, [error]);
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -153,7 +157,7 @@ const GiottoProjectsList = () => {
                       </Box>
                     </TableCell>
                   </TableRow>
-                ) : (
+                ) : projects.length > 0 ? (
                   projects.map((project: any) => (
                     <TableRow key={project.id}>
                       <TableCell>
@@ -200,6 +204,14 @@ const GiottoProjectsList = () => {
                       </TableCell>
                     </TableRow>
                   ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} align="center">
+                      <Typography variant="body2" color="textSecondary">
+                        {t('vulnerabilities.no_data_available')}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
                 )}
               </TableBody>
             </Table>

@@ -110,10 +110,12 @@ export const fetchGroups =
           page,
         }),
       );
-      dispatch(setLoading(false));
+      setError(null);
     } catch (err: any) {
-      console.error('Error fetching itemsResults:', err);
-      dispatch(setError('Failed to fetch itemsResults'));
+      console.error('Error fetching groups:', err);
+      dispatch(setError('Failed to fetch groups'));
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 

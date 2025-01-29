@@ -17,7 +17,12 @@ import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
-import { fetchBaseTemplates, setLoading } from 'src/store/sections/compliance/giottoTemplatesSlice';
+import {
+  fetchBaseTemplates,
+  setBasePage,
+  setBasePageSize,
+  setBaseTmpLoading,
+} from 'src/store/sections/compliance/giottoTemplatesSlice';
 
 interface GiottoTemplateTableProps {
   handleDownload: () => void;
@@ -26,26 +31,41 @@ interface GiottoTemplateTableProps {
 const GiottoBaseTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDownload }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { baseTemplates, loading } = useSelector((state: any) => state.giottoTemplatesReducer);
-
+  const { baseTemplates, baseTmpLoading } = useSelector(
+    (state: any) => state.giottoTemplatesReducer,
+  );
+  const currentPage = useSelector(
+    (state: any) => state.giottoTemplatesReducer.baseTemplates.currentPage,
+  );
+  const totalPages = useSelector(
+    (state: any) => state.giottoTemplatesReducer.baseTemplates.totalPages,
+  );
+  const pageSize = useSelector((state: any) => state.giottoTemplatesReducer.baseTemplates.pageSize);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      await dispatch(fetchBaseTemplates(baseTemplates.currentPage, baseTemplates.pageSize));
-      setLoading(false);
+      setBaseTmpLoading(true);
+      await dispatch(fetchBaseTemplates(currentPage, pageSize));
+      setBaseTmpLoading(false);
     };
     fetchData();
-  }, [dispatch, baseTemplates.currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
   const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    askedPage: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
   ) => {
-    if (baseTemplates.currentPage !== askedPage) {
-      dispatch(fetchBaseTemplates(askedPage, baseTemplates.pageSize));
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setBasePage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setBasePageSize(newPageSize));
+    dispatch(setBasePage(1));
   };
 
   return (
@@ -69,7 +89,7 @@ const GiottoBaseTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDo
               </TableHead>
               {/* Table body */}
               <TableBody>
-                {loading ? (
+                {baseTmpLoading ? (
                   <TableRow>
                     <TableCell colSpan={6}>
                       <Box
@@ -82,7 +102,7 @@ const GiottoBaseTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDo
                       </Box>
                     </TableCell>
                   </TableRow>
-                ) : (
+                ) : baseTemplates.itemsResult.length > 0 ? (
                   baseTemplates.itemsResult.map((template: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell>
@@ -111,6 +131,14 @@ const GiottoBaseTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDo
                       </TableCell>
                     </TableRow>
                   ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} align="center">
+                      <Typography variant="body2" color="textSecondary">
+                        {t('vulnerabilities.no_data_available')}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
                 )}
               </TableBody>
             </Table>
@@ -118,11 +146,11 @@ const GiottoBaseTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDo
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 50, 100]}
             component="div"
-            count={baseTemplates.totalItemsAmount}
-            rowsPerPage={baseTemplates.pageSize}
-            page={baseTemplates.currentPage - 1}
-            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-            onRowsPerPageChange={(e) => dispatch(fetchBaseTemplates(baseTemplates.currentPage))}
+            count={totalPages * pageSize}
+            rowsPerPage={pageSize}
+            page={currentPage - 1}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handlePageSizeChange}
           />
         </Box>
       </DashboardCard>

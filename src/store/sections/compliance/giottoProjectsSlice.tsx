@@ -129,7 +129,6 @@ export const fetchProjects =
       const url = `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`;
       const response = await axios.get(url);
       const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
-
       dispatch(
         getProjects({
           results: itemsResult,
@@ -139,10 +138,11 @@ export const fetchProjects =
           pageSize,
         }),
       );
-      dispatch(setLoading(false));
+      setError(null);
     } catch (err: any) {
       console.error('Error fetching projects:', err);
       dispatch(setError('Failed to fetch projects'));
+    } finally {
       dispatch(setLoading(false));
     }
   };

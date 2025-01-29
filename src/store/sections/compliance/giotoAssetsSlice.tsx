@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getBaseBackofficeUrl } from "src/guards/jwt/Jwt";
+import { createSlice } from '@reduxjs/toolkit';
+import { getBaseBackofficeUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios';
-import { AppDispatch } from "../../Store";
+import { AppDispatch } from '../../Store';
 
 // Update to match the backend API endpoint
 function getApiUrl() {
@@ -9,13 +9,13 @@ function getApiUrl() {
 }
 
 export interface ComplianceAsset {
-  id: number | undefined,
-  name: string,
+  id: number | undefined;
+  name: string;
   description: string | undefined;
-  networkAddress: string,
-  companyName: string,
-  creationDate: string,
-  lastKeepAlive: string
+  networkAddress: string;
+  companyName: string;
+  creationDate: string;
+  lastKeepAlive: string;
 }
 
 interface StateType {
@@ -35,7 +35,7 @@ const initialState: StateType = {
   pageSize: 10,
   loading: false,
   error: null,
-  totalItemsAmount: 0
+  totalItemsAmount: 0,
 };
 
 export const GiottoAssetsSlice = createSlice({
@@ -56,13 +56,13 @@ export const GiottoAssetsSlice = createSlice({
       state.assets.push(action.payload);
     },
     updateAsset: (state, action) => {
-      const index = state.assets.findIndex(asset => asset.id === action.payload.id);
+      const index = state.assets.findIndex((asset) => asset.id === action.payload.id);
       if (index !== -1) {
         state.assets[index] = action.payload;
       }
     },
     deleteAsset: (state, action) => {
-      state.assets = state.assets.filter(asset => asset.id !== action.payload);
+      state.assets = state.assets.filter((asset) => asset.id !== action.payload);
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -72,36 +72,53 @@ export const GiottoAssetsSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const { getAssets, addAsset, updateAsset, deleteAsset, setPage, setError, setLoading, getAllInList } = GiottoAssetsSlice.actions;
+export const {
+  getAssets,
+  addAsset,
+  updateAsset,
+  deleteAsset,
+  setPage,
+  setError,
+  setLoading,
+  getAllInList,
+} = GiottoAssetsSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
-export const fetchAssets = (requestedPage: Number, requestedPageSize: Number = 10) => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoading(true));
-    if (requestedPageSize !== initialState.pageSize) {
-      requestedPage = 1;
-    }
-    const response = await axios.get(`${getApiUrl()}?url=Assets/GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}`);
-    ////console.log('response', response.data);
-    const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
+export const fetchAssets =
+  (requestedPage: Number, requestedPageSize: Number = 10) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      if (requestedPageSize !== initialState.pageSize) {
+        requestedPage = 1;
+      }
+      const response = await axios.get(
+        `${getApiUrl()}?url=Assets/GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}`,
+      );
+      ////console.log('response', response.data);
+      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage } = response.data;
 
-    dispatch(getAssets({
-      results: itemsResult,
-      currentPage,
-      totalPages,
-      totalItemsAmount,
-      pageSize
-    }));
-    dispatch(setLoading(false));
-  } catch (err: any) {
-    console.error('Error fetching assets:', err);
-    dispatch(setError('Failed to fetch assets'));
-  }
-};
+      dispatch(
+        getAssets({
+          results: itemsResult,
+          currentPage,
+          totalPages,
+          totalItemsAmount,
+          pageSize,
+        }),
+      );
+      setError(null);
+    } catch (err: any) {
+      console.error('Error fetching assets:', err);
+      dispatch(setError('Failed to fetch assets'));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
 export const uploadAssets = (files: FileList) => async (dispatch: AppDispatch) => {
   try {
@@ -114,20 +131,22 @@ export const uploadAssets = (files: FileList) => async (dispatch: AppDispatch) =
     console.error('Error uploading assets:', err);
     dispatch(setError('Failed to upload assets'));
   }
-}
-
-export const fetchAssetsWitURL = (page = 1) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrl()}getAsssetsWithURL/`);
-    const { results } = response.data;
-
-    const totalPages = Math.ceil(results.length / 10);
-    dispatch(getAssets({ results, currentPage: page, totalPages }));
-  } catch (err: any) {
-    console.error('Error fetching assets:', err);
-    dispatch(setError('Failed to fetch assets'));
-  }
 };
+
+export const fetchAssetsWitURL =
+  (page = 1) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getApiUrl()}getAsssetsWithURL/`);
+      const { results } = response.data;
+
+      const totalPages = Math.ceil(results.length / 10);
+      dispatch(getAssets({ results, currentPage: page, totalPages }));
+    } catch (err: any) {
+      console.error('Error fetching assets:', err);
+      dispatch(setError('Failed to fetch assets'));
+    }
+  };
 
 // Async thunk for creating a new asset (CREATE)
 export const createAsset = (newAsset: ComplianceAsset) => async (dispatch: AppDispatch) => {
@@ -136,8 +155,7 @@ export const createAsset = (newAsset: ComplianceAsset) => async (dispatch: AppDi
     if (response.status >= 200 && response.status < 300) {
       dispatch(fetchAssets(initialState.page, initialState.pageSize));
       return response.data;
-    }
-    else {
+    } else {
       console.error('Error creating asset:', response);
       dispatch(setError('Failed to create asset'));
     }
@@ -174,7 +192,6 @@ export const editAsset = (updatedAsset: ComplianceAsset) => async (dispatch: App
   }
 };
 
-
 // Async thunk for deleting an asset (DELETE)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
@@ -186,7 +203,6 @@ export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) =>
     dispatch(setError('Failed to delete asset'));
   }
 };
-
 
 export const requestRestartSession = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
@@ -200,7 +216,6 @@ export const requestRestartSession = (assetId: string) => async (dispatch: AppDi
 };
 
 export const getAssetsByGroup = (group: any) => async (dispatch: AppDispatch) => {
-
   try {
     dispatch(setLoading(true));
     const response = await axios.get(`${getApiUrl()}?url=Assets/GetListByGroupId/${group}`);

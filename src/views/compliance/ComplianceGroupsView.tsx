@@ -55,6 +55,7 @@ const ComplianceGroupsView: React.FC = ({}) => {
   const currentPage = useSelector((state: any) => state.giottoGroupReducer.page);
   const pageSize = useSelector((state: any) => state.giottoGroupReducer.pageSize);
   const totalPages = useSelector((state: any) => state.giottoGroupReducer.totalPages);
+  const error = useSelector((state: any) => state.giottoGroupReducer.error);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -113,6 +114,14 @@ const ComplianceGroupsView: React.FC = ({}) => {
     setDeleteDialogOpen(false);
     setGroupToDelete(null);
   };
+
+  useEffect(() => {
+    if (error) {
+      setSnackbarOpen(true);
+      setSnackbarMessage(error);
+      setSnackbarSeverity('error');
+    }
+  }, [error]);
 
   return (
     <PageContainer>
