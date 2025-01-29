@@ -53,6 +53,27 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     medium: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('medium')).length,
     low: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('low')).length,
   };
+  const cardConfig: Record<string, {
+    bgcolor: string;
+    txtcolor: string;
+  }> = {
+    critical: {
+      bgcolor: 'level.critical',
+      txtcolor: 'background.default',
+    },
+    high: {
+      bgcolor: 'level.high',
+      txtcolor: 'background.default',
+    },
+    medium: {
+      bgcolor: 'level.medium',
+      txtcolor: 'background.default',
+    },
+    low: {
+      bgcolor: 'level.low',
+      txtcolor: 'background.default',
+    },
+  };
 
   const handleRiskFilter = (riskLevel: string) => {
     setSelectedRiskLevel((prev) => (prev === riskLevel ? null : riskLevel));
@@ -84,7 +105,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="primary.light"
+            bgcolor={cardConfig.critical.bgcolor }
             p={3}
             onClick={() => handleRiskFilter('Critical')}
             sx={{ cursor: 'pointer' }}
@@ -93,13 +114,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="primary.main"
+                bgcolor={cardConfig.critical.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="primary.contrastText"
+                  color={cardConfig.critical.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -118,7 +139,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="secondary.light"
+            bgcolor={cardConfig.high.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('High')}
             sx={{ cursor: 'pointer' }}
@@ -127,13 +148,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="secondary.main"
+                bgcolor={cardConfig.high.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="background.default"
+                  color={cardConfig.high.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -152,7 +173,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="error.light"
+            bgcolor={cardConfig.medium.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('Medium')}
             sx={{ cursor: 'pointer' }}
@@ -161,13 +182,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="error.main"
+                bgcolor={cardConfig.medium.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="primary.contrastText"
+                  color={cardConfig.medium.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -176,8 +197,8 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color="error.main">{t('vulnerabilities.medium')}</Typography>
-                <Typography fontWeight={500} color="error.main">
+                <Typography color={cardConfig.medium.txtcolor}>{t('vulnerabilities.medium')}</Typography>
+                <Typography fontWeight={500} color={cardConfig.medium.txtcolor}>
                   {counts.medium} {t('vulnerabilities.alerts')}
                 </Typography>
               </Box>
@@ -186,7 +207,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="warning.light"
+            bgcolor={cardConfig.low.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('Low')}
             sx={{ cursor: 'pointer' }}
@@ -195,13 +216,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="warning.main"
+                bgcolor={cardConfig.low.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="primary.contrastText"
+                  color={cardConfig.low.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -210,8 +231,8 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color="warning.main">{t('vulnerabilities.low')}</Typography>
-                <Typography fontWeight={500} color="warning.main">
+                <Typography color={cardConfig.low.txtcolor}>{t('vulnerabilities.low')}</Typography>
+                <Typography fontWeight={500} color={cardConfig.low.txtcolor}>
                   {counts.low} {t('vulnerabilities.alerts')}
                 </Typography>
               </Box>
