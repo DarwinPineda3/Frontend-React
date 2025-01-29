@@ -71,15 +71,13 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
             {/* Table body */}
             <TableBody>
               {loading ? (
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  height="300px"
-                >
-                  <Loader />
-                </Box>
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                      <Loader />
+                    </Box>
+                  </TableCell>
+                </TableRow>
               ) : (
                 customTemplates.itemsResult.map((template: any, index: number) => (
                   <TableRow key={index}>

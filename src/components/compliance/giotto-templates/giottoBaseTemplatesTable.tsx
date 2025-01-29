@@ -70,9 +70,18 @@ const GiottoBaseTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDo
               {/* Table body */}
               <TableBody>
                 {loading ? (
-                  <Grid item xs={12} xl={12}>
-                    <Loader />
-                  </Grid>
+                  <TableRow>
+                    <TableCell colSpan={6}>
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="100px"
+                      >
+                        <Loader />
+                      </Box>
+                    </TableCell>
+                  </TableRow>
                 ) : (
                   baseTemplates.itemsResult.map((template: any, index: number) => (
                     <TableRow key={index}>
