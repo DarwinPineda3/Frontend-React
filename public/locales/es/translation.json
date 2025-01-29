@@ -1527,7 +1527,12 @@
       "confirm_delete": "¿Está seguro de que desea eliminar este activo?",
       "cancel": "Cancelar",
       "confirm": "Confirmar",
-      "bulk_import": "Importación masiva"
+      "bulk_import": "Importación masiva",
+      "remove": "Quitar",
+      "download_template": "Descargar la plantilla aquí",
+      "import_giotto_assets": "Importe masivo de assets",
+      "upload": "Subir",
+      "select_csv_file": "Debe ser un archivo CSV."
     }
   },
   "compliance_templates": {
