@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getBaseApiUrl } from "src/guards/jwt/Jwt";
+import { createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios';
-import { AppDispatch } from "../../Store";
+import { AppDispatch } from '../../Store';
 
 function getApiUrl() {
   return `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/giotto-proxy?url=Groups/`;
@@ -53,13 +53,13 @@ export const GiottoGroupSlice = createSlice({
       state.itemsResults.push(action.payload);
     },
     updateGroup: (state, action) => {
-      const index = state.itemsResults.findIndex(group => group.id === action.payload.id);
+      const index = state.itemsResults.findIndex((group) => group.id === action.payload.id);
       if (index !== -1) {
         state.itemsResults[index] = action.payload;
       }
     },
     deleteGroup: (state, action) => {
-      state.itemsResults = state.itemsResults.filter(group => group.id !== action.payload);
+      state.itemsResults = state.itemsResults.filter((group) => group.id !== action.payload);
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -69,43 +69,53 @@ export const GiottoGroupSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
-    }
-  }
+    },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
+  },
 });
 
-export const { getGroups, addGroup, updateGroup, deleteGroup, setPage, setError, setLoading, getGroupDetail, getAllInList } = GiottoGroupSlice.actions;
+export const {
+  getGroups,
+  addGroup,
+  updateGroup,
+  deleteGroup,
+  setPage,
+  setError,
+  setLoading,
+  getGroupDetail,
+  getAllInList,
+  setPageSize,
+} = GiottoGroupSlice.actions;
 
+export const fetchGroups =
+  (requestedPage: Number, requestedPageSize: Number = 10) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(
+        `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`,
+      );
 
-export const fetchGroups = (requestedPage: Number, requestedPageSize: Number = 10) => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoading(true));
-    if (requestedPageSize !== initialState.pageSize) {
-      requestedPage = 1;
+      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage, page } =
+        response.data;
+      dispatch(
+        getGroups({
+          results: itemsResult,
+          currentPage,
+          totalPages,
+          totalItemsAmount,
+          pageSize,
+          page,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching itemsResults:', err);
+      dispatch(setError('Failed to fetch itemsResults'));
     }
-    const response = await axios.get(`${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`);
-
-    const {
-      totalItemsAmount,
-      pageSize,
-      totalPages,
-      itemsResult,
-      currentPage,
-      page
-    } = response.data;
-    dispatch(getGroups({
-      results: itemsResult,
-      currentPage,
-      totalPages,
-      totalItemsAmount,
-      pageSize,
-      page
-    }));
-    dispatch(setLoading(false));
-  } catch (err: any) {
-    console.error('Error fetching itemsResults:', err);
-    dispatch(setError('Failed to fetch itemsResults'));
-  }
-};
+  };
 
 export const fetchGroupById = (groupId: string) => async (dispatch: AppDispatch) => {
   try {
@@ -127,11 +137,10 @@ export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
     const response = await axios.post(`${getApiUrl()}CreateGroup`, newGroup);
     if (response.status >= 200 && response.status < 300) {
       dispatch(addGroup(response.data));
-    }
-    else {
+    } else {
       console.error('Error creating group:', response);
       dispatch(setError('Failed to create group'));
-      throw 'Failed to create group'
+      throw 'Failed to create group';
     }
   } catch (err: any) {
     console.error('Error creating group:', err);
@@ -193,22 +202,25 @@ export const fetchGroupName = async (name: string): Promise<boolean> => {
   }
 };
 
-export const getGroupsByProjectId = (processToExecute: number, project: string) => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoading(true));
-    const response = await axios.get(`${getApiUrl()}GetListInTemplateExecutions/${project}?processToExecute=${processToExecute}`);
-    const groups = response.data;
+export const getGroupsByProjectId =
+  (processToExecute: number, project: string) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(
+        `${getApiUrl()}GetListInTemplateExecutions/${project}?processToExecute=${processToExecute}`,
+      );
+      const groups = response.data;
 
-    dispatch(
-      getAllInList({
-        groups,
-      }),
-    );
-    dispatch(setLoading(false));
-  } catch (err: any) {
-    console.error('Error fetching itemsResults:', err);
-    dispatch(setError('Failed to fetch itemsResults'));
-  }
-};
+      dispatch(
+        getAllInList({
+          groups,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching itemsResults:', err);
+      dispatch(setError('Failed to fetch itemsResults'));
+    }
+  };
 
 export default GiottoGroupSlice.reducer;
