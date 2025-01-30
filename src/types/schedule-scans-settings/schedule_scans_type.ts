@@ -22,14 +22,16 @@ export interface AssetType {
 }
 
 export interface ScheduledTaskType {
-  id: number;
+  id?: number;
   name: string;
-  scan_type: number;
-  asset: AssetType;
-  execution_frequency: ExecutionFrequencies;
+  scan_type: string;
+  asset: AssetType | string;
+  execution_frequency: ExecutionFrequencies | string;
   execution_time: string;
-  created_date: string;
-  updated_date: string;
+  created_date?: string;
+  updated_date?: string;
+  elastic_task_id?: string;
+  openvas_task_id?: string;
   is_active: boolean;
 }
 
