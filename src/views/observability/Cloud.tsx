@@ -56,7 +56,16 @@ const CloudInventory = () => {
               <Link component={RouterLink} color="inherit" to="/observability/cloud">
                 {t('menu.observability')}
               </Link>
-              <Typography color="textPrimary">{t('menu.cloud')}</Typography>
+              {selectedCloud ? (
+                <Link component={RouterLink} color="inherit" to={`/observability/cloud/scans/${selectedCloud}`}>
+                  {t('menu.cloud')}
+                </Link>
+              ) : (
+                <Typography color="textPrimary">{t('menu.cloud')}</Typography>
+              )}
+              {selectedCloud && (
+                <Typography color="textPrimary">{selectedCloud}</Typography>
+              )}
             </Breadcrumbs>
           </Box>
         </Box>

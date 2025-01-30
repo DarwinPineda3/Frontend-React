@@ -1,8 +1,8 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate, useParams} from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import TicketList from '../../components/ticketform/TicketList';
@@ -12,6 +12,7 @@ const Tickets: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+  const { selectedTicketId } = useParams<{ selectedTicketId?: string }>();
   const [tickets, setTickets] = useState<TicketType[]>([]);
 
   const [snackBarInfo, setSnackBarInfo] = useState<{
@@ -50,9 +51,20 @@ const Tickets: React.FC = () => {
             <Link component={RouterLink} color="inherit" to="/support/tickets">
               {t("menu.support")}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/support/tickets">
-              {t("support.tickets_management")}
-            </Link>
+            {selectedTicketId ? (
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/support/tickets/${selectedTicketId}`}
+              >
+                {t("support.tickets_management")}
+              </Link>
+            ) : (
+              <Typography color="textPrimary">{t("support.tickets_management")}</Typography>
+            )}
+            {selectedTicketId && (
+              <Typography color="textPrimary">{selectedTicketId}</Typography>
+            )}
           </Breadcrumbs>
         </Box>
       </Box>

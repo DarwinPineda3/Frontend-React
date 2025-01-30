@@ -1,8 +1,8 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography} from "@mui/material";
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import SolutionSearch from '../../components/solutions/SolutionSearch';
 import SolutionsTable from '../../components/solutions/SolutionsTable';
@@ -13,6 +13,8 @@ const Solutions: React.FC = () => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
 
+  const { selectedSolutionId } = useParams<{ selectedSolutionId?: string }>();
+
   return (
     <PageContainer title="Akila">
       <Box mb={2}>
@@ -21,16 +23,23 @@ const Solutions: React.FC = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link
+           <Link component={RouterLink} color="inherit" to="/support/solutions">
+             {t('menu.support')}
+           </Link>
+           {selectedSolutionId ? (
+             <Link
               component={RouterLink}
               color="inherit"
-              to="/support/solutions"
-            >
-              {t('menu.support')}
-            </Link>
-            <Link component={RouterLink} color="inherit" to="/support/solutions">
+              to={`/support/solutions/${selectedSolutionId}`}
+             >
               {t('support.solutions')}
-            </Link>
+             </Link>
+           ) : (
+            <Typography color="textPrimary">{t('support.solutions')}</Typography>
+           )}
+           {selectedSolutionId && (
+            <Typography color="textPrimary">{selectedSolutionId}</Typography>
+           )}
           </Breadcrumbs>
         </Box>
       </Box>
