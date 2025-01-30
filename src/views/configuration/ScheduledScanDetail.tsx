@@ -31,6 +31,7 @@ import {
   ScheduledScanDetail,
   ScheduledTaskType,
 } from 'src/types/schedule-scans-settings/schedule_scans_type';
+import { getScanTypeLabels } from 'src/utils/scanLabels';
 
 const ScheduledScansDetail = () => {
   const { t } = useTranslation();
@@ -62,12 +63,7 @@ const ScheduledScansDetail = () => {
 
   const [selectedScan, setSelectedScan] = useState<string | null>(null);
 
-  const scanTypeLabels: Record<number, string> = {
-    1: t('settings.scheduled_scans.scan_types.network_vulnerability'),
-    2: t('settings.scheduled_scans.scan_types.web_vulnerability'),
-    3: t('settings.scheduled_scans.scan_types.wordpress_vulnerability'),
-    4: t('settings.scheduled_scans.scan_types.network_observability'),
-  };
+  const scanTypeLabels = getScanTypeLabels(t);
 
   const Overview: React.FC<{ overview: ScheduledTaskType }> = ({ overview }) => {
     const executionTime = new Date(overview.execution_time);
@@ -96,7 +92,7 @@ const ScheduledScansDetail = () => {
                 {' '}
                 {t('settings.scheduled_scans.detail.subtitles.target')}
               </Typography>
-              <Typography color="textPrimary">: {overview?.asset.name || 'NA'}</Typography>
+              <Typography color="textPrimary">: {overview?.asset?.name || 'NA'}</Typography>
             </Box>
             <Box display={'flex'} mt={2}>
               <Typography variant="subtitle2" fontWeight={600}>
