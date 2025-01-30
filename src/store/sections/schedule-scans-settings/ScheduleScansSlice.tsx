@@ -4,6 +4,7 @@ import {
   ScheduledScanDetail,
   ScheduledTaskType,
 } from 'src/types/schedule-scans-settings/schedule_scans_type';
+import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
 import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
 
@@ -13,6 +14,7 @@ function getApiUrl() {
 
 interface StateType {
   scheduled_scans: ScheduledTaskType[];
+  networkScans: NetworkScanType[];
   scheduled_scan_detail: ScheduledScanDetail;
   page: number;
   totalPages: number;
@@ -22,11 +24,12 @@ interface StateType {
 
 const initialState: StateType = {
   scheduled_scans: [],
+  networkScans: [],
   scheduled_scan_detail: {
     scheduled_scan: {
       id: 0,
       name: '',
-      scan_type: 0,
+      scan_type: '',
       asset: {
         id: 0,
         name: '',
@@ -66,6 +69,9 @@ export const ScheduleScansSlice = createSlice({
     getScheduleScanDetail: (state, action) => {
       state.scheduled_scan_detail = action.payload;
     },
+    getNetworkScans: (state, action) => {
+      state.networkScans = Array.isArray(action.payload) ? action.payload : [];
+    },
     addScheduleScan: (state, action) => {
       state.scheduled_scans.push(action.payload);
     },
@@ -84,6 +90,7 @@ export const ScheduleScansSlice = createSlice({
 export const {
   getScheduleScans,
   getScheduleScanDetail,
+  getNetworkScans,
   addScheduleScan,
   setPage,
   setPageSize,
@@ -114,6 +121,29 @@ export const fetchScheduleScanDetail = (scanId: string) => async (dispatch: AppD
     throw err;
   }
 };
+
+export const fetchScheduleScanCreateData = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}/create-page/`);
+    dispatch(getNetworkScans(response.data));
+  } catch (err: any) {
+    console.error('Error fetching Schedule scan for Network scans:', err);
+    dispatch(setError('Failed to fetch Schedule scan for Network scans'));
+    throw err;
+  }
+};
+
+export const createScheduleScan =
+  (scheduleScan: ScheduledTaskType) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post(`${getApiUrl()}/`, scheduleScan);
+      dispatch(addScheduleScan(response.data));
+    } catch (err: any) {
+      console.error('Error creating Schedule Scan:', err);
+      dispatch(setError('Failed to create Schedule Scan'));
+      throw err;
+    }
+  };
 
 export const deactivateScheduleScanById = (scanId: number) => async (dispatch: AppDispatch) => {
   try {
