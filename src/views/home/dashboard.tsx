@@ -1,4 +1,7 @@
 import { Box, Grid } from "@mui/material";
+import ExecutionByGroup from "src/components/compliance/dashboard/ExecutionByGroup";
+import ExecutionByMonth from "src/components/compliance/dashboard/ExecutionByMonth";
+import StatsCardGrid from "src/components/compliance/dashboard/StatsCard";
 import PageContainer from "src/components/container/PageContainer";
 import AlertDistribution from "src/components/home/dashboard/AlertDistribution";
 import AssetStatus from "src/components/home/dashboard/AssetStatus";
@@ -14,27 +17,63 @@ import RecentEvents from "src/components/home/RecentEvents";
 import { getUserGroups } from "src/guards/jwt/Jwt";
 
 const Dashboard = () => {
-  //const groups = getUserGroups();
 
   const groups = getUserGroups();
 
+  /*
+  const [groups, setGroups] = useState(['Defender', 'CyberGuard', 'Scan360']);
+  const possibleGroups = ['Defender', 'CyberGuard', 'Scan360'];
+  function debugPicker() {
+    return (
+      <Box>
+        <h3>Debug Group Picker</h3>
+        <div>
+          {possibleGroups.map((group) => {
+            return (
+              <button key={group} onClick={() => {
+                if (groups.includes(group)) {
+                  setGroups(groups.filter((g) => g !== group));
+                } else {
+                  setGroups([...groups, group]);
+                }
+              }}>
+                {group}
+              </button>
+            );
+          })}
+        </div>
+        <div>
+          <p>Selected Groups: {groups.join(', ')}</p>
+        </div>
+      </Box>
+    );
+  }
+  */
   return (
     <PageContainer title="Akila">
       <Box>
+        {/*{debugPicker()}*/}
         <Grid container spacing={3}>
           {/* Top Section */}
           <Grid item xs={12}>
             {
               groups.includes('Scan360') && (
-                <Box mb={3}>
+                <Box >
                   <TopCardsDashboard />
                 </Box>
               )
             }
             {
               groups.includes('CyberGuard') && !groups.includes('Scan360') && (
-                <Box mb={3}>
+                <Box >
                   <TopCardCyberGuardDashboard />
+                </Box>
+              )
+            }
+            {
+              groups.includes('Defender') && !groups.includes('CyberGuard') && !groups.includes('Scan360') && (
+                <Box mt={2}>
+                  <StatsCardGrid />
                 </Box>
               )
             }
@@ -66,6 +105,21 @@ const Dashboard = () => {
                     )
                   }
                 </Grid>
+                {
+                  groups.includes('Defender') && (
+                    <Grid item xs={12} my={2}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12} md={6}>
+                          <ExecutionByMonth />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                          <ExecutionByGroup />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+
+                  )
+                }
               </Grid>
               {/* Right Column (Sidebar) */}
               <Grid item xs={12} lg={3}>

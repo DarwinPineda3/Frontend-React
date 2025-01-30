@@ -44,7 +44,7 @@ const OrgBreachesCompare = () => {
 
 
 
-  if (!brandMonitoringResume || !brandMonitoringResume?.ip) {
+  if (!brandMonitoringResume) {
     return (
       <DashboardCard title={t("dashboard.organization_breaches") || ''}>
         <Box display="flex" justifyContent="center" >
