@@ -1,6 +1,6 @@
 import { CalendarMonth, CalendarViewMonth, Check, FormatColorText, Info, MoreHoriz, Person, WarningTwoTone } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Box, Button, ButtonGroup, Chip, Grid, Link, List, ListItem, ListItemAvatar, ListItemText, Table, TableBody, TableCell, TableContainer, TableRow, Tooltip, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Box, Button, ButtonGroup, Chip, Grid, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Select, Table, TableBody, TableContainer, Typography } from '@mui/material';
 import { parseISO } from "date-fns";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -99,28 +99,29 @@ const GiottoExecutionDetail: React.FC<GiottoExecutionDetailProps> = ({ scanId, a
       </Breadcrumb>
       <Box>
         <Grid container spacing={2}>
-          <Grid item xl={2} xs={15} md={4}>
-            <DashboardCard title={'Assets'} >
-              <TableContainer>
-                <Table>
-                  <TableBody>
+          <Grid item xs={15} xl={15} md={8}>
+            <Grid item xs={12} mb={2}>
+              <DashboardCard title={'Asset'}
+                action={
+                  <Select
+                    value={assetId || ''}
+                    onChange={(e) => onAssetClick(e.target.value as string)}
+                    displayEmpty
+                    fullWidth
+                  >
+                    <MenuItem value="" disabled>
+                      Select an Asset
+                    </MenuItem>
                     {executionAssets.map((asset: any) => (
-                      <TableRow key={asset.id}>
-                        <TableCell>
-                          <Tooltip title={'Last Active: ' + parseISO(asset.lastKeepAlive).toLocaleString()} arrow>
-                            <Box>
-                              <Link variant="body2" onClick={() => onAssetClick(asset.id)}>{asset.name}({asset.networkAddress})</Link>
-                            </Box>
-                          </Tooltip>
-                        </TableCell>
-                      </TableRow>
+                      <MenuItem key={asset.id} value={asset.id}>
+                        {asset.name} ({asset.networkAddress})
+                      </MenuItem>
                     ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </DashboardCard>
-          </Grid>
-          <Grid item xs={15} xl={10} md={8}>
+                  </Select>
+                }
+              >
+              </DashboardCard>
+            </Grid>
             <Grid item xs={12} mb={2}>
               <DashboardCard title={'Execution Details'} >
                 <List

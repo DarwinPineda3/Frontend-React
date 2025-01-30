@@ -9,12 +9,11 @@ import { useDispatch, useSelector } from 'src/store/Store';
 
 const GroupComplianceChart: React.FC = () => {
   const dispatch = useDispatch();
-
   const { GroupCompliance: groups } = useSelector((state) => state.giottoDashboardSlice);
   const { projects } = useSelector((state: any) => state.giottoProjectsReducer);
 
   // Datos quemados
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<number>(0);
   useEffect(() => {
     dispatch(fetchProjects(1, 100));
   }, [dispatch]);

@@ -51,6 +51,7 @@
   },
   "dashboard": {
     "page_size": "Page Size",
+    "no_data": "No data available",
     "montly_distribution": "Monthly Distribution",
     "connected_assets": "Connected Assets",
     "disconnected_assets": "Disconnected Assets",

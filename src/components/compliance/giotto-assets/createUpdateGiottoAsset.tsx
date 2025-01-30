@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Container,
+  LinearProgress,
   TextField,
   Typography,
 } from '@mui/material';
@@ -9,7 +10,7 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ComplianceAsset, createAsset, editAsset } from 'src/store/sections/compliance/giotoAssetsSlice';
-import { useDispatch } from 'src/store/Store';
+import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
 
 interface Props {
@@ -20,6 +21,9 @@ interface Props {
 const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const { loading } = useSelector((state: any) => state.GiottoAssetsReducer);
+
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -53,9 +57,12 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         if (asset) {
           await dispatch(editAsset(newAsset)); // Use await to handle the promise
           onSubmit(t('giotto.assets.asset_updated') || '', 'success');
+          //clear the form
+          formik.resetForm();
         } else {
           await dispatch(createAsset(newAsset)); // Use await to handle the promise
           onSubmit(t('giotto.assets.asset_created') || '', 'success');
+          formik.resetForm();
         }
       } catch (error) {
         console.error('Error processing the asset:', error); // Log detailed error for debugging
@@ -66,7 +73,7 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   });
 
   return (
-    <Container maxWidth="sm">
+    <Container >
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Typography variant="h5" gutterBottom>
           {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
@@ -97,9 +104,12 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         />
 
         <Box mt={2}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
-          </Button>
+          {
+            !loading ? (<Button type="submit" variant="contained" color="primary" fullWidth>
+              {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
+            </Button>) : <LinearProgress />
+          }
+
         </Box>
       </Box>
     </Container>
