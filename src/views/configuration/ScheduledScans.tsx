@@ -1,6 +1,6 @@
 import { ArrowBack } from '@mui/icons-material';
 import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
@@ -9,8 +9,6 @@ import ScansTable from '../../components/configuration/ScanTable';
 const ScheduledScans: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-
-  const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <PageContainer title="Akila">
@@ -29,7 +27,7 @@ const ScheduledScans: React.FC = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ScansTable searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <ScansTable />
         </Grid>
       </Grid>
     </PageContainer>
