@@ -69,14 +69,6 @@ export const ScheduleScansSlice = createSlice({
     addScheduleScan: (state, action) => {
       state.scheduled_scans.push(action.payload);
     },
-    updateScheduleScan: (state, action) => {
-      const index = state.scheduled_scans.findIndex(
-        (parameter) => parameter.id === action.payload.id,
-      );
-      if (index !== -1) {
-        state.scheduled_scans[index] = action.payload;
-      }
-    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -93,7 +85,6 @@ export const {
   getScheduleScans,
   getScheduleScanDetail,
   addScheduleScan,
-  updateScheduleScan,
   setPage,
   setPageSize,
   setError,
