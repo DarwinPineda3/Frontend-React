@@ -1612,6 +1612,27 @@
       "desactivate": {
         "scheduled_scan_deactivated_successfully": "El escaneo programado se deshabilitó con éxito",
         "scan_failed": "Se produjo un error al ejecutar esta acción."
+      },
+      "form": {
+        "create_scan": "Debes crear una",
+        "task": "tarea",
+        "label_task": "Tarea",
+        "no_tasks": "No hay tareas",
+        "validations": {
+          "name_required": "El nombre es obligatorio",
+          "scan_type_required": "El tipo de escaneo es obligatorio",
+          "target_required": "El objetivo es obligatorio",
+          "execution_frequency_required": "La frecuencia de ejecución es obligatoria",
+          "execution_time_required": "La hora de ejecución es obligatoria",
+          "select_task_required": "Debes seleccionar al menos una tarea",
+          "asset_required": "El activo es obligatorio"
+        },
+        "success": {
+          "scan_scheduled": "Escaneo programado creado con éxito"
+        },
+        "error": {
+          "scan_schedule_failed": "Error al crear un análisis programado"
+        }
       }
     }
   }

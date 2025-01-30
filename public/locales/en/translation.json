@@ -1615,6 +1615,27 @@
       "desactivate": {
         "scheduled_scan_deactivated_successfully": "Scheduled scan was successfully deactivated",
         "scan_failed": "There was an error executing this action"
+      },
+      "form": {
+        "create_scan": "You must create a",
+        "task": "task",
+        "label_task": "Task",
+        "no_tasks": "No tasks",
+        "validations": {
+          "name_required": "Name is required",
+          "scan_type_required": "Scan type is required",
+          "target_required": "Target is required",
+          "execution_frequency_required": "Execution frequency is required",
+          "execution_time_required": "Execution time is required",
+          "select_task_required": "You must select at least one task",
+          "asset_required": "Asset is required"
+        },
+        "success": {
+          "scan_scheduled": "Scheduled scan created successfully"
+        },
+        "error": {
+          "scan_schedule_failed": "Error creating scheduled scan"
+        }
       }
     }
   },
