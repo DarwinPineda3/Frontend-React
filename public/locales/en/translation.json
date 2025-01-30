@@ -1568,7 +1568,8 @@
         "actions": "Actions"
       },
       "actions": {
-        "deactivate": "Deactivate"
+        "deactivate": "Deactivate scheduled scan",
+        "view_details": "View details"
       },
       "messages": {
         "no_scheduled_scans_found": "No scheduled scans found"
@@ -1578,7 +1579,7 @@
       },
       "status": {
         "active": "Active",
-        "inactive": "Inactive"
+        "deactivated": "Deactivated"
       },
       "scan_types": {
         "network_vulnerability": "Network Vulnerability Analysis",
@@ -1610,7 +1611,19 @@
           "status": "Status",
           "actions": "Actions"
         }
+      },
+      "desactivate": {
+        "scheduled_scan_deactivated_successfully": "Scheduled scan was successfully deactivated",
+        "scan_failed": "There was an error executing this action"
       }
+    }
+  },
+  "modals": {
+    "action": {
+      "title": "Confirm action",
+      "message": "Are you sure you want to perform this action?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
     }
   }
 }

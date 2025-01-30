@@ -1565,7 +1565,8 @@
         "actions": "Acciones"
       },
       "actions": {
-        "deactivate": "Desactivar"
+        "deactivate": "Desactivar escaneo programado",
+        "view_details": "Ver detalles"
       },
       "messages": {
         "no_scheduled_scans_found": "No se encontraron escaneos programados"
@@ -1575,7 +1576,7 @@
       },
       "status": {
         "active": "Activo",
-        "inactive": "Inactivo"
+        "deactivated": "Desactivado"
       },
       "scan_types": {
         "network_vulnerability": "Escaneos de Vulnerabilidades de Red",
@@ -1607,6 +1608,10 @@
           "status": "Estado",
           "actions": "Acciones"
         }
+      },
+      "desactivate": {
+        "scheduled_scan_deactivated_successfully": "El escaneo programado se deshabilitó con éxito",
+        "scan_failed": "Se produjo un error al ejecutar esta acción."
       }
     }
   }
