@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
@@ -74,6 +74,18 @@ const AlertDistribution = () => {
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  if (series.length === 0 || series.reduce((a, b) => a + b) === 0) {
+    return (
+      <DashboardCard title={t("dashboard.montly_distribution") ?? "montly_distribution"}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Typography variant="h6" color="textSecondary">
+            {t("dashboard.no_data")}
+          </Typography>
+        </Box>
+      </DashboardCard>
+    )
   }
 
   return (

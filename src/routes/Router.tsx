@@ -3,16 +3,19 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AccountSettings from 'src/components/account-settings/AccountSettings';
+import GiottoAssetsCreate from 'src/components/compliance/giotto-assets/giottoAssetsCreate';
 import GiottoAssetsImport from 'src/components/compliance/giotto-assets/giottoAssetsImport';
 import CreateGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsCreate';
 import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDetails';
 import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
 import ProjectDetails from 'src/components/compliance/giotto-projects/giottoProjectDetails';
 import TemplateDetails from 'src/components/compliance/giotto-templates/giottoTemplateDetails';
+import AssetsCreate from 'src/components/home/AssetCreate';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
 import TicketDetail from 'src/components/ticketform/TicketDetail';
 import CreateProwlerScan from 'src/components/vulnerabilities/cloud/cloudScanCreate';
+import EHVulnerabilityDetail from 'src/components/vulnerabilities/redteam/EhVulnerabilityDetail';
 import CreateWPScan from 'src/components/vulnerabilities/web/wordpress/wpscanCreate';
 import WpVulDetail from 'src/components/vulnerabilities/web/wordpress/wpVulnerabilityDetail';
 import AuthGuard from 'src/guards/authGuard/AuthGuard';
@@ -109,8 +112,17 @@ const Router = [
     ),
     children: [
       // Home
-      { path: '/home/dashboard', element: <Dashboard />, roles: ['Administrator', 'Scan360'] },
+      {
+        path: '/home/dashboard',
+        element: <Dashboard />,
+        roles: ['Administrator', 'Scan360', 'Defender'],
+      },
       { path: '/home/assets', element: <Assets />, roles: ['Administrator', 'Scan360'] },
+      {
+        path: '/home/assets/create',
+        element: <AssetsCreate />,
+        roles: ['Administrator', 'Scan360'],
+      },
 
       // Vulnerabilities
       {
@@ -240,6 +252,11 @@ const Router = [
       {
         path: '/vulnerabilities/redteam/:ehReportId',
         element: <EHReportDetail />,
+        roles: ['Administrator', 'Scan360'],
+      },
+      {
+        path: '/vulnerabilities/redteam/:ehReportId/vulnerability/detail',
+        element: <EHVulnerabilityDetail />,
         roles: ['Administrator', 'Scan360'],
       },
       {
@@ -506,6 +523,11 @@ const Router = [
       {
         path: '/compliance/assets',
         element: <ComplianceAssetsView />,
+        roles: ['Administrator', 'Defender'],
+      },
+      {
+        path: '/compliance/assets/create',
+        element: <GiottoAssetsCreate />,
         roles: ['Administrator', 'Defender'],
       },
       {

@@ -110,6 +110,9 @@ const webApplicationsSlice = createSlice({
     removeScan: (state, action) => {
       state.data = state.data.filter((scan) => scan.id !== action.payload);
     },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -151,16 +154,14 @@ const webApplicationsSlice = createSlice({
   },
 });
 
-export const { getScans, setLoading, setError, setPage, removeScan } = webApplicationsSlice.actions;
+export const { getScans, setLoading, setError, setPage, removeScan, setPageSize } =
+  webApplicationsSlice.actions;
 
 export const fetchWebApplicationsData =
   (requestedPage = 1, pageSize = 25) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      if (pageSize !== initialState.pageSize) {
-        requestedPage = 1;
-      }
       const url = `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`;
       const response = await axios.get(url);
       const { results, page, totalPages } = response.data;

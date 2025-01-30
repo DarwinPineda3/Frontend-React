@@ -162,7 +162,7 @@ const Row: React.FC<{
                 {row.status} - {row.progress}%
               </Typography>
               <Typography variant="caption" color="textSecondary">
-                ({row.current_report})
+                <HumanizedDate dateString={row.current_report} />
               </Typography>
             </>
           ) : (

@@ -5,11 +5,11 @@ import {
   Box,
   Grid,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
   Typography
 } from '@mui/material';
@@ -30,16 +30,21 @@ const WPSPlugins: React.FC<{ plugins_list: any[], scanId: any }> = ({ plugins_li
     }
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const totalPages = Math.ceil(plugins_list?.length / rowsPerPage);
-
-  const handlePageChange = (event: any, value: any) => {
-    setCurrentPage(value);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
   };
 
-  const currentData = plugins_list?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const paginatedItems = (plugins_list || []).slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
 
   return (
     <DashboardCard title={t('wpscan.plugins_list')!}>
@@ -49,35 +54,15 @@ const WPSPlugins: React.FC<{ plugins_list: any[], scanId: any }> = ({ plugins_li
             <Table aria-label="plugin version table">
               <TableHead>
                 <TableRow>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('wpscan.plugin_name')}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('wpscan.version')}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('wpscan.latest_version')}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('wpscan.last_update')}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('wpscan.vulnerabilities')}
-                    </Typography>
-                  </TableCell>
+                  <TableCell>{t('wpscan.plugin_name')}</TableCell>
+                  <TableCell>{t('wpscan.version')}</TableCell>
+                  <TableCell>{t('wpscan.latest_version')}</TableCell>
+                  <TableCell>{t('wpscan.last_update')}</TableCell>
+                  <TableCell>{t('wpscan.vulnerabilities')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {currentData?.map((plugin, index) => (
+                {paginatedItems?.map((plugin, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
@@ -99,7 +84,7 @@ const WPSPlugins: React.FC<{ plugins_list: any[], scanId: any }> = ({ plugins_li
                     </TableCell>
                     <TableCell>
                       <Typography variant="body2">
-                        <HumanizedDate dateString={new Date(plugin?.last_updated).toISOString() } />
+                        <HumanizedDate dateString={new Date(plugin?.last_updated).toISOString()} />
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -119,9 +104,18 @@ const WPSPlugins: React.FC<{ plugins_list: any[], scanId: any }> = ({ plugins_li
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
-          </Box>
 
+            </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={(plugins_list || []).length}
+              rowsPerPage={rowsPerPage}
+              page={currentPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Box>
         ) : (
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -130,16 +124,6 @@ const WPSPlugins: React.FC<{ plugins_list: any[], scanId: any }> = ({ plugins_li
           </Grid>
         )
         }
-        <Box my={3} display="flex" justifyContent="center">
-          {totalPages > 0 && (
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          )}
-        </Box>
       </>
     </DashboardCard>
   );

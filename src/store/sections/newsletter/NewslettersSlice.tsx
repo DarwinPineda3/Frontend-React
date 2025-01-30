@@ -39,9 +39,7 @@ export const NewsletterSlice = createSlice({
   initialState,
   reducers: {
     getNewsletters: (state, action) => {
-      state.newsletters = Array.isArray(action.payload.results)
-        ? action.payload.results
-        : [];
+      state.newsletters = Array.isArray(action.payload.results) ? action.payload.results : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
@@ -58,33 +56,41 @@ export const NewsletterSlice = createSlice({
       state.error = action.payload;
     },
     setLoading: (state, action) => {
-      state.loading = action.payload
-    }
+      state.loading = action.payload;
+    },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
-export const { getNewsletters, getNewsletterDetail, setFileContent, setPage, setError, setLoading } = NewsletterSlice.actions;
+export const {
+  getNewsletters,
+  getNewsletterDetail,
+  setFileContent,
+  setPage,
+  setError,
+  setLoading,
+  setPageSize,
+} = NewsletterSlice.actions;
 
 export const fetchNewsletters =
-  (requestedPage = 1,
-    pageSize = 10
-  ) =>
-    async (dispatch: AppDispatch) => {
-      try {
-        dispatch(setLoading(true));
-        if (pageSize !== initialState.pageSize) {
-          requestedPage = 1;
-        }
-        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
-        const cloudInventoryList = response.data;
-        const { results, page, totalPages } = cloudInventoryList;
-        dispatch(getNewsletters({ results, currentPage: page, totalPages, pageSize }));
-        dispatch(setLoading(false));
-      } catch (err: any) {
-        console.error('Error fetching newsletters', err);
-        dispatch(setError('Failed to fetch newsletters'));
-      }
-    };
+  (requestedPage = 1, pageSize = 10) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(
+        `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
+      );
+      const cloudInventoryList = response.data;
+      const { results, page, totalPages } = cloudInventoryList;
+      dispatch(getNewsletters({ results, currentPage: page, totalPages, pageSize }));
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching newsletters', err);
+      dispatch(setError('Failed to fetch newsletters'));
+    }
+  };
 
 export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -101,28 +107,29 @@ export const fetchNewsLetterById = (id: string) => async (dispatch: AppDispatch)
   }
 };
 
-export const downloadNewsletter = (gid: string, namedoc: string) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getDownloadUrl()}${gid}`, {
-      responseType: 'blob',
-    });
+export const downloadNewsletter =
+  (gid: string, namedoc: string) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.get(`${getDownloadUrl()}${gid}`, {
+        responseType: 'blob',
+      });
 
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    link.href = url;
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
 
-    link.setAttribute('download', `${namedoc}`);
-    document.body.appendChild(link);
-    link.click();
+      link.setAttribute('download', `${namedoc}`);
+      document.body.appendChild(link);
+      link.click();
 
-    // Limpiando memoria
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(link);
-  } catch (err: any) {
-    console.error('Error downloading newsletter:', err);
-    dispatch(setError('Failed to download newsletter'));
-  }
-};
+      // Limpiando memoria
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (err: any) {
+      console.error('Error downloading newsletter:', err);
+      dispatch(setError('Failed to download newsletter'));
+    }
+  };
 
 export const fetchFileContent = (gid: string) => async (dispatch: AppDispatch) => {
   try {

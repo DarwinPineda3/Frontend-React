@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAssets, removeAsset, setPage } from 'src/store/sections/AssetsSlice';
@@ -26,6 +27,7 @@ import Loader from '../shared/Loader/Loader';
 import CreateUpdateAsset from './AssetEdition';
 const AssetList = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const assets = useSelector((state: any) => state.assetsReducer.assets);
   const currentPage = useSelector((state: any) => state.assetsReducer.page);
@@ -95,7 +97,7 @@ const AssetList = () => {
     setAssetToDelete(null);
   };
   const addButton = (
-    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+    <IconButton color="primary" onClick={() => navigate('/home/assets/create')}>
       <AddIcon />
     </IconButton>
   );

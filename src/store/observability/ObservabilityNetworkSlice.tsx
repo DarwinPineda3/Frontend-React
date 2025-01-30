@@ -27,7 +27,7 @@ const initialState: StateType = {
   networkScansDetail: null,
   page: 1,
   totalPages: 1,
-  pageSize: 10,
+  pageSize: 25,
   loading: false,
   error: null,
 };
@@ -52,8 +52,14 @@ const networkObservabilitySlice = createSlice({
       state.error = action.payload;
     },
     setLoading: (state, action) => {
-      state.loading = action.payload
-    }
+      state.loading = action.payload;
+    },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
@@ -61,45 +67,43 @@ export const {
   getNetworkObservabilityList,
   getNetworkObservabilityDetail,
   setError,
-  setLoading
+  setLoading,
+  setPage,
+  setPageSize,
 } = networkObservabilitySlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
 export const fetchNetworkObservabilityData =
-  (
-    requestedPage: number,
-    pageSize: number = 10
-  ) =>
-    async (dispatch: AppDispatch) => {
-      try {
-        dispatch(setLoading(true));
-        if (pageSize !== initialState.pageSize) {
-          requestedPage = 1;
-        }
-        const response = (await axios.get(
-          `${getMonitoringApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
-        )).data;
+  (requestedPage: number, pageSize: number = 25) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const response = (
+        await axios.get(`${getMonitoringApiUrl()}?page=${requestedPage}&page_size=${pageSize}`)
+      ).data;
 
-        const scans = response.results;
-        const totalPages = response.totalPages;
-        const currentPage = response.page;
-        // order by scan_start
-        scans.sort((a: any, b: any) => new Date(b.scan_start).getTime() - new Date(a.scan_start).getTime());
+      const scans = response.results;
+      const totalPages = response.totalPages;
+      const currentPage = response.page;
+      // order by scan_start
+      scans.sort(
+        (a: any, b: any) => new Date(b.scan_start).getTime() - new Date(a.scan_start).getTime(),
+      );
 
-        dispatch(
-          getNetworkObservabilityList({
-            results: scans,
-            currentPage,
-            totalPages,
-            pageSize,
-          }),
-        );
-        dispatch(setLoading(false));
-      } catch (err: any) {
-        console.error('Error fetching Network Observability data:', err);
-        dispatch(setError('Failed to fetch Network Observability data'));
-      }
-    };
+      dispatch(
+        getNetworkObservabilityList({
+          results: scans,
+          currentPage,
+          totalPages,
+          pageSize,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching Network Observability data:', err);
+      dispatch(setError('Failed to fetch Network Observability data'));
+    }
+  };
 
 export const fetchNetworkObservabilityById = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -107,9 +111,9 @@ export const fetchNetworkObservabilityById = (id: string) => async (dispatch: Ap
 
     if (response.status === 200) {
       const graph_old = JSON.parse(response.data.dataneo);
-      response.data["graphs"] = Object.entries(graph_old).map(([host, graph]) => {
+      response.data['graphs'] = Object.entries(graph_old).map(([host, graph]) => {
         if (!graph.nodes || graph.nodes.length === 0) {
-          graph.nodes = [{ id: host, label: "Host", properties: { name: host } }];
+          graph.nodes = [{ id: host, label: 'Host', properties: { name: host } }];
         }
         return {
           host,
@@ -129,39 +133,34 @@ export const fetchNetworkObservabilityById = (id: string) => async (dispatch: Ap
   }
 };
 
+export const createNetworkObservabilityScan =
+  (newNetworkScan: any) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await axios.post(`${getMonitoringApiUrl()}/`, newNetworkScan);
 
-export const createNetworkObservabilityScan = (newNetworkScan: any) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post(`${getMonitoringApiUrl()}/`, newNetworkScan);
-
-    if (response.status === 201) {
-      dispatch(fetchNetworkObservabilityData(
-        1
-      ));
-    } else {
+      if (response.status === 201) {
+        dispatch(fetchNetworkObservabilityData(1));
+      } else {
+        dispatch(setError('Failed to create Network Observability scan'));
+      }
+    } catch (err: any) {
+      console.error('Error creating Network Observability scan:', err);
       dispatch(setError('Failed to create Network Observability scan'));
     }
-  } catch (err: any) {
-    console.error('Error creating Network Observability scan:', err);
-    dispatch(setError('Failed to create Network Observability scan'));
-  }
-}
+  };
 
 export const deleteNetworkObservabilityScan = (scanId: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.delete(`${getMonitoringApiUrl()}/${scanId}`);
     if (response.status === 200) {
-      dispatch(fetchNetworkObservabilityData(
-        1
-      ));
+      dispatch(fetchNetworkObservabilityData(1));
     } else {
       dispatch(setError('Failed to delete Network Observability scan'));
     }
-  }
-  catch (err: any) {
+  } catch (err: any) {
     console.error('Error deleting Network Observability scan:', err);
     dispatch(setError('Failed to delete Network Observability scan'));
   }
-}
+};
 
 export default networkObservabilitySlice.reducer;
