@@ -1,7 +1,8 @@
-import { Box, Chip, Grid, Typography } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { Box, Breadcrumbs, Chip, Grid, IconButton, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -46,6 +47,22 @@ const ProjectDetails: React.FC = ({}) => {
           </Grid>
         ) : (
           <>
+            <Box mb={2}>
+              <Box display="flex" alignItems="center" mt={2}>
+                <IconButton onClick={() => navigate(-1)} color="primary">
+                  <ArrowBack />
+                </IconButton>
+                <Breadcrumbs aria-label="breadcrumb">
+                  <Link component={RouterLink} color="inherit" to="/compliance/projects">
+                    {t('compliance_menu.compliance')}
+                  </Link>
+                  <Link component={RouterLink} color="inherit" to="/compliance/projects">
+                    {t('compliance_menu.compliance_projects')}
+                  </Link>
+                  <Typography color="textPrimary">{projectDetail?.name}</Typography>
+                </Breadcrumbs>
+              </Box>
+            </Box>
             <Grid item xs={12} lg={12}>
               <Breadcrumb title={`${projectDetail?.name}`}>
                 <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
