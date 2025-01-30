@@ -1,7 +1,7 @@
+import { Block, Visibility } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import {
   Box,
-  Button,
   Chip,
   IconButton,
   Table,
@@ -12,18 +12,22 @@ import {
   TablePagination,
   TableRow,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import {
+  deactivateScheduleScanById,
   fetchScheduleScans,
   setPage,
   setPageSize,
 } from 'src/store/sections/schedule-scans-settings/ScheduleScansSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { ScheduledTaskType } from 'src/types/schedule-scans-settings/schedule_scans_type';
+import ConfirmActionModal from '../modal/ConfirmActionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
@@ -42,6 +46,59 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
   const totalPages = useSelector((state: any) => state.scheduleScansReducer.totalPages);
   const pageSize = useSelector((state: any) => state.scheduleScansReducer.pageSize);
   const [isLoading, setIsLoading] = useState(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success');
+  const [scheduleScantoDeactivate, setScheduleScantoDeactivate] =
+    useState<ScheduledTaskType | null>(null);
+
+  useEffect(() => {
+    if (snackbarMessage && snackbarSeverity) {
+      setSnackbarOpen(true); // Show the snackbar after the message and severity have been updated
+    }
+  }, [snackbarMessage, snackbarSeverity]);
+
+  const handleDeactivateClick = (scheduleScan: ScheduledTaskType) => {
+    setScheduleScantoDeactivate(scheduleScan);
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+    setScheduleScantoDeactivate(null);
+  };
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(false);
+  };
+
+  const handleConfirmDeactivate = async () => {
+    if (scheduleScantoDeactivate) {
+      try {
+        await dispatch(deactivateScheduleScanById(scheduleScantoDeactivate?.id!));
+        setScheduleScantoDeactivate(null);
+        setOpenModal(false);
+        handleFormSubmit(
+          `${t('settings.scheduled_scans.desactivate.scheduled_scan_deactivated_successfully')}`,
+          'success',
+        );
+      } catch (error) {
+        console.error('Error deactivate scheduled scan:', error);
+        setScheduleScantoDeactivate(null);
+        setOpenModal(false);
+        handleFormSubmit(`${t('settings.scheduled_scans.desactivate.scan_failed')}`, 'error');
+      } finally {
+        dispatch(fetchScheduleScans(currentPage, pageSize));
+      }
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,10 +131,6 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
   const filteredScans = scheduled_scans.filter((scan: ScheduledTaskType) =>
     scan.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
-
-  const handleDelete = (id: number) => {
-    console.log('Delete scan with id:', id);
-  };
   const scanTypeLabels: Record<number, string> = {
     1: t('settings.scheduled_scans.scan_types.network_vulnerability'),
     2: t('settings.scheduled_scans.scan_types.web_vulnerability'),
@@ -197,22 +250,26 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
                             label={
                               scan.is_active
                                 ? t('settings.scheduled_scans.status.active')
-                                : t('settings.scheduled_scans.status.inactive')
+                                : t('settings.scheduled_scans.status.deactivated')
                             }
                             color={scan.is_active ? 'success' : 'error'}
                             variant="filled"
                           />
                         </TableCell>
                         <TableCell>
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            size="small"
-                            sx={{ marginLeft: 1 }}
-                            onClick={() => handleDelete(scan.id)}
-                          >
-                            {t('settings.scheduled_scans.actions.deactivate')!}
-                          </Button>
+                          <Tooltip title={t('settings.scheduled_scans.actions.view_details')}>
+                            <IconButton color="primary" onClick={() => handleScanClick(scan.id)}>
+                              <Visibility />
+                            </IconButton>
+                          </Tooltip>
+
+                          {scan.is_active && (
+                            <Tooltip title={t('settings.scheduled_scans.actions.deactivate')}>
+                              <IconButton color="error" onClick={() => handleDeactivateClick(scan)}>
+                                <Block />
+                              </IconButton>
+                            </Tooltip>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))
@@ -257,6 +314,18 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
               page={currentPage - 1}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handlePageSizeChange}
+            />
+            {snackbarOpen && (
+              <SnackBarInfo
+                color={snackbarSeverity}
+                title="Operation Status"
+                message={snackbarMessage}
+              />
+            )}
+            <ConfirmActionModal
+              open={openModal}
+              handleClose={handleClose}
+              handleConfirm={handleConfirmDeactivate}
             />
           </>
         )}
