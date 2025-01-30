@@ -52,6 +52,7 @@
   "dashboard": {
     "page_size": "Tamaño de página",
     "montly_distribution": "Distribución mensual",
+    "no_data": "No hay datos disponibles",
     "connected_assets": "Activos conectados",
     "disconnected_assets": "Activos desconectados",
     "asset_status": "Estado de activos",
@@ -970,7 +971,11 @@
     "exploitable": "Explotable",
     "Overview": "Visión general",
     "Vulnerabilities": "Vulnerabilidades",
-    "evidences": "Evidencias"
+    "evidences": "Evidencias",
+    "yes": "Si",
+    "no": "No",
+    "vulnerability_details": "Detalles de la vulnerabilidad",
+    "identifier": "Identificador"
   },
   "installation_guide": {
     "title": "Guía de Instalación",

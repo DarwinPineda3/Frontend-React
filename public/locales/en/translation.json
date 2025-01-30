@@ -51,6 +51,7 @@
   },
   "dashboard": {
     "page_size": "Page Size",
+    "no_data": "No data available",
     "montly_distribution": "Monthly Distribution",
     "connected_assets": "Connected Assets",
     "disconnected_assets": "Disconnected Assets",
@@ -972,7 +973,11 @@
     "exploitable": "Exploitable",
     "Overview": "Overview",
     "Vulnerabilities": "Vulnerabilities",
-    "evidences": "evidences"
+    "evidences": "Evidences",
+    "yes": "Yes",
+    "no": "No",
+    "vulnerability_details": "Vulnerability Details",
+    "identifier": "Identifier"
   },
   "installation_guide": {
     "title": "Installation Guide",

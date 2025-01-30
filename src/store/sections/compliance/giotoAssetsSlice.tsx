@@ -151,6 +151,7 @@ export const fetchAssetsWitURL =
 // Async thunk for creating a new asset (CREATE)
 export const createAsset = (newAsset: ComplianceAsset) => async (dispatch: AppDispatch) => {
   try {
+    dispatch(setLoading(true));
     const response = await axios.post(`${getApiUrl()}?url=Assets/CreateAsset`, newAsset);
     if (response.status >= 200 && response.status < 300) {
       dispatch(fetchAssets(initialState.page, initialState.pageSize));

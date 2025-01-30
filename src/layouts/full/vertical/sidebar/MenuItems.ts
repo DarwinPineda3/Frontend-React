@@ -57,14 +57,14 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'menu.home',
-    permissions: ['Administrator', 'Scan360'],
+    permissions: ['Administrator', 'Scan360', 'Defender', 'CyberGuard'],
   },
   {
     id: uniqueId(),
     title: 'menu.dashboard',
     href: '/home/dashboard',
     icon: IconAperture,
-    permissions: ['Administrator', 'Scan360'],
+    permissions: ['Administrator', 'Scan360', 'Defender', 'CyberGuard'],
   },
   {
     id: uniqueId(),

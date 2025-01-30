@@ -145,9 +145,10 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
 
   const addButton = (
     <Box>
-      <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+      <IconButton color="primary" onClick={() => navigate('/compliance/assets/create')}>
         <AddIcon />
       </IconButton>
+      <Box display="inline-block" width="10px" />
       <Button
         variant="contained"
         color="primary"
@@ -306,13 +307,6 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
           )}
         </Box>
       </DashboardCard>
-      {snackbarOpen && (
-        <SnackBarInfo
-          color={snackbarSeverity}
-          title={t('dashboard.operation_status')}
-          message={error}
-        />
-      )}
     </>
   );
 };
