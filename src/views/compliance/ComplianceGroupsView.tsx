@@ -2,7 +2,26 @@ import { ArrowBack } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Breadcrumbs, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Link, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
@@ -10,7 +29,12 @@ import PageContainer from 'src/components/container/PageContainer';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchGroups, removeGroup, setPage } from 'src/store/sections/compliance/giottoGroupsSlice';
+import {
+  fetchGroups,
+  removeGroup,
+  setPage,
+  setPageSize,
+} from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
 const ComplianceGroupsView: React.FC = ({ }) => {
@@ -28,22 +52,33 @@ const ComplianceGroupsView: React.FC = ({ }) => {
   const loading = useSelector((state: any) => state.giottoGroupReducer.loading);
 
   const itemsResults = useSelector((state: any) => state.giottoGroupReducer.itemsResults);
-  const page = useSelector((state: any) => state.giottoGroupReducer.page);
+  const currentPage = useSelector((state: any) => state.giottoGroupReducer.page);
   const pageSize = useSelector((state: any) => state.giottoGroupReducer.pageSize);
-  const totalItemsAmount = useSelector((state: any) => state.giottoGroupReducer.totalItemsAmount);
+  const totalPages = useSelector((state: any) => state.giottoGroupReducer.totalPages);
+  const error = useSelector((state: any) => state.giottoGroupReducer.error);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== page) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   React.useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchGroups(page, pageSize));
+      await dispatch(fetchGroups(currentPage, pageSize));
     };
     fetchData();
-  }, [dispatch, page]);
+  }, [dispatch, currentPage, pageSize]);
 
   useEffect(() => {
     if (location.state?.message) {
@@ -51,7 +86,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
       setSnackbarSeverity(location.state.severity || 'success');
       setSnackbarOpen(true);
     }
-
   }, [location.state]);
 
   const handleDelete = (id: string) => {
@@ -67,7 +101,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } catch (error: any) {
-
         setSnackbarMessage(error.error || '');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
@@ -82,6 +115,14 @@ const ComplianceGroupsView: React.FC = ({ }) => {
     setGroupToDelete(null);
   };
 
+  useEffect(() => {
+    if (error) {
+      setSnackbarOpen(true);
+      setSnackbarMessage(error);
+      setSnackbarSeverity('error');
+    }
+  }, [error]);
+
   return (
     <PageContainer>
       <>
@@ -94,9 +135,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
               <Link component={RouterLink} color="inherit" to="/compliance/groups">
                 {t('compliance_menu.compliance')}
               </Link>
-              <Typography>
-                {t('compliance_menu.compliance_groups')}
-              </Typography>
+              <Typography>{t('compliance_menu.compliance_groups')}</Typography>
             </Breadcrumbs>
           </Box>
         </Box>
@@ -104,7 +143,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
           title={t('compliance.groups_description')!}
           subtitle={t('compliance.groups_info')!}
           action={
-            < IconButton color="primary" onClick={() => navigate('/compliance/groups/create')}>
+            <IconButton color="primary" onClick={() => navigate('/compliance/groups/create')}>
               <AddIcon />
             </IconButton>
           }
@@ -113,19 +152,24 @@ const ComplianceGroupsView: React.FC = ({ }) => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TableContainer>
-                  <Table aria-label="group list table" >
+                  <Table aria-label="group list table">
                     <TableHead>
                       <TableRow>
                         <TableCell>{t('giotto.groups.name')}</TableCell>
-                        < TableCell>{t('giotto.groups.assetQty')}</TableCell>
-                        < TableCell>{t('giotto.groups.actions')}</TableCell>
+                        <TableCell>{t('giotto.groups.assetQty')}</TableCell>
+                        <TableCell>{t('giotto.groups.actions')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {loading ? (
                         <TableRow>
                           <TableCell colSpan={6}>
-                            <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                            <Box
+                              display="flex"
+                              justifyContent="center"
+                              alignItems="center"
+                              height="100px"
+                            >
                               <Loader />
                             </Box>
                           </TableCell>
@@ -192,28 +236,29 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                               </Box>
                             </TableCell>
                           </TableRow>
-                        )
-                      )}
+                        ))
+                      }
                     </TableBody>
                   </Table>
                 </TableContainer>
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, 50, 100]}
                   component="div"
-                  count={totalItemsAmount}
+                  count={totalPages * pageSize}
                   rowsPerPage={pageSize}
-                  page={page - 1}
-                  onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-                  onRowsPerPageChange={(e) => dispatch(fetchGroups(page, pageSize))}
+                  page={currentPage - 1}
+                  onPageChange={handlePageChange}
+                  onRowsPerPageChange={handlePageSizeChange}
                 />
               </Grid>
             </Grid>
 
-
             <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
               <DialogTitle>{t('giotto.groups.delete_group')}</DialogTitle>
               <DialogContent>
-                <Typography>{t('giotto.groups.are_you_sure_you_want_to_delete_this_group')}</Typography>
+                <Typography>
+                  {t('giotto.groups.are_you_sure_you_want_to_delete_this_group')}
+                </Typography>
               </DialogContent>
               <DialogActions>
                 <Button onClick={cancelDelete} color="info">
@@ -234,7 +279,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                 onClose={() => setSnackbarOpen(false)}
               />
             )}
-
           </>
         </DashboardCard>
       </>

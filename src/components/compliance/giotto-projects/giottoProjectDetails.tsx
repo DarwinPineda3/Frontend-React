@@ -1,8 +1,8 @@
-import ArrowBack from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Chip, Grid, IconButton, Link, Typography } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { Box, Breadcrumbs, Chip, Grid, IconButton, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import { Link, Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -40,15 +40,11 @@ const ProjectDetails: React.FC = ({}) => {
     <PageContainer title="Akila">
       <Grid container spacing={1}>
         {isLoading ? (
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            height="300px"
-          >
-            <Loader />
-          </Box>
+          <Grid item xs={12} lg={12}>
+            <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+              <Loader></Loader>
+            </Box>
+          </Grid>
         ) : (
           <>
             <Box mb={2}>
@@ -67,7 +63,6 @@ const ProjectDetails: React.FC = ({}) => {
                 </Breadcrumbs>
               </Box>
             </Box>
-
             <Grid item xs={12} lg={12}>
               <Breadcrumb title={`${projectDetail?.name}`}>
                 <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
