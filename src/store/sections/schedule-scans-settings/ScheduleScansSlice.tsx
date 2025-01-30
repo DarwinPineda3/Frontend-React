@@ -77,11 +77,6 @@ export const ScheduleScansSlice = createSlice({
         state.scheduled_scans[index] = action.payload;
       }
     },
-    deleteScheduleScan: (state, action) => {
-      state.scheduled_scans = state.scheduled_scans.filter(
-        (parameter) => parameter.id !== action.payload,
-      );
-    },
     setPage: (state, action) => {
       state.page = action.payload;
     },
@@ -99,7 +94,6 @@ export const {
   getScheduleScanDetail,
   addScheduleScan,
   updateScheduleScan,
-  deleteScheduleScan,
   setPage,
   setPageSize,
   setError,
@@ -126,6 +120,16 @@ export const fetchScheduleScanDetail = (scanId: string) => async (dispatch: AppD
   } catch (err: any) {
     console.error('Error fetching Schedule Scan Detail:', err);
     dispatch(setError('Failed to fetch Schedule Scan Detail'));
+    throw err;
+  }
+};
+
+export const deactivateScheduleScanById = (scanId: number) => async (dispatch: AppDispatch) => {
+  try {
+    await axios.delete(`${getApiUrl()}/${scanId}/deactivate`);
+  } catch (err: any) {
+    console.error('Error deactivate Schedule Scan:', err);
+    dispatch(setError('Failed to deactivate Schedule Scan'));
     throw err;
   }
 };
