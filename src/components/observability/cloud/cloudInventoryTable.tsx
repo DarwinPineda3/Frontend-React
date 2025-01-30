@@ -8,7 +8,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,12 +19,15 @@ import { useNavigate } from 'react-router';
 import AwsLogo from 'src/assets/images/cloudscans/aws.png';
 import AzureLogo from 'src/assets/images/cloudscans/azure.png';
 import GcpLogo from 'src/assets/images/cloudscans/gcp.png';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import {
   fetchCloudInventoryList,
   setPage,
+  setPageSize,
 } from 'src/store/observability/cloud/CloudInventorySlice';
+
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -44,12 +47,6 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
-    }
-  };
-
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -57,7 +54,23 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
+
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
+    }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
+  };
 
   const getProviderIcon = (provider: string) => {
     switch (provider?.toLowerCase()) {
@@ -73,11 +86,13 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
   };
 
   if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
   }
 
   return (
@@ -141,7 +156,9 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>{new Date(scan.timestamp).toLocaleString()}</Typography>
+                          <Typography>
+                            <HumanizedDate dateString={scan.timestamp} />
+                          </Typography>
                         </TableCell>
                       </TableRow>
                     ))
@@ -184,8 +201,8 @@ const CloudInventoryTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => 
               count={totalPages * pageSize}
               rowsPerPage={pageSize}
               page={currentPage - 1}
-              onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-              onRowsPerPageChange={(e) => dispatch(fetchCloudInventoryList(currentPage, e.target.value))}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
             />
           </>
         )}

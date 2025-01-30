@@ -9,12 +9,17 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { downloadNewsletter, fetchNewsletters, setPage } from 'src/store/sections/newsletter/NewslettersSlice';
+import {
+  downloadNewsletter,
+  fetchNewsletters,
+  setPage,
+  setPageSize,
+} from 'src/store/sections/newsletter/NewslettersSlice';
 import DashboardCard from '../shared/DashboardCard';
 import HumanizedDate from '../shared/HumanizedDate';
 import Loader from '../shared/Loader/Loader';
@@ -28,7 +33,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   const newsletters = useSelector((state: any) => state.newsLettersReducer.newsletters);
   const currentPage = useSelector((state: any) => state.newsLettersReducer.page);
   const totalPages = useSelector((state: any) => state.newsLettersReducer.totalPages);
-  const pageSize = useSelector((state: any) => state.cloudInventoryReducer.pageSize);
+  const pageSize = useSelector((state: any) => state.newsLettersReducer.pageSize);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,12 +44,22 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleDownload = (newsId: string, nameDownload: string) => {
@@ -52,7 +67,10 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   };
 
   return (
-    <DashboardCard title={t('newsletter.newsletters')!} subtitle={t('newsletter.newsletters_list')!}>
+    <DashboardCard
+      title={t('newsletter.newsletters')!}
+      subtitle={t('newsletter.newsletters_list')!}
+    >
       <Box>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -87,7 +105,6 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                   </TableRow>
                 </TableHead>
                 <TableBody>
-
                   {newsletters?.map((newsletter: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell>
@@ -113,7 +130,10 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <IconButton color="primary" onClick={() => handleDownload(newsletter.id, newsletter.name)}>
+                        <IconButton
+                          color="primary"
+                          onClick={() => handleDownload(newsletter.id, newsletter.name)}
+                        >
                           <DownloadIcon />
                         </IconButton>
                       </TableCell>
@@ -128,8 +148,8 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
               count={totalPages * pageSize}
               rowsPerPage={pageSize}
               page={currentPage - 1}
-              onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
-              onRowsPerPageChange={(e: any) => dispatch(fetchNewsletters(currentPage, e.target.value))}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
             />
           </>
         )}

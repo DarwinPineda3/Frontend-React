@@ -113,7 +113,8 @@
     "are_you_sure_to_delete_asset": "¿Estás seguro de que deseas eliminar este activo?",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
-    "asset_deleted_successfully": "Activo eliminado con éxito."
+    "asset_deleted_successfully": "Activo eliminado con éxito.",
+    "errorMessage": "Algo salió mal al cargar la información. Intenta recargar la página."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Tus escaneos programados que se ejecutan automáticamente",
@@ -456,7 +457,12 @@
       "required_field": "Campo requerido",
       "network_scan_created": "Escaneo de aplicación web creado",
       "active_scan": "Escaneo Activo",
-      "passive_scan": "Escaneo Pasivo"
+      "passive_scan": "Escaneo Pasivo",
+      "scan_deleted_successfully": "Escaneo eliminado exitosamente",
+      "delete_title": "Eliminar escaneo",
+      "delete_message": "¿Estás seguro de que deseas eliminar este escaneo?",
+      "delete_cancel": "Cancelar",
+      "delete_confirm": "Confirmar"
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -786,7 +792,8 @@
     "domain_up": "Dominio Activo",
     "potential_risk": "Riesgo Potencial",
     "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM.",
-    "identification_date": "Fecha de identificación"
+    "identification_date": "Fecha de identificación",
+    "evidence": "Evidencia"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",
@@ -963,7 +970,11 @@
     "exploitable": "Explotable",
     "Overview": "Visión general",
     "Vulnerabilities": "Vulnerabilidades",
-    "evidences": "Evidencias"
+    "evidences": "Evidencias",
+    "yes": "Si",
+    "no": "No",
+    "vulnerability_details": "Detalles de la vulnerabilidad",
+    "identifier": "Identificador"
   },
   "installation_guide": {
     "title": "Guía de Instalación",
@@ -1046,8 +1057,15 @@
     "cpu_threshold": "Umbral de CPU (%)",
     "ram_threshold": "Umbral de RAM (%)",
     "storage_threshold": "Umbral de Almacenamiento (%)",
-    "user_email": "Dirección de Correo Electrónico",
-    "save_changes": "Guardar Cambios"
+    "user_email": "Dirección de correo electrónico",
+    "save_changes": "Guardar cambios",
+    "invalid_email": "Uno o más correos electrónicos son inválidos",
+    "cpu_required": "Se requiere el umbral de CPU",
+    "ram_required": "Se requiere el umbral de RAM",
+    "storage_required": "Se requiere el umbral de almacenamiento",
+    "email_required": "Se requiere al menos un correo electrónico",
+    "success_message": "Configuraciones de umbral actualizadas correctamente",
+    "error_message": "Error al actualizar las configuraciones de umbral"
   },
   "breadcrumb": {
     "observability": "Observabilidad",
@@ -1236,7 +1254,8 @@
     "compliance_projects": "Proyectos",
     "compliance_executions": "Ejecuciones",
     "compliance_templates": "Plantillas",
-    "compliance_reports": "Reportes"
+    "compliance_reports": "Reportes",
+    "bulk_import": "importación masiva"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1488,6 +1507,37 @@
       "GetHardeningTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de hardening.",
       "GetRollbackStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de rollback.",
       "GetRollbackTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de rollback."
+    },
+    "assets": {
+      "select_file": "Seleccionar archivo",
+      "selected_file": "Archivo seleccionado",
+      "name_required": "El nombre es obligatorio",
+      "ip_required": "La dirección IP es obligatoria",
+      "ip_invalid_format": "Formato de dirección IP no válido",
+      "asset_updated": "El activo se actualizó correctamente",
+      "asset_created": "El activo se creó correctamente",
+      "asset_error": "Ocurrió un error al procesar el activo",
+      "edit_asset": "Editar activo",
+      "create_asset": "Crear activo",
+      "name": "Nombre",
+      "ip_address": "Dirección IP",
+      "asset_removed": "El activo se eliminó correctamente",
+      "asset_session_refresh": "Se solicitó actualización de la sesión del activo",
+      "network_address": "Dirección de red",
+      "company_name": "Nombre de la empresa",
+      "creation_date": "Fecha de creación",
+      "last_keep_alive": "Última conexión",
+      "actions": "Acciones",
+      "delete_asset": "Eliminar activo",
+      "confirm_delete": "¿Está seguro de que desea eliminar este activo?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "bulk_import": "Importación masiva",
+      "remove": "Quitar",
+      "download_template": "Descargar la plantilla aquí",
+      "import_giotto_assets": "Importe masivo de assets",
+      "upload": "Subir",
+      "select_csv_file": "Debe ser un archivo CSV."
     }
   },
   "compliance_templates": {

@@ -113,7 +113,8 @@
     "are_you_sure_to_delete_asset": "Are you sure you want to delete this asset?",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "asset_deleted_successfully": "Asset deleted successfully."
+    "asset_deleted_successfully": "Asset deleted successfully.",
+    "errorMessage": "Something went wrong while loading the information. Please try reloading the page."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Your scheduled scans that are running automatically",
@@ -457,7 +458,12 @@
       "required_field": "Required Field",
       "network_scan_created": "Web app scan created",
       "active_scan": "Active Scan",
-      "passive_scan": "Passive Scan"
+      "passive_scan": "Passive Scan",
+      "scan_deleted_successfully": "Scan deleted successfully",
+      "delete_title": "Delete Scan",
+      "delete_message": "Are you sure you want to delete this scan?",
+      "delete_cancel": "Cancel",
+      "delete_confirm": "Confirm"
     },
     "cloud_scans": {
       "low": "Low",
@@ -788,7 +794,8 @@
     "domain_up": "Domain Up",
     "potential_risk": "Potential Risk",
     "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
-    "identification_date": "Identification Date"
+    "identification_date": "Identification Date",
+    "evidence": "Evidence"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -965,7 +972,11 @@
     "exploitable": "Exploitable",
     "Overview": "Overview",
     "Vulnerabilities": "Vulnerabilities",
-    "evidences": "evidences"
+    "evidences": "Evidences",
+    "yes": "Yes",
+    "no": "No",
+    "vulnerability_details": "Vulnerability Details",
+    "identifier": "Identifier"
   },
   "installation_guide": {
     "title": "Installation Guide",
@@ -1049,7 +1060,14 @@
     "ram_threshold": "RAM Threshold (%)",
     "storage_threshold": "Storage Threshold (%)",
     "user_email": "Email Address",
-    "save_changes": "Save Changes"
+    "save_changes": "Save Changes",
+    "invalid_email": "One or more emails are invalid",
+    "cpu_required": "CPU threshold is required",
+    "ram_required": "RAM threshold is required",
+    "storage_required": "Storage threshold is required",
+    "email_required": "At least one email is required",
+    "success_message": "Threshold settings updated successfully",
+    "error_message": "Error updating threshold settings"
   },
   "breadcrumb": {
     "observability": "Observability",
@@ -1239,7 +1257,8 @@
     "compliance_projects": "Projects",
     "compliance_executions": "Executions",
     "compliance_templates": "Templates",
-    "compliance_reports": "Reports"
+    "compliance_reports": "Reports",
+    "bulk_import": "Bulk import"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1491,6 +1510,37 @@
       "GetHardeningTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and hardening execution.",
       "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
       "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
+    },
+    "assets": {
+      "select_file": "Select File",
+      "selected_file": "Selected File",
+      "name_required": "Name is required",
+      "ip_required": "IP Address is required",
+      "ip_invalid_format": "Invalid IP address format",
+      "asset_updated": "Asset updated successfully",
+      "asset_created": "Asset created successfully",
+      "asset_error": "An error occurred while processing the asset",
+      "edit_asset": "Edit Asset",
+      "create_asset": "Create Asset",
+      "name": "Name",
+      "ip_address": "IP Address",
+      "asset_removed": "Asset removed successfully",
+      "asset_session_refresh": "Asset Session Refresh requested",
+      "network_address": "Network Address",
+      "company_name": "Company Name",
+      "creation_date": "Creation Date",
+      "last_keep_alive": "Last Keep Alive",
+      "actions": "Actions",
+      "delete_asset": "Delete asset",
+      "confirm_delete": "Are you sure you want to delete this asset?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "bulk_import": "Bulk Import",
+      "remove": "Remove",
+      "download_template": "Download the template here",
+      "import_giotto_assets": "Bulk assets import",
+      "upload": "Upload",
+      "select_csv_file": "It must be a CSV file."
     }
   },
   "compliance_templates": {

@@ -1,6 +1,6 @@
 import { Delete, DesktopAccessDisabled, EditRounded, Monitor, Refresh } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Dialog, DialogContent, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -46,6 +46,8 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [assetToDelete, setAssetToDelete] = useState<null | string>(null);
 
 
   const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, askedPage: number) => {
@@ -65,18 +67,38 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
   };
 
   const handleDeleteClick = (asset: any) => {
-    const id = asset.id;
-    dispatch(removeAsset(id));
-    setSnackbarMessage('Asset deletion requested');
-    setSnackbarSeverity('info');
-    setSnackbarOpen(true);
-  }
+    setAssetToDelete(asset?.id);
+    setDeleteDialogOpen(true);
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setAssetToDelete(null);
+  };
+
+  const confirmDelete = async () => {
+    if (assetToDelete !== null) {
+      try {
+        await dispatch(removeAsset(assetToDelete));
+        setSnackbarMessage(t('giotto.assets.asset_removed') || '');
+        setSnackbarSeverity('success');
+        setSnackbarOpen(true);
+      } catch (error: any) {
+        setSnackbarMessage(error.error || '');
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
+      }
+    }
+    setDeleteDialogOpen(false);
+    setAssetToDelete(null);
+  };
+
 
 
   const handleRefreshTokenClick = (asset: any) => {
     const id = asset.id;
     dispatch(requestRestartSession(id));
-    setSnackbarMessage('Asset Session Refresh requested');
+    setSnackbarMessage(t('giotto.assets.asset_session_refresh') || '');
     setSnackbarSeverity('info');
     setSnackbarOpen(true);
   }
@@ -108,7 +130,7 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
         size="small"
         onClick={() => navigate('/compliance/assets/import')}
       >
-        {"Bulk Import"}
+        {t('giotto.assets.bulk_import') || ''}
       </Button>
     </Box>
   );
@@ -128,20 +150,22 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                 {/* Table head */}
                 <TableHead>
                   <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Network Address</TableCell>
-                    <TableCell>Company Name</TableCell>
-                    <TableCell>Creation Date</TableCell>
-                    <TableCell>Last Keep Alive</TableCell>
-                    <TableCell>Actions</TableCell>
+                    <TableCell>{t('giotto.assets.name') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.network_address') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.company_name') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.creation_date') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.last_keep_alive') || ''}</TableCell>
+                    <TableCell>{t('giotto.assets.actions') || ''}</TableCell>
                   </TableRow>
                 </TableHead>
                 {/* Table body */}
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                      <TableCell colSpan={5}>
-                        <Loader />
+                      <TableCell colSpan={6}>
+                        <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                          <Loader />
+                        </Box>
                       </TableCell>
                     </TableRow>
                   ) : (
@@ -226,6 +250,22 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
               <CreateUpdateGiottoAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
             </DialogContent>
           </Dialog>
+
+          <Dialog open={deleteDialogOpen} onClose={cancelDelete} maxWidth="xs" fullWidth>
+            <DialogTitle>{t('giotto.assets.delete_asset') || ''}</DialogTitle>
+            <DialogContent>
+              <Typography>{t('giotto.assets.confirm_delete') || ''}</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={cancelDelete} color="info">
+                {t('giotto.assets.cancel') || ''}
+              </Button>
+              <Button onClick={confirmDelete} color="primary" variant="contained">
+                {t('giotto.assets.confirm') || ''}
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           {snackbarOpen && (
             <SnackBarInfo
               color={snackbarSeverity}

@@ -25,7 +25,7 @@ const initialState: StateType = {
   fileContent: null,
   page: 1,
   totalPages: 1,
-  pageSize: 10,
+  pageSize: 25,
   loading: false,
   error: null,
 };
@@ -58,33 +58,42 @@ export const CloudInventorySlice = createSlice({
       state.error = action.payload;
     },
     setLoading: (state, action) => {
-      state.loading = action.payload
-    }
+      state.loading = action.payload;
+    },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
   },
 });
 
-export const { getCloudInventoryList, getCloudInventoryDetail, addCloudInventory, setFileContent, setPage, setError, setLoading } = CloudInventorySlice.actions;
+export const {
+  getCloudInventoryList,
+  getCloudInventoryDetail,
+  addCloudInventory,
+  setFileContent,
+  setPage,
+  setError,
+  setLoading,
+  setPageSize,
+} = CloudInventorySlice.actions;
 
 export const fetchCloudInventoryList =
-  (requestedPage = 1,
-    pageSize = 10
-  ) =>
-    async (dispatch: AppDispatch) => {
-      try {
-        dispatch(setLoading(true));
-        if (pageSize !== initialState.pageSize) {
-          requestedPage = 1;
-        }
-        const response = await axios.get(`${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`);
-        const cloudInventoryList = response.data;
-        const { results, page, totalPages } = cloudInventoryList;
-        dispatch(getCloudInventoryList({ results, currentPage: page, totalPages, pageSize }));
-        dispatch(setLoading(false));
-      } catch (err: any) {
-        console.error('Error fetching cloudInventoryList', err);
-        dispatch(setError('Failed to fetch cloudInventoryList'));
-      }
-    };
+  (requestedPage = 1, pageSize = 25) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(
+        `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
+      );
+      const cloudInventoryList = response.data;
+      const { results, page, totalPages } = cloudInventoryList;
+      dispatch(getCloudInventoryList({ results, currentPage: page, totalPages, pageSize }));
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching cloudInventoryList', err);
+      dispatch(setError('Failed to fetch cloudInventoryList'));
+    }
+  };
 
 export const fetchCloudInventoryById = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -118,7 +127,7 @@ export const createCloudInventory = (newCloudinventory: any) => async (dispatch:
     const response = await axios.post(getApiUrl(), formData);
     dispatch(addCloudInventory(response.data));
   } catch (err: any) {
-    dispatch(setError(err.response) || 'Failed to create inventory')
+    dispatch(setError(err.response) || 'Failed to create inventory');
     throw err;
   }
 };

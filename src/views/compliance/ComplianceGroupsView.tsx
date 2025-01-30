@@ -82,15 +82,6 @@ const ComplianceGroupsView: React.FC = ({ }) => {
     setGroupToDelete(null);
   };
 
-
-  if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
-  }
-
   return (
     <PageContainer>
       <>
@@ -125,51 +116,48 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                   <Table aria-label="group list table" >
                     <TableHead>
                       <TableRow>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600} >
-                            {t('giotto.groups.name')}
-                          </Typography>
-                        </TableCell>
-                        < TableCell >
-                          <Typography variant="subtitle2" fontWeight={600} >
-                            {t('giotto.groups.assetQty')}
-                          </Typography>
-                        </TableCell>
-                        < TableCell >
-                          <Typography variant="subtitle2" fontWeight={600} >
-                            {t('giotto.groups.actions')}
-                          </Typography>
-                        </TableCell>
+                        <TableCell>{t('giotto.groups.name')}</TableCell>
+                        < TableCell>{t('giotto.groups.assetQty')}</TableCell>
+                        < TableCell>{t('giotto.groups.actions')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {
+                      {loading ? (
+                        <TableRow>
+                          <TableCell colSpan={6}>
+                            <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                              <Loader />
+                            </Box>
+                          </TableCell>
+                        </TableRow>
+                      ) : (
                         itemsResults?.length > 0 ? (
-                          itemsResults?.map((group: any, index: any) => (
+                          itemsResults.map((group: any, index: any) => (
                             <TableRow key={group.id || index}>
-
-                              < TableCell >
+                              <TableCell>
                                 <Typography
-                                  variant="body2"
+                                  variant="subtitle2"
+                                  fontWeight={600}
                                   color="primary"
+                                  component="a"
+                                  onClick={() => navigate(`/compliance/projects/${group.id}`)}
                                   style={{ cursor: 'pointer' }}
-                                  onClick={() => navigate(`/compliance/groups/${group.id}`)}
                                 >
                                   {group.name}
                                 </Typography>
                               </TableCell>
                               <TableCell>
-                                <Box display="flex" alignItems="center" >
+                                <Box display="flex" alignItems="center">
                                   <Typography variant="body2" style={{ marginLeft: '8px' }}>
                                     {group.assetsQty}
                                   </Typography>
                                 </Box>
                               </TableCell>
                               <TableCell>
-                                <IconButton color="primary" onClick={() => navigate(`/compliance/groups/edit/${group?.id}`)}>
+                                <IconButton color="primary" onClick={() => navigate(`/compliance/groups/edit/${group.id}`)}>
                                   <EditIcon />
                                 </IconButton>
-                                <IconButton color="error" onClick={() => handleDelete(group['id'])}>
+                                <IconButton color="error" onClick={() => handleDelete(group.id)}>
                                   <DeleteIcon />
                                 </IconButton>
                               </TableCell>
@@ -177,7 +165,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                           ))
                         ) : (
                           <TableRow>
-                            <TableCell colSpan={5} align="center" >
+                            <TableCell colSpan={5} align="center">
                               <Box
                                 display="flex"
                                 flexDirection="column"
@@ -185,10 +173,10 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                 justifyContent="center"
                                 height="100px"
                               >
-                                <Typography variant="body2" color="textSecondary" >
+                                <Typography variant="body2" color="textSecondary">
                                   {t('giotto.groups.no_data_available')}
                                 </Typography>
-                                < Typography
+                                <Typography
                                   variant="body2"
                                   color="primary"
                                   component="a"
@@ -204,7 +192,8 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                               </Box>
                             </TableCell>
                           </TableRow>
-                        )}
+                        )
+                      )}
                     </TableBody>
                   </Table>
                 </TableContainer>

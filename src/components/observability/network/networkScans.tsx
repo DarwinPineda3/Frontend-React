@@ -13,14 +13,21 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
-import { deleteNetworkObservabilityScan, fetchNetworkObservabilityById, fetchNetworkObservabilityData } from 'src/store/observability/ObservabilityNetworkSlice';
+import {
+  deleteNetworkObservabilityScan,
+  fetchNetworkObservabilityById,
+  fetchNetworkObservabilityData,
+  setPage,
+  setPageSize,
+} from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 interface ScanListTableProps {
@@ -31,20 +38,34 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { networkScansData, networkScansDetail, page, totalPages, pageSize, loading } = useSelector((state: AppState) => state.NetworkObservabilityReducer);
+  const { networkScansData, networkScansDetail, loading } = useSelector(
+    (state: AppState) => state.NetworkObservabilityReducer,
+  );
+  const currentPage = useSelector((state: any) => state.NetworkObservabilityReducer.page);
+  const totalPages = useSelector((state: any) => state.NetworkObservabilityReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.NetworkObservabilityReducer.pageSize);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [selectedScanId, setSelectedScanId] = useState('');
 
   useEffect(() => {
-    dispatch(fetchNetworkObservabilityData(
-      page
-    ));
-  }, [dispatch]);
+    dispatch(fetchNetworkObservabilityData(currentPage, pageSize));
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-    dispatch(fetchNetworkObservabilityData(page, pageSize));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
+    }
   };
 
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
+  };
 
   const handleDownload = async (scanId: string) => {
     try {
@@ -68,7 +89,6 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
     }
   };
 
-
   const handleDelete = (scanId: string) => {
     setSelectedScanId(scanId);
     setShowDeleteDialog(true);
@@ -81,7 +101,7 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
     } catch (error) {
       console.error('Error deleting the scan:', error);
     }
-  }
+  };
 
   const addButton = (
     <IconButton color="primary" onClick={() => navigate('/observability/network/create')}>
@@ -90,11 +110,13 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
   );
 
   if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
   }
 
   return (
@@ -149,11 +171,26 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2">
-                          {new Date(scan['scan_start']).toLocaleString()}
+                          <HumanizedDate dateString={scan['scan_start']} />
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="body2">{scan['scan_type']}</Typography>
+                        <Typography variant="body2">
+                          {(() => {
+                            switch (scan['scan_type']) {
+                              case 'ping':
+                                return 'Ping Sweep';
+                              case 'ports_tcp':
+                                return 'TCP por scanning';
+                              case 'ports_fast_tcp':
+                                return 'Fast TCP port scanning';
+                              case 'ports_udp':
+                                return 'UDP port scanning';
+                              case 'ports_udp_tcp':
+                                return 'Port scanning with TCP services';
+                            }
+                          })()}
+                        </Typography>
                       </TableCell>
                       <TableCell>
                         <IconButton color="primary" onClick={() => handleDownload(scan['id'])}>
@@ -203,37 +240,35 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
             component="div"
             count={totalPages * pageSize}
             rowsPerPage={pageSize}
-            page={page - 1}
-            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-            onRowsPerPageChange={(e) => dispatch(fetchNetworkObservabilityData(page, e.target.value))}
+            page={currentPage - 1}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handlePageSizeChange}
           />
         </Box>
       </DashboardCard>
-      {
-        showDeleteDialog && (
-          <Dialog open={showDeleteDialog} maxWidth="sm">
-            <Box p={3}>
-              {/* Delete dialog */}
+      {showDeleteDialog && (
+        <Dialog open={showDeleteDialog} maxWidth="sm">
+          <Box p={3}>
+            {/* Delete dialog */}
+            <Box>
+              {/* Dialog content */}
               <Box>
-                {/* Dialog content */}
-                <Box>
-                  <Typography variant="h5">{t('observability.delete_scan')}</Typography>
-                  <Typography variant="body2">{t('observability.delete_scan_warning')}</Typography>
-                </Box>
-                {/* Dialog actions */}
-                <Box mt={3} display="flex" justifyContent="space-between">
-                  <Button color="info" onClick={() => setShowDeleteDialog(false)}>
-                    {t('dashboard.cancel')}
-                  </Button>
-                  <Button color="secondary" onClick={() => performDelete()}>
-                    {t('observability.delete')}
-                  </Button>
-                </Box>
+                <Typography variant="h5">{t('observability.delete_scan')}</Typography>
+                <Typography variant="body2">{t('observability.delete_scan_warning')}</Typography>
+              </Box>
+              {/* Dialog actions */}
+              <Box mt={3} display="flex" justifyContent="space-between">
+                <Button color="info" onClick={() => setShowDeleteDialog(false)}>
+                  {t('dashboard.cancel')}
+                </Button>
+                <Button color="secondary" onClick={() => performDelete()}>
+                  {t('observability.delete')}
+                </Button>
               </Box>
             </Box>
-          </Dialog>
-        )
-      }
+          </Box>
+        </Dialog>
+      )}
     </Box>
   );
 };

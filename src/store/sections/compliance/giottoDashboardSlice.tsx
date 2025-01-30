@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getBaseBackofficeUrl } from "src/guards/jwt/Jwt";
+import axios from "src/utils/axios";
 
 function getApiUrl() {
   return `${getBaseBackofficeUrl()}/api/giotto-proxy`;
@@ -87,8 +88,8 @@ export default GiottoDashboardSlice.reducer;
 
 export const fetchProjectsComplianceByCompany = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetProjectsComplianceByCompany/1`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsComplianceByCompany&setCompany=True`);
+    const data = await response.data;
     const projectsWithIds = data.map((project: any, index: number) => ({
       id: index + 1,
       name: project.projectName,
@@ -102,8 +103,8 @@ export const fetchProjectsComplianceByCompany = () => async (dispatch: any) => {
 
 export const fetchProjectsComplianceByGroup = (id: number) => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetGroupsExecutionsByProject/${id}`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetGroupsExecutionsByProject/${id}`);
+    const data = await response.data;
     const transformedData = data.map((group: any, index) => ({
       id: index,
       name: group.groupName,
@@ -122,8 +123,8 @@ export const fetchProjectsComplianceByGroup = (id: number) => async (dispatch: a
 
 export const fetchExecutionsCountByMonth = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetExecutionsCountByMonth`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetExecutionsCountByMonth`);
+    const data = await response.data;
     dispatch(getExecutionsCountByMonth(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
@@ -133,8 +134,8 @@ export const fetchExecutionsCountByMonth = () => async (dispatch: any) => {
 
 export const fetchExecutionsCountByProject = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetProjectsExecutionsByCompany/1&&setCompany=true`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsExecutionsByCompany&setCompany=True`);
+    const data = await response.data;
     dispatch(getExecutionByProject(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
@@ -143,8 +144,8 @@ export const fetchExecutionsCountByProject = () => async (dispatch: any) => {
 
 export const fetchGroupCompliance = (id: number) => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetGroupsComplianceByProject/${id}`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetGroupsComplianceByProject/${id}`);
+    const data = await response.data;
     const groupsWithIds = data.map((project: any, index: number) => ({
       id: index + 1,
       name: project.groupName,
@@ -158,8 +159,8 @@ export const fetchGroupCompliance = (id: number) => async (dispatch: any) => {
 
 export const fetchTemplatesUsage = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetTemplatesUsage/`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetTemplatesUsage/`);
+    const data = await response.data;
     const templatesWithIds = data.map((template, index) => ({
       id: index + 1,
       name: template.templateName,
@@ -173,8 +174,8 @@ export const fetchTemplatesUsage = () => async (dispatch: any) => {
 
 export const fetchComplianceByProyect = (selectedProject: number) => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Groups/GetListByProjectId/${selectedProject}`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Groups/GetListByProjectId/${selectedProject}`);
+    const data = await response.data;
     dispatch(getComplianceByProject(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
@@ -183,8 +184,8 @@ export const fetchComplianceByProyect = (selectedProject: number) => async (disp
 
 export const fetchUserStatistics = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetUsersStatistics/`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetUsersStatistics/`);
+    const data = await response.data;
     dispatch(getUsersStatistics(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
@@ -193,8 +194,8 @@ export const fetchUserStatistics = () => async (dispatch: any) => {
 
 export const fetchProjectsStatistics = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetProjectsStatistics/`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetProjectsStatistics/`);
+    const data = await response.data;
     dispatch(getProjectsStatistics(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
@@ -203,8 +204,8 @@ export const fetchProjectsStatistics = () => async (dispatch: any) => {
 
 export const fetchTemplatesStatistics = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetTemplatesStatistics/`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetTemplatesStatistics/`);
+    const data = await response.data;
     dispatch(getTemplatesStatistics(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
@@ -213,8 +214,8 @@ export const fetchTemplatesStatistics = () => async (dispatch: any) => {
 
 export const fetchAssetsStatistics = () => async (dispatch: any) => {
   try {
-    const response = await fetch(`${getApiUrl()}?url=Charting/GetAssetsStatistics/`);
-    const data = await response.json();
+    const response = await axios.get(`${getApiUrl()}?url=Charting/GetAssetsStatistics/`);
+    const data = await response.data;
     dispatch(getAssetsStatistics(data));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
