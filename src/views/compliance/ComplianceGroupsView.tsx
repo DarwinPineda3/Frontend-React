@@ -37,7 +37,7 @@ import {
 } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
-const ComplianceGroupsView: React.FC = ({}) => {
+const ComplianceGroupsView: React.FC = ({ }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -174,71 +174,70 @@ const ComplianceGroupsView: React.FC = ({}) => {
                             </Box>
                           </TableCell>
                         </TableRow>
-                      ) : itemsResults?.length > 0 ? (
-                        itemsResults.map((group: any, index: any) => (
-                          <TableRow key={group.id || index}>
-                            <TableCell>
-                              <Typography
-                                variant="subtitle2"
-                                fontWeight={600}
-                                color="primary"
-                                component="a"
-                                onClick={() => navigate(`/compliance/projects/${group.id}`)}
-                                style={{ cursor: 'pointer' }}
+                      ) : (
+                        itemsResults?.length > 0 ? (
+                          itemsResults.map((group: any, index: any) => (
+                            <TableRow key={group.id || index}>
+                              <TableCell>
+                                <Typography
+                                  variant="subtitle2"
+                                  fontWeight={600}
+                                  color="primary"
+                                  component="a"
+                                  onClick={() => navigate(`/compliance/groups/${group.id}`)}
+                                  style={{ cursor: 'pointer' }}
+                                >
+                                  {group.name}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Box display="flex" alignItems="center">
+                                  <Typography variant="body2" style={{ marginLeft: '8px' }}>
+                                    {group.assetsQty}
+                                  </Typography>
+                                </Box>
+                              </TableCell>
+                              <TableCell>
+                                <IconButton color="primary" onClick={() => navigate(`/compliance/groups/edit/${group.id}`)}>
+                                  <EditIcon />
+                                </IconButton>
+                                <IconButton color="error" onClick={() => handleDelete(group.id)}>
+                                  <DeleteIcon />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={5} align="center">
+                              <Box
+                                display="flex"
+                                flexDirection="column"
+                                alignItems="center"
+                                justifyContent="center"
+                                height="100px"
                               >
-                                {group.name}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Box display="flex" alignItems="center">
-                                <Typography variant="body2" style={{ marginLeft: '8px' }}>
-                                  {group.assetsQty}
+                                <Typography variant="body2" color="textSecondary">
+                                  {t('giotto.groups.no_data_available')}
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  color="primary"
+                                  component="a"
+                                  onClick={() => navigate('/compliance/groups/create')}
+                                  style={{
+                                    cursor: 'pointer',
+                                    textDecoration: 'underline',
+                                    marginTop: '8px',
+                                  }}
+                                >
+                                  {t('giotto.groups.create_group')}
                                 </Typography>
                               </Box>
                             </TableCell>
-                            <TableCell>
-                              <IconButton
-                                color="primary"
-                                onClick={() => navigate(`/compliance/groups/edit/${group.id}`)}
-                              >
-                                <EditIcon />
-                              </IconButton>
-                              <IconButton color="error" onClick={() => handleDelete(group.id)}>
-                                <DeleteIcon />
-                              </IconButton>
-                            </TableCell>
                           </TableRow>
                         ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={5} align="center">
-                            <Box
-                              display="flex"
-                              flexDirection="column"
-                              alignItems="center"
-                              justifyContent="center"
-                              height="100px"
-                            >
-                              <Typography variant="body2" color="textSecondary">
-                                {t('giotto.groups.no_data_available')}
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="primary"
-                                component="a"
-                                onClick={() => navigate('/compliance/groups/create')}
-                                style={{
-                                  cursor: 'pointer',
-                                  textDecoration: 'underline',
-                                  marginTop: '8px',
-                                }}
-                              >
-                                {t('giotto.groups.create_group')}
-                              </Typography>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      )}
+                      }
                     </TableBody>
                   </Table>
                 </TableContainer>
