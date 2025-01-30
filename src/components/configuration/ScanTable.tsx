@@ -27,16 +27,12 @@ import {
 } from 'src/store/sections/schedule-scans-settings/ScheduleScansSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { ScheduledTaskType } from 'src/types/schedule-scans-settings/schedule_scans_type';
+import { getExecutionFrequencyLabels, getScanTypeLabels } from 'src/utils/scanLabels';
 import ConfirmActionModal from '../modal/ConfirmActionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
-interface ScansTableProps {
-  searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) => {
+const ScansTable: React.FC = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -54,10 +50,11 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
   >('success');
   const [scheduleScantoDeactivate, setScheduleScantoDeactivate] =
     useState<ScheduledTaskType | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (snackbarMessage && snackbarSeverity) {
-      setSnackbarOpen(true); // Show the snackbar after the message and severity have been updated
+      setSnackbarOpen(true);
     }
   }, [snackbarMessage, snackbarSeverity]);
 
@@ -129,18 +126,11 @@ const ScansTable: React.FC<ScansTableProps> = ({ searchTerm, setSearchTerm }) =>
   };
 
   const filteredScans = scheduled_scans.filter((scan: ScheduledTaskType) =>
-    scan.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    (scan.name || '').toLowerCase().includes(searchTerm.toLowerCase()),
   );
-  const scanTypeLabels: Record<number, string> = {
-    1: t('settings.scheduled_scans.scan_types.network_vulnerability'),
-    2: t('settings.scheduled_scans.scan_types.web_vulnerability'),
-    3: t('settings.scheduled_scans.scan_types.wordpress_vulnerability'),
-    4: t('settings.scheduled_scans.scan_types.network_observability'),
-  };
 
-  const executionFrequencyLabels: Record<number, string> = {
-    1: t('settings.scheduled_scans.execution_frequencies.every_day'),
-  };
+  const scanTypeLabels = getScanTypeLabels(t);
+  const executionFrequencyLabels = getExecutionFrequencyLabels(t);
 
   const addButton = (
     <IconButton color="primary" onClick={() => navigate('/configuration/schedule-scan/create')}>
