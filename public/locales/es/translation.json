@@ -1630,7 +1630,8 @@
           "execution_frequency_required": "La frecuencia de ejecución es obligatoria",
           "execution_time_required": "La hora de ejecución es obligatoria",
           "select_task_required": "Debes seleccionar al menos una tarea",
-          "asset_required": "El activo es obligatorio"
+          "asset_required": "El activo es obligatorio",
+          "select_asset": "Seleccione un activo"
         },
         "success": {
           "scan_scheduled": "Escaneo programado creado con éxito"

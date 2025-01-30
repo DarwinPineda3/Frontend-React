@@ -240,7 +240,9 @@ const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
         )}
         {formik.values.scanType !== '1' && assets && assets.length > 0 && (
           <FormControl fullWidth margin="normal">
-            <InputLabel id="asset-select-label">{t('scan.select_asset')}</InputLabel>
+            <InputLabel id="asset-select-label">
+              {t('settings.scheduled_scans.form.validations.select_asset')}
+            </InputLabel>
             <Select
               labelId="asset-select-label"
               id="selectedAsset"

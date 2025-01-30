@@ -1633,7 +1633,8 @@
           "execution_frequency_required": "Execution frequency is required",
           "execution_time_required": "Execution time is required",
           "select_task_required": "You must select at least one task",
-          "asset_required": "Asset is required"
+          "asset_required": "Asset is required",
+          "select_asset": "Select an Asset"
         },
         "success": {
           "scan_scheduled": "Scheduled scan created successfully"
