@@ -105,6 +105,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
 
   return (
     <Box>
+      {/* cards */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
@@ -245,7 +246,8 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           </Box>
         </Grid>
       </Grid>
-
+      
+      {/* search */}
       <Box mb={3} my={3}>
         <TextField
           placeholder={t('vulnerabilities.search_alerts')!}

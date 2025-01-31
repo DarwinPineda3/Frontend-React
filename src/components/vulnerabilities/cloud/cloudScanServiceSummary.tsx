@@ -1,4 +1,4 @@
-import { Box, Chip, Grid, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from "@mui/material";
+import { Chip, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
@@ -12,22 +12,26 @@ const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
       name: key,
       ...value,
     }));
-
   }
 
   const theme = useTheme();
   const { critical, high, medium, low } = theme.palette.level;
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 15;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const totalPages = Math.ceil(servicesArray?.length / rowsPerPage);
-
-  const handlePageChange = (event: any, value: any) => {
-    setCurrentPage(value);
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
   };
 
-  const currentData = servicesArray?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const paginatedItems = (servicesArray || []).slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
 
   return (
     <DashboardCard title={t("vulnerabilities.service_summary")!}>
@@ -37,31 +41,17 @@ const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
             <Table aria-label="service table">
               <TableHead>
                 <TableRow>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.service")}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.status")}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.critical")}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.high")}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.medium")}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.low")}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>{t("vulnerabilities.silenced")}</Typography>
-                  </TableCell>
+                  <TableCell>{t("vulnerabilities.service")}</TableCell>
+                  <TableCell>{t("vulnerabilities.status")}</TableCell>
+                  <TableCell>{t("vulnerabilities.critical")}</TableCell>
+                  <TableCell>{t("vulnerabilities.high")}</TableCell>
+                  <TableCell>{t("vulnerabilities.medium")}</TableCell>
+                  <TableCell>{t("vulnerabilities.low")}</TableCell>
+                  <TableCell>{t("vulnerabilities.silenced")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {currentData.map((row, index) => (
+                {paginatedItems.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>
@@ -99,6 +89,15 @@ const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
                 ))}
               </TableBody>
             </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={(servicesArray || []).length}
+              rowsPerPage={rowsPerPage}
+              page={currentPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
           </TableContainer>
         ) : (
           <Grid container spacing={3}>
@@ -108,14 +107,6 @@ const CloudScanSummaryService: React.FC<{ services: any }> = ({ services }) => {
           </Grid>
         )
         }
-        <Box my={3} display="flex" justifyContent="center">
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
       </>
     </DashboardCard>
   );

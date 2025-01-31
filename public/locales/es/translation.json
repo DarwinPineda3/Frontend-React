@@ -241,6 +241,7 @@
     "cwe_id": "CWE Id: {{id}}",
     "wasc_id": "WASC Id: {{id}}",
     "plugin_id": "Plugin Id: {{id}}",
+    "alert_detail_title": "Detalles de la Alerta",
     "description_title": "Descripción",
     "description_content": "No se encontraron tokens Anti-CSRF en un formulario de envío HTML...",
     "solution_title": "Solución",

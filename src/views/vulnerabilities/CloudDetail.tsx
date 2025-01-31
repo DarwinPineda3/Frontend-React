@@ -1,8 +1,8 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Grid, IconButton, Link, Stack, Typography } from "@mui/material";
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import Loader from 'src/components/shared/Loader/Loader';
 import CloudScanFindings from 'src/components/vulnerabilities/cloud/cloudScanFindings';
@@ -16,7 +16,6 @@ import { fetchCloudScanById } from 'src/store/vulnerabilities/cloud/CloudSlice';
 const CloudVulnerabilitiesDetails = () => {
   const { cloudId } = useParams<{ cloudId?: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const cloudscan = useSelector((state: any) => state.cloudScanReducer.cloudScanDetails);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,10 +48,9 @@ const CloudVulnerabilitiesDetails = () => {
     }
   }
 
-
   return (
     <PageContainer title="Akila">
-      <Box mb={2}>
+      <Box mb={1}>
         <Box display="flex" alignItems="center" mt={2}>
           <IconButton onClick={() => navigate(-1)} color="primary">
             <ArrowBackIcon />
@@ -78,25 +76,29 @@ const CloudVulnerabilitiesDetails = () => {
               <Loader />
             </Box>
           ) : (
-            <Grid container spacing={1}>
+            <Grid container>
               <Grid item xs={12} xl={12}>
                 <CloudScanTopBar overview={overview} />
               </Grid>
 
-              {/* Top Cards */}
-              <Grid item xs={12} xl={12} mb={3}>
-                <CloudScanTopCards statistics={cloudscan?.statistics} />
-              </Grid>
+              <Stack spacing={3}>
+                {/* Top Cards */}
+                <Grid item xs={12} xl={12}>
+                  <CloudScanTopCards statistics={cloudscan?.statistics} />
+                </Grid>
 
-              {/* Service Summary */}
-              <Grid item xs={12} xl={12} mb={3}>
-                <CloudScanSummaryService services={cloudscan?.services} />
-              </Grid>
+                {/* Service Summary */}
+                <Grid item xs={12} xl={12}>
+                  <CloudScanSummaryService services={cloudscan?.services} />
+                </Grid>
 
-              {/* Reports Table */}
-              <Grid item xs={12} xl={12}>
-                <CloudScanFindings findings={cloudscan?.findings} />
-              </Grid>
+                {/* Reports Table */}
+                <Grid item xs={12} xl={12}>
+                  <CloudScanFindings findings={cloudscan?.findings} />
+                </Grid>
+              </Stack>
+
+
             </Grid>
           )}
         </Grid>
