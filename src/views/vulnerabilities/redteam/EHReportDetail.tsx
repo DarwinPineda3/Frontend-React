@@ -71,7 +71,7 @@ const EHReportDetails = () => {
 
   return (
     <PageContainer title="Akila">
-      <Box display="flex" alignItems="center" mb={2}>
+      <Box display="flex" alignItems="center">
         <IconButton onClick={() => navigate(-1)} color="primary">
           <ArrowBackIcon />
         </IconButton>
@@ -90,7 +90,7 @@ const EHReportDetails = () => {
           )}
         </Breadcrumbs>
       </Box>
-      <Grid container spacing={3}>
+      <Grid container>
         {isLoading ? (
           <Grid item xs={12} lg={12}>
             <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -121,7 +121,7 @@ const EHReportDetails = () => {
                         <>
                           {tab.label}
                           {tab.badge && (
-                            <Badge color="primary" variant="dot" sx={{ ml: 1 }}>
+                            <Badge color="primary" variant="dot">
                               {tab.badge}
                             </Badge>
                           )}

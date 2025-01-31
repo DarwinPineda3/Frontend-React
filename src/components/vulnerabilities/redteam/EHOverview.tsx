@@ -92,7 +92,6 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             </DashboardCard>
           </Grid>
 
-
           <Grid item xs={12} xl={6}>
             <DashboardCard
               title={t("redteam.report_summary") || ''}
