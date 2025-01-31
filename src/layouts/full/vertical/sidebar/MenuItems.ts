@@ -440,13 +440,13 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'menu.configuration',
-    permissions: ['Administrator'],
+    permissions: ['Administrator', 'Scan360'],
   },
   {
     id: uniqueId(),
     title: 'menu.scheduled_scans',
     href: '/configuration/scheduled-scans',
-    permissions: ['Administrator'],
+    permissions: ['Administrator', 'Scan360'],
     icon: IconClockBolt,
   },
 
@@ -490,4 +490,3 @@ const Menuitems: MenuitemsType[] = [
 
 export default Menuitems;
 export type { MenuitemsType };
-
