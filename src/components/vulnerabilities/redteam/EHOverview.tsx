@@ -96,7 +96,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.report_summary") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10em' }}>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10.3em' }}>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("redteam.ethical_hacking_tab")}

@@ -38,11 +38,11 @@ const EHReport = () => {
           <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
             {t("menu.vulnerabilities")}
           </Link>
-          <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
+          {/* <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
             {t("menu.redteam")}
-          </Link>
+          </Link> */}
           <Typography color="textPrimary">
-            {t("redteam.ethical_hacking_reports")}
+            {t("menu.redteam")}
           </Typography>
 
         </Breadcrumbs>
@@ -52,7 +52,7 @@ const EHReport = () => {
           {/* <AssetsCards/> */}
         </Grid>
         <Grid item xs={12} lg={12}>
-          <EHReportList onEHReportClick={handleEHReportClick}/>
+          <EHReportList onEHReportClick={handleEHReportClick} />
         </Grid>
       </Grid>
     </PageContainer>

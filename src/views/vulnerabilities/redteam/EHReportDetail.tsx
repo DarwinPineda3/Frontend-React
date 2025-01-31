@@ -3,7 +3,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import ListIcon from '@mui/icons-material/List';
 import GlobeIcon from '@mui/icons-material/Public';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Stack, Tab, Typography } from '@mui/material';
+import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
@@ -71,26 +71,27 @@ const EHReportDetails = () => {
 
   return (
     <PageContainer title="Akila">
-      <Box display="flex" alignItems="center">
-        <IconButton onClick={() => navigate(-1)} color="primary">
-          <ArrowBackIcon />
-        </IconButton>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
-            {t('menu.vulnerabilities')}
-          </Link>
-          <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
-            {t('menu.redteam')}
-          </Link>
-          <Typography color="textPrimary">
-            {t("redteam.ethical_hacking_reports")}
-          </Typography>
-          {ehReport && (
-            <Typography color="textPrimary">{ehReport.name}</Typography>
-          )}
-        </Breadcrumbs>
-      </Box>
       <Grid container>
+        <Box mb={2}>
+          <Box display="flex" alignItems="center" mt={2}>
+            <IconButton onClick={() => navigate(-1)} color="primary">
+              <ArrowBackIcon />
+            </IconButton>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
+                {t('menu.vulnerabilities')}
+              </Link>
+              <Typography color="textPrimary">
+                {t('menu.redteam')}
+              </Typography>
+              {ehReport && (
+                <Typography color="textPrimary">{ehReport.name}</Typography>
+              )}
+            </Breadcrumbs>
+          </Box>
+        </Box>
+
+
         {isLoading ? (
           <Grid item xs={12} lg={12}>
             <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
