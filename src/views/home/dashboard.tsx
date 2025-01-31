@@ -5,7 +5,7 @@ import StatsCardGrid from "src/components/compliance/dashboard/StatsCard";
 import PageContainer from "src/components/container/PageContainer";
 import AlertDistribution from "src/components/home/dashboard/AlertDistribution";
 import AssetStatus from "src/components/home/dashboard/AssetStatus";
-import HostResourceTable from "src/components/home/dashboard/HostResourceTable";
+import ObservedAssetsTable from "src/components/observability/assets/ObservedAssetsTableView";
 import OrgBreachesCompare from "src/components/home/dashboard/OrgBreachesCompare";
 import RevenueUpdates from "src/components/home/dashboard/RevenueUpdates";
 import SentimentStreamGraph from "src/components/home/dashboard/SentimentHistory";
@@ -19,6 +19,8 @@ import { getUserGroups } from "src/guards/jwt/Jwt";
 const Dashboard = () => {
 
   const groups = getUserGroups();
+  const handleScanClick = () => {
+  };
 
   /*
   const [groups, setGroups] = useState(['Defender', 'CyberGuard', 'Scan360']);
@@ -95,7 +97,7 @@ const Dashboard = () => {
                 }
                 {
                   groups.includes('Scan360') && (
-                    <><HostResourceTable /><Box my={2} /></>
+                    <><ObservedAssetsTable onScanClick={handleScanClick} /><Box my={2} /></>
                   )
                 }
                 <Grid item xs={12}>
