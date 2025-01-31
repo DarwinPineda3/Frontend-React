@@ -1,5 +1,5 @@
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
-import { Box, Chip, Grid, InputAdornment, Link, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, useTheme } from "@mui/material";
+import { Chip, Grid, InputAdornment, Link, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography, useTheme } from "@mui/material";
 import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,10 +9,6 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<string | null>(null);
-
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 50;
 
   const handlePageChange = (event: any, value: any) => {
     setCurrentPage(value);
@@ -33,10 +29,20 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
     return matchesSearch && matchesSeverity;
   });
 
-  const totalPages = Math.ceil(filteredFindings?.length / rowsPerPage);
-  const currentData = filteredFindings?.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+
+  const paginatedItems = (filteredFindings || []).slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
   );
 
   return (
@@ -99,7 +105,7 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {currentData?.map((row: any, index: any) => (
+                {paginatedItems?.map((row: any, index: any) => (
                   <TableRow key={index}>
                     <TableCell>{row.status}</TableCell>
                     <TableCell style={{ color: row.severity === "Critical" ? critical : row.severity === "Medium" ? high : low }}>
@@ -139,6 +145,15 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
                 ))}
               </TableBody>
             </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={(filteredFindings || []).length}
+              rowsPerPage={rowsPerPage}
+              page={currentPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
           </TableContainer>
         ) : (
           <Grid container spacing={3}>
@@ -148,17 +163,6 @@ const CloudScanFindings: React.FC<{ findings: any }> = ({ findings }) => {
           </Grid>
         )
         }
-        <Box my={3} display="flex" justifyContent="center">
-          {totalPages > 0 && (
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          )}
-        </Box>
-
       </>
     </DashboardCard>
   );
