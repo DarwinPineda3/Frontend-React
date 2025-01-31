@@ -640,6 +640,10 @@
     "no_data_available_for_selected_date": "No hay datos disponibles para el rango de fechas seleccionado.",
     "no_data_available_for_chart": "No hay datos disponibles para este gráfico.",
     "file_system": "Sistema de archivos",
+    "last_24_hours": "Últimas 24 horas",
+    "last_week": "Última semana",
+    "last_month": "Último mes",
+    "custom_range": "Rango personalizado",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",
@@ -1558,5 +1562,89 @@
     "template_control_editable": "Editable",
     "template_control_create_date": "Fecha de Creación",
     "template_options": "Opciones"
+  },
+  "settings": {
+    "scheduled_scans": {
+      "search_placeholder": "Buscar...",
+      "table_headers": {
+        "name": "Nombre",
+        "scan_type": "Tipo de escaneo",
+        "execution_frequency": "Frecuencia de ejecución",
+        "execution_time": "Hora de ejecución",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "actions": {
+        "deactivate": "Desactivar escaneo programado",
+        "view_details": "Ver detalles"
+      },
+      "messages": {
+        "no_scheduled_scans_found": "No se encontraron escaneos programados"
+      },
+      "navigation": {
+        "create_scan_here": "Crear un escaneo aquí"
+      },
+      "status": {
+        "active": "Activo",
+        "deactivated": "Desactivado"
+      },
+      "scan_types": {
+        "network_vulnerability": "Escaneos de Vulnerabilidades de Red",
+        "web_vulnerability": "Escaneos de Vulnerabilidades Web",
+        "wordpress_vulnerability": "Escaneos de Vulnerabilidades en WordPress",
+        "network_observability": "Escaneos de Observabilidad de Red"
+      },
+      "execution_frequencies": {
+        "every_day": "Todos los días"
+      },
+      "common": {
+        "unknown": "Desconocido"
+      },
+      "detail": {
+        "breadcrumbs": {
+          "detail": "Detalle"
+        },
+        "titles": {
+          "first_title": "Descripción general",
+          "second_title": "Ejecuciones programadas"
+        },
+        "subtitles": {
+          "name": "Nombre",
+          "scan_type": "Tipo de escaneo",
+          "target": "Objetivo",
+          "execution_frequency": "Frecuencia de ejecución",
+          "execution_time": "Hora de ejecución",
+          "scheduled_date": "Fecha programada",
+          "status": "Estado",
+          "actions": "Acciones"
+        }
+      },
+      "desactivate": {
+        "scheduled_scan_deactivated_successfully": "El escaneo programado se deshabilitó con éxito",
+        "scan_failed": "Se produjo un error al ejecutar esta acción."
+      },
+      "form": {
+        "create_scan": "Debes crear una",
+        "task": "tarea",
+        "label_task": "Tarea",
+        "no_tasks": "No hay tareas",
+        "validations": {
+          "name_required": "El nombre es obligatorio",
+          "scan_type_required": "El tipo de escaneo es obligatorio",
+          "target_required": "El objetivo es obligatorio",
+          "execution_frequency_required": "La frecuencia de ejecución es obligatoria",
+          "execution_time_required": "La hora de ejecución es obligatoria",
+          "select_task_required": "Debes seleccionar al menos una tarea",
+          "asset_required": "El activo es obligatorio",
+          "select_asset": "Seleccione un activo"
+        },
+        "success": {
+          "scan_scheduled": "Escaneo programado creado con éxito"
+        },
+        "error": {
+          "scan_schedule_failed": "Error al crear un análisis programado"
+        }
+      }
+    }
   }
 }

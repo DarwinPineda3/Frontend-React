@@ -39,6 +39,7 @@ import AppScansReducer from './sections/mobile-app/AppScanSlice';
 import MobileAppsReducer from './sections/mobile-app/MobileAppSlice';
 import ResultAppsReducer from './sections/mobile-app/ResultAppSlice';
 import NewsLettersReducer from './sections/newsletter/NewslettersSlice';
+import ScheduleScansReducer from './sections/schedule-scans-settings/ScheduleScansSlice';
 import VulnerabilitySolutionReducer from './sections/vulnerabilities-solutions/SolutionVulnerabilitySlice';
 import TranslationVulnerabilityReducer from './sections/vulnerabilities-solutions/TranslationVulnerabilitySlice';
 import TicketReducer from './support/FreshTicketsSlice';
@@ -102,6 +103,7 @@ export const store = configureStore({
     giottoDashboardSlice: GiottoDashboardSlice,
     giottoReportsReducer: GiottoReportsReducer,
     installationGuideVariablesReducer: InstallationGuideVariablesReducer,
+    scheduleScansReducer: ScheduleScansReducer,
   },
 });
 
@@ -142,10 +144,11 @@ const rootReducer = combineReducers({
   giottoDashboardSlice: GiottoDashboardSlice,
   giottoReportsReducer: GiottoReportsReducer,
   installationGuideVariablesReducer: InstallationGuideVariablesReducer,
+  scheduleScansReducer: ScheduleScansReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export const { } = store;
+export const {} = store;
 export const useDispatch = () => useAppDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<AppState> = useAppSelector;

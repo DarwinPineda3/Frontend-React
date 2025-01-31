@@ -10,7 +10,6 @@ import GroupDetails from 'src/components/compliance/giotto-groups/giottoGroupsDe
 import EditGiottoGroup from 'src/components/compliance/giotto-groups/giottoGroupsEdit';
 import ProjectDetails from 'src/components/compliance/giotto-projects/giottoProjectDetails';
 import TemplateDetails from 'src/components/compliance/giotto-templates/giottoTemplateDetails';
-import ScheduleScanForm from 'src/components/configuration/ScheduleScanForm';
 import AssetsCreate from 'src/components/home/AssetCreate';
 import CreateCloudInventory from 'src/components/observability/cloud/cloudInventoryCreate';
 import SolutionDetail from 'src/components/solutions/SolutionsDetail';
@@ -37,7 +36,9 @@ import CreateComplianceProjects from 'src/views/compliance/CreateComplianceProje
 import EditComplianceProjects from 'src/views/compliance/EditComplianceProjectsView';
 import GiottoDashboard from 'src/views/compliance/GiottoDashboard';
 import TemplateListPage from 'src/views/compliance/TemplateListPage';
+import ScheduledScansDetail from 'src/views/configuration/ScheduledScanDetail';
 import ScheduledScans from 'src/views/configuration/ScheduledScans';
+import ScheduleScanFormView from 'src/views/configuration/ScheduleScanForm';
 import Assets from 'src/views/home/assets';
 import Dashboard from 'src/views/home/dashboard';
 import BrandMonitoringCyberGuard from 'src/views/monitoring/cyber-guard/BrandMonitoring';
@@ -111,9 +112,17 @@ const Router = [
     ),
     children: [
       // Home
-      { path: '/home/dashboard', element: <Dashboard />, roles: ['Administrator', 'Scan360', 'Defender'] },
+      {
+        path: '/home/dashboard',
+        element: <Dashboard />,
+        roles: ['Administrator', 'Scan360', 'Defender'],
+      },
       { path: '/home/assets', element: <Assets />, roles: ['Administrator', 'Scan360'] },
-      { path: '/home/assets/create', element: <AssetsCreate />, roles: ['Administrator', 'Scan360'] },
+      {
+        path: '/home/assets/create',
+        element: <AssetsCreate />,
+        roles: ['Administrator', 'Scan360'],
+      },
 
       // Vulnerabilities
       {
@@ -480,8 +489,13 @@ const Router = [
         roles: ['Administrator', 'Scan360'],
       },
       {
-        path: '/configuration/schedule-scan',
-        element: <ScheduleScanForm />,
+        path: '/configuration/schedule-scan/create',
+        element: <ScheduleScanFormView />,
+        roles: ['Administrator', 'Scan360'],
+      },
+      {
+        path: '/configuration/schedule-scan/detail/:scanId',
+        element: <ScheduledScansDetail />,
         roles: ['Administrator', 'Scan360'],
       },
 

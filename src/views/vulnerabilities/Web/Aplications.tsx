@@ -53,13 +53,15 @@ const WebApplications = () => {
             <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
               {t('menu.vulnerabilities')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web/applications">
-              {t('menu.applications')}
-            </Link>
-            {selectedScan && (
+            {selectedScan ? (
               <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/applications/${selectedScan}`}>
-                {t('vulnerabilities.web_application_scans')}
+                {t('menu.applications')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('menu.applications')}</Typography>
+            )}
+            {selectedScan && (
+              <Typography color="textPrimary">{selectedScan}</Typography>
             )}
             {selectedAlert && (
               <Typography color="textPrimary">

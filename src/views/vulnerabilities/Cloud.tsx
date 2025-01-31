@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography, } from "@mui/material";
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -57,10 +57,16 @@ const CloudVulnerabilities = () => {
               <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
                 {t('vulnerabilities.vulnerabilities')}
               </Link>
-              <Link component={RouterLink} color="inherit" to="/vulnerabilities/cloud">
-                {t('vulnerabilities.cloud')}
-
-              </Link>
+              {selectedCloud ? (
+                <Link component={RouterLink} color="inherit" to={`/vulnerabilities/cloud/${selectedCloud}`}>
+                  {t('vulnerabilities.vulnerabilities')}
+                </Link>
+              ) : (
+                <Typography color="textPrimary">{t('vulnerabilities.cloud')}</Typography>
+              )}
+              {selectedCloud && (
+                <Typography color="textPrimary">{selectedCloud}</Typography>
+              )}
             </Breadcrumbs>
           </Box>
         </Box>
