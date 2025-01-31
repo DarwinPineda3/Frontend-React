@@ -81,7 +81,6 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
                   </Typography>
                   <Typography variant="body2">{ehReport?.end_date_report}</Typography>
                 </Box>
-
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("redteam.objectives")}
