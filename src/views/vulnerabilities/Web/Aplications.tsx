@@ -42,16 +42,6 @@ const WebApplications = () => {
     navigate(`/vulnerabilities/web/applications/${scanId}`);
   };
 
-  // Handle navigating back to the scan list
-  const handleBackToScans = () => {
-    navigate('/vulnerabilities/web/applications');
-  };
-
-  // Handle navigating back to the alert list
-  const handleBackToAlerts = () => {
-    navigate(`/vulnerabilities/web/applications/${selectedScan}`);
-  };
-
   return (
     <PageContainer title="Akila">
       <Box mb={2}>
@@ -89,14 +79,14 @@ const WebApplications = () => {
         </Grid>
       ) : selectedAlert ? (
         // If an alert is selected, show alert detail
-        <Grid container spacing={0}>
+        <Grid>
           <Grid item xs={12}>
             <AlertDetail alertId={selectedAlert} scanId={selectedScan!} />
           </Grid>
         </Grid>
       ) : (
         // Default view: show scan list
-        <Grid container spacing={3}>
+        <Grid>
           <Grid item xs={12}>
             <ScanListTable onScanClick={handleScanClick} />
           </Grid>
