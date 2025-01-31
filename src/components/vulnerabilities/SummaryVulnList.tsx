@@ -19,11 +19,15 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { IconEye } from '@tabler/icons-react';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { createVulnerabilities } from 'src/store/vulnerabilities/ManagementVulnSlice';
@@ -40,6 +44,7 @@ import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
 const SummaryVulnerabilitiesList = () => {
+  const [searchParams, setsearchParams] = useSearchParams();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -79,28 +84,57 @@ const SummaryVulnerabilitiesList = () => {
   const endISO = endDate ? new Date(`${endDate}T00:00:00.000Z`).toISOString() : '';
 
   React.useEffect(() => {
-    const newEndDate = new Date(startDate);
-    newEndDate.setMonth(newEndDate.getMonth() + 1);
-    const newEndDateString = newEndDate.toISOString().split('T')[0];
-
-    if (newEndDateString >= startDate) {
-      setEndDate(newEndDateString);
+    if (endDate < startDate) {
+      const newEndDate = new Date(new Date(startDate).setMonth(new Date(startDate).getMonth() + 1))
+        .toISOString()
+        .split('T')[0];
+      if (newEndDate !== endDate) {
+        setEndDate(newEndDate);
+      }
     }
-  }, [startDate]);
+  }, [startDate, endDate]);
+
+  React.useEffect(() => {
+    const urlStart = searchParams.get('startDate');
+    const urlEnd = searchParams.get('endDate');
+
+    if (urlStart && urlEnd) {
+      setStartDate(urlStart);
+      setEndDate(urlEnd);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const urlStart = searchParams.get('startDate') || '';
+    const urlEnd = searchParams.get('endDate') || '';
+
+    if (startDate !== urlStart || endDate !== urlEnd) {
+      setsearchParams({ startDate, endDate }, { replace: true });
+    }
+  }, [startDate, endDate]);
 
   React.useEffect(() => {
     if (snackbarMessage && snackbarSeverity) {
       setSnackbarOpen(true);
     }
+  }, [snackbarMessage, snackbarSeverity]);
+
+  React.useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      await dispatch(
-        fetchSummaryVulnerabilitiesByDateRange(startISO, endISO, currentPage, pageSize),
-      );
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        await dispatch(
+          fetchSummaryVulnerabilitiesByDateRange(startISO, endISO, currentPage, pageSize),
+        );
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
-  }, [dispatch, currentPage, pageSize, snackbarMessage, snackbarSeverity]);
+  }, [dispatch, currentPage, pageSize, startISO, endISO]);
 
   const handleNavigateVuln = (report_url: string) => {
     navigate(report_url);
@@ -245,22 +279,26 @@ const SummaryVulnerabilitiesList = () => {
       subtitle={t('summary.vulnerabilities_summary_list')!}
       action={
         <Box display="flex" flexDirection={isSmallScreen ? 'column' : 'row'} gap={2}>
-          <TextField
-            label={t('vulnerabilities.start_date')!}
-            type="date"
-            InputLabelProps={{ shrink: true }}
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            sx={{ minWidth: '150px' }}
-          />
-          <TextField
-            label={t('vulnerabilities.end_date')!}
-            type="date"
-            InputLabelProps={{ shrink: true }}
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            sx={{ minWidth: '150px' }}
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label={t('vulnerabilities.start_date')}
+              value={startDate ? dayjs(startDate) : null}
+              onChange={(date) => {
+                if (date) setStartDate(date.format('YYYY-MM-DD'));
+              }}
+              renderInput={(props) => <TextField {...props} />}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label={t('vulnerabilities.end_date')!}
+              value={endDate ? dayjs(endDate) : null}
+              onChange={(date) => {
+                if (date) setEndDate(date.format('YYYY-MM-DD'));
+              }}
+              renderInput={(props) => <TextField {...props} />}
+            />
+          </LocalizationProvider>
           <Button
             variant="contained"
             disabled={!startDate || !endDate || new Date(endDate) < new Date(startDate)}
@@ -419,7 +457,7 @@ const SummaryVulnerabilitiesList = () => {
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={4}>
+                      <TableCell colSpan={10}>
                         <Typography color="textSecondary" variant="subtitle2" align="center">
                           {t('vulnerabilities.no_data_available')}
                         </Typography>
