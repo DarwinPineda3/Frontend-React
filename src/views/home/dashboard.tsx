@@ -15,12 +15,16 @@ import TopVulnerabilities from "src/components/home/dashboard/TopVulnerabilities
 import WeeklyStats from "src/components/home/dashboard/WeeklyStats";
 import RecentEvents from "src/components/home/RecentEvents";
 import { getUserGroups } from "src/guards/jwt/Jwt";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
 
   const groups = getUserGroups();
-  const handleScanClick = () => {
+  const navigate = useNavigate();
+  const handleScanClick = (id: string | number) => {
+    navigate(`/observability/observed-assets/assets/${id}`);
   };
+
 
   /*
   const [groups, setGroups] = useState(['Defender', 'CyberGuard', 'Scan360']);
