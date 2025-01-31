@@ -8,6 +8,7 @@ import {
   IconButton,
   Link,
   Snackbar,
+  Typography
 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -82,22 +83,19 @@ const ThresholdSettings: React.FC = () => {
             <Link component={RouterLink} color="inherit" to="/observability/threshold-settings">
               {t('breadcrumb.observability')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/observability/threshold-settings">
-              {t('breadcrumb.threshold_settings')}
-            </Link>
-            {settingsId && (
-              <Link
-                component={RouterLink}
-                color="inherit"
-                to={`/observability/threshold-settings/${settingsId}`}
-              >
-                {t('breadcrumb.threshold_details')}
+            {settingsId ? (
+              <Link component={RouterLink} color="inherit" to={`/observability/threshold-settings/${settingsId}`}>
+                {t('threshold.threshold_settings')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('threshold.threshold_settings')}</Typography>
+            )}
+            {settingsId && (
+              <Typography color="textPrimary">{settingsId}</Typography>
             )}
           </Breadcrumbs>
         </Box>
       </Box>
-
       <Grid item xs={12}>
         <ThresholdForm onSubmit={handleFormSubmit} initialValues={thresholds} />
       </Grid>
