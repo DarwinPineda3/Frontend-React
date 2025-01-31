@@ -240,16 +240,17 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                       }
                     </TableBody>
                   </Table>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                    component="div"
+                    count={totalPages * pageSize}
+                    rowsPerPage={pageSize}
+                    page={currentPage - 1}
+                    onPageChange={handlePageChange}
+                    onRowsPerPageChange={handlePageSizeChange}
+                  />
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                  component="div"
-                  count={totalPages * pageSize}
-                  rowsPerPage={pageSize}
-                  page={currentPage - 1}
-                  onPageChange={handlePageChange}
-                  onRowsPerPageChange={handlePageSizeChange}
-                />
+
               </Grid>
             </Grid>
 

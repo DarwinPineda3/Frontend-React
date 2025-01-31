@@ -3,7 +3,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import ListIcon from '@mui/icons-material/List';
 import GlobeIcon from '@mui/icons-material/Public';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
+import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Stack, Tab, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
@@ -22,7 +22,7 @@ const EHReportDetails = () => {
   const dispatch = useDispatch();
   const ehReport = useSelector((state: any) => state.ehReportsReducer.ehReport);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -93,58 +93,58 @@ const EHReportDetails = () => {
       <Grid container>
         {isLoading ? (
           <Grid item xs={12} lg={12}>
-            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
               <Loader />
             </Box>
           </Grid>
         ) : (
           <>
-          <Grid item xs={12} xl={12}>
-            <Breadcrumb title={ehReport?.name}>
-              <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
-                <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
-                <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
-                <Chip label={`${t("redteam.end_date")}: ${ehReport?.end_date_report}`} color="primary" variant="outlined" />
-              </Box>
-            </Breadcrumb>
-          </Grid>
+            <Grid item xs={12} xl={12}>
+              <Breadcrumb title={ehReport?.name}>
+                <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
+                  <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
+                  <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
+                  <Chip label={`${t("redteam.end_date")}: ${ehReport?.end_date_report}`} color="primary" variant="outlined" />
+                </Box>
+              </Breadcrumb>
+            </Grid>
 
-          <Grid item xs={12} lg={12}>
-            <TabContext value={value}>
-              <Box>
-                <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
-                  {COMMON_TAB.map((tab) => (
-                    <Tab
-                      key={tab.value}
-                      icon={tab.icon}
-                      label={
-                        <>
-                          {tab.label}
-                          {tab.badge && (
-                            <Badge color="primary" variant="dot">
-                              {tab.badge}
-                            </Badge>
-                          )}
-                        </>
-                      }
-                      value={tab.value}
-                      disabled={tab.disabled}
-                      sx={{ mb: 0 }}
-                    />
+            <Grid item xs={12} lg={12}>
+              <TabContext value={value}>
+                <Box>
+                  <TabList onChange={handleChange} aria-label="Tabs Cyber Guard" variant="scrollable" scrollButtons="auto">
+                    {COMMON_TAB.map((tab) => (
+                      <Tab
+                        key={tab.value}
+                        icon={tab.icon}
+                        label={
+                          <>
+                            {tab.label}
+                            {tab.badge && (
+                              <Badge color="primary" variant="dot">
+                                {tab.badge}
+                              </Badge>
+                            )}
+                          </>
+                        }
+                        value={tab.value}
+                        disabled={tab.disabled}
+                        sx={{ mb: 0 }}
+                      />
+                    ))}
+                  </TabList>
+                </Box>
+                <Divider />
+                <Box mt={2}>
+                  {COMMON_TAB.map((panel) => (
+                    <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
+                      {panel.content}
+                    </TabPanel>
                   ))}
-                </TabList>
-              </Box>
-              <Divider />
-              <Box mt={2}>
-                {COMMON_TAB.map((panel) => (
-                  <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
-                    {panel.content}
-                  </TabPanel>
-                ))}
-              </Box>
-            </TabContext>
-          </Grid>
-          </>
+                </Box>
+              </TabContext>
+            </Grid>
+          </ >
         )}
       </Grid>
     </PageContainer>

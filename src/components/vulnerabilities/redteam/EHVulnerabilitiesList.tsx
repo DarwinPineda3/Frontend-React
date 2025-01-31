@@ -23,8 +23,6 @@ interface EHReportTableListProps {
   name: string
 }
 
-const paginated = 10;
-
 const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabilities, name }) => {
   const { ehReportId } = useParams<{ ehReportId?: string }>();
   const scoreOrder = { "critical": 1, "high": 2, "medium": 3, "low": 4 };
@@ -42,8 +40,6 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
     });
   };
 
-
-
   const theme = useTheme();
   const { high, medium, low, critical } = theme.palette.level;
 
@@ -57,11 +53,6 @@ const EHVulnerabilitiesList: React.FC<EHReportTableListProps> = ({ vulnerabiliti
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(0);
   };
-
-
-
-
-  console.log(vulnerabilitiesSorted);
 
   const paginatedItems = (vulnerabilitiesSorted || []).slice(
     currentPage * rowsPerPage,
