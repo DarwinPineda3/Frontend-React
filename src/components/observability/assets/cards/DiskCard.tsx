@@ -129,7 +129,8 @@ const DiskCard: React.FC<DiskProps> = ({ storage_charts }) => {
                 id={`panel${index}-header`}
               >
                 <Typography variant="h6" fontWeight="600" color="textPrimary">
-                  {drive} ({volume_name}) - {t('observability.file_system')}: {disk.file_system}
+                  {drive} ({volume_name}) - {t('observability.file_system')}: {disk.file_system} -{' '}
+                  {t('observability.used_space')}: {used_space.toFixed(2)} GB
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>

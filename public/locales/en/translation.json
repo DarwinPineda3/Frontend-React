@@ -640,6 +640,10 @@
     "no_data_available_for_selected_date": "No data available for the selected date range.",
     "no_data_available_for_chart": "No data available for this chart.",
     "file_system": "File System",
+    "last_24_hours": "Last 24 hours",
+    "last_week": "Last week",
+    "last_month": "Last month",
+    "custom_range": "Custom range",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
       "aws_id_is_required": "AWS ID is required",
