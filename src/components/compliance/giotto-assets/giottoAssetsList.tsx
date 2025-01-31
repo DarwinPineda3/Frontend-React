@@ -1,28 +1,49 @@
 import { Delete, DesktopAccessDisabled, EditRounded, Monitor, Refresh } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import DashboardCard from "src/components/shared/DashboardCard";
-import HumanizedDate from "src/components/shared/HumanizedDate";
-import Loader from "src/components/shared/Loader/Loader";
+import DashboardCard from 'src/components/shared/DashboardCard';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { fetchAssets, removeAsset, requestRestartSession, setLoading } from "src/store/sections/compliance/giotoAssetsSlice";
-import { useDispatch, useSelector } from "src/store/Store";
+import {
+  fetchAssets,
+  removeAsset,
+  requestRestartSession,
+  setLoading,
+} from 'src/store/sections/compliance/giotoAssetsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 import CreateUpdateGiottoAsset from './createUpdateGiottoAsset';
 
 interface GiottoAssetsListProps {
   onScanClick: (scanId: string) => void;
 }
 
-
 const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const {
-    assets, page, pageSize, loading, totalItemsAmount, error
-  } = useSelector((state: any) => state.GiottoAssetsReducer);
+  const { assets, page, pageSize, loading, totalItemsAmount, error } = useSelector(
+    (state: any) => state.GiottoAssetsReducer,
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -38,19 +59,22 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
       setSnackbarOpen(true);
       setSnackbarSeverity('error');
     }
-  }
-    , [error]);
+  }, [error]);
 
   const [editAsset, setEditAsset] = useState<null | any>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [assetToDelete, setAssetToDelete] = useState<null | string>(null);
 
-
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, askedPage: number) => {
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    askedPage: number,
+  ) => {
     if (page !== askedPage) {
       dispatch(fetchAssets(askedPage));
     }
@@ -59,7 +83,7 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
   const isAssetAlive = (asset: any) => {
     const fiveMinutesAgo = new Date(new Date().getTime() - 5 * 60 * 1000);
     return asset.lastKeepAlive && new Date(asset.lastKeepAlive) > fiveMinutesAgo;
-  }
+  };
 
   const handleEditClick = (asset: any = null) => {
     setEditAsset(asset);
@@ -93,22 +117,23 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     setAssetToDelete(null);
   };
 
-
-
   const handleRefreshTokenClick = (asset: any) => {
     const id = asset.id;
     dispatch(requestRestartSession(id));
     setSnackbarMessage(t('giotto.assets.asset_session_refresh') || '');
     setSnackbarSeverity('info');
     setSnackbarOpen(true);
-  }
+  };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setEditAsset(null);
   };
 
-  const handleFormSubmit = (message: string, severity: 'success' | 'info' | 'warning' | 'error') => {
+  const handleFormSubmit = (
+    message: string,
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(false);
@@ -117,7 +142,6 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
     }, 0);
     handleCloseDialog();
   };
-
 
   const addButton = (
     <Box>
@@ -164,24 +188,27 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                   {loading ? (
                     <TableRow>
                       <TableCell colSpan={6}>
-                        <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                        <Box
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                          height="100px"
+                        >
                           <Loader />
                         </Box>
                       </TableCell>
                     </TableRow>
-                  ) : (
+                  ) : assets.length > 0 ? (
                     assets.map((asset: any) => (
                       <TableRow key={asset.id}>
                         <TableCell>
                           <Box display="flex" gap={1}>
-                            {
-                              isAssetAlive(asset) ?
-                                <Monitor color={'success'} /> :
-                                <DesktopAccessDisabled color={'error'} />
-                            }
-                            <Typography variant="subtitle1">
-                              {asset.name}
-                            </Typography>
+                            {isAssetAlive(asset) ? (
+                              <Monitor color={'success'} />
+                            ) : (
+                              <DesktopAccessDisabled color={'error'} />
+                            )}
+                            <Typography variant="subtitle1">{asset.name}</Typography>
                           </Box>
                         </TableCell>
                         <TableCell>{asset.networkAddress}</TableCell>
@@ -196,28 +223,24 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                         </TableCell>
                         <TableCell>
                           <Box display="flex" flexDirection="column">
-                            {asset.lastKeepAlive ? <HumanizedDate dateString={asset.lastKeepAlive} /> : "None"}
-                            {
-                              asset.lastKeepAlive &&
+                            {asset.lastKeepAlive ? (
+                              <HumanizedDate dateString={asset.lastKeepAlive} />
+                            ) : (
+                              'None'
+                            )}
+                            {asset.lastKeepAlive && (
                               <Typography variant="caption">
                                 {new Date(asset.lastKeepAlive).toLocaleString()}
                               </Typography>
-                            }
-
+                            )}
                           </Box>
                         </TableCell>
                         <TableCell>
                           <Box display="flex" gap={1}>
-                            <IconButton
-                              color="primary"
-                              onClick={() => handleEditClick(asset)}
-                            >
+                            <IconButton color="primary" onClick={() => handleEditClick(asset)}>
                               <EditRounded />
                             </IconButton>
-                            <IconButton
-                              color="primary"
-                              onClick={() => handleDeleteClick(asset)}
-                            >
+                            <IconButton color="primary" onClick={() => handleDeleteClick(asset)}>
                               <Delete />
                             </IconButton>
                             <Tooltip title="Restart Session">
@@ -232,6 +255,14 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                         </TableCell>
                       </TableRow>
                     ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} align="center">
+                        <Typography variant="body2" color="textSecondary">
+                          {t('vulnerabilities.no_data_available')}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
                   )}
                 </TableBody>
               </Table>
@@ -266,19 +297,17 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
               </Button>
             </DialogActions>
           </Dialog>
+
+          {snackbarOpen && (
+            <SnackBarInfo
+              color={snackbarSeverity}
+              title={t('dashboard.operation_status')}
+              message={snackbarMessage}
+            />
+          )}
         </Box>
-
       </DashboardCard>
-      {snackbarOpen && (
-        <SnackBarInfo
-          color={snackbarSeverity}
-          title={t("dashboard.operation_status")}
-          message={error}
-        />
-      )}
     </>
-
-
   );
 };
 

@@ -29,24 +29,27 @@ import {
   fetchProjects,
   removeProject,
   setLoading,
+  setPage,
+  setPageSize,
 } from 'src/store/sections/compliance/giottoProjectsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
 const GiottoProjectsList = () => {
   const { t } = useTranslation();
-  const { projects, page, pageSize, loading, totalItemsAmount } = useSelector(
-    (state: any) => state.giottoProjectsReducer,
-  );
+  const { projects, loading, error } = useSelector((state: any) => state.giottoProjectsReducer);
+  const currentPage = useSelector((state: any) => state.giottoProjectsReducer.page);
+  const totalPages = useSelector((state: any) => state.giottoProjectsReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.giottoProjectsReducer.pageSize);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      await dispatch(fetchProjects(page));
+      await dispatch(fetchProjects(currentPage, pageSize));
       setLoading(false);
     };
     fetchData();
-  }, [dispatch, page]);
+  }, [dispatch, currentPage, pageSize]);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState<null | string>(null);
@@ -58,12 +61,19 @@ const GiottoProjectsList = () => {
   >('success');
 
   const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    askedPage: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
   ) => {
-    if (page !== askedPage) {
-      dispatch(fetchProjects(askedPage));
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleDelete = (id: string) => {
@@ -71,9 +81,13 @@ const GiottoProjectsList = () => {
     setDeleteDialogOpen(true);
   };
 
-  const handleEditClick = (project: any = null) => {
-    setOpenDialog(true);
-  };
+  useEffect(() => {
+    if (error) {
+      setSnackbarOpen(true);
+      setSnackbarMessage(error);
+      setSnackbarSeverity('error');
+    }
+  }, [error]);
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -132,11 +146,18 @@ const GiottoProjectsList = () => {
               <TableBody>
                 {loading ? (
                   <TableRow>
-                    <TableCell colSpan={5}>
-                      <Loader />
+                    <TableCell colSpan={6}>
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="100px"
+                      >
+                        <Loader />
+                      </Box>
                     </TableCell>
                   </TableRow>
-                ) : (
+                ) : projects.length > 0 ? (
                   projects.map((project: any) => (
                     <TableRow key={project.id}>
                       <TableCell>
@@ -183,6 +204,14 @@ const GiottoProjectsList = () => {
                       </TableCell>
                     </TableRow>
                   ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} align="center">
+                      <Typography variant="body2" color="textSecondary">
+                        {t('vulnerabilities.no_data_available')}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
                 )}
               </TableBody>
             </Table>
@@ -190,11 +219,11 @@ const GiottoProjectsList = () => {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 50, 100]}
             component="div"
-            count={totalItemsAmount}
+            count={totalPages * pageSize}
             rowsPerPage={pageSize}
-            page={page - 1}
-            onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-            onRowsPerPageChange={(e) => dispatch(fetchProjects(page))}
+            page={currentPage - 1}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handlePageSizeChange}
           />
         </Box>
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
