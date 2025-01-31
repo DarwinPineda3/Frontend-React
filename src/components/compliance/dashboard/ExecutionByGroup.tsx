@@ -25,6 +25,10 @@ const ExecutionByGroup: React.FC = () => {
     dispatch(fetchProjectsComplianceByGroup(selectedGroup));
   }, [dispatch, selectedGroup]);
 
+  useEffect(() => {
+    if (projects.length > 0) setSelectedGroup(projects[0]?.id || 0);
+  }, [projects]);
+
   if (!groups) {
     return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Loader />

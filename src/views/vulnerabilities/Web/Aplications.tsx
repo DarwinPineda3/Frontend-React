@@ -42,16 +42,6 @@ const WebApplications = () => {
     navigate(`/vulnerabilities/web/applications/${scanId}`);
   };
 
-  // Handle navigating back to the scan list
-  const handleBackToScans = () => {
-    navigate('/vulnerabilities/web/applications');
-  };
-
-  // Handle navigating back to the alert list
-  const handleBackToAlerts = () => {
-    navigate(`/vulnerabilities/web/applications/${selectedScan}`);
-  };
-
   return (
     <PageContainer title="Akila">
       <Box mb={2}>
@@ -63,13 +53,15 @@ const WebApplications = () => {
             <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
               {t('menu.vulnerabilities')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web/applications">
-              {t('menu.applications')}
-            </Link>
-            {selectedScan && (
+            {selectedScan ? (
               <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/applications/${selectedScan}`}>
-                {t('vulnerabilities.web_application_scans')}
+                {t('menu.applications')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('menu.applications')}</Typography>
+            )}
+            {selectedScan && (
+              <Typography color="textPrimary">{selectedScan}</Typography>
             )}
             {selectedAlert && (
               <Typography color="textPrimary">
@@ -89,14 +81,14 @@ const WebApplications = () => {
         </Grid>
       ) : selectedAlert ? (
         // If an alert is selected, show alert detail
-        <Grid container spacing={0}>
+        <Grid>
           <Grid item xs={12}>
             <AlertDetail alertId={selectedAlert} scanId={selectedScan!} />
           </Grid>
         </Grid>
       ) : (
         // Default view: show scan list
-        <Grid container spacing={3}>
+        <Grid>
           <Grid item xs={12}>
             <ScanListTable onScanClick={handleScanClick} />
           </Grid>

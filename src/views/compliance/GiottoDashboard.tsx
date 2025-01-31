@@ -13,7 +13,7 @@ import PageContainer from 'src/components/container/PageContainer';
 const GiottoDashboard: React.FC = () => {
   return (
     <PageContainer title="Akila">
-      <Box>
+      <Box pt={2}>
         <Grid container spacing={3}>
           {/* Top Section */}
           <Grid item xs={12}>

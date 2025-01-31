@@ -18,7 +18,9 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import {
   fetchCustomTemplates,
-  setLoading,
+  setCustomPage,
+  setCustomPageSize,
+  setCustomTmpLoading,
 } from 'src/store/sections/compliance/giottoTemplatesSlice';
 
 interface GiottoTemplateTableProps {
@@ -28,26 +30,45 @@ interface GiottoTemplateTableProps {
 const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handleDownload }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { customTemplates, loading } = useSelector((state: any) => state.giottoTemplatesReducer);
-
+  const { customTemplates, customTmpLoading } = useSelector(
+    (state: any) => state.giottoTemplatesReducer,
+  );
+  const currentPage = useSelector(
+    (state: any) => state.giottoTemplatesReducer.customTemplates.currentPage,
+  );
+  const totalPages = useSelector(
+    (state: any) => state.giottoTemplatesReducer.customTemplates.totalPages,
+  );
+  const pageSize = useSelector(
+    (state: any) => state.giottoTemplatesReducer.customTemplates.pageSize,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      await dispatch(fetchCustomTemplates(customTemplates.currentPage, customTemplates.pageSize));
-      setLoading(false);
+      setCustomTmpLoading(true);
+      await dispatch(fetchCustomTemplates(currentPage, pageSize));
+      setCustomTmpLoading(false);
+      console.log('fetchCustomTemplates');
+      console.log(customTemplates);
     };
     fetchData();
-  }, [dispatch, customTemplates.currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
   const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    askedPage: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
   ) => {
-    if (customTemplates.currentPage !== askedPage) {
-      dispatch(fetchCustomTemplates(askedPage, customTemplates.pageSize));
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setCustomPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setCustomPageSize(newPageSize));
+    dispatch(setCustomPage(1));
   };
 
   return (
@@ -70,17 +91,15 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
             </TableHead>
             {/* Table body */}
             <TableBody>
-              {loading ? (
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  height="300px"
-                >
-                  <Loader />
-                </Box>
-              ) : (
+              {customTmpLoading ? (
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                      <Loader />
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              ) : customTemplates.itemsResult.length > 0 ? (
                 customTemplates.itemsResult.map((template: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>
@@ -109,6 +128,14 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
                     </TableCell>
                   </TableRow>
                 ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} align="center">
+                    <Typography variant="body2" color="textSecondary">
+                      {t('vulnerabilities.no_data_available')}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
               )}
             </TableBody>
           </Table>
@@ -116,13 +143,11 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
           component="div"
-          count={customTemplates.totalItemsAmount}
-          rowsPerPage={customTemplates.pageSize}
-          page={customTemplates.currentPage - 1}
-          onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
-          onRowsPerPageChange={(e) =>
-            dispatch(fetchCustomTemplates(customTemplates.currentPage, customTemplates.pageSize))
-          }
+          count={totalPages * pageSize}
+          rowsPerPage={pageSize}
+          page={currentPage - 1}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handlePageSizeChange}
         />
       </Box>
     </DashboardCard>

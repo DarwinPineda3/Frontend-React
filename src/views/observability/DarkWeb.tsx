@@ -1,8 +1,8 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import BreachElementTypeChart from 'src/components/observability/dark-web/breachByElementTypeChart';
 import SecurityIncidentsPolygon from 'src/components/observability/dark-web/SecurityIncidentsPolygon';
@@ -15,6 +15,7 @@ import { fetchBrandMonitoringData, fetchBrandMonitoringResume } from 'src/store/
 import { useDispatch, useSelector } from 'src/store/Store';
 
 const DarkWeb = () => {
+  const { selectedScan } = useParams<{ selectedScan?: string }>();
   const brandMonitoringResume: any = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringResume);
 
   const brandMonitoringData: any = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringData);
@@ -109,9 +110,16 @@ const DarkWeb = () => {
             <Link component={RouterLink} color="inherit" to="/monitoring/threats-overview">
               {t('menu.monitoring')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/monitoring/threats-overview">
-              {t('menu.dark_web_monitoring')}
-            </Link>
+            {selectedScan ? (
+              <Link component={RouterLink} color="inherit" to={`/monitoring/threats-overview/${selectedScan}`}>
+                {t('menu.dark_web_monitoring')}
+              </Link>
+            ) : (
+              <Typography color="textPrimary">{t('menu.dark_web_monitoring')}</Typography>
+            )}
+            {selectedScan && (
+              <Typography color="textPrimary">{selectedScan}</Typography>
+            )}
           </Breadcrumbs>
           <Box flexGrow={1} />
           {/*          <Box display="flex" alignItems="center" mt={2}>

@@ -59,7 +59,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
   );
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       {!ehReport ? (
         <Loader />
       ) : (
@@ -92,12 +92,11 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             </DashboardCard>
           </Grid>
 
-
           <Grid item xs={12} xl={6}>
             <DashboardCard
               title={t("redteam.report_summary") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10em' }}>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10.3em' }}>
                 <Box>
                   <Typography variant="subtitle2" fontWeight={600}>
                     {t("redteam.ethical_hacking_tab")}
@@ -120,7 +119,7 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
             <DashboardCard
               title={t("redteam.risk_exposure_level") || ''}
             >
-              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '14em' }}>
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '16em' }}>
                 <EHRiskExposureLevelChart riskExposureLevel={ehReport?.risk_exposure_level!} />
               </Box>
             </DashboardCard>

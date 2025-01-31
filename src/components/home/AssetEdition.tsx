@@ -2,13 +2,14 @@ import {
   Box,
   Button,
   Container,
+  LinearProgress,
   TextField,
   Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useDispatch } from 'src/store/Store';
 import { createAsset, editAsset } from 'src/store/sections/AssetsSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
 import { AssetType } from 'src/types/assets/asset';
 import * as Yup from 'yup';
 
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
-
+  const { loading } = useSelector((state: any) => state.assetsReducer);
 
   const dispatch = useDispatch();
 
@@ -32,8 +33,6 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
       hostname: asset?.hostname || '',
       uuid: asset?.uuid || ''
     },
-    validateOnChange: true,
-    validateOnBlur: true,
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
       ip: Yup.string().nullable()
@@ -67,9 +66,15 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
       if (asset) {
         dispatch(editAsset(newAsset));
         onSubmit('Asset updated successfully', 'success'); // Show success message for update
+        formik.resetForm(
+          { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
+        );
       } else {
         dispatch(createAsset(newAsset));
         onSubmit('Asset created successfully', 'success'); // Show success message for create
+        formik.resetForm(
+          { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
+        );
       }
     },
   });
@@ -132,9 +137,12 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           <Typography color="error">{formik.errors['at-least-one-field']}</Typography>
         )}
         <Box mt={2}>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            {asset ? 'Edit' : 'Create'}
-          </Button>
+          {
+            !loading ? <Button type="submit" variant="contained" color="primary" fullWidth>
+              {asset ? 'Edit' : 'Create'}
+            </Button> : <LinearProgress />
+          }
+
         </Box>
       </Box>
     </Container>

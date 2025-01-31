@@ -55,16 +55,18 @@ const WordpressAplications = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
+            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web/wordpress">
               {t('menu.vulnerabilities')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web/wordpress">
-              {t('menu.wordpress')}
-            </Link>
-            {selectedScan && (
+            {selectedScan ? (
               <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/wordpress/${selectedScan}`}>
                 {t('vulnerabilities.wordpress_scans')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('vulnerabilities.wordpress_scans')}</Typography>
+            )}
+            {selectedScan && (
+              <Typography color="textPrimary">{selectedScan}</Typography>
             )}
             {selectedVulnerability && (
               <Typography color="textPrimary">

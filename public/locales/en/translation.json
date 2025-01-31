@@ -51,6 +51,7 @@
   },
   "dashboard": {
     "page_size": "Page Size",
+    "no_data": "No data available",
     "montly_distribution": "Monthly Distribution",
     "connected_assets": "Connected Assets",
     "disconnected_assets": "Disconnected Assets",
@@ -240,6 +241,7 @@
     "cwe_id": "CWE ID: {{id}}",
     "wasc_id": "WASC ID: {{id}}",
     "plugin_id": "Plugin ID: {{id}}",
+    "alert_detail_title": "Alert detail",
     "description_title": "Description",
     "description_content": "No Anti-CSRF tokens found in HTML form submission...",
     "solution_title": "Solution",
@@ -639,6 +641,10 @@
     "no_data_available_for_selected_date": "No data available for the selected date range.",
     "no_data_available_for_chart": "No data available for this chart.",
     "file_system": "File System",
+    "last_24_hours": "Last 24 hours",
+    "last_week": "Last week",
+    "last_month": "Last month",
+    "custom_range": "Custom range",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
       "aws_id_is_required": "AWS ID is required",
@@ -1559,5 +1565,97 @@
     "template_control_editable": "Editable",
     "template_control_create_date": "CreationDate",
     "template_options": "Options"
+  },
+  "settings": {
+    "scheduled_scans": {
+      "search_placeholder": "Search...",
+      "table_headers": {
+        "name": "Name",
+        "scan_type": "Scan Type",
+        "execution_frequency": "Execution Frequency",
+        "execution_time": "Execution Time",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "deactivate": "Deactivate scheduled scan",
+        "view_details": "View details"
+      },
+      "messages": {
+        "no_scheduled_scans_found": "No scheduled scans found"
+      },
+      "navigation": {
+        "create_scan_here": "Create a scan here"
+      },
+      "status": {
+        "active": "Active",
+        "deactivated": "Deactivated"
+      },
+      "scan_types": {
+        "network_vulnerability": "Network Vulnerability Analysis",
+        "web_vulnerability": "Web Vulnerability Analysis",
+        "wordpress_vulnerability": "WordPress Vulnerability Analysis",
+        "network_observability": "Network Observability Analysis"
+      },
+      "execution_frequencies": {
+        "every_day": "Every day"
+      },
+      "common": {
+        "unknown": "Unknown"
+      },
+      "detail": {
+        "breadcrumbs": {
+          "detail": "Detail"
+        },
+        "titles": {
+          "first_title": "Overview",
+          "second_title": "Scheduled Executions"
+        },
+        "subtitles": {
+          "name": "Name",
+          "scan_type": "Scan Type",
+          "target": "Target",
+          "execution_frequency": "Execution Frequency",
+          "execution_time": "Execution Time",
+          "scheduled_date": "Scheduled Date",
+          "status": "Status",
+          "actions": "Actions"
+        }
+      },
+      "desactivate": {
+        "scheduled_scan_deactivated_successfully": "Scheduled scan was successfully deactivated",
+        "scan_failed": "There was an error executing this action"
+      },
+      "form": {
+        "create_scan": "You must create a",
+        "task": "task",
+        "label_task": "Task",
+        "no_tasks": "No tasks",
+        "validations": {
+          "name_required": "Name is required",
+          "scan_type_required": "Scan type is required",
+          "target_required": "Target is required",
+          "execution_frequency_required": "Execution frequency is required",
+          "execution_time_required": "Execution time is required",
+          "select_task_required": "You must select at least one task",
+          "asset_required": "Asset is required",
+          "select_asset": "Select an Asset"
+        },
+        "success": {
+          "scan_scheduled": "Scheduled scan created successfully"
+        },
+        "error": {
+          "scan_schedule_failed": "Error creating scheduled scan"
+        }
+      }
+    }
+  },
+  "modals": {
+    "action": {
+      "title": "Confirm action",
+      "message": "Are you sure you want to perform this action?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   }
 }
