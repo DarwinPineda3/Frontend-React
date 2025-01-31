@@ -84,12 +84,12 @@ const CloudVulnerabilitiesDetails = () => {
               </Grid>
 
               {/* Top Cards */}
-              <Grid item xs={12} xl={12}>
+              <Grid item xs={12} xl={12} mb={3}>
                 <CloudScanTopCards statistics={cloudscan?.statistics} />
               </Grid>
 
               {/* Service Summary */}
-              <Grid item xs={12} xl={12}>
+              <Grid item xs={12} xl={12} mb={3}>
                 <CloudScanSummaryService services={cloudscan?.services} />
               </Grid>
 
