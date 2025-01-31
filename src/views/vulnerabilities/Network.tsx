@@ -53,27 +53,18 @@ const NetworkVulnerabilities = () => {
             <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
               {t('vulnerabilities.breadcrumb_vulnerabilidades')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
-              {t('vulnerabilities.breadcrumb_red')}
-            </Link>
-            {selectedScan && (
-              <Link
-                component={RouterLink}
-                color="inherit"
-                to={`/vulnerabilities/network/scans/${selectedScan}`}
-              >
-                {t('vulnerabilities.breadcrumb_escaneos')}
+            {selectedScan ? (
+              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}`}>
+                {t('vulnerabilities.breadcrumb_red')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('vulnerabilities.breadcrumb_red')}</Typography>
             )}
-            {selectedReport && (
-              <Link
-                component={RouterLink}
-                color="inherit"
-                to={`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}`}
-              >
+            {selectedReport ? (
+              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}`}>
                 {t('vulnerabilities.breadcrumb_reportes')}
               </Link>
-            )}
+            ) : null}
             {selectedVulnerability && (
               <Typography color="textPrimary">
                 {t('vulnerabilities.breadcrumb_vulnerabilidad')}

@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  LinearProgress,
   Table,
   TableBody,
   TableCell,
@@ -16,9 +17,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
-  Chip,
-  LinearProgress,
+  Typography
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -152,49 +151,25 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                   <Table aria-label="scan list table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('vulnerabilities.name')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('vulnerabilities.hosts')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('vulnerabilities.date')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('vulnerabilities.type')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('vulnerabilities.progress')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('vulnerabilities.actions')}
-                          </Typography>
-                        </TableCell>
+                        <TableCell>{t('vulnerabilities.name')}</TableCell>
+                        <TableCell>{t('vulnerabilities.hosts')}</TableCell>
+                        <TableCell>{t('vulnerabilities.date')}</TableCell>
+                        <TableCell>{t('vulnerabilities.type')}</TableCell>
+                        <TableCell>{t('vulnerabilities.progress')}</TableCell>
+                        <TableCell>{t('vulnerabilities.actions')}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                    {data.length > 0 ? (
-                      data.map((scan: any, index: number) => {
-                        let progressColor: 'error' | 'warning' | 'success' = 'error'; 
-                        if (scan.progress >= 80) {
-                          progressColor = 'success'; 
-                        } else if (scan.progress >= 50) {
-                          progressColor = 'warning'; 
-                        } else {
-                          progressColor = 'error'; 
-                        }
+                      {data.length > 0 ? (
+                        data.map((scan: any, index: number) => {
+                          let progressColor: 'error' | 'warning' | 'success' = 'error';
+                          if (scan.progress >= 80) {
+                            progressColor = 'success';
+                          } else if (scan.progress >= 50) {
+                            progressColor = 'warning';
+                          } else {
+                            progressColor = 'error';
+                          }
 
                           return (
                             <TableRow key={index}>
@@ -226,23 +201,23 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                                 </Typography>
                               </TableCell>
                               <TableCell>
-                              <Box display="flex" flexDirection="column" alignItems="center">
-                                <LinearProgress
-                                  variant="determinate"
-                                  value={scan.progress}
-                                  color={progressColor}
-                                  sx={{
-                                    width: '80%',
-                                    height: 10,
-                                    borderRadius: 5,
-                                    bgcolor: '#e0e0e0',
-                                    marginBottom: 1,
-                                  }}
-                                />
-                                <Typography variant="caption" color="textSecondary">
-                                  {scan.progress}%
-                                </Typography>
-                              </Box>
+                                <Box display="flex" flexDirection="column" alignItems="center">
+                                  <LinearProgress
+                                    variant="determinate"
+                                    value={Number(scan.progress)}
+                                    color={progressColor}
+                                    sx={{
+                                      width: '80%',
+                                      height: 10,
+                                      borderRadius: 5,
+                                      bgcolor: '#e0e0e0',
+                                      marginBottom: 1,
+                                    }}
+                                  />
+                                  <Typography variant="caption" color="textSecondary">
+                                    {scan.progress}%
+                                  </Typography>
+                                </Box>
                               </TableCell>
                               <TableCell>
                                 <IconButton color="primary" onClick={() => handleDownload(scan.id)}>

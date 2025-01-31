@@ -19,7 +19,7 @@ const ScanListDetail: React.FC<{ scanId: string, onAlertClick: (alertId: number)
   }, [dispatch, scanId]);
 
   if (loading || detail === null) {
-    return <DashboardCard title={t('vulnerabilities.scan_details')} subtitle={t('vulnerabilities.scan_details')}>
+    return <DashboardCard title={t('vulnerabilities.scan_details')!} subtitle={t('vulnerabilities.scan_details')!}>
       <Box display="flex" justifyContent="center" mt={4} mb={4}>
         <Loader />
       </Box>
@@ -28,7 +28,6 @@ const ScanListDetail: React.FC<{ scanId: string, onAlertClick: (alertId: number)
 
   return (
     <Grid container>
-      {/* Scan Metadata Section */}
       <Grid item xs={12} xl={12}>
         <Breadcrumb title={detail.name ?? detail.id}>
           <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
@@ -40,7 +39,6 @@ const ScanListDetail: React.FC<{ scanId: string, onAlertClick: (alertId: number)
         </Breadcrumb>
       </Grid>
 
-      {/* Alerts Table Section */}
       <Grid item xs={12} xl={12}>
         <DashboardCard>
           <ScanAlertTable alerts={detail.alerts} onAlertClick={onAlertClick} />
