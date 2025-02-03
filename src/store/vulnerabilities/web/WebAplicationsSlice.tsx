@@ -65,6 +65,26 @@ export const fetchWebApplicationAlertData = createAsyncThunk(
   },
 );
 
+export const generateAiSolution =
+  ({ scanId, alertId, vulnName, alertExternalId }: { scanId: string; alertId: string, vulnName: string, alertExternalId: string }) =>
+    async (dispatch: AppDispatch) => {
+      try {
+        const bodyRequest = {
+          report_id: scanId,
+          vulnerability_id: alertId,
+          vulnerability_name: vulnName,
+          tool: 'Applications'
+        };
+        const response = await axios.post(`${getBaseApiUrl()}/vulnerabilities/ai-solution/`, bodyRequest);
+        const response_data = response.data.alert;
+        dispatch(fetchWebApplicationAlertData({ scanId, alertId: alertExternalId }));
+        return response_data;
+      } catch (error) {
+        dispatch(setError('Failed to fetch ai solution'));
+      }
+    }
+
+
 interface WebApplicationsState {
   loading: boolean;
   data: any | null;
@@ -159,19 +179,19 @@ export const { getScans, setLoading, setError, setPage, removeScan, setPageSize 
 
 export const fetchWebApplicationsData =
   (requestedPage = 1, pageSize = 25) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      dispatch(setLoading(true));
-      const url = `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`;
-      const response = await axios.get(url);
-      const { results, page, totalPages } = response.data;
-      dispatch(getScans({ results, currentPage: page, totalPages, pageSize }));
-      dispatch(setLoading(false));
-    } catch (err: any) {
-      console.error('Error fetching scans:', err);
-      dispatch(setError('Failed to fetch scans'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        const url = `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`;
+        const response = await axios.get(url);
+        const { results, page, totalPages } = response.data;
+        dispatch(getScans({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        console.error('Error fetching scans:', err);
+        dispatch(setError('Failed to fetch scans'));
+      }
+    };
 
 export const downloadWebApplicationReport = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -182,9 +202,8 @@ export const downloadWebApplicationReport = (id: string) => async (dispatch: App
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
-    const fileName = `Vulnerabilities-web-applications_${id}_${
-      new Date().toISOString().split('T')[0]
-    }.json`;
+    const fileName = `Vulnerabilities-web-applications_${id}_${new Date().toISOString().split('T')[0]
+      }.json`;
     link.setAttribute('download', fileName);
     document.body.appendChild(link);
     link.click();
