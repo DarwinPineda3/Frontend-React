@@ -83,8 +83,8 @@ const AssetList = () => {
 
   const confirmDelete = () => {
     if (assetToDelete !== null) {
-      dispatch(removeAsset(assetToDelete));
-      setSnackbarMessage(t("dashboard.asset_deleted_successfully"));
+      dispatch(removeAsset(String(assetToDelete)));
+      setSnackbarMessage(t("dashboard.asset_deleted_successfully")!);
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
     }
@@ -117,35 +117,15 @@ const AssetList = () => {
       action={addButton}
     >
       <Box>
-        <TableContainer>
-          <Table aria-label="asset table" sx={{ whiteSpace: 'nowrap' }}>
+        <TableContainer sx={{ overflowX: 'auto' }}>
+          <Table aria-label="asset table">
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.name")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.ip_address")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.domain")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.url")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.actions")}
-                  </Typography>
-                </TableCell>
+                <TableCell>{t("dashboard.name")}</TableCell>
+                <TableCell>{t("dashboard.ip_address")}</TableCell>
+                <TableCell>{t("dashboard.domain")}</TableCell>
+                <TableCell>{t("dashboard.url")}</TableCell>
+                <TableCell>{t("dashboard.actions")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -161,12 +141,12 @@ const AssetList = () => {
                       {asset.ip}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ wordBreak: 'break-word', maxWidth: 150 }}>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
                       {asset.domain}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ wordBreak: 'break-word', maxWidth: 150 }}>
                     <Typography variant="subtitle2">{asset.url}</Typography>
                   </TableCell>
                   <TableCell>
@@ -179,7 +159,6 @@ const AssetList = () => {
                       >
                         {t("dashboard.edit")}
                       </Button>
-
                     </Box>
                   </TableCell>
                 </TableRow>

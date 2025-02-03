@@ -2,7 +2,6 @@ import { ArrowBack } from "@mui/icons-material";
 import { Box, Breadcrumbs, IconButton, Link, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-// import { useNavigate } from "react-router";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from "src/components/container/PageContainer";
 import DashboardCard from "src/components/shared/DashboardCard";
@@ -53,20 +52,19 @@ const AssetsCreate: React.FC = () => {
             <ArrowBack />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/compliance/assets">
-              {t('compliance_menu.compliance')}
+            <Link component={RouterLink} color="inherit" to="/home/assets">
+              {t('menu.home')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/compliance/assets">
+            <Link component={RouterLink} color="inherit" to="/home/assets">
               {t('compliance_menu.compliance_assets')}
             </Link>
             <Typography color="textPrimary">{t('dashboard.create')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>
-      <Box>
 
-        <DashboardCard
-        >
+      <Box>
+        <DashboardCard>
           <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
         </DashboardCard>
         {snackbarOpen && (
