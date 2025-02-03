@@ -38,19 +38,13 @@ const EHReport = () => {
           <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
             {t("menu.vulnerabilities")}
           </Link>
-          {/* <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
-            {t("menu.redteam")}
-          </Link> */}
           <Typography color="textPrimary">
             {t("menu.redteam")}
           </Typography>
 
         </Breadcrumbs>
       </Box>
-      <Grid container spacing={0} mt={1}>
-        <Grid item xs={12} lg={12}>
-          {/* <AssetsCards/> */}
-        </Grid>
+      <Grid container spacing={0} mt={2}>
         <Grid item xs={12} lg={12}>
           <EHReportList onEHReportClick={handleEHReportClick} />
         </Grid>
