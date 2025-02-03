@@ -44,7 +44,7 @@ const ObservedAssets = () => {
               <Link
                 component={RouterLink}
                 color="inherit"
-                to={`/observability/observed-assets/assets/${selectedAsset}`}
+                to={`/observability/observed-assets/assets`}
               >
                 {t('menu.assets')}
               </Link>

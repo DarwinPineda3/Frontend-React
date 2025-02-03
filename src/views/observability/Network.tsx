@@ -42,7 +42,7 @@ const NetworkObservability = () => {
               {t('menu.observability')}
             </Link>
             {selectedScan ? (
-              <Link component={RouterLink} color="inherit" to={`/observability/network/scans/${selectedScan}`}>
+              <Link component={RouterLink} color="inherit" to={`/observability/network/scans`}>
                 {t('menu.network')}
               </Link>
             ) : (
