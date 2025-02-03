@@ -1,12 +1,13 @@
-import { Accordion, AccordionDetails, AccordionSummary, alpha, Box, Button, Chip, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, alpha, Box, Button, Card, Chip, Grid, LinearProgress, Stack, Typography, useTheme } from '@mui/material';
 import { IconChevronDown } from '@tabler/icons-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
+import MarkdownRenderer from 'src/components/shared/MarkdownRenderer';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
-import { fetchWebApplicationAlertData } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
+import { fetchWebApplicationAlertData, generateAiSolution } from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 
 interface AlertDetailProps {
   alertId: string;
@@ -16,7 +17,7 @@ interface AlertDetailProps {
 const AlertDetail: React.FC<AlertDetailProps> = ({ alertId, scanId }) => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [aiSolution, setAiSolution] = useState('');
+  const [generatingAiSolution, setGenerationAiSolution] = useState(false);
   const { t } = useTranslation();
   const handleChange = (panel: string) => (_event: React.ChangeEvent<{}>, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
@@ -29,10 +30,10 @@ const AlertDetail: React.FC<AlertDetailProps> = ({ alertId, scanId }) => {
   }, [dispatch]);
 
   const handleAICall = async () => {
-    setAiSolution('...');
+    setGenerationAiSolution(!generatingAiSolution);
     //fake wait 3 seconds
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    setAiSolution(alert.desc);
+    dispatch(generateAiSolution({ scanId, alertId: alert?.sourceid, vulnName: alert?.name || '', alertExternalId: alertId }));
+
   }
 
   if (error) {
@@ -82,16 +83,18 @@ const AlertDetail: React.FC<AlertDetailProps> = ({ alertId, scanId }) => {
                     {alert.solution}
                   </Typography>
                 </Box>
-                {!aiSolution && (
+                {!generatingAiSolution && !alert.aiSolution && (
                   <Stack direction="row" justifyContent="end" spacing={2} mt={2}>
                     <Button variant="outlined" color="error" onClick={handleAICall}>
                       {t("vulnerabilities.generate_ai_solution")!}
                     </Button>
                   </Stack>
                 )}
+                {generatingAiSolution && !alert.aiSolution && (
+                  <LinearProgress></LinearProgress>
+                )}
               </Grid>
-
-              {aiSolution && (
+              {alert.aiSolution && (
                 <Grid item xs={12} xl={12}>
                   <Typography variant="h6" gutterBottom>
                     {t('vulnerabilities.ai_solution_title')}
@@ -101,22 +104,20 @@ const AlertDetail: React.FC<AlertDetailProps> = ({ alertId, scanId }) => {
                     overflow: 'auto',
                     scrollbarWidth: 'none',
                     '&::-webkit-scrollbar': { display: 'none' },
-                    animation: aiSolution === '...' ? 'fadeIn 1s ease-in-out' : 'none',
+                    animation: generatingAiSolution ? 'fadeIn 1s ease-in-out' : 'none',
                     '@keyframes fadeIn': {
                       '0%': { opacity: 0 },
                       '100%': { opacity: 1 }
                     }
                   }}>
-                    {aiSolution === '...' && (
-                      <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-                        <Loader />
-                      </Box>
-                    )}
-                    {aiSolution !== '...' && (
-                      <Typography sx={{ whiteSpace: 'pre-line' }}>
-                        {aiSolution}
-                      </Typography>
-                    )}
+
+                    <Card elevation={4} sx={{
+                      backgroundColor: theme.palette.background.default
+                    }}>
+
+                      <MarkdownRenderer content={alert.aiSolution} />
+
+                    </Card>
                   </Box>
                 </Grid>
               )}
