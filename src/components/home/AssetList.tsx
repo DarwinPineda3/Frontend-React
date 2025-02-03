@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAssets, removeAsset, setPage } from 'src/store/sections/AssetsSlice';
@@ -29,6 +29,7 @@ const AssetList = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const assets = useSelector((state: any) => state.assetsReducer.assets);
   const currentPage = useSelector((state: any) => state.assetsReducer.page);
   const totalPages = useSelector((state: any) => state.assetsReducer.totalPages);
@@ -101,21 +102,28 @@ const AssetList = () => {
       <AddIcon />
     </IconButton>
   );
-
-  if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
-  }
+  
+  React.useEffect(() => {
+    
+    if (location.state?.snackbarMessage) {
+      setSnackbarMessage(location.state.snackbarMessage);
+      setSnackbarSeverity(location.state.snackbarSeverity);
+      setSnackbarOpen(true);
+    }
+  }, [location.state]);
 
   return (
+    <>
     <DashboardCard
       title={t("dashboard.asset_list") as string}
       subtitle={t("dashboard.list_of_available_assets") as string}
       action={addButton}
     >
+       {loading ? (
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader />
+      </Box>
+    ) : (
       <Box>
         <TableContainer sx={{ overflowX: 'auto' }}>
           <Table aria-label="asset table">
@@ -205,7 +213,10 @@ const AssetList = () => {
           />
         )}
       </Box>
+      )}
     </DashboardCard>
+    </>
+    
   );
 };
 

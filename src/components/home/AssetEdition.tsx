@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import { AssetType } from 'src/types/assets/asset';
 import * as Yup from 'yup';
 import PageContainer from '../container/PageContainer';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   asset?: AssetType; // Optional for edit
@@ -26,6 +27,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   const { loading } = useSelector((state: any) => state.assetsReducer);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Formik setup with Yup validation schema
   const formik = useFormik({
@@ -79,6 +81,12 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         formik.resetForm(
           { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
         );
+        navigate('/home/assets', {
+          state: {
+            snackbarMessage: t('home.assets.asset_created_success'),
+            snackbarSeverity: 'success',
+          }
+        });
       }
     },
   });

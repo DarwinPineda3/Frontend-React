@@ -38,7 +38,6 @@ const AssetsCreate: React.FC = () => {
   }
     , [error]);
 
-
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setEditAsset(null);
