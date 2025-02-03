@@ -17,7 +17,8 @@ const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
     (state: AppState) => state.NetworkObservabilityReducer,
   );
 
-  const [selectedGraph, setSelectedGraph] = useState(networkScansDetail?.graphs?.[0]);
+  const [selectedGraph, setSelectedGraph] = useState(networkScansDetail?.graphs?.[0].host);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
     if (networkScansDetail?.graphs?.length) {
@@ -30,6 +31,7 @@ const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
   }, [dispatch]);
 
   const handleRowClick = (graph: any) => {
+    setSelectedRow(graph.host);
     setSelectedGraph(graph);
   };
 
@@ -100,7 +102,10 @@ const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
                     </TableHead>
                     <TableBody>
                       {networkScansDetail['graphs'].map((node) => (
-                        <TableRow key={node.host} onClick={() => handleRowClick(node)}>
+                        <TableRow key={node.host} onClick={() => handleRowClick(node)} style={{
+                          cursor: 'pointer',
+                          backgroundColor: selectedRow === node.host ? '#e0e0e0' : 'transparent',
+                        }}>
                           <TableCell>{node.host || 'N/A'}</TableCell>
                         </TableRow>
                       ))}
