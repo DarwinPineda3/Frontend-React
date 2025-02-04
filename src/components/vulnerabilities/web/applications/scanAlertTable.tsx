@@ -29,7 +29,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Alert {
-  risk: ReactNode;
+  risk: any;
   id: number;
   name: string;
   riskLevel: string;
@@ -50,10 +50,10 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const counts = {
-    critical: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('critical')).length,
-    high: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('high')).length,
-    medium: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('medium')).length,
-    low: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('low')).length,
+    critical: alerts.filter((alert) => alert.risk.toLowerCase().includes('critical')).length,
+    high: alerts.filter((alert) => alert.risk.toLowerCase().includes('high')).length,
+    medium: alerts.filter((alert) => alert.risk.toLowerCase().includes('medium')).length,
+    low: alerts.filter((alert) => alert.risk.toLowerCase().includes('low')).length,
   };
   const cardConfig: Record<
     string,
