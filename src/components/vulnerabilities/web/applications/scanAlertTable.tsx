@@ -17,6 +17,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import {
   IconAlertCircle,
@@ -55,6 +56,10 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     medium: alerts.filter((alert) => alert.risk.toLowerCase().includes('medium')).length,
     low: alerts.filter((alert) => alert.risk.toLowerCase().includes('low')).length,
   };
+
+  const theme = useTheme();
+    const { high, medium, low, critical } = theme.palette.level;
+    
   const cardConfig: Record<
     string,
     {
@@ -63,19 +68,19 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     }
   > = {
     critical: {
-      bgcolor: '#d32f2f',
+      bgcolor: critical,
       txtcolor: '#ffffff'
     },
     high: {
-      bgcolor: '#EF8E0E',
+      bgcolor: high,
       txtcolor: '#ffffff',
     },
     medium: {
-      bgcolor: '#f4be34',
+      bgcolor: medium,
       txtcolor: '#ffffff',
     },
     low: {
-      bgcolor: '#329223',
+      bgcolor: low,
       txtcolor: '#ffffff',
     },
   };
