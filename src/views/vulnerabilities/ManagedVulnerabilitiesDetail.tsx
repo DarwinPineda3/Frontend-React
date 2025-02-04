@@ -20,7 +20,6 @@ const ManagedVulnerabilitiesDetail = () => {
   const selectedVulnerability: managementVulnerabilityType = useSelector(
     (state: any) => state.managementVulnReducer.selectedVulnerability?.vulnerability,
   );
-  const error = useSelector((state: any) => state.managementVulnReducer.error);
   const fetchData = async () => {
     setIsLoading(true);
     await dispatch(fetchVulnerabilityById(Number(id)));
@@ -53,23 +52,23 @@ const ManagedVulnerabilitiesDetail = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          {selectedVulnerability ? (
-            <Box>
-              {isLoading ? (
-                <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-                  <Loader />
-                </Box>
-              ) : (
-                <>
+          <Box>
+            {isLoading ? (
+              <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+                <Loader />
+              </Box>
+            ) : (
+              <>
+                {selectedVulnerability ? (
                   <ManagedVulnDetail vulnerability={selectedVulnerability!} />
-                </>
-              )}
-            </Box>
-          ) : (
-            <Typography variant="subtitle2" align="center">
-              {t('monitoring.no_data_available')}
-            </Typography>
-          )}
+                ) : (
+                  <Typography variant="subtitle2" align="center">
+                    {t('monitoring.no_data_available')}
+                  </Typography>
+                )}
+              </>
+            )}
+          </Box>
         </Grid>
       </Grid>
     </PageContainer>

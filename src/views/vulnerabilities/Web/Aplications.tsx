@@ -50,11 +50,11 @@ const WebApplications = () => {
             <ArrowBackIcon />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web">
+            <Link component={RouterLink} color="inherit" to="/vulnerabilities/web/applications">
               {t('menu.vulnerabilities')}
             </Link>
             {selectedScan ? (
-              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/applications/${selectedScan}`}>
+              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/applications`}>
                 {t('menu.applications')}
               </Link>
             ) : (
