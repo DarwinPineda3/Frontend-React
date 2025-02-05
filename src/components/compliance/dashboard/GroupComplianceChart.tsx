@@ -32,7 +32,9 @@ const GroupComplianceChart: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   if (!projects) {
-    return <Loader />;
+    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loader />
+    </Box>;
   }
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,7 +56,9 @@ const GroupComplianceChart: React.FC = () => {
       return <></>
     }
     if (!groups || !selectedProject) {
-      return <Loader />
+      return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Loader />
+      </Box>
     }
     const chartOptions = {
       chart: {

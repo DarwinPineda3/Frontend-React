@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, Select, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
@@ -23,7 +23,9 @@ const ExecutionByProject: React.FC = () => {
   }, [dispatch]);
 
   if (!projects) {
-    return <Loader />;
+    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loader />
+    </Box>;
   }
   const chartOptions: ApexOptions = {
     chart: {

@@ -23,7 +23,9 @@ const ProjectComplianceChart: React.FC = () => {
   }, [dispatch, selectedProject]);
 
   if (projects === null) {
-    return <Loader />;
+    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loader />
+    </Box>;
   }
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -53,7 +55,9 @@ const ProjectComplianceChart: React.FC = () => {
 
   function ChartPlot() {
     if (!groups || !projects) {
-      return <Loader />;
+      return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Loader />
+      </Box>;
     }
     const chartOptions = {
       chart: {

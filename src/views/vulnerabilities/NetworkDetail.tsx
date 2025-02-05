@@ -1,3 +1,4 @@
+import { RuleFolder } from '@mui/icons-material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,6 +14,7 @@ import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchNetworkScanDetail } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { Scan } from 'src/types/vulnerabilities/network/networkScansType';
+import NetworkVulnerabilities from './Network';
 const NetworkVulnerabilitiesDetail = () => {
   const { t } = useTranslation();
   const { scanId } = useParams<{
@@ -136,6 +138,13 @@ const NetworkVulnerabilitiesDetail = () => {
       label: `${t('vulnerabilities.scanner')}`,
       disabled: false,
       content: <Scanner scanner={networkScanOverview}></Scanner>,
+    },
+    {
+      value: 'reports',
+      icon: <RuleFolder />,
+      label: `${t('vulnerabilities.reports')}`,
+      disabled: false,
+      content: <NetworkVulnerabilities showHeader={false} />,
     },
   ];
 
