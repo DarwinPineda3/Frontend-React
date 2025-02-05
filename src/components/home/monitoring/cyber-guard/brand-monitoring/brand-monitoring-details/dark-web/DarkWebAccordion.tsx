@@ -1,5 +1,5 @@
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Box } from '@mui/material';
+import { Badge, Box } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -42,7 +42,7 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
     const dar_websFormatter = dark_web_data.map((dark_web) => {
       return Object.entries(dark_web).map(([category, details]) => {
         const dataGroup: { [key: string]: DarkWeb } = {};
-
+        var total_results_new = 0;
         details.data.forEach((dar_web) => {
           const uniqueKey: any = getCategoryData(dar_web, category);
 
@@ -54,6 +54,7 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
                 generated: dar_web.generated,
                 source: dar_web.source,
                 type: dar_web.type,
+                data_new: dar_web.data_new,
               };
 
               Object.keys(dar_web.data).forEach((key) => {
@@ -67,6 +68,9 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
               }
             });
           }
+          if (dar_web.data_new) {
+            total_results_new += 1;
+          }
         });
 
         const resultArray = Object.values(dataGroup);
@@ -77,6 +81,7 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
             type: category,
             data: resultArray,
             total_results: totalResults,
+            total_results_new: total_results_new,
           },
         } as DarkWebCategories;
       });
@@ -107,6 +112,18 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
           >
             <Typography variant="h6">
               {formatKey(details.type)} ({details.total_results})
+              {details.total_results_new > 0 && (
+                <Badge
+                  badgeContent={`${details.total_results_new} Recent`}
+                  color="primary"
+                  sx={{
+                    ml: 5,
+                    '& .MuiBadge-badge': {
+                      whiteSpace: 'nowrap',
+                    },
+                  }}
+                />
+              )}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>

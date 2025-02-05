@@ -10,7 +10,10 @@ import Tab from '@mui/material/Tab';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from 'src/components/shared/Loader/Loader';
-import { fetchBrandMonitoringById } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
+import {
+  fetchBrandMonitoringById,
+  updateDataViewedBrandMonitoring,
+} from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import DashboardCard from '../../../../shared/DashboardCard';
@@ -65,6 +68,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
     const fetchData = async () => {
       setIsLoading(true);
       await dispatch(fetchBrandMonitoringById(id));
+      await dispatch(updateDataViewedBrandMonitoring(id));
       setIsLoading(false);
     };
 

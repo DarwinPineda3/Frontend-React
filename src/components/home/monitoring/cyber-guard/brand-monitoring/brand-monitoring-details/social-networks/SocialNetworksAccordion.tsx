@@ -1,11 +1,11 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { Badge, Box } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { SocialNetworksCategories } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import { Box } from '@mui/material';
 import SocialNetworkTable from './SocialNetworkTable';
 
 interface SocialNetworksAccordionProps {
@@ -31,6 +31,18 @@ const SocialNetworksAccordion: React.FC<SocialNetworksAccordionProps> = ({
             >
               <Typography variant="h6">
                 {formatKey(details.type)} ({details.total_results})
+                {details.total_results_new > 0 && (
+                  <Badge
+                    badgeContent={`${details.total_results_new} Recent`}
+                    color="primary"
+                    sx={{
+                      ml: 5,
+                      '& .MuiBadge-badge': {
+                        whiteSpace: 'nowrap',
+                      },
+                    }}
+                  />
+                )}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

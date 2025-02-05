@@ -123,6 +123,7 @@ export interface SecurityLeak {
   source: string;
   type: string;
   risk_level: 'low' | 'medium' | 'high' | 'critical';
+  data_new: null | boolean;
 }
 
 export interface SocialNetwork {
@@ -131,6 +132,7 @@ export interface SocialNetwork {
   generated: null | any;
   source: string;
   type: string;
+  data_new: null | boolean;
 }
 
 export interface DarkWeb {
@@ -139,6 +141,7 @@ export interface DarkWeb {
   generated: null | any;
   source: string;
   type: string;
+  data_new: null | boolean;
 }
 
 export interface Internet {
@@ -147,6 +150,7 @@ export interface Internet {
   generated: null | any;
   source: string;
   type: string;
+  data_new: null | boolean;
 }
 
 export interface SecurityLeaksCounters {
@@ -184,6 +188,7 @@ export interface InternetCategories {
   [key: string]: {
     data: Internet[];
     total_results: number;
+    total_results_new: number;
     type: string;
     description: string;
   };
@@ -193,6 +198,7 @@ export interface SecurityLeakCategories {
   [key: string]: {
     data: SecurityLeak[];
     total_results: number;
+    total_results_new: number;
     type: string;
   };
 }
@@ -201,6 +207,7 @@ export interface SocialNetworksCategories {
   [key: string]: {
     data: SocialNetwork[];
     total_results: number;
+    total_results_new: number;
     type: string;
   };
 }
@@ -209,6 +216,7 @@ export interface DarkWebCategories {
   [key: string]: {
     data: DarkWeb[];
     total_results: number;
+    total_results_new: number;
     type: string;
   };
 }

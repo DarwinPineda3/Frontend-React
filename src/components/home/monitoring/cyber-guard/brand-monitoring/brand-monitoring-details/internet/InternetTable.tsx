@@ -1,5 +1,6 @@
 import { Cancel, CheckCircle } from '@mui/icons-material';
 import {
+  Badge,
   Chip,
   Table,
   TableBody,
@@ -153,6 +154,9 @@ const InternetTable: React.FC<InternetTableProps> = ({ internet }) => {
                 )}
                 <TableCell align="center">
                   <HumanizedDate dateString={internet.date} />
+                  {internet.data_new && (
+                    <Badge badgeContent={'New'} color="primary" sx={{ ml: 3 }} />
+                  )}
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">{internet.source}</Typography>

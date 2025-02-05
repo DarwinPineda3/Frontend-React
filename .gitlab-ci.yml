@@ -1,0 +1,31 @@
+stages:
+  - deploy
+
+main_build:
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main"
+  stage: deploy
+  script:
+    - cd /home/akila/akila-poc-frontend/akila-frontend
+    - sudo su akila -c "git checkout main"
+    - sudo su akila -c "git pull origin main"
+    - sudo su akila -c "npm install"
+    - sudo su akila -c "npm run force-build"
+    - sudo nginx -t && sudo systemctl restart nginx
+    # - |
+    #   curl ${WEBHOOK_URL} -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"plain_text\",\"emoji\":true,\"text\":\":gitlab: This is an event from Git\"}},{\"type\":\"divider\"},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*<${CI_JOB_URL}|Job #${CI_JOB_ID}>*\n - by ${GITLAB_USER_NAME}\n<${GITLAB_USER_EMAIL}>\n from: <${CI_REPOSITORY_URL}|${CI_PROJECT_NAME}>\"},\"accessory\":{\"type\":\"image\",\"image_url\":\"https:\/\/panel.lorius.cloud:8080\/v1\/AUTH_b1821523a46c454db00431583723b261\/octapusrd-public\/goddard.png\",\"alt_text\":\"Lorius Cloud\"}},{\"type\":\"context\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"*:rocket: A new deployment was finished*\"}]}]}"
+
+develop_build:
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "develop"
+  stage: deploy
+  script:
+    - cd /home/akila/akila-frontend
+    - sudo su akila -c "git checkout develop"
+    - sudo su akila -c "git pull origin develop"
+    - sudo su akila -c "npm install"
+    - sudo su akila -c "npm run force-build"
+    - sudo nginx -t && sudo systemctl restart nginx
+    # - |
+    #   curl ${WEBHOOK_URL} -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"plain_text\",\"emoji\":true,\"text\":\":gitlab: This is an event from Git\"}},{\"type\":\"divider\"},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*<${CI_JOB_URL}|Job #${CI_JOB_ID}>*\n - by ${GITLAB_USER_NAME}\n<${GITLAB_USER_EMAIL}>\n from: <${CI_REPOSITORY_URL}|${CI_PROJECT_NAME}>\"},\"accessory\":{\"type\":\"image\",\"image_url\":\"https:\/\/panel.lorius.cloud:8080\/v1\/AUTH_b1821523a46c454db00431583723b261\/octapusrd-public\/goddard.png\",\"alt_text\":\"Lorius Cloud\"}},{\"type\":\"context\",\"elements\":[{\"type\":\"mrkdwn\",\"text\":\"*:rocket: A new deployment was finished*\"}]}]}"
+
