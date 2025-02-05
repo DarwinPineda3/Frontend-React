@@ -36,6 +36,7 @@ import {
   setPageSize,
 } from 'src/store/vulnerabilities/network/NetworkScansSlice';
 import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const BlinkButton = ({ onClick }: { onClick: () => void }) => {
   const { t } = useTranslation();
@@ -421,30 +422,7 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={5} align="center">
-                        <Box
-                          display="flex"
-                          flexDirection="column"
-                          alignItems="center"
-                          justifyContent="center"
-                          height="100px"
-                        >
-                          <Typography variant="body2" color="textSecondary">
-                            {t('vulnerabilities.no_data_available')}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="primary"
-                            component="a"
-                            onClick={() => navigate('/vulnerabilities/network/scans/create')}
-                            style={{
-                              cursor: 'pointer',
-                              textDecoration: 'underline',
-                              marginTop: '8px',
-                            }}
-                          >
-                            {t('vulnerabilities.create_scan_here')}
-                          </Typography>
-                        </Box>
+                         <NoDataAvailable entityType="scan" formData={{ url: '/vulnerabilities/network/scans/create' }} />
                       </TableCell>
                     </TableRow>
                   )}

@@ -33,6 +33,7 @@ import {
 } from 'src/store/sections/compliance/giotoAssetsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import CreateUpdateGiottoAsset from './createUpdateGiottoAsset';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface GiottoAssetsListProps {
   onScanClick: (scanId: string) => void;
@@ -258,9 +259,10 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={5} align="center">
-                        <Typography variant="body2" color="textSecondary">
-                          {t('vulnerabilities.no_data_available')}
-                        </Typography>
+                      <NoDataAvailable
+                        entityType="asset"
+                        formData={{ url: '/compliance/assets/create' }}
+                      />
                       </TableCell>
                     </TableRow>
                   )}

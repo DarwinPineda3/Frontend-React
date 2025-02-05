@@ -1657,5 +1657,24 @@
       "cancel": "Cancel",
       "confirm": "Confirm"
     }
+  },
+  "no_data_available": {
+    "message": "No data available",
+    "create_new": "Create new {{entityType}}"
+  },
+  "entity_types": {
+    "asset": "asset",
+    "group": "group",
+    "project": "project",
+    "template": "template",
+    "scan": "scan",
+    "scheduled_scan": "scheduled scan",
+    "report": "report",
+    "execution": "execution",
+    "user": "user",
+    "users": "users",
+    "backup": "backup",
+    "scans": "scans",
+    "vulnerability": "vulnerability"
   }
 }

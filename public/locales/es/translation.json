@@ -1646,5 +1646,24 @@
         }
       }
     }
+  },
+  "no_data_available": {
+    "message": "No hay datos disponibles",
+    "create_new": "Crear nuevo {{entityType}}"
+  },
+  "entity_types": {
+    "asset": "activo",
+    "group": "grupo",
+    "project": "proyecto",
+    "scan": "escaneo",
+    "template": "plantilla",
+    "scheduled_scan": "escaneo programado",
+    "report": "reporte",
+    "execution": "ejecución",
+    "user": "usuario",
+    "users": "usuarios",
+    "backup": "copia de seguridad",
+    "scans": "escaneos",
+    "vulnerability": "Vulnerabilidad"
   }
 }

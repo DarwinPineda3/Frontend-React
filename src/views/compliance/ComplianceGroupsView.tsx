@@ -36,6 +36,7 @@ import {
   setPageSize,
 } from 'src/store/sections/compliance/giottoGroupsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const ComplianceGroupsView: React.FC = ({ }) => {
   const { t } = useTranslation();
@@ -217,22 +218,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                 justifyContent="center"
                                 height="100px"
                               >
-                                <Typography variant="body2" color="textSecondary">
-                                  {t('giotto.groups.no_data_available')}
-                                </Typography>
-                                <Typography
-                                  variant="body2"
-                                  color="primary"
-                                  component="a"
-                                  onClick={() => navigate('/compliance/groups/create')}
-                                  style={{
-                                    cursor: 'pointer',
-                                    textDecoration: 'underline',
-                                    marginTop: '8px',
-                                  }}
-                                >
-                                  {t('giotto.groups.create_group')}
-                                </Typography>
+                                <NoDataAvailable entityType="group" formData={{ url: '/compliance/groups/create' }} />
                               </Box>
                             </TableCell>
                           </TableRow>
