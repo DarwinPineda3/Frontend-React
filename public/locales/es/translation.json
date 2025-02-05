@@ -1566,10 +1566,12 @@
   "settings": {
     "scheduled_scans": {
       "search_placeholder": "Buscar...",
+      "no_data_available": "No hay datos disponibles",
       "table_headers": {
         "name": "Nombre",
         "scan_type": "Tipo de escaneo",
         "execution_frequency": "Frecuencia de ejecución",
+        "execution_day": "Día de ejecución",
         "execution_time": "Hora de ejecución",
         "status": "Estado",
         "actions": "Acciones"
@@ -1595,7 +1597,9 @@
         "network_observability": "Escaneos de Observabilidad de Red"
       },
       "execution_frequencies": {
-        "every_day": "Todos los días"
+        "every_day": "Todos los días",
+        "weekly": "Semanal",
+        "monthly": "Mensual"
       },
       "common": {
         "unknown": "Desconocido"
@@ -1613,6 +1617,7 @@
           "scan_type": "Tipo de escaneo",
           "target": "Objetivo",
           "execution_frequency": "Frecuencia de ejecución",
+          "execution_day": "Día de ejecución",
           "execution_time": "Hora de ejecución",
           "scheduled_date": "Fecha programada",
           "status": "Estado",
@@ -1628,6 +1633,16 @@
         "task": "tarea",
         "label_task": "Tarea",
         "no_tasks": "No hay tareas",
+        "execution_day": "Día de ejecución",
+        "days": {
+          "monday": "Lunes",
+          "tuesday": "Martes",
+          "wednesday": "Miércoles",
+          "thursday": "Jueves",
+          "friday": "Viernes",
+          "saturday": "Sábado",
+          "sunday": "Domingo"
+        },
         "validations": {
           "name_required": "El nombre es obligatorio",
           "scan_type_required": "El tipo de escaneo es obligatorio",
