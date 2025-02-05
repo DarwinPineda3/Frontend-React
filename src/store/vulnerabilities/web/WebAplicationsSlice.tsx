@@ -182,7 +182,7 @@ export const fetchWebApplicationsData =
     async (dispatch: AppDispatch) => {
       try {
         dispatch(setLoading(true));
-        const url = `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}/`;
+        const url = `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`;
         const response = await axios.get(url);
         const { results, page, totalPages } = response.data;
         dispatch(getScans({ results, currentPage: page, totalPages, pageSize }));
