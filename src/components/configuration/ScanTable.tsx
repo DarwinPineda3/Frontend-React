@@ -27,7 +27,11 @@ import {
 } from 'src/store/sections/schedule-scans-settings/ScheduleScansSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { ScheduledTaskType } from 'src/types/schedule-scans-settings/schedule_scans_type';
-import { getExecutionFrequencyLabels, getScanTypeLabels } from 'src/utils/scanLabels';
+import {
+  getDaysOfWeekLabels,
+  getExecutionFrequencyLabels,
+  getScanTypeLabels,
+} from 'src/utils/scanLabels';
 import ConfirmActionModal from '../modal/ConfirmActionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
@@ -131,6 +135,7 @@ const ScansTable: React.FC = () => {
 
   const scanTypeLabels = getScanTypeLabels(t);
   const executionFrequencyLabels = getExecutionFrequencyLabels(t);
+  const days = getDaysOfWeekLabels(t);
 
   const addButton = (
     <IconButton color="primary" onClick={() => navigate('/configuration/schedule-scan/create')}>
@@ -182,6 +187,11 @@ const ScansTable: React.FC = () => {
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
+                        {t('settings.scheduled_scans.table_headers.execution_day')!}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
                         {t('settings.scheduled_scans.table_headers.execution_time')!}
                       </Typography>
                     </TableCell>
@@ -207,7 +217,7 @@ const ScansTable: React.FC = () => {
                             fontWeight={600}
                             color="primary"
                             component="a"
-                            onClick={() => handleScanClick(scan.id)}
+                            onClick={() => handleScanClick(scan.id!)}
                             style={{ cursor: 'pointer', display: 'block' }}
                           >
                             {scan.name}
@@ -225,6 +235,14 @@ const ScansTable: React.FC = () => {
                             {' '}
                             {executionFrequencyLabels[scan.execution_frequency] ||
                               t('settings.scheduled_scans.common.unknown')}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="subtitle2">
+                            {scan.execution_frequency === 2
+                              ? days[scan.execution_day] ||
+                                t('settings.scheduled_scans.common.unknown')
+                              : scan.execution_day}
                           </Typography>
                         </TableCell>
                         <TableCell>
@@ -248,7 +266,7 @@ const ScansTable: React.FC = () => {
                         </TableCell>
                         <TableCell>
                           <Tooltip title={t('settings.scheduled_scans.actions.view_details')}>
-                            <IconButton color="primary" onClick={() => handleScanClick(scan.id)}>
+                            <IconButton color="primary" onClick={() => handleScanClick(scan.id!)}>
                               <Visibility />
                             </IconButton>
                           </Tooltip>
@@ -274,7 +292,7 @@ const ScansTable: React.FC = () => {
                           height="100px"
                         >
                           <Typography variant="body2" color="textSecondary">
-                            {t('settings.scheduled_scans.messages.no_scheduled_scans_found')}
+                            {t('settings.scheduled_scans.no_data_available')}
                           </Typography>
                           <Typography
                             variant="body2"
