@@ -31,7 +31,11 @@ import {
   ScheduledScanDetail,
   ScheduledTaskType,
 } from 'src/types/schedule-scans-settings/schedule_scans_type';
-import { getScanTypeLabels } from 'src/utils/scanLabels';
+import {
+  getDaysOfWeekLabels,
+  getExecutionFrequencyLabels,
+  getScanTypeLabels,
+} from 'src/utils/scanLabels';
 
 const ScheduledScansDetail = () => {
   const { t } = useTranslation();
@@ -64,6 +68,8 @@ const ScheduledScansDetail = () => {
   const [selectedScan, setSelectedScan] = useState<string | null>(null);
 
   const scanTypeLabels = getScanTypeLabels(t);
+  const executionFrequencyLabels = getExecutionFrequencyLabels(t);
+  const days = getDaysOfWeekLabels(t);
 
   const Overview: React.FC<{ overview: ScheduledTaskType }> = ({ overview }) => {
     const executionTime = new Date(overview.execution_time);
@@ -101,8 +107,20 @@ const ScheduledScansDetail = () => {
               </Typography>
               <Typography>
                 :{' '}
-                {scanTypeLabels[overview.execution_frequency] ||
+                {executionFrequencyLabels[overview.execution_frequency] ||
                   t('settings.scheduled_scans.common.unknown')}
+              </Typography>
+            </Box>
+            <Box display={'flex'} mt={2}>
+              <Typography variant="subtitle2" fontWeight={600}>
+                {' '}
+                {t('settings.scheduled_scans.detail.subtitles.execution_day')}{' '}
+              </Typography>
+              <Typography>
+                :{' '}
+                {overview.execution_frequency === 2
+                  ? days[overview.execution_day] || t('settings.scheduled_scans.common.unknown')
+                  : overview.execution_day}
               </Typography>
             </Box>
             <Box display={'flex'} mt={2}>
@@ -170,7 +188,7 @@ const ScheduledScansDetail = () => {
                   <TableRow>
                     <TableCell colSpan={3} align="center">
                       <Typography color="textSecondary" variant="body2">
-                        {t('settings.scheduled_scans.detail.no_scheduled_executions')}
+                        {t('settings.scheduled_scans.no_data_available')}
                       </Typography>
                     </TableCell>
                   </TableRow>
