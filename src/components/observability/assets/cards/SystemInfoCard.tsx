@@ -1,35 +1,8 @@
 import Masonry from '@mui/lab/Masonry';
-import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
+import InfoCard from 'src/components/shared/InfoCard';
 import { AppState, useSelector } from 'src/store/Store';
 import DiskCard from './DiskCard';
-
-interface InfoCardProps {
-  title: string;
-  data: { label: string; value: string }[];
-  titleColor: string;
-}
-
-const InfoCard = ({ title, data, titleColor }: InfoCardProps) => (
-  <DashboardCard>
-    <>
-      <Typography variant="h6" style={{ color: titleColor }} gutterBottom>
-        {title}
-      </Typography>
-      <Box>
-        {data.map((item, index) => (
-          <Box key={index} mb={1}>
-            <Typography variant="body2" fontWeight={600}>
-              {item.label}
-            </Typography>
-            <Typography variant="body2">{item.value}</Typography>
-          </Box>
-        ))}
-      </Box>
-    </>
-  </DashboardCard>
-);
 
 interface SystemInfoCardsProps {
   id: string;
@@ -171,19 +144,22 @@ const SystemInfoCards = ({ id }: SystemInfoCardsProps) => {
   ];
 
   return (
-    <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
-      <InfoCard title={t('observability.device_info')} data={deviceInfo} titleColor="#1e40af" />
-      <InfoCard title={t('observability.pc_info')} data={pcInfo} titleColor="#047857" />
+    <>
+      <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
+        <InfoCard title={t('observability.device_info')} data={deviceInfo} titleColor="#1e40af" />
+        <InfoCard title={t('observability.pc_info')} data={pcInfo} titleColor="#047857" />
+        <InfoCard title={t('observability.cpu_info')} data={cpuInfo} titleColor="#10b981" />
+        <InfoCard title={t('observability.ram_info')} data={ramInfo} titleColor="#fbbf24" />
+
+        <InfoCard
+          title={t('observability.partition_info')}
+          data={partitionInfo}
+          titleColor="#ef4444"
+        />
+        <InfoCard title={t('observability.os_info')} data={osInfo} titleColor="#fb923c" />
+      </Masonry>
       <DiskCard storage_charts={observedAssetsDetail?.storage_charts! || []} />
-      <InfoCard title={t('observability.cpu_info')} data={cpuInfo} titleColor="#10b981" />
-      <InfoCard title={t('observability.ram_info')} data={ramInfo} titleColor="#fbbf24" />
-      <InfoCard
-        title={t('observability.partition_info')}
-        data={partitionInfo}
-        titleColor="#ef4444"
-      />
-      <InfoCard title={t('observability.os_info')} data={osInfo} titleColor="#fb923c" />
-    </Masonry>
+    </>
   );
 };
 

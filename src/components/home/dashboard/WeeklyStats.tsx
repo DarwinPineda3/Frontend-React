@@ -82,10 +82,17 @@ const WeeklyStats: React.FC = () => {
   if (error) {
     return <div>{t("dashboard.error", { error })}</div>;
   }
-
-  const yAxisRange = {
-
-  };
+  if (stats.reduce((acc, stat) => acc + stat.percent, 0) === 0) {
+    return (
+      <DashboardCard title={t("dashboard.weekly_stats")} subtitle={t("dashboard.average_downtime")}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Typography variant="h6" color="textSecondary">
+            {t("dashboard.no_data")}
+          </Typography>
+        </Box>
+      </DashboardCard>
+    );
+  }
 
   return (
     <DashboardCard title={t("dashboard.weekly_stats")} subtitle={t("dashboard.average_downtime")}>
@@ -116,9 +123,6 @@ const WeeklyStats: React.FC = () => {
                 <Box>
                   <Typography variant="h6" mb="4px">
                     {stat.title}
-                  </Typography>
-                  <Typography variant="subtitle2" color="textSecondary">
-                    {stat.subtitle}
                   </Typography>
                 </Box>
               </Stack>

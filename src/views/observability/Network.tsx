@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from "@mui/material";
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from "@mui/material";
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -40,16 +40,16 @@ const NetworkObservability = () => {
           <Breadcrumbs aria-label="breadcrumb">
             <Link component={RouterLink} color="inherit" to="/observability/network">
               {t('menu.observability')}
-
             </Link>
-            <Link component={RouterLink} color="inherit" to="/observability/network">
-              {t('menu.network')}
-
-            </Link>
-            {selectedScan && (
-              <Link component={RouterLink} color="inherit" to={`/observability/network/scans/${selectedScan}`}>
-                {t('observability.network_scans')}
+            {selectedScan ? (
+              <Link component={RouterLink} color="inherit" to={`/observability/network/scans`}>
+                {t('menu.network')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('menu.network')}</Typography>
+            )}
+            {selectedScan && (
+              <Typography color="textPrimary">{selectedScan}</Typography>
             )}
           </Breadcrumbs>
         </Box>

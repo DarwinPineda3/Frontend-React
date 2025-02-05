@@ -1,17 +1,16 @@
 import {
   Box,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
@@ -26,20 +25,20 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
   const ehReports = useSelector((state: any) => state.ehReportsReducer.ehReports);
   const currentPage = useSelector((state: any) => state.ehReportsReducer.page);
   const totalPages = useSelector((state: any) => state.ehReportsReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.cloudInventoryReducer.pageSize);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchEHReports(currentPage));
+      await dispatch(fetchEHReports(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
   }, [dispatch, currentPage]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
@@ -47,35 +46,28 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
 
   return (
     <DashboardCard title={t('redteam.ethical_hacking_reports') || ''}>
-      {isLoading ? (
-        <Box display="flex" justifyContent="center" alignItems="center" height="300px">
-          <Loader />
-        </Box>
-      ) : (
-        <Box>
-          <TableContainer>
-            <Table aria-label="ehReport table" sx={{ whiteSpace: 'nowrap' }}>
-              <TableHead>
+
+      <Box>
+        <TableContainer>
+          <Table aria-label="ehReport table" sx={{ whiteSpace: 'nowrap' }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>{t('redteam.name')}</TableCell>
+                <TableCell>{t('redteam.start_date')}</TableCell>
+                <TableCell>{t('redteam.end_date')}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {isLoading ? (
                 <TableRow>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('redteam.name')}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('redteam.start_date')}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2" fontWeight={600}>
-                      {t('redteam.end_date')}
-                    </Typography>
+                  <TableCell colSpan={6}>
+                    <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                      <Loader />
+                    </Box>
                   </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {ehReports.length > 0 ? (
+              ) : (
+                ehReports.length > 0 ? (
                   ehReports.map((ehReport: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell>
@@ -114,20 +106,20 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
                       </Box>
                     </TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Box my={3} display="flex" justifyContent={'center'}>
-            <Pagination
-              count={totalPages}
-              color="primary"
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          </Box>
-        </Box>
-      )}
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={totalPages * pageSize}
+          rowsPerPage={pageSize}
+          page={currentPage - 1}
+          onPageChange={(e: any, destPage: any) => handlePageChange(e, destPage + 1)}
+          onRowsPerPageChange={(e: any) => dispatch(fetchEHReports(currentPage, e.target.value))}
+        />
+      </Box>
     </DashboardCard>
   );
 };

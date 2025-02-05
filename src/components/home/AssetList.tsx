@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchAssets, removeAsset, setPage } from 'src/store/sections/AssetsSlice';
@@ -26,7 +27,9 @@ import Loader from '../shared/Loader/Loader';
 import CreateUpdateAsset from './AssetEdition';
 const AssetList = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const assets = useSelector((state: any) => state.assetsReducer.assets);
   const currentPage = useSelector((state: any) => state.assetsReducer.page);
   const totalPages = useSelector((state: any) => state.assetsReducer.totalPages);
@@ -81,8 +84,8 @@ const AssetList = () => {
 
   const confirmDelete = () => {
     if (assetToDelete !== null) {
-      dispatch(removeAsset(assetToDelete));
-      setSnackbarMessage(t("dashboard.asset_deleted_successfully"));
+      dispatch(removeAsset(String(assetToDelete)));
+      setSnackbarMessage(t("dashboard.asset_deleted_successfully")!);
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
     }
@@ -95,55 +98,42 @@ const AssetList = () => {
     setAssetToDelete(null);
   };
   const addButton = (
-    <IconButton color="primary" onClick={() => handleEditClick(undefined)}>
+    <IconButton color="primary" onClick={() => navigate('/home/assets/create')}>
       <AddIcon />
     </IconButton>
   );
-
-  if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
-  }
+  
+  React.useEffect(() => {
+    
+    if (location.state?.snackbarMessage) {
+      setSnackbarMessage(location.state.snackbarMessage);
+      setSnackbarSeverity(location.state.snackbarSeverity);
+      setSnackbarOpen(true);
+    }
+  }, [location.state]);
 
   return (
+    <>
     <DashboardCard
       title={t("dashboard.asset_list") as string}
       subtitle={t("dashboard.list_of_available_assets") as string}
       action={addButton}
     >
+       {loading ? (
+      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+        <Loader />
+      </Box>
+    ) : (
       <Box>
-        <TableContainer>
-          <Table aria-label="asset table" sx={{ whiteSpace: 'nowrap' }}>
+        <TableContainer sx={{ overflowX: 'auto' }}>
+          <Table aria-label="asset table">
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.name")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.ip_address")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.domain")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.url")}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("dashboard.actions")}
-                  </Typography>
-                </TableCell>
+                <TableCell>{t("dashboard.name")}</TableCell>
+                <TableCell>{t("dashboard.ip_address")}</TableCell>
+                <TableCell>{t("dashboard.domain")}</TableCell>
+                <TableCell>{t("dashboard.url")}</TableCell>
+                <TableCell>{t("dashboard.actions")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -159,12 +149,12 @@ const AssetList = () => {
                       {asset.ip}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ wordBreak: 'break-word', maxWidth: 150 }}>
                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
                       {asset.domain}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ wordBreak: 'break-word', maxWidth: 150 }}>
                     <Typography variant="subtitle2">{asset.url}</Typography>
                   </TableCell>
                   <TableCell>
@@ -177,7 +167,6 @@ const AssetList = () => {
                       >
                         {t("dashboard.edit")}
                       </Button>
-
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -224,7 +213,10 @@ const AssetList = () => {
           />
         )}
       </Box>
+      )}
     </DashboardCard>
+    </>
+    
   );
 };
 

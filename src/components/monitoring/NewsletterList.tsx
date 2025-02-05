@@ -2,19 +2,24 @@ import DownloadIcon from '@mui/icons-material/Download';
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { downloadNewsletter, fetchNewsletters, setPage } from 'src/store/sections/newsletter/NewslettersSlice';
+import {
+  downloadNewsletter,
+  fetchNewsletters,
+  setPage,
+  setPageSize,
+} from 'src/store/sections/newsletter/NewslettersSlice';
 import DashboardCard from '../shared/DashboardCard';
 import HumanizedDate from '../shared/HumanizedDate';
 import Loader from '../shared/Loader/Loader';
@@ -28,22 +33,33 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   const newsletters = useSelector((state: any) => state.newsLettersReducer.newsletters);
   const currentPage = useSelector((state: any) => state.newsLettersReducer.page);
   const totalPages = useSelector((state: any) => state.newsLettersReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.newsLettersReducer.pageSize);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchNewsletters(currentPage));
+      await dispatch(fetchNewsletters(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleDownload = (newsId: string, nameDownload: string) => {
@@ -51,7 +67,10 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
   };
 
   return (
-    <DashboardCard title={t('newsletter.newsletters')} subtitle={t('newsletter.newsletters_list')}>
+    <DashboardCard
+      title={t('newsletter.newsletters')!}
+      subtitle={t('newsletter.newsletters_list')!}
+    >
       <Box>
         {isLoading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="300px">
@@ -86,7 +105,7 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {newsletters.map((newsletter: any, index: number) => (
+                  {newsletters?.map((newsletter: any, index: number) => (
                     <TableRow key={index}>
                       <TableCell>
                         <Typography
@@ -111,7 +130,10 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <IconButton color="primary" onClick={() => handleDownload(newsletter.id, newsletter.name)}>
+                        <IconButton
+                          color="primary"
+                          onClick={() => handleDownload(newsletter.id, newsletter.name)}
+                        >
                           <DownloadIcon />
                         </IconButton>
                       </TableCell>
@@ -120,14 +142,15 @@ const NewsLettersList: React.FC<NewsletterTableProps> = ({ onNewsLetterClick }) 
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
           </>
         )}
       </Box>

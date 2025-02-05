@@ -10,18 +10,14 @@ import {
   Snackbar,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import WebAppCreateForm from 'src/components/vulnerabilities/web/applications/webAppCreate';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchNetworkScanCreate } from 'src/store/vulnerabilities/network/NetworkScansSlice';
-import { ResponseData } from 'src/types/vulnerabilities/network/networkScansType';
 
 const WebAppCreateScan = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -29,24 +25,13 @@ const WebAppCreateScan = () => {
     'success' | 'info' | 'warning' | 'error'
   >('success');
 
-  const networkScanCreate: ResponseData = useSelector(
-    (state: any) => state.networkScanReducer.networkScanCreate,
-  );
-
-  useEffect(() => {
-    dispatch(fetchNetworkScanCreate());
-    if (snackbarMessage && snackbarSeverity) {
-      setSnackbarOpen(true);
-    }
-  }, [dispatch, snackbarMessage, snackbarSeverity]);
-
   const handleFormSubmit = (
     message: string,
     severity: 'success' | 'info' | 'warning' | 'error',
   ) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
-    setSnackbarOpen(false);
+    setSnackbarOpen(true);
   };
   return (
     <PageContainer title="Akila">
@@ -70,10 +55,7 @@ const WebAppCreateScan = () => {
       </Box>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <WebAppCreateForm
-            onSubmit={handleFormSubmit}
-            webAppCreate={networkScanCreate}
-          />
+          <WebAppCreateForm onSubmit={handleFormSubmit} />
           <Grid item xs={12}>
             {/* Snackbar */}
             {snackbarOpen && (
@@ -81,8 +63,10 @@ const WebAppCreateScan = () => {
                 open={snackbarOpen}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 autoHideDuration={2000}
+                onClose={() => navigate(`/vulnerabilities/web/applications`)}
               >
                 <Alert
+                  onClose={() => navigate(`/vulnerabilities/web/applications`)}
                   severity={snackbarSeverity}
                   variant="filled"
                   sx={{ width: '100%' }}

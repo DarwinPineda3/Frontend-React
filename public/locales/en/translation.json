@@ -51,6 +51,7 @@
   },
   "dashboard": {
     "page_size": "Page Size",
+    "no_data": "No data available",
     "montly_distribution": "Monthly Distribution",
     "connected_assets": "Connected Assets",
     "disconnected_assets": "Disconnected Assets",
@@ -82,6 +83,7 @@
     "low": "Low",
     "total_assets": "Total Assets",
     "vulnerability_reports": "Vulnerability Reports",
+    "no_vulnerability_reports": "No vulnerability reports",
     "most_recent_scans": "Most Recent Scans",
     "type": "Type",
     "hosts": "Hosts",
@@ -112,7 +114,8 @@
     "are_you_sure_to_delete_asset": "Are you sure you want to delete this asset?",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "asset_deleted_successfully": "Asset deleted successfully."
+    "asset_deleted_successfully": "Asset deleted successfully.",
+    "errorMessage": "Something went wrong while loading the information. Please try reloading the page."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Your scheduled scans that are running automatically",
@@ -238,6 +241,7 @@
     "cwe_id": "CWE ID: {{id}}",
     "wasc_id": "WASC ID: {{id}}",
     "plugin_id": "Plugin ID: {{id}}",
+    "alert_detail_title": "Alert detail",
     "description_title": "Description",
     "description_content": "No Anti-CSRF tokens found in HTML form submission...",
     "solution_title": "Solution",
@@ -377,10 +381,10 @@
       "estimated_closure_date": "Estimated Closure Date",
       "closure_date": "Closure Date",
       "add_information": "Add useful information for managing this vulnerability",
-      "add_information_vuln": "Manage this vulnerability",
+      "add_information_vuln": "Manage Vulnerability",
       "vuln_detail": "Vulnerability Detail",
       "overview": "Overview",
-      "close_vuln": "Close vulnerability management",
+      "close_vuln": "Close Vulnerability",
       "last_revision_date": "Last revision Date",
       "management_details": "Management Details",
       "responsible": "Responsible",
@@ -423,7 +427,7 @@
     },
     "network_vulnerabilities": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create network scan",
       "create_network_scan_subtitle": "In this form you can create a network scan",
       "name": "Name",
@@ -441,7 +445,7 @@
     },
     "web_app": {
       "network": "Network",
-      "add_scan": "Add Scan",
+      "add_scan": "Create Scan",
       "create_network_scan": "Create web app scan",
       "create_network_scan_subtitle": "In this form you can create a web app scan",
       "name": "Name",
@@ -454,7 +458,14 @@
       "network_scan_create_successfully": "Web app scan created successfully",
       "network_scan_create_failed": "Failed to create the web app scan",
       "required_field": "Required Field",
-      "network_scan_created": "Web app scan created"
+      "network_scan_created": "Web app scan created",
+      "active_scan": "Active Scan",
+      "passive_scan": "Passive Scan",
+      "scan_deleted_successfully": "Scan deleted successfully",
+      "delete_title": "Delete Scan",
+      "delete_message": "Are you sure you want to delete this scan?",
+      "delete_cancel": "Cancel",
+      "delete_confirm": "Confirm"
     },
     "cloud_scans": {
       "low": "Low",
@@ -630,6 +641,10 @@
     "no_data_available_for_selected_date": "No data available for the selected date range.",
     "no_data_available_for_chart": "No data available for this chart.",
     "file_system": "File System",
+    "last_24_hours": "Last 24 hours",
+    "last_week": "Last week",
+    "last_month": "Last month",
+    "custom_range": "Custom range",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
       "aws_id_is_required": "AWS ID is required",
@@ -785,7 +800,8 @@
     "domain_up": "Domain Up",
     "potential_risk": "Potential Risk",
     "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
-    "identification_date": "Identification Date"
+    "identification_date": "Identification Date",
+    "evidence": "Evidence"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
@@ -962,7 +978,11 @@
     "exploitable": "Exploitable",
     "Overview": "Overview",
     "Vulnerabilities": "Vulnerabilities",
-    "evidences": "evidences"
+    "evidences": "Evidences",
+    "yes": "Yes",
+    "no": "No",
+    "vulnerability_details": "Vulnerability Details",
+    "identifier": "Identifier"
   },
   "installation_guide": {
     "title": "Installation Guide",
@@ -974,8 +994,7 @@
         "steps": {
           "intro": "To run the command on Windows, follow these steps:",
           "step1": "Step 1: Open PowerShell with administrative privileges.",
-          "step2": "Step 2: Copy the following command:",
-          "step3": "Step 3: Paste the command in the PowerShell window and press Enter to execute it.",
+          "step2": "Step 2: Copy and paste the following command into the PowerShell window, then press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
@@ -1012,14 +1031,13 @@
           "step1": "Step 1: Open a terminal on your Linux system.",
           "step2": "Step 2: Choose your Linux distribution:",
           "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
-          "step4": "Step 4: Copy the following command:",
-          "step5": "Step 5: Paste the command in the terminal window and press Enter to execute it.",
+          "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
       "error_notes": {
         "title": "Error notes",
-        "intro": "Next commands:"
+        "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
       }
     }
   },
@@ -1048,7 +1066,14 @@
     "ram_threshold": "RAM Threshold (%)",
     "storage_threshold": "Storage Threshold (%)",
     "user_email": "Email Address",
-    "save_changes": "Save Changes"
+    "save_changes": "Save Changes",
+    "invalid_email": "One or more emails are invalid",
+    "cpu_required": "CPU threshold is required",
+    "ram_required": "RAM threshold is required",
+    "storage_required": "Storage threshold is required",
+    "email_required": "At least one email is required",
+    "success_message": "Threshold settings updated successfully",
+    "error_message": "Error updating threshold settings"
   },
   "breadcrumb": {
     "observability": "Observability",
@@ -1236,7 +1261,10 @@
     "compliance_assets": "Assets",
     "compliance_groups": "Groups",
     "compliance_projects": "Projects",
-    "compliance_executions": "Executions"
+    "compliance_executions": "Executions",
+    "compliance_templates": "Templates",
+    "compliance_reports": "Reports",
+    "bulk_import": "Bulk import"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1246,7 +1274,64 @@
     "projects_description": "Projects",
     "projects_info": "Here you can manage and view compliance projects.",
     "executions_description": "Executions",
-    "executions_info": "Here you can track and manage compliance executions."
+    "executions_info": "Here you can track and manage compliance executions.",
+    "installation_guide": {
+      "title": "Installation Guide",
+      "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows or Linux, you will find all the necessary steps to ensure a smooth installation process.",
+      "windows": {
+        "title": "Windows",
+        "individual_installation": {
+          "title": "Individual Installation",
+          "steps": {
+            "intro": "To run the command on Windows, follow these steps:",
+            "step1": "Step 1: Open PowerShell with administrative privileges.",
+            "step2": "Step 2: Copy and paste the following command into the PowerShell window, then press Enter to execute it.",
+            "note": "The command will download and run the Defender Agent with the provided URL and API key."
+          }
+        },
+        "bulk_installation": {
+          "title": "Bulk Installation",
+          "steps": {
+            "intro": "To create a script for bulk installation, follow these steps:",
+            "step1": "Step 1: Create a new PowerShell script file with a .ps1 extension, e.g., install_agent.ps1.",
+            "step2": "Step 2: Copy the following script into the newly created PowerShell script file:",
+            "step3": "Step 3: Save the script file."
+          }
+        },
+        "active_directory": {
+          "title": "Instructions for Active Directory Group Policy",
+          "intro": "To apply group policies in Active Directory, follow these steps:",
+          "steps": {
+            "step1": "Step 1: Open the Group Policy Management Console (GPMC).",
+            "step2": "Step 2: Navigate to the desired Organizational Unit (OU) or domain where you want to apply the Group Policy.",
+            "step3": "Step 3: Create a new Group Policy Object (GPO) or edit an existing one.",
+            "step4": "Step 4: Navigate to Computer Configuration > Policies > Windows Settings > Scripts (Startup/Shutdown).",
+            "step5": "Step 5: Add a new startup script and specify the path to your PowerShell script (e.g., instalar_agente.ps1).",
+            "step6": "Step 6: Ensure that the execution policy allows the script to run. You may need to set the execution policy to RemoteSigned or Bypass.",
+            "step7": "Step 7: Once the Group Policy is applied to the desired computers, the script will run during startup."
+          }
+        },
+        "notes": "Notes: The Windows agent is compatible with Windows Server 2008 R2 and later."
+      },
+      "linux": {
+        "title": "Linux",
+        "individual_installation": {
+          "title": "Individual Installation",
+          "steps": {
+            "intro": "To run the command on Linux, follow these steps:",
+            "step1": "Step 1: Open a terminal on your Linux system.",
+            "step2": "Step 2: Choose your Linux distribution:",
+            "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
+            "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
+            "note": "The command will download and run the Defender Agent with the provided URL and API key."
+          }
+        },
+        "error_notes": {
+          "title": "Error notes",
+          "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
+        }
+      }
+    }
   },
   "changelog": {
     "title": "Changelog",
@@ -1261,5 +1346,337 @@
     "changes": "Changes",
     "description": "All notable changes to this project will be documented in this file.",
     "format": "The format is based on Keep a Changelog and this project adheres to Semantic Versioning (SemVer)."
+  },
+  "breadcrumbs": {
+    "compliance": "Compliance",
+    "templates": "Templates"
+  },
+  "snackbar": {
+    "reportGenerated": "Report successfully generated!",
+    "copied_text": "Text copied to your clipboard"
+  },
+  "compliance_projects": {
+    "project_name": "Project Name",
+    "projects_description": "Project Description",
+    "project_create": "Create Project",
+    "project_create_description": "In this form you can create a compliance project",
+    "project_start_date": "Start Date",
+    "project_end_date": "End Date",
+    "no_data_available": "No data available",
+    "project_created": "Project created",
+    "project_details": "Project details",
+    "project_template": "Template",
+    "project_managers_title": "Managers",
+    "project_manager_username": "Username",
+    "project_manager_full_name": "Full Name",
+    "project_manager_email": "Email",
+    "project_group_title": "Groups",
+    "project_delete_title": "Delete Project",
+    "project_delete_message": "Are you sure you want to delete this project?",
+    "project_cancel": "Cancel",
+    "project_confirm": "Confirm",
+    "project_deleted_successfully": "Project deleted successfully",
+    "project_templates_title": "Templates",
+    "project_template_working_system": "Working System",
+    "project_template_creation_date": "Creation Date",
+    "project_template_name": "Name",
+    "project_edit_title": "Edit Project",
+    "project_edit_subtitle": "In this form you can edit a compliance project",
+    "required_field": "This field is required",
+    "project_created_successfully": "Project created successfully",
+    "project_create_failed": "Failed to create project",
+    "project_group_name": "Name",
+    "project_group_assets_qty": "Assets Qty",
+    "project_basic_information": "Basic Information",
+    "project_btn_create": "Create",
+    "project_btn_next": "Next",
+    "project_btn_back": "Back",
+    "project_create_message": "All steps completed - Creating...",
+    "project_updated_successfully": "Project updated successfully",
+    "project_update_failed": "Failed to update project",
+    "project_updated_message": "All steps completed - Updating...",
+    "project_technicians_username": "Username",
+    "project_technicians_fullname": "Full Name",
+    "project_technicians_email": "Email",
+    "project_btn_update": "Update",
+    "project_state": "State",
+    "project_actions": "Actions"
+  },
+  "compliance_reports": {
+    "by_project": "Compliance by Project",
+    "select_project": "Select Project",
+    "report_description": "This report allows you to list all the compliance values for each asset in the groups of the selected project.",
+    "generate_download": "Generate and Download",
+    "report_generated": "Report generated and downloaded",
+    "compliance": "Compliance",
+    "reports": "Reports",
+    "loading": "Loading..."
+  },
+  "assessment_status": {
+    "title": "Assessment Status",
+    "by_asset": "Assessment Status by Asset",
+    "select_parameters": "Select Parameters",
+    "select_project": "Select Project",
+    "select_project_option": "Select a Project",
+    "project_option_1": "Demo Giotto Group 2",
+    "select_group": "Select Group",
+    "select_group_option": "Select a Group",
+    "group_option_1": "Demo Giotto Group",
+    "select_template": "Select Template",
+    "select_template_option": "Select a Template",
+    "template_option_1": "Windows Server 2019 Template (Trimmed)",
+    "select_execution": "Select Execution",
+    "select_execution_option": "Select Execution",
+    "execution_option_1": "Mon Dec 16 2024 16:52:17 GMT-0500 (Colombia Standard Time)",
+    "execution_option_2": "Mon Dec 16 2024 16:51:25 GMT-0500 (Colombia Standard Time)",
+    "select_asset": "Select Asset",
+    "select_asset_option": "Select an Asset",
+    "asset_option_1": "giotto-win-srva",
+    "report_info": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+    "loading": "Loading...",
+    "generate_download": "Generate and Download",
+    "report_generated": "Report generated successfully"
+  },
+  "giotto": {
+    "groups": {
+      "name": "Name",
+      "assetQty": "Asset Qty",
+      "actions": "Actions",
+      "no_data_available": "No data available",
+      "create_group": "Create group",
+      "delete_group": "Delete group",
+      "are_you_sure_you_want_to_delete_this_group": "Are you sure you want to delete this group?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "total_assets": "Total assets",
+      "total_templates": "Total templates",
+      "description": "Description",
+      "templates": "Templates",
+      "working_system": "Working system",
+      "creation_date": "Creation date",
+      "assets": "Assets",
+      "network_address": "Network address",
+      "last_keep_alive": "Last keep alive",
+      "group_in_progress": "Group creation in progress",
+      "group_creation_message": "The creation of this group may take a little time.",
+      "group_edition_message": "The edition of this group may take a little time.",
+      "operation_status": "Operation Status",
+      "select": "Select",
+      "template_name": "Template name",
+      "asset_name": "Asset name",
+      "name_required": "Name is required",
+      "group_created_successfully": "Group created successfully",
+      "group_edited_successfully": "Group edited successfully",
+      "group_deleted_successfully": "Group removed successfully",
+      "edit_group": "Edit group",
+      "group_name_already_exists": "Group name already exists"
+    },
+    "reports": {
+      "compliance_reports": "Compliance reports",
+      "module_description": "Generate and download compliance reports easily by project.",
+      "project": "Project",
+      "report_generation_message": "The generation of this report may take a little time.",
+      "project_is_required": "Project is required",
+      "report_generated_successfully": "Report generated successfully",
+      "report_generation_failed": "Report generation failed",
+      "success": "Success",
+      "error": "Error",
+      "module_info": "In this module, you can download key reports to assess and manage regulatory compliance in your operations.",
+      "by_projects_tittle": "By Projects:",
+      "by_projects_description": "get an analysis of the compliance status of each project.",
+      "by_assessments_tittle": "By Assessments:",
+      "by_assessments_description": "Review information related to assessments, hardening measures, and any rollbacks performed, ensuring the security and traceability of your systems.",
+      "select_option": "Please select one of the options.",
+      "select_report": "Select a report",
+      "by_projects": "By Projects",
+      "by_assessments": "By Assessments",
+      "report_by_project_info": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "operation_status": "Operation Status",
+      "generation_in_progress": "generation in progress",
+      "group_is_required": "The group is required",
+      "template_is_required": "The template is required",
+      "execution_is_required": "The execution is required",
+      "asset_is_required": "The asset is required",
+      "report_type_is_required": "The report type is required",
+      "no_assets_found": "No assets were found with the selected parameters.",
+      "group": "Group",
+      "template": "Template",
+      "execution": "Execution",
+      "asset": "Asset",
+      "report_type": "Report type",
+      "GetAssessmentStatusByAssetReport": "Assessment Status by Asset",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Assessment Tech Details by Asset",
+      "GetHardeningStatusByAssetReport": "Hardening Status by Asset",
+      "GetHardeningTechnicalDetailsByAssetReport": "Hardening Tech Details by Asset",
+      "GetRollbackStatusByAssetReport": "Rollback Status by Asset",
+      "GetRollbackTechnicalDetailsByAssetReport": "Rollback Tech Details by Asset",
+      "GetAssessmentStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and assessment execution.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and assessment execution.",
+      "GetHardeningStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and hardening execution.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and hardening execution.",
+      "GetRollbackStatusByAssetReportDescription": "This report allows you to view all control compliance results for the selected asset and rollback execution.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "This report allows you to view the control execution values for the selected asset and rollback execution."
+    },
+    "assets": {
+      "select_file": "Select File",
+      "selected_file": "Selected File",
+      "name_required": "Name is required",
+      "ip_required": "IP Address is required",
+      "ip_invalid_format": "Invalid IP address format",
+      "asset_updated": "Asset updated successfully",
+      "asset_created": "Asset created successfully",
+      "asset_error": "An error occurred while processing the asset",
+      "edit_asset": "Edit Asset",
+      "create_asset": "Create Asset",
+      "name": "Name",
+      "ip_address": "IP Address",
+      "asset_removed": "Asset removed successfully",
+      "asset_session_refresh": "Asset Session Refresh requested",
+      "network_address": "Network Address",
+      "company_name": "Company Name",
+      "creation_date": "Creation Date",
+      "last_keep_alive": "Last Keep Alive",
+      "actions": "Actions",
+      "delete_asset": "Delete asset",
+      "confirm_delete": "Are you sure you want to delete this asset?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "bulk_import": "Bulk Import",
+      "remove": "Remove",
+      "download_template": "Download the template here",
+      "import_giotto_assets": "Bulk assets import",
+      "upload": "Upload",
+      "select_csv_file": "It must be a CSV file."
+    }
+  },
+  "compliance_templates": {
+    "template_description": "Description",
+    "template_details": "Template Details",
+    "template_controls_title": "Controls by Category",
+    "template_base_template_title": "Base Template",
+    "template_working_system_title": "Working System",
+    "no_data_available": "No data available",
+    "base_templates": "Base Templates",
+    "base_templates_description": "List of all Base templates",
+    "custom_templates": "Custom Templates",
+    "custom_templates_description": "List of customized templates according to a base template",
+    "template": "Template",
+    "template_control_executable": "Executable",
+    "template_control_editable": "Editable",
+    "template_control_create_date": "CreationDate",
+    "template_options": "Options"
+  },
+  "settings": {
+    "scheduled_scans": {
+      "search_placeholder": "Search...",
+      "table_headers": {
+        "name": "Name",
+        "scan_type": "Scan Type",
+        "execution_frequency": "Execution Frequency",
+        "execution_time": "Execution Time",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "deactivate": "Deactivate scheduled scan",
+        "view_details": "View details"
+      },
+      "messages": {
+        "no_scheduled_scans_found": "No scheduled scans found"
+      },
+      "navigation": {
+        "create_scan_here": "Create a scan here"
+      },
+      "status": {
+        "active": "Active",
+        "deactivated": "Deactivated"
+      },
+      "scan_types": {
+        "network_vulnerability": "Network Vulnerability Analysis",
+        "web_vulnerability": "Web Vulnerability Analysis",
+        "wordpress_vulnerability": "WordPress Vulnerability Analysis",
+        "network_observability": "Network Observability Analysis"
+      },
+      "execution_frequencies": {
+        "every_day": "Every day"
+      },
+      "common": {
+        "unknown": "Unknown"
+      },
+      "detail": {
+        "breadcrumbs": {
+          "detail": "Detail"
+        },
+        "titles": {
+          "first_title": "Overview",
+          "second_title": "Scheduled Executions"
+        },
+        "subtitles": {
+          "name": "Name",
+          "scan_type": "Scan Type",
+          "target": "Target",
+          "execution_frequency": "Execution Frequency",
+          "execution_time": "Execution Time",
+          "scheduled_date": "Scheduled Date",
+          "status": "Status",
+          "actions": "Actions"
+        }
+      },
+      "desactivate": {
+        "scheduled_scan_deactivated_successfully": "Scheduled scan was successfully deactivated",
+        "scan_failed": "There was an error executing this action"
+      },
+      "form": {
+        "create_scan": "You must create a",
+        "task": "task",
+        "label_task": "Task",
+        "no_tasks": "No tasks",
+        "validations": {
+          "name_required": "Name is required",
+          "scan_type_required": "Scan type is required",
+          "target_required": "Target is required",
+          "execution_frequency_required": "Execution frequency is required",
+          "execution_time_required": "Execution time is required",
+          "select_task_required": "You must select at least one task",
+          "asset_required": "Asset is required",
+          "select_asset": "Select an Asset"
+        },
+        "success": {
+          "scan_scheduled": "Scheduled scan created successfully"
+        },
+        "error": {
+          "scan_schedule_failed": "Error creating scheduled scan"
+        }
+      }
+    }
+  },
+  "modals": {
+    "action": {
+      "title": "Confirm action",
+      "message": "Are you sure you want to perform this action?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
+  "home": {
+    "assets": {
+      "name_required": "Name is required",
+      "ip_required": "IP Address is required",
+      "ip_invalid_format": "Invalid IP address format",
+      "domain_invalid_format": "Invalid domain format",
+      "url_invalid_format": "Invalid URL format",
+      "at_least_one_required": "At least one of IP, Domain or URL must be filled",
+      "create_asset": "Create Asset",
+      "edit_asset": "Edit Asset",
+      "name": "Name",
+      "ip_address": "IP Address",
+      "domain": "Domain",
+      "url": "URL",
+      "edit": "Edit",
+      "create": "Create",
+      "asset_created_success": "Asset created successfully",
+      "asset_updated_success": "Asset updated successfully",
+      "form_instruction": "Please enter a name for the asset. The other fields (IP, domain, or URL) are optional, but you must fill in at least one."
+    }
   }
 }

@@ -1,10 +1,11 @@
 import { ArrowBack } from '@mui/icons-material';
-import { Box, Breadcrumbs, Grid, Typography, Card, CardContent, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import GiottoProjectsList from 'src/components/compliance/giotto-projects/giottoProjectsList';
 import PageContainer from 'src/components/container/PageContainer';
 
-const ComplianceProjectsView = () => {
+const CompliancProjectsView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -19,30 +20,17 @@ const ComplianceProjectsView = () => {
             <Link component={RouterLink} color="inherit" to="/compliance/projects">
               {t('compliance_menu.compliance')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/compliance/projects">
-              {t('compliance_menu.compliance_projects')}
-            </Link>
+            <Typography color="textPrimary">{t('compliance_menu.compliance_projects')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>
-
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">
-                {t('compliance.projects_description')}
-              </Typography>
-
-              <Typography variant="body1">
-                {t('compliance.projects_info')}
-              </Typography>
-            </CardContent>
-          </Card>
+          <GiottoProjectsList />
         </Grid>
       </Grid>
     </PageContainer>
   );
 };
 
-export default ComplianceProjectsView;
+export default CompliancProjectsView;

@@ -1,164 +1,309 @@
-import { ArrowBack } from '@mui/icons-material';
-import { Box, Breadcrumbs, Button, FormControl, Grid, IconButton, Link, MenuItem, Select, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import PageContainer from 'src/components/container/PageContainer';
+import { fetchFilteredAssets } from 'src/store/sections/AssetsSlice';
+import {
+  createScheduleScan,
+  fetchScheduleScanCreateData,
+} from 'src/store/sections/schedule-scans-settings/ScheduleScansSlice';
+import { useDispatch, useSelector } from 'src/store/Store';
+import { ScheduledTaskType } from 'src/types/schedule-scans-settings/schedule_scans_type';
+import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
+import { getExecutionFrequencyLabels, getScanTypeLabels } from 'src/utils/scanLabels';
+import * as Yup from 'yup';
 import DashboardCard from '../shared/DashboardCard';
-import { styled } from '@mui/material/styles';
-import { TextField, FormLabel } from '@mui/material';
 
-const CustomTextField = styled(TextField)(({ theme }) => ({
-  '& .MuiOutlinedInput-input::-webkit-input-placeholder': {
-    color: theme.palette.text.secondary,
-    opacity: '0.8',
-  },
-  '& .MuiOutlinedInput-input.Mui-disabled::-webkit-input-placeholder': {
-    color: theme.palette.text.secondary,
-    opacity: '1',
-  },
-  '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {
-    borderColor: theme.palette.grey[200],
-  },
-}));
+interface Props {
+  onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void;
+}
 
-const CustomFormLabel = styled(FormLabel)(({ theme }) => ({
-  marginBottom: '4px',  
-  marginTop: '10px',   
-  display: 'block',
-  fontWeight: 600,
-}));
-
-const ScheduleScanForm: React.FC = () => {
+const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const networkScans = useSelector((state: any) => state.scheduleScansReducer.networkScans);
+  const assets = useSelector((state: any) => state.assetsReducer.assets);
 
-  const [scanType, setScanType] = useState('');
-  const [name, setName] = useState('');
-  const [frequency, setFrequency] = useState('');
-  const [executionTime, setExecutionTime] = useState('');
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const newScan = {
-      id: Date.now().toString(),
-      name,
-      scanType,
-      frequency,
-      executionTime,
-      status: 'Activo',
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      await dispatch(fetchScheduleScanCreateData());
+      setIsLoading(false);
     };
+    fetchData();
+  }, [dispatch]);
 
-    const existingScans = JSON.parse(localStorage.getItem('scans') || '[]');
-    localStorage.setItem('scans', JSON.stringify([...existingScans, newScan]));
+  const formik = useFormik({
+    initialValues: {
+      scanType: '1',
+      name: '',
+      frequency: '1',
+      executionTime: '',
+      selectedAsset: '',
+      networkScan: {
+        elastic_task_id: '',
+        openvas_task_id: '',
+        asset_id: '',
+      },
+    },
+    validationSchema: Yup.object({
+      scanType: Yup.number().required(
+        t('settings.scheduled_scans.form.validations.scan_type_required')!,
+      ),
+      name: Yup.string().required(t('settings.scheduled_scans.form.validations.name_required')!),
+      frequency: Yup.string().required(
+        t('settings.scheduled_scans.form.validations.execution_frequency_required')!,
+      ),
+      executionTime: Yup.string().required(
+        t('settings.scheduled_scans.form.validations.execution_time_required')!,
+      ),
+      networkScan: Yup.object({
+        elastic_task_id: Yup.string().when('scanType', {
+          is: 1,
+          then: Yup.string().required(
+            t('settings.scheduled_scans.form.validations.select_task_required')!,
+          ),
+          otherwise: Yup.string(),
+        }),
+        openvas_task_id: Yup.string().when('scanType', {
+          is: 1,
+          then: Yup.string().required(
+            t('settings.scheduled_scans.form.validations.select_task_required')!,
+          ),
+          otherwise: Yup.string(),
+        }),
+      }).test(
+        'at-least-one',
+        t('settings.scheduled_scans.form.validations.select_task_required')!,
+        (value, context) => {
+          if (context.parent.scanType === 1) {
+            return value?.elastic_task_id || value?.openvas_task_id;
+          }
+          return true;
+        },
+      ),
+      selectedAsset: Yup.string().required(
+        t('settings.scheduled_scans.form.validations.asset_required')!,
+      ),
+    }),
+    onSubmit: async (values) => {
+      const payload: ScheduledTaskType = {
+        scan_type: values.scanType,
+        name: values.name,
+        asset: values.selectedAsset,
+        execution_frequency: values.frequency,
+        execution_time: `${new Date().toISOString().split('T')[0]}T${values.executionTime}:00.000Z`,
+        elastic_task_id: values.networkScan?.elastic_task_id,
+        openvas_task_id: values.networkScan?.openvas_task_id,
+        is_active: true,
+      };
+      try {
+        await dispatch(createScheduleScan(payload));
+        onSubmit(`${t('settings.scheduled_scans.form.success.scan_scheduled')}`, 'success');
+      } catch (error) {
+        console.error('Error al enviar vulnerabilidad:', error);
+        onSubmit(`${t('settings.scheduled_scans.form.error.scan_schedule_failed')}`, 'error');
+      }
+    },
+  });
 
-    navigate('/configuration/scheduled-scans');
+  const scanTypeLabels = getScanTypeLabels(t);
+  const executionFrequencyLabels = getExecutionFrequencyLabels(t);
 
-    // Reset form fields
-    setScanType('');
-    setName('');
-    setFrequency('');
-    setExecutionTime('');
-  };
+  useEffect(() => {
+    const fetchDataFilteredAssets = async () => {
+      if (formik.values.scanType !== '1') {
+        let filters = {};
+
+        if (formik.values.scanType === '2' || formik.values.scanType === '3') {
+          filters = { url: true };
+        } else if (formik.values.scanType === '4') {
+          filters = { url: true, domain: true };
+        }
+
+        await dispatch(fetchFilteredAssets(filters));
+      }
+    };
+    fetchDataFilteredAssets();
+  }, [formik.values.scanType, dispatch]);
 
   return (
-    <PageContainer title="Akila">
-      <Box mb={2}>
-        <Box display="flex" alignItems="center" mt={2}>
-          <IconButton onClick={() => navigate(-1)} color="primary">
-            <ArrowBack />
-          </IconButton>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
-              {t('menu.configuration')}
-            </Link>
-            <Link component={RouterLink} color="inherit" to="/configuration/scheduled-scans">
-              {t('menu.scheduled_scans')}
-            </Link>
-            <Typography color="textPrimary">{t('configuration.create_scheduled_scan')}</Typography>
-          </Breadcrumbs>
-        </Box>
-      </Box>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <DashboardCard
-            title={t('configuration.create_scheduled_scan') as string}
-            subtitle={t('configuration.create_scheduled_scan_subtitle') as string}
+    <DashboardCard
+      title={t('configuration.create_scheduled_scan') as string}
+      subtitle={t('configuration.create_scheduled_scan_subtitle') as string}
+    >
+      <Box component="form" onSubmit={formik.handleSubmit}>
+        <FormControl fullWidth>
+          <InputLabel id="scanType-label" shrink>
+            {t('scan.type')}
+          </InputLabel>
+          <Select
+            labelId="scanType-label"
+            id="scanType"
+            name="scanType"
+            value={formik.values.scanType}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.scanType && Boolean(formik.errors.scanType)}
           >
-            <Box>
-              <form onSubmit={handleSubmit}>
-                <FormControl fullWidth variant="outlined" margin="normal">
-                  <CustomFormLabel htmlFor="scan_type">{t('scan.type')}</CustomFormLabel>
-                  <Select
-                    id="scan_type"
-                    value={scanType}
-                    onChange={(e) => setScanType(e.target.value)}
-                    required
-                    label={t('scan.type')}
-                  >
-                    <MenuItem value="1">{t('scan.network_vulnerability')}</MenuItem>
-                    <MenuItem value="2">{t('scan.web_vulnerability')}</MenuItem>
-                    <MenuItem value="3">{t('scan.wordpress_vulnerability')}</MenuItem>
-                    <MenuItem value="4">{t('scan.network_observability')}</MenuItem>
-                  </Select>
-                </FormControl>
+            {Object.keys(scanTypeLabels).map((key) => (
+              <MenuItem key={key} value={key}>
+                {scanTypeLabels[parseInt(key)]}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-                <FormControl fullWidth variant="outlined" margin="normal">
-                  <CustomFormLabel htmlFor="scan_name">{t('scan.name')}</CustomFormLabel>
-                  <CustomTextField
-                    id="scan_name"
-                    variant="outlined"
-                    fullWidth
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </FormControl>
+        <TextField
+          fullWidth
+          margin="normal"
+          id="name"
+          name="name"
+          label={t('scan.name')}
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+          InputLabelProps={{ shrink: true }}
+        />
 
-                <FormControl fullWidth variant="outlined" margin="normal">
-                  <CustomFormLabel htmlFor="execution_frequency">{t('scan.execution_frequency')}</CustomFormLabel>
-                  <Select
-                    id="execution_frequency"
-                    value={frequency}
-                    onChange={(e) => setFrequency(e.target.value)}
-                    required
-                    label={t('scan.execution_frequency')}
-                  >
-                    <MenuItem value="daily">{t('scan.daily')}</MenuItem>
-                    <MenuItem value="weekly">{t('scan.weekly')}</MenuItem>
-                    <MenuItem value="monthly">{t('scan.monthly')}</MenuItem>
-                  </Select>
-                </FormControl>
+        {formik.values.scanType === '1' && (
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="networkScan-label" shrink>
+              {t('settings.scheduled_scans.form.label_task')}
+            </InputLabel>
+            <Select
+              labelId="networkScan-label"
+              id="networkScan"
+              name="networkScan"
+              value={formik.values.networkScan?.elastic_task_id || ''}
+              onChange={(event) => {
+                const selectedScan = networkScans.find(
+                  (scan: NetworkScanType) => scan.id_elastic === event.target.value,
+                );
+                if (selectedScan) {
+                  formik.setFieldValue('networkScan', {
+                    elastic_task_id: selectedScan.id_elastic,
+                    openvas_task_id: selectedScan.id,
+                  });
+                  formik.setFieldValue('selectedAsset', `${selectedScan.asset_id}`);
+                }
+              }}
+              onBlur={formik.handleBlur}
+              error={formik.touched.networkScan && Boolean(formik.errors.networkScan)}
+            >
+              {isLoading ? (
+                <MenuItem disabled>{t('loading')}</MenuItem>
+              ) : networkScans.length > 0 ? (
+                networkScans.map((scan: NetworkScanType) => (
+                  <MenuItem key={scan.id} value={scan.id_elastic}>
+                    {scan.name}
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem disabled>{t('settings.scheduled_scans.form.no_tasks')}</MenuItem>
+              )}
+            </Select>
+            {formik.touched.networkScan && formik.errors.networkScan?.elastic_task_id && (
+              <Typography variant="body2" color="error" sx={{ mt: 1, ml: 1 }}>
+                {formik.errors.networkScan.elastic_task_id}
+              </Typography>
+            )}
+            {formik.touched.networkScan && (
+              <Typography variant="body2" color="error" sx={{ mt: 1, ml: 1 }}>
+                {formik.errors.networkScan}
+              </Typography>
+            )}
+            {networkScans.length === 0 && !isLoading && (
+              <Typography variant="body2" color="textSecondary" sx={{ mt: 1, ml: 1 }}>
+                {t('settings.scheduled_scans.form.create_scan')}{' '}
+                <Link component={RouterLink} to="/vulnerabilities/network/scans/create">
+                  {t('settings.scheduled_scans.form.task')}
+                </Link>
+              </Typography>
+            )}
+          </FormControl>
+        )}
+        {formik.values.scanType !== '1' && assets && assets.length > 0 && (
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="asset-select-label">
+              {t('settings.scheduled_scans.form.validations.select_asset')}
+            </InputLabel>
+            <Select
+              labelId="asset-select-label"
+              id="selectedAsset"
+              name="selectedAsset"
+              value={formik.values.selectedAsset}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.selectedAsset && Boolean(formik.errors.selectedAsset)}
+            >
+              {assets.map((asset: any) => (
+                <MenuItem key={asset.id} value={asset.id}>
+                  {asset.name}
+                </MenuItem>
+              ))}
+            </Select>
+            {formik.touched.selectedAsset && formik.errors.selectedAsset && (
+              <Typography variant="body2" color="error">
+                {formik.errors.selectedAsset}
+              </Typography>
+            )}
+          </FormControl>
+        )}
 
-                <FormControl fullWidth variant="outlined" margin="normal">
-                  <CustomFormLabel htmlFor="execution_time">{t('scan.execution_time')}</CustomFormLabel>
-                  <CustomTextField
-                    id="execution_time"
-                    type="time"
-                    variant="outlined"
-                    fullWidth
-                    value={executionTime}
-                    onChange={(e) => setExecutionTime(e.target.value)}
-                    required
-                  />
-                </FormControl>
+        <FormControl fullWidth margin="normal">
+          <InputLabel>{t('scan.execution_frequency')}</InputLabel>
+          <Select
+            id="frequency"
+            name="frequency"
+            value={formik.values.frequency}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.frequency && Boolean(formik.errors.frequency)}
+          >
+            {Object.keys(executionFrequencyLabels).map((key) => (
+              <MenuItem key={key} value={key}>
+                {executionFrequencyLabels[parseInt(key)]}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-                <div style={{ margin: '20px 0' }}>
-                  <Typography variant="body1" component="div">
-                    {t('scan.create_task_link')} <RouterLink to="/vulnerabilities/network/scans/create">{t('scan.task')}</RouterLink>
-                  </Typography>
-                </div>
+        <TextField
+          fullWidth
+          margin="normal"
+          id="executionTime"
+          name="executionTime"
+          label={t('scan.execution_time')}
+          type="time"
+          value={formik.values.executionTime}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.executionTime && Boolean(formik.errors.executionTime)}
+          helperText={formik.touched.executionTime && formik.errors.executionTime}
+          InputLabelProps={{ shrink: true }}
+        />
 
-                <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-                  {t('configuration.create')}
-                </Button>
-              </form>
-            </Box>
-          </DashboardCard>
-        </Grid>
-      </Grid>
-    </PageContainer>
+        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+          {t('configuration.create')}
+        </Button>
+      </Box>
+    </DashboardCard>
   );
 };
 

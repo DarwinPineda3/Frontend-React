@@ -8,18 +8,17 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DashboardCard from 'src/components/shared/DashboardCard';
 
 const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
   const { t } = useTranslation();
@@ -27,16 +26,6 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
 
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
-
-  const totalPages = Math.ceil((findings?.length || 0) / rowsPerPage);
-
-  const handlePageChange = (event: any, value: any) => {
-    setCurrentPage(value);
-  };
-
-  const currentData = findings?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   const handleOpenModal = (entries: string[]) => {
     setModalContent(entries);
@@ -48,25 +37,42 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
     setModalContent([]);
   };
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+
+  const paginatedItems = findings.slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
+
   return (
-    <DashboardCard title={t('wpscan.interesting_findings_tittle')!}>
+    <Box mb={2}>
+      <Typography variant="h6" fontWeight="bold">{t('wpscan.interesting_findings_tittle')}</Typography>
       <>
         {findings?.length > 0 ? (
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.url')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.description')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.type')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.detected_by')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.confidence')}</Typography></TableCell>
-                  <TableCell><Typography variant="subtitle2" fontWeight={600}>{t('wpscan.interesting_entries')}</Typography></TableCell>
+                  <TableCell>{t('wpscan.url')}</TableCell>
+                  <TableCell>{t('wpscan.description')}</TableCell>
+                  <TableCell>{t('wpscan.type')}</TableCell>
+                  <TableCell>{t('wpscan.detected_by')}</TableCell>
+                  <TableCell>{t('wpscan.confidence')}</TableCell>
+                  <TableCell>{t('wpscan.interesting_entries')}</TableCell>
 
                 </TableRow>
               </TableHead>
               <TableBody>
-                {currentData?.map((alert, index) => (
+                {paginatedItems?.map((alert, index) => (
                   <TableRow key={index}>
                     <TableCell>
                       <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
@@ -101,14 +107,16 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
           </Grid>
         )
         }
-        <Box my={3} display="flex" justifyContent="center">
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={findings.length}
+          rowsPerPage={rowsPerPage}
+          page={currentPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+
         <Dialog open={modalOpen} onClose={handleCloseModal} maxWidth="sm" fullWidth>
           <DialogTitle>{t('wpscan.interesting_entries')}</DialogTitle>
           <DialogContent>
@@ -129,8 +137,7 @@ const WPSFindings: React.FC<{ findings: any[] }> = ({ findings = [] }) => {
           </DialogActions>
         </Dialog>
       </>
-    </DashboardCard>
-
+    </Box>
   );
 };
 

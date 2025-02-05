@@ -51,14 +51,6 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
     dispatch(fetchObservedAssetData(page, pageSize));
   };
 
-  const handleDownload = (scanId: string) => {
-    console.log(`Downloading scan ${scanId}`);
-  };
-
-  const handleDelete = (scanId: string) => {
-    console.log(`Deleting scan ${scanId}`);
-  };
-
   if (error) {
     return <Box>{error}</Box>;
   }
@@ -146,6 +138,13 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                             borderRadius: 5,
                             bgcolor: '#e0e0e0',
                           }}
+                          color={
+                            asset.CpuInfo.CpuUsage < 30
+                              ? 'success' 
+                              : asset.CpuInfo.CpuUsage > 80
+                              ? 'primary' 
+                              : 'warning' 
+                          }
                         />
                         <Typography variant="subtitle2">{asset.CpuInfo.CpuUsage}%</Typography>
                       </TableCell>
@@ -153,13 +152,19 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                         <LinearProgress
                           variant="determinate"
                           value={asset.RamInfo.RamUsagePercentage}
-                          color="warning"
                           sx={{
                             width: '80%',
                             height: 10,
                             borderRadius: 5,
                             bgcolor: '#e0e0e0',
                           }}
+                          color={
+                            asset.RamInfo.RamUsagePercentage < 30
+                              ? 'success'  
+                              : asset.RamInfo.RamUsagePercentage > 80
+                              ? 'error'  
+                              : 'warning' 
+                          }
                         />
                         <Typography variant="subtitle2">
                           {asset.RamInfo.RamUsagePercentage}%
@@ -169,13 +174,19 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                         <LinearProgress
                           variant="determinate"
                           value={asset.Storage.TotalUsagePercentage}
-                          color="success"
                           sx={{
                             width: '80%',
                             height: 10,
                             borderRadius: 5,
                             bgcolor: '#e0e0e0',
                           }}
+                          color={
+                            asset.Storage.TotalUsagePercentage < 30
+                              ? 'success'  
+                              : asset.Storage.TotalUsagePercentage > 80
+                              ? 'error' 
+                              : 'warning' 
+                          }
                         />
                         <Typography variant="subtitle2">
                           {asset.Storage.TotalUsagePercentage}%

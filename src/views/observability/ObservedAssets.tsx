@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -40,17 +40,19 @@ const ObservedAssets = () => {
             <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
               {t('menu.observability')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/observability/observed-assets">
-              {t('menu.assets')}
-            </Link>
-            {selectedAsset && (
+            {selectedAsset ? (
               <Link
                 component={RouterLink}
                 color="inherit"
-                to={`/observability/observed-assets/assets/${selectedAsset}`}
+                to={`/observability/observed-assets/assets`}
               >
-                {t('observability.assets_obs_scans')}
+                {t('menu.assets')}
               </Link>
+            ) : (
+              <Typography color="textPrimary">{t('menu.assets')}</Typography>
+            )}
+            {selectedAsset && (
+              <Typography color="textPrimary">{selectedAsset}</Typography>
             )}
           </Breadcrumbs>
           <Box flexGrow={1} />

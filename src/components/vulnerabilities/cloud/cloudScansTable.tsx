@@ -1,12 +1,12 @@
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -21,9 +21,10 @@ import {
   default as AzureLogo,
   default as GcpLogo,
 } from 'src/assets/images/cloudscans/aws.png';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchCloudScans, setPage } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import { fetchCloudScans, setPage, setPageSize } from 'src/store/vulnerabilities/cloud/CloudSlice';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -36,23 +37,35 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
   const cloudScans = useSelector((state: any) => state.cloudScanReducer.cloudScans);
   const currentPage = useSelector((state: any) => state.cloudScanReducer.page);
   const totalPages = useSelector((state: any) => state.cloudScanReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.cloudScanReducer.pageSize);
+  const loading = useSelector((state: any) => state.cloudScanReducer.loading);
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
-    }
-  };
 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchCloudScans(currentPage));
+      await dispatch(fetchCloudScans(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
+
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
+    }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
+  };
 
   const getProviderIcon = (provider: string) => {
     switch (provider?.toLowerCase()) {
@@ -66,6 +79,16 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
         return null;
     }
   };
+
+  if (loading) {
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
+  }
 
   return (
     <DashboardCard
@@ -128,7 +151,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography variant="body2">{new Date(scan.timestamp).toLocaleString()}</Typography>
+                          <HumanizedDate dateString={scan.timestamp} />
                         </TableCell>
                       </TableRow>
                     ))
@@ -165,14 +188,15 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box my={3} display="flex" justifyContent={'center'}>
-              <Pagination
-                count={totalPages}
-                color="primary"
-                page={currentPage}
-                onChange={handlePageChange}
-              />
-            </Box>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
           </>
         )}
       </>

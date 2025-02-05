@@ -1,8 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getBaseApiUrl } from "src/guards/jwt/Jwt";
+import { createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios';
-import { AppDispatch } from "../../Store";
-
+import { AppDispatch } from '../../Store';
 
 function getApiUrl() {
   return `${getBaseApiUrl()}/wpscans/`;
@@ -12,6 +11,7 @@ interface StateType {
   wpscan: any | null;
   page: number;
   totalPages: number;
+  pageSize: number;
   error: string | null;
   isLoading: boolean;
 }
@@ -21,6 +21,7 @@ const initialState: StateType = {
   wpscan: null,
   page: 1,
   totalPages: 1,
+  pageSize: 25,
   error: null,
   isLoading: false,
 };
@@ -30,7 +31,7 @@ export const WPScanSlice = createSlice({
   initialState,
   reducers: {
     getWPScans: (state, action) => {
-      state.wpscans = Array.isArray(action.payload.wpscans) ? action.payload.wpscans : [];
+      state.wpscans = Array.isArray(action.payload.results) ? action.payload.results : [];
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
       state.isLoading = false;
@@ -43,7 +44,7 @@ export const WPScanSlice = createSlice({
       state.wpscans.push(action.payload);
     },
     removeWPScan: (state, action) => {
-      state.wpscans = state.wpscans.filter(scan => scan.id !== action.payload);
+      state.wpscans = state.wpscans.filter((scan) => scan.id !== action.payload);
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -53,28 +54,45 @@ export const WPScanSlice = createSlice({
       state.isLoading = false;
     },
     setLoading: (state, action) => {
-      state.isLoading = true;
-    }
-  }
+      state.isLoading = action.payload;
+    },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
+  },
 });
 
-export const { getWPScans, getWPScan, addWPScan, removeWPScan, setPage, setError, setLoading } = WPScanSlice.actions;
+export const {
+  getWPScans,
+  getWPScan,
+  addWPScan,
+  removeWPScan,
+  setPage,
+  setError,
+  setLoading,
+  setPageSize,
+} = WPScanSlice.actions;
 
-export const fetchWPScans = (page = 1) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrl()}`);
-
-    const totalPages = Math.ceil(response.data.length / 10);
-    dispatch(getWPScans({ wpscans: response.data, currentPage: page, totalPages }));
-  } catch (err: any) {
-    console.error('Error fetching wpscans:', err);
-    dispatch(setError('Failed to fetch wpscans'));
-  }
-};
-
+export const fetchWPScans =
+  (requestedPage = 1, pageSize = 25) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.get(
+        `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
+      );
+      const wpscans = response.data;
+      const { results, page, totalPages } = wpscans;
+      dispatch(getWPScans({ results, currentPage: page, totalPages, pageSize }));
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching wpscans:', err);
+      dispatch(setError('Failed to fetch wpscans'));
+    }
+  };
 
 export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   try {
     const response = await axios.get(`${getApiUrl()}${wpscanId}/`);
 
@@ -83,28 +101,27 @@ export const fetchWPScanById = (wpscanId: string) => async (dispatch: AppDispatc
     } else {
       dispatch(setError('fetch WPScan not found'));
     }
+    dispatch(setLoading(false));
   } catch (err: any) {
     console.error('Error fetching WPScan detail:', err);
     dispatch(setError('Failed to fetch WPScan detail'));
+  } finally {
   }
 };
 
-
 export const createWPScan = (newWPScan: any) => async (dispatch: AppDispatch) => {
-  let response = null
+  let response = null;
   try {
     response = await axios.post(`${getApiUrl()}`, newWPScan);
 
     dispatch(addWPScan(response.data));
     return response.data;
   } catch (error: any) {
-    const errorMessage =
-      error.response?.data?.error || "Failed to create WPScan.";
+    const errorMessage = error.response?.data?.error || 'Failed to create WPScan.';
     dispatch(setError(errorMessage));
-    throw "Failed to create WPScan.";
+    throw 'Failed to create WPScan.';
   }
 };
-
 
 export const downloadWPScanReport = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -115,7 +132,9 @@ export const downloadWPScanReport = (id: string) => async (dispatch: AppDispatch
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
-    const fileName = `Vulnerabilities-web-wordpress_${id}_${new Date().toISOString().split('T')[0]}.json`;
+    const fileName = `Vulnerabilities-web-wordpress_${id}_${
+      new Date().toISOString().split('T')[0]
+    }.json`;
     link.setAttribute('download', fileName);
     document.body.appendChild(link);
     link.click();
@@ -129,7 +148,7 @@ export const downloadWPScanReport = (id: string) => async (dispatch: AppDispatch
 };
 
 export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) => {
-  dispatch(setLoading());
+  dispatch(setLoading(true));
   try {
     const response = await axios.delete(`${getApiUrl()}${wpscanId}/`);
 
@@ -139,6 +158,7 @@ export const deleteWPScan = (wpscanId: string) => async (dispatch: AppDispatch) 
       dispatch(setError('Failed to delete WPScan'));
       throw new Error('Failed to delete WPScan');
     }
+    dispatch(setLoading(false));
   } catch (err: any) {
     dispatch(setError('Failed to delete WPScan'));
     throw err.response.data;

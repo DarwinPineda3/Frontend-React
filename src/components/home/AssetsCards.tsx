@@ -100,7 +100,7 @@ const AssetsCards = () => {
   });
 
   return (
-    <Grid container spacing={3} mt={0}>
+    <Grid container spacing={3} >
       {updatedAssetsCards.map((topcard, i) => (
         <Grid item xs={6} sm={4} lg={3} key={i}>
           <Box bgcolor={topcard.bgcolor + '.light'} textAlign="center">

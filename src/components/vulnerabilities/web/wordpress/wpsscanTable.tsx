@@ -8,12 +8,12 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from '@mui/material';
@@ -29,6 +29,7 @@ import {
   downloadWPScanReport,
   fetchWPScans,
   setPage,
+  setPageSize,
 } from 'src/store/vulnerabilities/web/WPScanSlice';
 import CreateWPScan from './wpscanCreate';
 
@@ -50,6 +51,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const wpscans = useSelector((state: any) => state.wpscanReducer.wpscans);
   const currentPage = useSelector((state: any) => state.wpscanReducer.page);
   const totalPages = useSelector((state: any) => state.wpscanReducer.totalPages);
+  const pageSize = useSelector((state: any) => state.wpscanReducer.pageSize);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<
@@ -61,16 +63,26 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchWPScans(currentPage));
+      await dispatch(fetchWPScans(currentPage, pageSize));
       setIsLoading(false);
     };
     fetchData();
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, pageSize]);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      dispatch(setPage(newPage));
     }
+  };
+
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
   };
 
   const handleOpenModal = () => {
@@ -82,10 +94,9 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   };
 
   const handleDownload = async (id: string) => {
-    try{
+    try {
       await dispatch(downloadWPScanReport(id));
     } catch (error: any) {
-
       setSnackbarMessage(error || '');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
@@ -105,7 +116,6 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } catch (error: any) {
-
         setSnackbarMessage(error.error || '');
         setSnackbarSeverity('error');
         setSnackbarOpen(true);
@@ -138,7 +148,10 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
       title={t('wpscan.wordpress_scans') || ''}
       subtitle={t('wpscan.list_all_wordpress_scans') || ''}
       action={
-        <IconButton color="primary" onClick={() => navigate('/vulnerabilities/web/wordpress/create')}>
+        <IconButton
+          color="primary"
+          onClick={() => navigate('/vulnerabilities/web/wordpress/create')}
+        >
           <AddIcon />
         </IconButton>
       }
@@ -203,8 +216,8 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                               {scan.scan_type === 'scan_normal'
                                 ? 'Scan normal'
                                 : scan.scan_type === 'scan_deep'
-                                  ? 'Scan deep'
-                                  : 'Unknown scan type'}
+                                ? 'Scan deep'
+                                : 'Unknown scan type'}
                             </TableCell>
                             <TableCell>
                               <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
@@ -256,15 +269,15 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                   </Grid>
                 </Grid>
               )}
-
-              <Box my={3} display="flex" justifyContent={'center'}>
-                <Pagination
-                  count={totalPages}
-                  color="primary"
-                  page={currentPage}
-                  onChange={handlePageChange}
-                />
-              </Box>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                component="div"
+                count={totalPages * pageSize}
+                rowsPerPage={pageSize}
+                page={currentPage - 1}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handlePageSizeChange}
+              />
             </>
           )}
         </Box>

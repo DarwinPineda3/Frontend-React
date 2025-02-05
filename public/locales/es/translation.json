@@ -52,6 +52,7 @@
   "dashboard": {
     "page_size": "Tamaño de página",
     "montly_distribution": "Distribución mensual",
+    "no_data": "No hay datos disponibles",
     "connected_assets": "Activos conectados",
     "disconnected_assets": "Activos desconectados",
     "asset_status": "Estado de activos",
@@ -82,6 +83,7 @@
     "low": "Bajo",
     "total_assets": "Total de Activos",
     "vulnerability_reports": "Reportes de Vulnerabilidad",
+    "no_vulnerability_reports": "No hay reportes de vulnerabilidad",
     "most_recent_scans": "Escaneos Más Recientes",
     "type": "Tipo",
     "hosts": "Hosts",
@@ -112,7 +114,8 @@
     "are_you_sure_to_delete_asset": "¿Estás seguro de que deseas eliminar este activo?",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
-    "asset_deleted_successfully": "Activo eliminado con éxito."
+    "asset_deleted_successfully": "Activo eliminado con éxito.",
+    "errorMessage": "Algo salió mal al cargar la información. Intenta recargar la página."
   },
   "configuration": {
     "scheduled_scans_subtitle": "Tus escaneos programados que se ejecutan automáticamente",
@@ -238,6 +241,7 @@
     "cwe_id": "CWE Id: {{id}}",
     "wasc_id": "WASC Id: {{id}}",
     "plugin_id": "Plugin Id: {{id}}",
+    "alert_detail_title": "Detalles de la Alerta",
     "description_title": "Descripción",
     "description_content": "No se encontraron tokens Anti-CSRF en un formulario de envío HTML...",
     "solution_title": "Solución",
@@ -377,10 +381,10 @@
       "estimated_closure_date": "Fecha estimada de cierre",
       "closure_date": "Fecha de cierre",
       "add_information": "Agregar información útil para la gestión de esta vulnerabilidad",
-      "add_information_vuln": "Gestiona esta vulnerabilidad",
+      "add_information_vuln": "Gestionar Vulnerabilidad",
       "vuln_detail": "Detalle de la vulnerabilidad",
       "overview": "Descripción general",
-      "close_vuln": "Cerrar la gestión de la vulnerabilidad",
+      "close_vuln": "Cerrar Vulnerabilidad",
       "last_revision_date": "Fecha de última revisión",
       "management_details": "Detalles de gestión",
       "responsible": "Responsable",
@@ -422,7 +426,7 @@
     },
     "network_vulnerabilities": {
       "network": "Red",
-      "add_scan": "Agregar escaneo",
+      "add_scan": "Crear escaneo",
       "create_network_scan": "Crear escaneo de red",
       "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de red",
       "name": "Nombre",
@@ -440,7 +444,7 @@
     },
     "web_app": {
       "network": "Red",
-      "add_scan": "Añadir escaneo",
+      "add_scan": "Crear escaneo",
       "create_network_scan": "Crear escaneo de aplicación web",
       "create_network_scan_subtitle": "En este formulario puedes crear un escaneo de aplicación web",
       "name": "Nombre",
@@ -453,7 +457,14 @@
       "network_scan_create_successfully": "Escaneo de aplicación web creado con éxito",
       "network_scan_create_failed": "Error al crear el escaneo de aplicación web",
       "required_field": "Campo requerido",
-      "network_scan_created": "Escaneo de aplicación web creado"
+      "network_scan_created": "Escaneo de aplicación web creado",
+      "active_scan": "Escaneo Activo",
+      "passive_scan": "Escaneo Pasivo",
+      "scan_deleted_successfully": "Escaneo eliminado exitosamente",
+      "delete_title": "Eliminar escaneo",
+      "delete_message": "¿Estás seguro de que deseas eliminar este escaneo?",
+      "delete_cancel": "Cancelar",
+      "delete_confirm": "Confirmar"
     },
     "cloud_scans": {
       "low": "Bajo",
@@ -629,6 +640,10 @@
     "no_data_available_for_selected_date": "No hay datos disponibles para el rango de fechas seleccionado.",
     "no_data_available_for_chart": "No hay datos disponibles para este gráfico.",
     "file_system": "Sistema de archivos",
+    "last_24_hours": "Últimas 24 horas",
+    "last_week": "Última semana",
+    "last_month": "Último mes",
+    "custom_range": "Rango personalizado",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",
@@ -784,6 +799,7 @@
     "potential_risk": "Riesgo Potencial",
     "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM.",
     "identification_date": "Fecha de identificación",
+    "evidence": "Evidencia"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",
@@ -960,7 +976,11 @@
     "exploitable": "Explotable",
     "Overview": "Visión general",
     "Vulnerabilities": "Vulnerabilidades",
-    "evidences": "Evidencias"
+    "evidences": "Evidencias",
+    "yes": "Si",
+    "no": "No",
+    "vulnerability_details": "Detalles de la vulnerabilidad",
+    "identifier": "Identificador"
   },
   "installation_guide": {
     "title": "Guía de Instalación",
@@ -972,8 +992,7 @@
         "steps": {
           "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
           "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
-          "step2": "Paso 2: Copie el siguiente comando:",
-          "step3": "Paso 3: Pegue el comando en la ventana de PowerShell y presione Enter para ejecutarlo.",
+          "step2": "Paso 2: Copia y pega el siguiente comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },
@@ -1010,14 +1029,13 @@
           "step1": "Paso 1: Abra una terminal en su sistema Linux.",
           "step2": "Paso 2: Elija su distribución de Linux:",
           "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
-          "step4": "Paso 4: Copie el siguiente comando:",
-          "step5": "Paso 5: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+          "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },
       "error_notes": {
         "title": "Notas de error",
-        "intro": "Si hay problemas, intente con los siguientes comandos:"
+        "intro": "Si recibe algún error `libssl` durante la instalación del agente, puede utilizar los siguientes comandos:"
       }
     }
   },
@@ -1045,8 +1063,15 @@
     "cpu_threshold": "Umbral de CPU (%)",
     "ram_threshold": "Umbral de RAM (%)",
     "storage_threshold": "Umbral de Almacenamiento (%)",
-    "user_email": "Dirección de Correo Electrónico",
-    "save_changes": "Guardar Cambios"
+    "user_email": "Dirección de correo electrónico",
+    "save_changes": "Guardar cambios",
+    "invalid_email": "Uno o más correos electrónicos son inválidos",
+    "cpu_required": "Se requiere el umbral de CPU",
+    "ram_required": "Se requiere el umbral de RAM",
+    "storage_required": "Se requiere el umbral de almacenamiento",
+    "email_required": "Se requiere al menos un correo electrónico",
+    "success_message": "Configuraciones de umbral actualizadas correctamente",
+    "error_message": "Error al actualizar las configuraciones de umbral"
   },
   "breadcrumb": {
     "observability": "Observabilidad",
@@ -1233,7 +1258,10 @@
     "compliance_assets": "Activos",
     "compliance_groups": "Grupos",
     "compliance_projects": "Proyectos",
-    "compliance_executions": "Ejecuciones"
+    "compliance_executions": "Ejecuciones",
+    "compliance_templates": "Plantillas",
+    "compliance_reports": "Reportes",
+    "bulk_import": "importación masiva"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1243,7 +1271,64 @@
     "projects_description": "Proyectos",
     "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
     "executions_description": "Ejecuciones",
-    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento."
+    "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento.",
+    "installation_guide": {
+      "title": "Guía de Instalación",
+      "welcome_message": "¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones paso a pasopara instalar el agente en diferentes sistemas operativos.Ya sea que esté implementando en Windows o Linux, encontrará todos lospasos necesarios para garantizar un proceso de instalación fluido.",
+      "windows": {
+        "title": "Windows",
+        "individual_installation": {
+          "title": "Instalación Individual",
+          "steps": {
+            "intro": "Para ejecutar el comando en Windows, siga estos pasos:",
+            "step1": "Paso 1: Abra PowerShell con privilegios administrativos.",
+            "step2": "Paso 2: Copia y pega el siguiente comando en la ventana de PowerShell y presiona Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Defender Agent con la URL y la clave API proporcionadas."
+          }
+        },
+        "bulk_installation": {
+          "title": "Instalación Masiva",
+          "steps": {
+            "intro": "Para crear un script para instalación masiva, siga estos pasos:",
+            "step1": "Paso 1: Cree un nuevo archivo de script de PowerShell con una extensión .ps1.",
+            "step2": "Paso 2: Copie el siguiente script en el archivo de script.",
+            "step3": "Paso 3:Guarde el archivo de script."
+          }
+        },
+        "active_directory": {
+          "title": "Instrucciones para la Directiva de Grupo de Active Directory",
+          "intro": "Para aplicar políticas de grupo en Active Directory, siga estos pasos:",
+          "steps": {
+            "step1": "Paso 1: Abra la Consola de Administración de Directivas de Grupo (GPMC, por sus siglas en inglés).",
+            "step2": "Paso 2: Navegue hasta la Unidad Organizativa (OU) o dominio deseado donde desee aplicar la Directiva de Grupo.",
+            "step3": "Paso 3: Cree un nuevo Objeto de Directiva de Grupo (GPO) o edite uno existente.",
+            "step4": "Paso 4: Navegue a Configuración del Equipo > Directivas > Configuración de Windows > Scripts (Inicio/Apagado).",
+            "step5": "Paso 5: Agregue un nuevo script de inicio y especifique la ruta de su script de PowerShell (por ejemplo, instalar_agente.ps1).",
+            "step6": "Paso 6: Asegúrese de que la directiva de ejecución permita que el script se ejecute. Es posible que necesite establecer la directiva de ejecución en RemoteSigned o Bypass.",
+            "step7": "Paso 7: Una vez que la Directiva de Grupo se aplique a las computadoras deseadas, el script se ejecutará durante el inicio."
+          }
+        },
+        "notes": "Notas: El agente de Windows es compatible con las versiones de Windows Server 2008 R2 y posteriores."
+      },
+      "linux": {
+        "title": "Linux",
+        "individual_installation": {
+          "title": "Instalación Individual",
+          "steps": {
+            "intro": "Para ejecutar el comando en Linux, siga estos pasos:",
+            "step1": "Paso 1: Abra una terminal en su sistema Linux.",
+            "step2": "Paso 2: Elija su distribución de Linux:",
+            "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
+            "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
+            "note": "El comando descargará y ejecutará el Defender Agent  con la URL y la clave API proporcionadas."
+          }
+        },
+        "error_notes": {
+          "title": "Notas de error",
+          "intro": "Si recibe algún error `libssl` durante la instalación del agente, puede utilizar los siguientes comandos:"
+        }
+      }
+    }
   },
   "changelog": {
     "title": "Registro de cambios",
@@ -1258,5 +1343,329 @@
     "changes": "Cambios",
     "description": "Todos los cambios notables de este proyecto serán documentados en este archivo.",
     "format": "El formato se basa en 'Keep a Changelog' y este proyecto sigue el versionado semántico (SemVer)."
+  },
+  "breadcrumbs": {
+    "compliance": "Cumplimiento",
+    "templates": "Plantillas"
+  },
+  "snackbar": {
+    "reportGenerated": "¡Informe generado con éxito!",
+    "copied_text": "Texto copiado a su portapapeles"
+  },
+  "compliance_projects": {
+    "project_name": "Nombre del Proyecto",
+    "projects_description": "Descripción del Proyecto",
+    "project_create": "Crear Proyecto",
+    "project_create_description": "En este formulario puede crear un proyecto de cumplimiento",
+    "project_start_date": "Fecha de Inicio",
+    "project_end_date": "Fecha de Fin",
+    "no_data_available": "No hay datos disponibles",
+    "project_created": "Proyecto Creado",
+    "project_details": "Detalles del Proyecto",
+    "project_template": "Plantilla",
+    "project_managers_title": "Managers",
+    "project_manager_username": "Nombre de Usuario",
+    "project_manager_full_name": "Nombre Completo",
+    "project_manager_email": "Correo",
+    "project_group_title": "Grupos",
+    "project_delete_title": "Eliminar Proyecto",
+    "project_delete_message": "¿Está seguro de que desea eliminar este proyecto?",
+    "project_cancel": "Cancelar",
+    "project_confirm": "Confirmar",
+    "project_deleted_successfully": "Proyecto eliminado exitosamente",
+    "project_templates_title": "Plantillas",
+    "project_template_working_system": "SO",
+    "project_template_creation_date": "Fecha de Creación",
+    "project_template_name": "Nombre",
+    "project_edit_title": "Editar Proyecto",
+    "project_edit_subtitle": "En este formulario puede editar un proyecto de cumplimiento",
+    "required_field": "Campo requerido",
+    "project_created_successfully": "Proyecto creado exitosamente",
+    "project_create_failed": "Error al crear el Proyecto",
+    "project_group_name": "Nombre",
+    "project_group_assets_qty": "# de Assets",
+    "project_basic_information": "Información Básica",
+    "project_btn_create": "Crear",
+    "project_btn_next": "Siguiente",
+    "project_btn_back": "Atrás",
+    "project_create_message": "Todos los pasos completados - Creando...",
+    "project_updated_successfully": "Proyecto actualizado exitosamente",
+    "project_udpate_failed": "Error al actualizar el Proyecto",
+    "project_updated_message": "Todos los pasos completados - Actualizando...",
+    "project_technicians_username": "Nombre de Usuario",
+    "project_technicians_fullname": "Nombre Completo",
+    "project_technicians_email": "Correo",
+    "project_btn_update": "Actualizar",
+    "project_state": "Estado",
+    "project_actions": "Acciones"
+  },
+  "compliance_reports": {
+    "by_project": "Cumplimiento por Proyecto",
+    "select_project": "Seleccionar Proyecto",
+    "report_description": "Este reporte permite listar todos los valores de cumplimiento para cada activo en los grupos del proyecto seleccionado.",
+    "generate_download": "Generar y Descargar",
+    "report_generated": "Reporte generado y descargado",
+    "compliance": "Cumplimiento",
+    "reports": "Informes",
+    "loading": "Cargando..."
+  },
+  "assessment_status": {
+    "title": "Estado de la Evaluación",
+    "by_asset": "Estado de evaluación por activo",
+    "select_parameters": "Seleccionar Parámetros",
+    "select_project": "Seleccionar Proyecto",
+    "select_project_option": "Seleccionar un Proyecto",
+    "project_option_1": "Grupo Demo Giotto 2",
+    "select_group": "Seleccionar Grupo",
+    "select_group_option": "Seleccionar un Grupo",
+    "group_option_1": "Grupo Demo Giotto",
+    "select_template": "Seleccionar Plantilla",
+    "select_template_option": "Seleccionar una Plantilla",
+    "template_option_1": "Plantilla Windows Server 2019 (Recortada)",
+    "select_execution": "Seleccionar Ejecución",
+    "select_execution_option": "Seleccionar Ejecución",
+    "execution_option_1": "Lun Dic 16 2024 16:52:17 GMT-0500 (Hora Estándar de Colombia)",
+    "execution_option_2": "Lun Dic 16 2024 16:51:25 GMT-0500 (Hora Estándar de Colombia)",
+    "select_asset": "Seleccionar Activo",
+    "select_asset_option": "Seleccionar un Activo",
+    "asset_option_1": "giotto-win-srva",
+    "report_info": "Este reporte te permite ver todos los resultados de control de cumplimiento para el activo y ejecución de evaluación seleccionados.",
+    "loading": "Cargando...",
+    "generate_download": "Generar y Descargar",
+    "report_generated": "Reporte generado exitosamente"
+  },
+  "giotto": {
+    "groups": {
+      "name": "Nombre",
+      "assetQty": "Calidad del activo",
+      "actions": "Acciones",
+      "no_data_available": "No hay datos disponibles",
+      "create_group": "Crear grupo",
+      "delete_group": "Eliminar grupo",
+      "are_you_sure_you_want_to_delete_this_group": "¿Estás seguro de que deseas eliminar este grupo?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "total_assets": "Total activos",
+      "total_templates": "Total plantillas",
+      "description": "Descripción",
+      "templates": "Plantillas",
+      "working_system": "sistema de trabajo",
+      "creation_date": "Fecha de creación",
+      "assets": "Activos",
+      "network_address": "Dirección de red",
+      "last_keep_alive": "Última vez activo",
+      "group_in_progress": "Creación de grupo en proceso",
+      "group_creation_message": "La creación de este grupo puede tardar un poco de tiempo.",
+      "group_edition_message": "La edición de este grupo puede tardar un poco de tiempo.",
+      "operation_status": "Estado de la Operación",
+      "select": "Seleccionar",
+      "template_name": "Nombre de la plantilla",
+      "asset_name": "Nombre del activo",
+      "name_required": "El nombre es requerido",
+      "group_created_successfully": "Grupo creado exitosamente",
+      "group_edited_successfully": "Grupo editado exitosamente",
+      "group_deleted_successfully": "Grupo eliminado exitosamente",
+      "edit_group": "Editar grupo",
+      "group_name_already_exists": "El nombre del grupo ya existe."
+    },
+    "reports": {
+      "compliance_reports": "Informes de cumplimiento",
+      "module_description": "Genera y descarga informes de cumplimiento fácilmente por proyecto.",
+      "project": "Proyecto",
+      "report_generation_message": "La generación de este reporte puede tardar un poco.",
+      "project_is_required": "El projecto es requerido",
+      "report_generated_successfully": "El reporte se generó de manera exitosa.",
+      "report_generation_failed": "Falló la generación del reporte",
+      "success": "Exitoso",
+      "error": "Error",
+      "module_info": "En este módulo podrá descargar reportes clave para evaluar y gestionar el cumplimiento normativo en sus operaciones.",
+      "by_projects_tittle": "Reporte por proyectos:",
+      "by_projects_description": "Obtenga un análisis del estado de cumplimiento de cada proyecto.",
+      "by_assessments_tittle": "Reporte por evaluaciones:",
+      "by_assessments_description": "Consulte información relacionada con assessments, medidas de hardening y cualquier rollback realizado, asegurando la seguridad y trazabilidad de sus sistemas.",
+      "select_option": "Por favor, seleccione una de las opciones.",
+      "select_report": "Seleccione un reporte",
+      "by_projects": "Por proyectos",
+      "by_assessments": "Por tipo de evaluación",
+      "report_by_project_info": "Este reporte te permite ver todos los resultados de control de cumplimiento para el activo y ejecución de evaluación seleccionados.",
+      "operation_status": "Estado de la Operación",
+      "generation_in_progress": "Generación en progreso",
+      "group_is_required": "El grupo es requerido",
+      "template_is_required": "La plantilla es requerida",
+      "execution_is_required": "La ejecución es requerida",
+      "asset_is_required": "El activo es requerido",
+      "report_type_is_required": "El tipo de reporte es requerido",
+      "no_assets_found": "No se encontraron activos con los parámetros seleccionados.",
+      "group": "Grupo",
+      "template": "Plantilla",
+      "execution": "Ejecución",
+      "asset": "Activo",
+      "report_type": "Tipo de reporte",
+      "GetAssessmentStatusByAssetReport": "Estado de evaluación por activo",
+      "GetAssessmentTechnicalDetailsByAssetReport": "Detalles técnicos de evaluación por activo",
+      "GetHardeningStatusByAssetReport": "Estado de hardening por activo",
+      "GetHardeningTechnicalDetailsByAssetReport": "Detalles técnicos de hardening por activo",
+      "GetRollbackStatusByAssetReport": "Estado de rollback por activo",
+      "GetRollbackTechnicalDetailsByAssetReport": "Detalles técnicos de rollback por activo",
+      "GetAssessmentStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de evaluación.",
+      "GetAssessmentTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de evaluación.",
+      "GetHardeningStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de hardening.",
+      "GetHardeningTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de hardening.",
+      "GetRollbackStatusByAssetReportDescription": "Este informe le permite ver todos los resultados de control de cumplimiento para el activo seleccionado y la ejecución de rollback.",
+      "GetRollbackTechnicalDetailsByAssetReportDescription": "Este informe le permite ver los valores de ejecución de control para el activo seleccionado y la ejecución de rollback."
+    },
+    "assets": {
+      "select_file": "Seleccionar archivo",
+      "selected_file": "Archivo seleccionado",
+      "name_required": "El nombre es obligatorio",
+      "ip_required": "La dirección IP es obligatoria",
+      "ip_invalid_format": "Formato de dirección IP no válido",
+      "asset_updated": "El activo se actualizó correctamente",
+      "asset_created": "El activo se creó correctamente",
+      "asset_error": "Ocurrió un error al procesar el activo",
+      "edit_asset": "Editar activo",
+      "create_asset": "Crear activo",
+      "name": "Nombre",
+      "ip_address": "Dirección IP",
+      "asset_removed": "El activo se eliminó correctamente",
+      "asset_session_refresh": "Se solicitó actualización de la sesión del activo",
+      "network_address": "Dirección de red",
+      "company_name": "Nombre de la empresa",
+      "creation_date": "Fecha de creación",
+      "last_keep_alive": "Última conexión",
+      "actions": "Acciones",
+      "delete_asset": "Eliminar activo",
+      "confirm_delete": "¿Está seguro de que desea eliminar este activo?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "bulk_import": "Importación masiva",
+      "remove": "Quitar",
+      "download_template": "Descargar la plantilla aquí",
+      "import_giotto_assets": "Importe masivo de assets",
+      "upload": "Subir",
+      "select_csv_file": "Debe ser un archivo CSV."
+    }
+  },
+  "compliance_templates": {
+    "template_description": "Descripción",
+    "template_details": "Detalles de la Plantilla",
+    "templates_controls_title": "Controles por Categoria",
+    "template_base_template_title": "Plantilla Base",
+    "template_working_system_title": "Sistema Operativo",
+    "no_data_available": "No hay datos disponibles",
+    "base_templates": "Plantillas Base",
+    "base_templates_description": "Lista de plantillas base disponibles",
+    "custom_templates": "Plantillas Personalizadas",
+    "custom_templates_description": "Lista de plantillas personalizadas según una plantilla base",
+    "template": "Plantilla",
+    "template_control_executable": "Ejecutable",
+    "template_control_editable": "Editable",
+    "template_control_create_date": "Fecha de Creación",
+    "template_options": "Opciones"
+  },
+  "settings": {
+    "scheduled_scans": {
+      "search_placeholder": "Buscar...",
+      "table_headers": {
+        "name": "Nombre",
+        "scan_type": "Tipo de escaneo",
+        "execution_frequency": "Frecuencia de ejecución",
+        "execution_time": "Hora de ejecución",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "actions": {
+        "deactivate": "Desactivar escaneo programado",
+        "view_details": "Ver detalles"
+      },
+      "messages": {
+        "no_scheduled_scans_found": "No se encontraron escaneos programados"
+      },
+      "navigation": {
+        "create_scan_here": "Crear un escaneo aquí"
+      },
+      "status": {
+        "active": "Activo",
+        "deactivated": "Desactivado"
+      },
+      "scan_types": {
+        "network_vulnerability": "Escaneos de Vulnerabilidades de Red",
+        "web_vulnerability": "Escaneos de Vulnerabilidades Web",
+        "wordpress_vulnerability": "Escaneos de Vulnerabilidades en WordPress",
+        "network_observability": "Escaneos de Observabilidad de Red"
+      },
+      "execution_frequencies": {
+        "every_day": "Todos los días"
+      },
+      "common": {
+        "unknown": "Desconocido"
+      },
+      "detail": {
+        "breadcrumbs": {
+          "detail": "Detalle"
+        },
+        "titles": {
+          "first_title": "Descripción general",
+          "second_title": "Ejecuciones programadas"
+        },
+        "subtitles": {
+          "name": "Nombre",
+          "scan_type": "Tipo de escaneo",
+          "target": "Objetivo",
+          "execution_frequency": "Frecuencia de ejecución",
+          "execution_time": "Hora de ejecución",
+          "scheduled_date": "Fecha programada",
+          "status": "Estado",
+          "actions": "Acciones"
+        }
+      },
+      "desactivate": {
+        "scheduled_scan_deactivated_successfully": "El escaneo programado se deshabilitó con éxito",
+        "scan_failed": "Se produjo un error al ejecutar esta acción."
+      },
+      "form": {
+        "create_scan": "Debes crear una",
+        "task": "tarea",
+        "label_task": "Tarea",
+        "no_tasks": "No hay tareas",
+        "validations": {
+          "name_required": "El nombre es obligatorio",
+          "scan_type_required": "El tipo de escaneo es obligatorio",
+          "target_required": "El objetivo es obligatorio",
+          "execution_frequency_required": "La frecuencia de ejecución es obligatoria",
+          "execution_time_required": "La hora de ejecución es obligatoria",
+          "select_task_required": "Debes seleccionar al menos una tarea",
+          "asset_required": "El activo es obligatorio",
+          "select_asset": "Seleccione un activo"
+        },
+        "success": {
+          "scan_scheduled": "Escaneo programado creado con éxito"
+        },
+        "error": {
+          "scan_schedule_failed": "Error al crear un análisis programado"
+        }
+      }
+    }
+  },
+  "home": {
+    "assets": {
+      "name_required": "El nombre es obligatorio",
+      "ip_required": "La dirección IP es obligatoria",
+      "ip_invalid_format": "Formato de dirección IP inválido",
+      "domain_invalid_format": "Formato de dominio inválido",
+      "url_invalid_format": "Formato de URL inválido",
+      "at_least_one_required": "Debe completar al menos uno de los siguientes campos: IP, Dominio o URL",
+      "create_asset": "Crear Activo",
+      "edit_asset": "Editar Activo",
+      "name": "Nombre",
+      "ip_address": "Dirección IP",
+      "domain": "Dominio",
+      "url": "URL",
+      "edit": "Editar",
+      "create": "Crear",
+      "asset_created_success": "Activo creado con éxito",
+      "asset_updated_success": "Activo actualizado con éxito",
+      "form_instruction": "Por favor, ingrese un nombre para el activo. Los demás campos (IP, dominio o URL) son opcionales, pero debe completar al menos uno."
+    }
   }
 }
