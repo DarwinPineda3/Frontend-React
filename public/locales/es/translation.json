@@ -799,7 +799,18 @@
     "potential_risk": "Riesgo Potencial",
     "monitoring_times": "El monitoreo de los parámetros se realiza todos los días a las 2AM.",
     "identification_date": "Fecha de identificación",
-    "evidence": "Evidencia"
+    "evidence": "Evidencia",
+    "code": "Código",
+    "reactions_count": "Cantidad de reacciones",
+    "comments_count": "Cantidad de comentarios",
+    "reshare_count": "Cantidad de compartidos",
+    "angry_reactions": "Reacciones de enojo",
+    "care_reactions": "Reacciones de cuidado",
+    "haha_reactions": "Reacciones de risa",
+    "like_reactions": "Reacciones de me gusta",
+    "love_reactions": "Reacciones de amor",
+    "sad_reactions": "Reacciones de tristeza",
+    "wow_reactions": "Reacciones de sorpresa"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",

@@ -801,7 +801,18 @@
     "potential_risk": "Potential Risk",
     "monitoring_times": "The parameters monitoring is executed every day at 2AM.",
     "identification_date": "Identification Date",
-    "evidence": "Evidence"
+    "evidence": "Evidence",
+    "code": "Code",
+    "reactions_count": "Reactions Count",
+    "comments_count": "Comments Count",
+    "reshare_count": "Shares Count",
+    "angry_reactions": "Angry Reactions",
+    "care_reactions": "Care Reactions",
+    "haha_reactions": "Haha Reactions",
+    "like_reactions": "Likes Reactions",
+    "love_reactions": "Love Reactions",
+    "sad_reactions": "Sad Reactions",
+    "wow_reactions": "Wow Reactions"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
