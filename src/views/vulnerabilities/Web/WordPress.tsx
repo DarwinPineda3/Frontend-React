@@ -59,7 +59,7 @@ const WordpressAplications = () => {
               {t('menu.vulnerabilities')}
             </Link>
             {selectedScan ? (
-              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/wordpress/${selectedScan}`}>
+              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/web/wordpress`}>
                 {t('vulnerabilities.wordpress_scans')}
               </Link>
             ) : (

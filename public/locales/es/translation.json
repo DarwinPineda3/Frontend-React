@@ -381,10 +381,10 @@
       "estimated_closure_date": "Fecha estimada de cierre",
       "closure_date": "Fecha de cierre",
       "add_information": "Agregar información útil para la gestión de esta vulnerabilidad",
-      "add_information_vuln": "Gestiona esta vulnerabilidad",
+      "add_information_vuln": "Gestionar Vulnerabilidad",
       "vuln_detail": "Detalle de la vulnerabilidad",
       "overview": "Descripción general",
-      "close_vuln": "Cerrar la gestión de la vulnerabilidad",
+      "close_vuln": "Cerrar Vulnerabilidad",
       "last_revision_date": "Fecha de última revisión",
       "management_details": "Detalles de gestión",
       "responsible": "Responsable",
@@ -1645,6 +1645,27 @@
           "scan_schedule_failed": "Error al crear un análisis programado"
         }
       }
+    }
+  },
+  "home": {
+    "assets": {
+      "name_required": "El nombre es obligatorio",
+      "ip_required": "La dirección IP es obligatoria",
+      "ip_invalid_format": "Formato de dirección IP inválido",
+      "domain_invalid_format": "Formato de dominio inválido",
+      "url_invalid_format": "Formato de URL inválido",
+      "at_least_one_required": "Debe completar al menos uno de los siguientes campos: IP, Dominio o URL",
+      "create_asset": "Crear Activo",
+      "edit_asset": "Editar Activo",
+      "name": "Nombre",
+      "ip_address": "Dirección IP",
+      "domain": "Dominio",
+      "url": "URL",
+      "edit": "Editar",
+      "create": "Crear",
+      "asset_created_success": "Activo creado con éxito",
+      "asset_updated_success": "Activo actualizado con éxito",
+      "form_instruction": "Por favor, ingrese un nombre para el activo. Los demás campos (IP, dominio o URL) son opcionales, pero debe completar al menos uno."
     }
   },
   "no_data_available": {

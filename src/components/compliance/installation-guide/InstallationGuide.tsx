@@ -76,12 +76,10 @@ const InstallationGuideComponent = () => {
             <ArrowBack />
           </IconButton>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/observability/installation-guide">
-              {t('menu.observability')}
+            <Link component={RouterLink} color="inherit" to="/compliance/installation-guide">
+              {t('compliance_menu.compliance')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/observability/installation-guide">
-              {t('menu.installation_guide')}
-            </Link>
+            <Typography color="textPrimary">{t('menu.installation_guide')}</Typography>
           </Breadcrumbs>
         </Box>
       </Box>

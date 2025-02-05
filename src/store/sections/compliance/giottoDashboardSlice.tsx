@@ -114,7 +114,6 @@ export const fetchProjectsComplianceByGroup = (id: number) => async (dispatch: a
         rollback: group.rollbackExecutionsCount,
       },
     }));
-    console.log('transformedData:', transformedData);
     dispatch(getProjectsComplianceByGroup(transformedData));
   } catch (error) {
     console.error('Error al obtener los datos de los proyectos:', error);
