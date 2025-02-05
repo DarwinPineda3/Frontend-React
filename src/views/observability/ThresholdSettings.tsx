@@ -84,7 +84,7 @@ const ThresholdSettings: React.FC = () => {
               {t('breadcrumb.observability')}
             </Link>
             {settingsId ? (
-              <Link component={RouterLink} color="inherit" to={`/observability/threshold-settings/${settingsId}`}>
+              <Link component={RouterLink} color="inherit" to={`/observability/threshold-settings`}>
                 {t('threshold.threshold_settings')}
               </Link>
             ) : (

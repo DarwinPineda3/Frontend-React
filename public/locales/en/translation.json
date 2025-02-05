@@ -381,10 +381,10 @@
       "estimated_closure_date": "Estimated Closure Date",
       "closure_date": "Closure Date",
       "add_information": "Add useful information for managing this vulnerability",
-      "add_information_vuln": "Manage this vulnerability",
+      "add_information_vuln": "Manage Vulnerability",
       "vuln_detail": "Vulnerability Detail",
       "overview": "Overview",
-      "close_vuln": "Close vulnerability management",
+      "close_vuln": "Close Vulnerability",
       "last_revision_date": "Last revision Date",
       "management_details": "Management Details",
       "responsible": "Responsible",
@@ -1671,6 +1671,27 @@
       "message": "Are you sure you want to perform this action?",
       "cancel": "Cancel",
       "confirm": "Confirm"
+    }
+  },
+  "home": {
+    "assets": {
+      "name_required": "Name is required",
+      "ip_required": "IP Address is required",
+      "ip_invalid_format": "Invalid IP address format",
+      "domain_invalid_format": "Invalid domain format",
+      "url_invalid_format": "Invalid URL format",
+      "at_least_one_required": "At least one of IP, Domain or URL must be filled",
+      "create_asset": "Create Asset",
+      "edit_asset": "Edit Asset",
+      "name": "Name",
+      "ip_address": "IP Address",
+      "domain": "Domain",
+      "url": "URL",
+      "edit": "Edit",
+      "create": "Create",
+      "asset_created_success": "Asset created successfully",
+      "asset_updated_success": "Asset updated successfully",
+      "form_instruction": "Please enter a name for the asset. The other fields (IP, domain, or URL) are optional, but you must fill in at least one."
     }
   }
 }

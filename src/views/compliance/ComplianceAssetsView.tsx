@@ -1,5 +1,5 @@
 import { ArrowBack } from '@mui/icons-material';
-import { Box, Breadcrumbs, Grid, IconButton, Link } from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
@@ -32,11 +32,18 @@ const ComplianceAssetsView = () => {
             <Link component={RouterLink} color="inherit" to="/compliance/assets">
               {t('compliance_menu.compliance')}
             </Link>
-            <Link component={RouterLink} color="inherit" to="/compliance/assets">
-              {t('compliance_menu.compliance_assets')}
-            </Link>
-
+            {selectedAsset ? (
+              <Link component={RouterLink} color="inherit" to="/compliance/assets">
+                {t('compliance_menu.compliance_assets')}
+              </Link>
+            ) : (
+              <Typography color="textPrimary">{t('compliance_menu.compliance_assets')}</Typography>
+            )}
+            {selectedAsset && (
+              <Typography color="textPrimary">{selectedAsset}</Typography>
+            )}
           </Breadcrumbs>
+
         </Box>
       </Box>
       {
