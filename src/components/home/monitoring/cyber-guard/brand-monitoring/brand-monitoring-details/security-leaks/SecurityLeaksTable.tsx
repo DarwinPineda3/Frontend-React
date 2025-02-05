@@ -1,4 +1,5 @@
 import {
+  Badge,
   Chip,
   Table,
   TableBody,
@@ -155,6 +156,7 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
                 </TableCell>
                 <TableCell align="center">
                   <HumanizedDate dateString={leak.date} />
+                  {leak.data_new && <Badge badgeContent={'New'} color="primary" sx={{ ml: 3 }} />}
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">{getDatabaseNames(leak) || 'N/A'}</Typography>

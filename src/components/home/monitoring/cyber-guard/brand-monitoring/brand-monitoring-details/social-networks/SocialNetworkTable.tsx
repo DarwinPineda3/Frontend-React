@@ -1,4 +1,5 @@
 import {
+  Badge,
   Chip,
   Table,
   TableBody,
@@ -178,6 +179,7 @@ const SocialNetworkTable: React.FC<SecurityLeakTableProps> = ({ social }) => {
                     social.data.engine,
                     social.date,
                   )}
+                  {social.data_new && <Badge badgeContent={'New'} color="primary" sx={{ ml: 3 }} />}
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">{social.source}</Typography>

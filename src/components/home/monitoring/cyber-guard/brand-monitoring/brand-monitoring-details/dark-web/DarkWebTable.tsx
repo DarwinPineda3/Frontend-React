@@ -1,4 +1,5 @@
 import {
+  Badge,
   Table,
   TableBody,
   TableCell,
@@ -118,6 +119,9 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
                 </TableCell>
                 <TableCell align="center">
                   <HumanizedDate dateString={dark_web.date} />
+                  {dark_web.data_new && (
+                    <Badge badgeContent={'New'} color="primary" sx={{ ml: 3 }} />
+                  )}
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2">
