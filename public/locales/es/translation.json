@@ -1670,7 +1670,8 @@
   },
   "no_data_available": {
     "message": "No hay datos disponibles",
-    "create_new": "Crear nuevo {{entityType}}"
+    "create_new": "Crear nuevo {{entityType}}",
+    "create_new_specific_entity": "Crear nueva {{entityType}}"
   },
   "entity_types": {
     "asset": "activo",
@@ -1682,9 +1683,7 @@
     "report": "reporte",
     "execution": "ejecución",
     "user": "usuario",
-    "users": "usuarios",
     "backup": "copia de seguridad",
-    "scans": "escaneos",
-    "vulnerability": "Vulnerabilidad"
+    "vulnerability": "vulnerabilidad"
   }
 }

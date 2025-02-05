@@ -1,51 +1,35 @@
 import React from 'react';
-import { Typography, Link, Grid} from '@mui/material';
+import { Typography, Link, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 interface NoDataAvailableProps {
-  entityType: string; 
-  formData?: { url: string; [key: string]: any };  
-  urlParams?: Record<string, string>; 
+  entityType: string;
+  formData?: { url: string; [key: string]: any };
 }
-const NoDataAvailable: React.FC<NoDataAvailableProps> = ({ entityType, formData, urlParams }) => {
+
+const NoDataAvailable: React.FC<NoDataAvailableProps> = ({ entityType, formData }) => {
   const { t } = useTranslation();
 
   const translatedEntityType = t(`entity_types.${entityType}`, { defaultValue: entityType });
 
-  const generateUrlWithParams = (url: string, params?: Record<string, string>) => {
-    if (!params) return url;
+  const getTranslationKey = (entityType: string) => {
+    const genderSpecificEntities = ['template', 'execution', 'vulnerability', 'backup'];
 
-    const urlParams = new URLSearchParams(params);
-    return `${url}?${urlParams.toString()}`;
+    return genderSpecificEntities.includes(entityType)
+      ? 'no_data_available.create_new_specific_entity'
+      : 'no_data_available.create_new';
   };
 
+  const translationKey = getTranslationKey(entityType);
   const getFormUrl = () => {
-    if (formData) {
-      const { url, ...otherData } = formData;
-      
-      if (otherData) {
-        const additionalParams = Object.entries(otherData).reduce((acc, [key, value]) => {
-          if (typeof value === 'string') {
-            acc[key] = value;
-          }
-          return acc;
-        }, {} as Record<string, string>);
-
-        const combinedParams = { ...additionalParams, ...urlParams };
-        return generateUrlWithParams(url, combinedParams); 
-      }
-      
-      return url; 
+    if (formData && formData.url) {
+      return formData.url;
     }
-    return ''; 
+    return '';
   };
 
   return (
-    <Grid
-      container
-      alignItems="center"
-      direction="column" 
-    >
+    <Grid container alignItems="center" direction="column">
       <Grid item>
         <Typography variant="inherit" sx={{ marginBottom: '8px', marginTop: '16px' }}>
           {t('dashboard.no_data')}
@@ -53,7 +37,7 @@ const NoDataAvailable: React.FC<NoDataAvailableProps> = ({ entityType, formData,
 
         {formData && formData.url && (
           <Link href={getFormUrl()} variant="body2" sx={{ marginTop: '8px' }}>
-            {t('no_data_available.create_new', { entityType: translatedEntityType })}
+            {t(translationKey, { entityType: translatedEntityType })}
           </Link>
         )}
       </Grid>

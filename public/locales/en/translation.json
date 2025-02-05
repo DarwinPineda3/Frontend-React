@@ -1681,7 +1681,8 @@
   },
   "no_data_available": {
     "message": "No data available",
-    "create_new": "Create new {{entityType}}"
+    "create_new": "Create new {{entityType}}",
+    "create_new_specific_entity": "Create new {{entityType}}"
   },
   "entity_types": {
     "asset": "asset",
@@ -1693,9 +1694,7 @@
     "report": "report",
     "execution": "execution",
     "user": "user",
-    "users": "users",
     "backup": "backup",
-    "scans": "scans",
     "vulnerability": "vulnerability"
   }
 }
