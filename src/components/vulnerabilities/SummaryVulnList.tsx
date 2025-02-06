@@ -42,6 +42,7 @@ import { getChipColor, getSeverityColor } from 'src/utils/severityUtils';
 import AiSolutionModal from '../aisolutioncontent/AiSolutionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const SummaryVulnerabilitiesList = () => {
   const [searchParams, setsearchParams] = useSearchParams();
@@ -458,9 +459,7 @@ const SummaryVulnerabilitiesList = () => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={10}>
-                        <Typography color="textSecondary" variant="subtitle2" align="center">
-                          {t('vulnerabilities.no_data_available')}
-                        </Typography>
+                       <NoDataAvailable entityType="vulnetability"/>
                       </TableCell>
                     </TableRow>
                   )}

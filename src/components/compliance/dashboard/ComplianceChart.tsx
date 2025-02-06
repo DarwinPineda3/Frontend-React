@@ -1,10 +1,10 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import { Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import Loader from 'src/components/shared/Loader/Loader';
+import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
 import { fetchProjectsComplianceByCompany } from 'src/store/sections/compliance/giottoDashboardSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
@@ -27,9 +27,7 @@ const ComplianceChart: React.FC = () => {
   }, [dispatch]);
 
   if (!projects) {
-    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Loader />
-    </Box>;
+    return <Loader type={LoaderType.Contained} />;
   }
 
   const chartOptions: ApexOptions = {

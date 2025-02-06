@@ -7,6 +7,7 @@ import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import SecurityLeaksAccordion from './SecurityLeaksAccordion';
 import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import { useTranslation } from 'react-i18next';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
@@ -22,7 +23,7 @@ const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) 
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6">{t('monitoring.no_data_available')}</Typography>
+         <NoDataAvailable entityType='monitoring'/>
         </Grid>
       </Grid>
     );

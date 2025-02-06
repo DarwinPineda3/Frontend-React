@@ -8,6 +8,7 @@ import OrgBreachesChart from '../../charts/OrgBreachesChart';
 import SentimentAnalysisChart from '../../charts/sentimentAnalysisChart';
 import SocialNetworksIndicators from '../social-networks/SocialNetworksIndicators';
 import SocialNetworksAccordion from './SocialNetworksAccordion';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
@@ -21,7 +22,7 @@ const SocialNetworks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail })
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h6">{t('monitoring.no_data_available')}</Typography>
+         <NoDataAvailable entityType='monitoring'/>
         </Grid>
       </Grid>
     );

@@ -25,6 +25,7 @@ import { fetchAssets, removeAsset, setPage } from 'src/store/sections/AssetsSlic
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 import CreateUpdateAsset from './AssetEdition';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 const AssetList = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -137,7 +138,14 @@ const AssetList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {assets.map((asset: any, index: number) => (
+            {assets.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <NoDataAvailable entityType="asset" formUrl="/home/assets/create" />
+                </TableCell>
+              </TableRow>
+            ) : (
+              assets.map((asset: any, index: number) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Typography variant="subtitle2" fontWeight={600}>
@@ -170,7 +178,8 @@ const AssetList = () => {
                     </Box>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))
+            )}
             </TableBody>
           </Table>
         </TableContainer>

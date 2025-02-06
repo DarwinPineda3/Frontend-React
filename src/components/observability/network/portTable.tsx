@@ -2,6 +2,7 @@ import { Visibility } from '@mui/icons-material';
 import { Dialog, DialogContent, DialogTitle, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const PortTable = ({ hostData }) => {
   const { t } = useTranslation();
@@ -62,7 +63,16 @@ const PortTable = ({ hostData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {hostData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+            { hostData.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={hasPorts ? 4 : 3} align="center">
+                  <NoDataAvailable 
+                      entityType="host" 
+                     />
+                </TableCell>
+              </TableRow>
+            ) : (
+            hostData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Typography variant="body2">{row.addr}</Typography>
@@ -81,7 +91,8 @@ const PortTable = ({ hostData }) => {
                   </TableCell>
                 )}
               </TableRow>
-            ))}
+            ))
+          )}
           </TableBody>
         </Table>
         <TablePagination

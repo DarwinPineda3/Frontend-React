@@ -1,5 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import { Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
+import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
@@ -44,11 +44,9 @@ const PercentageOfUse: React.FC = () => {
 
   if (loading || !templates) {
     return (
-      <Card sx={{ height: '100%' }}>
-        <CardContent>
-          <Loader />
-        </CardContent>
-      </Card>
+      <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Loader />
+      </Box>
     );
   }
 

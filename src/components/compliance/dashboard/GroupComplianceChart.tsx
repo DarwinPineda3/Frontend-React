@@ -2,7 +2,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import Loader from 'src/components/shared/Loader/Loader';
+import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
 import { fetchGroupCompliance } from 'src/store/sections/compliance/giottoDashboardSlice';
 import { fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
@@ -32,7 +32,7 @@ const GroupComplianceChart: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   if (!projects) {
-    return <Loader />;
+    return <Loader type={LoaderType.Contained} />;
   }
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,7 +54,9 @@ const GroupComplianceChart: React.FC = () => {
       return <></>
     }
     if (!groups || !selectedProject) {
-      return <Loader />
+      return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Loader />
+      </Box>
     }
     const chartOptions = {
       chart: {
