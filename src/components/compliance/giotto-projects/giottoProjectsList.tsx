@@ -210,7 +210,7 @@ const GiottoProjectsList = () => {
                     <TableCell colSpan={5} align="center">
                     <NoDataAvailable 
                       entityType="project" 
-                      formData={{ url: '/compliance/projects/create' }} 
+                      formUrl='/compliance/projects/create'
                     />
                     </TableCell>
                   </TableRow>

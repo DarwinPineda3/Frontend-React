@@ -234,7 +234,7 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       ) : (
                         <TableRow>
                           <TableCell colSpan={6} align="center">
-                           <NoDataAvailable entityType="scan" formData={{ url: '/vulnerabilities/web/applications/create' }} />
+                           <NoDataAvailable entityType="scan" formUrl='/vulnerabilities/web/applications/create'/>
                           </TableCell>
                         </TableRow>
                       )}

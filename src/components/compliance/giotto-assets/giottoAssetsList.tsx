@@ -261,7 +261,7 @@ const GiottoAssetsList: React.FC<GiottoAssetsListProps> = ({ onScanClick }) => {
                       <TableCell colSpan={5} align="center">
                       <NoDataAvailable
                         entityType="asset"
-                        formData={{ url: '/compliance/assets/create' }}
+                        formUrl='/compliance/assets/create'
                       />
                       </TableCell>
                     </TableRow>

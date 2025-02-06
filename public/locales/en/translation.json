@@ -1695,6 +1695,8 @@
     "execution": "execution",
     "user": "user",
     "backup": "backup",
-    "vulnerability": "vulnerability"
+    "vulnerability": "vulnerability",
+    "monitoring": "monitoring",
+    "ticket": "ticket"
   }
 }

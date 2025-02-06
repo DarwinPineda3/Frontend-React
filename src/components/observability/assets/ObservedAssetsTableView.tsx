@@ -21,6 +21,7 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { fetchObservedAssetData } from 'src/store/observability/ObservedAssetsSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 interface ObservedAssetsProps {
   onScanClick: (scanId: string) => void;
 }
@@ -215,17 +216,7 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                 ) : (
                   <TableRow>
                     <TableCell colSpan={7} align="center">
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                        height="100px"
-                      >
-                        <Typography variant="body2" color="textSecondary">
-                          {t('vulnerabilities.no_data_available')}
-                        </Typography>
-                      </Box>
+                     <NoDataAvailable entityType="asset"/>
                     </TableCell>
                   </TableRow>
                 )}

@@ -17,6 +17,7 @@ import { fetchTickets, setPage } from 'src/store/support/FreshTicketsSlice';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../shared/DashboardCard';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const TicketList = () => {
   const dispatch = useDispatch();
@@ -90,9 +91,7 @@ const TicketList = () => {
               ) : (
                 <TableRow>
                   <TableCell colSpan={3}>
-                    <Typography color="textSecondary" variant="subtitle2" align="center">
-                      No tickets available
-                    </Typography>
+                    <NoDataAvailable entityType="ticket" formUrl="/support/ticketform" />
                   </TableCell>
                 </TableRow>
               )}

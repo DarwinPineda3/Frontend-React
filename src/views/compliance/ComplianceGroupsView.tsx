@@ -218,7 +218,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
                                 justifyContent="center"
                                 height="100px"
                               >
-                                <NoDataAvailable entityType="group" formData={{ url: '/compliance/groups/create' }} />
+                               <NoDataAvailable entityType="group" formUrl='/compliance/groups/create'/>
                               </Box>
                             </TableCell>
                           </TableRow>

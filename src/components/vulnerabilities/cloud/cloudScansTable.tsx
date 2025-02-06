@@ -161,7 +161,7 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                       <TableCell colSpan={5} align="center">
                        <NoDataAvailable
                           entityType="scan"
-                          formData={{ url: '/vulnerabilities/cloud/create' }}
+                          formUrl='/vulnerabilities/cloud/create'
                         />
                       </TableCell>
                     </TableRow>

@@ -1684,6 +1684,8 @@
     "execution": "ejecución",
     "user": "usuario",
     "backup": "copia de seguridad",
-    "vulnerability": "vulnerabilidad"
+    "vulnerability": "vulnerabilidad",
+    "monitoring": "monitoreo",
+    "ticket": "ticket"
   }
 }

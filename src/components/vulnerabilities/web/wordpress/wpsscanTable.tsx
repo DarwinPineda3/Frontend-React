@@ -233,7 +233,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
                       ) : (
                         <TableRow>
                           <TableCell colSpan={6} align="center">
-                           <NoDataAvailable entityType="scan" formData={{ url: '/vulnerabilities/web/wordpress/create' }} />
+                           <NoDataAvailable entityType="scan" formUrl='/vulnerabilities/web/wordpress/create'/>
                           </TableCell>
                         </TableRow>
                       )}

@@ -422,7 +422,7 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={5} align="center">
-                         <NoDataAvailable entityType="scan" formData={{ url: '/vulnerabilities/network/scans/create' }} />
+                         <NoDataAvailable entityType="scan" formUrl='/vulnerabilities/network/scans/create'/>
                       </TableCell>
                     </TableRow>
                   )}
