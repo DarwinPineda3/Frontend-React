@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
   const { t } = useTranslation();
@@ -36,55 +37,52 @@ const WPSBackups: React.FC<{ backups: any[] }> = ({ backups }) => {
   return (
     <Box mb={2}>
       <Typography variant="h6" fontWeight="bold">
-        {t('wpscan.backups')}
       </Typography>
-      <>
-        {backups?.length > 0 ? (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('wpscan.url')}</TableCell>
-                  <TableCell>{t('wpscan.found_by')}</TableCell>
-                  <TableCell>{t('wpscan.confidence')}</TableCell>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>{t('wpscan.url')}</TableCell>
+              <TableCell>{t('wpscan.found_by')}</TableCell>
+              <TableCell>{t('wpscan.confidence')}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {backups?.length > 0 ? (
+              paginatedItems?.map((backup, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
+                      <Link href={backup?.name} target="_blank" rel="noopener">
+                        {backup?.name}
+                      </Link>
+                    </Typography>
+                  </TableCell>
+                  <TableCell><Typography variant="body2">{backup?.found_by}</Typography></TableCell>
+                  <TableCell><Typography variant="body2">{backup?.confidence}%</Typography></TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {paginatedItems?.map((backup?, index?) => (
-                  <TableRow key={index}>
-                    <TableCell>
-                      <Typography variant="body2" color="primary" style={{ cursor: 'pointer' }}>
-                        <Link href={backup?.name} target="_blank" rel="noopener">
-                          {backup?.name}
-                        </Link>
-                      </Typography>
-                    </TableCell>
-                    <TableCell><Typography variant="body2">{backup?.found_by}</Typography></TableCell>
-                    <TableCell><Typography variant="body2">{backup?.confidence}%</Typography></TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50, 100]}
-              component="div"
-              count={(backups || []).length}
-              rowsPerPage={rowsPerPage}
-              page={currentPage}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </TableContainer>
-        ) : (
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Typography variant="h6">{t('wpscan.no_data_available')}</Typography>
-            </Grid>
-          </Grid>
-        )
-        }
-
-      </>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  <NoDataAvailable entityType="Backup" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+        {backups?.length > 0 && (
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={backups.length}
+            rowsPerPage={rowsPerPage}
+            page={currentPage}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+      </TableContainer>
     </Box>
   );
 };

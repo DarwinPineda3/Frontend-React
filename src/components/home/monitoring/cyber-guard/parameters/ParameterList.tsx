@@ -29,6 +29,7 @@ import {
 import { ParameterCyberGuardType } from 'src/types/cyber-guard/parameters/parameter';
 import DashboardCard from '../../../../shared/DashboardCard';
 import CreateUpdateParameter from './../../../monitoring/cyber-guard/parameters/ParameterEdition';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const ParameterList = () => {
   const dispatch = useDispatch();
@@ -201,9 +202,7 @@ const ParameterList = () => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={4}>
-                        <Typography color="textSecondary" variant="subtitle2" align="center">
-                          {t('monitoring.no_data_available')}
-                        </Typography>
+                       <NoDataAvailable entityType="parameter"/>
                       </TableCell>
                     </TableRow>
                   )}

@@ -1678,5 +1678,25 @@
       "asset_updated_success": "Activo actualizado con éxito",
       "form_instruction": "Por favor, ingrese un nombre para el activo. Los demás campos (IP, dominio o URL) son opcionales, pero debe completar al menos uno."
     }
+  },
+  "no_data_available": {
+    "message": "No hay datos disponibles",
+    "create_new": "Crear nuevo {{entityType}}",
+    "create_new_specific_entity": "Crear nueva {{entityType}}"
+  },
+  "entity_types": {
+    "asset": "activo",
+    "group": "grupo",
+    "project": "proyecto",
+    "scan": "escaneo",
+    "template": "plantilla",
+    "scheduled_scan": "escaneo programado",
+    "report": "reporte",
+    "execution": "ejecución",
+    "user": "usuario",
+    "backup": "copia de seguridad",
+    "vulnerability": "vulnerabilidad",
+    "monitoring": "monitoreo",
+    "ticket": "ticket"
   }
 }

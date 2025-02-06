@@ -22,6 +22,7 @@ import {
   setCustomPageSize,
   setCustomTmpLoading,
 } from 'src/store/sections/compliance/giottoTemplatesSlice';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface GiottoTemplateTableProps {
   handleDownload: () => void;
@@ -131,9 +132,9 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} align="center">
-                    <Typography variant="body2" color="textSecondary">
-                      {t('vulnerabilities.no_data_available')}
-                    </Typography>
+                  <NoDataAvailable
+                      entityType="template"
+                    />
                   </TableCell>
                 </TableRow>
               )}

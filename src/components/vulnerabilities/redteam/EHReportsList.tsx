@@ -15,6 +15,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchEHReports, setPage } from 'src/store/vulnerabilities/redteam/EHReportSlice';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface EHReportTableListProps {
   onEHReportClick: (ehReportId: string) => void;
@@ -93,17 +94,7 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
                 ) : (
                   <TableRow>
                     <TableCell colSpan={5} align="center">
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                        height="100px"
-                      >
-                        <Typography variant="body2" color="textSecondary">
-                          {t('vulnerabilities.no_data_available')}
-                        </Typography>
-                      </Box>
+                     <NoDataAvailable entityType="report"/>
                     </TableCell>
                   </TableRow>
                 ))}

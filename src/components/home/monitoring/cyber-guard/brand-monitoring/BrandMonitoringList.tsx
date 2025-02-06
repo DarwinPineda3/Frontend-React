@@ -22,6 +22,7 @@ import {
   setPageSize,
 } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import DashboardCard from '../../../../shared/DashboardCard';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface BrandMonitoringListProps {
   onBrandMonitoringClick: (id: string) => void;
@@ -151,9 +152,7 @@ const BrandMonitoringList: React.FC<BrandMonitoringListProps> = ({ onBrandMonito
                   ) : (
                     <TableRow>
                       <TableCell colSpan={4}>
-                        <Typography color="textSecondary" variant="subtitle2" align="center">
-                          {t('monitoring.no_data_available')}
-                        </Typography>
+                        <NoDataAvailable entityType="monitoring" />
                       </TableCell>
                     </TableRow>
                   )}
