@@ -1,11 +1,15 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { SecurityLeak, SecurityLeakCategories, SecurityLeakData } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import { Box } from '@mui/material';
+import { Badge, Box } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import {
+  SecurityLeak,
+  SecurityLeakCategories,
+  SecurityLeakData,
+} from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
 import SecurityLeaksTable from './SecurityLeaksTable';
 
 interface SecurityLeaksAccordionProps {
@@ -16,7 +20,6 @@ const formatKey = (key: string) => {
 };
 
 const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ security_leaks_data }) => {
-
   const getCategoryData = (leak: SecurityLeak, category: string) => {
     switch (category) {
       case 'Domains':
@@ -38,7 +41,7 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
     const leaksFormatter = security_leaks_data.map((security_leaks) => {
       return Object.entries(security_leaks).map(([category, details]) => {
         const dataGroup: { [key: string]: SecurityLeak } = {};
-
+        var total_results_new = 0;
         details.data.forEach((leak) => {
           const uniqueKey: any = getCategoryData(leak, category);
 
@@ -51,6 +54,7 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
                 source: leak.source,
                 type: leak.type,
                 risk_level: leak.risk_level,
+                data_new: leak.data_new,
               };
 
               Object.keys(leak.data).forEach((key) => {
@@ -59,10 +63,16 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
             }
 
             Object.entries(leak.data).forEach(([key, value]) => {
-              if (value && !dataGroup[uniqueKey].data[key as keyof SecurityLeakData].includes(value)) {
+              if (
+                value &&
+                !dataGroup[uniqueKey].data[key as keyof SecurityLeakData].includes(value)
+              ) {
                 dataGroup[uniqueKey].data[key as keyof SecurityLeakData].push(value);
               }
             });
+          }
+          if (leak.data_new) {
+            total_results_new += 1;
           }
         });
 
@@ -74,7 +84,8 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
             type: category,
             data: resultArray,
             total_results: totalResults,
-          }
+            total_results_new: total_results_new,
+          },
         } as SecurityLeakCategories;
       });
     });
@@ -82,7 +93,7 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
     return { security_leaks_data: leaksFormatter.flat() };
   };
 
-  const result = formatData(security_leaks_data);  
+  const result = formatData(security_leaks_data);
   return (
     <Box>
       {result.security_leaks_data.map((security_leaks, index) =>
@@ -95,6 +106,18 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
             >
               <Typography variant="h6">
                 {formatKey(details.type)} ({details.total_results})
+                {details.total_results_new > 0 && (
+                  <Badge
+                    badgeContent={`${details.total_results_new} Recent`}
+                    color="primary"
+                    sx={{
+                      ml: 5,
+                      '& .MuiBadge-badge': {
+                        whiteSpace: 'nowrap',
+                      },
+                    }}
+                  />
+                )}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
