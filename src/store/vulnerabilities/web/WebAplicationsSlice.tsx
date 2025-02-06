@@ -39,7 +39,7 @@ export const fetchWebApplicationData = createAsyncThunk(
   'webApplications/fetchOne',
   async (id: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${getApiUrl()}${id}`);
+      const response = await axios.get(`${getApiUrl()}${id}/`);
       return response.data.scan;
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
