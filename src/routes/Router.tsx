@@ -127,12 +127,12 @@ const Router = [
       // Vulnerabilities
       {
         path: '/vulnerabilities/network/scans',
-        element: <NetworkVulnerabilities />,
+        element: <NetworkVulnerabilities showHeader={true} />,
         roles: ['Administrator', 'Scan360'],
       },
       {
         path: '/vulnerabilities/network/scans/:scanId',
-        element: <NetworkVulnerabilities />,
+        element: <NetworkVulnerabilities showHeader={true} />,
         roles: ['Administrator', 'Scan360'],
       },
       {

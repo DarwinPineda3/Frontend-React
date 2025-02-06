@@ -9,7 +9,10 @@ import ReportDetail from 'src/components/vulnerabilities/network/reportDetail';
 import ReportListTable from 'src/components/vulnerabilities/network/reportListTable';
 import VulnerabilityDetailView from 'src/components/vulnerabilities/network/vulnerabilityDetail';
 
-const NetworkVulnerabilities = () => {
+export interface NetworkVulnerabilitiesProps {
+  showHeader: boolean;
+}
+const NetworkVulnerabilities = ({ showHeader }: NetworkVulnerabilitiesProps) => {
   const { t } = useTranslation();
   const { scanId, alertId, vulnerabilityId } = useParams<{
     scanId?: string;
@@ -44,35 +47,38 @@ const NetworkVulnerabilities = () => {
 
   return (
     <PageContainer title="Akila">
-      <Box mb={2}>
-        <Box display="flex" alignItems="center" mt={2}>
-          <IconButton onClick={() => navigate(-1)} color="primary">
-            <ArrowBackIcon />
-          </IconButton>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
-              {t('vulnerabilities.breadcrumb_vulnerabilidades')}
-            </Link>
-            {selectedScan ? (
-              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}`}>
-                {t('vulnerabilities.breadcrumb_red')}
+      {showHeader ?
+        <Box mb={2}>
+          <Box display="flex" alignItems="center" mt={2}>
+            <IconButton onClick={() => navigate(-1)} color="primary">
+              <ArrowBackIcon />
+            </IconButton>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
+                {t('vulnerabilities.breadcrumb_vulnerabilidades')}
               </Link>
-            ) : (
-              <Typography color="textPrimary">{t('vulnerabilities.breadcrumb_red')}</Typography>
-            )}
-            {selectedReport ? (
-              <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}`}>
-                {t('vulnerabilities.breadcrumb_reportes')}
-              </Link>
-            ) : null}
-            {selectedVulnerability && (
-              <Typography color="textPrimary">
-                {t('vulnerabilities.breadcrumb_vulnerabilidad')}
-              </Typography>
-            )}
-          </Breadcrumbs>
-        </Box>
-      </Box>
+              {selectedScan ? (
+                <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}`}>
+                  {t('vulnerabilities.breadcrumb_red')}
+                </Link>
+              ) : (
+                <Typography color="textPrimary">{t('vulnerabilities.breadcrumb_red')}</Typography>
+              )}
+              {selectedReport ? (
+                <Link component={RouterLink} color="inherit" to={`/vulnerabilities/network/scans/${selectedScan}/reports/${selectedReport}`}>
+                  {t('vulnerabilities.breadcrumb_reportes')}
+                </Link>
+              ) : null}
+              {selectedVulnerability && (
+                <Typography color="textPrimary">
+                  {t('vulnerabilities.breadcrumb_vulnerabilidad')}
+                </Typography>
+              )}
+            </Breadcrumbs>
+          </Box>
+        </Box> : <></>
+      }
+
 
       {selectedVulnerability ? (
         <Grid container spacing={0}>
