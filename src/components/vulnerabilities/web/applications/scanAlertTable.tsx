@@ -58,31 +58,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
   };
 
   const theme = useTheme();
-    const { high, medium, low, critical } = theme.palette.level;
-    
-  const cardConfig: Record<
-    string,
-    {
-      bgcolor: string;
-      txtcolor: string;
-    }
-  > = {
-    critical: {
-      bgcolor: critical,
-      txtcolor: '#ffffff'
-    },
-    high: {
-      bgcolor: high,
-      txtcolor: '#ffffff',
-    },
-    medium: {
-      bgcolor: medium,
-      txtcolor: '#ffffff',
-    },
-    low: {
-      bgcolor: low,
-      txtcolor: '#ffffff',
-    },
+  const { high, medium, low, critical } = theme.palette.level;
+
+  const cardConfig: Record<string, { bgcolor: string; txtcolor: string; }> = {
+    critical: { bgcolor: critical, txtcolor: '#ffffff' },
+    high: { bgcolor: high, txtcolor: '#ffffff' },
+    medium: { bgcolor: medium, txtcolor: '#ffffff' },
+    low: { bgcolor: low, txtcolor: '#ffffff' },
   };
 
   const handleRiskFilter = (riskLevel: string) => {
