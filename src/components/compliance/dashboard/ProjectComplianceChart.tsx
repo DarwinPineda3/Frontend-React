@@ -2,7 +2,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, MenuItem as MuiMenuItem, Select, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import Loader from 'src/components/shared/Loader/Loader';
+import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
 import { fetchComplianceByProyect, fetchProjectsComplianceByCompany } from 'src/store/sections/compliance/giottoDashboardSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
@@ -23,9 +23,7 @@ const ProjectComplianceChart: React.FC = () => {
   }, [dispatch, selectedProject]);
 
   if (projects === null) {
-    return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Loader />
-    </Box>;
+    return <Loader type={LoaderType.Contained} />;
   }
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
