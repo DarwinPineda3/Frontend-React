@@ -35,7 +35,7 @@ const InstallationGuides = () => {
   const [value, setValue] = React.useState(0);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const theme = useTheme();
 
@@ -86,9 +86,11 @@ const InstallationGuides = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           {isLoading ? (
-            <Box display="flex" justifyContent="center" alignItems="center" height="100%">
-              <Loader />
+            <DashboardCard>
+            <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+              <Loader></Loader>
             </Box>
+          </DashboardCard>
           ) : (
             <>
               <DashboardCard>
