@@ -15,8 +15,7 @@ const Register = () => {
   return (
     <PageContainer
       title={String(t('registerPage.title'))} 
-      description={String(t('registerPage.subtext'))} 
-    >
+      description={String(t('registerPage.subtext'))} addBottomPadding={false}>
       <Grid container spacing={0} justifyContent="center" sx={{ overflowX: 'hidden' }}>
         <Grid
           item
