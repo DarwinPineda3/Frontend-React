@@ -1,21 +1,20 @@
-import { CardContent, Typography, Button, Stack, Alert } from "@mui/material";
+import { Alert, Button, CardContent, Stack, Typography } from "@mui/material";
+import { useFormik } from "formik";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import BlankCard from "src/components/shared/BlankCard";
 import CustomFormLabel from "src/components/forms/theme-elements/CustomFormLabel";
 import CustomTextField from "src/components/forms/theme-elements/CustomTextField";
+import BlankCard from "src/components/shared/BlankCard";
 import { changePassword, resetMessages } from "src/store/apps/userProfile/ChangePassWordSlice";
-import { store } from "src/store/Store";
-import React from "react";
+import * as Yup from "yup";
 
 const ChangePass = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  
+
   const { successMessage, error } = useSelector((state: store) => state.ChangePasswordUser);
-  
+
   const formik = useFormik({
     initialValues: {
       currentPassword: "",
@@ -109,9 +108,6 @@ const ChangePass = () => {
             <Button type="submit" size="large" variant="contained" color="primary">
               {t('account_settings.save')}
             </Button>
-            {/* <Button size="large" variant="text" color="error" onClick={() => formik.resetForm()}>
-              {t('account_settings.cancel')}
-            </Button> */}
           </Stack>
         </form>
       </CardContent>
