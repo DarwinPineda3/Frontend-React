@@ -55,9 +55,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const pageSize = useSelector((state: any) => state.wpscanReducer.pageSize);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    'success' | 'info' | 'warning' | 'error'
-  >('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState< 'success' | 'info' | 'warning' | 'error' >('success');
   const [wpScanToDelete, setWPScanToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -165,88 +163,80 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
             </Box>
           ) : (
             <>
-              {wpscans.length > 0 ? (
-                <TableContainer>
-                  <Table aria-label="scan list table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('wpscan.url')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('wpscan.date')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('wpscan.scan_type')}
-                          </Typography>
-                        </TableCell>
-                        <TableCell>
-                          <Typography variant="subtitle2" fontWeight={600}>
-                            {t('wpscan.actions')}
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {wpscans.length > 0 ? (
-                        wpscans.map((scan: any, index: any) => (
-                          <TableRow key={scan.id || index}>
-                            <TableCell>
-                              <Typography
-                                variant="subtitle2"
-                                fontWeight={600}
-                                color="primary"
-                                component="a"
-                                onClick={() => onScanClick(scan.id)}
-                                style={{ cursor: 'pointer' }}
-                              >
-                                {scan.target_url}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography variant="body2">
-                                <HumanizedDate dateString={scan.scan_start} />
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              {scan.scan_type === 'scan_normal'
-                                ? 'Scan normal'
-                                : scan.scan_type === 'scan_deep'
-                                ? 'Scan deep'
-                                : 'Unknown scan type'}
-                            </TableCell>
-                            <TableCell>
-                              <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
-                                <DownloadIcon />
-                              </IconButton>
-                              <IconButton color="error" onClick={() => handleDelete(scan.id)}>
-                                <DeleteIcon />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={6} align="center">
-                           <NoDataAvailable entityType="scan" formUrl='/vulnerabilities/web/wordpress/create'/>
+              <TableContainer>
+                <Table aria-label="scan list table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {t('wpscan.url')}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {t('wpscan.date')}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {t('wpscan.scan_type')}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography variant="subtitle2" fontWeight={600}>
+                          {t('wpscan.actions')}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {wpscans.length > 0 ? (
+                      wpscans.map((scan: any, index: any) => (
+                        <TableRow key={scan.id || index}>
+                          <TableCell>
+                            <Typography
+                              variant="subtitle2"
+                              fontWeight={600}
+                              color="primary"
+                              component="a"
+                              onClick={() => onScanClick(scan.id)}
+                              style={{ cursor: 'pointer' }}
+                            >
+                              {scan.target_url}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="body2">
+                              <HumanizedDate dateString={scan.scan_start} />
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            {scan.scan_type === 'scan_normal'
+                              ? 'Scan normal'
+                              : scan.scan_type === 'scan_deep'
+                              ? 'Scan deep'
+                              : 'Unknown scan type'}
+                          </TableCell>
+                          <TableCell>
+                            <IconButton color="primary" onClick={() => handleDownload(scan.id)}>
+                              <DownloadIcon />
+                            </IconButton>
+                            <IconButton color="error" onClick={() => handleDelete(scan.id)}>
+                              <DeleteIcon />
+                            </IconButton>
                           </TableCell>
                         </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              ) : (
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <Typography variant="h6">{t('wpscan.no_data_available')}</Typography>
-                  </Grid>
-                </Grid>
-              )}
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={4} align="center">
+                          <NoDataAvailable entityType="scan" formUrl='/vulnerabilities/web/wordpress/create'/>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 component="div"

@@ -31,6 +31,7 @@ import { getExecutionFrequencyLabels, getScanTypeLabels } from 'src/utils/scanLa
 import ConfirmActionModal from '../modal/ConfirmActionModal';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const ScansTable: React.FC = () => {
   const navigate = useNavigate();
@@ -265,31 +266,10 @@ const ScansTable: React.FC = () => {
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={5}>
-                        <Box
-                          display="flex"
-                          flexDirection="column"
-                          alignItems="center"
-                          justifyContent="center"
-                          height="100px"
-                        >
-                          <Typography variant="body2" color="textSecondary">
-                            {t('settings.scheduled_scans.messages.no_scheduled_scans_found')}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="primary"
-                            component="a"
-                            onClick={() => navigate('/configuration/schedule-scan/create')}
-                            style={{
-                              cursor: 'pointer',
-                              textDecoration: 'underline',
-                              marginTop: '8px',
-                            }}
-                          >
-                            {t('settings.scheduled_scans.navigation.create_scan_here')}
-                          </Typography>
-                        </Box>
+                      <TableCell colSpan={6}>
+                        <NoDataAvailable
+                          entityType="scan"
+                          formUrl="/configuration/schedule-scan/create"/>
                       </TableCell>
                     </TableRow>
                   )}

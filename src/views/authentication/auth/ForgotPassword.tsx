@@ -10,7 +10,7 @@ const ForgotPassword = () => {
   const { t } = useTranslation(); 
 
   return (
-    <PageContainer title={t('forgotPassword.title') || ''} description="this is Forgot Password page">
+    <PageContainer title={t('forgotPassword.title') || ''} description="this is Forgot Password page" addBottomPadding={false}>
       <Grid container justifyContent="center" spacing={0} sx={{ overflowX: 'hidden' }}>
         <Grid
           item
