@@ -33,6 +33,7 @@ import {
   setPageSize,
 } from 'src/store/sections/compliance/giottoProjectsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const GiottoProjectsList = () => {
   const { t } = useTranslation();
@@ -207,9 +208,10 @@ const GiottoProjectsList = () => {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={5} align="center">
-                      <Typography variant="body2" color="textSecondary">
-                        {t('vulnerabilities.no_data_available')}
-                      </Typography>
+                    <NoDataAvailable 
+                      entityType="project" 
+                      formUrl='/compliance/projects/create'
+                    />
                     </TableCell>
                   </TableRow>
                 )}

@@ -25,6 +25,7 @@ import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchCloudScans, setPage, setPageSize } from 'src/store/vulnerabilities/cloud/CloudSlice';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
@@ -158,30 +159,10 @@ const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={5} align="center">
-                        <Box
-                          display="flex"
-                          flexDirection="column"
-                          alignItems="center"
-                          justifyContent="center"
-                          height="100px"
-                        >
-                          <Typography variant="body2" color="textSecondary">
-                            {t('vulnerabilities.no_data_available')}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="primary"
-                            component="a"
-                            onClick={() => navigate('/vulnerabilities/cloud/create')}
-                            style={{
-                              cursor: 'pointer',
-                              textDecoration: 'underline',
-                              marginTop: '8px',
-                            }}
-                          >
-                            {t('vulnerabilities.create_scan_here')}
-                          </Typography>
-                        </Box>
+                       <NoDataAvailable
+                          entityType="scan"
+                          formUrl='/vulnerabilities/cloud/create'
+                        />
                       </TableCell>
                     </TableRow>
                   )}

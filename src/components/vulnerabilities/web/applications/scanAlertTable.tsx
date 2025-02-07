@@ -13,9 +13,11 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
   TextField,
   Typography,
+  useTheme,
 } from '@mui/material';
 import {
   IconAlertCircle,
@@ -28,6 +30,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface Alert {
+  risk: any;
   id: number;
   name: string;
   riskLevel: string;
@@ -48,34 +51,20 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const counts = {
-    critical: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('critical')).length,
-    high: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('high')).length,
-    medium: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('medium')).length,
-    low: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('low')).length,
+    critical: alerts.filter((alert) => alert.risk.toLowerCase().includes('critical')).length,
+    high: alerts.filter((alert) => alert.risk.toLowerCase().includes('high')).length,
+    medium: alerts.filter((alert) => alert.risk.toLowerCase().includes('medium')).length,
+    low: alerts.filter((alert) => alert.risk.toLowerCase().includes('low')).length,
   };
-  const cardConfig: Record<
-    string,
-    {
-      bgcolor: string;
-      txtcolor: string;
-    }
-  > = {
-    critical: {
-      bgcolor: '#d32f2f', 
-      txtcolor: '#ffffff'
-    },
-    high: {
-      bgcolor: '#EF8E0E',
-      txtcolor: '#ffffff',
-    },
-    medium: {
-      bgcolor: '#f4be34',
-      txtcolor: '#ffffff',
-    },
-    low: {
-      bgcolor: '#329223',
-      txtcolor: '#ffffff',
-    },
+
+  const theme = useTheme();
+  const { high, medium, low, critical } = theme.palette.level;
+
+  const cardConfig: Record<string, { bgcolor: string; txtcolor: string; }> = {
+    critical: { bgcolor: critical, txtcolor: '#ffffff' },
+    high: { bgcolor: high, txtcolor: '#ffffff' },
+    medium: { bgcolor: medium, txtcolor: '#ffffff' },
+    low: { bgcolor: low, txtcolor: '#ffffff' },
   };
 
   const handleRiskFilter = (riskLevel: string) => {
@@ -102,6 +91,23 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     setSelectedAlerts([]);
   };
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+
+  const paginatedItems = (filteredAlerts || []).slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
+
 
   return (
     <Box>
@@ -246,7 +252,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           </Box>
         </Grid>
       </Grid>
-      
+
       {/* search */}
       <Box mb={3} my={3}>
         <TextField
@@ -275,35 +281,35 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
           </TableRow>
         </TableHead>
         <TableBody>
-        {filteredAlerts.map((alert) => {
-        const cleanRiskLevel = alert.riskLevel.split('(')[0].trim();
-        const colorConfig = cardConfig[cleanRiskLevel.toLowerCase()];
-    return (
-      <TableRow key={alert.id}>
-        <TableCell>
-          <Typography
-            color="primary"
-            fontWeight={500}
-            onClick={() => onAlertClick(alert.id)}
-            style={{ cursor: 'pointer' }}
-          >
-            {alert.name}
-          </Typography>
-        </TableCell>
-        <TableCell>
-          <Chip
-            label={alert.riskLevel}  
-            style={{
-              backgroundColor: cardConfig[cleanRiskLevel.toLowerCase()]?.bgcolor, 
-              color: cardConfig[cleanRiskLevel.toLowerCase()]?.txtcolor,  
-            }}
-            size="small"
-          />
-        </TableCell>
-        <TableCell>
-          <Typography>{alert.instances}</Typography>
-        </TableCell>
-        {/* <TableCell>
+          {paginatedItems.map((alert) => {
+            const cleanRiskLevel = alert.riskLevel.split('(')[0].trim();
+
+            return (
+              <TableRow key={alert.id}>
+                <TableCell>
+                  <Typography
+                    color="primary"
+                    fontWeight={500}
+                    onClick={() => onAlertClick(alert.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {alert.name}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Chip
+                    label={alert.risk}
+                    style={{
+                      backgroundColor: cardConfig[cleanRiskLevel.toLowerCase()]?.bgcolor,
+                      color: cardConfig[cleanRiskLevel.toLowerCase()]?.txtcolor,
+                    }}
+                    size="small"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Typography>{alert.instances}</Typography>
+                </TableCell>
+                {/* <TableCell>
           <Tooltip title={t('vulnerabilities.view_alert')}>
             <IconButton onClick={() => onAlertClick(alert.id)} color="success">
               <IconEye />
@@ -320,11 +326,20 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
             </IconButton>
           </Tooltip>
         </TableCell> */}
-      </TableRow>
-    );
-  })}
-</TableBody>
+              </TableRow>
+            );
+          })}
+        </TableBody>
       </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
+        component="div"
+        count={(filteredAlerts || []).length}
+        rowsPerPage={rowsPerPage}
+        page={currentPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
 
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle>{t('vulnerabilities.confirm_delete')}</DialogTitle>

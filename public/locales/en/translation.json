@@ -1704,5 +1704,25 @@
       "asset_updated_success": "Asset updated successfully",
       "form_instruction": "Please enter a name for the asset. The other fields (IP, domain, or URL) are optional, but you must fill in at least one."
     }
+  },
+  "no_data_available": {
+    "message": "No data available",
+    "create_new": "Create new {{entityType}}",
+    "create_new_specific_entity": "Create new {{entityType}}"
+  },
+  "entity_types": {
+    "asset": "asset",
+    "group": "group",
+    "project": "project",
+    "template": "template",
+    "scan": "scan",
+    "scheduled_scan": "scheduled scan",
+    "report": "report",
+    "execution": "execution",
+    "user": "user",
+    "backup": "backup",
+    "vulnerability": "vulnerability",
+    "monitoring": "monitoring",
+    "ticket": "ticket"
   }
 }

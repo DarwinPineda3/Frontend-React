@@ -29,6 +29,7 @@ import {
   setPageSize,
 } from 'src/store/observability/ObservabilityNetworkSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface ScanListTableProps {
   onScanClick: (scanId: string) => void;
@@ -205,30 +206,10 @@ const NetworkScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => 
                 ) : (
                   <TableRow>
                     <TableCell colSpan={5} align="center">
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                        justifyContent="center"
-                        height="100px"
-                      >
-                        <Typography variant="body2" color="textSecondary">
-                          {t('vulnerabilities.no_data_available')}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          color="primary"
-                          component="a"
-                          onClick={() => navigate('/observability/network/create')}
-                          style={{
-                            cursor: 'pointer',
-                            textDecoration: 'underline',
-                            marginTop: '8px',
-                          }}
-                        >
-                          {t('vulnerabilities.create_scan_here')}
-                        </Typography>
-                      </Box>
+                     <NoDataAvailable 
+                      entityType="scan" 
+                      formUrl='/observability/network/create' 
+                     />
                     </TableCell>
                   </TableRow>
                 )}
