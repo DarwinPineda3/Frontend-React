@@ -109,9 +109,9 @@ const ChangePass = () => {
             <Button type="submit" size="large" variant="contained" color="primary">
               {t('account_settings.save')}
             </Button>
-            <Button size="large" variant="text" color="error" onClick={() => formik.resetForm()}>
+            {/* <Button size="large" variant="text" color="error" onClick={() => formik.resetForm()}>
               {t('account_settings.cancel')}
-            </Button>
+            </Button> */}
           </Stack>
         </form>
       </CardContent>
