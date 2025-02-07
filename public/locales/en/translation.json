@@ -1580,10 +1580,12 @@
   "settings": {
     "scheduled_scans": {
       "search_placeholder": "Search...",
+      "no_data_available": "No data available",
       "table_headers": {
         "name": "Name",
         "scan_type": "Scan Type",
         "execution_frequency": "Execution Frequency",
+        "execution_day": "Execution day",
         "execution_time": "Execution Time",
         "status": "Status",
         "actions": "Actions"
@@ -1609,7 +1611,9 @@
         "network_observability": "Network Observability Analysis"
       },
       "execution_frequencies": {
-        "every_day": "Every day"
+        "every_day": "Every day",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
       },
       "common": {
         "unknown": "Unknown"
@@ -1627,6 +1631,7 @@
           "scan_type": "Scan Type",
           "target": "Target",
           "execution_frequency": "Execution Frequency",
+          "execution_day": "Execution day",
           "execution_time": "Execution Time",
           "scheduled_date": "Scheduled Date",
           "status": "Status",
@@ -1642,6 +1647,16 @@
         "task": "task",
         "label_task": "Task",
         "no_tasks": "No tasks",
+        "execution_day": "Execution day",
+        "days": {
+          "monday": "Monday",
+          "tuesday": "Tuesday",
+          "wednesday": "Wednesday",
+          "thursday": "Thursday",
+          "friday": "Friday",
+          "saturday": "Saturday",
+          "sunday": "Sunday"
+        },
         "validations": {
           "name_required": "Name is required",
           "scan_type_required": "Scan type is required",

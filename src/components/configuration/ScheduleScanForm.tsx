@@ -12,7 +12,7 @@ import {
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { fetchFilteredAssets } from 'src/store/sections/AssetsSlice';
 import {
   createScheduleScan,
@@ -21,7 +21,11 @@ import {
 import { useDispatch, useSelector } from 'src/store/Store';
 import { ScheduledTaskType } from 'src/types/schedule-scans-settings/schedule_scans_type';
 import { NetworkScanType } from 'src/types/vulnerabilities/network/networkScansType';
-import { getExecutionFrequencyLabels, getScanTypeLabels } from 'src/utils/scanLabels';
+import {
+  getDaysOfWeekLabels,
+  getExecutionFrequencyLabels,
+  getScanTypeLabels,
+} from 'src/utils/scanLabels';
 import * as Yup from 'yup';
 import DashboardCard from '../shared/DashboardCard';
 
@@ -30,7 +34,6 @@ interface Props {
 }
 
 const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +55,7 @@ const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
       name: '',
       frequency: '1',
       executionTime: '',
+      executionDay: '1',
       selectedAsset: '',
       networkScan: {
         elastic_task_id: '',
@@ -70,6 +74,10 @@ const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
       executionTime: Yup.string().required(
         t('settings.scheduled_scans.form.validations.execution_time_required')!,
       ),
+      executionDay: Yup.string().when('frequency', {
+        is: (val: string) => val === '2' || val === '3',
+        then: Yup.string().required(t('validation.execution_day_required')!),
+      }),
       networkScan: Yup.object({
         elastic_task_id: Yup.string().when('scanType', {
           is: 1,
@@ -105,16 +113,16 @@ const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
         name: values.name,
         asset: values.selectedAsset,
         execution_frequency: values.frequency,
+        execution_day: values.executionDay,
         execution_time: `${new Date().toISOString().split('T')[0]}T${values.executionTime}:00.000Z`,
-        elastic_task_id: values.networkScan?.elastic_task_id,
-        openvas_task_id: values.networkScan?.openvas_task_id,
+        elastic_task_id: values.networkScan?.elastic_task_id || null,
+        openvas_task_id: values.networkScan?.openvas_task_id || null,
         is_active: true,
       };
       try {
         await dispatch(createScheduleScan(payload));
         onSubmit(`${t('settings.scheduled_scans.form.success.scan_scheduled')}`, 'success');
       } catch (error) {
-        console.error('Error al enviar vulnerabilidad:', error);
         onSubmit(`${t('settings.scheduled_scans.form.error.scan_schedule_failed')}`, 'error');
       }
     },
@@ -122,6 +130,7 @@ const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
 
   const scanTypeLabels = getScanTypeLabels(t);
   const executionFrequencyLabels = getExecutionFrequencyLabels(t);
+  const days = getDaysOfWeekLabels(t);
 
   useEffect(() => {
     const fetchDataFilteredAssets = async () => {
@@ -283,6 +292,43 @@ const ScheduleScanForm: React.FC<Props> = ({ onSubmit }) => {
             ))}
           </Select>
         </FormControl>
+
+        {formik.values.frequency === '2' && (
+          <FormControl fullWidth margin="normal">
+            <InputLabel>{t('settings.scheduled_scans.form.execution_day')}</InputLabel>
+            <Select
+              id="executionDay"
+              name="executionDay"
+              value={formik.values.executionDay}
+              onChange={formik.handleChange}
+            >
+              {Object.entries(days).map(([value, label]) => (
+                <MenuItem key={value} value={value}>
+                  {label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+
+        {formik.values.frequency === '3' && (
+          <FormControl fullWidth margin="normal">
+            <InputLabel>{t('settings.scheduled_scans.form.execution_day')}</InputLabel>
+            <Select
+              id="executionDay"
+              name="executionDay"
+              value={formik.values.executionDay}
+              onChange={formik.handleChange}
+              MenuProps={{ PaperProps: { style: { maxHeight: 200 } } }}
+            >
+              {[...Array(30)].map((_, index) => (
+                <MenuItem key={index + 1} value={index + 1}>
+                  {index + 1}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
 
         <TextField
           fullWidth
