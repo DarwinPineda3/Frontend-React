@@ -1170,7 +1170,7 @@
     "reset": "Restablecer",
     "allowed_file_types": "Permitido JPG, GIF o PNG. Tamaño máximo de 800K",
     "change_password": "Cambiar contraseña",
-    "password_instructions": "Para cambiar tu contraseña, confírmala aquí",
+    "password_instructions": "Actualiza tu contraseña completando los campos.",
     "current_password": "Contraseña actual",
     "new_password": "Nueva Contraseña",
     "confirm_password": "Confirmar contraseña",

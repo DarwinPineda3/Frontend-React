@@ -1172,7 +1172,7 @@
     "reset": "Reset",
     "allowed_file_types": "Allowed JPG, GIF or PNG. Max size of 800K",
     "change_password": "Change password",
-    "password_instructions": "To change your password please confirm here",
+    "password_instructions": "Update your password by completing the fields.",
     "current_password": "Current password",
     "new_password": "New password",
     "confirm_password": "Confirm password",
