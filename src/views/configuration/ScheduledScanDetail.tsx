@@ -36,6 +36,7 @@ import {
   getExecutionFrequencyLabels,
   getScanTypeLabels,
 } from 'src/utils/scanLabels';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 const ScheduledScansDetail = () => {
   const { t } = useTranslation();
@@ -187,9 +188,7 @@ const ScheduledScansDetail = () => {
                 {displayedLeaks.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={3} align="center">
-                      <Typography color="textSecondary" variant="body2">
-                        {t('settings.scheduled_scans.no_data_available')}
-                      </Typography>
+                      <NoDataAvailable entityType="scan" />
                     </TableCell>
                   </TableRow>
                 ) : (
