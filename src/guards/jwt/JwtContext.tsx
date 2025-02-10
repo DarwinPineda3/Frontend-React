@@ -211,6 +211,9 @@ const handleRefreshToken = async () => {
   }
 };
 
+let refreshingTokenPromise: Promise<{ access: string; refresh: string }> | null = null;
+
+
 const getValidAccessToken = async () => {
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
@@ -220,7 +223,12 @@ const getValidAccessToken = async () => {
   }
 
   else if (refreshToken) {
-    const { access } = await handleRefreshToken();
+    if (!refreshingTokenPromise) {
+      refreshingTokenPromise = handleRefreshToken().finally(() => {
+        refreshingTokenPromise = null;
+      });
+    }
+    const { access } = await refreshingTokenPromise;
     return access;
   }
 

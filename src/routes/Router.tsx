@@ -115,7 +115,7 @@ const Router = [
       {
         path: '/home/dashboard',
         element: <Dashboard />,
-        roles: ['Administrator', 'Scan360', 'Defender'],
+        roles: ['Administrator', 'Scan360', 'Defender', 'CyberGuard'],
       },
       { path: '/home/assets', element: <Assets />, roles: ['Administrator', 'Scan360'] },
       {
