@@ -46,7 +46,7 @@ const ScansTable: React.FC = () => {
   const currentPage = useSelector((state: any) => state.scheduleScansReducer.page);
   const totalPages = useSelector((state: any) => state.scheduleScansReducer.totalPages);
   const pageSize = useSelector((state: any) => state.scheduleScansReducer.pageSize);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
