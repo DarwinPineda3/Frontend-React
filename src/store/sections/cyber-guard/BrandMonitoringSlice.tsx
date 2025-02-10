@@ -73,7 +73,7 @@ export const fetchBrandMonitoringData =
   async (dispatch: AppDispatch) => {
     try {
       const response = await axios.get(
-        `${getMonitoringApiUrl()}?page=${page}&page_size=${pageSize}`,
+        `${getMonitoringApiUrl()}/?page=${page}&page_size=${pageSize}`,
       );
 
       const { latest_data, summary_data, page: currentPage, totalPages } = response.data;
@@ -93,7 +93,7 @@ export const fetchBrandMonitoringData =
 
 export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getMonitoringApiUrl()}/${id}`);
+    const response = await axios.get(`${getMonitoringApiUrl()}/${id}/`);
 
     if (response.status === 200) {
       dispatch(getBrandMonitoringDetail({ data: response.data }));
