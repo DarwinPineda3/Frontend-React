@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import SecurityLeakDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { SecurityLeak } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import { getChipColor } from 'src/utils/severityUtils';
 
 interface SecurityLeakTableProps {
   leaks: SecurityLeak[];
@@ -29,26 +30,6 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedLeak, setSelectedLeak] = useState<SecurityLeak | null>(null);
-  const criticalColor = theme.palette.level.critical;
-  const highColor = theme.palette.level.high;
-  const mediumColor = theme.palette.level.medium;
-  const lowColor = theme.palette.level.low;
-  const noneColor = theme.palette.level.none;
-
-  const getChipColor = (riskLevel: string) => {
-    switch (riskLevel) {
-      case 'critical':
-        return { color: criticalColor, label: t('monitoring.critical') };
-      case 'high':
-        return { color: highColor, label: t('monitoring.high') };
-      case 'medium':
-        return { color: mediumColor, label: t('monitoring.medium') };
-      case 'low':
-        return { color: lowColor, label: t('monitoring.low') };
-      default:
-        return { color: noneColor, label: 'N/A' };
-    }
-  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -147,9 +128,9 @@ const SecurityLeakTable: React.FC<SecurityLeakTableProps> = ({ leaks, category }
                 </TableCell>
                 <TableCell align="center">
                   <Chip
-                    label={getChipColor(leak.risk_level).label}
+                    label={getChipColor(leak.risk_level, theme, t).label}
                     sx={{
-                      backgroundColor: getChipColor(leak.risk_level).color,
+                      backgroundColor: getChipColor(leak.risk_level, theme, t).color,
                       color: 'white',
                     }}
                   />

@@ -1,5 +1,6 @@
 import {
   Badge,
+  Chip,
   Table,
   TableBody,
   TableCell,
@@ -9,11 +10,13 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DarkWebDetailModal from 'src/components/home/monitoring/cyber-guard/brand-monitoring/brand-monitoring-details/security-leaks/SecurityLeaksModal';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { DarkWeb } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import { getChipColor } from 'src/utils/severityUtils';
 
 interface DarkWebTableProps {
   dark_web: DarkWeb[];
@@ -22,6 +25,7 @@ interface DarkWebTableProps {
 
 const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [modalOpen, setModalOpen] = useState(false);
@@ -94,6 +98,11 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
               </TableCell>
               <TableCell align="center">
                 <Typography variant="subtitle2" fontWeight={600}>
+                  {t('monitoring.risk_level')}
+                </Typography>
+              </TableCell>
+              <TableCell align="center">
+                <Typography variant="subtitle2" fontWeight={600}>
                   {t('monitoring.date')}
                 </Typography>
               </TableCell>
@@ -116,6 +125,15 @@ const DarkWebTable: React.FC<DarkWebTableProps> = ({ dark_web, category }) => {
                   >
                     {getCategoryData(dark_web) || 'NA'}
                   </Typography>
+                </TableCell>
+                <TableCell align="center">
+                  <Chip
+                    label={getChipColor(dark_web.risk_level, theme, t).label}
+                    sx={{
+                      backgroundColor: getChipColor(dark_web.risk_level, theme, t).color,
+                      color: 'white',
+                    }}
+                  />
                 </TableCell>
                 <TableCell align="center">
                   <HumanizedDate dateString={dark_web.date} />

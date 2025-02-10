@@ -54,6 +54,7 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
                 generated: dar_web.generated,
                 source: dar_web.source,
                 type: dar_web.type,
+                risk_level: dar_web.risk_level,
                 data_new: dar_web.data_new,
               };
 

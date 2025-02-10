@@ -141,6 +141,7 @@ export interface DarkWeb {
   generated: null | any;
   source: string;
   type: string;
+  risk_level: 'low' | 'medium' | 'high' | 'critical';
   data_new: null | boolean;
 }
 
