@@ -92,12 +92,12 @@ const Profile = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         sx={{
           '& .MuiMenu-paper': {
-            width: '360px',
+            width: 'auto',
             p: 4,
           },
         }}
       >
-        <Typography variant="h5">User Profile</Typography>
+        <Typography variant="h5">{t('profile.user_profile')}</Typography>
         <Stack direction="row" py={3} spacing={2} alignItems="center">
           <Avatar src={ProfileImg} alt={ProfileImg} sx={{ width: 95, height: 95 }} />
           <Box>

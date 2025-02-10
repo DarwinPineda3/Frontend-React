@@ -28,7 +28,7 @@ const EHReportList: React.FC<EHReportTableListProps> = ({ onEHReportClick }) => 
   const totalPages = useSelector((state: any) => state.ehReportsReducer.totalPages);
   const pageSize = useSelector((state: any) => state.cloudInventoryReducer.pageSize);
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   React.useEffect(() => {
     const fetchData = async () => {
