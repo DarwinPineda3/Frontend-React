@@ -30,7 +30,7 @@ const WpScanDetail: React.FC = () => {
   const { scanId } = useParams<{ scanId?: string }>();
   const dispatch = useDispatch();
   const wpscan = useSelector((state: any) => state.wpscanReducer.wpscan);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
   React.useEffect(() => {

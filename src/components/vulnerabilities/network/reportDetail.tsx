@@ -37,7 +37,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
     (state: any) => state.networkScanReducer.networkScanReportDetail,
   );
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [pageScans, setPageScans] = useState(0);
   const [rowsPerPageScans, setRowsPerPageScans] = useState(25);
 

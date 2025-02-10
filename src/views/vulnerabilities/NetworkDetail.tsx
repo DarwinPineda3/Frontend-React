@@ -23,7 +23,7 @@ const NetworkVulnerabilitiesDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const networkScanOverview: Scan = useSelector(
     (state: any) => state.networkScanReducer.networkScanDetail,
