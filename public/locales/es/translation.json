@@ -1188,9 +1188,12 @@
     "confirm_password_required": "Se requiere confirmar la contraseña.",
     "password_updated_successfully": "Contraseña actualizada con éxito.",
     "password_update_failed": "Error al actualizar la contraseña.",
-    "password_change_failed": "No se pudo cambiar la contraseña."
+    "password_change_failed": "No se pudo cambiar la contraseña.",
+    "title": "Configuración de la Cuenta",
+    "account": "Cuenta"
   },
   "profile": {
+    "user_profile": "Perfil de Usuario",
     "name_unavailable": "Nombre no disponible",
     "group_unavailable": "Grupo no disponible",
     "email_unavailable": "Email no disponible"

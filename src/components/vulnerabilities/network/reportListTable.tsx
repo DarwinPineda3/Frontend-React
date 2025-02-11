@@ -47,7 +47,7 @@ const ReportListTable: React.FC<ScanAlertTableProps> = ({ scanId, onAlertClick }
   const currentPage = useSelector((state: any) => state.networkScanReducer.page);
   const totalPages = useSelector((state: any) => state.networkScanReducer.totalPages);
   const pageSize = useSelector((state: any) => state.networkScanReducer.pageSize);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // State to control the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Message for the snackbar
   const [snackbarSeverity, setSnackbarSeverity] = useState<

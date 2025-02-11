@@ -46,7 +46,7 @@ const WPScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
 
   const wpscans = useSelector((state: any) => state.wpscanReducer.wpscans);

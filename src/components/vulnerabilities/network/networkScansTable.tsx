@@ -238,7 +238,7 @@ const NetworkScanTable: React.FC<NetworkScanTableProps> = ({ onScanClick }) => {
   >('success'); // Snackbar severity
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [networkScantoDelete, setNetworkScantoDelete] = useState<NetworkScanType | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [openDialog, setOpenDialog] = useState(false); // State to control the dialog/modal
 
   useEffect(() => {
