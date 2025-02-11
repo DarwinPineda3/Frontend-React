@@ -1278,7 +1278,8 @@
     "compliance_executions": "Executions",
     "compliance_templates": "Templates",
     "compliance_reports": "Reports",
-    "bulk_import": "Bulk import"
+    "bulk_import": "Bulk import",
+    "compliance_users": "Users"
   },
   "compliance": {
     "assets_description": "Assets",
@@ -1289,6 +1290,12 @@
     "projects_info": "Here you can manage and view compliance projects.",
     "executions_description": "Executions",
     "executions_info": "Here you can track and manage compliance executions.",
+    "compliance_by_project": "Compliance by Project",
+    "compliance_by_group": "Compliance by Group",
+    "execution_by_month": "Execution by Month",
+    "execution_by_project": "Execution by Project",
+    "execution_by_group": "Execution by Group",
+    "percentage_of_use": "Percentage of Use",
     "installation_guide": {
       "title": "Installation Guide",
       "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows or Linux, you will find all the necessary steps to ensure a smooth installation process.",

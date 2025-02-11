@@ -1,5 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
+import { truncate } from 'fs/promises';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
@@ -17,7 +18,7 @@ const NewsletterDetails = () => {
 
   const dispatch = useDispatch();
   const newsletterDetails = useSelector((state: any) => state.newsLettersReducer.newsletterDetails);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {

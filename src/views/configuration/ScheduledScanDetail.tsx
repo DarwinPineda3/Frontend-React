@@ -46,7 +46,7 @@ const ScheduledScansDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const scheduleScanOverview: ScheduledScanDetail = useSelector(
     (state: any) => state.scheduleScansReducer.scheduled_scan_detail,
