@@ -1,14 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
-import { Avatar, IconButton, Menu, MenuItem, Typography, Stack } from '@mui/material';
-import { useSelector, useDispatch } from 'src/store/Store';
-import { setLanguage } from 'src/store/customizer/CustomizerSlice';
-import FlagEn from 'src/assets/images/flag/icon-flag-en.svg';
-import FlagCo from 'src/assets/images/flag/icon-flag-co.svg';
+import { Avatar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import { AppState } from 'src/store/Store';
+import FlagCo from 'src/assets/images/flag/icon-flag-co.svg';
+import FlagEn from 'src/assets/images/flag/icon-flag-en.svg';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import { setLanguage } from 'src/store/customizer/CustomizerSlice';
 
 const Languages = [
   {

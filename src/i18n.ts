@@ -1,7 +1,7 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-http-backend';
+import { initReactI18next } from 'react-i18next';
 
 // Initialize i18next with backend and language detector
 i18n
@@ -9,7 +9,7 @@ i18n
   .use(LanguageDetector) // Detect user language
   .use(initReactI18next) // Pass i18n instance to react-i18next
   .init({
-    fallbackLng: 'en', // Fallback language if detected language is not available
+    lng: localStorage.getItem('i18nextLng') || 'en',
     debug: false, // Set to true for debugging
 
     interpolation: {

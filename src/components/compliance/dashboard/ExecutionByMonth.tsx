@@ -157,9 +157,9 @@ const ExecutionByMonth: React.FC = () => {
         </div>
 
         <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
-          {selectedProject === 0 ? 'Promedio' : 'Valor del Proyecto'}: {selectedProject === 0
-            ? (dataByMonth.reduce((acc, data) => acc + data.assessmentExecutionsCount + data.hardeningExecutionsCount + data.rollbackExecutionsCount, 0) / (dataByMonth.length * 3))
-            : (dataByMonth[selectedProject - 1]?.assessmentExecutionsCount || 0)} %
+          {selectedProject === 0
+            ? ((dataByMonth.reduce((acc, data) => acc + data.assessmentExecutionsCount + data.hardeningExecutionsCount + data.rollbackExecutionsCount, 0) / (dataByMonth.length * 3)).toFixed(2))
+            : (dataByMonth[selectedProject - 1]?.assessmentExecutionsCount || 0).toFixed(3)}%
         </Typography>
       </CardContent>
     </Card>
