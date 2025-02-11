@@ -1,12 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
-import Chart from 'react-apexcharts';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Stack, Typography, Avatar, Box } from '@mui/material';
-import DashboardCard from '../../shared/DashboardCard';
 import { IconGridDots } from '@tabler/icons-react';
-import { Props } from 'react-apexcharts';
+import React from 'react';
+import Chart, { Props } from 'react-apexcharts';
+import DashboardCard from '../../shared/DashboardCard';
 
 interface Stat {
   title: string;
@@ -77,7 +76,7 @@ const WeeklyStats: React.FC = () => {
   const stats: Stat[] = [
     {
       title: 'Service Uptime',
-      subtitle: 'API Gateway',
+      subtitle: '',
       percent: '99.9',
       color: primary,
       lightcolor: primarylight,
@@ -85,7 +84,7 @@ const WeeklyStats: React.FC = () => {
     },
     {
       title: 'Active Incidents',
-      subtitle: 'Web Services',
+      subtitle: '',
       percent: '2',
       color: secondary,
       lightcolor: secondarylight,
@@ -93,13 +92,13 @@ const WeeklyStats: React.FC = () => {
     },
     {
       title: 'Resolved Tickets',
-      subtitle: 'Security Issues',
+      subtitle: '',
       percent: '85',
       color: error,
       lightcolor: errorlight,
       icon: <IconGridDots width={18} />, // Replace with a more relevant icon if needed
     },
-    
+
   ];
 
   return (

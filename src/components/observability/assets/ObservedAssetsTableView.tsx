@@ -17,6 +17,7 @@ import {
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
+import EmptyState from 'src/components/shared/EmptyState';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import { fetchObservedAssetData } from 'src/store/observability/ObservedAssetsSlice';
@@ -62,6 +63,15 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
       <Box display="flex" justifyContent="center" alignItems="center" height="200px">
         <Loader></Loader>
       </Box>
+    </DashboardCard>
+  }
+
+  if (observedAssetsData.length === 0) {
+    return <DashboardCard
+      title={t('observability.scans')!}
+      subtitle={t('observability.list_of_all_scans')!}
+    >
+      <EmptyState />
     </DashboardCard>
   }
 
@@ -141,10 +151,10 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                           }}
                           color={
                             asset.CpuInfo.CpuUsage < 30
-                              ? 'success' 
+                              ? 'success'
                               : asset.CpuInfo.CpuUsage > 80
-                              ? 'primary' 
-                              : 'warning' 
+                                ? 'primary'
+                                : 'warning'
                           }
                         />
                         <Typography variant="subtitle2">{asset.CpuInfo.CpuUsage}%</Typography>
@@ -161,10 +171,10 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                           }}
                           color={
                             asset.RamInfo.RamUsagePercentage < 30
-                              ? 'success'  
+                              ? 'success'
                               : asset.RamInfo.RamUsagePercentage > 80
-                              ? 'error'  
-                              : 'warning' 
+                                ? 'error'
+                                : 'warning'
                           }
                         />
                         <Typography variant="subtitle2">
@@ -183,10 +193,10 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                           }}
                           color={
                             asset.Storage.TotalUsagePercentage < 30
-                              ? 'success'  
+                              ? 'success'
                               : asset.Storage.TotalUsagePercentage > 80
-                              ? 'error' 
-                              : 'warning' 
+                                ? 'error'
+                                : 'warning'
                           }
                         />
                         <Typography variant="subtitle2">
@@ -216,7 +226,7 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                 ) : (
                   <TableRow>
                     <TableCell colSpan={7} align="center">
-                     <NoDataAvailable entityType="asset"/>
+                      <NoDataAvailable entityType="asset" />
                     </TableCell>
                   </TableRow>
                 )}

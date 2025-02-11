@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import EmptyState from 'src/components/shared/EmptyState';
 import { fetchHostData } from 'src/store/sections/dashboard/HostResourceSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import DashboardCard from '../../shared/DashboardCard';
@@ -39,11 +40,7 @@ const HostResourceTable = () => {
   if (data != null && data.length === 0) {
     return (
       <DashboardCard title={t("dashboard.host_resource_monitoring") as string} subtitle={t("dashboard.system_resource_usage") as string}>
-        <Box display="flex" justifyContent="center" mt={4} mb={4}>
-          <Typography variant="h6" color="textSecondary">
-            {t("dashboard.no_data")}
-          </Typography>
-        </Box>
+        <EmptyState />
       </DashboardCard>
     );
   }
@@ -51,6 +48,7 @@ const HostResourceTable = () => {
   if (error) {
     return <div>{t("dashboard.error", { error })}</div>;
   }
+
 
   return (
     <DashboardCard title={t("dashboard.host_resource_monitoring") as string} subtitle={t("dashboard.system_resource_usage") as string}>

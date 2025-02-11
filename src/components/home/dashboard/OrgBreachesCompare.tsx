@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import SecurityIncidentsPolygon from 'src/components/observability/dark-web/SecurityIncidentsPolygon';
+import EmptyState from 'src/components/shared/EmptyState';
 import { fetchBrandMonitoringData, fetchBrandMonitoringResume } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import DashboardCard from '../../shared/DashboardCard';
@@ -50,6 +51,13 @@ const OrgBreachesCompare = () => {
         <Box display="flex" justifyContent="center" >
           <Loader />
         </Box>
+      </DashboardCard>
+    );
+  }
+  if (brandMonitoringResume && Object.keys(brandMonitoringResume).length === 0) {
+    return (
+      <DashboardCard title={t("dashboard.organization_breaches") || ''}>
+        <EmptyState />
       </DashboardCard>
     );
   }
