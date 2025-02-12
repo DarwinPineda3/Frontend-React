@@ -9,8 +9,10 @@ import PercentageOfUse from 'src/components/compliance/dashboard/PercentageOfUse
 import ProjectComplianceChart from 'src/components/compliance/dashboard/ProjectComplianceChart';
 import StatsCardGrid from 'src/components/compliance/dashboard/StatsCard';
 import PageContainer from 'src/components/container/PageContainer';
+import { useTranslation } from 'react-i18next';
 
 const GiottoDashboard: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <PageContainer title="Akila">
       <Box pt={2}>
@@ -29,7 +31,7 @@ const GiottoDashboard: React.FC = () => {
                     <Card>
                       <CardContent>
                         <Typography variant="h6" color="textPrimary">
-                          Compliance by Project
+                         {t('compliance.compliance_by_project')}
                         </Typography>
                         <ComplianceChart />
                       </CardContent>
@@ -39,7 +41,7 @@ const GiottoDashboard: React.FC = () => {
                     <Card>
                       <CardContent>
                         <Typography variant="h6" color="textPrimary">
-                          Compliance by Group:
+                         {t('compliance.compliance_by_group')}
                         </Typography>
                         <GroupComplianceChart />
                       </CardContent>
@@ -52,7 +54,7 @@ const GiottoDashboard: React.FC = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6" color="textPrimary">
-                      Compliance by Group
+                     {t('compliance.compliance_by_group')}
                     </Typography>
                     <ProjectComplianceChart />
                   </CardContent>
@@ -63,7 +65,7 @@ const GiottoDashboard: React.FC = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6" color="textPrimary">
-                      Execution by Month
+                     {t('compliance.execution_by_month')}
                     </Typography>
                     <ExecutionByMonth />
                   </CardContent>
@@ -74,7 +76,7 @@ const GiottoDashboard: React.FC = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6" color="textPrimary">
-                      Execution by Project
+                     {t('compliance.execution_by_project')}
                     </Typography>
                     <ExecutionByProject />
                   </CardContent>
@@ -85,7 +87,7 @@ const GiottoDashboard: React.FC = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6" color="textPrimary">
-                      Execution by Group
+                     {t('compliance.execution_by_group')}
                     </Typography>
                     <ExecutionByGroup />
                   </CardContent>
@@ -96,7 +98,7 @@ const GiottoDashboard: React.FC = () => {
                 <Card>
                   <CardContent>
                     <Typography variant="h6" color="textPrimary">
-                      Percentage of Use
+                     {t('compliance.percentage_of_use')}
                     </Typography>
                     <PercentageOfUse />
                   </CardContent>

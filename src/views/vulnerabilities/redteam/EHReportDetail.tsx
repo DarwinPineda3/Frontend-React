@@ -81,16 +81,17 @@ const EHReportDetails = () => {
               <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
                 {t('menu.vulnerabilities')}
               </Link>
-              <Typography color="textPrimary">
+      
+              <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
                 {t('menu.redteam')}
-              </Typography>
-              {ehReport && (
-                <Typography color="textPrimary">{ehReport.name}</Typography>
+              </Link>
+
+              {ehReportId && (
+                <Typography color="textPrimary">{ehReport?.name}</Typography>
               )}
             </Breadcrumbs>
           </Box>
         </Box>
-
 
         {isLoading ? (
           <Grid item xs={12} lg={12}>
@@ -101,7 +102,7 @@ const EHReportDetails = () => {
         ) : (
           <>
             <Grid item xs={12} xl={12}>
-              <Breadcrumb title={ehReport?.name}>
+             <Breadcrumb title={ehReport?.name}>
                 <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
                   <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
                   <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
@@ -145,7 +146,7 @@ const EHReportDetails = () => {
                 </Box>
               </TabContext>
             </Grid>
-          </ >
+          </>
         )}
       </Grid>
     </PageContainer>

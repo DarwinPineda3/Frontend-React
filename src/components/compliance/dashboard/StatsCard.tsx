@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FaCubes, FaServer, FaTasks, FaUsers } from 'react-icons/fa';
 import { fetchAssetsStatistics, fetchProjectsStatistics, fetchTemplatesStatistics, fetchUserStatistics } from 'src/store/sections/compliance/giottoDashboardSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
+import { useTranslation } from 'react-i18next';
 
 interface StatsCardProps {
   title: string;
@@ -49,6 +50,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, icon, data, className }) =
 };
 
 const StatsCardGrid: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [stats, setStats] = useState({
     users: { adminUsersCount: 0, managerUsersCount: 0, technicianUsersCount: 0 },
@@ -85,7 +87,7 @@ const StatsCardGrid: React.FC = () => {
       {/* Cards Section */}
       <Grid item xs={12} sm={6} md={3}>
         <StatsCard
-          title="Users"
+          title={t('compliance_menu.compliance_users')}
           icon={<FaUsers />}
           className="bg-orange"
           data={[
@@ -97,7 +99,7 @@ const StatsCardGrid: React.FC = () => {
       </Grid>
       <Grid item xs={12} sm={6} md={3}>
         <StatsCard
-          title="Projects"
+          title={t('compliance_menu.compliance_projects')}
           icon={<FaCubes />}
           className="bg-rose"
           data={[
@@ -109,7 +111,7 @@ const StatsCardGrid: React.FC = () => {
       </Grid>
       <Grid item xs={12} sm={6} md={3}>
         <StatsCard
-          title="Templates"
+          title={t('compliance_menu.compliance_templates')}
           icon={<FaTasks />}
           className="bg-orange"
           data={[
@@ -121,7 +123,7 @@ const StatsCardGrid: React.FC = () => {
       </Grid>
       <Grid item xs={12} sm={6} md={3}>
         <StatsCard
-          title="Assets"
+          title={t('compliance_menu.compliance_assets')}
           icon={<FaServer />}
           className="bg-rose"
           data={[
