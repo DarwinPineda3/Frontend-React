@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import EmptyState from 'src/components/shared/EmptyState';
 import { fetchRevenueUpdatesData } from 'src/store/sections/dashboard/RedTeamUpdatesSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import DashboardCard from '../../shared/DashboardCard';
@@ -90,6 +91,12 @@ const RevenueUpdates = () => {
 
   if (error) {
     return <div>{t("dashboard.error", { error })}</div>;
+  }
+  if (series.length === 0 || categories.length === 0) {
+    return <DashboardCard
+      title={t("dashboard.reports_updates") ?? "Reports Updates"}>
+      <EmptyState />
+    </DashboardCard>
   }
 
   return (

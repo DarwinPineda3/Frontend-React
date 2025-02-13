@@ -4,6 +4,7 @@ import { Box, CardContent, Divider, Grid, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/layouts/full/shared/breadcrumb/Breadcrumb';
+import { useTranslation } from 'react-i18next';  
 
 // components
 import { IconArticle, IconBell, IconLock, IconUserCircle } from '@tabler/icons-react';
@@ -13,13 +14,18 @@ import NotificationTab from '../../components/pages/account-setting/Notification
 import SecurityTab from '../../components/pages/account-setting/SecurityTab';
 import BlankCard from '../../components/shared/BlankCard';
 
+
+const AccountSetting = () => {
+  const { t } = useTranslation();
+  const [value, setValue] = React.useState(0);
+
 const BCrumb = [
   {
     to: '/',
-    title: 'Home',
+    title: t('menu.home'),
   },
   {
-    title: 'Account Setting',
+    title: t('account_settings.title'),
   },
 ];
 
@@ -52,9 +58,6 @@ function a11yProps(index: number) {
   };
 }
 
-const AccountSetting = () => {
-  const [value, setValue] = React.useState(0);
-
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -62,8 +65,8 @@ const AccountSetting = () => {
   };
 
   return (
-    <PageContainer title="Account Setting" description="this is Account Setting page">
-      <Breadcrumb title="Account Setting" items={BCrumb} />
+    <PageContainer title="Akila" description="this is Account Setting page">
+      <Breadcrumb title={t('account_settings.title')} items={BCrumb} />
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <BlankCard>
@@ -78,7 +81,7 @@ const AccountSetting = () => {
                 <Tab
                   iconPosition="start"
                   icon={<IconUserCircle size="22" />}
-                  label="Account"
+                  label={t('account_settings.account')}
                   {...a11yProps(0)}
                 />
                 {/* pestañas comentadas */}

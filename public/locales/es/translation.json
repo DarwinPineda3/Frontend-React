@@ -1188,9 +1188,12 @@
     "confirm_password_required": "Se requiere confirmar la contraseña.",
     "password_updated_successfully": "Contraseña actualizada con éxito.",
     "password_update_failed": "Error al actualizar la contraseña.",
-    "password_change_failed": "No se pudo cambiar la contraseña."
+    "password_change_failed": "No se pudo cambiar la contraseña.",
+    "title": "Configuración de la Cuenta",
+    "account": "Cuenta"
   },
   "profile": {
+    "user_profile": "Perfil de Usuario",
     "name_unavailable": "Nombre no disponible",
     "group_unavailable": "Grupo no disponible",
     "email_unavailable": "Email no disponible"
@@ -1272,7 +1275,8 @@
     "compliance_executions": "Ejecuciones",
     "compliance_templates": "Plantillas",
     "compliance_reports": "Reportes",
-    "bulk_import": "importación masiva"
+    "bulk_import": "importación masiva",
+    "compliance_users": "Usuarios"
   },
   "compliance": {
     "assets_description": "Activos",
@@ -1283,6 +1287,12 @@
     "projects_info": "Aquí puedes gestionar y ver los proyectos de cumplimiento.",
     "executions_description": "Ejecuciones",
     "executions_info": "Aquí puedes rastrear y gestionar las ejecuciones de cumplimiento.",
+    "compliance_by_project": "Cumplimiento por Proyecto",
+    "compliance_by_group": "Cumplimiento por Grupo",
+    "execution_by_month": "Ejecución por Mes",
+    "execution_by_project": "Ejecución por Proyecto",
+    "execution_by_group": "Ejecución por Grupo",
+    "percentage_of_use": "Porcentaje de Uso",
     "installation_guide": {
       "title": "Guía de Instalación",
       "welcome_message": "¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones paso a pasopara instalar el agente en diferentes sistemas operativos.Ya sea que esté implementando en Windows o Linux, encontrará todos lospasos necesarios para garantizar un proceso de instalación fluido.",

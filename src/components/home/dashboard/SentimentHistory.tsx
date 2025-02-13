@@ -1,9 +1,10 @@
-import { useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import Loader from 'src/components/shared/Loader/Loader';
+import EmptyState from 'src/components/shared/EmptyState';
+import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
 import { fetchSentimentsData } from 'src/store/sections/dashboard/SentimentHistorySlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
@@ -124,8 +125,23 @@ const SentimentRibbonChart: React.FC = () => {
     },
   };
 
-  if (loading) return <Loader />;  // Custom loader component
-  if (error) return <></>;  // Custom error component
+  if (loading) {
+    return <DashboardCard title={t('sentiments.sentiment_history')!}>
+      <Loader type={LoaderType.Contained} />
+    </DashboardCard>
+  };
+  if (error) {
+    return <DashboardCard title={t('sentiments.sentiment_history')!}>
+      <Typography variant="h6" color="textSecondary">
+        {t('dashboard.error', { error })}
+      </Typography>
+    </DashboardCard>
+  };
+  if (series.length === 0 || categories.length === 0) {
+    return <DashboardCard title={t('sentiments.sentiment_history')!}>
+      <EmptyState />
+    </DashboardCard>
+  };
 
   return (
     <DashboardCard title={t('sentiments.sentiment_history')!}>

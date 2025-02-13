@@ -8,6 +8,7 @@ import Loader from '../../shared/Loader/Loader';
 
 import { ApexOptions } from 'apexcharts';
 import { useTranslation } from 'react-i18next';
+import EmptyState from 'src/components/shared/EmptyState';
 import { fetchWeeklyStatsData } from 'src/store/sections/dashboard/WeeklyStatsSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
@@ -85,11 +86,7 @@ const WeeklyStats: React.FC = () => {
   if (stats.reduce((acc, stat) => acc + stat.percent, 0) === 0) {
     return (
       <DashboardCard title={t("dashboard.weekly_stats")} subtitle={t("dashboard.average_downtime")}>
-        <Box display="flex" justifyContent="center" mt={4} mb={4}>
-          <Typography variant="h6" color="textSecondary">
-            {t("dashboard.no_data")}
-          </Typography>
-        </Box>
+        <EmptyState />
       </DashboardCard>
     );
   }

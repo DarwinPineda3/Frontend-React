@@ -21,6 +21,7 @@ import Loader from '../../shared/Loader/Loader';
 import { useTheme } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
+import EmptyState from 'src/components/shared/EmptyState';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import { fetchVulnerabilityReports } from 'src/store/sections/dashboard/TopVulnerabilitiesSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
@@ -116,9 +117,7 @@ const TopVulnerabilities = () => {
     >
       {
         !data || data.length === 0 ?
-          <Box display="flex" justifyContent="center" mt={4} mb={4}>
-            <Typography variant="h6">{t("dashboard.no_vulnerability_reports")}</Typography>
-          </Box>
+          <EmptyState />
           : <TableContainer>
             <Table aria-label="vulnerability report table" sx={{ whiteSpace: 'wrap' }}>
               <TableHead>

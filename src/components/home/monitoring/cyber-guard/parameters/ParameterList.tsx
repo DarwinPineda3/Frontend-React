@@ -47,7 +47,7 @@ const ParameterList = () => {
   >('success'); // Snackbar severity
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [parameterToDelete, setParameterToDelete] = useState<ParameterCyberGuardType | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleDeleteClick = (parameter: ParameterCyberGuardType) => {
     setParameterToDelete(parameter);

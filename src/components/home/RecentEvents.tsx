@@ -16,6 +16,7 @@ import Loader from '../shared/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import { fetchRecentEventsData } from 'src/store/sections/dashboard/RecentEventsSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import EmptyState from '../shared/EmptyState';
 import HumanizedDate from '../shared/HumanizedDate';
 
 const RecentEvents = () => {
@@ -60,6 +61,13 @@ const RecentEvents = () => {
     return <div>{t("dashboard.error", { error })}</div>;
   }
 
+  if (events.length === 0) {
+    return (
+      <DashboardCard title={t("dashboard.recent_events") as string}>
+        <EmptyState />
+      </DashboardCard>
+    );
+  }
   return (
     <DashboardCard title={t("dashboard.recent_events") as string}>
       {/*@ts-ignore*/}

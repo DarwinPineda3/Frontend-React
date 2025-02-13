@@ -18,7 +18,7 @@ const CloudVulnerabilitiesDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cloudscan = useSelector((state: any) => state.cloudScanReducer.cloudScanDetails);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { t } = useTranslation();
 

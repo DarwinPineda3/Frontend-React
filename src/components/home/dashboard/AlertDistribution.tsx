@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import Chart from 'react-apexcharts';
@@ -7,6 +7,7 @@ import Loader from '../../shared/Loader/Loader'; // Loader component
 
 import { ApexOptions } from 'apexcharts'; // Correct type
 import { useTranslation } from 'react-i18next';
+import EmptyState from 'src/components/shared/EmptyState';
 import { fetchAlertDistributionData } from 'src/store/sections/dashboard/AlertDistributionSlice';
 import { AppState, useDispatch, useSelector } from 'src/store/Store'; // Correct imports
 
@@ -79,11 +80,7 @@ const AlertDistribution = () => {
   if (series.length === 0 || series.reduce((a, b) => a + b) === 0) {
     return (
       <DashboardCard title={t("dashboard.montly_distribution") ?? "montly_distribution"}>
-        <Box display="flex" justifyContent="center" mt={4} mb={4}>
-          <Typography variant="h6" color="textSecondary">
-            {t("dashboard.no_data")}
-          </Typography>
-        </Box>
+        <EmptyState />
       </DashboardCard>
     )
   }
