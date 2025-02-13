@@ -10,21 +10,21 @@ import {
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { createAsset, editAsset } from 'src/store/sections/AssetsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { AssetType } from 'src/types/assets/asset';
 import * as Yup from 'yup';
 import PageContainer from '../container/PageContainer';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   asset?: AssetType; // Optional for edit
-  onSubmit: (message: string, severity: 'success' | 'info' | 'warning' | 'error') => void; // Callback after submission
+  onSubmit: () => void; // Callback after submission
 }
 
 const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   const { t } = useTranslation();
-  const { loading } = useSelector((state: any) => state.assetsReducer);
+  const { loading, error } = useSelector((state: any) => state.assetsReducer);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,14 +70,14 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
       };
 
       if (asset) {
-        dispatch(editAsset(newAsset));
-        onSubmit(t('home.assets.asset_updated_success'), 'success');
+        dispatch(editAsset(newAsset, t));
+        onSubmit();
         formik.resetForm(
           { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
         );
       } else {
-        dispatch(createAsset(newAsset));
-        onSubmit(t('home.assets.asset_created_success'), 'success');
+        dispatch(createAsset(newAsset, t));
+        onSubmit();
         formik.resetForm(
           { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
         );

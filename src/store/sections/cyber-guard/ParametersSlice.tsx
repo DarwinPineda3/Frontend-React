@@ -70,16 +70,16 @@ export const {
 // Async thunk for fetching parameters with pagination (READ)
 export const fetchParameters =
   (page = 1, pageSize = 25) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
-      const { results, page: currentPage, totalPages } = response.data;
-      dispatch(getParameters({ results, page: currentPage, totalPages }));
-    } catch (err: any) {
-      console.error('Error fetching parameters:', err);
-      dispatch(setError('Failed to fetch parameters'));
-    }
-  };
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
+        const { results, page: currentPage, totalPages } = response.data;
+        dispatch(getParameters({ results, page: currentPage, totalPages }));
+      } catch (err: any) {
+        console.error('Error fetching parameters:', err);
+        dispatch(setError('Failed to fetch parameters'));
+      }
+    };
 
 // Async thunk for creating a new parameter (CREATE)
 export const createParameter =
@@ -89,7 +89,8 @@ export const createParameter =
       dispatch(addParameter(response.data));
     } catch (err: any) {
       console.error('Error creating parameter:', err);
-      dispatch(setError('Failed to create parameter'));
+      const errorMessage = err.response?.data?.error || 'Failed to create parameter';
+      dispatch(setError(errorMessage));
       throw err;
     }
   };

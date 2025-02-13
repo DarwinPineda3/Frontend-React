@@ -79,12 +79,12 @@ const CreateUpdateParameter: React.FC<Props> = ({ parameter, onSubmit }) => {
           error instanceof Error
             ? error.message
             : Array.isArray(error)
-            ? error[0]
-            : error?.error
-            ? error.error[0]
-            : `${error}`;
-
-        onSubmit(errorMessage, 'error');
+              ? error[0]
+              : error?.error
+                ? error.error[0]
+                : `${error}`;
+        const customMessage = error.response?.data?.error || errorMessage;
+        onSubmit(customMessage ?? errorMessage, 'error');
       }
     },
   });
