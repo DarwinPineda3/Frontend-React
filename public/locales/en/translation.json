@@ -1535,7 +1535,7 @@
       "ip_required": "IP Address is required",
       "ip_invalid_format": "Invalid IP address format",
       "asset_updated": "Asset updated successfully",
-      "asset_created": "Asset created successfully",
+      "asset_created": "Asset created successfully.",
       "asset_error": "An error occurred while processing the asset",
       "edit_asset": "Edit Asset",
       "create_asset": "Create Asset",

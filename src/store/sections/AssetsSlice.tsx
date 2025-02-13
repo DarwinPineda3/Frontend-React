@@ -9,6 +9,7 @@ function getApiUrl() {
   return `${getBaseApiUrl()}/assets/`;
 }
 
+
 interface StateType {
   assets: AssetType[];
   page: number;
@@ -16,6 +17,7 @@ interface StateType {
   loading: boolean;
   totalPages: number;
   error: string | null;
+  message: string | null;
 }
 
 const initialState: StateType = {
@@ -25,6 +27,7 @@ const initialState: StateType = {
   pageSize: 10,
   loading: false,
   error: null,
+  message: null,
 };
 
 export const AssetsSlice = createSlice({
@@ -58,6 +61,9 @@ export const AssetsSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setMessage: (state, action) => {
+      state.message = action.payload;
+    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
@@ -73,32 +79,33 @@ export const {
   setPage,
   setError,
   setLoading,
+  setMessage
 } = AssetsSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
 export const fetchAssets =
   (requestedPage: number, pageSize: number = 10) =>
-  async (dispatch: AppDispatch) => {
-    try {
-      dispatch(setLoading(true));
-      if (isNaN(requestedPage)) {
-        requestedPage = 1;
-      }
-      if (isNaN(pageSize)) {
-        pageSize = 10;
-      }
-      const response = await axios.get(
-        `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
-      );
-      const { results, page, totalPages } = response.data;
+    async (dispatch: AppDispatch) => {
+      try {
+        dispatch(setLoading(true));
+        if (isNaN(requestedPage)) {
+          requestedPage = 1;
+        }
+        if (isNaN(pageSize)) {
+          pageSize = 10;
+        }
+        const response = await axios.get(
+          `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
+        );
+        const { results, page, totalPages } = response.data;
 
-      dispatch(getAssets({ results, currentPage: page, totalPages, pageSize }));
-      dispatch(setLoading(false));
-    } catch (err: any) {
-      console.error('Error fetching assets:', err);
-      dispatch(setError('Failed to fetch assets'));
-    }
-  };
+        dispatch(getAssets({ results, currentPage: page, totalPages, pageSize }));
+        dispatch(setLoading(false));
+      } catch (err: any) {
+        console.error('Error fetching assets:', err);
+        dispatch(setError('Failed to fetch assets'));
+      }
+    };
 
 export const fetchFilteredAssets =
   (filters: { url?: boolean; ip?: boolean; domain?: boolean }) => async (dispatch: AppDispatch) => {
@@ -119,26 +126,31 @@ export const fetchFilteredAssets =
   };
 
 // Async thunk for creating a new asset (CREATE)
-export const createAsset = (newAsset: AssetType) => async (dispatch: AppDispatch) => {
+export const createAsset = (newAsset: AssetType, t: (key: string) => string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.post(getApiUrl(), newAsset);
     if (response.status >= 200 && response.status < 300) {
       dispatch(fetchAssets(1, 10));
+      dispatch(setMessage(t('home.assets.asset_updated_success')));
     } else {
-      console.error('Error creating asset:', response);
-      dispatch(setError('Failed to create asset'));
+      const errorMessage = response.data?.error || 'Failed to create asset';
+      console.error(errorMessage, response);
+      dispatch(setError(errorMessage));
     }
   } catch (err: any) {
     console.error('Error creating asset:', err);
-    dispatch(setError('Failed to create asset'));
+    const errorMessage = err.response?.data?.error || 'Failed to create asset';
+    dispatch(setError(errorMessage));
   }
 };
 
 // Async thunk for updating an asset (UPDATE)
-export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispatch) => {
+
+export const editAsset = (updatedAsset: AssetType, t: (key: string) => string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.put(`${getApiUrl()}${updatedAsset.id}/`, updatedAsset);
     if (response.status >= 200 && response.status < 300) {
+      dispatch(setMessage(t('home.assets.asset_updated_success')));
       dispatch(fetchAssets(1, 10));
     } else {
       console.error('Error creating asset:', response);
@@ -149,12 +161,11 @@ export const editAsset = (updatedAsset: AssetType) => async (dispatch: AppDispat
     dispatch(setError('Failed to update asset'));
   }
 };
-
-// Async thunk for deleting an asset (DELETE)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
     await axios.delete(`${getApiUrl()}${assetId}`);
     dispatch(deleteAsset(assetId));
+    setMessage('Asset deleted successfully');
   } catch (err: any) {
     console.error('Error deleting asset:', err);
     dispatch(setError('Failed to delete asset'));
