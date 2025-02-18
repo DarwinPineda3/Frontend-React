@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from 'src/components/shared/Loader/Loader';
 import {
+  clearBrandMonitoringDetail,
   fetchBrandMonitoringById,
   updateDataViewedBrandMonitoring,
 } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
@@ -34,6 +35,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
   );
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = React.useState('internet');
+  const [title, setTitle] = React.useState('-');
   const COMMON_TAB = [
     {
       value: 'internet',
@@ -71,17 +73,31 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       await dispatch(fetchBrandMonitoringById(id, value));
       await dispatch(updateDataViewedBrandMonitoring(id));
       setIsLoading(false);
+      if (brandMonitoringDetail?.query) {
+        setTitle(brandMonitoringDetail.query);
+      }
     };
 
     fetchData();
+    return () => {
+      if (title) {
+        dispatch(clearBrandMonitoringDetail(id));
+      }
+    };
   }, [dispatch, id, value]);
+
+  React.useEffect(() => {
+    if (brandMonitoringDetail?.query) {
+      setTitle(brandMonitoringDetail.query);
+    }
+  }, [brandMonitoringDetail?.query]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
   return (
-    <DashboardCard title={brandMonitoringDetail?.query}>
+    <DashboardCard title={title}>
       <TabContext value={value}>
         <Box sx={{ p: 0 }}>
           <TabList

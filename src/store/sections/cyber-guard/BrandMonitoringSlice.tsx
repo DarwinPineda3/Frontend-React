@@ -55,6 +55,9 @@ const brandMonitoringSlice = createSlice({
     setPageSize: (state, action) => {
       state.pageSize = action.payload;
     },
+    setclearBrandMonitoringDetailState: (state, action) => {
+      state.brandMonitoringDetail = null;
+    },
   },
 });
 
@@ -65,6 +68,7 @@ export const {
   setError,
   setPage,
   setPageSize,
+  setclearBrandMonitoringDetailState,
 } = brandMonitoringSlice.actions;
 
 // Async thunk for fetching brand monitoring list with pagination (READ)
@@ -123,6 +127,15 @@ export const fetchBrandMonitoringResume = () => async (dispatch: AppDispatch) =>
   }
 };
 
+export const clearBrandMonitoringDetail = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(setclearBrandMonitoringDetailState(id));
+  } catch (err: any) {
+    console.error('Error cleaning brand monitoring detail:', err);
+    dispatch(setError('Failed to cleaning brand monitoring detail'));
+  }
+};
+
 export const updateDataViewedBrandMonitoring = (id: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.put(`${getBaseApiUrl()}/brand-monitoring/${id}/`);
@@ -135,4 +148,5 @@ export const updateDataViewedBrandMonitoring = (id: string) => async (dispatch: 
     dispatch(setError('Failed to updating brand monitoring detail'));
   }
 };
+
 export default brandMonitoringSlice.reducer;
