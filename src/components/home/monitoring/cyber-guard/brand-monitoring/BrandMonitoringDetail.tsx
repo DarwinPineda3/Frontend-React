@@ -33,6 +33,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
     (state: any) => state.brandMonitoringReducer.brandMonitoringDetail,
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [value, setValue] = React.useState('internet');
   const COMMON_TAB = [
     {
       value: 'internet',
@@ -67,27 +68,17 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchBrandMonitoringById(id));
+      await dispatch(fetchBrandMonitoringById(id, value));
       await dispatch(updateDataViewedBrandMonitoring(id));
       setIsLoading(false);
     };
 
     fetchData();
-  }, [dispatch, id]);
-
-  const [value, setValue] = React.useState('internet');
+  }, [dispatch, id, value]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-
-  if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
-        <Loader />
-      </Box>
-    );
-  }
 
   return (
     <DashboardCard title={brandMonitoringDetail?.query}>
@@ -124,7 +115,13 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
         <Box mt={2} sx={{ p: 0 }}>
           {COMMON_TAB.map((panel) => (
             <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
-              {panel.content}
+              {isLoading ? (
+                <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                  <Loader />
+                </Box>
+              ) : (
+                panel.content
+              )}
             </TabPanel>
           ))}
         </Box>

@@ -91,20 +91,23 @@ export const fetchBrandMonitoringData =
     }
   };
 
-export const fetchBrandMonitoringById = (id: string) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getMonitoringApiUrl()}/${id}/`);
+export const fetchBrandMonitoringById =
+  (id: string, resultType: string) => async (dispatch: AppDispatch) => {
+    try {
+      const params = new URLSearchParams();
+      params.append('result-type', resultType);
+      const response = await axios.get(`${getMonitoringApiUrl()}/${id}?${params.toString()}`);
 
-    if (response.status === 200) {
-      dispatch(getBrandMonitoringDetail({ data: response.data }));
-    } else {
-      dispatch(setError('fetch brand monitoring detail not found'));
+      if (response.status === 200) {
+        dispatch(getBrandMonitoringDetail({ data: response.data }));
+      } else {
+        dispatch(setError('fetch brand monitoring detail not found'));
+      }
+    } catch (err: any) {
+      console.error('Error fetching brand monitoring detail:', err);
+      dispatch(setError('Failed to fetch brand monitoring detail'));
     }
-  } catch (err: any) {
-    console.error('Error fetching brand monitoring detail:', err);
-    dispatch(setError('Failed to fetch brand monitoring detail'));
-  }
-};
+  };
 
 export const fetchBrandMonitoringResume = () => async (dispatch: AppDispatch) => {
   try {
