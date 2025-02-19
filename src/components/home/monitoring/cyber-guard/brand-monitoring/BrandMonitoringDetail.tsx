@@ -80,7 +80,7 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
 
     fetchData();
     return () => {
-      if (title) {
+      if (title != '-') {
         dispatch(clearBrandMonitoringDetail(id));
       }
     };
