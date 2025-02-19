@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from 'src/components/shared/Loader/Loader';
 import {
+  clearBrandMonitoringDetail,
   fetchBrandMonitoringById,
   updateDataViewedBrandMonitoring,
 } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
@@ -33,6 +34,8 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
     (state: any) => state.brandMonitoringReducer.brandMonitoringDetail,
   );
   const [isLoading, setIsLoading] = useState(true);
+  const [value, setValue] = React.useState('internet');
+  const [title, setTitle] = React.useState('-');
   const COMMON_TAB = [
     {
       value: 'internet',
@@ -67,30 +70,34 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      await dispatch(fetchBrandMonitoringById(id));
+      await dispatch(fetchBrandMonitoringById(id, value));
       await dispatch(updateDataViewedBrandMonitoring(id));
       setIsLoading(false);
+      if (brandMonitoringDetail?.query) {
+        setTitle(brandMonitoringDetail.query);
+      }
     };
 
     fetchData();
-  }, [dispatch, id]);
+    return () => {
+      if (title) {
+        dispatch(clearBrandMonitoringDetail(id));
+      }
+    };
+  }, [dispatch, id, value]);
 
-  const [value, setValue] = React.useState('internet');
+  React.useEffect(() => {
+    if (brandMonitoringDetail?.query) {
+      setTitle(brandMonitoringDetail.query);
+    }
+  }, [brandMonitoringDetail?.query]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
-        <Loader />
-      </Box>
-    );
-  }
-
   return (
-    <DashboardCard title={brandMonitoringDetail?.query}>
+    <DashboardCard title={title}>
       <TabContext value={value}>
         <Box sx={{ p: 0 }}>
           <TabList
@@ -124,7 +131,13 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
         <Box mt={2} sx={{ p: 0 }}>
           {COMMON_TAB.map((panel) => (
             <TabPanel key={panel.value} value={panel.value} sx={{ p: 0 }}>
-              {panel.content}
+              {isLoading ? (
+                <Box display="flex" justifyContent="center" alignItems="center" height="100px">
+                  <Loader />
+                </Box>
+              ) : (
+                panel.content
+              )}
             </TabPanel>
           ))}
         </Box>
