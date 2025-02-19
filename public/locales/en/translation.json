@@ -812,7 +812,11 @@
     "like_reactions": "Likes Reactions",
     "love_reactions": "Love Reactions",
     "sad_reactions": "Sad Reactions",
-    "wow_reactions": "Wow Reactions"
+    "wow_reactions": "Wow Reactions",
+    "link_url_external": "Linked Url External",
+    "link_url_internal": "Linked Url Internal",
+    "interesting_files": "Interesting Files",
+    "public_code_repo": "Public Code Repo"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",

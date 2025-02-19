@@ -172,6 +172,10 @@ export interface InternetCounter {
   phones: number;
   vins: number;
   domains: number;
+  linked_url_internal: number;
+  linked_url_external: number;
+  interesting_files: number;
+  public_code_repo: number;
   total: number;
 }
 

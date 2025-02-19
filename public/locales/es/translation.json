@@ -810,7 +810,11 @@
     "like_reactions": "Reacciones de me gusta",
     "love_reactions": "Reacciones de amor",
     "sad_reactions": "Reacciones de tristeza",
-    "wow_reactions": "Reacciones de sorpresa"
+    "wow_reactions": "Reacciones de sorpresa",
+    "link_url_external": "Enlace Url Externo",
+    "link_url_internal": "Enlace Url Interno",
+    "interesting_files": "Archivos de interés",
+    "public_code_repo": "Repositorios Públicos"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",
