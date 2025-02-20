@@ -99,7 +99,7 @@ const GiottoExecutionDetail: React.FC<GiottoExecutionDetailProps> = ({ scanId, a
       </Breadcrumb>
       <Box>
         <Grid container spacing={2}>
-          <Grid item xs={15} xl={15} md={8}>
+          <Grid item xs={12} xl={12} md={12}>
             <Grid item xs={12} mb={2}>
               <DashboardCard title={'Asset'}
                 action={
