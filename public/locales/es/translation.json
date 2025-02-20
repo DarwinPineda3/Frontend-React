@@ -1273,6 +1273,8 @@
     "compliance_groups": "Grupos",
     "compliance_projects": "Proyectos",
     "compliance_executions": "Ejecuciones",
+    "compliance_execution": "Ejecución",
+    "compliance_asset": "Activo",
     "compliance_templates": "Plantillas",
     "compliance_reports": "Reportes",
     "bulk_import": "importación masiva",
