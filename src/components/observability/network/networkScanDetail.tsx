@@ -5,7 +5,7 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import { AppState, useDispatch, useSelector } from 'src/store/Store';
-import { fetchNetworkObservabilityById } from 'src/store/observability/ObservabilityNetworkSlice';
+import { fetchNetworkObservabilityById, resetNetworkScanDetails } from 'src/store/observability/ObservabilityNetworkSlice';
 import NetworkGraph from './networkGraph';
 import NetworkScanCards from './networkScanCards';
 import PortTable from './portTable';
@@ -19,6 +19,12 @@ const NetworkScanDetail: React.FC<{ scanId: string }> = ({ scanId }) => {
 
   const [selectedGraph, setSelectedGraph] = useState(networkScansDetail?.graphs?.[0].host);
   const [selectedRow, setSelectedRow] = useState(null);
+
+  useEffect(() => {
+    dispatch(resetNetworkScanDetails());
+
+    dispatch(fetchNetworkObservabilityById(scanId));
+  }, [scanId, dispatch]);
 
   useEffect(() => {
     if (networkScansDetail?.graphs?.length) {

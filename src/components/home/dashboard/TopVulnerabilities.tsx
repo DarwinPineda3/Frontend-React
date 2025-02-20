@@ -77,11 +77,11 @@ const TopVulnerabilities = () => {
   };
 
   const getChipColorSeverity = (severity: number) => {
-    if (severity > 9.0) {
+    if (severity > 8.0) {
       return { color: criticalColor };
-    } else if (severity > 7.0) {
+    } else if (severity > 6.9) {
       return { color: highColor };
-    } else if (severity > 4.0) {
+    } else if (severity > 3.9) {
       return { color: mediumColor };
     } else if (severity > 0) {
       return { color: lowColor };

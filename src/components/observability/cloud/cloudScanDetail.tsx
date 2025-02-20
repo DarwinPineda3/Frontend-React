@@ -2,7 +2,7 @@ import { Box, CardContent, Chip, Paper, Stack, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import Loader from 'src/components/shared/Loader/Loader';
-import { fetchCloudInventoryById } from 'src/store/observability/cloud/CloudInventorySlice';
+import { fetchCloudInventoryById, resetCloudInventoryDetails  } from 'src/store/observability/cloud/CloudInventorySlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 // aws
 import awsGenericImg from '../../../assets/images/cloud_services/aws/aws_gen.svg';
@@ -52,8 +52,14 @@ const CloudScansDetailObs = ({ scanId }: CloudScansDetailObsProps) => {
     (state: any) => state.cloudInventoryReducer.cloudInventoryDetails,
   );
   useEffect(() => {
+    return () => {
+      dispatch(resetCloudInventoryDetails());
+    };
+  }, [scanId, dispatch]);
+
+  useEffect(() => {
     dispatch(fetchCloudInventoryById(scanId));
-  }, [dispatch]);
+  }, [scanId, dispatch]);
 
   if (!cloudInventoryDetail) {
     return (

@@ -193,11 +193,15 @@ const ObservedAssetsSlice = createSlice({
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
+    },
+    resetObservedAssetDetails: (state) => {
+      state.observedAssetsDetail = null;
+      state.observedAssetsDetailLogs = null;
     }
   },
 });
 
-export const { getObservedAssetList, getObservedAssetDetail, getObservedAssetForCharts, setError, setLoading } =
+export const { getObservedAssetList, getObservedAssetDetail, getObservedAssetForCharts, setError, setLoading, resetObservedAssetDetails } =
   ObservedAssetsSlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
