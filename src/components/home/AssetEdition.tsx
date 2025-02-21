@@ -1,12 +1,4 @@
-import {
-  Alert,
-  Box,
-  Button,
-  LinearProgress,
-  Stack,
-  TextField,
-  Typography
-} from '@mui/material';
+import { Alert, Box, Button, LinearProgress, Stack, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -37,16 +29,22 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
       dominio: asset?.domain || '',
       url: asset?.url || '',
       hostname: asset?.hostname || '',
-      uuid: asset?.uuid || ''
+      uuid: asset?.uuid || '',
     },
     validationSchema: Yup.object({
       name: Yup.string().required(t('home.assets.name_required')!),
-      ip: Yup.string().nullable()
+      ip: Yup.string()
+        .nullable()
         .matches(
           /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
-          t('home.assets.ip_invalid_format')!
+          t('home.assets.ip_invalid_format')!,
         ),
-      dominio: Yup.string().nullable(),
+      dominio: Yup.string()
+        .nullable()
+        .matches(
+          /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$/,
+          t('home.assets.domain_invalid_format')!,
+        ),
       url: Yup.string().nullable().url(t('home.assets.url_invalid_format')!),
       hostname: Yup.string(),
     }).test(
@@ -56,9 +54,12 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
         const { ip, dominio, url } = values || {};
         const isValid = !!(ip?.trim() || dominio?.trim() || url?.trim());
         if (!isValid) {
-          return context.createError({ message: t('home.assets.at_least_one_required') || '', path: 'at-least-one-field' });
+          return context.createError({
+            message: t('home.assets.at_least_one_required') || '',
+            path: 'at-least-one-field',
+          });
         }
-      }
+      },
     ),
     onSubmit: (values) => {
       const newAsset: AssetType = {
@@ -72,20 +73,20 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
       if (asset) {
         dispatch(editAsset(newAsset, t));
         onSubmit();
-        formik.resetForm(
-          { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
-        );
+        formik.resetForm({
+          values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' },
+        });
       } else {
         dispatch(createAsset(newAsset, t));
         onSubmit();
-        formik.resetForm(
-          { values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' } }
-        );
+        formik.resetForm({
+          values: { name: '', ip: '', dominio: '', url: '', hostname: '', uuid: '' },
+        });
         navigate('/home/assets', {
           state: {
             snackbarMessage: t('home.assets.asset_created_success'),
             snackbarSeverity: 'success',
-          }
+          },
         });
       }
     },
@@ -151,7 +152,9 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           )}
 
           <Alert severity="info">
-            <Typography variant="body2" color="textSecondary">{t('home.assets.form_instruction')}</Typography>
+            <Typography variant="body2" color="textSecondary">
+              {t('home.assets.form_instruction')}
+            </Typography>
           </Alert>
 
           <Box>
