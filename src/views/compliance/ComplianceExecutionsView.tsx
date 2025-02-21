@@ -43,35 +43,61 @@ const ComplianceExecutionsView = () => {
               {t('compliance_menu.compliance')}
             </Link>
             <Link component={RouterLink} color="inherit" to="/compliance/executions">
-              {t('compliance_menu.compliance_executions')}
+              {selectedExecution
+                ? `${t('compliance_menu.compliance_execution')}`
+                : t('compliance_menu.compliance_executions')}
             </Link>
-            {
-              selectedExecution != null && <Link component={RouterLink} color="inherit" to={`/compliance/executions/${executionId}`} >
-                {executionId}
+            {selectedExecution != null && (
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/compliance/executions/${executionId}`}
+                underline={selectedAsset ? 'always' : 'none'}
+              >
+                # {executionId}
               </Link>
-            }
-            {
-              selectedAsset != null && <Link component={RouterLink} color="inherit" to={`/compliance/executions/${executionId}/assets/${assetId}`} >
-                {assetId}
+            )}
+            {selectedAsset != null && (
+              <>
+                <Link
+                  component={RouterLink}
+                  color="inherit"
+                  to={`/compliance/executions/${executionId}/assets/${assetId}`}
+                  underline="always"
+                >
+                  {t('compliance_menu.compliance_asset')}
+                </Link>
+              </>
+            )}
+            {selectedAsset != null && (
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/compliance/executions/${executionId}/assets/${assetId}`}
+                underline="none"
+              >
+                # {assetId}
               </Link>
-            }
+            )}
           </Breadcrumbs>
         </Box>
       </Box>
-      {
-        selectedExecution == null ? <GiottoExecutionList onScanClick={(id) => {
-          navigate(`/compliance/executions/${id}`);
-        }} /> :
-          <GiottoExecutionDetail scanId={selectedExecution} assetId={selectedAsset}
-            onAssetClick={
-              (assetId) => {
-                navigate(`/compliance/executions/${selectedExecution}/assets/${assetId}`);
-              }
-            } />
-      }
-
+      {selectedExecution == null ? (
+        <GiottoExecutionList
+          onScanClick={(id) => {
+            navigate(`/compliance/executions/${id}`);
+          }}
+        />
+      ) : (
+        <GiottoExecutionDetail
+          scanId={selectedExecution}
+          assetId={selectedAsset}
+          onAssetClick={(assetId) => {
+            navigate(`/compliance/executions/${selectedExecution}/assets/${assetId}`);
+          }}
+        />
+      )}
     </PageContainer>
-
   );
 };
 

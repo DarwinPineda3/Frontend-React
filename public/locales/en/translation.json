@@ -1280,6 +1280,8 @@
     "compliance_groups": "Groups",
     "compliance_projects": "Projects",
     "compliance_executions": "Executions",
+    "compliance_execution": "Execution",
+    "compliance_asset": "Asset",
     "compliance_templates": "Templates",
     "compliance_reports": "Reports",
     "bulk_import": "Bulk import",
