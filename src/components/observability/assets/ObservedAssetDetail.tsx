@@ -16,6 +16,7 @@ import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import {
   fetchObservedAssetById,
   fetchObservedAssetsLogsByDateRange,
+  resetObservedAssetDetails,
 } from 'src/store/observability/ObservedAssetsSlice';
 import AntivirusTable from './cards/AntivirusInfo';
 import CpuCard from './cards/CpuCard';
@@ -83,8 +84,9 @@ const ObservedAssetDetail: React.FC<ObservedAssetDetailProps> = ({ id }) => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    dispatch(fetchObservedAssetById(id));
+    dispatch(resetObservedAssetDetails()); 
+    setLoading(true); 
+    dispatch(fetchObservedAssetById(id)); 
   }, [dispatch, id]);
 
   useEffect(() => {

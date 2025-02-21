@@ -63,6 +63,9 @@ export const CloudInventorySlice = createSlice({
     setPageSize: (state, action) => {
       state.pageSize = action.payload;
     },
+    resetCloudInventoryDetails: (state) => {
+      state.cloudInventoryDetails = null; 
+    },
   },
 });
 
@@ -75,6 +78,7 @@ export const {
   setError,
   setLoading,
   setPageSize,
+  resetCloudInventoryDetails,
 } = CloudInventorySlice.actions;
 
 export const fetchCloudInventoryList =
@@ -97,6 +101,8 @@ export const fetchCloudInventoryList =
 
 export const fetchCloudInventoryById = (id: string) => async (dispatch: AppDispatch) => {
   try {
+
+    dispatch(resetCloudInventoryDetails());
     const response = await axios.get(`${getApiUrl()}${id}/`);
 
     if (response.status === 200) {

@@ -60,6 +60,9 @@ const networkObservabilitySlice = createSlice({
     setPageSize: (state, action) => {
       state.pageSize = action.payload;
     },
+    resetNetworkScanDetails: (state) => {
+      state.networkScansDetail = null; 
+    },
   },
 });
 
@@ -70,6 +73,7 @@ export const {
   setLoading,
   setPage,
   setPageSize,
+  resetNetworkScanDetails,
 } = networkObservabilitySlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
