@@ -1,15 +1,10 @@
+import { AccountCircle, Email, Language, Phone, Public, Security } from '@mui/icons-material';
+import CodeIcon from '@mui/icons-material/Code';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import LinkIcon from '@mui/icons-material/Link';
 import { Box, Grid, Typography } from '@mui/material';
-import {
-  Security,
-  AccountCircle,
-  Email,
-  Language,
-  Phone,
-  Public,
-} from '@mui/icons-material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 
 interface InternetIndicatorsProps {
   internetCounters: {
@@ -20,6 +15,10 @@ interface InternetIndicatorsProps {
     vins: number;
     domains: number;
     total: number;
+    linked_url_internal: number;
+    linked_url_external: number;
+    interesting_files: number;
+    public_code_repo: number;
   };
 }
 
@@ -29,9 +28,7 @@ const getColorByValue = (value: number) => {
   return 'error';
 };
 
-const InternetIndicators: React.FC<InternetIndicatorsProps> = ({
-  internetCounters,
-}) => {
+const InternetIndicators: React.FC<InternetIndicatorsProps> = ({ internetCounters }) => {
   const { t } = useTranslation();
 
   const topCardsData = [
@@ -64,6 +61,26 @@ const InternetIndicators: React.FC<InternetIndicatorsProps> = ({
       title: t('monitoring.phones'),
       value: internetCounters.phones,
       icon: <Phone fontSize="large" />,
+    },
+    {
+      title: t('monitoring.link_url_internal'),
+      value: internetCounters.linked_url_internal,
+      icon: <LinkIcon fontSize="large" />,
+    },
+    {
+      title: t('monitoring.link_url_external'),
+      value: internetCounters.linked_url_external,
+      icon: <LinkIcon fontSize="large" />,
+    },
+    {
+      title: t('monitoring.interesting_files'),
+      value: internetCounters.interesting_files,
+      icon: <InsertDriveFileIcon fontSize="large" />,
+    },
+    {
+      title: t('monitoring.public_code_repo'),
+      value: internetCounters.public_code_repo,
+      icon: <CodeIcon fontSize="large" />,
     },
   ];
 
