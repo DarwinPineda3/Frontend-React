@@ -66,6 +66,61 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
         <>
           <Grid item xs={12} xl={6}>
             <DashboardCard
+              title={t("redteam.risk_consolidation") || ''}
+            >
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '350px', maxHeight: '25em' }}>
+                <RiskConsolidateChart
+                  contLow={contLow} contMedium={contMedium}
+                  contHigh={contHigh} contCritical={contCritical}
+                  contInfo={contInfo}
+                />
+              </Box>
+            </DashboardCard>
+          </Grid>
+
+          <Grid item xs={12} xl={6}>
+            <DashboardCard
+              title={t("redteam.matrix_of_unique_vulnerabilities") || ''}
+            >
+              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '25em' }}>
+                <EHMatrixVulnerabilities matrixRequest={riskMatrizData} />
+              </Box>
+            </DashboardCard>
+          </Grid>
+
+          <Grid item xs={12} xl={6}>
+            <DashboardCard
+              title={t("redteam.risk_exposure_level") || ''}
+            >
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '16em' }}>
+                <EHRiskExposureLevelChart riskExposureLevel={ehReport?.risk_exposure_level!} />
+              </Box>
+            </DashboardCard>
+          </Grid>
+
+          <Grid item xs={12} xl={6}>
+            <DashboardCard
+              title={t("redteam.evaluation_result") || ''}
+            >
+              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '16em' }}>
+                <Box>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {t("redteam.comments")}
+                  </Typography>
+                  <Typography variant="body2">{ehReport?.comments}</Typography>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {t("redteam.description_of_the_tests")}
+                  </Typography>
+                  <Typography variant="body2">{ehReport?.description_tests}</Typography>
+                </Box>
+              </Box>
+            </DashboardCard>
+          </Grid>
+
+          <Grid item xs={12} xl={6}>
+            <DashboardCard
               title={t("redteam.baseline_information") || ''}
             >
               <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '10em' }}>
@@ -108,63 +163,6 @@ const EHOverview: React.FC<{ ehReport: any }> = ({ ehReport }) => {
                   </Typography>
                   <Typography variant="body2">Contenedor de todos los anexos informativos y de soporte sobre las pruebas realizadas.</Typography>  {/* // translate */}
                 </Box>
-              </Box>
-            </DashboardCard>
-          </Grid>
-
-
-
-          <Grid item xs={12} xl={6}>
-            <DashboardCard
-              title={t("redteam.risk_exposure_level") || ''}
-            >
-              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '16em' }}>
-                <EHRiskExposureLevelChart riskExposureLevel={ehReport?.risk_exposure_level!} />
-              </Box>
-            </DashboardCard>
-          </Grid>
-
-          <Grid item xs={12} xl={6}>
-            <DashboardCard
-              title={t("redteam.evaluation_result") || ''}
-            >
-              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '16em' }}>
-                <Box>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.comments")}
-                  </Typography>
-                  <Typography variant="body2">{ehReport?.comments}</Typography>  {/* // translate */}
-                </Box>
-                <Box>
-                  <Typography variant="subtitle2" fontWeight={600}>
-                    {t("redteam.description_of_the_tests")}
-                  </Typography>
-                  <Typography variant="body2">{ehReport?.description_tests}</Typography>  {/* // translate */}
-                </Box>
-              </Box>
-            </DashboardCard>
-          </Grid>
-
-          <Grid item xs={12} xl={6}>
-            <DashboardCard
-              title={t("redteam.risk_consolidation") || ''}
-            >
-              <Box display="flex" flexDirection="column" gap={2} sx={{ minHeight: '350px', maxHeight: '25em' }}>
-                <RiskConsolidateChart
-                  contLow={contLow} contMedium={contMedium}
-                  contHigh={contHigh} contCritical={contCritical}
-                  contInfo={contInfo}
-                />
-              </Box>
-            </DashboardCard>
-          </Grid>
-
-          <Grid item xs={12} xl={6}>
-            <DashboardCard
-              title={t("redteam.matrix_of_unique_vulnerabilities") || ''}
-            >
-              <Box display="flex" flexDirection="column" gap={2} mt={1} sx={{ minHeight: '25em' }}>
-                <EHMatrixVulnerabilities matrixRequest={riskMatrizData} />
               </Box>
             </DashboardCard>
           </Grid>
