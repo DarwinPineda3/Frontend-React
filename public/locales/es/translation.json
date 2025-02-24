@@ -840,7 +840,16 @@
     "date": "Fecha",
     "tool": "Herramienta",
     "view_report": "Ver Reporte",
-    "ai_solution": "Solución de asistente IA"
+    "ai_solution": "Solución de asistente IA",
+    "monitoring_summary": "Resumen de monitoreo",
+    "monitoring_summary_list": "Lista de resúmenes de monitoreo",
+    "start_date": "Fecha de inicio",
+    "end_date": "Fecha de fin",
+    "search": "Buscar",
+    "data_source": "Fuente de datos",
+    "data": "Datos",
+    "parameter": "Parámetro",
+    "data_type": "Tipo de dato"
   },
   "newsletter": {
     "newsletters": "Boletines",
