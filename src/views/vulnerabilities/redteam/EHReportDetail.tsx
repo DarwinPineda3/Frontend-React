@@ -6,7 +6,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Badge, Box, Breadcrumbs, Chip, Divider, Grid, IconButton, Link, Tab, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import Breadcrumb from 'src/components/shared/breadcrumb/Breadcrumb';
 import Loader from 'src/components/shared/Loader/Loader';
@@ -23,6 +23,8 @@ const EHReportDetails = () => {
   const ehReport = useSelector((state: any) => state.ehReportsReducer.ehReport);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "overview";
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -63,7 +65,7 @@ const EHReportDetails = () => {
     },
   ];
 
-  const [value, setValue] = React.useState('overview');
+  const [value, setValue] = React.useState(defaultTab);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -81,7 +83,7 @@ const EHReportDetails = () => {
               <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
                 {t('menu.vulnerabilities')}
               </Link>
-      
+
               <Link component={RouterLink} color="inherit" to="/vulnerabilities/redteam">
                 {t('menu.redteam')}
               </Link>
@@ -102,7 +104,7 @@ const EHReportDetails = () => {
         ) : (
           <>
             <Grid item xs={12} xl={12}>
-             <Breadcrumb title={ehReport?.name}>
+              <Breadcrumb title={ehReport?.name}>
                 <Box display="flex" flexWrap="wrap" gap={1} mb={3}>
                   <Chip label={`${t("redteam.objectives")}: ${ehReport?.objectives}`} color="secondary" variant="outlined" />
                   <Chip label={`${t("redteam.start_date")}: ${ehReport?.start_date_report}`} color="info" variant="outlined" />
