@@ -94,6 +94,8 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
 
     if (urlType) {
       setTypeFilter(urlType);
+    } else {
+      setTypeFilter('all');
     }
 
     if (urlStart && urlEnd) {
@@ -137,7 +139,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
       }
     };
     fetchData();
-  }, [dispatch, currentPage, pageSize, startISO, endISO, typeFilter]);
+  }, [dispatch, currentPage, pageSize, typeFilter]);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
