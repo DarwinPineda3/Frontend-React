@@ -12,6 +12,7 @@ interface InstallationGuideState {
     api_url: string;
     akila_agent_windows_installer_url: string;
     akila_agent_linux_installer_url: string;
+    akila_agent_freebsd_installer_url: string;
     giotto_agent_windows_installer_url: string;
     giotto_agent_linux_installer_url: string;
     api_key: string;

@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaLinux, FaWindows } from 'react-icons/fa';
+import { FaFreebsd, FaLinux, FaWindows } from 'react-icons/fa';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from 'src/components/container/PageContainer';
 import { fetchInstallationGuideVariables } from 'src/store/installation-guide/InstallationGuideSlice';
@@ -33,6 +33,7 @@ const InstallationGuides = () => {
   const variables = useSelector((state: any) => state.installationGuideVariablesReducer.variables);
 
   const [value, setValue] = React.useState(0);
+  const [valueF, setValuF] = React.useState(0);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
@@ -41,6 +42,10 @@ const InstallationGuides = () => {
 
   const handleChange = (_: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
+  };
+
+  const handleChangeF = (_: React.ChangeEvent<{}>, newValue: number) => {
+    setValuF(newValue);
   };
 
   const copyToClipboard = async (text: string) => {
@@ -87,10 +92,10 @@ const InstallationGuides = () => {
         <Grid item xs={12}>
           {isLoading ? (
             <DashboardCard>
-            <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-              <Loader></Loader>
-            </Box>
-          </DashboardCard>
+              <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+                <Loader></Loader>
+              </Box>
+            </DashboardCard>
           ) : (
             <>
               <DashboardCard>
@@ -372,6 +377,77 @@ const InstallationGuides = () => {
                       </CodeBlock>
                       <ul>
                         <li>{t('installation_guide.linux.individual_installation.steps.note')}</li>
+                      </ul>
+                    </AccordionDetails>
+                  </Accordion>
+
+                  {/* Accordion para FreeBSD */}
+                  <Accordion defaultExpanded>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography variant="h6">
+                        <FaFreebsd style={{ marginRight: '8px' }} />{' '}
+                        {t('installation_guide.freebsd.title')}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography variant="h6">
+                        {t('installation_guide.freebsd.individual_installation.title')}
+                      </Typography>
+                      <Typography variant="body2" sx={{ marginBottom: 1 }}>
+                        {t('installation_guide.freebsd.individual_installation.steps.intro')}
+                      </Typography>
+                      <ul>
+                        <li>
+                          <strong>
+                            {t('installation_guide.freebsd.individual_installation.steps.step1')}
+                          </strong>
+                        </li>
+                      </ul>
+                      <Box sx={{ marginBottom: 2 }}>
+                        <Tabs
+                          value={valueF}
+                          onChange={handleChangeF}
+                          textColor="primary"
+                          indicatorColor="primary"
+                        >
+                          <Tab label="FreeBSD" />
+                        </Tabs>
+                      </Box>
+                      <Box>
+                        <ul>
+                          <li>
+                            <strong>
+                              {t('installation_guide.freebsd.individual_installation.steps.step2')}
+                            </strong>
+                          </li>
+                        </ul>
+                        {valueF === 0 && (
+                          <CodeBlock onClick={() => copyToClipboard(`pkg install -y dotnet unzip`)}>
+                            {`pkg install -y dotnet unzip`}
+                          </CodeBlock>
+                        )}
+                      </Box>
+
+                      <ul>
+                        <li>
+                          <strong>
+                            {t('installation_guide.freebsd.individual_installation.steps.step3')}
+                          </strong>
+                        </li>
+                      </ul>
+                      <CodeBlock
+                        onClick={() =>
+                          copyToClipboard(
+                            `fetch -o - ${variables?.akila_agent_freebsd_installer_url} | sh -s -- --url "${variables?.api_url}" --api-key "${variables?.api_key}" --version "${variables?.last_version_agent}"`,
+                          )
+                        }
+                      >
+                        {`fetch -o - ${variables?.akila_agent_freebsd_installer_url} | sh -s -- --url "${variables?.api_url}" --api-key "${variables?.api_key}" --version "${variables?.last_version_agent}"`}
+                      </CodeBlock>
+                      <ul>
+                        <li>
+                          {t('installation_guide.freebsd.individual_installation.steps.note')}
+                        </li>
                       </ul>
                     </AccordionDetails>
                   </Accordion>
