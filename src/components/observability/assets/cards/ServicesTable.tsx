@@ -42,13 +42,13 @@ const ServiceTable = ({ id }: ServiceTableProps) => {
 
   if (error) {
     return (
-      <DashboardCard title={t('services')!}>
+      <DashboardCard title={t('observability.services')!}>
         <Typography variant="body1">{error}</Typography>
       </DashboardCard>
     );
   }
   return (
-    <DashboardCard title={t('services')!}>
+    <DashboardCard title={t('observability.services')!}>
       <>
         <TableContainer>
           <Table aria-label="service table">
@@ -79,7 +79,9 @@ const ServiceTable = ({ id }: ServiceTableProps) => {
                   </TableCell>
                   <TableCell>
                     <IconButton>
-                      {service.ServiceStatus === 'Running' ? (
+                      {service.ServiceStatus === 'Running' ||
+                      service.ServiceStatus === 'running' ||
+                      service.ServiceStatus === 'active' ? (
                         <LocalFireDepartmentIcon style={{ color: 'green' }} />
                       ) : (
                         <LocalFireDepartmentIcon style={{ color: 'grey' }} />
