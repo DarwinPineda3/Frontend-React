@@ -1,16 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios';
-import { AppDispatch } from '../Store';
+import { AppDispatch } from '../../Store';
 
 function getApiUrl() {
-  return `${getBaseApiUrl()}/monitoring/summary/`;
+  return `${getBaseApiUrl()}/threat-overview/`;
 }
 
 interface MonitoringType {
   id: number;
   name: string;
   value: number;
+  data: string;
+  parameter: string;
+  parameter_type: string;
+  data_type: string;
+  elastic_id: string;
+  data_source: string;
+  result_group: string;
+  identification_date: string;
 }
 
 interface StateType {
@@ -52,7 +60,8 @@ export const SummaryMonitoringSlice = createSlice({
   },
 });
 
-export const { getSummaryMonitoring, setPage, setPageSize, setError } = SummaryMonitoringSlice.actions;
+export const { getSummaryMonitoring, setPage, setPageSize, setError } =
+  SummaryMonitoringSlice.actions;
 
 // Async thunk for fetching monitoring summary with pagination (READ)
 export const fetchSummaryMonitoring =
@@ -61,8 +70,6 @@ export const fetchSummaryMonitoring =
     try {
       const response = await axios.get(`${getApiUrl()}?page=${page}&page_size=${pageSize}`);
       const { results, page: currentPage, totalPages } = response.data;
-
-      console.log('Fetched Data:', { results, currentPage, totalPages });
 
       dispatch(getSummaryMonitoring({ results, currentPage, totalPages }));
     } catch (err: any) {
@@ -73,21 +80,18 @@ export const fetchSummaryMonitoring =
 
 // Async thunk for fetching monitoring summary by date range
 export const fetchSummaryMonitoringByDateRange =
-  (startDate: string, endDate: string, page = 1, pageSize = 25, typeFilter: string | null) =>
+  (startDate: string, endDate: string, page = 1, pageSize = 25, typeFilter: string | 'all') =>
   async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.get(`${getApiUrl()}by-range/`, {
-        params: {
-          startDate,
-          endDate,
-          page,
-          page_size: pageSize,
-          type: typeFilter,
-        },
-      });
+      const params = new URLSearchParams();
+      params.append('start-date', startDate);
+      params.append('end-date', endDate);
+      params.append('data-type', typeFilter);
+      params.append('page', page);
+      params.append('page_size', pageSize);
+      const response = await axios.get(`${getApiUrl()}get-results-by-range/?${params.toString()}`);
 
       const { results, page: currentPage, totalPages } = response.data || {};
-
       if (Array.isArray(results)) {
         dispatch(
           getSummaryMonitoring({

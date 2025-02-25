@@ -1,10 +1,7 @@
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import {
   Alert,
   Box,
   Button,
-  Chip,
   IconButton,
   Snackbar,
   Table,
@@ -24,16 +21,17 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { IconEye } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import HumanizedDate from 'src/components/shared/HumanizedDate';
-import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchSummaryMonitoringByDateRange, setPage, setPageSize } from 'src/store/sections/SummaryMonitoringSlice';
-import { getChipColor, getSeverityColor } from 'src/utils/severityUtils';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import Loader from 'src/components/shared/Loader/Loader';
+import { useDispatch, useSelector } from 'src/store/Store';
+import {
+  fetchSummaryMonitoringByDateRange,
+  setPage,
+  setPageSize,
+} from 'src/store/sections/cyber-guard/SummaryMonitoringSlice';
 import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface SummaryMonitoringListProps {
@@ -45,7 +43,9 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const summaryMonitoring = useSelector((state: any) => state.summaryMonitoringReducer?.summaryMonitoring || []);
+  const summaryMonitoring = useSelector(
+    (state: any) => state.summaryMonitoringReducer?.summaryMonitoring || [],
+  );
   const currentPage = useSelector((state: any) => state.summaryMonitoringReducer?.page || 1);
   const totalPages = useSelector((state: any) => state.summaryMonitoringReducer?.totalPages || 0);
   const pageSize = useSelector((state: any) => state.summaryMonitoringReducer?.pageSize || 10);
@@ -53,12 +53,14 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
   const [allSelected, setAllSelected] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('success');
   const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
-  const [typeFilter, setTypeFilter] = useState<string | null>(filter);
+  const [typeFilter, setTypeFilter] = useState<string | 'all'>(filter);
   const [startDate, setStartDate] = useState(() => {
     const now = new Date();
     now.setDate(1);
@@ -91,7 +93,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     const urlEnd = searchParams.get('endDate');
 
     if (urlType) {
-      setTypeFilter(urlType); 
+      setTypeFilter(urlType);
     }
 
     if (urlStart && urlEnd) {
@@ -123,7 +125,10 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        await dispatch(fetchSummaryMonitoringByDateRange(startISO, endISO, currentPage, pageSize, typeFilter));
+        await dispatch(
+          fetchSummaryMonitoringByDateRange(startISO, endISO, currentPage, pageSize, typeFilter),
+        );
+        console.log('Fetched Data:', { summaryMonitoring, currentPage, totalPages });
       } catch (error) {
         console.error(error);
         setIsLoading(false);
@@ -134,7 +139,10 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     fetchData();
   }, [dispatch, currentPage, pageSize, startISO, endISO, typeFilter]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, page: number) => {
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
     const newPage = page + 1;
     if (newPage !== currentPage) {
       dispatch(setPage(newPage));
@@ -220,7 +228,15 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
             disabled={!startDate || !endDate || new Date(endDate) < new Date(startDate)}
             onClick={async () => {
               // fetch summary data by date range
-              await dispatch(fetchSummaryMonitoringByDateRange(startISO, endISO, currentPage, pageSize, typeFilter));
+              await dispatch(
+                fetchSummaryMonitoringByDateRange(
+                  startISO,
+                  endISO,
+                  currentPage,
+                  pageSize,
+                  typeFilter,
+                ),
+              );
             }}
           >
             {t('summary.search')}
@@ -244,22 +260,22 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" sx={{ textAlign: 'center' }} fontWeight={600}>
-                       {t('summary.data')}
+                        {t('summary.data')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                       {t('summary.parameter')}
+                        {t('summary.parameter')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                       {t('summary.data_type')}
+                        {t('summary.data_type')}
                       </Typography>
                     </TableCell>
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
-                       {t('summary.data_source')}
+                        {t('summary.data_source')}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -297,11 +313,21 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                         </TableCell>
                         <TableCell>
                           <Typography variant="subtitle2" fontWeight={600}>
-                            {item.data_source}
+                            {item.data_source === 'dark_web'
+                              ? 'Dark Web'
+                              : item.data_source === 'data_leaks'
+                              ? 'Data Leaks'
+                              : item.data_source === 'internet'
+                              ? 'Internet'
+                              : '-'}
                           </Typography>
                         </TableCell>
                         <TableCell sx={{ textAlign: 'center' }}>
-                          <IconButton size="small" color="primary" onClick={() => navigate(item.report_url)}>
+                          <IconButton
+                            size="small"
+                            color="primary"
+                            onClick={() => navigate(item.report_url)}
+                          >
                             <IconEye />
                           </IconButton>
                         </TableCell>
