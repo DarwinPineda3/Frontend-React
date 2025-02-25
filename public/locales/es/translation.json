@@ -550,7 +550,7 @@
     "system_directory": "Directorio del Sistema",
     "installation_date": "Fecha de Instalación",
     "device_info": "INFORMACIÓN DEL DISPOSITIVO",
-    "pc_info": "INFORMACIÓN DEL PC",
+    "pc_info": "INFORMACIÓN DEL DISPOSITIVO",
     "cpu_info": "INFORMACIÓN DEL CPU",
     "ram_info": "INFORMACIÓN DE LA RAM",
     "partition_info": "INFORMACIÓN DE PARTICIONES",
@@ -644,6 +644,7 @@
     "last_week": "Última semana",
     "last_month": "Último mes",
     "custom_range": "Rango personalizado",
+    "not_enough_data": "No hay suficientes datos para mostrar",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",
