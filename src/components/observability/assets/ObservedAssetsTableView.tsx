@@ -12,7 +12,7 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,16 +28,12 @@ interface ObservedAssetsProps {
 }
 
 const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => {
-  const { observedAssetsData, error, page, totalPages, pageSize, loading } = useSelector(
-    (state: AppState) => state.ObservedAssetsReducer,
-  );
+  const { observedAssetsData, error, page, totalPages, pageSize, totalItemsAmount, loading } =
+    useSelector((state: AppState) => state.ObservedAssetsReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchObservedAssetData(
-      page,
-      pageSize
-    ));
+    dispatch(fetchObservedAssetData(page, pageSize));
   }, [dispatch]);
 
   const theme = useTheme();
@@ -57,22 +53,25 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
     return <Box>{error}</Box>;
   }
 
-
   if (loading) {
-    return <DashboardCard>
-      <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-        <Loader></Loader>
-      </Box>
-    </DashboardCard>
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
   }
 
   if (observedAssetsData.length === 0) {
-    return <DashboardCard
-      title={t('observability.scans')!}
-      subtitle={t('observability.list_of_all_scans')!}
-    >
-      <EmptyState />
-    </DashboardCard>
+    return (
+      <DashboardCard
+        title={t('observability.scans')!}
+        subtitle={t('observability.list_of_all_scans')!}
+      >
+        <EmptyState />
+      </DashboardCard>
+    );
   }
 
   return (
@@ -153,8 +152,8 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                             asset.CpuInfo.CpuUsage < 30
                               ? 'success'
                               : asset.CpuInfo.CpuUsage > 80
-                                ? 'primary'
-                                : 'warning'
+                              ? 'primary'
+                              : 'warning'
                           }
                         />
                         <Typography variant="subtitle2">{asset.CpuInfo.CpuUsage}%</Typography>
@@ -173,8 +172,8 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                             asset.RamInfo.RamUsagePercentage < 30
                               ? 'success'
                               : asset.RamInfo.RamUsagePercentage > 80
-                                ? 'error'
-                                : 'warning'
+                              ? 'error'
+                              : 'warning'
                           }
                         />
                         <Typography variant="subtitle2">
@@ -195,8 +194,8 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
                             asset.Storage.TotalUsagePercentage < 30
                               ? 'success'
                               : asset.Storage.TotalUsagePercentage > 80
-                                ? 'error'
-                                : 'warning'
+                              ? 'error'
+                              : 'warning'
                           }
                         />
                         <Typography variant="subtitle2">
@@ -236,7 +235,7 @@ const ObservedAssetsTable: React.FC<ObservedAssetsProps> = ({ onScanClick }) => 
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 50, 100]}
             component="div"
-            count={totalPages * pageSize}
+            count={totalItemsAmount}
             rowsPerPage={pageSize}
             page={page - 1}
             onPageChange={(e, destPage) => handlePageChange(e, destPage + 1)}
