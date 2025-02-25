@@ -120,6 +120,10 @@ const DiskCard: React.FC<DiskProps> = ({ storage_charts }) => {
           };
 
           const seriescolumnchart = [chart.used_space, chart.free_space];
+          const safeUsedSpace = Number(used_space) || 0;
+          const safeSize = Number(size) || 1;
+
+          const usedPercentage = (safeUsedSpace / safeSize) * 100;
 
           return (
             <Accordion key={index} defaultExpanded={false}>
@@ -130,7 +134,8 @@ const DiskCard: React.FC<DiskProps> = ({ storage_charts }) => {
               >
                 <Typography variant="h6" fontWeight="600" color="textPrimary">
                   {drive} ({volume_name}) - {t('observability.file_system')}: {disk.file_system} -{' '}
-                  {t('observability.used_space')}: {used_space.toFixed(2)} GB
+                  {t('observability.used_space')}: {used_space.toFixed(2)} GB (
+                  {usedPercentage.toFixed(2)}%)
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
