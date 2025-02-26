@@ -47,6 +47,10 @@ const DarkWeb = () => {
     brandMonitoringResume?.['social_network_total'] ?? 0, // Malware Count
     brandMonitoringResume?.['vins'] ?? 0, // Compromised VIPs Count
     brandMonitoringResume?.['dark_web_total'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['linked_url_internal'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['linked_url_external'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['interesting_files'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['public_code_repo'] ?? 0, // Fake Applications Count
   ];
 
   const polygonValues = [
