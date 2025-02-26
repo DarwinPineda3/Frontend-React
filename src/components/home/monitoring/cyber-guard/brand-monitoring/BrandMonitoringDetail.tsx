@@ -9,6 +9,7 @@ import { Badge, Box, Divider } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
 import {
   clearBrandMonitoringDetail,
@@ -30,12 +31,15 @@ interface BrandMonitoringDetailProps {
 const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [searchParams, setsearchParams] = useSearchParams();
+  const dataType = searchParams.get('dataType');
   const brandMonitoringDetail: Data = useSelector(
     (state: any) => state.brandMonitoringReducer.brandMonitoringDetail,
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [value, setValue] = React.useState('internet');
+  const [value, setValue] = React.useState(dataType || 'internet');
   const [title, setTitle] = React.useState('-');
+
   const COMMON_TAB = [
     {
       value: 'internet',
@@ -67,6 +71,11 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail} />,
     },
   ];
+
+  React.useEffect(() => {
+    setValue(searchParams.get('dataType') || 'internet'); // Actualiza cuando cambia la URL
+  }, [searchParams]);
+
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -94,6 +103,8 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+    const dataType = newValue;
+    setsearchParams({ dataType }, { replace: true });
   };
 
   return (

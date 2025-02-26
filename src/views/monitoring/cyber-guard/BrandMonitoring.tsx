@@ -21,7 +21,7 @@ const BrandMonitoringCyberGuard = () => {
   const [selectedBrandMonitoring, setselectedBrandMonitoring] = useState<string | null>(null);
 
   const handleBrandMonitoringClick = (id: string) => {
-    navigate(`/monitoring/cyber-guard/monitoring/${id}`);
+    navigate(`/monitoring/cyber-guard/monitoring/${id}?dataType=internet`);
   };
 
   useEffect(() => {

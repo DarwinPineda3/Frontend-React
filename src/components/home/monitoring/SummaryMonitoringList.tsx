@@ -73,9 +73,6 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     return now.toISOString().split('T')[0];
   });
 
-  const startISO = startDate ? new Date(`${startDate}T00:00:00.000Z`).toISOString() : '';
-  const endISO = endDate ? new Date(`${endDate}T00:00:00.000Z`).toISOString() : '';
-
   useEffect(() => {
     if (endDate < startDate) {
       const newEndDate = new Date(new Date(startDate).setMonth(new Date(startDate).getMonth() + 1))
@@ -115,7 +112,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     if (typeFilter !== null) {
       setsearchParams({ type: typeFilter, startDate, endDate }, { replace: true });
     }
-  }, [startDate, endDate, typeFilter]);
+  }, [startDate, endDate]);
 
   useEffect(() => {
     if (snackbarMessage && snackbarSeverity) {
@@ -128,9 +125,8 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
       try {
         setIsLoading(true);
         await dispatch(
-          fetchSummaryMonitoringByDateRange(startISO, endISO, currentPage, pageSize, typeFilter),
+          fetchSummaryMonitoringByDateRange(startDate, endDate, currentPage, pageSize, typeFilter),
         );
-        console.log('Fetched Data:', { summaryMonitoring, currentPage, totalPages });
       } catch (error) {
         console.error(error);
         setIsLoading(false);
@@ -178,25 +174,8 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     });
   };
 
-  const handleCreateItems = async () => {
-    if (selectedItems.length === 0) {
-      setSnackbarMessage(t('summary.monitoring.select_items')!);
-      setSnackbarSeverity('warning');
-      setSnackbarOpen(true);
-      return;
-    }
-
-    setSnackbarOpen(false);
-
-    try {
-      setSnackbarMessage(t('summary.monitoring.items_managed')!);
-      setSnackbarSeverity('success');
-      setSnackbarOpen(true);
-    } catch (error) {
-      setSnackbarMessage(t('summary.monitoring.manage_failed')!);
-      setSnackbarSeverity('error');
-      setSnackbarOpen(true);
-    }
+  const handleOnClick = (elasticId: string, dataType: string) => {
+    navigate(`/monitoring/cyber-guard/monitoring/${elasticId}?dataType=${dataType}`);
   };
 
   return (
@@ -232,8 +211,8 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
               // fetch summary data by date range
               await dispatch(
                 fetchSummaryMonitoringByDateRange(
-                  startISO,
-                  endISO,
+                  startDate,
+                  endDate,
                   currentPage,
                   pageSize,
                   typeFilter,
@@ -257,9 +236,9 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
               <Table aria-label="monitoring table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>
+                    {/* <TableCell>
                       <input type="checkbox" checked={allSelected} onChange={handleSelectAll} />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <Typography variant="subtitle2" fontWeight={600}>
                         {t('summary.data')}
@@ -291,13 +270,13 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                   {summaryMonitoring.length > 0 ? (
                     summaryMonitoring.map((item: any, index: number) => (
                       <TableRow key={index}>
-                        <TableCell>
+                        {/* <TableCell>
                           <input
                             type="checkbox"
                             checked={selectedItems.some((i) => i.id === item.id)}
                             onChange={() => handleSelectionChange(item)}
                           />
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>
                           <Typography variant="subtitle2" fontWeight={600}>
                             {item.data}
@@ -315,10 +294,10 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                         </TableCell>
                         <TableCell>
                           <Typography variant="subtitle2" fontWeight={600}>
-                            {item.data_source === 'dark_web'
+                            {item.data_source === 'darkweb'
                               ? 'Dark Web'
-                              : item.data_source === 'data_leaks'
-                              ? 'Data Leaks'
+                              : item.data_source === 'security-leaks'
+                              ? 'Security Leaks'
                               : item.data_source === 'internet'
                               ? 'Internet'
                               : '-'}
@@ -328,7 +307,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                           <IconButton
                             size="small"
                             color="primary"
-                            onClick={() => navigate(item.report_url)}
+                            onClick={() => handleOnClick(item.elastic_id, item.data_source)}
                           >
                             <IconEye />
                           </IconButton>
