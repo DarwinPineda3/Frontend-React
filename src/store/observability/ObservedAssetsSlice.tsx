@@ -155,6 +155,7 @@ interface StateType {
   page: number;
   totalPages: number;
   pageSize: number;
+  totalItemsAmount: number;
   loading: boolean;
   observedAssetsDetail: SystemInfo | null;
   observedAssetsDetailLogs: AssetLogsResponse | null;
@@ -167,6 +168,7 @@ const initialState: StateType = {
   page: 1,
   totalPages: 1,
   pageSize: 10,
+  totalItemsAmount: 0,
   loading: false,
   observedAssetsDetailLogs: null,
   error: null,
@@ -181,6 +183,7 @@ const ObservedAssetsSlice = createSlice({
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
       state.pageSize = action.payload.pageSize;
+      state.totalItemsAmount = action.payload.totalItemsAmount;
     },
     getObservedAssetDetail: (state, action) => {
       state.observedAssetsDetail = action.payload.data;
@@ -197,35 +200,46 @@ const ObservedAssetsSlice = createSlice({
     resetObservedAssetDetails: (state) => {
       state.observedAssetsDetail = null;
       state.observedAssetsDetailLogs = null;
-    }
+    },
   },
 });
 
-export const { getObservedAssetList, getObservedAssetDetail, getObservedAssetForCharts, setError, setLoading, resetObservedAssetDetails } =
-  ObservedAssetsSlice.actions;
+export const {
+  getObservedAssetList,
+  getObservedAssetDetail,
+  getObservedAssetForCharts,
+  setError,
+  setLoading,
+  resetObservedAssetDetails,
+} = ObservedAssetsSlice.actions;
 
 // Async thunk for fetching Network Observability list with pagination (READ)
-export const fetchObservedAssetData = (requestedPage: number, pageSize: number = 10) => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoading(true));
-    if (pageSize !== initialState.pageSize) {
-      requestedPage = 1;
+export const fetchObservedAssetData =
+  (requestedPage: number, pageSize: number = 10) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      if (pageSize !== initialState.pageSize) {
+        requestedPage = 1;
+      }
+      const response = await axios.get(
+        `${getMonitoringApiUrl()}/?page=${requestedPage}&page_size=${pageSize}`,
+      );
+      dispatch(
+        getObservedAssetList({
+          data: response.data.results,
+          currentPage: response.data.page,
+          totalPages: response.data.totalPages,
+          pageSize,
+          totalItemsAmount: response.data.totalItemsAmount,
+        }),
+      );
+      dispatch(setLoading(false));
+    } catch (err: any) {
+      console.error('Error fetching Network Observability data:', err);
+      dispatch(setError('Failed to fetch Network Observability data'));
     }
-    const response = await axios.get(`${getMonitoringApiUrl()}/?page=${requestedPage}&page_size=${pageSize}`);
-    dispatch(
-      getObservedAssetList({
-        data: response.data.results,
-        currentPage: response.data.page,
-        totalPages: response.data.totalPages,
-        pageSize,
-      }),
-    );
-    dispatch(setLoading(false));
-  } catch (err: any) {
-    console.error('Error fetching Network Observability data:', err);
-    dispatch(setError('Failed to fetch Network Observability data'));
-  }
-};
+  };
 
 export const fetchObservedAssetsLogsByDateRange =
   (uuid: string, startDate: string, endDate: string) => async (dispatch: AppDispatch) => {

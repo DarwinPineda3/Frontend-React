@@ -11,13 +11,11 @@ interface SystemInfoCardsProps {
 const SystemInfoCards = ({ id }: SystemInfoCardsProps) => {
   const { t } = useTranslation();
 
-  const { observedAssetsDetail, error } = useSelector(
-    (state: AppState) => state.ObservedAssetsReducer,
-  );
+  const { observedAssetsDetail } = useSelector((state: AppState) => state.ObservedAssetsReducer);
 
   const deviceInfo = [
     { label: t('observability.host_name'), value: observedAssetsDetail?.cpuInfo.Hostname },
-    { label: t('observability.ips'), value: observedAssetsDetail?.cpuInfo.IpPublic },
+    { label: t('observability.ips'), value: observedAssetsDetail?.cpuInfo.Ip },
     { label: t('observability.public_ip'), value: observedAssetsDetail?.cpuInfo.IpPublic },
     { label: t('observability.id'), value: observedAssetsDetail?.cpuInfo.UuId },
     { label: t('observability.agent_version'), value: observedAssetsDetail?.cpuInfo.BuildNumber },
@@ -91,24 +89,6 @@ const SystemInfoCards = ({ id }: SystemInfoCardsProps) => {
         ]),
       )
     : [];
-
-  const partitionInfo_old = [
-    { label: t('observability.partitions'), value: 'Disk #0, Partition #0' },
-    { label: t('observability.size'), value: '0.29 GB' },
-    { label: t('observability.type'), value: 'GPT: System' },
-    { label: t('observability.partitions'), value: 'Disk #0, Partition #1' },
-    { label: t('observability.size'), value: '453.53 GB' },
-    { label: t('observability.type'), value: 'GPT: Basic Data' },
-    { label: t('observability.partitions'), value: 'Disk #0, Partition #2' },
-    { label: t('observability.size'), value: '1.02 GB' },
-    { label: t('observability.type'), value: 'GPT: Unknown' },
-    { label: t('observability.partitions'), value: 'Disk #0, Partition #3' },
-    { label: t('observability.size'), value: '20.54 GB' },
-    { label: t('observability.type'), value: 'GPT: Unknown' },
-    { label: t('observability.partitions'), value: 'Disk #0, Partition #4' },
-    { label: t('observability.size'), value: '1.43 GB' },
-    { label: t('observability.type'), value: 'GPT: Unknown' },
-  ];
 
   const osInfo = [
     {

@@ -550,7 +550,7 @@
     "system_directory": "Directorio del Sistema",
     "installation_date": "Fecha de Instalación",
     "device_info": "INFORMACIÓN DEL DISPOSITIVO",
-    "pc_info": "INFORMACIÓN DEL PC",
+    "pc_info": "INFORMACIÓN DEL DISPOSITIVO",
     "cpu_info": "INFORMACIÓN DEL CPU",
     "ram_info": "INFORMACIÓN DE LA RAM",
     "partition_info": "INFORMACIÓN DE PARTICIONES",
@@ -644,6 +644,7 @@
     "last_week": "Última semana",
     "last_month": "Último mes",
     "custom_range": "Rango personalizado",
+    "not_enough_data": "No hay suficientes datos para mostrar",
     "cloud_inventory": {
       "provider_is_required": "El proveedor es obligatorio",
       "aws_id_is_required": "El ID de AWS es obligatorio",
@@ -1008,7 +1009,7 @@
   },
   "installation_guide": {
     "title": "Guía de Instalación",
-    "welcome_message": "¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones paso a pasopara instalar el agente en diferentes sistemas operativos.Ya sea que esté implementando en Windows o Linux, encontrará todos lospasos necesarios para garantizar un proceso de instalación fluido.",
+    "welcome_message": "¡Bienvenido/a a la Guía de Instalación del Agente! Esta guía proporciona instrucciones paso a pasopara instalar el agente en diferentes sistemas operativos.Ya sea que esté implementando en Windows, Linux o FreeBSD, encontrará todos lospasos necesarios para garantizar un proceso de instalación fluido.",
     "windows": {
       "title": "Windows",
       "individual_installation": {
@@ -1054,6 +1055,23 @@
           "step2": "Paso 2: Elija su distribución de Linux:",
           "step3": "Paso 3: Pegue el comando en la ventana de la terminal de Linux y presione Enter para ejecutarlo.",
           "step4": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
+          "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
+        }
+      },
+      "error_notes": {
+        "title": "Notas de error",
+        "intro": "Si recibe algún error `libssl` durante la instalación del agente, puede utilizar los siguientes comandos:"
+      }
+    },
+    "freebsd": {
+      "title": "FreeBSD",
+      "individual_installation": {
+        "title": "Instalación Individual",
+        "steps": {
+          "intro": "Para ejecutar el comando en Linux, siga estos pasos:",
+          "step1": "Paso 1: Abra una terminal con permisos de root en su sistema FreeBSD",
+          "step2": "Paso 3: Pegue el comando en la ventana de la terminal de FreeBSD y presione Enter para ejecutarlo.",
+          "step3": "Paso 4: Copia el siguiente comando, pégalo en la ventana del terminal y presiona Enter para ejecutarlo.",
           "note": "El comando descargará y ejecutará el Agente Akila con la URL y la clave API proporcionadas."
         }
       },

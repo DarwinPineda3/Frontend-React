@@ -551,7 +551,7 @@
     "system_directory": "System Directory",
     "installation_date": "Installation Date",
     "device_info": "DEVICE INFORMATION",
-    "pc_info": "PC INFORMATION",
+    "pc_info": "DEVICE INFORMATION",
     "cpu_info": "CPU INFORMATION",
     "ram_info": "RAM INFORMATION",
     "partition_info": "PARTITION INFORMATION",
@@ -645,6 +645,7 @@
     "last_week": "Last week",
     "last_month": "Last month",
     "custom_range": "Custom range",
+    "not_enough_data": "Not enough data to display",
     "cloud_inventory": {
       "provider_is_required": "Provider is required",
       "aws_id_is_required": "AWS ID is required",
@@ -1010,7 +1011,7 @@
   },
   "installation_guide": {
     "title": "Installation Guide",
-    "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows or Linux, you will find all the necessary steps to ensure a smooth installation process.",
+    "welcome_message": "Welcome to the Agent Installation Guide! This guide provides step-by-step instructions for installing the agent on different operating systems. Whether you are deploying on Windows, Linux or FreeBSD, you will find all the necessary steps to ensure a smooth installation process.",
     "windows": {
       "title": "Windows",
       "individual_installation": {
@@ -1056,6 +1057,23 @@
           "step2": "Step 2: Choose your Linux distribution:",
           "step3": "Step 3: Paste the command in the terminal window and press Enter to execute it.",
           "step4": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
+          "note": "The command will download and run the Akila Agent with the provided URL and API key."
+        }
+      },
+      "error_notes": {
+        "title": "Error notes",
+        "intro": "If you get any `libssl` error during agent installation, you can use the following commands:"
+      }
+    },
+    "freebsd": {
+      "title": "FreeBSD",
+      "individual_installation": {
+        "title": "Individual Installation",
+        "steps": {
+          "intro": "To run the command on FreeBSD, follow these steps:",
+          "step1": "Step 1: Open a terminal with root permissions on your FreeBSD system.",
+          "step2": "Step 2: Paste the command in the terminal window and press Enter to execute it.",
+          "step3": "Step 4: Copy the following command, paste it into the terminal window, and press Enter to execute it.",
           "note": "The command will download and run the Akila Agent with the provided URL and API key."
         }
       },
