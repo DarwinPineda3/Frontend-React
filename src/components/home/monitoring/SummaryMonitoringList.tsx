@@ -243,7 +243,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                       <input type="checkbox" checked={allSelected} onChange={handleSelectAll} />
                     </TableCell>
                     <TableCell>
-                      <Typography variant="subtitle2" sx={{ textAlign: 'center' }} fontWeight={600}>
+                      <Typography variant="subtitle2" fontWeight={600}>
                        {t('summary.data')}
                       </Typography>
                     </TableCell>
