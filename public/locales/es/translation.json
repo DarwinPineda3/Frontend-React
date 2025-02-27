@@ -160,7 +160,17 @@
     "urgency": "Urgencia",
     "priority": "Prioridad",
     "impact": "Impacto",
-    "attach_files": "Archivos adjuntos"
+    "attach_files": "Archivos adjuntos",
+    "open": "Abierto",
+    "pending": "Pendiente",
+    "resolved": "Resuelto",
+    "closed": "Cerrado",
+    "low": "Baja",
+    "medium": "Media",
+    "high": "Alta",
+    "urgent": "Urgente",
+    "new": "Nuevo",
+    "assigned": "Asignado"
   },
   "vulnerabilities": {
     "date": "Fecha",
