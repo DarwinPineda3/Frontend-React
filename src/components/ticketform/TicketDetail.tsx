@@ -2,7 +2,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Box,
   Breadcrumbs,
-  Button,
   IconButton,
   Link,
   Table,
@@ -11,7 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +52,8 @@ const TicketDetail: React.FC = () => {
     return <Typography variant="h6" color="error">No se encontró el ticket.</Typography>;
   }
 
+  console.log(ticket);
+
   return (
     <Box sx={{ maxWidth: '1200px', margin: 'auto' }}>
       <Box display="flex" alignItems="center" mb={3} mt={2}>
@@ -63,7 +64,7 @@ const TicketDetail: React.FC = () => {
           <Link component={RouterLink} to="/support/tickets" color="inherit">
             Tickets
           </Link>
-          <Typography color="textPrimary">Detalles del Ticket</Typography>
+          <Typography color="textPrimary">{ticket.subject}</Typography>
         </Breadcrumbs>
       </Box>
 
@@ -89,14 +90,6 @@ const TicketDetail: React.FC = () => {
                 <TableRow>
                   <TableCell><Typography>Asunto</Typography></TableCell>
                   <TableCell><Typography>{ticket.subject}</Typography></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell><Typography>Categoría</Typography></TableCell>
-                  <TableCell><Typography>{ticket.category || 'No definida'}</Typography></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell><Typography>Subcategoría</Typography></TableCell>
-                  <TableCell><Typography>{ticket.sub_category || 'No definida'}</Typography></TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell><Typography>Estado</Typography></TableCell>
@@ -125,22 +118,8 @@ const TicketDetail: React.FC = () => {
                   <TableCell><Typography>{ticket.requester_id}</Typography></TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell><Typography>Correo CC</Typography></TableCell>
-                  <TableCell>
-                    {ticket.cc_emails && ticket.cc_emails.length > 0 ? (
-                      ticket.cc_emails.join(', ')
-                    ) : (
-                      <Typography>No hay correos en CC</Typography>
-                    )}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
                   <TableCell><Typography>Fecha de creación</Typography></TableCell>
                   <TableCell><Typography>{new Date(ticket.created_at).toLocaleString()}</Typography></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell><Typography>Fecha de actualización</Typography></TableCell>
-                  <TableCell><Typography>{new Date(ticket.updated_at).toLocaleString()}</Typography></TableCell>
                 </TableRow>
                 {ticket.attachments && ticket.attachments.length > 0 && (
                   <TableRow>

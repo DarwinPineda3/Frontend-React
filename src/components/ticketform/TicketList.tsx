@@ -1,49 +1,66 @@
 import {
   Box,
   IconButton,
-  Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'src/store/Store';
-import { fetchTickets, setPage } from 'src/store/support/FreshTicketsSlice';
+import { fetchTickets, setPage, setPageSize } from 'src/store/support/FreshTicketsSlice';
 // import DashboardCard from 'src/shared/DashboardCard';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import NoDataAvailable from 'src/views/general/NoDataAvailable';
 import DashboardCard from '../shared/DashboardCard';
+import HumanizedDate from '../shared/HumanizedDate';
+
 
 const TicketList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const tickets = useSelector((state: any) => state.ticketReducer.tickets);
-  const currentPage = useSelector((state: any) => state.ticketReducer.page);
+  const page = useSelector((state: any) => state.ticketReducer.page);
+  const pageSize = useSelector((state: any) => state.ticketReducer.pageSize);
   const totalPages = useSelector((state: any) => state.ticketReducer.totalPages);
 
+  React.useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchTickets(page, pageSize));
+    };
+    fetchData();
+  }, [dispatch, page, pageSize]);
 
-  useEffect(() => {
-    dispatch(fetchTickets(currentPage));
-  }, [dispatch, currentPage]);
-
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (page !== currentPage) {
-      dispatch(setPage(page));
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    pageEntrie: number,
+  ) => {
+    const newPage = pageEntrie + 1;
+    if (newPage !== page) {
+      dispatch(setPage(newPage));
     }
   };
 
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    dispatch(setPageSize(newPageSize));
+    dispatch(setPage(1));
+  };
+
   const handleTicketClick = (ticketId: string) => {
-    navigate(`/support/ticket/${ticketId}`);
+    // navigate(`/support/ticket/${ticketId}`);
   };
 
 
   return (
-    <DashboardCard title="Tickets" subtitle="List of available tickets"
+    <DashboardCard title={t('support.tickets_management')!} subtitle={t('support.tickets_subtitle')!}
       action={
         <IconButton color="primary" onClick={() => navigate('/support/ticketform')}>
           <AddIcon />
@@ -56,17 +73,17 @@ const TicketList = () => {
               <TableRow>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Ticket ID
+                    {t('support.id')!}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Subject
+                    {t('support.subject')!}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={600}>
-                    Description
+                    {t('support.created')!}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -92,7 +109,7 @@ const TicketList = () => {
                     </TableCell>
                     <TableCell>
                       <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                        {ticket.description_text}
+                        <HumanizedDate dateString={ticket.created_at} />
                       </Typography>
                     </TableCell>
                   </TableRow>
@@ -107,14 +124,15 @@ const TicketList = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Box my={3} display="flex" justifyContent="center">
-          <Pagination
-            count={totalPages}
-            color="primary"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        </Box>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={totalPages * pageSize}
+          rowsPerPage={pageSize}
+          page={page - 1}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handlePageSizeChange}
+        />
       </Box>
     </DashboardCard>
   );

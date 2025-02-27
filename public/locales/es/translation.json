@@ -153,7 +153,8 @@
     "name": "Nombre",
     "no_solutions_found": "No se encontraron soluciones",
     "solutions": "Soluciones",
-    "search_solutions": "Buscar"
+    "search_solutions": "Buscar",
+    "created": "Creado"
   },
   "vulnerabilities": {
     "date": "Fecha",
