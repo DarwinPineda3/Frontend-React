@@ -89,7 +89,6 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     const urlType = searchParams.get('type');
     const urlStart = searchParams.get('startDate');
     const urlEnd = searchParams.get('endDate');
-
     if (urlType) {
       setTypeFilter(urlType);
     } else {
@@ -133,7 +132,6 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
         );
       } catch (error) {
         console.error(error);
-        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }

@@ -1,29 +1,90 @@
-import { AccountCircle, Email, Hvac, Language, People, Phone, Public, Security, VerifiedUser, Folder, Link, Launch, Code  } from '@mui/icons-material';
+import {
+  AccountCircle,
+  Code,
+  Email,
+  Folder,
+  Hvac,
+  Language,
+  Launch,
+  Link,
+  People,
+  Phone,
+  Public,
+  Security,
+  VerifiedUser,
+} from '@mui/icons-material';
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import { clearListSummary } from 'src/store/sections/cyber-guard/SummaryMonitoringSlice';
+import { useDispatch } from 'src/store/Store';
 
 const firstRowData = [
-  { title: 'total_compromises', icon: <Security fontSize="large" />, color: '#3498DB', filter: 'total_compromises' },
+  {
+    title: 'total_compromises',
+    icon: <Security fontSize="large" />,
+    color: '#3498DB',
+    filter: 'all',
+  },
   { title: 'domains', icon: <Language fontSize="large" />, color: '#4A90E2', filter: 'domains' },
   { title: 'emails', icon: <Email fontSize="large" />, color: '#F4BE34', filter: 'emails' },
   { title: 'ips', icon: <Public fontSize="large" />, color: '#7B8D8E', filter: 'ips' },
-  { title: 'usernames', icon: <AccountCircle fontSize="large" />, color: '#7F8C8D', filter: 'usernames' },
+  {
+    title: 'usernames',
+    icon: <AccountCircle fontSize="large" />,
+    color: '#7F8C8D',
+    filter: 'usernames',
+  },
 ];
 
 const secondRowData = [
   { title: 'phones', icon: <Phone fontSize="large" />, color: '#8E44AD', filter: 'phones' },
-  { title: 'social_media_total', icon: <People fontSize="large" />, color: '#1E9C8B', filter: 'social_media_total' },
-  { title: 'vip_compromised_count', icon: <VerifiedUser fontSize="large" />, color: '#2ECC71', filter: 'vip_compromised_count' },
-  { title: 'dark_web_total', icon: <Hvac fontSize="large" />, color: '#E74C3C', filter: 'dark_web_total' },
+  {
+    title: 'social_media_total',
+    icon: <People fontSize="large" />,
+    color: '#1E9C8B',
+    filter: 'social_media_total',
+  },
+  {
+    title: 'vip_compromised_count',
+    icon: <VerifiedUser fontSize="large" />,
+    color: '#2ECC71',
+    filter: 'vip_compromised_count',
+  },
+  {
+    title: 'dark_web_total',
+    icon: <Hvac fontSize="large" />,
+    color: '#E74C3C',
+    filter: 'darkweb',
+  },
 ];
 
 const thirdRowData = [
-  { title: 'link_url_internal', icon: <Link fontSize="large" />, color: '#E67E22', filter: 'linked_url_internal' },
-  { title: 'link_url_external', icon: <Launch fontSize="large" />, color: '#F39C12', filter: 'linked_url_external' },
-  { title: 'interesting_files', icon: <Folder fontSize="large" />, color: '#C0392B', filter: 'interesting_files' },
-  { title: 'public_code_repo', icon: <Code fontSize="large" />, color: '#8E44AD', filter: 'public_code_repo' },
+  {
+    title: 'link_url_internal',
+    icon: <Link fontSize="large" />,
+    color: '#E67E22',
+    filter: 'linked_url_internal',
+  },
+  {
+    title: 'link_url_external',
+    icon: <Launch fontSize="large" />,
+    color: '#F39C12',
+    filter: 'linked_url_external',
+  },
+  {
+    title: 'interesting_files',
+    icon: <Folder fontSize="large" />,
+    color: '#C0392B',
+    filter: 'interesting_files',
+  },
+  {
+    title: 'public_code_repo',
+    icon: <Code fontSize="large" />,
+    color: '#8E44AD',
+    filter: 'public_code_repo',
+  },
 ];
 
 interface TopCardsDarkWebProps {
@@ -32,11 +93,18 @@ interface TopCardsDarkWebProps {
 
 const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const completeValues = values.length >= firstRowData.length + secondRowData.length + thirdRowData.length
-    ? values
-    : [...values, ...Array(firstRowData.length + secondRowData.length + thirdRowData.length - values.length).fill(0)];
+  const completeValues =
+    values.length >= firstRowData.length + secondRowData.length + thirdRowData.length
+      ? values
+      : [
+          ...values,
+          ...Array(
+            firstRowData.length + secondRowData.length + thirdRowData.length - values.length,
+          ).fill(0),
+        ];
 
   const distributeRiskLevels = (value: number) => {
     const low = Math.round(value * 0.1);
@@ -47,6 +115,7 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
   };
 
   const handleCardClick = (filter: string) => {
+    dispatch(clearListSummary());
     navigate(`/monitoring/summary-monitoring?filter=${filter}`);
   };
 
@@ -67,7 +136,7 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
                   transform: 'translateY(-5px)',
                   boxShadow: 2,
                   cursor: 'pointer',
-                }
+                },
               }}
               display="flex"
               justifyContent="space-between"
@@ -76,13 +145,18 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
               textAlign="center"
               border="#ffffff"
               borderRadius="8px"
-              onClick={() => handleCardClick(card.filter)} 
+              onClick={() => handleCardClick(card.filter)}
             >
               <Box display="flex" alignItems="center">
                 {React.cloneElement(card.icon, { sx: { color: card.color } })}
               </Box>
 
-              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Typography variant="subtitle2" fontWeight={600}>
                   {t(`observability.${card.title}`)}
                 </Typography>
@@ -110,7 +184,7 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
                   transform: 'translateY(-5px)',
                   boxShadow: 2,
                   cursor: 'pointer',
-                }
+                },
               }}
               display="flex"
               justifyContent="space-between"
@@ -119,13 +193,18 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
               textAlign="center"
               border="#ffffff"
               borderRadius="8px"
-              onClick={() => handleCardClick(card.filter)} 
+              onClick={() => handleCardClick(card.filter)}
             >
               <Box display="flex" alignItems="center">
                 {React.cloneElement(card.icon, { sx: { color: card.color } })}
               </Box>
 
-              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Typography variant="subtitle2" fontWeight={600}>
                   {t(`observability.${card.title}`)}
                 </Typography>
@@ -139,7 +218,9 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
       })}
 
       {thirdRowData.map((card, i) => {
-        const riskLevels = distributeRiskLevels(completeValues[firstRowData.length + secondRowData.length + i]);
+        const riskLevels = distributeRiskLevels(
+          completeValues[firstRowData.length + secondRowData.length + i],
+        );
 
         return (
           <Grid item xs={6} sm={3} lg={3} key={i}>
@@ -153,7 +234,7 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
                   transform: 'translateY(-5px)',
                   boxShadow: 2,
                   cursor: 'pointer',
-                }
+                },
               }}
               display="flex"
               justifyContent="space-between"
@@ -162,13 +243,18 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
               textAlign="center"
               border="#ffffff"
               borderRadius="8px"
-              onClick={() => handleCardClick(card.filter)} 
+              onClick={() => handleCardClick(card.filter)}
             >
               <Box display="flex" alignItems="center">
                 {React.cloneElement(card.icon, { sx: { color: card.color } })}
               </Box>
 
-              <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Typography variant="subtitle2" fontWeight={600}>
                   {t(`monitoring.${card.title}`)}
                 </Typography>

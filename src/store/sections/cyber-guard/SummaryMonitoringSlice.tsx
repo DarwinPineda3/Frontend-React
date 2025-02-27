@@ -57,10 +57,15 @@ export const SummaryMonitoringSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setclearListSummaryState: (state) => {
+      state.summaryMonitoring = [];
+      state.page = 1;
+      state.totalPages = 1;
+    },
   },
 });
 
-export const { getSummaryMonitoring, setPage, setPageSize, setError } =
+export const { getSummaryMonitoring, setPage, setPageSize, setError, setclearListSummaryState } =
   SummaryMonitoringSlice.actions;
 
 // Async thunk for fetching monitoring summary with pagination (READ)
@@ -103,8 +108,18 @@ export const fetchSummaryMonitoringByDateRange =
       }
     } catch (err: any) {
       console.error('Error fetching monitoring summary by date range:', err);
+      console.log(err);
       dispatch(setError('Failed to fetch monitoring summary by date range'));
     }
   };
+
+export const clearListSummary = () => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(setclearListSummaryState());
+  } catch (err: any) {
+    console.error('Error cleaning brand monitoring detail:', err);
+    dispatch(setError('Failed to cleaning brand monitoring detail'));
+  }
+};
 
 export default SummaryMonitoringSlice.reducer;
