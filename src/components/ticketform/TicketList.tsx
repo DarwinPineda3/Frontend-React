@@ -55,7 +55,7 @@ const TicketList = () => {
   };
 
   const handleTicketClick = (ticketId: string) => {
-    // navigate(`/support/ticket/${ticketId}`);
+    navigate(`/support/ticket/${ticketId}`);
   };
 
 

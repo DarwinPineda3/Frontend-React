@@ -154,7 +154,13 @@
     "no_solutions_found": "No solutions found",
     "solutions": "Solutions",
     "search_solutions": "Search",
-    "created": "created"
+    "created": "created",
+    "ticket_details": "Ticket Details",
+    "status": "Status",
+    "urgency": "Urgency",
+    "priority": "Priority",
+    "impact": "Impact",
+    "attach_files": "Attach files"
   },
   "vulnerabilities": {
     "date": "Date",
