@@ -9,6 +9,7 @@ function getApiUrl() {
 }
 interface StateType {
   tickets: any[];
+  ticket: any;
   page: number;
   totalPages: number;
   error: string | null;
@@ -16,6 +17,7 @@ interface StateType {
 
 const initialState: StateType = {
   tickets: [],
+  ticket: {},
   page: 1,
   totalPages: 1,
   error: null,
@@ -30,6 +32,9 @@ export const TicketSlice = createSlice({
       state.page = action.payload.currentPage;
       state.totalPages = action.payload.totalPages;
     },
+    getTicket: (state, action) => {
+      state.ticket = action.payload.data;
+    },
     addTicket: (state, action) => {
       state.tickets.push(action.payload);
     },
@@ -42,7 +47,7 @@ export const TicketSlice = createSlice({
   }
 });
 
-export const { getTickets, addTicket, setPage, setError } = TicketSlice.actions;
+export const { getTickets, getTicket, addTicket, setPage, setError } = TicketSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
 export const fetchTickets = (page = 1) => async (dispatch: AppDispatch) => {
@@ -58,6 +63,22 @@ export const fetchTickets = (page = 1) => async (dispatch: AppDispatch) => {
   }
 };
 
+export const fetchTicketsById = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}${id}/`);
+    console.log(response);
+    if (response.status === 200) {
+      dispatch(getTicket({ data: response.data }));
+    } else {
+      dispatch(setError('fetch group report detail not found'));
+      throw 'fetch group report detail not found'
+    }
+  } catch (err: any) {
+    console.error('Error fetching Group detail:', err);
+    dispatch(setError('Failed to fetch Group detail'));
+    throw err
+  }
+};
 
 export const createTicket = (newTicket: any) => async (dispatch: AppDispatch) => {
   try {

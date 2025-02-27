@@ -16,8 +16,8 @@ import { fetchTickets, setPage } from 'src/store/support/FreshTicketsSlice';
 // import DashboardCard from 'src/shared/DashboardCard';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
-import DashboardCard from '../shared/DashboardCard';
 import NoDataAvailable from 'src/views/general/NoDataAvailable';
+import DashboardCard from '../shared/DashboardCard';
 
 const TicketList = () => {
   const dispatch = useDispatch();
@@ -35,6 +35,10 @@ const TicketList = () => {
     if (page !== currentPage) {
       dispatch(setPage(page));
     }
+  };
+
+  const handleTicketClick = (ticketId: string) => {
+    navigate(`/support/ticket/${ticketId}`);
   };
 
 
@@ -72,7 +76,12 @@ const TicketList = () => {
                 tickets.map((ticket: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>
-                      <Typography variant="subtitle2" fontWeight={600}>
+                      <Typography
+                        color="primary"
+                        fontWeight={600}
+                        onClick={() => handleTicketClick(ticket.id)}
+                        style={{ cursor: 'pointer' }}
+                      >
                         {ticket.id}
                       </Typography>
                     </TableCell>

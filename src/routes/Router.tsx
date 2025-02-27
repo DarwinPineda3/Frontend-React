@@ -462,6 +462,16 @@ const Router = [
         roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
       },
       {
+        path: '/support/ticketform',
+        element: <TicketFormComp />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
+      {
+        path: '/support/ticket/:ticketId',
+        element: <TicketDetail />,
+        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
+      },
+      {
         path: '/support/solutions',
         element: <Solutions />,
         roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
@@ -469,16 +479,6 @@ const Router = [
       {
         path: '/support/solutions/:id',
         element: <SolutionDetail />,
-        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
-      },
-      {
-        path: '/support/ticketform',
-        element: <TicketFormComp />,
-        roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
-      },
-      {
-        path: '/support/ticket/:id',
-        element: <TicketDetail />,
         roles: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
       },
 
