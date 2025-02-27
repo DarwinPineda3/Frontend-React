@@ -2,6 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Box,
   Breadcrumbs,
+  Grid,
   IconButton,
   Link,
   Table,
@@ -19,6 +20,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchTicketsById } from 'src/store/support/FreshTicketsSlice';
 import DashboardCard from '../shared/DashboardCard';
 import HumanizedDate from '../shared/HumanizedDate';
+import Loader from '../shared/Loader/Loader';
 
 const TicketDetail: React.FC = () => {
   const { ticketId } = useParams<{ ticketId: string }>();
@@ -45,10 +47,6 @@ const TicketDetail: React.FC = () => {
     fetchData();
   }, [ticketId, dispatch]);
 
-  if (isLoading) {
-    return <Typography variant="h6">Cargando...</Typography>;
-  }
-
   if (!ticket) {
     return <Typography variant="h6" color="error">No se encontró el ticket.</Typography>;
   }
@@ -61,7 +59,9 @@ const TicketDetail: React.FC = () => {
         <IconButton onClick={() => navigate(-1)} color="primary">
           <ArrowBackIcon />
         </IconButton>
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs aria-label="breadcrumb"> <Link component={RouterLink} color="inherit" to="/support/tickets">
+          {t("menu.support")}
+        </Link>
           <Link component={RouterLink} to="/support/tickets" color="inherit">
             Tickets
           </Link>
@@ -70,7 +70,14 @@ const TicketDetail: React.FC = () => {
       </Box>
 
       <DashboardCard title={`Detalles del Ticket: ${ticket.subject}`}>
-        <Box>
+      {isLoading ? (
+          <Grid item xs={12} lg={12}>
+            <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+              <Loader />
+            </Box>
+          </Grid>
+        ) : (
+          <Box>
           <TableContainer>
             <Table>
               <TableHead>
@@ -118,7 +125,7 @@ const TicketDetail: React.FC = () => {
                   <TableCell><Typography>{t('support.created')!}</Typography></TableCell>
                   <TableCell>
                     <Typography>
-                      <HumanizedDate dateString={ticket.created_at} /><br/>
+                      <HumanizedDate dateString={ticket.created_at} /><br />
                       {new Date(ticket.created_at).toLocaleString()}
                     </Typography>
                   </TableCell>
@@ -141,6 +148,8 @@ const TicketDetail: React.FC = () => {
             </Table>
           </TableContainer>
         </Box>
+        )}
+        
       </DashboardCard>
     </Box>
   );

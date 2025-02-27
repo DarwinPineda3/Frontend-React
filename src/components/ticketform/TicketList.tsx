@@ -10,7 +10,7 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'src/store/Store';
 import { fetchTickets, setPage, setPageSize } from 'src/store/support/FreshTicketsSlice';
 // import DashboardCard from 'src/shared/DashboardCard';
@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import NoDataAvailable from 'src/views/general/NoDataAvailable';
 import DashboardCard from '../shared/DashboardCard';
 import HumanizedDate from '../shared/HumanizedDate';
+import Loader from '../shared/Loader/Loader';
 
 
 const TicketList = () => {
@@ -30,10 +31,13 @@ const TicketList = () => {
   const page = useSelector((state: any) => state.ticketReducer.page);
   const pageSize = useSelector((state: any) => state.ticketReducer.pageSize);
   const totalPages = useSelector((state: any) => state.ticketReducer.totalPages);
+  const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true)
       await dispatch(fetchTickets(page, pageSize));
+      setIsLoading(false)
     };
     fetchData();
   }, [dispatch, page, pageSize]);
@@ -89,7 +93,20 @@ const TicketList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tickets.length > 0 ? (
+              {isLoading ? (
+                <TableRow>
+                <TableCell colSpan={6}>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="100px"
+                  >
+                    <Loader />
+                  </Box>
+                </TableCell>
+              </TableRow>
+              ) : tickets.length > 0 ? (
                 tickets.map((ticket: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>
@@ -122,6 +139,7 @@ const TicketList = () => {
                 </TableRow>
               )}
             </TableBody>
+
           </Table>
         </TableContainer>
         <TablePagination
