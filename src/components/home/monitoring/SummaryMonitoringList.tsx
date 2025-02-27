@@ -43,6 +43,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const urlType = searchParams.get('type');
   const summaryMonitoring = useSelector(
     (state: any) => state.summaryMonitoringReducer?.summaryMonitoring || [],
   );
@@ -60,7 +61,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
-  const [typeFilter, setTypeFilter] = useState<string | 'all'>(filter);
+  const [typeFilter, setTypeFilter] = useState<string>(filter);
   const [startDate, setStartDate] = useState(() => {
     const now = new Date();
     now.setDate(1);
@@ -92,7 +93,9 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     if (urlType) {
       setTypeFilter(urlType);
     } else {
-      setTypeFilter('all');
+      if (typeFilter === null || typeFilter === '') {
+        setTypeFilter('all');
+      }
     }
 
     if (urlStart && urlEnd) {
@@ -124,6 +127,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     const fetchData = async () => {
       try {
         setIsLoading(true);
+        setsearchParams({ type: typeFilter, startDate, endDate }, { replace: true });
         await dispatch(
           fetchSummaryMonitoringByDateRange(startDate, endDate, currentPage, pageSize, typeFilter),
         );
@@ -289,7 +293,21 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                         </TableCell>
                         <TableCell>
                           <Typography variant="subtitle2" fontWeight={600}>
-                            {item.data_type}
+                            {item.data_type === 'domains'
+                              ? 'Domains'
+                              : item.data_type === 'linked_url_external'
+                              ? 'Linked URL External'
+                              : item.data_type === 'linked_url_internal'
+                              ? 'Linked URL Internal'
+                              : item.data_type === 'interesting_files'
+                              ? 'Interesting Files'
+                              : item.data_type === 'usernames'
+                              ? 'Usernames'
+                              : item.data_type === 'emails'
+                              ? 'Emails'
+                              : item.data_type === 'phones'
+                              ? 'Phones'
+                              : '-'}
                           </Typography>
                         </TableCell>
                         <TableCell>
