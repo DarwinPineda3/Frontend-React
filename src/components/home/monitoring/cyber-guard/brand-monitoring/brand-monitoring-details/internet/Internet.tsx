@@ -1,19 +1,20 @@
 //basic component
 
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
 import OrgBreachesChart from '../../charts/OrgBreachesChart';
-import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import InternetIndicators from './InternetIndicators';
 import InternetAccordion from './InternetAccordion';
-import { useTranslation } from 'react-i18next';
-import NoDataAvailable from 'src/views/general/NoDataAvailable';
+import InternetIndicators from './InternetIndicators';
 
 interface InternetProps {
   brandMonitoringDetail: Data;
+  accordionId: string;
 }
 
-const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
+const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail, accordionId }) => {
   const { t } = useTranslation();
 
   const InternetData = brandMonitoringDetail?.consolidated_data?.internet_data || [];
@@ -22,7 +23,7 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-         <NoDataAvailable entityType='monitoring'/>
+          <NoDataAvailable entityType="monitoring" />
         </Grid>
       </Grid>
     );
@@ -32,7 +33,7 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
   const { labels, values } = graphics_charts_internet;
 
   const filteredGraphicsCharts = {
-    labels: labels.filter(label => label !== 'Correlations'),
+    labels: labels.filter((label) => label !== 'Correlations'),
     values: values.filter((_, index) => labels[index] !== 'Correlations'),
   };
 
@@ -45,23 +46,15 @@ const Internet: React.FC<InternetProps> = ({ brandMonitoringDetail }) => {
       </Grid>
 
       <Grid item xs={12} lg={6}>
-        <BreachElementTypeChart
-          security_leaks_data_chart={
-            filteredGraphicsCharts
-          }
-        />
+        <BreachElementTypeChart security_leaks_data_chart={filteredGraphicsCharts} />
       </Grid>
 
       <Grid item xs={12} lg={6}>
-        <OrgBreachesChart
-          security_leaks_data_chart={
-            filteredGraphicsCharts
-          }
-        />
+        <OrgBreachesChart security_leaks_data_chart={filteredGraphicsCharts} />
       </Grid>
 
       <Grid item xs={12} lg={12}>
-        <InternetAccordion internet_data={InternetData} />
+        <InternetAccordion internet_data={InternetData} accordionId={accordionId} />
       </Grid>
     </Grid>
   );

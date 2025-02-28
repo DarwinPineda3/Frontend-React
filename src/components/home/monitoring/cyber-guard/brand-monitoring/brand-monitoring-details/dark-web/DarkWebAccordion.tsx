@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useState } from 'react';
 import {
   DarkWeb,
   DarkWebCategories,
@@ -14,13 +15,14 @@ import DarkWebTable from './DarkWebTable';
 
 interface DarkWebAccordionProps {
   dark_web_data: DarkWebCategories[];
+  accordionId: string;
 }
 
 const formatKey = (key: string) => {
   return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) => {
+const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data, accordionId }) => {
   const getCategoryData = (dar_web: DarkWeb, category: string) => {
     switch (category) {
       case 'Domains':
@@ -91,6 +93,10 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
     return { dark_web_data: dar_websFormatter.flat() };
   };
 
+  const [expandedPanels, setExpandedPanels] = useState(
+    accordionId ? [`${accordionId}-header`] : [],
+  );
+
   const result = formatData(dark_web_data);
   const sortedData = result.dark_web_data
     .flatMap((dark_web) =>
@@ -102,10 +108,23 @@ const DarkWebAccordion: React.FC<DarkWebAccordionProps> = ({ dark_web_data }) =>
     .filter(({ details }) => details.data && details.data.length > 0)
     .sort((a, b) => b.details.total_results - a.details.total_results);
 
+  const handleChange = (panel) => (_, isExpanded: boolean) => {
+    setExpandedPanels(
+      (prevExpanded) =>
+        isExpanded
+          ? [...prevExpanded, panel] // Agrega si se expande
+          : prevExpanded.filter((p) => p !== panel), // Quita si se colapsa
+    );
+  };
+
   return (
     <Box>
       {sortedData.map(({ category, details }, index) => (
-        <Accordion key={`${category}-${index}`}>
+        <Accordion
+          key={`${category}-${index}`}
+          expanded={expandedPanels.includes(`${category}-header`)}
+          onChange={handleChange(`${category}-header`)}
+        >
           <AccordionSummary
             expandIcon={<ArrowDownwardIcon />}
             aria-controls={`${category}-content`}

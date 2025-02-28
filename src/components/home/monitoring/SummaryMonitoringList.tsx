@@ -176,8 +176,10 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     });
   };
 
-  const handleOnClick = (elasticId: string, dataType: string) => {
-    navigate(`/monitoring/cyber-guard/monitoring/${elasticId}?dataType=${dataType}`);
+  const handleOnClick = (elasticId: string, dataSource: string, dataType: string) => {
+    navigate(
+      `/monitoring/cyber-guard/monitoring/${elasticId}?dataType=${dataSource}&dataSource=${dataType}`,
+    );
   };
 
   return (
@@ -323,7 +325,9 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                           <IconButton
                             size="small"
                             color="primary"
-                            onClick={() => handleOnClick(item.elastic_id, item.data_source)}
+                            onClick={() =>
+                              handleOnClick(item.elastic_id, item.data_source, item.data_type)
+                            }
                           >
                             <IconEye />
                           </IconButton>

@@ -33,12 +33,21 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
   const { t } = useTranslation();
   const [searchParams, setsearchParams] = useSearchParams();
   const dataType = searchParams.get('dataType');
+  const dataSource = searchParams.get('dataSource');
   const brandMonitoringDetail: Data = useSelector(
     (state: any) => state.brandMonitoringReducer.brandMonitoringDetail,
   );
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = React.useState(dataType || 'internet');
+  const [valueAccordion, setValueAccordion] = React.useState(dataSource || '');
   const [title, setTitle] = React.useState('-');
+
+  const formatAccordionTitle = (value: string) => {
+    const words = value.split('_').map((word) => word.toLowerCase()); // Convierte todas las palabras a minúsculas
+    return words
+      .map((word, index) => (index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+      .join(' ');
+  };
 
   const COMMON_TAB = [
     {
@@ -46,7 +55,12 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       icon: <GlobeIcon />,
       label: `${t('monitoring.internet')}`,
       disabled: false,
-      content: <Internet brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <Internet
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
     {
       value: 'security-leaks',
@@ -68,7 +82,12 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       label: `${t('monitoring.dark_web')}`,
       disabled: false,
       badge: '',
-      content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <DarkWeb
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
   ];
 
@@ -100,6 +119,12 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       setTitle(brandMonitoringDetail.query);
     }
   }, [brandMonitoringDetail?.query]);
+
+  React.useEffect(() => {
+    if (dataSource) {
+      setValueAccordion(dataSource);
+    }
+  }, [valueAccordion, dataSource]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
