@@ -9,16 +9,20 @@ function getApiUrl() {
 }
 interface StateType {
   tickets: any[];
+  ticket: any;
   page: number;
   totalPages: number;
   error: string | null;
+  pageSize: number;
 }
 
 const initialState: StateType = {
   tickets: [],
+  ticket: {},
   page: 1,
   totalPages: 1,
   error: null,
+  pageSize: 25,
 };
 
 export const TicketSlice = createSlice({
@@ -26,9 +30,13 @@ export const TicketSlice = createSlice({
   initialState,
   reducers: {
     getTickets: (state, action) => {
-      state.tickets = Array.isArray(action.payload.tickets) ? action.payload.tickets : [];
-      state.page = action.payload.currentPage;
+      state.tickets = Array.isArray(action.payload.itemsResult) ? action.payload.itemsResult : [];
+      state.page = action.payload.page;
       state.totalPages = action.payload.totalPages;
+      state.pageSize = action.payload.pageSize;
+    },
+    getTicket: (state, action) => {
+      state.ticket = action.payload.data;
     },
     addTicket: (state, action) => {
       state.tickets.push(action.payload);
@@ -36,28 +44,57 @@ export const TicketSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
+    setPageSize: (state, action) => {
+      state.pageSize = action.payload;
+    },
     setError: (state, action) => {
       state.error = action.payload;
     }
   }
 });
 
-export const { getTickets, addTicket, setPage, setError } = TicketSlice.actions;
+export const { getTickets, getTicket, addTicket, setPage, setPageSize, setError } = TicketSlice.actions;
 
 // Async thunk for fetching assets with pagination (READ)
-export const fetchTickets = (page = 1) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.get(`${getApiUrl()}`);
+export const fetchTickets =
+  (requestedPage: Number, pageSize = 25) =>
+    async (dispatch: AppDispatch) => {
+      try {
+        const response = await axios.get(
+          `${getApiUrl()}?page=${requestedPage}&pageSize=${pageSize}`
+        );
+        const data = response.data;
+        dispatch(getTickets(
+          {
+            itemsResult: data.itemsResult,
+            page: data.page,
+            totalPages: data.totalPages,
+            pageSize
+          }
+        ))
+      } catch (err: any) {
+        console.error('Error fetching tickets:', err);
+        dispatch(setError('Failed to fetch tickets'));
+        throw err;
+      }
+    };
 
-    const data = response.data;
-    const totalPages = Math.ceil(data.length / 10);
-    dispatch(getTickets({ tickets: data, currentPage: page, totalPages }));
+export const fetchTicketsById = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await axios.get(`${getApiUrl()}${id}/`);
+    console.log(response);
+    if (response.status === 200) {
+      dispatch(getTicket({ data: response.data }));
+    } else {
+      dispatch(setError('fetch group report detail not found'));
+      throw 'fetch group report detail not found'
+    }
   } catch (err: any) {
-    console.error('Error fetching tickets:', err);
-    dispatch(setError('Failed to fetch tickets'));
+    console.error('Error fetching Group detail:', err);
+    dispatch(setError('Failed to fetch Group detail'));
+    throw err
   }
 };
-
 
 export const createTicket = (newTicket: any) => async (dispatch: AppDispatch) => {
   try {

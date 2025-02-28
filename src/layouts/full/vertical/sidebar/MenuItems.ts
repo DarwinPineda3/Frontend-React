@@ -477,13 +477,13 @@ const Menuitems: MenuitemsType[] = [
   {
     navlabel: true,
     subheader: 'menu.support',
-    permissions: ['Administrator'],
+    permissions: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
   },
   {
     id: uniqueId(),
     title: 'menu.tickets',
     href: '/support/tickets',
-    permissions: ['Administrator'],
+    permissions: ['Administrator', 'Scan360', 'CyberGuard', 'Defender'],
     icon: IconTicket,
   },
   {
@@ -497,3 +497,4 @@ const Menuitems: MenuitemsType[] = [
 
 export default Menuitems;
 export type { MenuitemsType };
+
