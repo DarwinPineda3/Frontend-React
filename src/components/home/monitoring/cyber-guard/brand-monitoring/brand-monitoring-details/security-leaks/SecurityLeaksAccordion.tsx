@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useState } from 'react';
 import {
   SecurityLeak,
   SecurityLeakCategories,
@@ -14,12 +15,20 @@ import SecurityLeaksTable from './SecurityLeaksTable';
 
 interface SecurityLeaksAccordionProps {
   security_leaks_data: SecurityLeakCategories[];
+  accordionId: string;
 }
 const formatKey = (key: string) => {
   return key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ security_leaks_data }) => {
+const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({
+  security_leaks_data,
+  accordionId,
+}) => {
+  const [expandedPanels, setExpandedPanels] = useState(
+    accordionId ? [`${accordionId}-header`] : [],
+  );
+
   const getCategoryData = (leak: SecurityLeak, category: string) => {
     switch (category) {
       case 'Domains':
@@ -94,11 +103,24 @@ const SecurityLeaksAccordion: React.FC<SecurityLeaksAccordionProps> = ({ securit
   };
 
   const result = formatData(security_leaks_data);
+
+  const handleChange = (panel) => (_, isExpanded: boolean) => {
+    setExpandedPanels(
+      (prevExpanded) =>
+        isExpanded
+          ? [...prevExpanded, panel] // Agrega si se expande
+          : prevExpanded.filter((p) => p !== panel), // Quita si se colapsa
+    );
+  };
   return (
     <Box>
       {result.security_leaks_data.map((security_leaks, index) =>
         Object.entries(security_leaks).map(([category, details]) => (
-          <Accordion key={`${category}-${index}`}>
+          <Accordion
+            key={`${category}-${index}`}
+            expanded={expandedPanels.includes(`${category}-header`)}
+            onChange={handleChange(`${category}-header`)}
+          >
             <AccordionSummary
               expandIcon={<ArrowDownwardIcon />}
               aria-controls={`${category}-content`}

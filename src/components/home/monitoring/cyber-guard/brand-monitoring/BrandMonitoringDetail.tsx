@@ -67,14 +67,24 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       icon: <ListIcon />,
       label: `${t('monitoring.data_leaks')}`,
       disabled: false,
-      content: <SecurityLeaks brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <SecurityLeaks
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
     {
       value: 'social-networks',
       icon: <PersonIcon />,
       label: `${t('monitoring.social_media')}`,
       disabled: false,
-      content: <SocialNetworks brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <SocialNetworks
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
     {
       value: 'darkweb',
