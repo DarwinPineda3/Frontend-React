@@ -24,6 +24,7 @@ import GiottoTemplatesReducer from './sections/compliance/giottoTemplatesSlice';
 import TechInventoryReducer from './sections/cti/techInventorySlice';
 import BrandMonitoringReducer from './sections/cyber-guard/BrandMonitoringSlice';
 import ParametersReducer from './sections/cyber-guard/ParametersSlice';
+import SummaryMonitoringReducer from './sections/cyber-guard/SummaryMonitoringSlice';
 import AlertDistribution from './sections/dashboard/AlertDistributionSlice';
 import AssetsStatus from './sections/dashboard/AssetStatusSlice';
 import HostsUpdatesReducer from './sections/dashboard/HostResourceSlice';
@@ -104,6 +105,7 @@ export const store = configureStore({
     giottoReportsReducer: GiottoReportsReducer,
     installationGuideVariablesReducer: InstallationGuideVariablesReducer,
     scheduleScansReducer: ScheduleScansReducer,
+    summaryMonitoringReducer: SummaryMonitoringReducer,
   },
 });
 
@@ -145,6 +147,7 @@ const rootReducer = combineReducers({
   giottoReportsReducer: GiottoReportsReducer,
   installationGuideVariablesReducer: InstallationGuideVariablesReducer,
   scheduleScansReducer: ScheduleScansReducer,
+  summaryMonitoringReducer: SummaryMonitoringReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

@@ -50,8 +50,6 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
       setCustomTmpLoading(true);
       await dispatch(fetchCustomTemplates(currentPage, pageSize));
       setCustomTmpLoading(false);
-      console.log('fetchCustomTemplates');
-      console.log(customTemplates);
     };
     fetchData();
   }, [dispatch, currentPage, pageSize]);
@@ -132,9 +130,7 @@ const GiottoCustomTemplatesTable: React.FC<GiottoTemplateTableProps> = ({ handle
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} align="center">
-                  <NoDataAvailable
-                      entityType="template"
-                    />
+                    <NoDataAvailable entityType="template" />
                   </TableCell>
                 </TableRow>
               )}

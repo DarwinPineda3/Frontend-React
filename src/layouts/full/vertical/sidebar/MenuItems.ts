@@ -229,6 +229,13 @@ const Menuitems: MenuitemsType[] = [
       //   icon: IconPoint,
       //   permissions: ['Administrator', 'CyberGuard'],
       // },
+      {
+        id: uniqueId(),
+        title: 'menu.summary',
+        href: '/monitoring/summary-monitoring',
+        icon: IconListDetails,
+        permissions: ['Administrator', 'Scan360'],
+      },
     ],
   },
   {

@@ -1,20 +1,20 @@
 //basic component
 
-import { Grid, Typography } from '@mui/material';
-import SecurityLeaksIndicators from '../security-leaks/SecurityLeaksIndicators';
+import { Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 import BreachElementTypeChart from '../../charts/breachByElementTypeChart';
 import OrgBreachesChart from '../../charts/OrgBreachesChart';
+import SecurityLeaksIndicators from '../security-leaks/SecurityLeaksIndicators';
 import SecurityLeaksAccordion from './SecurityLeaksAccordion';
-import { Data } from 'src/types/cyber-guard/brand-monitoring/brandMonitoring';
-import { useTranslation } from 'react-i18next';
-import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface SecurityLeaksProps {
   brandMonitoringDetail: Data;
+  accordionId: string;
 }
 
-const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) => {
-  
+const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail, accordionId }) => {
   const { t } = useTranslation();
 
   const securityLeaksData = brandMonitoringDetail?.consolidated_data?.security_leaks_data || [];
@@ -23,7 +23,7 @@ const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) 
     return (
       <Grid container spacing={3}>
         <Grid item xs={12}>
-         <NoDataAvailable entityType='monitoring'/>
+          <NoDataAvailable entityType="monitoring" />
         </Grid>
       </Grid>
     );
@@ -54,7 +54,7 @@ const SecurityLeaks: React.FC<SecurityLeaksProps> = ({ brandMonitoringDetail }) 
       </Grid>
 
       <Grid item xs={12} lg={12}>
-        <SecurityLeaksAccordion security_leaks_data={securityLeaksData} />
+        <SecurityLeaksAccordion security_leaks_data={securityLeaksData} accordionId={accordionId} />
       </Grid>
     </Grid>
   );

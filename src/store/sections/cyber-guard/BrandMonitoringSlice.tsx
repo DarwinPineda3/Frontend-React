@@ -139,7 +139,6 @@ export const clearBrandMonitoringDetail = (id: string) => async (dispatch: AppDi
 export const updateDataViewedBrandMonitoring = (id: string) => async (dispatch: AppDispatch) => {
   try {
     const response = await axios.put(`${getBaseApiUrl()}/brand-monitoring/${id}/`);
-    console.log('response', response);
     if (response.status != 200) {
       dispatch(setError('fetch brand monitoring detail not found'));
     }

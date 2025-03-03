@@ -62,12 +62,13 @@ import SocNews from 'src/views/monitoring/SOC/Newsletter';
 import SocNewsDetails from 'src/views/monitoring/SOC/NewsletterDetails';
 import ServiceStatus from 'src/views/monitoring/SOC/serviceStatistics';
 import SourceMonitoring from 'src/views/monitoring/SOC/sourceMonitoring';
+import SummaryMonitoring from 'src/views/monitoring/summary/SummaryMonitoring';
 import CloudInventory from 'src/views/observability/Cloud';
-import DarkWeb from 'src/views/observability/DarkWeb';
 import InstallationGuide from 'src/views/observability/InstallationGuide';
 import NetworkObservability from 'src/views/observability/Network';
 import NetworkObservabilityCreateScan from 'src/views/observability/NetworkObservabilityCreateScan';
 import ObservedAssets from 'src/views/observability/ObservedAssets';
+import DarkWeb from 'src/views/observability/ThreatsOverview';
 import Solutions from 'src/views/support/Solutions';
 import TicketFormComp from 'src/views/support/TicketForm';
 import Tickets from 'src/views/support/Tickets';
@@ -452,6 +453,12 @@ const Router = [
       {
         path: '/monitoring/soc/takedown',
         element: <TicketFormComp />,
+        roles: ['Administrator', 'CyberGuard'],
+      },
+
+      {
+        path: '/monitoring/summary-monitoring',
+        element: <SummaryMonitoring />,
         roles: ['Administrator', 'CyberGuard'],
       },
 

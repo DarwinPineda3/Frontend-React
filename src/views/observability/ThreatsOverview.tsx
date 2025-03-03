@@ -1,5 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Breadcrumbs, Grid, IconButton, Link, Typography} from '@mui/material';
+import { Box, Breadcrumbs, Grid, IconButton, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
@@ -11,14 +11,21 @@ import TopCardsDarkWeb from 'src/components/observability/dark-web/topCardsDarkW
 import VIPsHeatmapChart from 'src/components/observability/dark-web/vipHeatMap';
 import CompromisedTypesChart from 'src/components/observability/dark-web/vipsRadarChart';
 import Loader from 'src/components/shared/Loader/Loader';
-import { fetchBrandMonitoringData, fetchBrandMonitoringResume } from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
+import {
+  fetchBrandMonitoringData,
+  fetchBrandMonitoringResume,
+} from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
 const DarkWeb = () => {
   const { selectedScan } = useParams<{ selectedScan?: string }>();
-  const brandMonitoringResume: any = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringResume);
+  const brandMonitoringResume: any = useSelector(
+    (state: any) => state.brandMonitoringReducer.brandMonitoringResume,
+  );
 
-  const brandMonitoringData: any = useSelector((state: any) => state.brandMonitoringReducer.brandMonitoringData);
+  const brandMonitoringData: any = useSelector(
+    (state: any) => state.brandMonitoringReducer.brandMonitoringData,
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +38,7 @@ const DarkWeb = () => {
   }, [dispatch]);
 
   const cardsValues = [
-    brandMonitoringResume?.['total'] ?? 0, // Total Compromises
+    brandMonitoringResume?.['total_results'] ?? 0, // Total Compromises
     brandMonitoringResume?.['domains'] ?? 0, // Domains
     brandMonitoringResume?.['emails'] ?? 0, // Emails
     brandMonitoringResume?.['ip'] ?? 0, // IPs
@@ -40,8 +47,11 @@ const DarkWeb = () => {
     brandMonitoringResume?.['social_network_total'] ?? 0, // Malware Count
     brandMonitoringResume?.['vins'] ?? 0, // Compromised VIPs Count
     brandMonitoringResume?.['dark_web_total'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['linked_url_internal'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['linked_url_external'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['interesting_files'] ?? 0, // Fake Applications Count
+    brandMonitoringResume?.['public_code_repo'] ?? 0, // Fake Applications Count
   ];
-
 
   const polygonValues = [
     brandMonitoringResume?.['ip'] ?? 0,
@@ -57,27 +67,27 @@ const DarkWeb = () => {
     t('observability.phone'),
     t('observability.domain'),
     t('observability.username'),
-  ]
+  ];
 
   const topDetectedThreatTypesData = [
     brandMonitoringResume?.['security_leaks_total'] ?? 0,
     brandMonitoringResume?.['dark_web_total'] ?? 0,
     brandMonitoringResume?.['phishing'] ?? 0,
     brandMonitoringResume?.['social_network_total'] ?? 0,
-  ]
+  ];
 
   const elementsBySocialNetwork = [
     brandMonitoringResume?.['facebook'] ?? 0,
     brandMonitoringResume?.['instagram'] ?? 0,
     brandMonitoringResume?.['linkedin'] ?? 0,
     brandMonitoringResume?.['twitter'] ?? 0,
-  ]
+  ];
 
   const breachesByStatusData = [
     brandMonitoringResume?.['open'] ?? 0,
     brandMonitoringResume?.['closed'] ?? 0,
     brandMonitoringResume?.['in_migration'] ?? 0,
-  ]
+  ];
 
   const series = {
     name: 'Breaches',
@@ -91,15 +101,15 @@ const DarkWeb = () => {
   });
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
-
   if (Object.keys(brandMonitoringResume).length === 0) {
-    return <Box display="flex" justifyContent="center" mt={4} mb={4}>
-      <Loader />
-    </Box>
+    return (
+      <Box display="flex" justifyContent="center" mt={4} mb={4}>
+        <Loader />
+      </Box>
+    );
   }
 
   return (
-
     <PageContainer title="Akila">
       <Box mb={2}>
         <Box display="flex" alignItems="center" mt={2}>
@@ -111,15 +121,17 @@ const DarkWeb = () => {
               {t('menu.monitoring')}
             </Link>
             {selectedScan ? (
-              <Link component={RouterLink} color="inherit" to={`/monitoring/threats-overview/${selectedScan}`}>
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/monitoring/threats-overview/${selectedScan}`}
+              >
                 {t('menu.dark_web_monitoring')}
               </Link>
             ) : (
               <Typography color="textPrimary">{t('menu.dark_web_monitoring')}</Typography>
             )}
-            {selectedScan && (
-              <Typography color="textPrimary">{selectedScan}</Typography>
-            )}
+            {selectedScan && <Typography color="textPrimary">{selectedScan}</Typography>}
           </Breadcrumbs>
           <Box flexGrow={1} />
           {/*          <Box display="flex" alignItems="center" mt={2}>
@@ -183,10 +195,7 @@ const DarkWeb = () => {
         </Grid>
         <Grid item xs={12} lg={4}>
           <Box style={{ display: 'flex', height: '100%' }}>
-            <SecurityIncidentsPolygon
-              series={[series]}
-              labels={polygonLabels}
-            />
+            <SecurityIncidentsPolygon series={[series]} labels={polygonLabels} />
           </Box>
         </Grid>
         {/*
@@ -232,4 +241,3 @@ const DarkWeb = () => {
 };
 
 export default DarkWeb;
-

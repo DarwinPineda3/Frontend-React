@@ -9,6 +9,7 @@ import { Badge, Box, Divider } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
 import {
   clearBrandMonitoringDetail,
@@ -30,33 +31,60 @@ interface BrandMonitoringDetailProps {
 const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [searchParams, setsearchParams] = useSearchParams();
+  const dataType = searchParams.get('dataType');
+  const dataSource = searchParams.get('dataSource');
   const brandMonitoringDetail: Data = useSelector(
     (state: any) => state.brandMonitoringReducer.brandMonitoringDetail,
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [value, setValue] = React.useState('internet');
+  const [value, setValue] = React.useState(dataType || 'internet');
+  const [valueAccordion, setValueAccordion] = React.useState(dataSource || '');
   const [title, setTitle] = React.useState('-');
+
+  const formatAccordionTitle = (value: string) => {
+    const words = value.split('_').map((word) => word.toLowerCase()); // Convierte todas las palabras a minúsculas
+    return words
+      .map((word, index) => (index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+      .join(' ');
+  };
+
   const COMMON_TAB = [
     {
       value: 'internet',
       icon: <GlobeIcon />,
       label: `${t('monitoring.internet')}`,
       disabled: false,
-      content: <Internet brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <Internet
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
     {
       value: 'security-leaks',
       icon: <ListIcon />,
       label: `${t('monitoring.data_leaks')}`,
       disabled: false,
-      content: <SecurityLeaks brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <SecurityLeaks
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
     {
       value: 'social-networks',
       icon: <PersonIcon />,
       label: `${t('monitoring.social_media')}`,
       disabled: false,
-      content: <SocialNetworks brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <SocialNetworks
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
     {
       value: 'darkweb',
@@ -64,9 +92,19 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
       label: `${t('monitoring.dark_web')}`,
       disabled: false,
       badge: '',
-      content: <DarkWeb brandMonitoringDetail={brandMonitoringDetail} />,
+      content: (
+        <DarkWeb
+          brandMonitoringDetail={brandMonitoringDetail}
+          accordionId={formatAccordionTitle(valueAccordion)}
+        />
+      ),
     },
   ];
+
+  React.useEffect(() => {
+    setValue(searchParams.get('dataType') || 'internet'); // Actualiza cuando cambia la URL
+  }, [searchParams]);
+
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -92,8 +130,16 @@ const BrandMonitoringDetail: React.FC<BrandMonitoringDetailProps> = ({ id }) => 
     }
   }, [brandMonitoringDetail?.query]);
 
+  React.useEffect(() => {
+    if (dataSource) {
+      setValueAccordion(dataSource);
+    }
+  }, [valueAccordion, dataSource]);
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+    const dataType = newValue;
+    setsearchParams({ dataType }, { replace: true });
   };
 
   return (

@@ -860,7 +860,16 @@
     "date": "Date",
     "tool": "Tool",
     "view_report": "View Report",
-    "ai_solution": "AI Assistant Solution"
+    "ai_solution": "AI Assistant Solution",
+    "monitoring_summary": "Monitoring Summary",
+    "monitoring_summary_list": "List of monitoring summaries",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "search": "Search",
+    "data_source": "Data Source",
+    "data": "Data",
+    "parameter": "Parameter",
+    "data_type": "Data Type"
   },
   "newsletter": {
     "newsletters": "Newsletters",
