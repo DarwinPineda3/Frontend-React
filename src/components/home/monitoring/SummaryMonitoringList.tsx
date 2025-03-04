@@ -182,6 +182,13 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
     );
   };
 
+  const formaText = (value: string) => {
+    const words = value.split('_').map((word) => word.toLowerCase()); // Convierte todas las palabras a minúsculas
+    return words
+      .map((word, index) => (index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+      .join(' ');
+  };
+
   return (
     <DashboardCard
       title={t('summary.monitoring_summary')!}
@@ -293,21 +300,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                         </TableCell>
                         <TableCell>
                           <Typography variant="subtitle2" fontWeight={600}>
-                            {item.data_type === 'domains'
-                              ? 'Domains'
-                              : item.data_type === 'linked_url_external'
-                              ? 'Linked URL External'
-                              : item.data_type === 'linked_url_internal'
-                              ? 'Linked URL Internal'
-                              : item.data_type === 'interesting_files'
-                              ? 'Interesting Files'
-                              : item.data_type === 'usernames'
-                              ? 'Usernames'
-                              : item.data_type === 'emails'
-                              ? 'Emails'
-                              : item.data_type === 'phones'
-                              ? 'Phones'
-                              : '-'}
+                            {formaText(item.data_type)}
                           </Typography>
                         </TableCell>
                         <TableCell>

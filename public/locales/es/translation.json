@@ -832,7 +832,10 @@
     "link_url_external": "Enlace Url Externo",
     "link_url_internal": "Enlace Url Interno",
     "interesting_files": "Archivos de interés",
-    "public_code_repo": "Repositorios Públicos"
+    "public_code_repo": "Repositorios Públicos",
+    "creation_date": "Fecha de creación",
+    "update_date": "Fecha de actualización",
+    "registrar_url": "URL del registrador"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",

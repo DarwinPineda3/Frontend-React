@@ -834,7 +834,10 @@
     "link_url_external": "Linked Url External",
     "link_url_internal": "Linked Url Internal",
     "interesting_files": "Interesting Files",
-    "public_code_repo": "Public Code Repo"
+    "public_code_repo": "Public Code Repo",
+    "creation_date": "Creation Date",
+    "update_date": "Update Date",
+    "registrar_url": "Registrar URL"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
