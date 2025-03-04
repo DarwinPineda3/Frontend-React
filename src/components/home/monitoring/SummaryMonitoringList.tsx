@@ -219,6 +219,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
             variant="contained"
             disabled={!startDate || !endDate || new Date(endDate) < new Date(startDate)}
             onClick={async () => {
+              setIsLoading(true);
               // fetch summary data by date range
               await dispatch(
                 fetchSummaryMonitoringByDateRange(
@@ -229,6 +230,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                   typeFilter,
                 ),
               );
+              setIsLoading(false);
             }}
           >
             {t('summary.search')}
@@ -270,7 +272,7 @@ const SummaryMonitoringList: React.FC<SummaryMonitoringListProps> = ({ filter })
                         {t('summary.data_source')}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ textAlign: 'center' }}>
                       <Typography variant="subtitle2" fontWeight={600}>
                         {t('summary.view_report')}
                       </Typography>
