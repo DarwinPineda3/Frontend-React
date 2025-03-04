@@ -40,6 +40,7 @@ const FullLayout: FC = () => {
       <PageWrapper
         className="page-wrapper"
         sx={{
+          overflow: 'hidden',
           ...(customizer.isCollapse && {
             [theme.breakpoints.up('lg')]: { ml: `${customizer.MiniSidebarWidth}px` },
           }),
