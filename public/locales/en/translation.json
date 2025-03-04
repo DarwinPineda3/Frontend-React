@@ -837,7 +837,8 @@
     "public_code_repo": "Public Code Repo",
     "creation_date": "Creation Date",
     "update_date": "Update Date",
-    "registrar_url": "Registrar URL"
+    "registrar_url": "Registrar URL",
+    "raw_file_meta_data": "Raw File Meta Data"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",

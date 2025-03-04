@@ -835,7 +835,8 @@
     "public_code_repo": "Repositorios Públicos",
     "creation_date": "Fecha de creación",
     "update_date": "Fecha de actualización",
-    "registrar_url": "URL del registrador"
+    "registrar_url": "URL del registrador",
+    "raw_file_meta_data": "Raw File Meta Data"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",
