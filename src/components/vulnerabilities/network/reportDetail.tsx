@@ -1,17 +1,4 @@
-import {
-  Box,
-  Chip,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Chip, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography, useTheme, Breadcrumbs, Link, IconButton} from '@mui/material';
 import { IconEye } from '@tabler/icons-react';
 import { ApexOptions } from 'apexcharts';
 import React, { useState } from 'react';
@@ -25,6 +12,8 @@ import { fetchNetworkScanReportDetail } from 'src/store/vulnerabilities/network/
 import { NetworkScanReportDetail } from 'src/types/vulnerabilities/network/networkScansType';
 import { getSeverityColor } from 'src/utils/severityUtils';
 import ReportTopCards from './reportTopCards';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface ReportDetailProps {
   reportID: string;
@@ -37,6 +26,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
     (state: any) => state.networkScanReducer.networkScanReportDetail,
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [pageScans, setPageScans] = useState(0);
   const [rowsPerPageScans, setRowsPerPageScans] = useState(25);
@@ -220,6 +210,51 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ reportID, scanID, onClickVu
         </Box>
       ) : (
         <>
+       <Box mb={3}>
+          <Box display="flex" alignItems="center" mt={2}>
+            <IconButton onClick={() => navigate(-1)} color="primary">
+              <ArrowBackIcon />
+            </IconButton>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link component={RouterLink} color="inherit" to="/vulnerabilities/network/scans">
+                {t('vulnerabilities.breadcrumb_vulnerabilidades')}
+              </Link>
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/vulnerabilities/network/scans/${scanID}`} 
+              >
+                {t('vulnerabilities.breadcrumb_red')}
+              </Link>
+              <Link
+                component={RouterLink}
+                color="inherit"
+                to={`/vulnerabilities/network/scans/detail/${scanID}`} 
+              >
+                {t('vulnerabilities.detail')}
+              </Link>
+              {scanID && (
+                <Typography color="textPrimary">
+                  {scanID}
+                </Typography>
+              )}
+              {reportID && (
+                <Link
+                  component={RouterLink}
+                  color="inherit"
+                  to={`/vulnerabilities/network/scans/detail/${scanID}`} 
+                >
+                  {t('vulnerabilities.reports')}
+                </Link>
+              )}
+              {reportID && (
+                <Typography color="textPrimary">
+                  {reportID}
+                </Typography>
+              )}
+            </Breadcrumbs>
+          </Box>
+        </Box>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <ReportTopCards counters={counters} />
