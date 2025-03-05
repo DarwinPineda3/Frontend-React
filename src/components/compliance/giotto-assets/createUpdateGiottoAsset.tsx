@@ -1,7 +1,8 @@
 import {
   Box,
   Button,
-  Container,
+  Stack,
+  Alert,
   LinearProgress,
   TextField,
   Typography,
@@ -73,11 +74,12 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   });
 
   return (
-    <Container >
+    
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-        <Typography variant="h5" gutterBottom>
+        <Stack spacing={3}>
+         <Typography variant="h5" gutterBottom>
           {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
-        </Typography>
+         </Typography>
 
         <TextField
           fullWidth
@@ -103,16 +105,22 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           helperText={formik.touched.networkAddress && formik.errors.networkAddress}
         />
 
-        <Box mt={2}>
+         <Alert severity="info" sx={{ marginTop: 2 }}>
+          <Typography variant="body2" color="textSecondary">
+            {t('giotto.assets.form_instruction')}
+          </Typography>
+         </Alert>
+
+         <Box mt={2}>
           {
             !loading ? (<Button type="submit" variant="contained" color="primary" fullWidth>
               {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
             </Button>) : <LinearProgress />
           }
 
-        </Box>
+         </Box>
+        </Stack>
       </Box>
-    </Container>
   );
 };
 

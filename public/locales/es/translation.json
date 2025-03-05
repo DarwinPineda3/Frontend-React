@@ -1614,7 +1614,8 @@
       "download_template": "Descargar la plantilla aquí",
       "import_giotto_assets": "Importe masivo de assets",
       "upload": "Subir",
-      "select_csv_file": "Debe ser un archivo CSV."
+      "select_csv_file": "Debe ser un archivo CSV.",
+      "form_instruction": "Por favor, ingrese un nombre y una dirección de red válida (IP)."
     }
   },
   "compliance_templates": {
