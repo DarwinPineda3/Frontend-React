@@ -24,11 +24,7 @@ const SummaryVulnerabilities = () => {
           </Breadcrumbs>
         </Box>
       </Box>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <SummaryVulnerabilitiesList />
-        </Grid>
-      </Grid>
+      <SummaryVulnerabilitiesList />
     </PageContainer>
   );
 };
