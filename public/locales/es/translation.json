@@ -836,7 +836,19 @@
     "creation_date": "Fecha de creación",
     "update_date": "Fecha de actualización",
     "registrar_url": "URL del registrador",
-    "raw_file_meta_data": "Raw File Meta Data"
+    "raw_file_meta_data": "Raw File Meta Data",
+    "url_password": "Contraseña de URL",
+    "CreationDate": "Fecha de Creación",
+    "Creator": "Creador",
+    "ModDate": "Fecha de Modificación",
+    "Producer": "Producido por",
+    "Title": "Título",
+    "Author": "Autor",
+    "Subject": "Asunto",
+    "Keywords": "Palabras clave",
+    "CreatorTool": "Herramienta de creación",
+    "Language": "Idioma",
+    "Trapped": "Atrapado"
   },
   "sentiment": {
     "sentiment_history": "Historial de sentimientos",

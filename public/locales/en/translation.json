@@ -838,7 +838,19 @@
     "creation_date": "Creation Date",
     "update_date": "Update Date",
     "registrar_url": "Registrar URL",
-    "raw_file_meta_data": "Raw File Meta Data"
+    "raw_file_meta_data": "Raw File Meta Data",
+    "url_password": "Url Password",
+    "CreationDate": "Creation Date",
+    "Creator": "Creator",
+    "ModDate": "Mod Date",
+    "Producer": "Producer",
+    "Title": "Title",
+    "Author": "Author",
+    "Subject": "Subject",
+    "Keywords": "Keywords",
+    "CreatorTool": "Creator Tool",
+    "Language": "Language",
+    "Trapped": "Trapped"
   },
   "sentiments": {
     "sentiment_history": "Sentiment History",
