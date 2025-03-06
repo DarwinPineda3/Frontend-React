@@ -44,13 +44,13 @@ const secondRowData = [
     title: 'social_media_total',
     icon: <People fontSize="large" />,
     color: '#1E9C8B',
-    filter: 'social_media_total',
+    filter: 'summary',
   },
   {
     title: 'vip_compromised_count',
     icon: <VerifiedUser fontSize="large" />,
     color: '#2ECC71',
-    filter: 'vip_compromised_count',
+    filter: 'summary',
   },
   {
     title: 'dark_web_total',
@@ -116,7 +116,11 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
 
   const handleCardClick = (filter: string) => {
     dispatch(clearListSummary());
-    navigate(`/monitoring/summary-monitoring?filter=${filter}`);
+    if (filter === 'summary') {
+      navigate('/monitoring/cyber-guard/monitoring');
+    } else {
+      navigate(`/monitoring/summary-monitoring?filter=${filter}`);
+    }
   };
 
   return (

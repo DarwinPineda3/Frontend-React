@@ -1,7 +1,10 @@
 import { AccountCircle, Email, Language, Phone, Public, Security } from '@mui/icons-material';
+import DataObjectIcon from '@mui/icons-material/DataObject';
+
 import CodeIcon from '@mui/icons-material/Code';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import LinkIcon from '@mui/icons-material/Link';
+import PasswordIcon from '@mui/icons-material/Password';
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +22,8 @@ interface InternetIndicatorsProps {
     linked_url_external: number;
     interesting_files: number;
     public_code_repo: number;
+    raw_file_meta_data: number;
+    url_password: number;
   };
 }
 
@@ -81,6 +86,16 @@ const InternetIndicators: React.FC<InternetIndicatorsProps> = ({ internetCounter
       title: t('monitoring.public_code_repo'),
       value: internetCounters.public_code_repo,
       icon: <CodeIcon fontSize="large" />,
+    },
+    {
+      title: t('monitoring.raw_file_meta_data'),
+      value: internetCounters.raw_file_meta_data,
+      icon: <DataObjectIcon fontSize="large" />,
+    },
+    {
+      title: t('monitoring.url_password'),
+      value: internetCounters.url_password,
+      icon: <PasswordIcon fontSize="large" />,
     },
   ];
 
