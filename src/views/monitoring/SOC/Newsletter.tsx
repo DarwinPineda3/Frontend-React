@@ -14,7 +14,8 @@ const Newsletter = () => {
   };
 
   return (
-    <PageContainer title="Akila">
+  <PageContainer title="Akila">
+    <Box mb={2}>
       <Box display="flex" alignItems="center" mt={2}>
         <IconButton onClick={() => navigate(-1)} color="primary">
           <ArrowBackIcon />
@@ -26,13 +27,14 @@ const Newsletter = () => {
           <Typography color="textPrimary">{t('newsletter.newsletters')}</Typography>
         </Breadcrumbs>
       </Box>
+    </Box>
 
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
           <NewsLettersList onNewsLetterClick={handleNewsLetterClick} />
         </Grid>
       </Grid>
-    </PageContainer>
+  </PageContainer>
   );
 };
 

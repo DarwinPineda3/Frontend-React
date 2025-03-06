@@ -1617,7 +1617,8 @@
       "download_template": "Download the template here",
       "import_giotto_assets": "Bulk assets import",
       "upload": "Upload",
-      "select_csv_file": "It must be a CSV file."
+      "select_csv_file": "It must be a CSV file.",
+      "form_instruction": "Please enter a name and a valid network address (IP)."
     }
   },
   "compliance_templates": {
