@@ -1,3 +1,4 @@
+import { Dashboard } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { ComplianceAsset, createAsset, editAsset } from 'src/store/sections/compliance/giotoAssetsSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 import * as Yup from 'yup';
+import DashboardCard from 'src/components/shared/DashboardCard';
 
 interface Props {
   asset?: ComplianceAsset; // Optional for edit
@@ -74,13 +76,13 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   });
 
   return (
-    
+    <DashboardCard
+      title={asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
+      subtitle={asset ? t('giotto.assets.edit_asset_subtitle') || '' : t('giotto.assets.create_asset_subtitle') || ''}
+    >
+      
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Stack spacing={3}>
-         <Typography variant="h5" gutterBottom>
-          {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
-         </Typography>
-
         <TextField
           fullWidth
           margin="normal"
@@ -113,14 +115,15 @@ const CreateUpdateGiottoAsset: React.FC<Props> = ({ asset, onSubmit }) => {
 
          <Box mt={2}>
           {
-            !loading ? (<Button type="submit" variant="contained" color="primary" fullWidth>
+            !loading ? (<Button type="submit" variant="contained" color="primary" >
               {asset ? t('giotto.assets.edit_asset') || '' : t('giotto.assets.create_asset') || ''}
-            </Button>) : <LinearProgress />
+                    </Button>) : <LinearProgress />
           }
 
          </Box>
         </Stack>
       </Box>
+    </DashboardCard>
   );
 };
 

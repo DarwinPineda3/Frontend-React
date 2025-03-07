@@ -681,7 +681,8 @@
       "new_scan": "Create scan",
       "observability": "Observability",
       "cloud": "Cloud",
-      "create_cloud_scan": "Create Cloud Scan"
+      "create_cloud_scan": "Create Cloud Scan",
+      "create_cloud_scan_subtitle": "Add a new cloud scan by selecting your provider"
     }
   },
   "monitoring": {
@@ -1332,7 +1333,8 @@
     "no_interesting_entries": "No interesting entries.",
     "close": "Close",
     "scan_in_progress": "Scan in progress",
-    "error_msg": "The scan could not be created. Please check the asset configuration."
+    "error_msg": "The scan could not be created. Please check the asset configuration.",
+    "create_scan_subtitle": "Select an asset and configure the scan type to start"
   },
   "compliance_menu": {
     "compliance": "Compliance",
@@ -1634,7 +1636,9 @@
       "import_giotto_assets": "Bulk assets import",
       "upload": "Upload",
       "select_csv_file": "It must be a CSV file.",
-      "form_instruction": "Please enter a name and a valid network address (IP)."
+      "form_instruction": "Please enter a name and a valid network address (IP).",
+      "create_asset_subtitle": "Create a new asset",
+      "edit_asset_subtitle": "Edit the details of an existing asset"
     }
   },
   "compliance_templates": {
@@ -1779,7 +1783,8 @@
       "create": "Create",
       "asset_created_success": "Asset created successfully",
       "asset_updated_success": "Asset updated successfully",
-      "form_instruction": "Please enter a name for the asset. The other fields (IP, domain, or URL) are optional, but you must fill in at least one."
+      "form_instruction": "Please enter a name for the asset. The other fields (IP, domain, or URL) are optional, but you must fill in at least one.",
+      "create_asset_subtitle": "Fill out the form to create a new asset"
     }
   },
   "no_data_available": {

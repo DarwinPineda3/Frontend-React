@@ -189,7 +189,7 @@ const NetworkScanCreateForm: React.FC<Props> = ({ onSubmit }) => {
           </Grid>
         </Grid>
 
-        <Box display="flex" justifyContent="flex-end" mt={2}>
+        <Box display="flex" justifyContent="flex-start" mt={2}>
           <Button
             type="submit"
             variant="contained"

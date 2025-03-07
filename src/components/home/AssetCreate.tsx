@@ -63,9 +63,9 @@ const AssetsCreate: React.FC = () => {
       </Box>
 
       <Box>
-        <DashboardCard>
+       
           <CreateUpdateAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
-        </DashboardCard>
+        
         {snackbarOpen && (
           <SnackBarInfo
             color={snackbarSeverity}

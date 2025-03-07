@@ -117,7 +117,8 @@ const CreateWPScan: React.FC = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <DashboardCard
-            title={t('wpscan.create_scan') || ''}>
+            title={t('wpscan.create_scan') || ''}
+            subtitle={t('wpscan.create_scan_subtitle') || ''}>
             <>
               {isLoading ? (
                 <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
@@ -195,7 +196,6 @@ const CreateWPScan: React.FC = () => {
                       type="submit"
                       variant="contained"
                       color="primary"
-                      fullWidth
                       disabled={formik.isSubmitting}
                     >
                       {t('wpscan.create_scan')}

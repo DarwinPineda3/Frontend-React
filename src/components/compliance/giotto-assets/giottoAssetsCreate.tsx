@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 // import { useNavigate } from "react-router";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PageContainer from "src/components/container/PageContainer";
-import DashboardCard from "src/components/shared/DashboardCard";
 import SnackBarInfo from "src/layouts/full/shared/SnackBar/SnackBarInfo";
 import { useDispatch, useSelector } from "src/store/Store";
 import CreateUpdateGiottoAsset from "./createUpdateGiottoAsset";
@@ -70,11 +69,8 @@ const GiottoAssetsCreate: React.FC = () => {
         </Box>
       </Box>
       <Box>
-
-        <DashboardCard
-        >
+  
           <CreateUpdateGiottoAsset asset={editAsset ?? undefined} onSubmit={handleFormSubmit} />
-        </DashboardCard>
         {snackbarOpen && (
           <SnackBarInfo
             color={snackbarSeverity}

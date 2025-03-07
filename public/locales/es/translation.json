@@ -680,7 +680,8 @@
       "new_scan": "Nuevo Escaneo",
       "observability": "Observabilidad",
       "cloud": "Cloud",
-      "create_cloud_scan": "Crear escaneo cloud"
+      "create_cloud_scan": "Crear escaneo cloud",
+      "create_cloud_scan_subtitle": "Agrega un nuevo escaneo cloud seleccionando tu proveedor"
     }
   },
   "monitoring": {
@@ -1329,7 +1330,8 @@
     "no_interesting_entries": "No hay entradas interesantes.",
     "close": "Cerrar",
     "scan_in_progress": "Escaneo en progreso",
-    "error_msg": "No se pudo crear el escaneo. Por favor, verifica la configuración del activo."
+    "error_msg": "No se pudo crear el escaneo. Por favor, verifica la configuración del activo.",
+    "create_scan_subtitle": "Selecciona un activo y configura el tipo de escaneo para iniciar"
   },
   "compliance_menu": {
     "compliance": "Cumplimiento",
@@ -1631,7 +1633,9 @@
       "import_giotto_assets": "Importe masivo de assets",
       "upload": "Subir",
       "select_csv_file": "Debe ser un archivo CSV.",
-      "form_instruction": "Por favor, ingrese un nombre y una dirección de red válida (IP)."
+      "form_instruction": "Por favor, ingrese un nombre y una dirección de red válida (IP).",
+      "create_asset_subtitle": "Crea un nuevo activo",
+      "edit_asset_subtitle": "Edita los detalles de un activo existente"
     }
   },
   "compliance_templates": {
@@ -1768,7 +1772,8 @@
       "create": "Crear",
       "asset_created_success": "Activo creado con éxito",
       "asset_updated_success": "Activo actualizado con éxito",
-      "form_instruction": "Por favor, ingrese un nombre para el activo. Los demás campos (IP, dominio o URL) son opcionales, pero debe completar al menos uno."
+      "form_instruction": "Por favor, ingrese un nombre para el activo. Los demás campos (IP, dominio o URL) son opcionales, pero debe completar al menos uno.",
+      "create_asset_subtitle": "Complete el formulario para crear un nuevo activo"
     }
   },
   "no_data_available": {

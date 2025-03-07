@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'src/store/Store';
 import { AssetType } from 'src/types/assets/asset';
 import * as Yup from 'yup';
 import PageContainer from '../container/PageContainer';
+import DashboardCard from 'src/components/shared/DashboardCard';
 
 interface Props {
   asset?: AssetType; // Optional for edit
@@ -94,12 +95,12 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
 
   return (
     <PageContainer title="Akila">
+      <DashboardCard
+        title={asset ? t('home.assets.edit_asset') || '': t('home.assets.create_asset') || ''}
+        subtitle={asset ? t('home.assets.edit_asset_subtitle') || '' : t('home.assets.create_asset_subtitle') || ''}
+      >
       <Box component="form" onSubmit={formik.handleSubmit} noValidate>
         <Stack spacing={3}>
-          <Typography variant="h5" gutterBottom>
-            {asset ? t('home.assets.edit_asset') : t('home.assets.create_asset')}
-          </Typography>
-
           <TextField
             fullWidth
             margin="normal"
@@ -159,7 +160,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
 
           <Box>
             {!loading ? (
-              <Button type="submit" variant="contained" color="primary" fullWidth>
+              <Button type="submit" variant="contained" color="primary">
                 {asset ? t('home.assets.edit') : t('home.assets.create')}
               </Button>
             ) : (
@@ -168,6 +169,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
           </Box>
         </Stack>
       </Box>
+     </DashboardCard>
     </PageContainer>
   );
 };

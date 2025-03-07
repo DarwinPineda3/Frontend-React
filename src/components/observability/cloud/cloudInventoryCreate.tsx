@@ -149,7 +149,8 @@ const CreateCloudInventory: React.FC = () => {
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <DashboardCard title={t('observability.cloud_inventory.create_cloud_scan') || ''}>
+            <DashboardCard title={t('observability.cloud_inventory.create_cloud_scan') || ''}
+                           subtitle={t('observability.cloud_inventory.create_cloud_scan_subtitle') || ''}>
               <>
                 {isLoading ? (
                   <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="300px">
@@ -285,8 +286,8 @@ const CreateCloudInventory: React.FC = () => {
                     )}
 
                     <Box mt={2}>
-                      <Button type="submit" variant="contained" color="primary" fullWidth>
-                        {t('observability.cloud_inventory.submit') || ''}
+                      <Button type="submit" variant="contained" color="primary" >
+                        {t('configuration.create') || ''}
                       </Button>
                     </Box>
                   </Box>
