@@ -1,11 +1,11 @@
-import mock from '../mock'; 
+import mock from '../mock';
 
 const fakeRequest = (time: Date | any) => {
   return new Promise((res) => setTimeout(res, time));
 };
 
 mock.onGet('/api/dashboard/topcards').reply(
-  async()=>{
+  async () => {
     await fakeRequest(1000);
     return [200, [
       { severity: 'critical', value: '96' },
@@ -18,37 +18,47 @@ mock.onGet('/api/dashboard/topcards').reply(
 );
 
 mock.onGet('/api/dashboard/vulnerabilities').reply(
-  async()=>{
+  async () => {
     await fakeRequest(2500);
-    return[200, [
+    return [200, [
       {
         id: '1',
-        type: 'SQL Injection',
+        type: 'Critical',
         hosts: 3,
-        severity: 'High',
+        severity: 9.5,
         name: 'Vulnerability 1',
         date: '2023-05-01',
-        tool: 'Nessus',
+        tool: 'Network',
         aiAssistantSolution: 'Run this patch...',
       },
       {
         id: '2',
-        type: 'Cross-Site Scripting',
+        type: 'High',
         hosts: 5,
-        severity: 'Medium',
+        severity: 8,
         name: 'Vulnerability 2',
         date: '2023-05-10',
-        tool: 'Qualys',
+        tool: 'Web App',
         aiAssistantSolution: 'Apply this fix...',
       },
       {
         id: '3',
-        type: 'DDoS Attack',
+        type: 'Medium',
         hosts: 2,
-        severity: 'Low',
+        severity: 4.5,
         name: 'Vulnerability 3',
         date: '2023-05-20',
-        tool: 'Burp Suite',
+        tool: 'WordPress',
+        aiAssistantSolution: 'Mitigate this risk...',
+      },
+      {
+        id: '4',
+        type: 'Low',
+        hosts: 2,
+        severity: 2.5,
+        name: 'Vulnerability 4',
+        date: '2023-05-20',
+        tool: 'WordPress',
         aiAssistantSolution: 'Mitigate this risk...',
       },
     ]];
@@ -59,18 +69,13 @@ mock.onGet('/api/revenue-updates').reply(
   async () => {
     await fakeRequest(1800);
     return [200, {
-      totalReports: 28,
-      redTeamReports: 20,
-      blueTeamReports: 8,
-      categories: ['16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08'], // Add dates here
+      totalReports: 1,
+      redTeamReports: 2,
+      categories: ['16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08'], // The dates of the reports
       series: [
         {
           name: 'Red team reports',
-          data: [1.5, 2.7, 2.2, 3.6, 1.5, 1.0],
-        },
-        {
-          name: 'Blue team reports',
-          data: [-1.8, -1.1, -2.5, -1.5, -0.6, -1.8],
+          data: [1.5, 2.7, 2.2, 3.6, 1.5, 1.0], // The number of red team reports for each date
         },
       ],
     }];
@@ -151,7 +156,7 @@ mock.onGet('/api/weekly-stats').reply(
       series: [5, 15, 5, 10, 5],
       stats: [
         {
-          title: 'Service Uptime',
+          title: 'Average Service Uptime',
           subtitle: 'API Gateway',
           percent: '99.9',
           color: '#2196f3',  // Adjust colors as needed
@@ -159,7 +164,7 @@ mock.onGet('/api/weekly-stats').reply(
           icon: 'IconGridDots',  // Icon placeholder
         },
         {
-          title: 'Active Incidents',
+          title: 'Max Service Uptime',
           subtitle: 'Web Services',
           percent: '2',
           color: '#4caf50',
@@ -167,7 +172,7 @@ mock.onGet('/api/weekly-stats').reply(
           icon: 'IconGridDots',  // Icon placeholder
         },
         {
-          title: 'Resolved Tickets',
+          title: 'Min Service Uptime',
           subtitle: 'Security Issues',
           percent: '85',
           color: '#f44336',
@@ -196,8 +201,7 @@ mock.onGet('/api/org-breaches').reply(
 
 
 
-  
+
 export default mock;
-  
-  
-  
+
+

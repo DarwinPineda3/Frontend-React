@@ -1,29 +1,55 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';  
+import { getUserInfo } from 'src/guards/jwt/Jwt';  
 import {
-  Box,
-  Menu,
   Avatar,
-  Typography,
+  Box,
   Divider,
-  Button,
   IconButton,
-  Stack
+  Menu,
+  Stack,
+  Typography
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import * as dropdownData from './data';
-
 import { IconMail } from '@tabler/icons-react';
-
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
-import unlimitedImg from 'src/assets/images/backgrounds/unlimited-bg.png';
+import LogoutButton from 'src/components/user/LogoutButton';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [anchorEl2, setAnchorEl2] = useState(null);
+
+  const [userData, setUserData] = useState({
+    name: t('profile.name_unavailable'),  
+    group: t('profile.group_unavailable'),  
+    email: t('profile.email_unavailable'),  
+  });
+
+  useEffect(() => {
+    const userInfo = getUserInfo(); 
+
+    if (userInfo) {
+      setUserData({
+        name: `${userInfo.first_name} ${userInfo.last_name}` || t('profile.name_unavailable'),  
+        group: userInfo.groups || t('profile.group_unavailable'),
+        email: userInfo.email || t('profile.email_unavailable'),  
+      });
+    } else {
+      setUserData({
+        name: t('profile.name_unavailable'),
+        group: t('profile.group_unavailable'),
+        email: t('profile.email_unavailable'),  
+      });
+    }
+  }, [t]);
+
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
+
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
@@ -52,6 +78,7 @@ const Profile = () => {
           }}
         />
       </IconButton>
+
       {/* ------------------------------------------- */}
       {/* Message Dropdown */}
       {/* ------------------------------------------- */}
@@ -65,20 +92,20 @@ const Profile = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         sx={{
           '& .MuiMenu-paper': {
-            width: '360px',
+            width: 'auto',
             p: 4,
           },
         }}
       >
-        <Typography variant="h5">User Profile</Typography>
+        <Typography variant="h5">{t('profile.user_profile')}</Typography>
         <Stack direction="row" py={3} spacing={2} alignItems="center">
           <Avatar src={ProfileImg} alt={ProfileImg} sx={{ width: 95, height: 95 }} />
           <Box>
             <Typography variant="subtitle2" color="textPrimary" fontWeight={600}>
-            Albert Molano
+              {userData.name}  
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
-            Tenant
+              {userData.group}  
             </Typography>
             <Typography
               variant="subtitle2"
@@ -88,7 +115,7 @@ const Profile = () => {
               gap={1}
             >
               <IconMail width={15} height={15} />
-              info@modernize.com
+              {userData.email} 
             </Typography>
           </Box>
         </Stack>
@@ -146,7 +173,7 @@ const Profile = () => {
           </Box>
         ))}
         <Box mt={2}>
-          <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
+          {/* <Box bgcolor="primary.light" p={3} mb={3} overflow="hidden" position="relative">
             <Box display="flex" justifyContent="space-between">
               <Box>
                 <Typography variant="h5" mb={2}>
@@ -159,10 +186,8 @@ const Profile = () => {
               </Box>
               <img src={unlimitedImg} alt="unlimited" className="signup-bg"></img>
             </Box>
-          </Box>
-          <Button to="/auth/login" variant="outlined" color="primary" component={Link} fullWidth>
-            Logout
-          </Button>
+          </Box> */}
+          <LogoutButton />
         </Box>
       </Menu>
     </Box>
@@ -170,3 +195,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+

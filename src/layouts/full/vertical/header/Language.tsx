@@ -1,39 +1,24 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import React from 'react';
-import { Avatar, IconButton, Menu, MenuItem, Typography, Stack } from '@mui/material';
-import { useSelector, useDispatch } from 'src/store/Store';
-import { setLanguage } from 'src/store/customizer/CustomizerSlice';
-import FlagEn from 'src/assets/images/flag/icon-flag-en.svg';
-import FlagFr from 'src/assets/images/flag/icon-flag-fr.svg';
-import FlagCn from 'src/assets/images/flag/icon-flag-cn.svg';
-import FlagSa from 'src/assets/images/flag/icon-flag-sa.svg';
+import { Avatar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import { AppState } from 'src/store/Store';
+import FlagCo from 'src/assets/images/flag/icon-flag-co.svg';
+import FlagEn from 'src/assets/images/flag/icon-flag-en.svg';
+import { AppState, useDispatch, useSelector } from 'src/store/Store';
+import { setLanguage } from 'src/store/customizer/CustomizerSlice';
 
 const Languages = [
   {
-    flagname: 'English (UK)',
+    flagname: 'English (en)',
     icon: FlagEn,
     value: 'en',
   },
   {
-    flagname: '中国人 (Chinese)',
-    icon: FlagCn,
-    value: 'ch',
-  },
-  {
-    flagname: 'français (French)',
-    icon: FlagFr,
-    value: 'fr',
-  },
-
-  {
-    flagname: 'عربي (Arabic)',
-    icon: FlagSa,
-    value: 'ar',
-  },
+    flagname: 'Spanish (es)',
+    icon: FlagCo,
+    value: 'es',
+  }
 ];
 
 const Language = () => {

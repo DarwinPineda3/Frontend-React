@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography,
   Box,
-  TextField,
-  InputAdornment,
-  Grid,
-  Chip,
-  IconButton,
-  Tooltip,
   Button,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
+  InputAdornment,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TextField,
+  Typography,
+  useTheme,
 } from '@mui/material';
-import { IconSearch, IconEye, IconEdit, IconTrash, IconAlertCircle, IconAlertTriangle, IconAlertOctagon, IconCheck } from '@tabler/icons-react';
+import {
+  IconAlertCircle,
+  IconAlertOctagon,
+  IconAlertTriangle,
+  IconCheck,
+  IconSearch,
+} from '@tabler/icons-react';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Alert {
+  risk: any;
   id: number;
   name: string;
   riskLevel: string;
@@ -36,29 +44,33 @@ interface ScanAlertTableProps {
 }
 
 const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick }) => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState<string | null>(null);
   const [selectedAlerts, setSelectedAlerts] = useState<number[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  // Count alerts by risk level
   const counts = {
-    critical: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('critical')).length,
-    high: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('high')).length,
-    medium: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('medium')).length,
-    low: alerts.filter((alert) => alert.riskLevel.toLowerCase().includes('low')).length,
+    critical: alerts.filter((alert) => alert.risk.toLowerCase().includes('critical')).length,
+    high: alerts.filter((alert) => alert.risk.toLowerCase().includes('high')).length,
+    medium: alerts.filter((alert) => alert.risk.toLowerCase().includes('medium')).length,
+    low: alerts.filter((alert) => alert.risk.toLowerCase().includes('low')).length,
   };
 
-  // Handle filtering by risk level
+  const theme = useTheme();
+  const { high, medium, low, critical } = theme.palette.level;
+
+  const cardConfig: Record<string, { bgcolor: string; txtcolor: string; }> = {
+    critical: { bgcolor: critical, txtcolor: '#ffffff' },
+    high: { bgcolor: high, txtcolor: '#ffffff' },
+    medium: { bgcolor: medium, txtcolor: '#ffffff' },
+    low: { bgcolor: low, txtcolor: '#ffffff' },
+  };
+
   const handleRiskFilter = (riskLevel: string) => {
-    if (selectedRiskLevel === riskLevel) {
-      setSelectedRiskLevel(null); // If the same card is tapped, show all alerts
-    } else {
-      setSelectedRiskLevel(riskLevel); // Set the filter to the selected risk level
-    }
+    setSelectedRiskLevel((prev) => (prev === riskLevel ? null : riskLevel));
   };
 
-  // Filter alerts based on search term and selected risk level
   const filteredAlerts = alerts.filter((alert) => {
     const matchesSearch = alert.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRiskLevel = selectedRiskLevel
@@ -67,29 +79,43 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
     return matchesSearch && matchesRiskLevel;
   });
 
-  // Toggle individual alert selection
   const toggleSelectAlert = (alertId: number) => {
     setSelectedAlerts((prev) =>
-      prev.includes(alertId) ? prev.filter((id) => id !== alertId) : [...prev, alertId]
+      prev.includes(alertId) ? prev.filter((id) => id !== alertId) : [...prev, alertId],
     );
   };
 
-  // Handle delete confirmation
   const handleDelete = () => setOpenDeleteDialog(true);
   const handleConfirmDelete = () => {
-    // Logic for deleting alerts
     setOpenDeleteDialog(false);
     setSelectedAlerts([]);
   };
   const handleCloseDeleteDialog = () => setOpenDeleteDialog(false);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+
+  const paginatedItems = (filteredAlerts || []).slice(
+    currentPage * rowsPerPage,
+    currentPage * rowsPerPage + rowsPerPage
+  );
+
+
   return (
     <Box>
-      {/* Top Cards for filtering by risk level */}
+      {/* cards */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="primary.light"
+            bgcolor={cardConfig.critical.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('Critical')}
             sx={{ cursor: 'pointer' }}
@@ -98,13 +124,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="primary.main"
+                bgcolor={cardConfig.critical.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="primary.contrastText"
+                  color={cardConfig.critical.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -113,9 +139,9 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color="background.default">Critical</Typography>
+                <Typography color="background.default">{t('vulnerabilities.critical')}</Typography>
                 <Typography fontWeight={500} color="background.default">
-                  {counts.critical} Alerts
+                  {counts.critical} {t('vulnerabilities.alerts')}
                 </Typography>
               </Box>
             </Stack>
@@ -123,7 +149,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="secondary.light"
+            bgcolor={cardConfig.high.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('High')}
             sx={{ cursor: 'pointer' }}
@@ -132,13 +158,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="secondary.main"
+                bgcolor={cardConfig.high.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="background.default"
+                  color={cardConfig.high.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -147,9 +173,9 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color="background.default">High</Typography>
+                <Typography color="background.default">{t('vulnerabilities.high')}</Typography>
                 <Typography fontWeight={500} color="background.default">
-                  {counts.high} Alerts
+                  {counts.high} {t('vulnerabilities.alerts')}
                 </Typography>
               </Box>
             </Stack>
@@ -157,7 +183,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="error.light"
+            bgcolor={cardConfig.medium.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('Medium')}
             sx={{ cursor: 'pointer' }}
@@ -166,13 +192,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="error.main"
+                bgcolor={cardConfig.medium.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="primary.contrastText"
+                  color={cardConfig.medium.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -181,9 +207,11 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color="error.main">Medium</Typography>
-                <Typography fontWeight={500} color="error.main">
-                  {counts.medium} Alerts
+                <Typography color={cardConfig.medium.txtcolor}>
+                  {t('vulnerabilities.medium')}
+                </Typography>
+                <Typography fontWeight={500} color={cardConfig.medium.txtcolor}>
+                  {counts.medium} {t('vulnerabilities.alerts')}
                 </Typography>
               </Box>
             </Stack>
@@ -191,7 +219,7 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Box
-            bgcolor="warning.light"
+            bgcolor={cardConfig.low.bgcolor}
             p={3}
             onClick={() => handleRiskFilter('Low')}
             sx={{ cursor: 'pointer' }}
@@ -200,13 +228,13 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
               <Box
                 width={38}
                 height={38}
-                bgcolor="warning.main"
+                bgcolor={cardConfig.low.bgcolor}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
               >
                 <Typography
-                  color="primary.contrastText"
+                  color={cardConfig.low.txtcolor}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
@@ -215,9 +243,9 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
                 </Typography>
               </Box>
               <Box>
-                <Typography color="warning.main">Low</Typography>
-                <Typography fontWeight={500} color="warning.main">
-                  {counts.low} Alerts
+                <Typography color={cardConfig.low.txtcolor}>{t('vulnerabilities.low')}</Typography>
+                <Typography fontWeight={500} color={cardConfig.low.txtcolor}>
+                  {counts.low} {t('vulnerabilities.alerts')}
                 </Typography>
               </Box>
             </Stack>
@@ -225,10 +253,10 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         </Grid>
       </Grid>
 
-      {/* Search Bar */}
+      {/* search */}
       <Box mb={3} my={3}>
         <TextField
-          placeholder="Search Alerts"
+          placeholder={t('vulnerabilities.search_alerts')!}
           variant="outlined"
           fullWidth
           value={searchTerm}
@@ -243,70 +271,83 @@ const ScanAlertTable: React.FC<ScanAlertTableProps> = ({ alerts, onAlertClick })
         />
       </Box>
 
-      {/* Alerts Table */}
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Select</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Risk Level</TableCell>
-            <TableCell>Instances</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell>{t('vulnerabilities.name')}</TableCell>
+            <TableCell>{t('vulnerabilities.risk_level')}</TableCell>
+            <TableCell>{t('vulnerabilities.instances')}</TableCell>
+            {/* <TableCell>{t('vulnerabilities.actions')}</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredAlerts.map((alert) => (
-            <TableRow key={alert.id}>
-              <TableCell padding="checkbox">
-                <input
-                  type="checkbox"
-                  checked={selectedAlerts.includes(alert.id)}
-                  onChange={() => toggleSelectAlert(alert.id)}
-                />
-              </TableCell>
-              <TableCell >
-                <Typography color="primary" fontWeight={500} onClick={()=>onAlertClick(alert.id)} style={{ cursor: 'pointer' }}>
-                  {alert.name}
-                </Typography>
-              </TableCell>
-              <TableCell>
-                {/**@ts-ignore*/}
-                <Chip label={alert.riskLevel} color={alert.riskColor} size="small" />
-              </TableCell>
-              <TableCell>
-                <Typography>{alert.instances}</Typography>
-              </TableCell>
-              <TableCell>
-                <Tooltip title="View Alert">
-                  <IconButton onClick={() => onAlertClick(alert.id)} color="success">
-                    <IconEye />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Edit Alert">
-                  <IconButton 
-                        color="warning">
-                    <IconEdit />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete Alert">
-                  <IconButton color="error" onClick={() => handleDelete()}>
-                    <IconTrash />
-                  </IconButton>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-          ))}
+          {paginatedItems.map((alert) => {
+            const cleanRiskLevel = alert.riskLevel.split('(')[0].trim();
+
+            return (
+              <TableRow key={alert.id}>
+                <TableCell>
+                  <Typography
+                    color="primary"
+                    fontWeight={500}
+                    onClick={() => onAlertClick(alert.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {alert.name}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Chip
+                    label={alert.risk}
+                    style={{
+                      backgroundColor: cardConfig[cleanRiskLevel.toLowerCase()]?.bgcolor,
+                      color: cardConfig[cleanRiskLevel.toLowerCase()]?.txtcolor,
+                    }}
+                    size="small"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Typography>{alert.instances}</Typography>
+                </TableCell>
+                {/* <TableCell>
+          <Tooltip title={t('vulnerabilities.view_alert')}>
+            <IconButton onClick={() => onAlertClick(alert.id)} color="success">
+              <IconEye />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('vulnerabilities.edit_alert')}>
+            <IconButton color="warning">
+              <IconEdit />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('vulnerabilities.delete_alert')}>
+            <IconButton color="error" onClick={() => handleDelete()}>
+              <IconTrash />
+            </IconButton>
+          </Tooltip>
+        </TableCell> */}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
+        component="div"
+        count={(filteredAlerts || []).length}
+        rowsPerPage={rowsPerPage}
+        page={currentPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>Are you sure you want to delete the selected alerts?</DialogContent>
+        <DialogTitle>{t('vulnerabilities.confirm_delete')}</DialogTitle>
+        <DialogContent>{t('vulnerabilities.delete_confirmation_message')}</DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
+          <Button onClick={handleCloseDeleteDialog}>{t('vulnerabilities.cancel')}</Button>
           <Button color="error" onClick={handleConfirmDelete}>
-            Delete
+            {t('vulnerabilities.delete')}
           </Button>
         </DialogActions>
       </Dialog>

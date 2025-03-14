@@ -1,110 +1,219 @@
-import React, { useState } from 'react';
 import {
+  Box,
+  IconButton,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
-  IconButton,
-  TableContainer,
-  Box,
-  Pagination,
-  Paper,
 } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 
-// Mock Data from JSON
-const scanData = [
-  {
-    id: 1,
-    provider: 'gcp',
-    cloudId: '104892762537578212777',
-    date: '27 de agosto de 2024 a las 19:00',
-  },
-  {
-    id: 2,
-    provider: 'aws',
-    cloudId: 'AKIAU6GDVX2P643LZAIG',
-    date: '27 de agosto de 2024 a las 18:58',
-  },
-  // Add more data if needed
-];
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router';
+import AwsLogo from 'src/assets/images/cloudscans/aws.png';
+import AzureLogo from 'src/assets/images/cloudscans/azure.png';
+import GcpLogo from 'src/assets/images/cloudscans/gcp.png';
+import HumanizedDate from 'src/components/shared/HumanizedDate';
+import Loader from 'src/components/shared/Loader/Loader';
+import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface CloudScanTableProps {
   onScanClick: (scanId: string) => void;
 }
 
 const CloudScanTable: React.FC<CloudScanTableProps> = ({ onScanClick }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10; // Adjust this for how many rows you want per page
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [cloudScans, setCloudScans] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(10);
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [error, setError] = useState<string | null>(null);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page);
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setIsLoading(true);
+      try {
+        const exampleData = [
+          {
+            id: '1',
+            provider: 'AWS',
+            cloud_id: 'aws-123',
+            timestamp: '2023-03-13T12:00:00Z',
+          },
+          {
+            id: '2',
+            provider: 'Azure',
+            cloud_id: 'azure-456',
+            timestamp: '2023-03-12T12:00:00Z',
+          },
+          {
+            id: '3',
+            provider: 'GCP',
+            cloud_id: 'gcp-789',
+            timestamp: '2023-03-11T12:00:00Z',
+          },
+          // Agrega más datos de ejemplo según sea necesario
+        ];
+        setCloudScans(exampleData);
+        setIsLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    page: number,
+  ) => {
+    const newPage = page + 1;
+    if (newPage !== currentPage) {
+      setCurrentPage(newPage);
+    }
   };
 
-  // Logic to paginate rows
-  const paginatedData = scanData.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
+  const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const newPageSize = event.target.value as number;
+    setPageSize(newPageSize);
+    setCurrentPage(1);
+  };
+
+  const getProviderIcon = (provider: string) => {
+    switch (provider?.toLowerCase()) {
+      case 'aws':
+        return <img src={AwsLogo} alt="AWS" style={{ width: 24, height: 24 }} />;
+      case 'azure':
+        return <img src={AzureLogo} alt="Azure" style={{ width: 24, height: 24 }} />;
+      case 'gcp':
+        return <img src={GcpLogo} alt="GCP" style={{ width: 24, height: 24 }} />;
+      default:
+        return null;
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Loader></Loader>
+        </Box>
+      </DashboardCard>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashboardCard>
+        <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+          <Typography color="error" variant="h6">
+            {t('dashboard.errorMessage')}
+          </Typography>
+        </Box>
+      </DashboardCard>
+    );
+  }
 
   return (
-    <DashboardCard title="Scans" subtitle="List of all scans">
-        <>
-      <TableContainer >
-        <Table aria-label="scan list table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight={600}>
-                  Proveedor
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight={600}>
-                  Cloud ID
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle2" fontWeight={600}>
-                  Fecha
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {paginatedData.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>
-                  <Typography variant="body2">{row.provider}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography
-                    variant="body2"
-                    color="primary"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => onScanClick(row.cloudId)}
-                  >
-                    {row.cloudId}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body2">{row.date}</Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Box my={3} display="flex" justifyContent="center">
-        <Pagination
-          count={Math.ceil(scanData.length / rowsPerPage)}
-          color="primary"
-          page={currentPage}
-          onChange={handlePageChange}
-        />
-      </Box>
+    <DashboardCard
+      title={t('vulnerabilities.scans')!}
+      subtitle={t('vulnerabilities.list_of_all_scans')!}
+      action={
+        <IconButton color="primary" onClick={() => navigate('/vulnerabilities/cloud/create')}>
+          <AddIcon />
+        </IconButton>
+      }
+    >
+      <>
+        {isLoading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+            <Loader />
+          </Box>
+        ) : (
+          <>
+            <TableContainer>
+              <Table aria-label="scan list table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.provider')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.cloud_id')}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="subtitle2" fontWeight={600}>
+                        {t('vulnerabilities.date')}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {cloudScans.length > 0 ? (
+                    cloudScans.map((scan: any) => (
+                      <TableRow key={scan.id}>
+                        <TableCell>
+                          <Box display="flex" alignItems="center">
+                            {getProviderIcon(scan.provider)}
+                            <Typography variant="body2" style={{ marginLeft: '8px' }}>
+                              ({scan.provider})
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Typography
+                            variant="body2"
+                            color="primary"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => onScanClick(scan.id)}
+                          >
+                            {scan.cloud_id}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <HumanizedDate dateString={scan.timestamp} />
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} align="center">
+                        <NoDataAvailable
+                          entityType="scan"
+                          formUrl='/vulnerabilities/cloud/create'
+                        />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={totalPages * pageSize}
+              rowsPerPage={pageSize}
+              page={currentPage - 1}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handlePageSizeChange}
+            />
+          </>
+        )}
       </>
     </DashboardCard>
   );

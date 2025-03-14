@@ -1,7 +1,7 @@
 const DarkThemeColors = [
   {
     name: 'AKILA_THEME',
-    palette:  {
+    palette: {
       mode: 'dark',
       primary: {
         main: '#FF578F',  // Deep Pink
@@ -34,6 +34,15 @@ const DarkThemeColors = [
       gradient: {
         main: 'linear-gradient(90deg, #FF578F 0%, #F66859 100%)',  // Gradient from Deep Pink to Coral Orange
       },
+      level: {
+        none: '#90CAF9',
+        low: '#329223',
+        medium: '#f4be34',
+        high: '#EF8E0E',
+        critical: '#EF0E0E',
+        unknown: '#1B3C48',
+        info: '#539bff',
+      }
     },
   },
   {
@@ -124,3 +133,4 @@ const DarkThemeColors = [
 ];
 
 export { DarkThemeColors };
+

@@ -1,11 +1,11 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useRoutes } from "react-router-dom";
 import { useSelector } from "src/store/Store";
-import { ThemeSettings } from "./theme/Theme";
-import RTL from "./layouts/full/shared/customizer/RTL";
 import ScrollToTop from "./components/shared/ScrollToTop";
+import RTL from "./layouts/full/shared/customizer/RTL";
 import Router from "./routes/Router";
 import { AppState } from "./store/Store";
+import { ThemeSettings } from "./theme/Theme";
 
 function App() {
   const routing = useRoutes(Router);

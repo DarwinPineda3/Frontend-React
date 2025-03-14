@@ -1,16 +1,16 @@
-// TicketsView.tsx
-import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import TicketList from '../../components/ticketform/Ticketlist';
+import TicketList from '../../components/ticketform/TicketList';
 import { TicketType } from '../../types/apps/ticket';
 
 const TicketsView = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [tickets, setTickets] = useState<TicketType[]>([]);
 
   useEffect(() => {
-    // Cargar tickets desde el almacenamiento local
     const storedTickets = JSON.parse(localStorage.getItem('tickets') || '[]');
     setTickets(storedTickets);
   }, []);
@@ -18,15 +18,14 @@ const TicketsView = () => {
   const handleDeleteTicket = (id: number) => {
     const updatedTickets = tickets.filter(ticket => ticket.Id !== id);
     setTickets(updatedTickets);
-    // Actualizar el almacenamiento local
     localStorage.setItem('tickets', JSON.stringify(updatedTickets));
   };
 
   return (
     <div>
-      <h1>Tickets Management</h1>
+      <h1>{t("support.tickets_management")}</h1>
       <Button variant="contained" color="primary" onClick={() => navigate('/support/ticketform')}>
-        Crear Nuevo Ticket
+        {t("support.create_new_ticket")}
       </Button>
 
       <div style={{ marginTop: '20px' }}>

@@ -19,7 +19,7 @@ interface StateType {
 
 const initialState: StateType = {
   activeDir: 'ltr',
-  activeMode: 'light', // This can be light or dark
+  activeMode: localStorage.getItem('viewMode') || 'light',
   activeTheme: 'AKILA_THEME', // BLUE_THEME, GREEN_THEME, BLACK_THEME, PURPLE_THEME, ORANGE_THEME
   SidebarWidth: 270,
   MiniSidebarWidth: 87,
@@ -29,7 +29,7 @@ const initialState: StateType = {
   isSidebarHover: false,
   isMobileSidebar: false,
   isHorizontal: false,
-  isLanguage: 'en',
+  isLanguage: localStorage.getItem('i18nextLng') || 'en',
   isCardShadow: true,
   borderRadius: 7,
 };
@@ -43,6 +43,7 @@ const CustomizerSlice = createSlice({
     },
     setDarkMode: (state: StateType, action) => {
       state.activeMode = action.payload;
+      localStorage.setItem('viewMode', action.payload);
     },
 
     setDir: (state: StateType, action) => {

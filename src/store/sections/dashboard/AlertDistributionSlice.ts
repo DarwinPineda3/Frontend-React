@@ -1,10 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios'; // Correct import
-
+function getApiUrl() {
+  return `${getBaseApiUrl()}/dashbboard/cards/`;
+}
 // Async thunk to fetch pie chart data
 export const fetchAlertDistributionData = createAsyncThunk('alertDistribution/fetchData', async () => {
-  const response = await axios.get('/api/alert-distribution'); // Mock API endpoint
-  return response.data;
+  const response = await axios.get(`${getApiUrl()}`);
+  const results = response.data;
+  const parsedData = {
+    labels: ['Critical', 'High', 'Medium', 'Low'],
+    series: [
+      results.vulnerabilities_by_type.critical_count,
+      results.vulnerabilities_by_type.high_count,
+      results.vulnerabilities_by_type.medium_count,
+      results.vulnerabilities_by_type.low_count,
+    ],
+  };
+  return parsedData;
 });
 
 interface AlertDistributionState {

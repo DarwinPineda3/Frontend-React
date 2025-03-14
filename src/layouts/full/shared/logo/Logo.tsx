@@ -1,19 +1,19 @@
 import { FC } from 'react';
-import { useSelector } from 'src/store/Store';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'src/store/Store';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ReactComponent as LogoDark } from 'src/assets/images/logos/dark-logo.svg';
+import LogoDark from 'src/assets/images/logos/akila_logo_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ReactComponent as LogoDarkRTL } from 'src/assets/images/logos/dark-rtl-logo.svg';
+import LogoDarkRTL from 'src/assets/images/logos/akila_logo_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ReactComponent as LogoLight } from 'src/assets/images/logos/light-logo.svg';
+import LogoLight from 'src/assets/images/logos/akila_white_logo_compressed.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { ReactComponent as LogoLightRTL } from 'src/assets/images/logos/light-logo-rtl.svg';
 import { styled } from '@mui/material';
+import LogoLightRTL from 'src/assets/images/logos/akila_white_logo_compressed.png';
 import { AppState } from 'src/store/Store';
 
 const Logo: FC = () => {
@@ -33,13 +33,13 @@ const Logo: FC = () => {
           display: 'flex',
           alignItems: 'center',
           marginTop: 5,
-          marginLeft: 15,
+          marginLeft: 15
         }}
       >
         {customizer.activeMode === 'dark' ? (
-          <LogoLight />
+          <img style={{ maxWidth: '100%' }} src={LogoLight} />
         ) : (
-          <LogoDark />
+          <img style={{ maxWidth: '100%' }} src={LogoDark} />
         )}
       </LinkStyled>
     );
@@ -51,12 +51,13 @@ const Logo: FC = () => {
       style={{
         display: 'flex',
         alignItems: 'center',
+        maxWidth: '100%'
       }}
     >
       {customizer.activeMode === 'dark' ? (
-        <LogoDarkRTL />
+        <img style={{ maxWidth: '100%' }} src={LogoLightRTL} />
       ) : (
-        <LogoLightRTL />
+        <img style={{ maxWidth: '100%' }} src={LogoDarkRTL} />
       )}
     </LinkStyled>
   );

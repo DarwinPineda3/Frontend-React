@@ -1,67 +1,94 @@
-import React, { useEffect } from 'react';
-import Chart from 'react-apexcharts';
-import { useTheme } from '@mui/material/styles';
-import DashboardCard from '../../shared/DashboardCard';
-import Loader from '../../shared/Loader/Loader'; // Loader component
-
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
-import { fetchOrgBreachesData } from 'src/store/sections/dashboard/OrgBreachesSlice';
-import { AppState } from 'src/store/Store';
-import { ApexOptions } from 'apexcharts';  // Correct type
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import SecurityIncidentsPolygon from 'src/components/observability/dark-web/SecurityIncidentsPolygon';
+import EmptyState from 'src/components/shared/EmptyState';
+import DashboardCard from '../../shared/DashboardCard';
+import Loader from '../../shared/Loader/Loader';
 
 const OrgBreachesCompare = () => {
-  const dispatch = useDispatch();
-  const { loading, series, labels, error } = useSelector(
-    (state: AppState) => state.dashboard.orgBreaches
-  );
-
-  useEffect(() => {
-    dispatch(fetchOrgBreachesData());
-  }, [dispatch]);
-
+  const { t } = useTranslation();
   const theme = useTheme();
   const primary = theme.palette.primary.main;
 
-  const optionsradarchart: ApexOptions = {
-    chart: {
-      id: 'radar-chart',
-      fontFamily: "'Plus Jakarta Sans', sans-serif",
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: [primary],
-    labels: labels, // Dynamic labels from state
-    tooltip: {
-      theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
-    },
+  const [loading, setLoading] = useState(true);
+  const [brandMonitoringResume, setBrandMonitoringResume] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          ip: 10,
+          emails: 20,
+          phones: 15,
+          domains: 5,
+          usernames: 25,
+        };
+        setBrandMonitoringResume(exampleData);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const polygonValues = [
+    brandMonitoringResume?.['ip'] ?? 0,
+    brandMonitoringResume?.['emails'] ?? 0,
+    brandMonitoringResume?.['phones'] ?? 0,
+    brandMonitoringResume?.['domains'] ?? 0,
+    brandMonitoringResume?.['usernames'] ?? 0,
+  ];
+
+  const polygonLabels = [
+    t('observability.ip'),
+    t('observability.p_email'),
+    t('observability.phone'),
+    t('observability.domain'),
+    t('observability.username'),
+  ];
+
+  const series = {
+    name: 'Breaches',
+    data: polygonValues,
   };
 
   if (loading) {
     return (
-      <DashboardCard title="Organization Breaches">
-        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+      <DashboardCard title={t("dashboard.organization_breaches") || ''}>
+        <Box display="flex" justifyContent="center">
           <Loader />
         </Box>
       </DashboardCard>
-
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
+  }
+
+  if (!brandMonitoringResume || Object.keys(brandMonitoringResume).length === 0) {
+    return (
+      <DashboardCard title={t("dashboard.organization_breaches") || ''}>
+        <EmptyState />
+      </DashboardCard>
+    );
   }
 
   return (
-    <DashboardCard title="Organization Breaches">
-      <Chart
-        options={optionsradarchart}
-        series={series} // Dynamic series from state
-        type="radar"
-        height="300px"
+    <Box style={{ display: 'flex', height: '100%' }}>
+      <SecurityIncidentsPolygon
+        series={[series]}
+        labels={polygonLabels}
       />
-    </DashboardCard>
+    </Box>
   );
 };
 

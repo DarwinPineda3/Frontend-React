@@ -1,40 +1,66 @@
-import React, { useEffect } from 'react';
-import { MenuItem, Grid, Stack, Typography, Button, Avatar, Box } from '@mui/material';
-import Chart from 'react-apexcharts';
+import { Avatar, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconGridDots } from '@tabler/icons-react';
+import { ApexOptions } from 'apexcharts';
+import { useEffect, useState } from 'react';
+import Chart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import EmptyState from 'src/components/shared/EmptyState';
 import DashboardCard from '../../shared/DashboardCard';
-import CustomSelect from '../../forms/theme-elements/CustomSelect';
 import Loader from '../../shared/Loader/Loader';
 
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
-import { fetchRevenueUpdatesData } from 'src/store/sections/dashboard/RevenueUpdatesSlice';
-import { AppState } from 'src/store/Store';
-import { ApexOptions } from 'apexcharts';  // Ensure correct import
-
 const RevenueUpdates = () => {
-  const dispatch = useDispatch();
-  const { loading, totalReports, redTeamReports, blueTeamReports, series, categories, error } = useSelector(
-    (state: AppState) => state.dashboard.revenueUpdates
-  );
-
-  const [month, setMonth] = React.useState('1');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMonth(event.target.value);
-  };
-
-  useEffect(() => {
-    dispatch(fetchRevenueUpdatesData());
-  }, [dispatch]);
-
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.info.main;
 
+  const [loading, setLoading] = useState(true);
+  const [totalReports, setTotalReports] = useState(0);
+  const [redTeamReports, setRedTeamReports] = useState(0);
+  const [series, setSeries] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          totalReports: 100,
+          redTeamReports: 20,
+          series: [
+            {
+              name: 'Series 1',
+              data: [10, 20, 30, 40, 50],
+            },
+            {
+              name: 'Series 2',
+              data: [15, 25, 35, 45, 55],
+            },
+          ],
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        };
+        setTotalReports(exampleData.totalReports);
+        setRedTeamReports(exampleData.redTeamReports);
+        setSeries(exampleData.series);
+        setCategories(exampleData.categories);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const optionscolumnchart: ApexOptions = {
     chart: {
-      type: 'bar',  
+      type: 'bar',
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
       foreColor: '#adb0bb',
       toolbar: {
@@ -68,12 +94,11 @@ const RevenueUpdates = () => {
       strokeDashArray: 3,
     },
     yaxis: {
-      min: -5,
-      max: 5,
+      min: 0,
       tickAmount: 4,
     },
     xaxis: {
-      categories: categories, // Use categories from the state
+      categories: categories,
       axisBorder: {
         show: false,
       },
@@ -86,37 +111,28 @@ const RevenueUpdates = () => {
 
   if (loading) {
     return (
-          <DashboardCard
-      title="Reports Updates">
-      <Box display="flex" justifyContent="center" mt={4} mb={4}>
-        <Loader />
-      </Box>
+      <DashboardCard title={t("dashboard.reports_updates") ?? "Reports Updates"}>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
       </DashboardCard>
-
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("dashboard.error", { error })}</div>;
+  }
+
+  if (series.length === 0 || categories.length === 0) {
+    return (
+      <DashboardCard title={t("dashboard.reports_updates") ?? "Reports Updates"}>
+        <EmptyState />
+      </DashboardCard>
+    );
   }
 
   return (
-    <DashboardCard
-      title="Reports Updates"
-      action={
-        <CustomSelect
-          labelId="month-dd"
-          id="month-dd"
-          size="small"
-          value={month}
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>March 2023</MenuItem>
-          <MenuItem value={2}>April 2023</MenuItem>
-          <MenuItem value={3}>May 2023</MenuItem>
-        </CustomSelect>
-      }
-    >
+    <DashboardCard title={t("dashboard.reports_updates") ?? "Reports Updates"}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={8}>
           <Box className="rounded-bars">
@@ -148,7 +164,7 @@ const RevenueUpdates = () => {
                   {totalReports}
                 </Typography>
                 <Typography variant="subtitle2" color="textSecondary">
-                  Total Reports
+                  {t("dashboard.total_reports")}
                 </Typography>
               </Box>
             </Stack>
@@ -160,25 +176,22 @@ const RevenueUpdates = () => {
               ></Avatar>
               <Box>
                 <Typography variant="subtitle1" color="textSecondary">
-                  Red Team
+                  {t("dashboard.red_team")}
                 </Typography>
                 <Typography variant="h5">{redTeamReports}</Typography>
               </Box>
             </Stack>
-            <Stack direction="row" spacing={2}>
-              <Avatar
-                sx={{ width: 9, mt: 1, height: 9, bgcolor: secondary, svg: { display: 'none' } }}
-              ></Avatar>
-              <Box>
-                <Typography variant="subtitle1" color="textSecondary">
-                  Blue Team
-                </Typography>
-                <Typography variant="h5">{blueTeamReports}</Typography>
-              </Box>
-            </Stack>
           </Stack>
-          <Button color="primary" variant="contained" fullWidth>
-            View Full Report
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            onClick={() => {
+              //redirect to vulnerabilities/redteam
+              navigate('/vulnerabilities/redteam');
+            }}
+          >
+            {t("dashboard.view_full_report")}
           </Button>
         </Grid>
       </Grid>

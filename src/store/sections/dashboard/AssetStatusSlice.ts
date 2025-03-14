@@ -1,10 +1,32 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import axios from 'src/utils/axios'; // Correct import
 
+function getApiUrl() {
+  return `${getBaseApiUrl()}/dashbboard/cards/`;
+}
 // Async thunk to fetch asset status data
 export const fetchAssetStatusData = createAsyncThunk('assetStatus/fetchData', async () => {
-  const response = await axios.get('/api/asset-status'); // Mock API endpoint
-  return response.data;
+  const response = await axios.get(`${getApiUrl()}`);
+  const incomingData = response.data;
+  const parsedData = {
+    connectedAssets: {
+      title: 'Connected Assets',
+      subtitle: '',
+      amount: incomingData.assets_counts.assets_online_count,
+    },
+    disconnectedAssets: {
+      title: 'Disconnected Assets',
+      subtitle: '',
+      amount: incomingData.assets_counts.assets_offline_count,
+    },
+    unsecuredAssets: {
+      title: 'Insecured Assets',
+      subtitle: '',
+      amount: incomingData.assets_counts.assets_unsecured_count,
+    },
+  };
+  return parsedData;
 });
 
 interface AssetStat {
@@ -17,6 +39,7 @@ interface AssetStatusState {
   loading: boolean;
   connectedAssets: AssetStat | null;
   disconnectedAssets: AssetStat | null;
+  unsecuredAssets: AssetStat | null;
   error: string | null;
 }
 
@@ -24,6 +47,7 @@ const initialState: AssetStatusState = {
   loading: false,
   connectedAssets: null,
   disconnectedAssets: null,
+  unsecuredAssets: null,
   error: null,
 };
 
@@ -37,10 +61,11 @@ const assetStatusSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchAssetStatusData.fulfilled, (state, action) => {
-        const { connectedAssets, disconnectedAssets } = action.payload;
+        const { connectedAssets, disconnectedAssets, unsecuredAssets } = action.payload;
         state.loading = false;
         state.connectedAssets = connectedAssets;
         state.disconnectedAssets = disconnectedAssets;
+        state.unsecuredAssets = unsecuredAssets;
         state.error = null;
       })
       .addCase(fetchAssetStatusData.rejected, (state, action) => {

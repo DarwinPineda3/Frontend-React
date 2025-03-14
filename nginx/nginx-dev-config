@@ -1,0 +1,35 @@
+server {
+    root /var/www/html;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name akila-v2.octapus.io; # managed by Certbot
+
+    location / {
+        root   /home/akila/akila-frontend/dist;
+        index  index.html;
+        try_files $uri $uri/ /index.html;
+    }
+
+    listen [::]:443 ssl; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/akila-v2.octapus.io/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/akila-v2.octapus.io/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+}
+
+server {
+    if ($host = akila-v2.octapus.io) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    listen 80 ;
+    listen [::]:80 ;
+
+    server_name akila-v2.octapus.io;
+
+    return 404; # managed by Certbot
+}

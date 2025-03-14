@@ -1,15 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+import { Alert, AlertTitle, Snackbar } from '@mui/material';
 import * as React from 'react';
-import { Snackbar, Alert, AlertTitle } from '@mui/material';
 
 interface SnackBarInfoProps {
   color: 'error' | 'warning' | 'info' | 'success'; // MUI colors for Alert
   title: string; // Custom text for the title
   message: string; // Custom text for the message
+  onClose?: () => void; // Optional function to handle the close event
 }
 
-const SnackBarInfo: React.FC<SnackBarInfoProps> = ({ color, title, message }) => {
+const SnackBarInfo: React.FC<SnackBarInfoProps> = ({ color, title, message, onClose }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -17,6 +18,7 @@ const SnackBarInfo: React.FC<SnackBarInfoProps> = ({ color, title, message }) =>
   };
 
   const handleClose = (reason: any) => {
+    onClose && onClose(); // Call the passed onClose function
     if (reason === 'clickaway') {
       return;
     }

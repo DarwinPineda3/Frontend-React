@@ -1,13 +1,12 @@
+import { Box, Container, styled, useTheme } from '@mui/material';
 import { FC } from 'react';
-import { styled, Container, Box, useTheme } from '@mui/material';
-import { useSelector } from 'src/store/Store';
 import { Outlet } from 'react-router-dom';
-import { AppState } from 'src/store/Store';
+import { AppState, useSelector } from 'src/store/Store';
+import HorizontalHeader from '../full/horizontal/header/Header';
+import Navigation from '../full/horizontal/navbar/Navigation';
+import Customizer from './shared/customizer/Customizer';
 import Header from './vertical/header/Header';
 import Sidebar from './vertical/sidebar/Sidebar';
-import Customizer from './shared/customizer/Customizer';
-import Navigation from '../full/horizontal/navbar/Navigation';
-import HorizontalHeader from '../full/horizontal/header/Header';
 
 const MainWrapper = styled('div')(() => ({
   display: 'flex',
@@ -18,7 +17,6 @@ const MainWrapper = styled('div')(() => ({
 const PageWrapper = styled('div')(() => ({
   display: 'flex',
   flexGrow: 1,
-  paddingBottom: '60px',
   flexDirection: 'column',
   zIndex: 1,
   width: '100%',
@@ -42,6 +40,7 @@ const FullLayout: FC = () => {
       <PageWrapper
         className="page-wrapper"
         sx={{
+          overflow: 'hidden',
           ...(customizer.isCollapse && {
             [theme.breakpoints.up('lg')]: { ml: `${customizer.MiniSidebarWidth}px` },
           }),
