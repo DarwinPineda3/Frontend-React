@@ -3,26 +3,44 @@ import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, Menu
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
-import { fetchComplianceByProyect, fetchProjectsComplianceByCompany } from 'src/store/sections/compliance/giottoDashboardSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { useDispatch } from 'src/store/Store';
 
 const ProjectComplianceChart: React.FC = () => {
   const dispatch = useDispatch();
-  const { ComplianceByProject: groups, ProjectsComplianceByCompany: projects } = useSelector((state) => state.giottoDashboardSlice);
-
 
   const [selectedProject, setSelectedProject] = useState<number>(1);
   const [selectedGroup, setSelectedGroup] = useState<number>(1);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [groups, setGroups] = useState<any[]>([]);
 
   useEffect(() => {
-    dispatch(fetchProjectsComplianceByCompany());
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(fetchComplianceByProyect(selectedProject));
-  }, [dispatch, selectedProject]);
+    // Simular la carga de datos estáticos
+    const exampleProjects = [
+      { id: 1, name: 'Project 1', compliancePercent: 75 },
+      { id: 2, name: 'Project 2', compliancePercent: 85 },
+      { id: 3, name: 'Project 3', compliancePercent: 90 },
+      { id: 4, name: 'Project 4', compliancePercent: 60 },
+    ];
+    setProjects(exampleProjects);
+    setLoading(false);
+  }, []);
 
-  if (projects === null) {
+  useEffect(() => {
+    if (selectedProject) {
+      // Simular la carga de datos estáticos para grupos
+      const exampleGroups = [
+        { id: 1, name: 'Group 1', compliancePercent: 75 },
+        { id: 2, name: 'Group 2', compliancePercent: 85 },
+        { id: 3, name: 'Group 3', compliancePercent: 90 },
+        { id: 4, name: 'Group 4', compliancePercent: 60 },
+      ];
+      setGroups(exampleGroups);
+    }
+  }, [selectedProject]);
+
+  if (loading) {
     return <Loader type={LoaderType.Contained} />;
   }
 
@@ -39,23 +57,13 @@ const ProjectComplianceChart: React.FC = () => {
     setAnchorEl(null);
   };
 
-  /*
-  useEffect(() => {
-    const fetchGroups = async () => {
-      const response = await fetch(`http://201.149.34.143:8443/api/Groups/GetListByProjectId/${selectedProject}`);
-      const data = await response.json();
-      setGroups(data);
-    };
-
-    fetchGroups();
-  }, [selectedProject]);
-  */
-
   function ChartPlot() {
     if (!groups || !projects) {
-      return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Loader />
-      </Box>;
+      return (
+        <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Loader />
+        </Box>
+      );
     }
     const chartOptions = {
       chart: {
@@ -96,22 +104,23 @@ const ProjectComplianceChart: React.FC = () => {
         : 0;
     const averageValue = chartData[validSelectedValue];
 
-    return <Box>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-        <Chart
-          options={chartOptions}
-          series={[chartData[validSelectedValue]]}
-          type="radialBar"
-          height={350}
-        />
-      </div>
+    return (
+      <Box>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+          <Chart
+            options={chartOptions}
+            series={[chartData[validSelectedValue]]}
+            type="radialBar"
+            height={350}
+          />
+        </div>
 
-      <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
-        Average: {averageValue}%
-      </Typography>
-    </Box>
+        <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
+          Average: {averageValue}%
+        </Typography>
+      </Box>
+    );
   }
-
 
   return (
     <Card>
@@ -125,7 +134,7 @@ const ProjectComplianceChart: React.FC = () => {
               label="Seleccionar Proyecto"
               onChange={(e) => {
                 setSelectedProject(Number(e.target.value));
-                setSelectedGroup(null);
+                setSelectedGroup(0);
               }}
             >
               {projects.map((project) => (
@@ -144,14 +153,11 @@ const ProjectComplianceChart: React.FC = () => {
               label="Seleccionar Grupo"
               onChange={(e) => setSelectedGroup(Number(e.target.value))}
             >
-              {
-                groups &&
-                groups.map((group) => (
-                  <MuiMenuItem key={group.id} value={group.id}>
-                    {group.name}
-                  </MuiMenuItem>
-                ))
-              }
+              {groups.map((group) => (
+                <MuiMenuItem key={group.id} value={group.id}>
+                  {group.name}
+                </MuiMenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -172,9 +178,7 @@ const ProjectComplianceChart: React.FC = () => {
             <MuiMenuItem onClick={() => handleDownload('PNG')}>Download PNG</MuiMenuItem>
           </Menu>
         </div>
-        {
-          ChartPlot()
-        }
+        {ChartPlot()}
       </CardContent>
     </Card>
   );

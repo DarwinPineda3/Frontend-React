@@ -2,8 +2,6 @@ import { Card, CardContent, CardHeader, Grid, Table, TableBody, TableCell, Table
 import { styled } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { FaCubes, FaServer, FaTasks, FaUsers } from 'react-icons/fa';
-import { fetchAssetsStatistics, fetchProjectsStatistics, fetchTemplatesStatistics, fetchUserStatistics } from 'src/store/sections/compliance/giottoDashboardSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
 import { useTranslation } from 'react-i18next';
 
 interface StatsCardProps {
@@ -51,7 +49,6 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, icon, data, className }) =
 
 const StatsCardGrid: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const [stats, setStats] = useState({
     users: { adminUsersCount: 0, managerUsersCount: 0, technicianUsersCount: 0 },
     projects: { projectsCount: 0, groupsCount: 0, assetsCount: 0 },
@@ -63,24 +60,24 @@ const StatsCardGrid: React.FC = () => {
     },
   });
 
-  const { usersResponse, projectsResponse, templatesResponse, assetsResponse } = useSelector((state) => state.giottoDashboardSlice);
   useEffect(() => {
-    dispatch(fetchUserStatistics());
-    dispatch(fetchProjectsStatistics());
-    dispatch(fetchTemplatesStatistics());
-    dispatch(fetchAssetsStatistics());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      const exampleStats = {
+        users: { adminUsersCount: 5, managerUsersCount: 10, technicianUsersCount: 15 },
+        projects: { projectsCount: 20, groupsCount: 25, assetsCount: 30 },
+        templates: { templatesCount: 35, controlsCount: 40, enabledControlsCount: 45 },
+        assets: {
+          assetsCountWithAssessment: 50,
+          assetsCountWithHardening: 55,
+          assetsCountWithRollback: 60
+        },
+      };
+      setStats(exampleStats);
+    };
 
-  useEffect(() => {
-    if (usersResponse && projectsResponse && templatesResponse && assetsResponse) {
-      setStats({
-        users: usersResponse,
-        projects: projectsResponse,
-        templates: templatesResponse,
-        assets: assetsResponse,
-      });
-    }
-  }, [usersResponse, projectsResponse, templatesResponse, assetsResponse]);
+    fetchData();
+  }, []);
 
   return (
     <Grid container spacing={3}>

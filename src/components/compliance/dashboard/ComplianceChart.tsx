@@ -5,7 +5,6 @@ import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
-import { fetchProjectsComplianceByCompany } from 'src/store/sections/compliance/giottoDashboardSlice';
 import { useDispatch, useSelector } from 'src/store/Store';
 
 const ComplianceChart: React.FC = () => {
@@ -15,16 +14,21 @@ const ComplianceChart: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { ProjectsComplianceByCompany: projects } = useSelector((state) => state.giottoDashboardSlice);
-
-
   const theme = useTheme();
 
+  const [projects, setProjects] = useState<any[]>([]);
 
   useEffect(() => {
+    // Simular la carga de datos estáticos
+    const exampleData = [
+      { id: 1, name: 'Project 1', compliancePercent: 75 },
+      { id: 2, name: 'Project 2', compliancePercent: 85 },
+      { id: 3, name: 'Project 3', compliancePercent: 90 },
+      { id: 4, name: 'Project 4', compliancePercent: 60 },
+    ];
+    setProjects(exampleData);
     setLoading(false);
-    dispatch(fetchProjectsComplianceByCompany());
-  }, [dispatch]);
+  }, []);
 
   if (!projects) {
     return <Loader type={LoaderType.Contained} />;

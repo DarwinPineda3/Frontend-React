@@ -14,7 +14,7 @@ import {
   VerifiedUser,
 } from '@mui/icons-material';
 import { Box, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { clearListSummary } from 'src/store/sections/cyber-guard/SummaryMonitoringSlice';
@@ -96,13 +96,35 @@ const TopCardsDarkWeb: React.FC<TopCardsDarkWebProps> = ({ values }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [exampleValues, setExampleValues] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const exampleData = [
+      100, // total_compromises
+      50,  // domains
+      75,  // emails
+      30,  // ips
+      60,  // usernames
+      40,  // phones
+      20,  // social_media_total
+      10,  // vip_compromised_count
+      90,  // dark_web_total
+      25,  // link_url_internal
+      35,  // link_url_external
+      45,  // interesting_files
+      55,  // public_code_repo
+    ];
+    setExampleValues(exampleData);
+  }, []);
+
   const completeValues =
-    values.length >= firstRowData.length + secondRowData.length + thirdRowData.length
-      ? values
+    exampleValues.length >= firstRowData.length + secondRowData.length + thirdRowData.length
+      ? exampleValues
       : [
-          ...values,
+          ...exampleValues,
           ...Array(
-            firstRowData.length + secondRowData.length + thirdRowData.length - values.length,
+            firstRowData.length + secondRowData.length + thirdRowData.length - exampleValues.length,
           ).fill(0),
         ];
 

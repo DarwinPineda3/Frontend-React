@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
 import { AssetType } from 'src/types/assets/asset';
-import axios from 'src/utils/axios';
 import { AppDispatch } from '../Store';
 
-// Update to match the backend API endpoint
-function getApiUrl() {
-  return `${getBaseApiUrl()}/assets/`;
-}
+// Datos simulados de activos para usar en el frontend
+const simulatedAssets: AssetType[] = [
+  { id: '1', name: 'Asset 1', ip: '192.168.1.1', domain: 'domain1', url: 'http://example.com', hostname: 'hostname1', uuid: 'uuid1' },
+  { id: '2', name: 'Asset 2', ip: '192.168.1.2', domain: 'domain2', url: 'http://example.com', hostname: 'hostname2', uuid: 'uuid2' },
+  { id: '3', name: 'Asset 3', ip: '192.168.1.3', domain: 'domain3', url: 'http://example.com', hostname: 'hostname3', uuid: 'uuid3' },
+  // Puedes añadir más activos aquí.
+];
 
+// Estado inicial con datos simulados
 interface StateType {
   assets: AssetType[];
   page: number;
@@ -20,15 +22,16 @@ interface StateType {
 }
 
 const initialState: StateType = {
-  assets: [],
+  assets: simulatedAssets,
   page: 1,
-  totalPages: 1,
+  totalPages: Math.ceil(simulatedAssets.length / 10), // Número de páginas simuladas
   pageSize: 10,
   loading: false,
   error: null,
   message: null,
 };
 
+// Crear el slice de Redux
 export const AssetsSlice = createSlice({
   name: 'asset',
   initialState,
@@ -81,24 +84,32 @@ export const {
   setMessage,
 } = AssetsSlice.actions;
 
-// Async thunk for fetching assets with pagination (READ)
+// Async thunk para obtener los activos con paginación (simulado)
 export const fetchAssets =
   (requestedPage: number, pageSize: number = 10) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
+
+      // Lógica de paginación simulada
       if (isNaN(requestedPage)) {
         requestedPage = 1;
       }
       if (isNaN(pageSize)) {
         pageSize = 10;
       }
-      const response = await axios.get(
-        `${getApiUrl()}?page=${requestedPage}&page_size=${pageSize}`,
-      );
-      const { results, page, totalPages } = response.data;
 
-      dispatch(getAssets({ results, currentPage: page, totalPages, pageSize }));
+      const startIndex = (requestedPage - 1) * pageSize;
+      const endIndex = requestedPage * pageSize;
+
+      const paginatedAssets = simulatedAssets.slice(startIndex, endIndex);
+
+      dispatch(getAssets({
+        results: paginatedAssets,
+        currentPage: requestedPage,
+        totalPages: Math.ceil(simulatedAssets.length / pageSize),
+        pageSize,
+      }));
     } catch (err: any) {
       console.error('Error fetching assets:', err);
       dispatch(setError('Failed to fetch assets'));
@@ -107,67 +118,67 @@ export const fetchAssets =
     }
   };
 
+// Async thunk para filtrar activos (simulado)
 export const fetchFilteredAssets =
   (filters: { url?: boolean; ip?: boolean; domain?: boolean }) => async (dispatch: AppDispatch) => {
     try {
-      const params = new URLSearchParams();
-      if (filters.url) params.append('url', 'true');
-      if (filters.ip) params.append('ip', 'true');
-      if (filters.domain) params.append('domain', 'true');
+      const filteredAssets = simulatedAssets.filter(asset => {
+        if (filters.url && !asset.name.includes('url')) return false;
+        if (filters.ip && !asset.name.includes('ip')) return false;
+        if (filters.domain && !asset.name.includes('domain')) return false;
+        return true;
+      });
 
-      const response = await axios.get(`${getApiUrl()}filtered/?${params.toString()}/`);
-      const { results } = response.data;
-
-      dispatch(getFilteredAssets({ results }));
+      dispatch(getFilteredAssets({ results: filteredAssets }));
     } catch (err: any) {
-      console.error('Error fetching assets:', err);
+      console.error('Error fetching filtered assets:', err);
       dispatch(setError('Failed to fetch assets'));
     }
   };
 
-// Async thunk for creating a new asset (CREATE)
+// Función para agregar un nuevo activo (simulada)
 export const createAsset =
-  (newAsset: AssetType, t: (key: string) => string) => async (dispatch: AppDispatch) => {
+  (newAsset: AssetType) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.post(getApiUrl(), newAsset);
-      if (response.status >= 200 && response.status < 300) {
-        dispatch(fetchAssets(1, 10));
-        dispatch(setMessage(t('home.assets.asset_updated_success')));
-      } else {
-        const errorMessage = response.data?.error || 'Failed to create asset';
-        console.error(errorMessage, response);
-        dispatch(setError(errorMessage));
-      }
+      // Simular la creación del activo
+      simulatedAssets.push(newAsset);
+      dispatch(addAsset(newAsset));
+      dispatch(setMessage('Asset added successfully'));
     } catch (err: any) {
-      console.error('Error creating asset:', err);
-      const errorMessage = err.response?.data?.error || 'Failed to create asset';
-      dispatch(setError(errorMessage));
+      console.error('Error adding asset:', err);
+      dispatch(setError('Failed to add asset'));
     }
   };
 
-// Async thunk for updating an asset (UPDATE)
-
+// Función para actualizar un activo (simulada)
 export const editAsset =
-  (updatedAsset: AssetType, t: (key: string) => string) => async (dispatch: AppDispatch) => {
+  (updatedAsset: AssetType) => async (dispatch: AppDispatch) => {
     try {
-      const response = await axios.put(`${getApiUrl()}${updatedAsset.id}/`, updatedAsset);
-      if (response.status >= 200 && response.status < 300) {
-        dispatch(setMessage(t('home.assets.asset_updated_success')));
-        dispatch(fetchAssets(1, 10));
+      const index = simulatedAssets.findIndex((asset) => asset.id === updatedAsset.id);
+      if (index !== -1) {
+        simulatedAssets[index] = updatedAsset;
+        dispatch(updateAsset(updatedAsset));
+        dispatch(setMessage('Asset updated successfully'));
       } else {
-        console.error('Error creating asset:', response);
-        dispatch(setError('Failed to create asset'));
+        dispatch(setError('Asset not found'));
       }
     } catch (err: any) {
       console.error('Error updating asset:', err);
       dispatch(setError('Failed to update asset'));
     }
   };
+
+// Función para eliminar un activo (simulada)
 export const removeAsset = (assetId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}${assetId}`);
-    dispatch(deleteAsset(assetId));
-    setMessage('Asset deleted successfully');
+    const index = simulatedAssets.findIndex((asset) => asset.id === assetId);
+    if (index !== -1) {
+      simulatedAssets.splice(index, 1);
+      dispatch(deleteAsset(assetId));
+      dispatch(setMessage('Asset deleted successfully'));
+    } else {
+      dispatch(setError('Asset not found'));
+    }
   } catch (err: any) {
     console.error('Error deleting asset:', err);
     dispatch(setError('Failed to delete asset'));

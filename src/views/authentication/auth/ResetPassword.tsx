@@ -86,7 +86,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <PageContainer title="Akila" description="Password Reset Page" addBottomPadding={false}>
+    <PageContainer title="Darwin's project" description="Password Reset Page" addBottomPadding={false}>
       <Grid container spacing={0} justifyContent="center" sx={{ overflowX: 'hidden' }}>
         <Grid
           item

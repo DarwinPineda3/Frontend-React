@@ -25,7 +25,7 @@ const ChangelogView: React.FC = () => {
   }, []);  
 
   return (
-    <PageContainer title={t('changelog.title') as string}>
+    <PageContainer title="Darwin's project">
       <Grid container spacing={3} alignItems="center">
         
         <Grid item xs={12} sm={4} container justifyContent="center">

@@ -1,8 +1,6 @@
 import { Box, CardContent, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fetchTopCardsData } from 'src/store/sections/dashboard/TopCardsSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import Loader from '../../shared/Loader/Loader';
 
 import iconCritical from '../../../assets/images/svgs/icon-alert-critical.svg';
@@ -51,12 +49,32 @@ const cardConfig: Record<string, {
 
 const TopCards = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { loading, data, error } = useSelector((state: AppState) => state.dashboard.topCards);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchTopCardsData());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = [
+          { severity: 'critical', value: 5 },
+          { severity: 'high', value: 10 },
+          { severity: 'medium', value: 15 },
+          { severity: 'low', value: 20 },
+          { severity: 'total', value: 50 },
+        ];
+        setData(exampleData);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (loading) {
     return (

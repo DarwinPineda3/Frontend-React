@@ -1,5 +1,4 @@
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-
 import {
   Box,
   Chip,
@@ -13,32 +12,79 @@ import {
   Typography
 } from '@mui/material';
 import { IconEye } from '@tabler/icons-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
-
 import { useTheme } from '@mui/material/styles';
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 import EmptyState from 'src/components/shared/EmptyState';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
-import { fetchVulnerabilityReports } from 'src/store/sections/dashboard/TopVulnerabilitiesSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const TopVulnerabilities = () => {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading, data, error } = useSelector((state: AppState) => state.dashboard.vulnerabilities);
+  const theme = useTheme();
 
-  const currentYear = new Date().getFullYear();
-
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchVulnerabilityReports());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = [
+          {
+            id: '1',
+            type: 'critical',
+            hosts: 5,
+            severity: 9.1,
+            name: 'Vulnerability 1',
+            date: '2023-03-13T12:00:00Z',
+            tool: 'Network',
+          },
+          {
+            id: '2',
+            type: 'high',
+            hosts: 10,
+            severity: 7.5,
+            name: 'Vulnerability 2',
+            date: '2023-03-12T12:00:00Z',
+            tool: 'Web App',
+          },
+          {
+            id: '3',
+            type: 'medium',
+            hosts: 15,
+            severity: 5.0,
+            name: 'Vulnerability 3',
+            date: '2023-03-11T12:00:00Z',
+            tool: 'WordPress',
+          },
+          {
+            id: '4',
+            type: 'low',
+            hosts: 20,
+            severity: 2.5,
+            name: 'Vulnerability 4',
+            date: '2023-03-10T12:00:00Z',
+            tool: 'Cloud',
+          },
+          // Agrega más datos de ejemplo según sea necesario
+        ];
+        setData(exampleData);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (loading) {
     return (
@@ -54,7 +100,6 @@ const TopVulnerabilities = () => {
     return <div>{t("dashboard.error", { error })}</div>;
   }
 
-  const theme = useTheme();
   const criticalColor = theme.palette.level.critical;
   const highColor = theme.palette.level.high;
   const mediumColor = theme.palette.level.medium;
@@ -90,7 +135,6 @@ const TopVulnerabilities = () => {
     }
   };
 
-
   const handleViewReport = (id: string, tool: string) => {
     let url = '';
     if (tool === 'Network') {
@@ -104,11 +148,8 @@ const TopVulnerabilities = () => {
     } else if (tool === 'Applications') {
       url = `/vulnerabilities/web/applications/${id}`;
     }
-    return url
+    return url;
   };
-
-
-
 
   return (
     <DashboardCard
@@ -196,7 +237,6 @@ const TopVulnerabilities = () => {
             </Table>
           </TableContainer>
       }
-
     </DashboardCard>
   );
 };

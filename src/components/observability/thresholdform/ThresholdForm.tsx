@@ -90,12 +90,19 @@ const ThresholdForm: React.FC<ThresholdFormProps> = ({ onSubmit, initialValues }
   };
 
   useEffect(() => {
-    if (initialValues?.email) {
-      const emailString = typeof initialValues.email === 'string' ? initialValues.email : '';
+    // Simular la carga de datos estáticos
+    const exampleInitialValues = {
+      cpu: 75,
+      ram: 80,
+      storage: 85,
+      email: 'example1@example.com, example2@example.com',
+    };
+    if (exampleInitialValues.email) {
+      const emailString = typeof exampleInitialValues.email === 'string' ? exampleInitialValues.email : '';
       const initialEmails = emailString.split(',').map((email) => email.trim());
       setEmails(initialEmails);
     }
-  }, [initialValues]);
+  }, []);
 
   return (
     <DashboardCard
@@ -107,10 +114,10 @@ const ThresholdForm: React.FC<ThresholdFormProps> = ({ onSubmit, initialValues }
     >
       <Formik
         initialValues={{
-          CPU: initialValues?.cpu ?? 95,
-          RAM: initialValues?.ram ?? 95,
-          STORAGE: initialValues?.storage ?? 95,
-          USEREMAIL: initialValues?.email || '',
+          CPU: initialValues?.cpu ?? 75,
+          RAM: initialValues?.ram ?? 80,
+          STORAGE: initialValues?.storage ?? 85,
+          USEREMAIL: initialValues?.email || 'example1@example.com, example2@example.com',
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}

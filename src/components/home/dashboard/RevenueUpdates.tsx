@@ -2,31 +2,61 @@ import { Avatar, Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconGridDots } from '@tabler/icons-react';
 import { ApexOptions } from 'apexcharts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import EmptyState from 'src/components/shared/EmptyState';
-import { fetchRevenueUpdatesData } from 'src/store/sections/dashboard/RedTeamUpdatesSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
 
 const RevenueUpdates = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, totalReports, redTeamReports: redTeamReports_old, series, categories, error } = useSelector(
-    (state: AppState) => state.dashboard.redTeamUpdates
-  );
-
-  useEffect(() => {
-    dispatch(fetchRevenueUpdatesData());
-  }, [dispatch]);
-
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.info.main;
+
+  const [loading, setLoading] = useState(true);
+  const [totalReports, setTotalReports] = useState(0);
+  const [redTeamReports, setRedTeamReports] = useState(0);
+  const [series, setSeries] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          totalReports: 100,
+          redTeamReports: 20,
+          series: [
+            {
+              name: 'Series 1',
+              data: [10, 20, 30, 40, 50],
+            },
+            {
+              name: 'Series 2',
+              data: [15, 25, 35, 45, 55],
+            },
+          ],
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        };
+        setTotalReports(exampleData.totalReports);
+        setRedTeamReports(exampleData.redTeamReports);
+        setSeries(exampleData.series);
+        setCategories(exampleData.categories);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const optionscolumnchart: ApexOptions = {
     chart: {
@@ -92,17 +122,17 @@ const RevenueUpdates = () => {
   if (error) {
     return <div>{t("dashboard.error", { error })}</div>;
   }
+
   if (series.length === 0 || categories.length === 0) {
-    return <DashboardCard
-      title={t("dashboard.reports_updates") ?? "Reports Updates"}>
-      <EmptyState />
-    </DashboardCard>
+    return (
+      <DashboardCard title={t("dashboard.reports_updates") ?? "Reports Updates"}>
+        <EmptyState />
+      </DashboardCard>
+    );
   }
 
   return (
-    <DashboardCard
-      title={t("dashboard.reports_updates") ?? "Reports Updates"}
-    >
+    <DashboardCard title={t("dashboard.reports_updates") ?? "Reports Updates"}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={8}>
           <Box className="rounded-bars">
@@ -148,14 +178,19 @@ const RevenueUpdates = () => {
                 <Typography variant="subtitle1" color="textSecondary">
                   {t("dashboard.red_team")}
                 </Typography>
-                <Typography variant="h5">{redTeamReports_old}</Typography>
+                <Typography variant="h5">{redTeamReports}</Typography>
               </Box>
             </Stack>
           </Stack>
-          <Button color="primary" variant="contained" fullWidth onClick={() => {
-            //redirect to vulnerabilities/redteam
-            navigate('/vulnerabilities/redteam');
-          }}>
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            onClick={() => {
+              //redirect to vulnerabilities/redteam
+              navigate('/vulnerabilities/redteam');
+            }}
+          >
             {t("dashboard.view_full_report")}
           </Button>
         </Grid>

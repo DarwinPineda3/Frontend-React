@@ -34,7 +34,7 @@ const NetworkCreateScan = () => {
     setSnackbarOpen(true);
   };
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <Box mb={2}>
         <Box display="flex" alignItems="center" mt={2}>
           <IconButton onClick={() => navigate(-1)} color="primary">

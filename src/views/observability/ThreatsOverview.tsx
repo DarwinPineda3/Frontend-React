@@ -11,31 +11,54 @@ import TopCardsDarkWeb from 'src/components/observability/dark-web/topCardsDarkW
 import VIPsHeatmapChart from 'src/components/observability/dark-web/vipHeatMap';
 import CompromisedTypesChart from 'src/components/observability/dark-web/vipsRadarChart';
 import Loader from 'src/components/shared/Loader/Loader';
-import {
-  fetchBrandMonitoringData,
-  fetchBrandMonitoringResume,
-} from 'src/store/sections/cyber-guard/BrandMonitoringSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
 
-const DarkWeb = () => {
+const ThreatsOverview = () => {
   const { selectedScan } = useParams<{ selectedScan?: string }>();
-  const brandMonitoringResume: any = useSelector(
-    (state: any) => state.brandMonitoringReducer.brandMonitoringResume,
-  );
-
-  const brandMonitoringData: any = useSelector(
-    (state: any) => state.brandMonitoringReducer.brandMonitoringData,
-  );
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const { t } = useTranslation();
 
+  const [loading, setLoading] = useState(true);
+  const [brandMonitoringResume, setBrandMonitoringResume] = useState<any>({});
+  const [brandMonitoringData, setBrandMonitoringData] = useState<any>({});
+
   useEffect(() => {
-    dispatch(fetchBrandMonitoringResume());
-    dispatch(fetchBrandMonitoringData());
-  }, [dispatch]);
+    const exampleBrandMonitoringResume = {
+      total_results: 100,
+      domains: 20,
+      emails: 30,
+      ip: 10,
+      usernames: 15,
+      phones: 25,
+      social_network_total: 40,
+      vins: 5,
+      dark_web_total: 50,
+      linked_url_internal: 10,
+      linked_url_external: 20,
+      interesting_files: 15,
+      public_code_repo: 5,
+      security_leaks_total: 60,
+      phishing: 25,
+      facebook: 10,
+      instagram: 15,
+      linkedin: 20,
+      twitter: 25,
+      open: 30,
+      closed: 40,
+      in_migration: 10,
+    };
+
+    const exampleBrandMonitoringData = {
+      latest_data: [
+        { query: 'VIP 1', id: 1 },
+        { query: 'VIP 2', id: 2 },
+        { query: 'VIP 3', id: 3 },
+      ],
+    };
+
+    setBrandMonitoringResume(exampleBrandMonitoringResume);
+    setBrandMonitoringData(exampleBrandMonitoringData);
+    setLoading(false);
+  }, []);
 
   const cardsValues = [
     brandMonitoringResume?.['total_results'] ?? 0, // Total Compromises
@@ -101,7 +124,7 @@ const DarkWeb = () => {
   });
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
-  if (Object.keys(brandMonitoringResume).length === 0) {
+  if (loading) {
     return (
       <Box display="flex" justifyContent="center" mt={4} mb={4}>
         <Loader />
@@ -110,7 +133,7 @@ const DarkWeb = () => {
   }
 
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <Box mb={2}>
         <Box display="flex" alignItems="center" mt={2}>
           <IconButton onClick={() => navigate(-1)} color="primary">
@@ -134,59 +157,6 @@ const DarkWeb = () => {
             {selectedScan && <Typography color="textPrimary">{selectedScan}</Typography>}
           </Breadcrumbs>
           <Box flexGrow={1} />
-          {/*          <Box display="flex" alignItems="center" mt={2}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                renderInput={(props) => (
-                  <CustomTextField
-                    {...props}
-                    fullWidth
-                    size="small"
-                    sx={{
-                      '& .MuiSvgIcon-root': {
-                        width: '18px',
-                        height: '18px',
-                      },
-                      '& .MuiFormHelperText-root': {
-                        display: 'none',
-                      },
-                    }}
-                  />
-                )}
-                value={startDate}
-                onChange={(newValue) => {
-                  setStartDate(newValue);
-                }}
-              />
-            </LocalizationProvider>
-            -
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                renderInput={(props) => (
-                  <CustomTextField
-                    {...props}
-                    fullWidth
-                    size="small"
-                    sx={{
-                      '& .MuiSvgIcon-root': {
-                        width: '18px',
-                        height: '18px',
-                      },
-                      '& .MuiFormHelperText-root': {
-                        display: 'none',
-                      },
-                    }}
-                  />
-                )}
-                value={endDate}
-                onChange={(newValue) => {
-                  setEndDate(newValue);
-                }}
-              />
-            </LocalizationProvider>
-            
-          </Box>
-          */}
         </Box>
       </Box>
       <Grid container spacing={3} alignItems="stretch">
@@ -198,13 +168,6 @@ const DarkWeb = () => {
             <SecurityIncidentsPolygon series={[series]} labels={polygonLabels} />
           </Box>
         </Grid>
-        {/*
-        <Grid item xs={12} lg={3}>
-          <Box style={{ display: 'flex', height: '100%' }}>
-            <BreachStatusChart data={breachesByStatusData} />
-          </Box>
-        </Grid>
-        */}
         <Grid item xs={12} lg={4}>
           <Box style={{ display: 'flex', height: '100%' }}>
             <BreachElementTypeChart series={polygonValues} />
@@ -223,21 +186,9 @@ const DarkWeb = () => {
         <Grid item xs={12} lg={6}>
           <VIPsHeatmapChart varList={brandMonitoringData.latest_data?.slice(0, 3) ?? []} />
         </Grid>
-        {/* Optional chart
-        <Grid item xs={12} lg={12}>
-          <ThreatsByFuzzerChart />
-        </Grid>
-        
-            <Grid item xs={12} lg={12}>
-                <UsernamesTable />
-            </Grid>
-            <Grid item xs={12} lg={12}>
-                <DomainTable />
-            </Grid>
-            */}
       </Grid>
     </PageContainer>
   );
 };
 
-export default DarkWeb;
+export default ThreatsOverview;

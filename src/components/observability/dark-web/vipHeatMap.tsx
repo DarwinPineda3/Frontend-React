@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
-import axios from 'src/utils/axios';
 
 interface VariableObject {
   query: string;
@@ -18,7 +16,6 @@ interface VIPsHeatmapChartProps {
 const VIPsHeatmapChart: React.FC<VIPsHeatmapChartProps> = ({ varList }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const DETAIL_API_URL = '/api/data/monitoring/cyber-guard/detail/monitoring';
 
   const [dataSeries, setDataSeries] = useState([
     { name: t('monitoring.dark_web'), data: [] },
@@ -27,39 +24,16 @@ const VIPsHeatmapChart: React.FC<VIPsHeatmapChartProps> = ({ varList }) => {
     { name: t('monitoring.internet'), data: [] }
   ]);
 
-  const getVIPsHeatmapData = async () => {
-    const updatedSeries = [
-      { name: t('monitoring.dark_web'), data: [] },
-      { name: t('monitoring.data_leaks'), data: [] },
-      { name: t('monitoring.social_media'), data: [] },
-      { name: t('monitoring.internet'), data: [] }
-    ];
-
-    for (const val of varList) {
-      try {
-        const response = await axios.get(`${getBaseApiUrl()}/monitoring/cyber-guard/monitoring/${val.id}`);
-        const name = response.data.brandMonitoring.query;
-        // Data retrieval
-        const dataLeaks = response.data.brandMonitoring.consolidated_data.security_leaks_counters.security_leaks_total;
-        const darkWeb = response.data.brandMonitoring.consolidated_data.dark_web_counters.dark_web_total;
-        const socialMedia = response.data.brandMonitoring.consolidated_data.social_networks_counters.social_network_total;
-        const internet = response.data.brandMonitoring.consolidated_data.internet_counters.total;
-
-        // Update series data
-        updatedSeries[0].data.push({ x: name, y: darkWeb });
-        updatedSeries[1].data.push({ x: name, y: dataLeaks });
-        updatedSeries[2].data.push({ x: name, y: socialMedia });
-        updatedSeries[3].data.push({ x: name, y: internet });
-      } catch (error) {
-        console.error(`Error fetching data for VIP ${val.id}:`, error);
-      }
-    }
-    setDataSeries(updatedSeries);
-  };
-
   useEffect(() => {
-    getVIPsHeatmapData();
-  }, [varList]);
+    // Simular la carga de datos estáticos
+    const exampleDataSeries = [
+      { name: t('monitoring.dark_web'), data: [{ x: 'VIP 1', y: 30 }, { x: 'VIP 2', y: 40 }, { x: 'VIP 3', y: 50 }] },
+      { name: t('monitoring.data_leaks'), data: [{ x: 'VIP 1', y: 20 }, { x: 'VIP 2', y: 30 }, { x: 'VIP 3', y: 40 }] },
+      { name: t('monitoring.social_media'), data: [{ x: 'VIP 1', y: 10 }, { x: 'VIP 2', y: 20 }, { x: 'VIP 3', y: 30 }] },
+      { name: t('monitoring.internet'), data: [{ x: 'VIP 1', y: 40 }, { x: 'VIP 2', y: 50 }, { x: 'VIP 3', y: 60 }] }
+    ];
+    setDataSeries(exampleDataSeries);
+  }, [t]);
 
   const options: ApexOptions = {
     chart: {
@@ -97,7 +71,7 @@ const VIPsHeatmapChart: React.FC<VIPsHeatmapChartProps> = ({ varList }) => {
   };
 
   return (
-    <DashboardCard title={t('monitoring.top_compromised_vips')}>
+    <DashboardCard >
       <Chart options={options} series={dataSeries} type="heatmap" height={350} />
     </DashboardCard>
   );

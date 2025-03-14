@@ -93,7 +93,7 @@ const AssetList = () => {
   return (
     <>
       <DashboardCard
-        title={t("dashboard.asset_list") as string}
+        title="Darwin's project"
         subtitle={t("dashboard.list_of_available_assets") as string}
         action={addButton}
       >

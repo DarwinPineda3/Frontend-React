@@ -1,33 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Stack, Typography, Avatar, Box } from '@mui/material';
 import DashboardCard from '../../shared/DashboardCard';
 import { IconNetwork, IconNetworkOff } from '@tabler/icons-react';
 import Loader from '../../shared/Loader/Loader'; // Loader component
-
-import { useDispatch, useSelector } from 'src/store/Store'; // Correct imports
-import { fetchAssetStatusData } from 'src/store/sections/dashboard/AssetStatusSlice';
-import { AppState } from 'src/store/Store';
 import { useTranslation } from 'react-i18next';
 
 const AssetStatus = () => {
-
-  
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { loading, connectedAssets, disconnectedAssets, error } = useSelector(
-    (state: AppState) => state.dashboard.assetStatus
-  );
-
-  useEffect(() => {
-    dispatch(fetchAssetStatusData());
-  }, [dispatch]);
-
   const theme = useTheme();
   const primary = theme.palette.background.default;
   const primarylight = theme.palette.primary.light;
   const secondary = theme.palette.success.main;
   const secondarylight = theme.palette.success.light;
+
+  const [loading, setLoading] = useState(true);
+  const [connectedAssets, setConnectedAssets] = useState<{ amount: number }>({ amount: 0 });
+  const [disconnectedAssets, setDisconnectedAssets] = useState<{ amount: number }>({ amount: 0 });
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          connectedAssets: { amount: 120 },
+          disconnectedAssets: { amount: 30 },
+        };
+        setConnectedAssets(exampleData.connectedAssets);
+        setDisconnectedAssets(exampleData.disconnectedAssets);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const stats = [
     {
@@ -51,11 +62,10 @@ const AssetStatus = () => {
   if (loading) {
     return (
       <DashboardCard title="Asset Status">
-      <Box display="flex" justifyContent="center" mt={4} mb={4}>
-        <Loader />
-      </Box>
+        <Box display="flex" justifyContent="center" mt={4} mb={4}>
+          <Loader />
+        </Box>
       </DashboardCard>
-
     );
   }
 
@@ -64,7 +74,7 @@ const AssetStatus = () => {
   }
 
   return (
-    <DashboardCard title={t("dashboard.asset_status")??"asset_status"}>
+    <DashboardCard title={t("dashboard.asset_status") ?? "asset_status"}>
       <Stack spacing={3} mt={5}>
         {stats.map((stat, i) => (
           <Stack

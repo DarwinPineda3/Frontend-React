@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getBaseApiUrl } from 'src/guards/jwt/Jwt';
-import axios from 'src/utils/axios';
 import { AppDispatch } from '../../Store';
-
-function getApiUrl() {
-  return `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/giotto-proxy?url=Groups/`;
-  return `${getBaseApiUrl()}/compliance/groups/`;
-}
 
 interface StateType {
   totalItemsAmount: number;
@@ -89,28 +82,35 @@ export const {
   setPageSize,
 } = GiottoGroupSlice.actions;
 
+// Datos de ejemplo
+const exampleGroups = [
+  { id: 1, name: 'Group 1', description: 'Description for Group 1' },
+  { id: 2, name: 'Group 2', description: 'Description for Group 2' },
+  { id: 3, name: 'Group 3', description: 'Description for Group 3' },
+];
+
 export const fetchGroups =
-  (requestedPage: Number, requestedPageSize: Number = 10) =>
+  (requestedPage: number, requestedPageSize: number = 10) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get(
-        `${getApiUrl()}GetPaginated&Page=${requestedPage}&PageSize=${requestedPageSize}&ColumnIndexOrdering=0&AscendingOrdering=true`,
+      // Simular datos de ejemplo
+      const totalItemsAmount = exampleGroups.length;
+      const totalPages = Math.ceil(totalItemsAmount / requestedPageSize);
+      const itemsResult = exampleGroups.slice(
+        (requestedPage - 1) * requestedPageSize,
+        requestedPage * requestedPageSize,
       );
-
-      const { totalItemsAmount, pageSize, totalPages, itemsResult, currentPage, page } =
-        response.data;
       dispatch(
         getGroups({
           results: itemsResult,
-          currentPage,
+          currentPage: requestedPage,
           totalPages,
           totalItemsAmount,
-          pageSize,
-          page,
+          pageSize: requestedPageSize,
         }),
       );
-      setError(null);
+      dispatch(setError(null));
     } catch (err: any) {
       console.error('Error fetching groups:', err);
       dispatch(setError('Failed to fetch groups'));
@@ -121,10 +121,10 @@ export const fetchGroups =
 
 export const fetchGroupById = (groupId: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}GetById/${groupId}`);
-
-    if (response.status === 200) {
-      dispatch(getGroupDetail({ data: response.data }));
+    // Simular datos de ejemplo
+    const group = exampleGroups.find((group) => group.id === parseInt(groupId));
+    if (group) {
+      dispatch(getGroupDetail({ data: group }));
     } else {
       dispatch(setError('fetch group report detail not found'));
     }
@@ -136,14 +136,10 @@ export const fetchGroupById = (groupId: string) => async (dispatch: AppDispatch)
 
 export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post(`${getApiUrl()}CreateGroup`, newGroup);
-    if (response.status >= 200 && response.status < 300) {
-      dispatch(addGroup(response.data));
-    } else {
-      console.error('Error creating group:', response);
-      dispatch(setError('Failed to create group'));
-      throw 'Failed to create group';
-    }
+    // Simular creación de grupo
+    const newGroupWithId = { ...newGroup, id: exampleGroups.length + 1 };
+    exampleGroups.push(newGroupWithId);
+    dispatch(addGroup(newGroupWithId));
   } catch (err: any) {
     console.error('Error creating group:', err);
     dispatch(setError('Failed to create group'));
@@ -153,10 +149,11 @@ export const createGroup = (newGroup: any) => async (dispatch: AppDispatch) => {
 
 export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.put(`${getApiUrl()}EditGroup/${updatedGroup.id}/`, updatedGroup);
-
-    if (response.status === 200) {
-      dispatch(updateGroup({ data: response.data }));
+    // Simular actualización de grupo
+    const index = exampleGroups.findIndex((group) => group.id === updatedGroup.id);
+    if (index !== -1) {
+      exampleGroups[index] = updatedGroup;
+      dispatch(updateGroup(updatedGroup));
     } else {
       dispatch(setError('Do not update group'));
     }
@@ -168,8 +165,14 @@ export const editGroup = (updatedGroup: any) => async (dispatch: AppDispatch) =>
 
 export const removeGroup = (groupId: string) => async (dispatch: AppDispatch) => {
   try {
-    await axios.delete(`${getApiUrl()}DeleteGroup/${groupId}/`);
-    dispatch(deleteGroup(groupId));
+    // Simular eliminación de grupo
+    const index = exampleGroups.findIndex((group) => group.id === parseInt(groupId));
+    if (index !== -1) {
+      exampleGroups.splice(index, 1);
+      dispatch(deleteGroup(groupId));
+    } else {
+      dispatch(setError('Failed to delete group'));
+    }
   } catch (err: any) {
     console.error('Error deleting group:', err);
     dispatch(setError('Failed to delete group'));
@@ -178,10 +181,10 @@ export const removeGroup = (groupId: string) => async (dispatch: AppDispatch) =>
 
 export const fetchGroupByName = (groupName: string) => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.get(`${getApiUrl()}get_by_name?namegroup=${groupName}/`);
-
-    if (response.status === 200) {
-      dispatch(getGroupDetail({ data: response.data }));
+    // Simular búsqueda de grupo por nombre
+    const group = exampleGroups.find((group) => group.name === groupName);
+    if (group) {
+      dispatch(getGroupDetail({ data: group }));
     } else {
       dispatch(setError('fetch group report detail not found'));
     }
@@ -193,12 +196,10 @@ export const fetchGroupByName = (groupName: string) => async (dispatch: AppDispa
 
 export const fetchGroupName = async (name: string): Promise<boolean> => {
   try {
-    const response = await axios.get(`${getApiUrl()}GetByName/${encodeURIComponent(name)}`);
-    return !!response.data;
+    // Simular verificación de existencia de grupo por nombre
+    const group = exampleGroups.find((group) => group.name === name);
+    return !!group;
   } catch (error: any) {
-    if (error.response?.status === 404) {
-      return false;
-    }
     console.error('Error fetching group name:', error);
     return true;
   }
@@ -208,11 +209,8 @@ export const getGroupsByProjectId =
   (processToExecute: number, project: string) => async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get(
-        `${getApiUrl()}GetListInTemplateExecutions/${project}?processToExecute=${processToExecute}`,
-      );
-      const groups = response.data;
-
+      // Simular datos de ejemplo
+      const groups = exampleGroups.filter((group) => group.project === project);
       dispatch(
         getAllInList({
           groups,

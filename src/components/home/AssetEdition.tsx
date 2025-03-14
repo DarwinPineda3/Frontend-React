@@ -94,7 +94,7 @@ const CreateUpdateAsset: React.FC<Props> = ({ asset, onSubmit }) => {
   });
 
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <DashboardCard
         title={asset ? t('home.assets.edit_asset') || '': t('home.assets.create_asset') || ''}
         subtitle={asset ? t('home.assets.edit_asset_subtitle') || '' : t('home.assets.create_asset_subtitle') || ''}

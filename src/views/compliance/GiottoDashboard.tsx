@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 const GiottoDashboard: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <Box pt={2}>
         <Grid container spacing={3}>
           {/* Top Section */}

@@ -46,7 +46,7 @@ const NetworkVulnerabilities = ({ showHeader }: NetworkVulnerabilitiesProps) => 
   };
 
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       {showHeader ?
         <Box mb={2}>
           <Box display="flex" alignItems="center" mt={2}>

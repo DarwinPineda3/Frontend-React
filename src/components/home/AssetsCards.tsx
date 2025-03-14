@@ -1,8 +1,6 @@
 import { Box, CardContent, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fetchAssetStatusData } from 'src/store/sections/dashboard/AssetStatusSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import iconOrange from '../../assets/images/svgs/icon-alert-orange.svg';
 import iconYellow from '../../assets/images/svgs/icon-alert-yellow.svg';
 import iconRed from '../../assets/images/svgs/icon-bars.svg';
@@ -50,15 +48,34 @@ const assetsCards: cardType[] = [
 
 const AssetsCards = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const { loading, connectedAssets, disconnectedAssets, unsecuredAssets, error } = useSelector(
-    (state: AppState) => state.dashboard.assetStatus
-  );
+  const [loading, setLoading] = useState(true);
+  const [connectedAssets, setConnectedAssets] = useState<{ amount: number }>({ amount: 0 });
+  const [disconnectedAssets, setDisconnectedAssets] = useState<{ amount: number }>({ amount: 0 });
+  const [unsecuredAssets, setUnsecuredAssets] = useState<{ amount: number }>({ amount: 0 });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchAssetStatusData());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          connectedAssets: { amount: 356 },
+          disconnectedAssets: { amount: 696 },
+          unsecuredAssets: { amount: 3650 },
+        };
+        setConnectedAssets(exampleData.connectedAssets);
+        setDisconnectedAssets(exampleData.disconnectedAssets);
+        setUnsecuredAssets(exampleData.unsecuredAssets);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (loading) {
     return (
@@ -86,14 +103,14 @@ const AssetsCards = () => {
             (connectedAssets?.amount || 0) +
             (disconnectedAssets?.amount || 0) +
             (unsecuredAssets?.amount || 0)
-          )
+          ).toString()
         };
       case 'unsecured':
-        return { ...card, digits: unsecuredAssets?.amount };
+        return { ...card, digits: unsecuredAssets?.amount.toString() };
       case 'connected':
-        return { ...card, digits: connectedAssets?.amount };
+        return { ...card, digits: connectedAssets?.amount.toString() };
       case 'disconnected':
-        return { ...card, digits: disconnectedAssets?.amount };
+        return { ...card, digits: disconnectedAssets?.amount.toString() };
       default:
         return card;
     }

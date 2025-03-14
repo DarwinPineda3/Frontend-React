@@ -141,7 +141,7 @@ const ComplianceGroupsView: React.FC = ({ }) => {
           </Box>
         </Box>
         <DashboardCard
-          title={t('compliance.groups_description')!}
+          title="Darwin's project"
           subtitle={t('compliance.groups_info')!}
           action={
             <IconButton color="primary" onClick={() => navigate('/compliance/groups/create')}>

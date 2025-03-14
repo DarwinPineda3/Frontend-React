@@ -5,8 +5,7 @@ import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
-import { fetchExecutionsCountByProject } from 'src/store/sections/compliance/giottoDashboardSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { useDispatch } from 'src/store/Store';
 
 const ExecutionByProject: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,17 +13,25 @@ const ExecutionByProject: React.FC = () => {
 
   const [selectedProject, setSelectedProject] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const { ExecutionByProject: projects } = useSelector((state) => state.giottoDashboardSlice);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [projects, setProjects] = useState<any[]>([]);
 
   useEffect(() => {
+    // Simular la carga de datos estáticos
+    const exampleData = [
+      { projectName: 'Project 1', assessmentExecutionsCount: 10, hardeningExecutionsCount: 5, rollbackExecutionsCount: 2 },
+      { projectName: 'Project 2', assessmentExecutionsCount: 15, hardeningExecutionsCount: 7, rollbackExecutionsCount: 3 },
+      { projectName: 'Project 3', assessmentExecutionsCount: 20, hardeningExecutionsCount: 10, rollbackExecutionsCount: 5 },
+      { projectName: 'Project 4', assessmentExecutionsCount: 25, hardeningExecutionsCount: 12, rollbackExecutionsCount: 6 },
+    ];
+    setProjects(exampleData);
+    setLoading(false);
+  }, []);
 
-    dispatch(fetchExecutionsCountByProject());
-  }, [dispatch]);
-
-  if (!projects) {
-    return <Loader type={LoaderType.Contained} />
+  if (loading) {
+    return <Loader type={LoaderType.Contained} />;
   }
+
   const chartOptions: ApexOptions = {
     chart: {
       type: 'bar',

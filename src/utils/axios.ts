@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { getValidAccessToken } from 'src/guards/jwt/JwtContext';
+import { handleRefreshToken } from 'src/guards/jwt/JwtContext';  
 
 const axiosServices = axios.create();
 
-// interceptor for http
 axiosServices.interceptors.request.use(
   async (config) => {
     try {
@@ -13,15 +12,15 @@ axiosServices.interceptors.request.use(
       if (!config.headers) {
         config.headers = {};
       }
-      const token = await getValidAccessToken();
+      
+      const token = await handleRefreshToken(); 
       config.headers['Authorization'] = `Bearer ${token}`;
       return config;
     }
     catch (error) {
       console.error("Failed to set authorization header:", error);
-      //redirect to login page
       window.localStorage.clear();
-      window.location.href = '/'
+      window.location.href = '/';
       return config;
     }
   },

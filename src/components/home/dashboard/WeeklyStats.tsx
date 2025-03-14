@@ -1,7 +1,7 @@
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { IconGridDots } from '@tabler/icons-react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader';
@@ -9,23 +9,48 @@ import Loader from '../../shared/Loader/Loader';
 import { ApexOptions } from 'apexcharts';
 import { useTranslation } from 'react-i18next';
 import EmptyState from 'src/components/shared/EmptyState';
-import { fetchWeeklyStatsData } from 'src/store/sections/dashboard/WeeklyStatsSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const WeeklyStats: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { loading, maxSeries, minSeries, avgSeries, stats, error } = useSelector(
-    (state: AppState) => state.dashboard.weeklyStats
-  );
-
-  useEffect(() => {
-    dispatch(fetchWeeklyStatsData());
-  }, [dispatch]);
-
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const primarylight = theme.palette.primary.light;
+
+  const [loading, setLoading] = useState(true);
+  const [maxSeries, setMaxSeries] = useState<number[]>([]);
+  const [minSeries, setMinSeries] = useState<number[]>([]);
+  const [avgSeries, setAvgSeries] = useState<number[]>([]);
+  const [stats, setStats] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          maxSeries: [10, 20, 30, 40, 50, 60, 70],
+          minSeries: [5, 15, 25, 35, 45, 55, 65],
+          avgSeries: [7, 17, 27, 37, 47, 57, 67],
+          stats: [
+            { title: 'Service 1', percent: 90, color: primary, lightcolor: primarylight },
+            { title: 'Service 2', percent: 80, color: primary, lightcolor: primarylight },
+            { title: 'Service 3', percent: 70, color: primary, lightcolor: primarylight },
+          ],
+        };
+        setMaxSeries(exampleData.maxSeries);
+        setMinSeries(exampleData.minSeries);
+        setAvgSeries(exampleData.avgSeries);
+        setStats(exampleData.stats);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const optionscolumnchart: ApexOptions = {
     chart: {
@@ -83,6 +108,7 @@ const WeeklyStats: React.FC = () => {
   if (error) {
     return <div>{t("dashboard.error", { error })}</div>;
   }
+
   if (stats.reduce((acc, stat) => acc + stat.percent, 0) === 0) {
     return (
       <DashboardCard title={t("dashboard.weekly_stats")} subtitle={t("dashboard.average_downtime")}>

@@ -5,22 +5,57 @@ import { useTranslation } from 'react-i18next';
 import DashboardCard from 'src/components/shared/DashboardCard';
 import EmptyState from 'src/components/shared/EmptyState';
 import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
-import { fetchSentimentsData } from 'src/store/sections/dashboard/SentimentHistorySlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 
 const SentimentRibbonChart: React.FC = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
-  const { loading, data, error } = useSelector((state: AppState) => state.dashboard.sentimentsSumaryReducer);
-
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const [series, setSeries] = useState<any[]>([]);  // State for chart series data
   const [categories, setCategories] = useState<string[]>([]);  // State for x-axis categories
 
   useEffect(() => {
-    dispatch(fetchSentimentsData());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = [
+          {
+            date: '2023-03-01',
+            sentiments: {
+              no_expressed_feeling: 10,
+              very_satisfied: 5,
+              very_dissatisfied: 2,
+              satisfied: 8,
+              dissatisfied: 3,
+              neutral: 7,
+            },
+          },
+          {
+            date: '2023-03-02',
+            sentiments: {
+              no_expressed_feeling: 12,
+              very_satisfied: 6,
+              very_dissatisfied: 1,
+              satisfied: 9,
+              dissatisfied: 4,
+              neutral: 6,
+            },
+          },
+          // Agrega más datos de ejemplo según sea necesario
+        ];
+        setData(exampleData);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (data) {
@@ -54,8 +89,6 @@ const SentimentRibbonChart: React.FC = () => {
       ]);
     }
   }, [data, t]);
-
-  const customizer = useSelector((state: AppState) => state.customizer);
 
   const options = {
     chart: {
@@ -116,7 +149,7 @@ const SentimentRibbonChart: React.FC = () => {
     tooltip: {
       shared: true,
       intersect: false,
-      theme: customizer.activeMode,
+      theme: theme.palette.mode,
       y: {
         formatter: function (val: number) {
           return `${val}`;

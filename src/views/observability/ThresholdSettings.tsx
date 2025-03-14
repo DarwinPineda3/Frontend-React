@@ -73,7 +73,7 @@ const ThresholdSettings: React.FC = () => {
   }
 
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <Box mb={2}>
         <Box display="flex" alignItems="center" mt={2}>
           <IconButton onClick={handleBack} color="primary">

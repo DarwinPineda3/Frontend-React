@@ -72,7 +72,7 @@ const EHReportDetails = () => {
   };
 
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <Grid container>
         <Box mb={2}>
           <Box display="flex" alignItems="center" mt={2}>

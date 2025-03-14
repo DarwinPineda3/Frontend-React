@@ -10,7 +10,7 @@ const CompliancProjectsView = () => {
   const navigate = useNavigate();
 
   return (
-    <PageContainer title={String(t('compliance_menu.compliance_projects'))}>
+    <PageContainer title="Darwin's project">
       <Box mb={2}>
         <Box display="flex" alignItems="center" mt={2}>
           <IconButton onClick={() => navigate(-1)} color="primary">

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import DashboardCard from '../../shared/DashboardCard';
 import Loader from '../../shared/Loader/Loader'; // Loader component
@@ -8,23 +8,37 @@ import Loader from '../../shared/Loader/Loader'; // Loader component
 import { ApexOptions } from 'apexcharts'; // Correct type
 import { useTranslation } from 'react-i18next';
 import EmptyState from 'src/components/shared/EmptyState';
-import { fetchAlertDistributionData } from 'src/store/sections/dashboard/AlertDistributionSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store'; // Correct imports
 
 const AlertDistribution = () => {
-  const dispatch = useDispatch();
-
   const { t } = useTranslation();
+  const theme = useTheme();
 
-  const { loading, labels, series, error } = useSelector(
-    (state: AppState) => state.dashboard.alertDistribution
-  );
+  const [loading, setLoading] = useState(true);
+  const [labels, setLabels] = useState<string[]>([]);
+  const [series, setSeries] = useState<number[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchAlertDistributionData());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleData = {
+          labels: ['Critical', 'High', 'Medium', 'Low', 'Warning'],
+          series: [10, 20, 30, 25, 15],
+        };
+        setLabels(exampleData.labels);
+        setSeries(exampleData.series);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
 
-  const theme = useTheme();
+    fetchData();
+  }, []);
+
   const primary = theme.palette.level.critical;
   const primarylight = theme.palette.level.high;
   const secondary = theme.palette.level.medium;
@@ -53,7 +67,6 @@ const AlertDistribution = () => {
     legend: {
       show: true,
       position: 'bottom',
-      //width: '50px',
     },
     colors: [primary, primarylight, secondary, secondarylight, warning],
     tooltip: {
@@ -69,7 +82,6 @@ const AlertDistribution = () => {
           <Loader />
         </Box>
       </DashboardCard>
-
     );
   }
 
@@ -82,7 +94,7 @@ const AlertDistribution = () => {
       <DashboardCard title={t("dashboard.montly_distribution") ?? "montly_distribution"}>
         <EmptyState />
       </DashboardCard>
-    )
+    );
   }
 
   return (

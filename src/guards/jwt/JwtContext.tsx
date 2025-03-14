@@ -1,14 +1,47 @@
 import { createContext, useEffect, useReducer } from 'react';
-
 import axios from 'src/utils/axios';
-import { isValidToken, setSession } from './Jwt';
+import CryptoJS from 'crypto-js';  
 
-// ----------------------------------------------------------------------
-export interface InitialStateType {
+type User = {
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  groups: string;
+  tenant: string | null;
+};
+
+type InitialStateType = {
   isAuthenticated: boolean;
-  isInitialized?: boolean;
-  user?: any | null | undefined;
-}
+  isInitialized: boolean;
+  user: User | null;
+};
+
+const reducer = (state: InitialStateType, action: any): InitialStateType => {
+  switch (action.type) {
+    case 'INITIALIZE':
+      return {
+        ...state,
+        isInitialized: true,
+        isAuthenticated: action.payload.isAuthenticated,
+        user: action.payload.user,
+      };
+    case 'LOGIN':
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload.user,
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+      };
+    default:
+      return state;
+  }
+};
 
 const initialState: InitialStateType = {
   isAuthenticated: false,
@@ -16,52 +49,102 @@ const initialState: InitialStateType = {
   user: null,
 };
 
+const AuthContext = createContext<any | null>(null);
 
-const handlers: any = {
-  INITIALIZE: (state: InitialStateType, action: any) => {
-    const { isAuthenticated, user } = action.payload;
-    return {
-      ...state,
-      isAuthenticated,
-      isInitialized: true,
-      user,
-    };
-  },
-  LOGIN: (state: InitialStateType, action: any) => {
-    const { user, groups } = action.payload;
-
-    return {
-      ...state,
-      isAuthenticated: true,
-      user,
-    };
-  },
-  LOGOUT: (state: InitialStateType) => ({
-    ...state,
-    isAuthenticated: false,
-    user: null,
-  }),
-  REGISTER: (state: InitialStateType, action: any) => {
-    const { user } = action.payload;
-
-    return {
-      ...state,
-      isAuthenticated: true,
-      user,
-    };
-  },
+const base64UrlEncode = (input: string) => {
+  return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(input))
+    .replace(/=/g, '')  
+    .replace(/\+/g, '-') 
+    .replace(/\//g, '_'); 
 };
 
-const reducer = (state: InitialStateType, action: any) =>
-  handlers[action.type] ? handlers[action.type](state, action) : state;
+const base64UrlDecode = (input: string) => {
+  const base64 = input.replace(/-/g, '+').replace(/_/g, '/');
+  const decoded = CryptoJS.enc.Base64.parse(base64).toString(CryptoJS.enc.Utf8);
+  return JSON.parse(decoded);
+};
 
-const AuthContext = createContext<any | null>({
-  ...initialState,
-  platform: 'JWT',
-  signup: () => Promise.resolve(),
-  signin: () => Promise.resolve(),
-  logout: () => Promise.resolve(),
-});
+const sign = (payload: any, secretKey: string, expiresIn: number) => {
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT',
+  };
+
+  const now = Math.floor(Date.now() / 1000);
+  const expiresAt = now + expiresIn;
+
+  payload.exp = expiresAt;
+
+  const encodedHeader = base64UrlEncode(JSON.stringify(header));
+  const encodedPayload = base64UrlEncode(JSON.stringify(payload));
+
+  const signingInput = `${encodedHeader}.${encodedPayload}`;
+
+  const signature = CryptoJS.HmacSHA256(signingInput, secretKey)
+    .toString(CryptoJS.enc.Base64)
+    .replace(/=/g, '') 
+    .replace(/\+/g, '-') 
+    .replace(/\//g, '_'); 
+
+  return `${encodedHeader}.${encodedPayload}.${signature}`;
+};
+
+const verify = (token: string, secretKey: string) => {
+  const [encodedHeader, encodedPayload, signature] = token.split('.');
+
+  const signingInput = `${encodedHeader}.${encodedPayload}`;
+
+  const expectedSignature = CryptoJS.HmacSHA256(signingInput, secretKey)
+    .toString(CryptoJS.enc.Base64)
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
+
+  return signature === expectedSignature;
+};
+
+const decodeToken = (token: string) => {
+  const [encodedHeader, encodedPayload] = token.split('.');
+  return base64UrlDecode(encodedPayload);  
+};
+
+const handleRefreshToken = async () => {
+  const refreshToken = window.localStorage.getItem('refreshToken');
+  
+  if (!refreshToken) {
+    throw new Error('No refresh token found');
+  }
+
+  try {
+    const decodedRefreshToken = decodeToken(refreshToken);
+
+    const newAccessToken = sign(decodedRefreshToken, 'secretKey', 3600);
+    const newRefreshToken = sign(decodedRefreshToken, 'secretKey', 604800); 
+
+    setSession(newAccessToken, newRefreshToken);
+
+    return newAccessToken;
+  } catch (error) {
+    console.error('Failed to refresh access token', error);
+    throw new Error('Failed to refresh access token');
+  }
+};
+
+const setSession = (accessToken: string | null, refreshToken: string | null) => {
+  if (accessToken) {
+    window.localStorage.setItem('accessToken', accessToken);
+    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  } else {
+    window.localStorage.removeItem('accessToken');
+    delete axios.defaults.headers.common.Authorization;
+  }
+
+  if (refreshToken) {
+    window.localStorage.setItem('refreshToken', refreshToken);
+  } else {
+    window.localStorage.removeItem('refreshToken');
+  }
+};
 
 function AuthProvider({ children }: { children: React.ReactElement }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -84,17 +167,24 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
         const accessToken = window.localStorage.getItem('accessToken');
         const refreshToken = window.localStorage.getItem('refreshToken');
 
-        if (accessToken && isValidToken(accessToken)) {
+        if (accessToken && verify(accessToken, 'secretKey')) {
           setSession(accessToken, refreshToken);
+          const decoded = decodeToken(accessToken); 
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user: null,
+              user: {
+                user_id: decoded.user_id,
+                first_name: decoded.first_name,
+                last_name: decoded.last_name,
+                email: decoded.email,
+                groups: decoded.groups,
+                tenant: decoded.tenant || null, 
+              },
             },
           });
         } else if (refreshToken) {
-          // Attempt to refresh the token
           await handleRefreshToken();
           dispatch({
             type: 'INITIALIZE',
@@ -107,7 +197,7 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
           handleUnauthenticated();
         }
       } catch (err) {
-        console.error("Authentication initialization failed:", err);
+        console.error('Authentication initialization failed:', err);
         handleUnauthenticated();
       }
     };
@@ -116,19 +206,30 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   }, [dispatch]);
 
   const signin = async (username: string, password: string) => {
-    const response = await axios.post(`${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/`, {
-      username,
-      password,
-    });
-    const { access, refresh, user } = response.data;
-    setSession(access, refresh);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user,
-      },
-    });
+    if (username === 'user@example.com' && password === 'password123') {
+      const payload = {
+        user_id: '12345',
+        first_name: 'John',
+        last_name: 'Doe',
+        email: 'user@example.com',
+        groups: 'user, admin, Administrator, Scan360, CyberGuard, Defender',
+        tenant: 'tenant1',
+      };
 
+      const accessToken = sign(payload, 'secretKey', 3600); 
+      const refreshToken = sign(payload, 'secretKey', 604800); 
+
+      setSession(accessToken, refreshToken);
+
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          user: payload,
+        },
+      });
+    } else {
+      throw new Error('Credenciales inválidas');
+    }
   };
 
   const handleUnauthenticated = () => {
@@ -138,25 +239,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
       payload: {
         isAuthenticated: false,
         user: null,
-      },
-    });
-  };
-
-  const signup = async (email: string, password: string, firstName: string, lastName: string) => {
-    const response = await axios.post('/api/account/register', {
-      email,
-      password,
-      firstName,
-      lastName,
-    });
-    const { accessToken, user } = response.data;
-
-    window.localStorage.setItem('accessToken', accessToken);
-
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        user,
       },
     });
   };
@@ -173,7 +255,6 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
         method: 'jwt',
         signin,
         logout,
-        signup,
       }}
     >
       {children}
@@ -181,59 +262,5 @@ function AuthProvider({ children }: { children: React.ReactElement }) {
   );
 }
 
-const handleRefreshToken = async () => {
-  const refreshToken = window.localStorage.getItem('refreshToken');
-
-  if (!refreshToken) {
-    console.warn("No refresh token found");
-    setSession(null, null);
-    throw new Error("No refresh token available");
-  }
-
-  try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_BACKEND_BASE_URL}/api/token/refresh/`,
-      { refresh: refreshToken }
-    );
-    const { access, refresh } = response.data;
-
-    if (access && refresh) {
-      setSession(access, refresh);
-      return { access, refresh };
-    } else {
-      setSession(null, null);
-      throw new Error("Invalid refresh token response");
-    }
-  } catch (error) {
-    console.error("Failed to refresh token:", error);
-    setSession(null, null);
-    throw new Error("Refresh token expired or network error");
-  }
-};
-
-let refreshingTokenPromise: Promise<{ access: string; refresh: string }> | null = null;
-
-
-const getValidAccessToken = async () => {
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
-
-  if (accessToken && isValidToken(accessToken)) {
-    return accessToken;
-  }
-
-  else if (refreshToken) {
-    if (!refreshingTokenPromise) {
-      refreshingTokenPromise = handleRefreshToken().finally(() => {
-        refreshingTokenPromise = null;
-      });
-    }
-    const { access } = await refreshingTokenPromise;
-    return access;
-  }
-
-  throw new Error('No valid tokens available');
-};
-
-export { AuthContext, AuthProvider, getValidAccessToken };
-
+export { AuthContext, AuthProvider };
+export { handleRefreshToken };  

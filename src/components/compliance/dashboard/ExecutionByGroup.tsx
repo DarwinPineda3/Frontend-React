@@ -5,31 +5,49 @@ import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
-import { fetchProjectsComplianceByGroup } from 'src/store/sections/compliance/giottoDashboardSlice';
-import { fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
 
 const ExecutionByGroup: React.FC = () => {
   const [selectedGroup, setSelectedGroup] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const dispatch = useDispatch();
   const theme = useTheme();
-  const { ProjectsComplianceByGroup: groups } = useSelector((state) => state.giottoDashboardSlice);
 
+  const [groups, setGroups] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const { projects } = useSelector((state: any) => state.giottoProjectsReducer);
   useEffect(() => {
-    dispatch(fetchProjects(1, 100));
-  }, [dispatch]);
-  useEffect(() => {
-    dispatch(fetchProjectsComplianceByGroup(selectedGroup));
-  }, [dispatch, selectedGroup]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleProjects = [
+          { id: 1, name: 'Project 1' },
+          { id: 2, name: 'Project 2' },
+          { id: 3, name: 'Project 3' },
+        ];
+
+        const exampleGroups = [
+          { id: 1, values: { assessment: 10, hardening: 5, rollback: 2 } },
+          { id: 2, values: { assessment: 15, hardening: 10, rollback: 5 } },
+          { id: 3, values: { assessment: 20, hardening: 15, rollback: 10 } },
+        ];
+
+        setProjects(exampleProjects);
+        setGroups(exampleGroups);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (projects.length > 0) setSelectedGroup(projects[0]?.id || 0);
   }, [projects]);
 
-  if (!groups) {
+  if (loading) {
     return <Loader type={LoaderType.Contained} />;
   }
 
@@ -152,6 +170,7 @@ const ExecutionByGroup: React.FC = () => {
   const average = selectedGroup === 0
     ? calculateAverageForAllGroups()
     : calculateAverageForGroup(selectedGroup);
+
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent>

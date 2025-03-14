@@ -3,35 +3,44 @@ import { Box, Card, CardContent, FormControl, IconButton, InputLabel, Menu, Menu
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import Loader, { LoaderType } from 'src/components/shared/Loader/Loader';
-import { fetchGroupCompliance } from 'src/store/sections/compliance/giottoDashboardSlice';
-import { fetchProjects } from 'src/store/sections/compliance/giottoProjectsSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { useDispatch } from 'src/store/Store';
 
 const GroupComplianceChart: React.FC = () => {
   const dispatch = useDispatch();
-  const { GroupCompliance: groups } = useSelector((state) => state.giottoDashboardSlice);
-  const { projects } = useSelector((state: any) => state.giottoProjectsReducer);
 
-  // Datos quemados
   const [selectedProject, setSelectedProject] = useState<number>(0);
-  useEffect(() => {
-    dispatch(fetchProjects(1, 100));
-  }, [dispatch]);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [groups, setGroups] = useState<any[]>([]);
 
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const exampleProjects = [
+      { id: 1, name: 'Project 1' },
+      { id: 2, name: 'Project 2' },
+      { id: 3, name: 'Project 3' },
+      { id: 4, name: 'Project 4' },
+    ];
+    setProjects(exampleProjects);
+    setSelectedProject(exampleProjects[0]?.id);
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     if (selectedProject) {
-      dispatch(fetchGroupCompliance(selectedProject));
+      // Simular la carga de datos estáticos para grupos
+      const exampleGroups = [
+        { name: 'Group 1', value: 75 },
+        { name: 'Group 2', value: 85 },
+        { name: 'Group 3', value: 90 },
+        { name: 'Group 4', value: 60 },
+      ];
+      setGroups(exampleGroups);
     }
-  }, [dispatch, selectedProject]);
+  }, [selectedProject]);
 
-  useEffect(() => {
-    setSelectedProject(projects[0]?.id);
-  }, [projects]);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  if (!projects) {
+  if (loading) {
     return <Loader type={LoaderType.Contained} />;
   }
 
@@ -49,14 +58,15 @@ const GroupComplianceChart: React.FC = () => {
   };
 
   function chartGraphic() {
-
     if (!selectedProject) {
-      return <></>
+      return <></>;
     }
     if (!groups || !selectedProject) {
-      return <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Loader />
-      </Box>
+      return (
+        <Box sx={{ height: '20vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Loader />
+        </Box>
+      );
     }
     const chartOptions = {
       chart: {
@@ -96,21 +106,24 @@ const GroupComplianceChart: React.FC = () => {
         : 0;
     const averageValue = chartData[selectedValue] || 0;
 
-    return <Box>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-        <Chart
-          options={chartOptions}
-          series={[chartData[validSelectedValue]]}
-          type="radialBar"
-          height={350}
-        />
-      </div>
+    return (
+      <Box>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+          <Chart
+            options={chartOptions}
+            series={[chartData[validSelectedValue]]}
+            type="radialBar"
+            height={350}
+          />
+        </div>
 
-      <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
-        Average: {averageValue}%
-      </Typography>
-    </Box>
+        <Typography variant="subtitle1" align="center" style={{ marginTop: 16 }}>
+          Average: {averageValue}%
+        </Typography>
+      </Box>
+    );
   }
+
   return (
     <Card>
       <CardContent>
@@ -150,9 +163,7 @@ const GroupComplianceChart: React.FC = () => {
           </Menu>
         </div>
         {chartGraphic()}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-
-        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}></div>
       </CardContent>
     </Card>
   );

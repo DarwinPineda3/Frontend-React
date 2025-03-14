@@ -2,6 +2,13 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+This project is an adaptation of a frontend I developed during my time at my previous company. In that context, I created a codebase using React + TypeScript with Vite. After completing that work, I decided to adapt and customize the project to share it as part of my portfolio.
+
+To access the application, use the following credentials:
+
+Username: user@example.com
+Password: password123
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh

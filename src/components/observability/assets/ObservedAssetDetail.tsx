@@ -12,12 +12,6 @@ import {
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Loader from 'src/components/shared/Loader/Loader';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
-import {
-  fetchObservedAssetById,
-  fetchObservedAssetsLogsByDateRange,
-  resetObservedAssetDetails,
-} from 'src/store/observability/ObservedAssetsSlice';
 import AntivirusTable from './cards/AntivirusInfo';
 import CpuCard from './cards/CpuCard';
 import RamCard from './cards/RamCard';
@@ -30,16 +24,14 @@ interface ObservedAssetDetailProps {
 }
 
 const ObservedAssetDetail: React.FC<ObservedAssetDetailProps> = ({ id }) => {
-  const { observedAssetsDetail, observedAssetsDetailLogs } = useSelector(
-    (state: AppState) => state.ObservedAssetsReducer,
-  );
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [dateRange, setDateRange] = useState('24h');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [loading, setLoading] = useState(true);
+  const [observedAssetsDetail, setObservedAssetsDetail] = useState<any | null>(null);
+  const [observedAssetsDetailLogs, setObservedAssetsDetailLogs] = useState<any[]>([]);
 
   const updateDateRange = (range: string) => {
     const now = new Date();
@@ -67,6 +59,47 @@ const ObservedAssetDetail: React.FC<ObservedAssetDetailProps> = ({ id }) => {
     updateDateRange(dateRange);
   }, [dateRange]);
 
+  useEffect(() => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleDetail = {
+          cpuInfo: { UuId: '1234', CpuUsage: 45 },
+          ramInfo: { RamUsagePercentage: 55 },
+          storage: { TotalUsagePercentage: 65 },
+          hostname: 'Asset 1',
+          firewall: 'Running',
+          timestamp: '2023-03-13T12:00:00Z',
+        };
+
+        const exampleLogs = [
+          {
+            CpuInfo: { CpuUsage: 45 },
+            RamInfo: { RamUsagePercentage: 55 },
+            Storage: { TotalUsagePercentage: 65 },
+            Timestamp: '2023-03-13T12:00:00Z',
+          },
+          {
+            CpuInfo: { CpuUsage: 25 },
+            RamInfo: { RamUsagePercentage: 35 },
+            Storage: { TotalUsagePercentage: 45 },
+            Timestamp: '2023-03-12T12:00:00Z',
+          },
+          // Agrega más datos de ejemplo según sea necesario
+        ];
+
+        setObservedAssetsDetail(exampleDetail);
+        setObservedAssetsDetailLogs(exampleLogs);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
   const isValidDate = (dateString: string) => {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     return regex.test(dateString) && !isNaN(new Date(dateString).getTime());
@@ -76,33 +109,13 @@ const ObservedAssetDetail: React.FC<ObservedAssetDetailProps> = ({ id }) => {
     if (isValidDate(startDate) && isValidDate(endDate)) {
       if (observedAssetsDetail?.cpuInfo?.UuId) {
         setLoading(true);
-        dispatch(
-          fetchObservedAssetsLogsByDateRange(observedAssetsDetail.cpuInfo.UuId, startDate, endDate),
-        ).finally(() => setLoading(false));
+        // Simular la carga de datos por rango de fechas
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       }
     }
   };
-
-  useEffect(() => {
-    dispatch(resetObservedAssetDetails()); 
-    setLoading(true); 
-    dispatch(fetchObservedAssetById(id)); 
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (observedAssetsDetail) {
-      setLoading(true);
-      if (isValidDate(startDate) && isValidDate(endDate)) {
-        dispatch(
-          fetchObservedAssetsLogsByDateRange(
-            observedAssetsDetail?.cpuInfo.UuId!,
-            startDate,
-            endDate,
-          ),
-        ).finally(() => setLoading(false));
-      }
-    }
-  }, [observedAssetsDetail, dispatch]);
 
   const transformAssetLogs = (assetLogs: any[]) => {
     return {
@@ -121,7 +134,7 @@ const ObservedAssetDetail: React.FC<ObservedAssetDetailProps> = ({ id }) => {
     };
   };
 
-  const assetLogs = observedAssetsDetailLogs?.asset_logs || [];
+  const assetLogs = observedAssetsDetailLogs || [];
   const transformedLogs = useMemo(() => transformAssetLogs(assetLogs), [assetLogs]);
   const { cpuHistory, ramHistory, storageHistory } = transformedLogs;
 
@@ -132,6 +145,7 @@ const ObservedAssetDetail: React.FC<ObservedAssetDetailProps> = ({ id }) => {
       </Box>
     );
   }
+
   const LoaderCard = () => (
     <Card>
       <CardContent>

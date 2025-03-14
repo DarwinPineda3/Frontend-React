@@ -26,15 +26,6 @@ import DashboardCard from 'src/components/shared/DashboardCard';
 import HumanizedDate from 'src/components/shared/HumanizedDate';
 import Loader from 'src/components/shared/Loader/Loader';
 import SnackBarInfo from 'src/layouts/full/shared/SnackBar/SnackBarInfo';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
-import {
-  deleteWebApplicationScan,
-  downloadWebApplicationReport,
-  fetchWebApplicationsData,
-  setLoading,
-  setPage,
-  setPageSize,
-} from 'src/store/vulnerabilities/web/WebAplicationsSlice';
 import NoDataAvailable from 'src/views/general/NoDataAvailable';
 
 interface ScanListTableProps {
@@ -44,26 +35,60 @@ interface ScanListTableProps {
 const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { loading, data, error } = useSelector((state: AppState) => state.WebApplicationsReducer);
-  const currentPage = useSelector((state: any) => state.WebApplicationsReducer.page);
-  const totalPages = useSelector((state: any) => state.WebApplicationsReducer.totalPages);
-  const pageSize = useSelector((state: any) => state.WebApplicationsReducer.pageSize);
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(10);
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [error, setError] = useState<string | null>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'info' | 'warning' | 'error'>('success');
-
   const [scanToDelete, setScanToDelete] = useState<null | string>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
       setLoading(true);
-      await dispatch(fetchWebApplicationsData(currentPage, pageSize));
-      setLoading(false);
+      try {
+        const exampleData = [
+          {
+            id: 1,
+            name: 'Web Scan 1',
+            hosts: 'example.com',
+            scan_start: '2023-03-13T12:00:00Z',
+            scan_type: 'active_scan',
+            progress: 80,
+          },
+          {
+            id: 2,
+            name: 'Web Scan 2',
+            hosts: 'example.org',
+            scan_start: '2023-03-12T12:00:00Z',
+            scan_type: 'passive_scan',
+            progress: 60,
+          },
+          {
+            id: 3,
+            name: 'Web Scan 3',
+            hosts: 'example.net',
+            scan_start: '2023-03-11T12:00:00Z',
+            scan_type: 'active_scan',
+            progress: 40,
+          },
+          // Agrega más datos de ejemplo según sea necesario
+        ];
+        setData(exampleData);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
     };
+
     fetchData();
-  }, [dispatch, currentPage, pageSize]);
+  }, []);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -71,19 +96,22 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   ) => {
     const newPage = page + 1;
     if (newPage !== currentPage) {
-      dispatch(setPage(newPage));
+      setCurrentPage(newPage);
     }
   };
 
   const handlePageSizeChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const newPageSize = event.target.value as number;
-    dispatch(setPageSize(newPageSize));
-    dispatch(setPage(1));
+    setPageSize(newPageSize);
+    setCurrentPage(1);
   };
 
   const handleDownload = async (scanId: string) => {
     try {
-      await dispatch(downloadWebApplicationReport(scanId));
+      // Simular la descarga del reporte
+      setSnackbarMessage(t('vulnerabilities.report_downloaded_successfully') || '');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
     } catch (error: any) {
       setSnackbarMessage(error || '');
       setSnackbarSeverity('error');
@@ -104,8 +132,9 @@ const ScanListTable: React.FC<ScanListTableProps> = ({ onScanClick }) => {
   const confirmDelete = async () => {
     if (scanToDelete !== null) {
       try {
-        await dispatch(deleteWebApplicationScan(scanToDelete));
-        setSnackbarMessage(t('web_app.scan_deleted_successfully') || '');
+        // Simular la eliminación del escaneo
+        setData((prevData) => prevData.filter((scan) => scan.id !== scanToDelete));
+        setSnackbarMessage(t('vulnerabilities.scan_deleted_successfully') || '');
         setSnackbarSeverity('success');
         setSnackbarOpen(true);
       } catch (error: any) {

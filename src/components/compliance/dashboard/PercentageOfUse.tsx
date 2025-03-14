@@ -5,42 +5,28 @@ import { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import Loader from 'src/components/shared/Loader/Loader';
-import { fetchTemplatesUsage } from 'src/store/sections/compliance/giottoDashboardSlice';
-import { useDispatch, useSelector } from 'src/store/Store';
+import { useDispatch } from 'src/store/Store';
 
 const PercentageOfUse: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedTemplate, setSelectedTemplate] = useState<number>(0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { TemplatesUsage: templates } = useSelector((state) => state.giottoDashboardSlice);
+  const [templates, setTemplates] = useState<any[]>([]);
 
   const theme = useTheme();
 
-  /*
-  const fetchTemplatesData = async () => {
-    try {
-      const response = await fetch('http://201.149.34.143:8443/api/Charting/GetTemplatesUsage');
-      const data = await response.json();
-      const templatesWithIds = data.map((template, index) => ({
-        id: index + 1,  
-        name: template.templateName,
-        usagePercent: template.usagePercent,
-      }));
-      setTemplates(templatesWithIds);
-      setLoading(false); 
-    } catch (error) {
-      console.error('Error al obtener los datos de los templates:', error);
-      setLoading(false);  
-    }
-  };
-  */
-
   useEffect(() => {
-    dispatch(fetchTemplatesUsage());
+    // Simular la carga de datos estáticos
+    const exampleTemplates = [
+      { id: 1, name: 'Template 1', usagePercent: 75 },
+      { id: 2, name: 'Template 2', usagePercent: 85 },
+      { id: 3, name: 'Template 3', usagePercent: 90 },
+      { id: 4, name: 'Template 4', usagePercent: 60 },
+    ];
+    setTemplates(exampleTemplates);
     setLoading(false);
-    // fetchTemplatesData();
-  }, [dispatch]);
+  }, []);
 
   if (loading || !templates) {
     return (
@@ -162,16 +148,12 @@ const PercentageOfUse: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
-          {loading ? (
-            <Typography variant="h6" align="center">Cargando datos...</Typography>
-          ) : (
-            <Chart
-              options={chartOptions}
-              series={chartSeries}
-              type="bar"
-              height={350}
-            />
-          )}
+          <Chart
+            options={chartOptions}
+            series={chartSeries}
+            type="bar"
+            height={350}
+          />
         </div>
       </CardContent>
     </Card>

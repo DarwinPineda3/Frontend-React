@@ -56,7 +56,7 @@ const Dashboard = () => {
   }
   */
   return (
-    <PageContainer title="Akila">
+    <PageContainer title="Darwin's project">
       <Box>
         {/*{debugPicker()}*/}
         <Grid container spacing={3}>

@@ -2,17 +2,34 @@ import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { matchPath, useLocation, useNavigate } from 'react-router-dom';
 import Loader from 'src/components/shared/Loader/Loader';
-import { getUserGroups } from 'src/guards/jwt/Jwt';
+import { decodeToken } from 'react-jwt';  
 import Router from 'src/routes/Router';
 import useAuth from './UseAuth';
+
+const getUserRolesFromToken = () => {
+  const accessToken = window.localStorage.getItem('accessToken'); 
+
+  if (!accessToken) {
+    return [];
+  }
+
+  const decoded: any = decodeToken(accessToken);
+
+  console.log('Decoded Token:', decoded);
+
+  const groups = decoded?.groups ? decoded.groups.split(',').map((group: string) => group.trim()) : [];
+
+  console.log('User Roles:', groups);  
+  return groups;
+};
 
 const GroupGuard = ({ children }: any) => {
   const { isAuthenticated, isInitialized } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location (path)
+  const location = useLocation(); 
 
-  // Assuming you have a function to get the user roles from the auth context
-  const userRoles = getUserGroups();
+  const userRoles = getUserRolesFromToken();  
+  console.log('User Roles:', userRoles); 
 
   useEffect(() => {
     if (isInitialized && !isAuthenticated) {
@@ -20,7 +37,6 @@ const GroupGuard = ({ children }: any) => {
     }
   }, [isAuthenticated, isInitialized, navigate]);
 
-  // Function to check if user has permission for the route
   const checkPermission = (routeRoles: string[] | undefined) => {
     if (!routeRoles) return true;
     return userRoles.some(role => routeRoles.includes(role));
@@ -28,7 +44,7 @@ const GroupGuard = ({ children }: any) => {
 
   const findRoute = (routes: any[], path: string) => {
     for (const route of routes) {
-      // Check if the path matches the current route or if it matches a dynamic route pattern
+
       if (matchPath(route.path, path)) {
         return route;
       }
@@ -46,7 +62,6 @@ const GroupGuard = ({ children }: any) => {
   const route = findRoute(Router, currentRoute);
   const hasPermission = route && checkPermission(route.roles);
 
-  // Special redirect for CyberGuard role on root path
   useEffect(() => {
     if (isInitialized && isAuthenticated && userRoles.includes('CyberGuard') && !userRoles.includes('Scan360') && currentRoute === '/') {
       navigate('/monitoring/threats-overview', { replace: true });
@@ -58,6 +73,8 @@ const GroupGuard = ({ children }: any) => {
       navigate('/404', { replace: true });
     }
   }, [isInitialized, isAuthenticated, hasPermission, navigate]);
+
+  console.log('User has permission:', hasPermission);
 
   if (!isInitialized) {
     return (

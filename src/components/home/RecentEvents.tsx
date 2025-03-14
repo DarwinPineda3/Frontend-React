@@ -9,28 +9,68 @@ import {
 } from '@mui/lab';
 import Timeline from '@mui/lab/Timeline';
 import { Box, Link, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import DashboardCard from '../shared/DashboardCard';
 import Loader from '../shared/Loader/Loader';
 
 import { useTranslation } from 'react-i18next';
-import { fetchRecentEventsData } from 'src/store/sections/dashboard/RecentEventsSlice';
-import { AppState, useDispatch, useSelector } from 'src/store/Store';
 import EmptyState from '../shared/EmptyState';
 import HumanizedDate from '../shared/HumanizedDate';
 
 const RecentEvents = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { loading, events, error } = useSelector((state: AppState) => state.dashboard.recentEvents);
+
+  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchRecentEventsData());
-  }, [dispatch]);
+    // Simular la carga de datos estáticos
+    const fetchData = () => {
+      setLoading(true);
+      try {
+        const exampleEvents = [
+          {
+            id: '1',
+            event: 'Network Scan Completed',
+            date: '2023-03-13T12:00:00Z',
+            tool: 'Network',
+            link: '/vulnerabilities/network/scans/detail/1',
+          },
+          {
+            id: '2',
+            event: 'Web App Scan Completed',
+            date: '2023-03-12T12:00:00Z',
+            tool: 'Web App',
+            link: '/vulnerabilities/web/applications/2',
+          },
+          {
+            id: '3',
+            event: 'WordPress Scan Completed',
+            date: '2023-03-11T12:00:00Z',
+            tool: 'WordPress',
+            link: '/vulnerabilities/web/wordpress/3',
+          },
+          {
+            id: '4',
+            event: 'Cloud Scan Completed',
+            date: '2023-03-10T12:00:00Z',
+            tool: 'Cloud',
+            link: '/vulnerabilities/cloud/vulnerabilities/4',
+          },
+        ];
+        setEvents(exampleEvents);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
 
   const clickHandler = (event: any) => {
-
     const { tool, id } = event;
 
     let url = '';
@@ -46,7 +86,8 @@ const RecentEvents = () => {
       url = `/vulnerabilities/web/applications/${id}`;
     }
     return url;
-  }
+  };
+
   if (loading) {
     return (
       <DashboardCard title={t("dashboard.recent_events") as string}>
@@ -68,9 +109,9 @@ const RecentEvents = () => {
       </DashboardCard>
     );
   }
+
   return (
     <DashboardCard title={t("dashboard.recent_events") as string}>
-      {/*@ts-ignore*/}
       <Timeline
         className="theme-timeline"
         sx={{
